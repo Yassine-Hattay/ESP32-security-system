@@ -1,4 +1,4 @@
-#include "Arduino.h"
+#include "Arduino.h" 
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
@@ -23,6 +23,17 @@ int currentTransmitTotalPackages = 0;
 bool fileReceivingStarted = false; // Flag to check if receiving has started
 bool fileTransmissionComplete = false; // Flag to check if transmission is complete
 
+
+int32_t getWiFiChannel(const char *ssid) {
+  if (int32_t n = WiFi.scanNetworks()) {
+      for (uint8_t i=0; i<n; i++) {
+          if (!strcmp(ssid, WiFi.SSID(i).c_str())) {
+              return WiFi.channel(i);
+          }
+      }
+  }
+  return 0;
+}
 // Initialize ESP-NOW
 void InitESPNow() {
   if (esp_now_init() == 0) {
@@ -144,14 +155,17 @@ void startWebServer() {
 
 unsigned long startTime = 0;  // Variable to store the start time
 unsigned long transferTime = 0;  // Variable to store the time taken for transfer
-
+  
 void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
   static byte buffer[BUFFER_SIZE];  // Use larger buffer for faster data handling
   int bufferIndex = 0;
 
   switch (*data++) {
     case 0x01: // Start of file transmission
-      currentTransmitCurrentPosition = 0;
+      server.end();
+      wifi_set_channel(1);
+
+      currentTransmitCurrentPosition = 0; 
       currentTransmitTotalPackages = (*data++) << 8 | *data;
       SD.remove("/moon.jpg");
 
@@ -163,16 +177,15 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
       }
 
       // Stop the server when file reception starts
-      server.end();
       Serial.println("Server stopped to receive file.");
 
       // Record the start time of the transfer
       startTime = millis();
       break;
 
-    case 0x02: // Data packet
+    case 0x02: // Data pack
       currentTransmitCurrentPosition = (*data++) << 8 | *data++;
-
+      wifi_set_channel(1);
       // Store data in the buffer
       for (int i = 0; i < (data_len - 3); i++) {
         buffer[bufferIndex++] = *data++;  // Fill buffer with incoming data
@@ -205,12 +218,12 @@ if (currentTransmitCurrentPosition == currentTransmitTotalPackages) {
     fileTransmissionComplete = false; // Reset flags for next transfer
 
     // Restart the server after the file is fully received
+    WiFi.channel(getWiFiChannel(ssid));
     server.begin();
     Serial.println("Server restarted after file transfer.");
 }
 
 }
-
 
 
 
@@ -224,11 +237,13 @@ void setup() {
 
   WiFi.mode(WIFI_AP_STA);
   WiFi.begin(ssid, password);
+
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.print(".");
   }
   Serial.println("\nConnected to Wi-Fi.");
+
 
   InitESPNow();
   esp_now_register_recv_cb(OnDataRecv);
@@ -240,8 +255,11 @@ void setup() {
   Serial.println("SD card initialized successfully.");
 
   startWebServer();
+
+  
+
 }
 
 void loop() {
-  // No need to handle clients manually in AsyncWebServer
-}
+
+  }
