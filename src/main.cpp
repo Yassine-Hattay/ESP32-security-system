@@ -4,7 +4,8 @@
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <espnow.h>
-#include <SD.h>
+#include <SdFat.h>
+#include <SdBase.h>  
 #include "LittleFS.h"
 #include <NTPClient.h>
 #include <TimeLib.h> // Include the TimeLib library
@@ -15,6 +16,8 @@
 // WiFi credentials
 const char* ssid = "Orange-066C";
 const char* password = "GMA6ABLMG87";
+
+SdBase SD; 
 
 // NTP settings
 WiFiUDP udp;
@@ -64,11 +67,63 @@ void handleHome(AsyncWebServerRequest *request) {
   response->addHeader("Server", "ESP Async Web Server");
 
   // Start HTML document
-  response->print("<!DOCTYPE html><html><head><title>Select Date</title>");
-  response->print("<meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-  response->print("<style>body { font-family: Arial, sans-serif; }</style>");
-  response->print("</head><body>");
-  response->print("<h1>Available Dates for Photos</h1>");
+  response->print(R"rawliteral(
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Select Date</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        body {
+          font-family: 'Arial', sans-serif;
+          background-color: #f4f4f9;
+          color: #333;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+        }
+        h1 {
+          font-size: 2em;
+          margin-bottom: 20px;
+          color: #444;
+        }
+        .container {
+          width: 90%;
+          max-width: 600px;
+          background: white;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+        }
+        .date-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+        .date-list li {
+          margin: 10px 0;
+        }
+        .date-list a {
+          text-decoration: none;
+          color: #007BFF;
+          font-weight: bold;
+          transition: color 0.3s ease;
+        }
+        .date-list a:hover {
+          color: #0056b3;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <h1>Available Dates for Photos</h1>
+        <ul class="date-list">
+  )rawliteral");
 
   // Get the available dates by scanning SD card for folders
   File root = SD.open("/photos");  // Open the directory for scanning
@@ -77,77 +132,39 @@ void handleHome(AsyncWebServerRequest *request) {
     while (dir) {  // Iterate through the directory
       if (dir.isDirectory()) {
         String date = dir.name();
-        response->printf("<a href=\"/photos/%s\">%s</a><br>", date.c_str(), date.c_str());
+        response->printf("<li><a href=\"/photos/%s\">%s</a></li>", date.c_str(), date.c_str());
       }
       dir = root.openNextFile();
     }
   }
   root.close();
 
-  response->print("</body></html>");
+  // Close HTML document
+  response->print(R"rawliteral(
+        </ul>
+      </div>
+    </body>
+    </html>
+  )rawliteral");
+
   request->send(response);
 }
 
-// Serve images for a selected date
-void handleDatePhotos(AsyncWebServerRequest *request) {
-  String date = request->pathArg(0);
-  String folderPath = "/photos/" + date;
-  String html = "<!DOCTYPE html><html><head><title>Photos from " + date + "</title>";
-  html += "<meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">";
-  html += "<style>body { font-family: Arial, sans-serif; }</style>";
-  html += "</head><body>";
-  html += "<h1>Photos from " + date + "</h1>";
 
-  File root = SD.open(folderPath);  // Open the directory for scanning
-bool foundFiles = false;  // Flag to check if files were found
-
-if (root && root.isDirectory()) {
-  File dir = root.openNextFile();
-  while (dir) {  // Iterate through the files in the directory
-    if (!dir.isDirectory()) {
-      String imageUrl = "/photos/" + date + "/" + dir.name();
-      html += "<div><a href=\"" + imageUrl + "\" target=\"_blank\">";
-      html += "<img src=\"" + imageUrl + "\" width=\"200\" alt=\"" + dir.name() + "\"/></a></div>";
-      
-      // Mark that a file was found
-      foundFiles = true;
-    }
-    dir = root.openNextFile();
-  }
-}
-
-root.close();
-
-// Print message to serial terminal based on whether files were found
-if (foundFiles) {
-  Serial.println("Files found for date: " + date);
-} else {
-  Serial.println("No files found for date: " + date);
-}
-
-  html += "</body></html>";
-  
-  request->send(200, "text/html", html);
-}
-
-// Serve the photo file
-void handlePhotoFile(AsyncWebServerRequest *request) {
-  String filePath = "/photos" + request->url();
-  String littlefsPath = "/moon_littlefs.jpg";  // Set destination in LittleFS
-
+bool loadFileToLittleFS(const String &sourcePath, const String &destPath) {
   // Open SD file
-  File sdFile = SD.open(filePath, "r");
+  File sdFile = SD.open(sourcePath, "r");
   if (!sdFile) {
-    request->send(404, "text/plain", "File not found on SD card");
-    return;
+    Serial.println("Failed to open source file on SD card: " + sourcePath);
+    return false;
   }
 
   // Create or open the file in LittleFS
-  File littlefsFile = LittleFS.open(littlefsPath, "w");
+  File littlefsFile = LittleFS.open(destPath, "w");
   if (!littlefsFile) {
-    request->send(500, "text/plain", "Failed to write to LittleFS");
+    Serial.println("Failed to open destination file on LittleFS: " + destPath);
     sdFile.close();
-    return;
+    return false;
   }
 
   // Copy file from SD to LittleFS in chunks
@@ -159,10 +176,104 @@ void handlePhotoFile(AsyncWebServerRequest *request) {
 
   sdFile.close();
   littlefsFile.close();
-
-  // Serve the image from LittleFS
-  request->send(LittleFS, littlefsPath, "image/jpeg");
+  Serial.println("File successfully copied to LittleFS: " + destPath);
+  return true;
 }
+
+void handleDatePhotos(AsyncWebServerRequest *request) {
+  String url = request->url(); // Example: "/photos/2025-1-12/"
+  int firstSlash = url.indexOf('/', 1); // Find the first slash after the initial '/'
+  String date = "";
+
+  if (firstSlash != -1) {
+    date = url.substring(firstSlash + 1);
+    if (date.endsWith("/")) {
+      date = date.substring(0, date.length() - 1);
+    }
+  }
+
+  String folderPath = "/photos/" + date;
+  AsyncResponseStream *response = request->beginResponseStream("text/html");
+  response->print("<!DOCTYPE html><html><head><title>Photos from ");
+  response->print(date);
+  response->print("</title>");
+  response->print("<meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+  response->print("<style>");
+  response->print("body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0; }");
+  response->print("h1 { text-align: center; color: #333; margin-top: 20px; font-size: 2rem; }");
+  response->print("p { text-align: center; color: #777; font-size: 1.1rem; margin: 20px; }");
+  response->print(".gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }");
+  response->print(".gallery div { width: 200px; height: auto; text-align: center; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease; }");
+  response->print(".gallery img { width: 100%; height: auto; border-radius: 8px; object-fit: cover; }");
+  response->print(".gallery div:hover { transform: scale(1.05); }");
+  response->print(".file-name { margin-top: 10px; font-size: 1rem; color: #333; }");
+  response->print("</style></head><body>");
+  response->print("<h1>Photos from ");
+  response->print(date);
+  response->print("</h1>");
+
+  File root = SD.open(folderPath); // Open the directory for scanning
+  bool foundFiles = false;         // Flag to check if files were found
+
+  if (root && root.isDirectory()) {
+    File dir = root.openNextFile();
+    response->print("<div class=\"gallery\">");
+
+    while (dir) { // Iterate through the files in the directory
+      if (!dir.isDirectory()) {
+        String filePath = String(folderPath + "/" + dir.name());
+        String littlefsPath = "/moon_littlefs_" + String(millis()) + ".jpg"; // Unique path in LittleFS
+
+        // Extract the file name without the extension
+        String fileName = dir.name();
+        fileName = fileName.substring(0, fileName.lastIndexOf('.')); // Remove .jpg extension
+
+        // Load file into LittleFS
+        if (loadFileToLittleFS(filePath, littlefsPath)) {
+          // Serve the image directly when requested
+          server.on(littlefsPath.c_str(), HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
+            req->send(LittleFS, littlefsPath, "image/jpeg");
+          });
+
+          // Add the image and file name to the HTML
+          response->print("<div>");
+          response->print("<div class=\"file-name\">");
+          response->print(fileName); // Display file name without extension
+          response->print("</div>");
+          response->print("<a href=\"");
+          response->print(littlefsPath);
+          response->print("\" target=\"_blank\">");
+          response->print("<img src=\"");
+          response->print(littlefsPath);
+          response->print("\" alt=\"");
+          response->print(fileName);
+          response->print("\"/></a>");
+          response->print("</div>");
+          foundFiles = true;
+        } else {
+          Serial.println("Failed to load file to LittleFS: " + filePath);
+        }
+      }
+      dir = root.openNextFile();
+    }
+    response->print("</div>");
+  }
+
+  root.close();
+
+  // Message if no files were found
+  if (!foundFiles) {
+    response->print("<p>No files found for the selected date.</p>");
+    Serial.println("No files found for date: " + date);
+  } else {
+    Serial.printf("\nFiles found for date: %s\n", date.c_str());
+  }
+
+  response->print("</body></html>");
+  request->send(response);
+}
+
+
 
 // Event handler to send status updates to the client
 void handleEventSource(AsyncWebServerRequest *request) {
@@ -220,17 +331,15 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
   String currentDate = String(year()) + "-" + String(month()) + "-" + String(day());
   String folderPath = "/photos/" + currentDate;
 
-  
-
   switch (*data++) {
     case 0x01: // Start of file transmission
     { 
       if (!SD.exists(folderPath)) {
-      if (SD.mkdir(folderPath)) {
-        Serial.println("Folder created: " + folderPath);
-      } else {
-        Serial.println("Failed to create folder: " + folderPath);
-      }
+        if (SD.mkdir(folderPath)) {
+          Serial.println("Folder created: " + folderPath);
+        } else {
+          Serial.println("Failed to create folder: " + folderPath);
+        }
       } else {
         Serial.println("Folder already exists: " + folderPath);
       }
@@ -243,8 +352,10 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
       currentTransmitCurrentPosition = 0; 
       currentTransmitTotalPackages = (*data++) << 8 | *data;
 
-      // Open the file for writing with the current date in folder
-      file = SD.open(folderPath + "/moon_" + String(millis()) + ".jpg", "w");
+      // Get current time in hours and minutes for file naming
+      String currentTime = String(hour()) + "-" + String(minute());
+      // Open the file for writing with the current time in the filename
+      file = SD.open(folderPath + "/" + currentTime + ".jpg", "w");
       if (!file) {
         Serial.println("Error opening file for writing!");
         return;
@@ -257,30 +368,31 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
       break;
     }
     case 0x02: // Data pack
-    if(currentTransmitCurrentPosition == 0)
+    if(currentTransmitCurrentPosition == 0) {
       startTime = millis();
+    }
 
-      byte highByte = *data++;
-      byte lowByte = *data++;
-      currentTransmitCurrentPosition = (highByte << 8) | lowByte;
+    byte highByte = *data++;
+    byte lowByte = *data++;
+    currentTransmitCurrentPosition = (highByte << 8) | lowByte;
 
-      // Store data in the buffer
-      for (int i = 0; i < (data_len - 3); i++) {
-        buffer[bufferIndex++] = *data++;  // Fill buffer with incoming data
-        if (bufferIndex >= BUFFER_SIZE) {
-          file.write(buffer, bufferIndex); // Write buffer to file once full
-          bufferIndex = 0; // Reset buffer index
-        }
+    // Store data in the buffer
+    for (int i = 0; i < (data_len - 3); i++) {
+      buffer[bufferIndex++] = *data++;  // Fill buffer with incoming data
+      if (bufferIndex >= BUFFER_SIZE) {
+        file.write(buffer, bufferIndex); // Write buffer to file once full
+        bufferIndex = 0; // Reset buffer index
       }
+    }
 
-      // Handle any remaining data in the buffer after the loop
-      if (bufferIndex > 0) {
-        file.write(buffer, bufferIndex);
-        bufferIndex = 0; // Reset buffer
-      }
+    // Handle any remaining data in the buffer after the loop
+    if (bufferIndex > 0) {
+      file.write(buffer, bufferIndex);
+      bufferIndex = 0; // Reset buffer
+    }
 
-      Serial.printf("Received packet %d of %d\n", currentTransmitCurrentPosition, currentTransmitTotalPackages);
-      break;
+    Serial.printf("Received packet %d of %d\n", currentTransmitCurrentPosition, currentTransmitTotalPackages);
+    break;
   }
 
   if (currentTransmitCurrentPosition == currentTransmitTotalPackages) {
@@ -304,14 +416,46 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
   }
 }
 
+
 void startWebServer() {
   server.on("/", HTTP_GET, handleHome); // Show home page
-  server.on("/photos/:date", HTTP_GET, handleDatePhotos); // Show photos from selected date
-  server.on("/photos/*", HTTP_GET, handlePhotoFile); // Serve photo file
+  server.on("/photos/*", HTTP_GET, handleDatePhotos); // Serve photo file
   server.on("/events", HTTP_GET, handleEventSource); // Event source for updates
   server.begin();
   Serial.println("Async Web server initialized.");
 }
+
+bool checkSDCardSpace() {
+    uint64_t totalSize = SD.card()->sectorCount() * 512;  // Get total size in bytes
+    uint64_t usedBytes = SD.totalBytes() - SD.freeBytes();  // Calculate used space
+    uint64_t availableBytes = totalSize - usedBytes;  // Calculate available space
+
+    // Convert bytes to gigabytes for easier readability
+    float totalSizeGB = totalSize / (1024.0 * 1024.0 * 1024.0);
+    float availableSizeGB = availableBytes / (1024.0 * 1024.0 * 1024.0);
+
+    // Print the sizes in GB
+    Serial.print("Total Size: ");
+    Serial.print(totalSizeGB);
+    Serial.println(" GB");
+
+    Serial.print("Available Size: ");
+    Serial.print(availableSizeGB);
+    Serial.println(" GB");
+
+    // Threshold for available space (e.g., 1MB = 1024 * 1024 bytes)
+    size_t thresholdBytes = 1024 * 1024; // 1 MB in bytes
+    
+    if (availableBytes >= thresholdBytes) {
+        Serial.println("SD Card has enough space.");
+        return true;
+    } else {
+        Serial.println("SD Card is running low on space.");
+        return false;
+    }
+}
+
+
 
 void setup() {
   Serial.begin(115200);
@@ -334,10 +478,13 @@ void setup() {
   InitESPNow();
   esp_now_register_recv_cb(OnDataRecv);
 
-  if (!SD.begin(D8, SPI_20MHZ_SPEED)) {
+  if (!SD.begin(D8)) {
     Serial.println("SD card initialization failed!");
     return;
   }
+
+  checkSDCardSpace();
+
   Serial.println("SD card initialized successfully.");
 
   timeClient.begin();  // Start NTP client to fetch time
