@@ -4,8 +4,7 @@
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <espnow.h>
-#include <SdFat.h>
-#include <SdBase.h>  
+#include <SD.h>
 #include "LittleFS.h"
 #include <NTPClient.h>
 #include <TimeLib.h> // Include the TimeLib library
@@ -16,8 +15,6 @@
 // WiFi credentials
 const char* ssid = "Orange-066C";
 const char* password = "GMA6ABLMG87";
-
-SdBase SD; 
 
 // NTP settings
 WiFiUDP udp;
@@ -426,15 +423,19 @@ void startWebServer() {
 }
 
 bool checkSDCardSpace() {
-    uint64_t totalSize = SD.card()->sectorCount() * 512;  // Get total size in bytes
-    uint64_t usedBytes = SD.totalBytes() - SD.freeBytes();  // Calculate used space
+    // Get the total size of the SD card in bytes (use size64 for accurate size calculation)
+    uint64_t totalSize = SD.size64(); // Using size64() for accurate size calculation
+
+    // Calculate the available space by subtracting the used space from total space
+    uint64_t usedBytes = SD.totalBlocks() * SD.clusterSize();  // Correct used space calculation
+
     uint64_t availableBytes = totalSize - usedBytes;  // Calculate available space
 
     // Convert bytes to gigabytes for easier readability
-    float totalSizeGB = totalSize / (1024.0 * 1024.0 * 1024.0);
-    float availableSizeGB = availableBytes / (1024.0 * 1024.0 * 1024.0);
+    float totalSizeGB = totalSize / (1024.0 * 1024.0 * 1024.0);  // Convert total size to GB
+    float availableSizeGB = availableBytes / (1024.0 * 1024.0 * 1024.0);  // Convert available space to GB
 
-    // Print the sizes in GB
+    // Print the actual sizes in GB
     Serial.print("Total Size: ");
     Serial.print(totalSizeGB);
     Serial.println(" GB");
@@ -443,18 +444,17 @@ bool checkSDCardSpace() {
     Serial.print(availableSizeGB);
     Serial.println(" GB");
 
-    // Threshold for available space (e.g., 1MB = 1024 * 1024 bytes)
+    // Set a threshold for available space (e.g., 1MB = 1024 * 1024 bytes)
     size_t thresholdBytes = 1024 * 1024; // 1 MB in bytes
     
-    if (availableBytes >= thresholdBytes) {
+    if (availableBytes >= thresholdBytes) { // Check if available space is at least 1MB
         Serial.println("SD Card has enough space.");
-        return true;
+        return true; // Enough space
     } else {
         Serial.println("SD Card is running low on space.");
-        return false;
+        return false; // Not enough space
     }
 }
-
 
 
 void setup() {
@@ -478,6 +478,7 @@ void setup() {
   InitESPNow();
   esp_now_register_recv_cb(OnDataRecv);
 
+  // Initialize SD card
   if (!SD.begin(D8)) {
     Serial.println("SD card initialization failed!");
     return;
