@@ -21,7 +21,10 @@ WiFiUDP udp;
 NTPClient timeClient(udp, "pool.ntp.org", 3600, 3600000);  // Offset: UTC+1 (3600 seconds)
 
 // File and async web server setup
+File dir;
 File file;
+File root;
+FSInfo fs_info;
 AsyncWebServer server(80);
 
 // Transmit status variables
@@ -30,6 +33,19 @@ int currentTransmitTotalPackages = 0;
 bool fileReceivingStarted = false; // Flag to check if receiving has started
 bool fileTransmissionComplete = false; // Flag to check if transmission is complete
 unsigned long startTime = 0; // Declare the startTime variable
+bool moreFiles ;
+
+void printMemoryAndFileSystemStats() {
+  Serial.println("Memory and LittleFS Statistics:");
+  // LittleFS Flash Information
+  if (LittleFS.info(fs_info)) {
+    Serial.printf("Total LittleFS Space: %u bytes\n", fs_info.totalBytes);
+    Serial.printf("Used LittleFS Space: %u bytes\n", fs_info.usedBytes);
+    Serial.printf("Free LittleFS Space: %u bytes\n", fs_info.totalBytes - fs_info.usedBytes);
+  } else {
+    Serial.println("Failed to retrieve LittleFS information.");
+  }
+}
 
 int32_t getWiFiChannel(const char *ssid) {
   if (int32_t n = WiFi.scanNetworks()) {
@@ -60,6 +76,7 @@ String processor(const String& var) {
 }
 
 void handleHome(AsyncWebServerRequest *request) {
+
   AsyncResponseStream *response = request->beginResponseStream("text/html");
   response->addHeader("Server", "ESP Async Web Server");
 
@@ -178,6 +195,9 @@ bool loadFileToLittleFS(const String &sourcePath, const String &destPath) {
 }
 
 void handleDatePhotos(AsyncWebServerRequest *request) {
+
+  LittleFS.format();  
+
   String url = request->url(); // Example: "/photos/2025-1-12/"
   int firstSlash = url.indexOf('/', 1); // Find the first slash after the initial '/'
   String date = "";
@@ -209,66 +229,95 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
   response->print(date);
   response->print("</h1>");
 
-  File root = SD.open(folderPath); // Open the directory for scanning
-  bool foundFiles = false;         // Flag to check if files were found
-
+  if(!moreFiles)
+  {root = SD.open(folderPath); // Open the directory for scanning
+  }
+  
   if (root && root.isDirectory()) {
-    File dir = root.openNextFile();
-    response->print("<div class=\"gallery\">");
+    if(!moreFiles)
+    { dir = root.openNextFile();
+    }
+    moreFiles = false;
 
-    while (dir) { // Iterate through the files in the directory
+    while (dir) {
       if (!dir.isDirectory()) {
         String filePath = String(folderPath + "/" + dir.name());
-        String littlefsPath = "/moon_littlefs_" + String(millis()) + ".jpg"; // Unique path in LittleFS
 
-        // Extract the file name without the extension
-        String fileName = dir.name();
-        fileName = fileName.substring(0, fileName.lastIndexOf('.')); // Remove .jpg extension
+        // Check if the file ends with ".jpg"
+        if (filePath.endsWith(".jpg")) {
+          String littlefsPath = "/moon_littlefs_" + String(millis()) + ".jpg"; // Unique path in LittleFS
 
-        // Load file into LittleFS
-        if (loadFileToLittleFS(filePath, littlefsPath)) {
-          // Serve the image directly when requested
-          server.on(littlefsPath.c_str(), HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
-            req->send(LittleFS, littlefsPath, "image/jpeg");
-          });
+          // Extract the file name without the extension
+          String fileName = dir.name();
+          fileName = fileName.substring(0, fileName.lastIndexOf('.')); // Remove .jpg extension
 
-          // Add the image and file name to the HTML
-          response->print("<div>");
-          response->print("<div class=\"file-name\">");
-          response->print(fileName); // Display file name without extension
-          response->print("</div>");
-          response->print("<a href=\"");
-          response->print(littlefsPath);
-          response->print("\" target=\"_blank\">");
-          response->print("<img src=\"");
-          response->print(littlefsPath);
-          response->print("\" alt=\"");
-          response->print(fileName);
-          response->print("\"/></a>");
-          response->print("</div>");
-          foundFiles = true;
+          // Check LittleFS space
+          LittleFS.info(fs_info);
+          unsigned long freeSpace = fs_info.totalBytes - fs_info.usedBytes;
+          if (freeSpace > 300000) { // Only load the file if there's enough space
+            // Load file into LittleFS
+            if (loadFileToLittleFS(filePath, littlefsPath)) {
+              // Serve the image directly when requested
+              server.on(littlefsPath.c_str(), HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
+                req->send(LittleFS, littlefsPath, "image/jpeg");
+              });
+
+              fileName.replace("-", ":"); 
+              int colonPos = fileName.indexOf(':');
+              if (colonPos != -1 && fileName.length() > colonPos + 1) {
+                  String partAfterColon = fileName.substring(colonPos + 1);
+                  if (partAfterColon.length() == 1) {
+                      // If there's only 1 digit after the colon, add a leading zero
+                      fileName = fileName.substring(0, colonPos + 1) + "0" + partAfterColon;
+                  }
+              }
+              // Add the image and file name to the HTML
+              response->print("<div class=\"gallery\">");
+              response->print("<div>");
+              response->print("<div class=\"file-name\">");
+              response->print(fileName); // Display file name without extension
+              response->print("</div>");
+              response->print("<a href=\"");
+              response->print(littlefsPath);
+              response->print("\" target=\"_blank\">");
+              response->print("<img src=\"");
+              response->print(littlefsPath);
+              response->print("\" alt=\"");
+              response->print(fileName);
+              response->print("\"/></a>");
+              response->print("</div>");
+              response->print("</div>");
+
+            } else {
+              Serial.println("Failed to load file to LittleFS: " + filePath);
+            }
+          } else {
+            moreFiles = true;
+            break; // Stop if there's not enough space for another file
+          }
         } else {
-          Serial.println("Failed to load file to LittleFS: " + filePath);
+          Serial.println("Ignoring non-JPG file: " + filePath);
         }
       }
       dir = root.openNextFile();
     }
+    
+    // If there are more files but not enough space, show the "More" button
+  if (moreFiles) {
+    response->print("<div style=\"text-align: center; margin-top: 20px;\">");
+    response->print("<button onclick=\"window.location.href = window.location.href;\">Load More Photos</button>");
     response->print("</div>");
   }
 
-  root.close();
 
-  // Message if no files were found
-  if (!foundFiles) {
-    response->print("<p>No files found for the selected date.</p>");
-    Serial.println("No files found for date: " + date);
-  } else {
-    Serial.printf("\nFiles found for date: %s\n", date.c_str());
   }
 
   response->print("</body></html>");
   request->send(response);
+
+  printMemoryAndFileSystemStats();
 }
+
 
 
 
@@ -299,22 +348,6 @@ bool isValidDateFolder(String folderName) {
   return false;
 }
 
-// Delete all files and subdirectories in a folder
-void deleteFolderContents(String folderPath) {
-  File dir = SD.open(folderPath);
-  if (dir && dir.isDirectory()) {
-    File entry = dir.openNextFile();
-    while (entry) {
-      if (entry.isDirectory()) {
-        deleteFolderContents(folderPath + "/" + entry.name()); // Recursive deletion
-        SD.rmdir(folderPath + "/" + entry.name());
-      } else {
-        SD.remove(folderPath + "/" + entry.name()); // Remove file
-      }
-      entry = dir.openNextFile();
-    }
-  }
-}
 
 void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
   static byte buffer[BUFFER_SIZE];  // Use larger buffer for faster data handling
@@ -417,7 +450,7 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
 void startWebServer() {
   server.on("/", HTTP_GET, handleHome); // Show home page
   server.on("/photos/*", HTTP_GET, handleDatePhotos); // Serve photo file
-  server.on("/events", HTTP_GET, handleEventSource); // Event source for updates
+  
   server.begin();
   Serial.println("Async Web server initialized.");
 }
@@ -491,8 +524,13 @@ void setup() {
   timeClient.begin();  // Start NTP client to fetch time
 
   startWebServer();
-
-
+  
+if (LittleFS.format()) {
+  Serial.println("LittleFS formatted successfully!");
+} else {
+  Serial.println("Failed to format LittleFS!");
+} 
+  printMemoryAndFileSystemStats();
 }
 
 void loop() {
