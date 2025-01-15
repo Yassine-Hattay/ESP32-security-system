@@ -10,11 +10,11 @@
 #include <TimeLib.h> // Include the TimeLib library
 
 #define SPI_20MHZ_SPEED SD_SCK_MHZ(20)
-#define BUFFER_SIZE 15720  
+#define BUFFER_SIZE 8192  
 
 // WiFi credentials
-const char* ssid = "Orange-066C";
-const char* password = "GMA6ABLMG87";
+const char ssid[] = "Orange-066C";  
+const char password[] = "GMA6ABLMG87"; 
 
 // NTP settings
 WiFiUDP udp;
@@ -25,11 +25,13 @@ File dir;
 File file;
 File root;
 FSInfo fs_info;
+char date[13] = "";
+ // 10 characters + 1 for the null terminator
 AsyncWebServer server(80);
 
-// Transmit status variables
-int currentTransmitCurrentPosition = 0;
-int currentTransmitTotalPackages = 0;
+
+uint16_t currentTransmitCurrentPosition = 0;
+uint16_t currentTransmitTotalPackages = 0;
 bool fileReceivingStarted = false; // Flag to check if receiving has started
 bool fileTransmissionComplete = false; // Flag to check if transmission is complete
 unsigned long startTime = 0; // Declare the startTime variable
@@ -45,10 +47,13 @@ void printMemoryAndFileSystemStats() {
   } else {
     Serial.println("Failed to retrieve LittleFS information.");
   }
+    Serial.printf("Free RAM: %u bytes\n", ESP.getFreeHeap());
+
+  
 }
 
-int32_t getWiFiChannel(const char *ssid) {
-  if (int32_t n = WiFi.scanNetworks()) {
+uint8_t getWiFiChannel(const char *ssid) {
+  if (uint8_t n = WiFi.scanNetworks()) {
       for (uint8_t i=0; i<n; i++) {
           if (!strcmp(ssid, WiFi.SSID(i).c_str())) {
               return WiFi.channel(i);
@@ -68,15 +73,10 @@ void InitESPNow() {
   }
 }
 
-String processor(const String& var) {
-  if (var == "IMAGE_URL") {
-    return F("/moon.jpg"); // Dynamically set the image URL
-  }
-  return String();
-}
-
 void handleHome(AsyncWebServerRequest *request) {
 
+  LittleFS.format();
+  date[0] = '\0';
   AsyncResponseStream *response = request->beginResponseStream("text/html");
   response->addHeader("Server", "ESP Async Web Server");
 
@@ -140,19 +140,20 @@ void handleHome(AsyncWebServerRequest *request) {
   )rawliteral");
 
   // Get the available dates by scanning SD card for folders
-  File root = SD.open("/photos");  // Open the directory for scanning
-  if (root && root.isDirectory()) {
-    File dir = root.openNextFile();
-    while (dir) {  // Iterate through the directory
-      if (dir.isDirectory()) {
-        String date = dir.name();
+  File root_l = SD.open("/photos");  // Open the directory for scanning
+  if (root_l && root_l.isDirectory()) {
+    File dir_l = root_l.openNextFile();
+    while (dir_l) {  // Iterate through the directory
+      if (dir_l.isDirectory()) {
+        String date = dir_l.name();
         response->printf("<li><a href=\"/photos/%s\">%s</a></li>", date.c_str(), date.c_str());
       }
-      dir = root.openNextFile();
+      dir_l = root_l.openNextFile();
     }
   }
+  root_l.close();
   root.close();
-
+  dir.close();
   // Close HTML document
   response->print(R"rawliteral(
         </ul>
@@ -182,10 +183,11 @@ bool loadFileToLittleFS(const String &sourcePath, const String &destPath) {
   }
 
   // Copy file from SD to LittleFS in chunks
-  byte buffer[512];
+  byte buffer[2048];
   while (sdFile.available()) {
     size_t bytesRead = sdFile.read(buffer, sizeof(buffer));
     littlefsFile.write(buffer, bytesRead);
+    Serial.printf("Free RAM: %u bytes\n", ESP.getFreeHeap());
   }
 
   sdFile.close();
@@ -195,129 +197,132 @@ bool loadFileToLittleFS(const String &sourcePath, const String &destPath) {
 }
 
 void handleDatePhotos(AsyncWebServerRequest *request) {
+    char url[20] ;
 
-  LittleFS.format();  
+    LittleFS.format();
 
-  String url = request->url(); // Example: "/photos/2025-1-12/"
-  int firstSlash = url.indexOf('/', 1); // Find the first slash after the initial '/'
-  String date = "";
+    strcpy(url, request->url().c_str());
 
-  if (firstSlash != -1) {
-    date = url.substring(firstSlash + 1);
-    if (date.endsWith("/")) {
-      date = date.substring(0, date.length() - 1);
+    char* firstSlash = strchr(url + 1, '/');  // Find the first slash after the initial '/'
+
+    if (firstSlash != nullptr && strlen(date) == 0) {
+    firstSlash++;  // Move past the initial slash
+    strcpy(date, firstSlash);  // Copy the substring into date
+
+    // Remove trailing slash if present
+    size_t len = strlen(date);
+    while (len > 0 && date[len - 1] == '/') {
+        date[len - 1] = '\0';  // Remove the last character (slash)
+        len--;  // Decrease length to check the next character
     }
-  }
 
-  String folderPath = "/photos/" + date;
-  AsyncResponseStream *response = request->beginResponseStream("text/html");
-  response->print("<!DOCTYPE html><html><head><title>Photos from ");
-  response->print(date);
-  response->print("</title>");
-  response->print("<meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
-  response->print("<style>");
-  response->print("body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0; }");
-  response->print("h1 { text-align: center; color: #333; margin-top: 20px; font-size: 2rem; }");
-  response->print("p { text-align: center; color: #777; font-size: 1.1rem; margin: 20px; }");
-  response->print(".gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }");
-  response->print(".gallery div { width: 200px; height: auto; text-align: center; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease; }");
-  response->print(".gallery img { width: 100%; height: auto; border-radius: 8px; object-fit: cover; }");
-  response->print(".gallery div:hover { transform: scale(1.05); }");
-  response->print(".file-name { margin-top: 10px; font-size: 1rem; color: #333; }");
-  response->print("</style></head><body>");
-  response->print("<h1>Photos from ");
-  response->print(date);
-  response->print("</h1>");
-
-  if(!moreFiles)
-  {root = SD.open(folderPath); // Open the directory for scanning
-  }
-  
-  if (root && root.isDirectory()) {
-    if(!moreFiles)
-    { dir = root.openNextFile();
+    // Remove leading slashes if present
+    while (date[0] == '/') {
+        // Shift all characters to the left by one (overwrite the first character)
+        memmove(date, date + 1, strlen(date));
     }
-    moreFiles = false;
-
-    while (dir) {
-      if (!dir.isDirectory()) {
-        String filePath = String(folderPath + "/" + dir.name());
-
-        // Check if the file ends with ".jpg"
-        if (filePath.endsWith(".jpg")) {
-          String littlefsPath = "/moon_littlefs_" + String(millis()) + ".jpg"; // Unique path in LittleFS
-
-          // Extract the file name without the extension
-          String fileName = dir.name();
-          fileName = fileName.substring(0, fileName.lastIndexOf('.')); // Remove .jpg extension
-
-          // Check LittleFS space
-          LittleFS.info(fs_info);
-          unsigned long freeSpace = fs_info.totalBytes - fs_info.usedBytes;
-          if (freeSpace > 300000) { // Only load the file if there's enough space
-            // Load file into LittleFS
-            if (loadFileToLittleFS(filePath, littlefsPath)) {
-              // Serve the image directly when requested
-              server.on(littlefsPath.c_str(), HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
-                req->send(LittleFS, littlefsPath, "image/jpeg");
-              });
-
-              fileName.replace("-", ":"); 
-              int colonPos = fileName.indexOf(':');
-              if (colonPos != -1 && fileName.length() > colonPos + 1) {
-                  String partAfterColon = fileName.substring(colonPos + 1);
-                  if (partAfterColon.length() == 1) {
-                      // If there's only 1 digit after the colon, add a leading zero
-                      fileName = fileName.substring(0, colonPos + 1) + "0" + partAfterColon;
-                  }
-              }
-              // Add the image and file name to the HTML
-              response->print("<div class=\"gallery\">");
-              response->print("<div>");
-              response->print("<div class=\"file-name\">");
-              response->print(fileName); // Display file name without extension
-              response->print("</div>");
-              response->print("<a href=\"");
-              response->print(littlefsPath);
-              response->print("\" target=\"_blank\">");
-              response->print("<img src=\"");
-              response->print(littlefsPath);
-              response->print("\" alt=\"");
-              response->print(fileName);
-              response->print("\"/></a>");
-              response->print("</div>");
-              response->print("</div>");
-
-            } else {
-              Serial.println("Failed to load file to LittleFS: " + filePath);
-            }
-          } else {
-            moreFiles = true;
-            break; // Stop if there's not enough space for another file
-          }
-        } else {
-          Serial.println("Ignoring non-JPG file: " + filePath);
-        }
-      }
-      dir = root.openNextFile();
-    }
-    
-    // If there are more files but not enough space, show the "More" button
-  if (moreFiles) {
-    response->print("<div style=\"text-align: center; margin-top: 20px;\">");
-    response->print("<button onclick=\"window.location.href = window.location.href;\">Load More Photos</button>");
-    response->print("</div>");
-  }
-
-
-  }
-
-  response->print("</body></html>");
-  request->send(response);
-
-  printMemoryAndFileSystemStats();
 }
+    
+    char folderPath[21];  
+    snprintf(folderPath, sizeof(folderPath), "/photos/%s", date);
 
+    AsyncResponseStream *response = request->beginResponseStream("text/html");
+    response->print("<!DOCTYPE html><html><head><title>Photos from ");
+    response->print(date);
+    response->print("</title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><style>");
+    response->print("body{font-family:sans-serif;background:#f4f4f9;margin:0;padding:0;color:#333}h1{text-align:center;margin-top:20px;font-size:2.5rem}p{text-align:center;margin:20px}.gallery{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:20px}.gallery div{width:220px;height:auto;text-align:center;border-radius:10px;box-shadow:none;background:none}.gallery img{width:100%;height:auto;border-radius:8px;object-fit:cover}.gallery div:hover{transform:scale(1.05);box-shadow:none}.file-name{margin-top:10px;font-size:1rem;color:#333;padding:0 10px;background:none}.button{padding:12px 24px;font-size:1.2rem;border:none;border-radius:8px;background:#007BFF;color:white;cursor:pointer}.home-button{background:#28a745;position:fixed;top:20px;right:20px}.home-button:hover{background:#218838}</style>");
+    response->print("<script>");
+    response->print("function loadMorePhotos(){fetch('/more').then(r=>r.text()).then(d=>{document.body.innerHTML=d}).catch(e=>console.error(e))}");
+    response->print("function goHome(){fetch('/').then(r=>r.text()).then(d=>{document.body.innerHTML=d}).catch(e=>console.error(e))}");
+    response->print("</script></head><body>");
+    response->print("<button class=\"home-button\" onclick=\"goHome()\">Go Home</button>");
+    response->print("<h1>Photos from ");
+    response->print(date);
+    response->print("</h1><div class=\"gallery\">");
+
+    uint8_t counter = 0 ;
+    if (!moreFiles) {
+        root = SD.open(folderPath); // Open the directory for scanning
+    }
+
+    if (root && root.isDirectory()) {
+        if (!moreFiles) {
+            dir = root.openNextFile();
+        }
+        moreFiles = false;
+
+        while (dir) {
+            if (!dir.isDirectory()) {
+                char tempPath[100];  // Ensure tempPath is large enough
+
+                const char* dirName = dir.name();  // Example directory name
+
+                strcpy(tempPath, folderPath);      // Copy folderPath into tempPath
+                strcat(tempPath, "/");             // Add a slash after folderPath
+                strcat(tempPath, dirName);         // Add the directory name to tempPath
+
+                // Now, use the String constructor to wrap the C-string result
+                String filePath = String(tempPath);
+
+                // Check if the file ends with ".jpg"
+                if (filePath.endsWith(".jpg")) {
+                    counter++;
+                    String littlefsPath = "/moon_littlefs_" + String(counter) + ".jpg"; // Unique path in LittleFS
+
+                    // Extract the file name without the extension
+                    String fileName = dir.name();
+                    fileName = fileName.substring(0, fileName.lastIndexOf('.')); // Remove .jpg extension
+
+                    // Check LittleFS space
+                    LittleFS.info(fs_info);
+                    unsigned long freeSpace = fs_info.totalBytes - fs_info.usedBytes;
+                    if (freeSpace > 300000) { // Only load the file if there's enough space
+                        if (loadFileToLittleFS(filePath, littlefsPath)) {
+                            server.on(littlefsPath.c_str(), HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
+                                req->send(LittleFS, littlefsPath, "image/jpeg");
+                            });
+                            
+                            fileName.replace('-', ':');
+                                              
+                            response->print("<div>");
+                            response->print("<div class=\"file-name\">");
+                            response->print(fileName); // Display file name without extension
+                            response->print("</div>");
+                            response->print("<a href=\"");
+                            response->print(littlefsPath);
+                            response->print("\" target=\"_blank\">");
+                            response->print("<img src=\"");
+                            response->print(littlefsPath);
+                            response->print("\" alt=\"");
+                            response->print(fileName);
+                            response->print("\"/></a>");
+                            response->print("</div>");
+                        } else {
+                            Serial.println("Failed to load file to LittleFS: " + filePath);
+                        }
+                    } else {
+                        moreFiles = true;
+                        break; // Stop if there's not enough space for another file
+                    }
+                }
+            }
+            dir = root.openNextFile();
+        }
+    }
+
+    response->print("</div>");
+
+    if (moreFiles) {
+        response->print("<div style=\"text-align: center; margin-top: 20px;\">");
+        response->print("<button onclick=\"loadMorePhotos()\">Load More Photos</button>");
+        response->print("</div>");
+    }
+
+    response->print("</body></html>");
+    request->send(response);
+
+    printMemoryAndFileSystemStats();
+}
 
 
 
@@ -352,7 +357,7 @@ bool isValidDateFolder(String folderName) {
 void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
   static byte buffer[BUFFER_SIZE];  // Use larger buffer for faster data handling
   int bufferIndex = 0;
-
+  
   // Update current date using NTP
   timeClient.update();
   unsigned long epochTime = timeClient.getEpochTime();
@@ -410,7 +415,8 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
     for (int i = 0; i < (data_len - 3); i++) {
       buffer[bufferIndex++] = *data++;  // Fill buffer with incoming data
       if (bufferIndex >= BUFFER_SIZE) {
-        file.write(buffer, bufferIndex); // Write buffer to file once full
+        file.write(buffer, bufferIndex);
+        Serial.printf("\n Buffer index: %d \n" ,bufferIndex) ;// Write buffer to file once full
         bufferIndex = 0; // Reset buffer index
       }
     }
@@ -430,8 +436,8 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
 
     // Calculate the time taken for the transfer
     int transferTime = millis() - startTime;
-    float transferTimeInSeconds = transferTime / 1000.0;  // Convert milliseconds to seconds
-    Serial.printf("Total transfer time: %.2f seconds\n", transferTimeInSeconds);  // Print total time in seconds
+    int transferTimeInSeconds = transferTime / 1000;  // Convert milliseconds to seconds
+    Serial.printf("Total transfer time: %d seconds\n", transferTimeInSeconds);  // Print total time in seconds
 
     file.close();  // Close the file once the transfer is complete
     fileReceivingStarted = false;
@@ -450,43 +456,10 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
 void startWebServer() {
   server.on("/", HTTP_GET, handleHome); // Show home page
   server.on("/photos/*", HTTP_GET, handleDatePhotos); // Serve photo file
-  
+  server.on("/more", HTTP_GET, handleDatePhotos); // Serve photo file
+
   server.begin();
   Serial.println("Async Web server initialized.");
-}
-
-bool checkSDCardSpace() {
-    // Get the total size of the SD card in bytes (use size64 for accurate size calculation)
-    uint64_t totalSize = SD.size64(); // Using size64() for accurate size calculation
-
-    // Calculate the available space by subtracting the used space from total space
-    uint64_t usedBytes = SD.totalBlocks() * SD.clusterSize();  // Correct used space calculation
-
-    uint64_t availableBytes = totalSize - usedBytes;  // Calculate available space
-
-    // Convert bytes to gigabytes for easier readability
-    float totalSizeGB = totalSize / (1024.0 * 1024.0 * 1024.0);  // Convert total size to GB
-    float availableSizeGB = availableBytes / (1024.0 * 1024.0 * 1024.0);  // Convert available space to GB
-
-    // Print the actual sizes in GB
-    Serial.print("Total Size: ");
-    Serial.print(totalSizeGB);
-    Serial.println(" GB");
-
-    Serial.print("Available Size: ");
-    Serial.print(availableSizeGB);
-    Serial.println(" GB");
-
-    // Set a threshold for available space (e.g., 1MB = 1024 * 1024 bytes)
-    size_t thresholdBytes = 1024 * 1024; // 1 MB in bytes
-    
-    if (availableBytes >= thresholdBytes) { // Check if available space is at least 1MB
-        Serial.println("SD Card has enough space.");
-        return true; // Enough space
-    } else {
-        Serial.println("SD Card is running low on space.");
-        return false; // Not enough space
-    }
 }
 
 
@@ -498,6 +471,7 @@ void setup() {
     return;
   }
 
+  
   WiFi.mode(WIFI_AP_STA);
   WiFi.begin(ssid, password);
   
@@ -517,8 +491,6 @@ void setup() {
     return;
   }
 
-  checkSDCardSpace();
-
   Serial.println("SD card initialized successfully.");
 
   timeClient.begin();  // Start NTP client to fetch time
@@ -534,5 +506,6 @@ if (LittleFS.format()) {
 }
 
 void loop() {
-  timeClient.update(); // Update NTP time periodically
+  timeClient.update(); 
+
 }
