@@ -278,7 +278,7 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
                     unsigned long freeSpace = fs_info.totalBytes - fs_info.usedBytes;
                     if (freeSpace > 300000) { // Only load the file if there's enough space
                         if (loadFileToLittleFS(filePath, littlefsPath)) {
-                            server.on(littlefsPath.c_str(), HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
+                            server.on(littlefsPath.c_str(), HTTP_ANY, [littlefsPath](AsyncWebServerRequest *req) {
                                 req->send(LittleFS, littlefsPath, "image/jpeg");
                             });
                             
@@ -454,13 +454,14 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
 
 
 void startWebServer() {
-  server.on("/", HTTP_GET, handleHome); // Show home page
-  server.on("/photos/*", HTTP_GET, handleDatePhotos); // Serve photo file
-  server.on("/more", HTTP_GET, handleDatePhotos); // Serve photo file
+  server.on("/", HTTP_ANY, handleHome); // Show home page
+  server.on("/photos/*", HTTP_ANY, handleDatePhotos); // Serve photo file
+  server.on("/more", HTTP_ANY, handleDatePhotos); // Serve photo file
 
   server.begin();
   Serial.println("Async Web server initialized.");
 }
+
 
 
 void setup() {
@@ -507,5 +508,5 @@ if (LittleFS.format()) {
 
 void loop() {
   timeClient.update(); 
-
+  Serial.printf("Free RAM: %u bytes\n", ESP.getFreeHeap());
 }
