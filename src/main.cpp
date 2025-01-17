@@ -10,7 +10,7 @@
 #include <TimeLib.h> // Include the TimeLib library
 
 #define SPI_20MHZ_SPEED SD_SCK_MHZ(20)
-#define BUFFER_SIZE 8192  
+#define BUFFER_SIZE 4096  
 
 // WiFi credentials
 const char ssid[] = "Orange-066C";  
@@ -72,103 +72,6 @@ void InitESPNow() {
     ESP.restart();
   }
 }
-
-void handleHome(AsyncWebServerRequest *request) {
-  
-  moreFiles = false;
-  LittleFS.format();
-  date[0] = '\0';
-  AsyncResponseStream *response = request->beginResponseStream("text/html");
-  response->addHeader("Server", "ESP Async Web Server");
-
-  // Start HTML document
-  response->print(R"rawliteral(
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Select Date</title>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <style>
-        body {
-          font-family: 'Arial', sans-serif;
-          background-color: #f4f4f9;
-          color: #333;
-          margin: 0;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
-        }
-        h1 {
-          font-size: 2em;
-          margin-bottom: 20px;
-          color: #444;
-        }
-        .container {
-          width: 90%;
-          max-width: 600px;
-          background: white;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          padding: 20px;
-        }
-        .date-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-        .date-list li {
-          margin: 10px 0;
-        }
-        .date-list a {
-          text-decoration: none;
-          color: #007BFF;
-          font-weight: bold;
-          transition: color 0.3s ease;
-        }
-        .date-list a:hover {
-          color: #0056b3;
-        }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <h1>Available Dates for Photos</h1>
-        <ul class="date-list">
-  )rawliteral");
-
-  // Get the available dates by scanning SD card for folders
-  File root_l = SD.open("/photos");  // Open the directory for scanning
-  if (root_l && root_l.isDirectory()) {
-    File dir_l = root_l.openNextFile();
-    while (dir_l) {  // Iterate through the directory
-      if (dir_l.isDirectory()) {
-        String date = dir_l.name();
-        response->printf("<li><a href=\"/photos/%s\">%s</a></li>", date.c_str(), date.c_str());
-      }
-      dir_l = root_l.openNextFile();
-    }
-      dir_l.close();
-  }
-  root_l.close();
-  root.close();
-  dir.close();
-  // Close HTML document
-  response->print(R"rawliteral(
-        </ul>
-      </div>
-    </body>
-    </html>
-  )rawliteral");
-
-  request->send(response);
-  
-}
-
-
 bool loadFileToLittleFS(const String &sourcePath, const String &destPath) {
   // Open SD file
   File sdFile = SD.open(sourcePath, "r");
@@ -233,17 +136,31 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
     response->print("<!DOCTYPE html><html><head><title>Photos from ");
     response->print(date);
     response->print("</title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><style>");
-    response->print("body{font-family:sans-serif;background:#f4f4f9;margin:0;padding:0;color:#333}h1{text-align:center;margin-top:20px;font-size:2.5rem}p{text-align:center;margin:20px}.gallery{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:20px}.gallery div{width:220px;height:auto;text-align:center;border-radius:10px;box-shadow:none;background:none}.gallery img{width:100%;height:auto;border-radius:8px;object-fit:cover}.gallery div:hover{transform:scale(1.05);box-shadow:none}.file-name{margin-top:10px;font-size:1rem;color:#333;padding:0 10px;background:none}.button{padding:12px 24px;font-size:1.2rem;border:none;border-radius:8px;background:#007BFF;color:white;cursor:pointer}.home-button{background:#28a745;position:fixed;top:20px;right:20px}.home-button:hover{background:#218838}</style>");
+    response->print("body{font-family:sans-serif;background:#f4f4f9;margin:0;padding:0;color:#333}h1{text-align:center;margin-top:20px;font-size:2.5rem;color:#333}p{text-align:center;margin:20px;color:#666}.gallery{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:20px}.gallery div{width:220px;height:auto;text-align:center;transition:transform 0.3s ease}.gallery div:hover{transform:scale(1.05)}.gallery img{width:100%;height:auto;border-radius:8px;object-fit:cover}.file-name{margin-top:10px;font-size:1rem;color:#333;padding:0 10px}.button{padding:12px 24px;font-size:1.2rem;border:none;border-radius:8px;background:#007BFF;color:white;cursor:pointer;margin-top:10px}.button:hover{background:#0056b3}.home-button{background:#28a745;position:fixed;top:20px;right:20px;border:none;border-radius:8px;padding:12px 24px;color:white;cursor:pointer;box-shadow:0 4px 8px rgba(0,0,0,0.1)}.home-button:hover{background:#218838}.home-button:disabled{background:gray;cursor:not-allowed}</style>");
     response->print("<script>");
-    response->print("function loadMorePhotos(){fetch('/more').then(r=>r.text()).then(d=>{document.body.innerHTML=d}).catch(e=>console.error(e))}");
-    response->print("function goHome(){");
+    response->print("document.addEventListener('DOMContentLoaded', () => {");
+    response->print("  const button = document.querySelector('.home-button');");
+    response->print("  button.disabled = true;"); // Initially disable the button
+    response->print("  setTimeout(() => {");
+    response->print("    button.disabled = false;"); // Enable the button after 5 seconds
+    response->print("  }, 5000);");
+    response->print("});");
+    response->print("function goHome() {");
+    response->print("  const button = document.querySelector('.home-button');");
+    response->print("  button.disabled = true;"); // Disable the button to prevent further clicks
+    response->print("  button.innerText = 'Loading...';"); // Optionally update button text
     response->print("  fetch('/').then(r => r.text())");
     response->print("    .then(d => {");
-    response->print("      document.body.innerHTML = d;"); // This replaces the body content
-    response->print("      window.location.href = '/';"); // This redirects the user to the root URL after content is fetched
+    response->print("      document.body.innerHTML = d;"); // Replace the body content
+    response->print("      window.location.href = '/';"); // Redirect the user to the root URL
     response->print("    })");
-    response->print("    .catch(e => console.error(e));");
-    response->print("}");    response->print("</script></head><body>");
+    response->print("    .catch(e => {");
+    response->print("      console.error(e);");
+    response->print("      button.disabled = false;"); // Re-enable button on error
+    response->print("      button.innerText = 'Go Home';"); // Reset button text
+    response->print("    });");
+    response->print("}");
+    response->print("</script></head><body>");
     response->print("<button class=\"home-button\" onclick=\"goHome()\">Go Home</button>");
     response->print("<h1>Photos from ");
     response->print(date);
@@ -294,35 +211,30 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
                     // Check LittleFS space
                     LittleFS.info(fs_info);
                     unsigned long freeSpace = fs_info.totalBytes - fs_info.usedBytes;
-                    if (freeSpace > 300000) { // Only load the file if there's enough space
-                        if (loadFileToLittleFS(filePath, littlefsPath)) {
-                            server.on(littlefsPath, HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
-                                req->send(LittleFS, littlefsPath, "image/jpeg");
-                            });
-
-                            for (int i = 0; fileName[i] != '\0'; i++) {
+                    if (freeSpace > 300000 && counter < 9) { 
+                        // Only load the file if there's enough space
+                        loadFileToLittleFS(filePath, littlefsPath);
+                        for (int i = 0; fileName[i] != '\0'; i++) {
                                 if (fileName[i] == '-') {
                                     fileName[i] = ':';  // Replace '-' with ':'
                                 }
                             }                                              
-                            response->print("<div>");
-                            response->print("<div class=\"file-name\">");
-                            response->print(fileName); // Display file name without extension
-                            response->print("</div>");
-                            response->print("<a href=\"");
-                            response->print(littlefsPath);
-                            response->print("\" target=\"_blank\">");
-                            response->print("<img src=\"");
-                            response->print(littlefsPath);
-                            response->print("\" alt=\"");
-                            response->print(fileName);
-                            response->print("\"/></a>");
-                            response->print("</div>");
-                        } else {
-                            Serial.print("Failed to load file to LittleFS: ");
-                            Serial.println(filePath);
+                        response->print("<div>");
+                        response->print("<div class=\"file-name\">");
+                        response->print(fileName); // Display file name without extension
+                        response->print("</div>");
+                        response->print("<a href=\"");
+                        response->print(littlefsPath);
+                        response->print("\" target=\"_blank\">");
+                        response->print("<img src=\"");
+                        response->print(littlefsPath);
+                        response->print("\" alt=\"");
+                        response->print(fileName);
+                        response->print("\"/></a>");
+                        response->print("</div>");
                         }
-                    } else {
+                         
+                     else {
                         moreFiles = true;
                         break; // Stop if there's not enough space for another file
                     }
@@ -334,15 +246,175 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
 
     response->print("</div>");
 
-    if (moreFiles) {
-        response->print("<div style=\"text-align: center; margin-top: 20px;\">");
-        response->print("<button onclick=\"loadMorePhotos()\">Load More Photos</button>");
-        response->print("</div>");
-    }
+        if (moreFiles) {
+            response->print("<div style=\"text-align: center; margin-top: 20px;\">");
+            response->print("<p id=\"countdown\" style=\"font-size: 1.2rem; color: #555;\">Wait to download more photos in 5</p>");
+            response->print("<button id=\"loadButton\" onclick=\"loadMorePhotos()\" disabled style=\"font-size: 1.2rem; padding: 12px 24px; border: none; border-radius: 10px; background-color: #28a745; color: white; cursor: not-allowed; transition: all 0.3s ease;\">Load More Photos</button>");
+            response->print("</div>");
+            response->print("<script>");
+            response->print("let countdown = 5;");
+            response->print("let countdownElement = document.getElementById('countdown');");
+            response->print("let loadButton = document.getElementById('loadButton');");
+            response->print("let interval = setInterval(function() {");
+            response->print("  countdown--;"); 
+            response->print("  countdownElement.textContent = 'Wait to download more photos in ' + countdown;");
+            response->print("  if (countdown <= 0) {");
+            response->print("    clearInterval(interval);");
+            response->print("    countdownElement.textContent = 'You can now load more photos!';");
+            response->print("    loadButton.disabled = false;");
+            response->print("    loadButton.style.cursor = 'pointer';");  // Changes cursor to pointer when button is enabled
+            response->print("  }");
+            response->print("}, 1000);");
+
+            response->print("function loadMorePhotos(){");
+            response->print("  loadButton.disabled = true;"); // Disable the button after it's clicked
+            response->print("  loadButton.style.cursor = 'not-allowed';"); // Change cursor to not-allowed
+            response->print("  let dotCount = 0;");
+            response->print("  let loadingInterval = setInterval(function() {");
+            response->print("    dotCount = (dotCount + 1) % 4;"); // This will cycle from 0 to 3
+            response->print("    let dots = '.'.repeat(dotCount);");
+            response->print("    loadButton.textContent = 'Loading' + dots;"); // Update button text
+            response->print("  }, 500);"); // Change dots every 500ms
+
+            response->print("  fetch('/more').then(r => r.text()).then(d => {");
+            response->print("    document.body.innerHTML = d;");
+            response->print("    clearInterval(loadingInterval);"); // Stop the blinking when done
+            response->print("  }).catch(e => {");
+            response->print("    console.error(e);");
+            response->print("    clearInterval(loadingInterval);"); // Stop interval in case of error
+            response->print("    loadButton.textContent = 'Load More Photos';"); // Reset button text
+            response->print("    loadButton.disabled = false;"); // Re-enable the button if needed
+            response->print("    loadButton.style.cursor = 'pointer';");
+            response->print("  });");
+            response->print("}");
+            response->print("</script>");
+        }
+
+
+
+
     response->print("</body></html>");
     request->send(response);
     printMemoryAndFileSystemStats();
 }
+
+void handleHome(AsyncWebServerRequest *request) {
+    LittleFS.format();
+    moreFiles = false;
+    date[0] = '\0';
+    AsyncResponseStream *response = request->beginResponseStream("text/html");
+    response->addHeader("Server", "ESP Async Web Server");
+
+    // Start HTML document
+    response->print(R"rawliteral(
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Select Date</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f9;
+                color: #333;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+            h1 {
+                font-size: 2em;
+                margin-bottom: 20px;
+                color: #444;
+            }
+            .container {
+                width: 90%;
+                max-width: 600px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            .date-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .date-list li {
+                margin: 10px 0;
+            }
+            .date-list a {
+                text-decoration: none;
+                color: #007BFF;
+                font-weight: bold;
+                transition: color 0.3s ease;
+            }
+            .date-list a:hover {
+                color: #0056b3;
+            }
+            .disabled {
+                pointer-events: none;
+                color: gray;
+                cursor: not-allowed;
+            }
+        </style>
+        <script>
+            function disableLinks(date) {
+                        // Disable all links
+                        var links = document.querySelectorAll('.date-list a');
+                        links.forEach(function(link) {
+                            link.classList.add('disabled'); // Add disabled class
+                            link.removeAttribute('href');  // Remove href to prevent navigation
+                        });
+                        // Change cursor to not-allowed
+                        document.body.style.cursor = 'not-allowed';
+
+                        // Redirect to the selected date's photo page
+                        window.location.href = '/photos/' + date;
+                    }
+
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Available Dates for Photos</h1>
+            <ul class="date-list">
+    )rawliteral");
+
+    // Get the available dates by scanning SD card for folders
+    File root_l = SD.open("/photos"); // Open the directory for scanning
+    if (root_l && root_l.isDirectory()) {
+        File dir_l = root_l.openNextFile();
+        while (dir_l) { // Iterate through the directory
+            if (dir_l.isDirectory()) {
+                String date = dir_l.name();
+                response->printf("<li><a href=\"#\" onclick=\"disableLinks('%s')\">%s</a></li>", date.c_str(), date.c_str());
+            }
+            dir_l = root_l.openNextFile();
+        }
+        dir_l.close();
+  
+    }
+
+    root_l.close();
+    root.close();
+    dir.close();
+    // Close HTML document
+    response->print(R"rawliteral(
+            </ul>
+        </div>
+    </body>
+    </html>
+    )rawliteral");
+
+    request->send(response);
+}
+
+
 
 
 void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
@@ -444,18 +516,10 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
 }
 
 
-void startWebServer() {
-  server.on("/", HTTP_GET, handleHome); // Show home page
-  server.on("/photos/*", HTTP_GET, handleDatePhotos); // Serve photo file
-  server.on("/more", HTTP_GET, handleDatePhotos); // Serve photo file
-
-  server.begin();
-  Serial.println("Async Web server initialized.");
-}
-
-
 
 void setup() {
+  uint8_t counter = 0;
+  
   Serial.begin(115200);
 
   if (!LittleFS.begin()) {
@@ -489,8 +553,26 @@ void setup() {
 
   timeClient.begin();  // Start NTP client to fetch time
 
-  startWebServer();
+  while(counter < 8)
+ {
+  counter++;
+
+  char littlefsPath[23];
+  snprintf(littlefsPath, sizeof(littlefsPath), "/moon_littlefs_%d.jpg", counter);
   
+  server.on(littlefsPath, HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
+                                req->send(LittleFS, littlefsPath, "image/jpeg");
+                            });
+
+ }
+
+  server.on("/", HTTP_GET, handleHome); // Show home page
+  server.on("/photos/*", HTTP_GET, handleDatePhotos); // Serve photo file
+  server.on("/more", HTTP_GET, handleDatePhotos); // Serve photo file
+
+  server.begin();
+
+  Serial.println("Async Web server initialized.");  
 if (LittleFS.format()) {
   Serial.println("LittleFS formatted successfully!");
 } else {
@@ -501,5 +583,4 @@ if (LittleFS.format()) {
 
 void loop() {
   timeClient.update(); 
-  Serial.printf("Free RAM: %u bytes\n", ESP.getFreeHeap());
 }
