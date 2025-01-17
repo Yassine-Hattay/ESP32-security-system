@@ -74,7 +74,8 @@ void InitESPNow() {
 }
 
 void handleHome(AsyncWebServerRequest *request) {
-
+  
+  moreFiles = false;
   LittleFS.format();
   date[0] = '\0';
   AsyncResponseStream *response = request->beginResponseStream("text/html");
@@ -150,6 +151,7 @@ void handleHome(AsyncWebServerRequest *request) {
       }
       dir_l = root_l.openNextFile();
     }
+      dir_l.close();
   }
   root_l.close();
   root.close();
@@ -163,6 +165,7 @@ void handleHome(AsyncWebServerRequest *request) {
   )rawliteral");
 
   request->send(response);
+  
 }
 
 
@@ -197,7 +200,7 @@ bool loadFileToLittleFS(const String &sourcePath, const String &destPath) {
 }
 
 void handleDatePhotos(AsyncWebServerRequest *request) {
-    char url[20] ;
+    char url[20];
 
     LittleFS.format();
 
@@ -206,23 +209,23 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
     char* firstSlash = strchr(url + 1, '/');  // Find the first slash after the initial '/'
 
     if (firstSlash != nullptr && strlen(date) == 0) {
-    firstSlash++;  // Move past the initial slash
-    strcpy(date, firstSlash);  // Copy the substring into date
+        firstSlash++;  // Move past the initial slash
+        strcpy(date, firstSlash);  // Copy the substring into date
 
-    // Remove trailing slash if present
-    size_t len = strlen(date);
-    while (len > 0 && date[len - 1] == '/') {
-        date[len - 1] = '\0';  // Remove the last character (slash)
-        len--;  // Decrease length to check the next character
+        // Remove trailing slash if present
+        size_t len = strlen(date);
+        while (len > 0 && date[len - 1] == '/') {
+            date[len - 1] = '\0';  // Remove the last character (slash)
+            len--;  // Decrease length to check the next character
+        }
+
+        // Remove leading slashes if present
+        while (date[0] == '/') {
+            // Shift all characters to the left by one (overwrite the first character)
+            memmove(date, date + 1, strlen(date));
+        }
     }
 
-    // Remove leading slashes if present
-    while (date[0] == '/') {
-        // Shift all characters to the left by one (overwrite the first character)
-        memmove(date, date + 1, strlen(date));
-    }
-}
-    
     char folderPath[21];  
     snprintf(folderPath, sizeof(folderPath), "/photos/%s", date);
 
@@ -233,14 +236,20 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
     response->print("body{font-family:sans-serif;background:#f4f4f9;margin:0;padding:0;color:#333}h1{text-align:center;margin-top:20px;font-size:2.5rem}p{text-align:center;margin:20px}.gallery{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:20px}.gallery div{width:220px;height:auto;text-align:center;border-radius:10px;box-shadow:none;background:none}.gallery img{width:100%;height:auto;border-radius:8px;object-fit:cover}.gallery div:hover{transform:scale(1.05);box-shadow:none}.file-name{margin-top:10px;font-size:1rem;color:#333;padding:0 10px;background:none}.button{padding:12px 24px;font-size:1.2rem;border:none;border-radius:8px;background:#007BFF;color:white;cursor:pointer}.home-button{background:#28a745;position:fixed;top:20px;right:20px}.home-button:hover{background:#218838}</style>");
     response->print("<script>");
     response->print("function loadMorePhotos(){fetch('/more').then(r=>r.text()).then(d=>{document.body.innerHTML=d}).catch(e=>console.error(e))}");
-    response->print("function goHome(){fetch('/').then(r=>r.text()).then(d=>{document.body.innerHTML=d}).catch(e=>console.error(e))}");
-    response->print("</script></head><body>");
+    response->print("function goHome(){");
+    response->print("  fetch('/').then(r => r.text())");
+    response->print("    .then(d => {");
+    response->print("      document.body.innerHTML = d;"); // This replaces the body content
+    response->print("      window.location.href = '/';"); // This redirects the user to the root URL after content is fetched
+    response->print("    })");
+    response->print("    .catch(e => console.error(e));");
+    response->print("}");    response->print("</script></head><body>");
     response->print("<button class=\"home-button\" onclick=\"goHome()\">Go Home</button>");
     response->print("<h1>Photos from ");
     response->print(date);
     response->print("</h1><div class=\"gallery\">");
 
-    uint8_t counter = 0 ;
+    uint8_t counter = 0;
     if (!moreFiles) {
         root = SD.open(folderPath); // Open the directory for scanning
     }
@@ -253,37 +262,49 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
 
         while (dir) {
             if (!dir.isDirectory()) {
-                char tempPath[100];  // Ensure tempPath is large enough
+                char filePath[100];  // Ensure filePath is large enough
 
                 const char* dirName = dir.name();  // Example directory name
 
-                strcpy(tempPath, folderPath);      // Copy folderPath into tempPath
-                strcat(tempPath, "/");             // Add a slash after folderPath
-                strcat(tempPath, dirName);         // Add the directory name to tempPath
+                // Clear tempPath and filePath before using them
+                memset(filePath, 0, sizeof(filePath));
 
-                // Now, use the String constructor to wrap the C-string result
-                String filePath = String(tempPath);
+                // Concatenate folderPath and dirName into tempPath
+                snprintf(filePath, sizeof(filePath), "%s/%s", folderPath, dirName);
 
                 // Check if the file ends with ".jpg"
-                if (filePath.endsWith(".jpg")) {
+                if (strlen(filePath) > 4 && strcmp(&filePath[strlen(filePath) - 4], ".jpg") == 0) {
                     counter++;
-                    String littlefsPath = "/moon_littlefs_" + String(counter) + ".jpg"; // Unique path in LittleFS
+
+                    char littlefsPath[23];
+                    snprintf(littlefsPath, sizeof(littlefsPath), "/moon_littlefs_%d.jpg", counter);
 
                     // Extract the file name without the extension
-                    String fileName = dir.name();
-                    fileName = fileName.substring(0, fileName.lastIndexOf('.')); // Remove .jpg extension
+                    char fileName[100];  // Ensure fileName is large enough
+                    // Copy the directory name to fileName
+                    strncpy(fileName, dirName, sizeof(fileName) - 1);    
 
+                    // Find the last occurrence of the period (.) character
+                    char* dotPosition = strrchr(fileName, '.');
+
+                    // If a dot is found and it's not the last character
+                    if (dotPosition != NULL) {
+                        *dotPosition = '\0';  // Terminate the string at the dot
+                    }
                     // Check LittleFS space
                     LittleFS.info(fs_info);
                     unsigned long freeSpace = fs_info.totalBytes - fs_info.usedBytes;
                     if (freeSpace > 300000) { // Only load the file if there's enough space
                         if (loadFileToLittleFS(filePath, littlefsPath)) {
-                            server.on(littlefsPath.c_str(), HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
+                            server.on(littlefsPath, HTTP_GET, [littlefsPath](AsyncWebServerRequest *req) {
                                 req->send(LittleFS, littlefsPath, "image/jpeg");
                             });
-                            
-                            fileName.replace('-', ':');
-                                              
+
+                            for (int i = 0; fileName[i] != '\0'; i++) {
+                                if (fileName[i] == '-') {
+                                    fileName[i] = ':';  // Replace '-' with ':'
+                                }
+                            }                                              
                             response->print("<div>");
                             response->print("<div class=\"file-name\">");
                             response->print(fileName); // Display file name without extension
@@ -298,7 +319,8 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
                             response->print("\"/></a>");
                             response->print("</div>");
                         } else {
-                            Serial.println("Failed to load file to LittleFS: " + filePath);
+                            Serial.print("Failed to load file to LittleFS: ");
+                            Serial.println(filePath);
                         }
                     } else {
                         moreFiles = true;
@@ -317,40 +339,9 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
         response->print("<button onclick=\"loadMorePhotos()\">Load More Photos</button>");
         response->print("</div>");
     }
-
     response->print("</body></html>");
     request->send(response);
-
     printMemoryAndFileSystemStats();
-}
-
-
-
-// Event handler to send status updates to the client
-void handleEventSource(AsyncWebServerRequest *request) {
-  AsyncResponseStream *response = request->beginResponseStream("text/event-stream");
-
-  // Notify client when receiving has started
-  if (!fileReceivingStarted) {
-    response->print("data: Currently receiving file...\n\n");
-    fileReceivingStarted = true; // Set flag to prevent further updates
-  }
-
-  // Notify client when file transfer is complete
-  if (!fileTransmissionComplete && currentTransmitCurrentPosition == currentTransmitTotalPackages) {
-    response->print("data: File transmission complete!\n\n");
-    fileTransmissionComplete = true; // Set flag to prevent further updates
-  }
-
-  request->send(response);
-}
-
-// Validate folder name format as "YYYY-MM-DD"
-bool isValidDateFolder(String folderName) {
-  if (folderName.length() == 10 && folderName[4] == '-' && folderName[7] == '-') {
-    return true;
-  }
-  return false;
 }
 
 
@@ -487,9 +478,11 @@ void setup() {
   esp_now_register_recv_cb(OnDataRecv);
 
   // Initialize SD card
-  if (!SD.begin(D8)) {
+  while(!SD.begin(D8)) {
     Serial.println("SD card initialization failed!");
-    return;
+    delay(100);
+    Serial.println("Retrying!");
+    SD.end();
   }
 
   Serial.println("SD card initialized successfully.");
