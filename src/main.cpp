@@ -7,12 +7,12 @@
 #include <SD.h>
 #include "LittleFS.h"
 #include <NTPClient.h>
-#include <TimeLib.h> // Include the TimeLib library
+#include <TimeLib.h> // Include the TimeLib library 
 
 #define SPI_20MHZ_SPEED SD_SCK_MHZ(20)
 #define BUFFER_SIZE 4096  
 
-// WiFi credentials
+// WiFi credentials 
 const char ssid[] = "Orange-066C";  
 const char password[] = "GMA6ABLMG87"; 
 
