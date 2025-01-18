@@ -569,7 +569,7 @@ void setup() {
   server.on("/", HTTP_GET, handleHome); // Show home page
   server.on("/photos/*", HTTP_GET, handleDatePhotos); // Serve photo file
   server.on("/more", HTTP_GET, handleDatePhotos); // Serve photo file
- 
+  s
 
   server.begin();
 
