@@ -11,10 +11,12 @@
 
 #define SPI_20MHZ_SPEED SD_SCK_MHZ(20)  
 #define BUFFER_SIZE 4096  
+#define ESPNOW_CHANNEL 13
 
 // WiFi credentials 
 const char ssid[] = "Orange-066C";  
 const char password[] = "GMA6ABLMG87"; 
+
 
 // NTP settings
 WiFiUDP udp;
@@ -28,7 +30,7 @@ FSInfo fs_info;
 char date[13] = "";
 
 AsyncWebServer server(80);
-
+bool connected_wifi;
 
 uint16_t currentTransmitCurrentPosition = 0;
 uint16_t currentTransmitTotalPackages = 0;
@@ -445,7 +447,7 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
 
       WiFi.disconnect();
       WiFi.mode(WIFI_STA);
-      wifi_set_channel(1); // WiFi channel switching
+      wifi_set_channel(ESPNOW_CHANNEL); // WiFi channel switching
 
       currentTransmitCurrentPosition = 0; 
       currentTransmitTotalPackages = (*data++) << 8 | *data;
@@ -507,52 +509,23 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
     fileTransmissionComplete = false; // Reset flags for next transfer
 
     // Restart the server after the file is fully received
+    if(connected_wifi)
+    {
     WiFi.mode(WIFI_AP_STA);
     WiFi.begin(ssid, password);
-
     server.begin();
+    }
+    else{
+    wifi_set_channel(6); // WiFi channel switching
+    }
+
     Serial.println("Server restarted after file transfer.");
   }
 }
 
-
-
-void setup() {
+void setup_server()
+{
   uint8_t counter = 0;
-  
-  Serial.begin(115200);
-
-  if (!LittleFS.begin()) {
-    Serial.println("An Error has occurred while mounting LittleFS");
-    return;
-  }
-
-  
-  WiFi.mode(WIFI_AP_STA);
-  WiFi.begin(ssid, password);
-  
-  Serial.print("\n Connecting");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.print(".");
-  }
-  Serial.println("\nConnected to Wi-Fi.");
- 
-  InitESPNow();
-  esp_now_register_recv_cb(OnDataRecv);
-
-  // Initialize SD card
-  while(!SD.begin(D8)) {
-    Serial.println("SD card initialization failed!");
-    delay(100);
-    Serial.println("Retrying!");
-    SD.end();
-  }
-
-  Serial.println("SD card initialized successfully.");
-
-  timeClient.begin();  // Start NTP client to fetch time
-
   while(counter < 8)
  {
   counter++;
@@ -572,6 +545,71 @@ void setup() {
   
  
   server.begin();
+  return ;
+  }
+  
+bool connectToWiFi(const char* ssid, const char* password, unsigned long timeout) {
+  
+  WiFi.begin(ssid, password); // Start connecting to WiFi
+  Serial.print("Connecting to WiFi");
+
+  unsigned long startTime = millis(); // Record the start time
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+
+    // Check if the timeout has been exceeded
+    if (millis() - startTime >= timeout) {
+      Serial.println("\nWiFi connection timeout.");
+      return false; // Connection failed within the timeout
+    }
+  }
+
+  
+  Serial.println("\nWiFi connected!");
+
+  setup_server();
+  
+  return true; // Successfully connected
+}
+
+void setup() {
+  
+  Serial.begin(115200);
+
+  if (!LittleFS.begin()) {
+    Serial.println("An Error has occurred while mounting LittleFS");
+    return;
+  }
+
+  
+  WiFi.mode(WIFI_AP_STA);
+
+  connected_wifi = connectToWiFi(ssid,password,10000);
+  
+  if(connected_wifi == false)
+  {WiFi.mode(WIFI_STA);
+    WiFi.disconnect();
+    wifi_set_channel(6); // WiFi channel switching
+  }  
+
+  InitESPNow();
+  esp_now_register_recv_cb(OnDataRecv);
+
+  // Initialize SD card
+  while(!SD.begin(D8)) {
+    Serial.println("SD card initialization failed!");
+    delay(100);
+    Serial.println("Retrying!");
+    SD.end();
+  }
+
+  Serial.println("SD card initialized successfully.");
+
+  timeClient.begin(); 
+   // Start NTP client to fetch time
+  
 
   Serial.println("Async Web server initialized.");  
 if (LittleFS.format()) {
