@@ -213,14 +213,15 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
                     // Check LittleFS space
                     LittleFS.info(fs_info);
                     unsigned long freeSpace = fs_info.totalBytes - fs_info.usedBytes;
-                    if (freeSpace > 300000 && counter < 9) { 
+                    if (freeSpace > 300000 && counter < 7) { 
                         // Only load the file if there's enough space
                         loadFileToLittleFS(filePath, littlefsPath);
                         for (int i = 0; fileName[i] != '\0'; i++) {
                                 if (fileName[i] == '-') {
                                     fileName[i] = ':';  // Replace '-' with ':'
                                 }
-                            }                                              
+                            }      
+
                         response->print("<div>");
                         response->print("<div class=\"file-name\">");
                         response->print(fileName); // Display file name without extension
@@ -271,29 +272,14 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
             response->print("function loadMorePhotos(){");
             response->print("  loadButton.disabled = true;"); // Disable the button after it's clicked
             response->print("  loadButton.style.cursor = 'not-allowed';"); // Change cursor to not-allowed
-            response->print("  let dotCount = 0;");
-            response->print("  let loadingInterval = setInterval(function() {");
-            response->print("    dotCount = (dotCount + 1) % 4;"); // This will cycle from 0 to 3
-            response->print("    let dots = '.'.repeat(dotCount);");
-            response->print("    loadButton.textContent = 'Loading' + dots;"); // Update button text
-            response->print("  }, 500);"); // Change dots every 500ms
+            response->print("  loadButton.textContent = 'Loading...';"); // Update button text immediately
 
-            response->print("  fetch('/more').then(r => r.text()).then(d => {");
-            response->print("    document.body.innerHTML = d;");
-            response->print("    clearInterval(loadingInterval);"); // Stop the blinking when done
-            response->print("  }).catch(e => {");
-            response->print("    console.error(e);");
-            response->print("    clearInterval(loadingInterval);"); // Stop interval in case of error
-            response->print("    loadButton.textContent = 'Load More Photos';"); // Reset button text
-            response->print("    loadButton.disabled = false;"); // Re-enable the button if needed
-            response->print("    loadButton.style.cursor = 'pointer';");
-            response->print("  });");
+            // Redirect to /more immediately after button click
+            response->print("  window.location.href = '/more';"); // Redirect to '/more'
+
             response->print("}");
             response->print("</script>");
         }
-
-
-
 
     response->print("</body></html>");
     request->send(response);
@@ -301,6 +287,7 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
 }
 
 void handleHome(AsyncWebServerRequest *request) {
+
     LittleFS.format();
     moreFiles = false;
     date[0] = '\0';
@@ -332,6 +319,7 @@ void handleHome(AsyncWebServerRequest *request) {
                 font-size: 2em;
                 margin-bottom: 20px;
                 color: #444;
+                text-align: center;
             }
             .container {
                 width: 90%;
@@ -340,11 +328,15 @@ void handleHome(AsyncWebServerRequest *request) {
                 border-radius: 8px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
             .date-list {
                 list-style: none;
                 padding: 0;
                 margin: 0;
+                text-align: center;
             }
             .date-list li {
                 margin: 10px 0;
@@ -363,29 +355,58 @@ void handleHome(AsyncWebServerRequest *request) {
                 color: gray;
                 cursor: not-allowed;
             }
+            .top-right-button {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+            .top-right-button button {
+                padding: 10px 20px;
+                font-size: 16px;
+                color: white;
+                background-color: #e74c3c;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            .top-right-button button:disabled {
+                background-color: gray;
+                cursor: not-allowed;
+            }
+            .top-right-button button:hover {
+                background-color: #c0392b;
+            }
         </style>
         <script>
             function disableLinks(date) {
-                        // Disable all links
-                        var links = document.querySelectorAll('.date-list a');
-                        links.forEach(function(link) {
-                            link.classList.add('disabled'); // Add disabled class
-                            link.removeAttribute('href');  // Remove href to prevent navigation
-                        });
-                        // Change cursor to not-allowed
-                        document.body.style.cursor = 'not-allowed';
+                // Disable all links
+                var links = document.querySelectorAll('.date-list a');
+                links.forEach(function(link) {
+                    link.classList.add('disabled'); // Add disabled class
+                    link.removeAttribute('href');  // Remove href to prevent navigation
+                });
+                // Change cursor to not-allowed
+                document.body.style.cursor = 'not-allowed';
 
-                        // Redirect to the selected date's photo page
-                        window.location.href = '/photos/' + date;
-                    }
-
+                // Redirect to the selected date's photo page
+                window.location.href = '/photos/' + date;
+            }
+            function disableButton(button) {
+                button.disabled = true; // Disable the button
+            }
         </script>
     </head>
     <body>
+        <div class="top-right-button">
+            <button onclick="disableButton(this); window.location.href='/server_off';">
+                Turn Off Server
+            </button>
+        </div>
         <div class="container">
             <h1>Available Dates for Photos</h1>
             <ul class="date-list">
-    )rawliteral");
+)rawliteral");
 
     // Get the available dates by scanning SD card for folders
     File root_l = SD.open("/photos"); // Open the directory for scanning
@@ -399,12 +420,11 @@ void handleHome(AsyncWebServerRequest *request) {
             dir_l = root_l.openNextFile();
         }
         dir_l.close();
-  
     }
 
     root_l.close();
-    root.close();
     dir.close();
+    root.close();
     // Close HTML document
     response->print(R"rawliteral(
             </ul>
@@ -419,15 +439,11 @@ void handleHome(AsyncWebServerRequest *request) {
 
 
 
+
 void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
   static byte buffer[BUFFER_SIZE];  // Use larger buffer for faster data handling
   int bufferIndex = 0;
   
-  // Update current date using NTP
-  timeClient.update();
-  unsigned long epochTime = timeClient.getEpochTime();
-  setTime(epochTime); // Sets time for TimeLib functions
-
   String currentDate = String(year()) + "-" + String(month()) + "-" + String(day());
   String folderPath = "/photos/" + currentDate;
 
@@ -443,17 +459,12 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
       } else {
         Serial.println("Folder already exists: " + folderPath);
       }
-      server.end();
-
-      WiFi.disconnect();
-      WiFi.mode(WIFI_STA);
-      wifi_set_channel(ESPNOW_CHANNEL); // WiFi channel switching
 
       currentTransmitCurrentPosition = 0; 
       currentTransmitTotalPackages = (*data++) << 8 | *data;
 
       // Get current time in hours and minutes for file naming
-      String currentTime = String(hour()) + "-" + String(minute());
+      String currentTime = String(hour()) + "-" + String(minute()) + "-" + String(second());
       // Open the file for writing with the current time in the filename
       file = SD.open(folderPath + "/" + currentTime + ".jpg", "w");
       if (!file) {
@@ -508,25 +519,29 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
     fileReceivingStarted = false;
     fileTransmissionComplete = false; // Reset flags for next transfer
 
-    // Restart the server after the file is fully received
-    if(connected_wifi)
-    {
-    WiFi.mode(WIFI_AP_STA);
-    WiFi.begin(ssid, password);
-    server.begin();
-    }
-    else{
-    wifi_set_channel(6); // WiFi channel switching
-    }
-
-    Serial.println("Server restarted after file transfer.");
   }
 }
+void server_end(AsyncWebServerRequest *request)
+{
+    AsyncResponseStream *response = request->beginResponseStream("text/plain");  // Set content type to plain text
+    response->addHeader("Server", "ESP Async Web Server");
+
+    // Send a simple OK response
+    response->print("OK");
+
+    request->send(response); // Send the response
+
+    server.end(); // Stop the server
+    WiFi.disconnect(); // Disconnect WiFi
+    WiFi.mode(WIFI_STA); // Set WiFi mode to Station
+    wifi_set_channel(ESPNOW_CHANNEL); // Set the WiFi channel
+}
+
 
 void setup_server()
 {
   uint8_t counter = 0;
-  while(counter < 8)
+  while(counter < 6)
  {
   counter++;
 
@@ -542,12 +557,13 @@ void setup_server()
   server.on("/", HTTP_GET, handleHome); // Show home page
   server.on("/photos/*", HTTP_GET, handleDatePhotos); // Serve photo file
   server.on("/more", HTTP_GET, handleDatePhotos); // Serve photo file
-  
+  server.on("/server_off", HTTP_GET, server_end); // Serve photo file
+
  
   server.begin();
   return ;
   }
-  
+
 bool connectToWiFi(const char* ssid, const char* password, unsigned long timeout) {
   
   WiFi.begin(ssid, password); // Start connecting to WiFi
@@ -584,15 +600,18 @@ void setup() {
   }
 
   
-  WiFi.mode(WIFI_AP_STA);
+  WiFi.mode(WIFI_AP);
 
   connected_wifi = connectToWiFi(ssid,password,10000);
   
   if(connected_wifi == false)
-  {WiFi.mode(WIFI_STA);
-    WiFi.disconnect();
-    wifi_set_channel(6); // WiFi channel switching
-  }  
+  {
+  server.end(); // Stop the server
+  WiFi.disconnect(); // Disconnect WiFi
+  WiFi.mode(WIFI_STA); // Set WiFi mode to Station
+  wifi_set_channel(ESPNOW_CHANNEL); // Set the WiFi channel 
+     
+    }  
 
   InitESPNow();
   esp_now_register_recv_cb(OnDataRecv);
@@ -609,7 +628,11 @@ void setup() {
 
   timeClient.begin(); 
    // Start NTP client to fetch time
-  
+  timeClient.update();
+  unsigned long epochTime = timeClient.getEpochTime();
+  setTime(epochTime); // Sets time for TimeLib functions
+
+  timeClient.end();
 
   Serial.println("Async Web server initialized.");  
 if (LittleFS.format()) {
@@ -621,5 +644,4 @@ if (LittleFS.format()) {
 }
 
 void loop() {
-  timeClient.update(); 
 }
