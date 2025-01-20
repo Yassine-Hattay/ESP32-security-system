@@ -1,7 +1,5 @@
-#include "Arduino.h"
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-#include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <espnow.h>
 #include <SD.h>
@@ -9,7 +7,6 @@
 #include <NTPClient.h>
 #include <TimeLib.h> // Include the TimeLib library 
 
-#define SPI_20MHZ_SPEED SD_SCK_MHZ(20)  
 #define BUFFER_SIZE 4096  
 #define ESPNOW_CHANNEL 13
 
