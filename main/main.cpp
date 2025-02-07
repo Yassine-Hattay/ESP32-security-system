@@ -1190,7 +1190,7 @@ void loop_f(void * parameter)
               sending_photo_task,     
               "send_photo",  
               100008 ,           
-              NULL,           
+              NULL,            s
               2,              
             &sending_photo_Handle            
             );
