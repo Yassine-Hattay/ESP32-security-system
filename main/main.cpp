@@ -1194,7 +1194,7 @@ void loop_f(void * parameter)
               2,              
             &sending_photo_Handle            
             );
-          }
+          } s
       
           xSemaphoreGive(manual_b_mutex);
         }
