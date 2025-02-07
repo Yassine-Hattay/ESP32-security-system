@@ -1199,11 +1199,11 @@ void loop_f(void * parameter)
           xSemaphoreGive(manual_b_mutex);
         }
   }
-  return ; 
+  return ;
 }
 
 extern "C" void app_main()
-{   
+{  
 
   Serial.begin(115200);
   Serial.println();
