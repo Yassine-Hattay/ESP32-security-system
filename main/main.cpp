@@ -1185,7 +1185,7 @@ void loop_f(void * parameter)
           // Access manual_b safely 
           if( (manual_b == true) && ( millis() - lastCheckTime_h >= 900000 ) && (sending_photo_Handle == NULL) )
           {
-          manual_b = false ; s
+          manual_b = false ;
           xTaskCreate(
               sending_photo_task,     
               "send_photo",  
