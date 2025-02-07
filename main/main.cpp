@@ -1190,7 +1190,7 @@ void loop_f(void * parameter)
               sending_photo_task,     
               "send_photo",  
               100008 ,           
-              NULL,            s
+              NULL,           
               2,              
             &sending_photo_Handle            
             );
@@ -1199,7 +1199,7 @@ void loop_f(void * parameter)
           xSemaphoreGive(manual_b_mutex);
         }
   }
-  return ;
+  return ; 
 }
 
 extern "C" void app_main()
