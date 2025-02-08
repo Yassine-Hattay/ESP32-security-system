@@ -123,6 +123,9 @@ byte sendNextPackageFlag = 0;
 // for connection type
 int i = 0;
 
+void loop_f(void * parameter);
+void sending_photo_task(void * parameter);
+
 int32_t getWiFiChannel(const char *ssid) {
   if (int32_t n = WiFi.scanNetworks()) {
       for (uint8_t i=0; i<n; i++) {
@@ -436,51 +439,7 @@ static esp_err_t stream_handler(httpd_req_t *req){
   return res;
 }
 
-void live_f(void * parameter){
 
-  lastCheckTime_h = millis();
-  httpd_config_t config = HTTPD_DEFAULT_CONFIG();
-  config.server_port = 8000;
-  config.recv_wait_timeout = 10 ;
-  config.send_wait_timeout = 10 ;
-
-  httpd_uri_t index_uri = {
-    .uri       = "/video",
-    .method    = HTTP_GET,
-    .handler   = stream_handler,
-    .user_ctx  = NULL
-  };
- 
-
-  if (httpd_start(&stream_httpd, &config) == ESP_OK) {
-    httpd_register_uri_handler(stream_httpd, &index_uri);
-  }
-   while (true)
-  {
-  vTaskDelay(5);
-  if (( millis() - lastCheckTime_h >= 900000 )) {
-      if(httpd_stop(stream_httpd) == ESP_OK)
-      httpd_unregister_uri_handler(stream_httpd,"/video",HTTP_POST);
-  
-      if(sending_photo_Handle != NULL) {
-        vTaskDelete(sending_photo_Handle);
-        sending_photo_Handle = NULL;
-      }
-
-      xTaskCreate(
-          sending_photo_task,    
-          "send_photo",  
-          100008 ,           
-          NULL,           
-          2,              
-        &sending_photo_Handle            
-        );
-  
-      vTaskDelete(NULL);
-  }
-  }
-  return;
-}
 
 String SendHTML(){
   
@@ -577,7 +536,7 @@ void capturePhotoSaveLittleFS( void ) {
   Serial.printf("Picture file name: %s\n", FILE_PHOTO_PATH);
   File file = LittleFS.open(FILE_PHOTO_PATH, FILE_WRITE);
 
-  if (!file) {
+  if (!file) { s
     Serial.println("Failed to open file in writing mode");
     return ;
   }
@@ -674,7 +633,51 @@ void sendPhoto( void ) {
   if(!MailClient.sendMail(&smtp, &message, false))
      {connected_internet = false ;}                                      //  mdse
 }
+void live_f(void * parameter){
 
+  lastCheckTime_h = millis();
+  httpd_config_t config = HTTPD_DEFAULT_CONFIG();
+  config.server_port = 8000;
+  config.recv_wait_timeout = 10 ;
+  config.send_wait_timeout = 10 ;
+
+  httpd_uri_t index_uri = {
+    .uri       = "/video",
+    .method    = HTTP_GET,
+    .handler   = stream_handler,
+    .user_ctx  = NULL
+  };
+ 
+
+  if (httpd_start(&stream_httpd, &config) == ESP_OK) {
+    httpd_register_uri_handler(stream_httpd, &index_uri);
+  }
+   while (true)
+  {
+  vTaskDelay(5);
+  if (( millis() - lastCheckTime_h >= 900000 )) {
+      if(httpd_stop(stream_httpd) == ESP_OK)
+      httpd_unregister_uri_handler(stream_httpd,"/video",HTTP_POST);
+  
+      if(sending_photo_Handle != NULL) {
+        vTaskDelete(sending_photo_Handle);
+        sending_photo_Handle = NULL;
+      }
+
+      xTaskCreate(
+          sending_photo_task,    
+          "send_photo",  
+          100008 ,           
+          NULL,           
+          2,              
+        &sending_photo_Handle            
+        );
+  
+      vTaskDelete(NULL);
+  }
+  }
+  return;
+}
 void handleManualMode() 
 { 
    // Suspend interfering task
@@ -789,6 +792,122 @@ bool connectToWiFi_mod(const char* ssid, const char* password, unsigned long tim
   return true; // Successfully connected
 }
 
+void handle_OnConnect() 
+ {
+  Serial.println("you are connected !");
+  server.send(200, "text/html", SendHTML()); 
+
+if(sending_photo_Handle != NULL) {
+    vTaskDelete(sending_photo_Handle);
+    sending_photo_Handle = NULL;
+  }
+
+if(live_f_handle != NULL) 
+{
+  vTaskDelete(live_f_handle);
+  live_f_handle = NULL;
+  if(httpd_stop(stream_httpd) == ESP_OK)
+    {
+      httpd_unregister_uri_handler(stream_httpd,"/video",HTTP_POST);
+      Serial.print("\n live stream stopped .\n");    
+    }
+  }
+
+  }
+
+void wait_smiley()
+{ server.send(200, "text/html", R"(
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='refresh' content='1'>
+    <style>
+      .dots {
+        display: inline-block;
+        font-size: 24px;
+        letter-spacing: 2px;
+      }
+      .dots::after {
+        content: ' .';
+        animation: dots 1.5s steps(5, end) infinite;
+      }
+      @keyframes dots {
+        0%, 20% {
+          content: ' .';
+        }
+        40% {
+          content: ' ..';
+        }
+        60% {
+          content: ' ...';
+        }
+        80%, 100% {
+          content: ' ....';
+        }
+      }
+    </style>
+  </head>
+  <body>
+    Plz wait for a few seconds (●'◡'●)<span class="dots"></span>
+  </body>
+</html>
+)");
+}
+
+
+
+void handleAutomatedMode() {
+  Serial.println("Automated Mode Activated");
+  String ptr = "<!DOCTYPE html>";
+    ptr += "<html>";
+    ptr += "<head><meta charset='UTF-8'><title>Automated Mode</title></head>";
+    ptr += "<body>";
+    ptr += "<h1>Automated mode activated (❁´◡`❁)</h1>";
+    ptr += "</body>";
+    ptr += "</html>";
+  server.send(200, "text/html", ptr);
+
+  if(sending_photo_Handle != NULL) {
+      vTaskDelete(sending_photo_Handle);
+      sending_photo_Handle = NULL;
+    }
+
+  if(live_f_handle != NULL) 
+  {
+  vTaskDelete(live_f_handle);
+  live_f_handle = NULL;
+  if(httpd_stop(stream_httpd) == ESP_OK)
+    {
+      httpd_unregister_uri_handler(stream_httpd,"/video",HTTP_POST);
+      Serial.print("\n live stream stopped .\n");    
+    }
+  }
+
+   xTaskCreate(
+    sending_photo_task,    
+    "send_photo",  
+    100008 ,           
+    NULL,           
+    2,              
+  &sending_photo_Handle            
+  );
+
+}
+void setup_server()
+{ 
+  
+  Serial.print("Go to: http://");
+  Serial.print(WiFi.localIP());
+
+  server.on("/", handle_OnConnect);
+  server.on("/manual", handleManualMode);
+  server.on("/automated", handleAutomatedMode);
+
+  server.onNotFound(wait_smiley);
+  server.begin();
+
+  
+  }
 void sending_photo_task(void * parameter)
 {
   for(;;){
@@ -949,105 +1068,37 @@ void sending_photo_task(void * parameter)
 return ;
 }
 
-void handleAutomatedMode() {
-  Serial.println("Automated Mode Activated");
-  String ptr = "<!DOCTYPE html>";
-    ptr += "<html>";
-    ptr += "<head><meta charset='UTF-8'><title>Automated Mode</title></head>";
-    ptr += "<body>";
-    ptr += "<h1>Automated mode activated (❁´◡`❁)</h1>";
-    ptr += "</body>";
-    ptr += "</html>";
-  server.send(200, "text/html", ptr);
-
-  if(sending_photo_Handle != NULL) {
-      vTaskDelete(sending_photo_Handle);
-      sending_photo_Handle = NULL;
-    }
-
-  if(live_f_handle != NULL) 
-  {
-  vTaskDelete(live_f_handle);
-  live_f_handle = NULL;
-  if(httpd_stop(stream_httpd) == ESP_OK)
-    {
-      httpd_unregister_uri_handler(stream_httpd,"/video",HTTP_POST);
-      Serial.print("\n live stream stopped .\n");    
-    }
-  }
-
-   xTaskCreate(
-    sending_photo_task,    
-    "send_photo",  
-    100008 ,           
-    NULL,           
-    2,              
-  &sending_photo_Handle            
-  );
-
-}
-
-void handle_OnConnect() 
- {
-  Serial.println("you are connected !");
-  server.send(200, "text/html", SendHTML()); 
-
-if(sending_photo_Handle != NULL) {
-    vTaskDelete(sending_photo_Handle);
-    sending_photo_Handle = NULL;
-  }
-
-if(live_f_handle != NULL) 
+void loop_f(void * parameter)
 {
-  vTaskDelete(live_f_handle);
-  live_f_handle = NULL;
-  if(httpd_stop(stream_httpd) == ESP_OK)
-    {
-      httpd_unregister_uri_handler(stream_httpd,"/video",HTTP_POST);
-      Serial.print("\n live stream stopped .\n");    
-    }
-  }
+  for(;;)
+  {      
+        server.handleClient();
+        vTaskDelay(5);
 
+        if (xSemaphoreTake(manual_b_mutex, portMAX_DELAY)) {
+          // Access manual_b safely 
+          if( (manual_b == true) && ( millis() - lastCheckTime_h >= 900000 ) && (sending_photo_Handle == NULL) )
+          {
+          manual_b = false ;  
+          xTaskCreate(
+              sending_photo_task,     
+              "send_photo",  
+              100008 ,           
+              NULL,            
+              2,               
+            &sending_photo_Handle             
+            );
+          } 
+      
+          xSemaphoreGive(manual_b_mutex);
+        }
   }
-
-void wait_smiley()
-{ server.send(200, "text/html", R"(
-<html>
-  <head>
-    <meta charset='UTF-8'>
-    <meta http-equiv='refresh' content='1'>
-    <style>
-      .dots {
-        display: inline-block;
-        font-size: 24px;
-        letter-spacing: 2px;
-      }
-      .dots::after {
-        content: ' .';
-        animation: dots 1.5s steps(5, end) infinite;
-      }
-      @keyframes dots {
-        0%, 20% {
-          content: ' .';
-        }
-        40% {
-          content: ' ..';
-        }
-        60% {
-          content: ' ...';
-        }
-        80%, 100% {
-          content: ' ....';
-        }
-      }
-    </style>
-  </head>
-  <body>
-    Plz wait for a few seconds (●'◡'●)<span class="dots"></span>
-  </body>
-</html>
-)");
+  return ;
 }
+
+
+
+
 
 
 void Set_SLAVE_data(uint8_t mac[6]) {
@@ -1141,7 +1192,7 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 
 
 
-
+ 
 
 
 /* ***************************************************************** */
@@ -1157,50 +1208,9 @@ void InitESPNow() {
   }
 }
 
-void setup_server()
-{ 
-  
-  Serial.print("Go to: http://");
-  Serial.print(WiFi.localIP());
-
-  server.on("/", handle_OnConnect);
-  server.on("/manual", handleManualMode);
-  server.on("/automated", handleAutomatedMode);
-
-  server.onNotFound(wait_smiley);
-  server.begin();
-
-  
-  }
 
 
-void loop_f(void * parameter)
-{
-  for(;;)
-  {      
-        server.handleClient();
-        vTaskDelay(5);
 
-        if (xSemaphoreTake(manual_b_mutex, portMAX_DELAY)) {
-          // Access manual_b safely 
-          if( (manual_b == true) && ( millis() - lastCheckTime_h >= 900000 ) && (sending_photo_Handle == NULL) )
-          {
-          manual_b = false ;  
-          xTaskCreate(
-              sending_photo_task,     
-              "send_photo",  
-              100008 ,           
-              NULL,            s
-              2,               
-            &sending_photo_Handle             s
-            );
-          } 
-      
-          xSemaphoreGive(manual_b_mutex);
-        }
-  }
-  return ;
-}
 
 extern "C" void app_main()
 {  
