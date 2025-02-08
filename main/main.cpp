@@ -1297,7 +1297,7 @@ extern "C" void app_main()
   &loop_handle            
   );
 
-  connected_internet = checkSMTPService(smtpServer, smtpServerPort, emailSenderAccount, emailSenderPassword) ; //final test
+  connected_internet = checkSMTPService(smtpServer, smtpServerPort, emailSenderAccount, emailSenderPassword) ; //final test2
 
   if(connected_internet) // change   if(connected_internet)
 
