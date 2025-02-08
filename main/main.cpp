@@ -536,7 +536,7 @@ void capturePhotoSaveLittleFS( void ) {
   Serial.printf("Picture file name: %s\n", FILE_PHOTO_PATH);
   File file = LittleFS.open(FILE_PHOTO_PATH, FILE_WRITE);
 
-  if (!file) { s
+  if (!file) { ss
     Serial.println("Failed to open file in writing mode");
     return ;
   }
