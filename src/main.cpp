@@ -28,6 +28,7 @@ char date[13] = "";
 
 AsyncWebServer server(80);
 bool connected_wifi;
+bool end_server_b = false ;
 
 uint16_t currentTransmitCurrentPosition = 0;
 uint16_t currentTransmitTotalPackages = 0;
@@ -35,6 +36,7 @@ bool fileReceivingStarted = false; // Flag to check if receiving has started
 bool fileTransmissionComplete = false; // Flag to check if transmission is complete
 unsigned long startTime = 0; // Declare the startTime variable
 bool moreFiles ;
+unsigned long lastTime2 = 0 ;
 
 void printMemoryAndFileSystemStats() {
   Serial.println("Memory and LittleFS Statistics:");
@@ -102,6 +104,9 @@ bool loadFileToLittleFS(const String &sourcePath, const String &destPath) {
 }
 
 void handleDatePhotos(AsyncWebServerRequest *request) {
+
+    lastTime2 = millis();
+
     char url[20];
 
     LittleFS.format();
@@ -284,6 +289,8 @@ void handleDatePhotos(AsyncWebServerRequest *request) {
 }
 
 void handleHome(AsyncWebServerRequest *request) {
+    
+    lastTime2 = millis();
 
     LittleFS.format();
     moreFiles = false;
@@ -293,118 +300,118 @@ void handleHome(AsyncWebServerRequest *request) {
 
     // Start HTML document
     response->print(R"rawliteral(
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Select Date</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: #f4f4f9;
-                color: #333;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-            }
-            h1 {
-                font-size: 2em;
-                margin-bottom: 20px;
-                color: #444;
-                text-align: center;
-            }
-            .container {
-                width: 90%;
-                max-width: 600px;
-                background: white;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                padding: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .date-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                text-align: center;
-            }
-            .date-list li {
-                margin: 10px 0;
-            }
-            .date-list a {
-                text-decoration: none;
-                color: #007BFF;
-                font-weight: bold;
-                transition: color 0.3s ease;
-            }
-            .date-list a:hover {
-                color: #0056b3;
-            }
-            .disabled {
-                pointer-events: none;
-                color: gray;
-                cursor: not-allowed;
-            }
-            .top-right-button {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-            }
-            .top-right-button button {
-                padding: 10px 20px;
-                font-size: 16px;
-                color: white;
-                background-color: #e74c3c;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-            .top-right-button button:disabled {
-                background-color: gray;
-                cursor: not-allowed;
-            }
-            .top-right-button button:hover {
-                background-color: #c0392b;
-            }
-        </style>
-        <script>
-            function disableLinks(date) {
-                // Disable all links
-                var links = document.querySelectorAll('.date-list a');
-                links.forEach(function(link) {
-                    link.classList.add('disabled'); // Add disabled class
-                    link.removeAttribute('href');  // Remove href to prevent navigation
-                });
-                // Change cursor to not-allowed
-                document.body.style.cursor = 'not-allowed';
-
-                // Redirect to the selected date's photo page
-                window.location.href = '/photos/' + date;
-            }
-            function disableButton(button) {
-                button.disabled = true; // Disable the button
-            }
-        </script>
-    </head>
-    <body>
-        <div class="top-right-button">
-            <button onclick="disableButton(this); window.location.href='/server_off';">
-                Turn Off Server
-            </button>
-        </div>
-        <div class="container">
-            <h1>Available Dates for Photos</h1>
-            <ul class="date-list">
-)rawliteral");
-
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <title>Select Date</title>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+              body {
+                  font-family: 'Arial', sans-serif;
+                  background-color: #f4f4f9;
+                  color: #333;
+                  margin: 0;
+                  padding: 0;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  height: 100vh;
+              }
+              h1 {
+                  font-size: 2em;
+                  margin-bottom: 20px;
+                  color: #444;
+                  text-align: center;
+              }
+              .container {
+                  width: 90%;
+                  max-width: 600px;
+                  background: white;
+                  border-radius: 8px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                  padding: 20px;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+              }
+              .date-list {
+                  list-style: none;
+                  padding: 0;
+                  margin: 0;
+                  text-align: center;
+              }
+              .date-list li {
+                  margin: 10px 0;
+              }
+              .date-list a {
+                  text-decoration: none;
+                  color: #007BFF;
+                  font-weight: bold;
+                  transition: color 0.3s ease;
+              }
+              .date-list a:hover {
+                  color: #0056b3;
+              }
+              .disabled {
+                  pointer-events: none;
+                  color: gray;
+                  cursor: not-allowed;
+              }
+              .top-right-button {
+                  position: absolute;
+                  top: 10px;
+                  right: 10px;
+              }
+              .top-right-button button {
+                  padding: 10px 20px;
+                  font-size: 16px;
+                  color: white;
+                  background-color: #e74c3c;
+                  border: none;
+                  border-radius: 5px;
+                  cursor: pointer;
+                  transition: background-color 0.3s ease;
+              }
+              .top-right-button button:disabled {
+                  background-color: gray;
+                  cursor: not-allowed;
+              }
+              .top-right-button button:hover {
+                  background-color: #c0392b;
+              }
+          </style>
+          <script>
+              function disableLinks(date) {
+                  var links = document.querySelectorAll('.date-list a');
+                  links.forEach(function(link) {
+                      link.classList.add('disabled');
+                      link.removeAttribute('href');
+                  });
+                  document.body.style.cursor = 'not-allowed';
+                  window.location.href = '/photos/' + date;
+              }
+  
+              function disableButton() {
+                  document.documentElement.innerHTML = "<div style='display:flex; justify-content:center; align-items:center; height:100vh; font-size:10vw; font-weight:bold; color:red; background-color:black;'>x_x</div>";
+                  setTimeout(function() {
+                      window.location.href = '/server_off';
+                  }, 500); // Optional delay before redirect
+              }
+          </script>
+      </head>
+      <body>
+          <div class="top-right-button">
+              <button onclick="disableButton();">
+                  Turn Off Server
+              </button>
+          </div>
+          <div class="container">
+              <h1>Available Dates for Photos</h1>
+              <ul class="date-list">
+  )rawliteral");
+    
     // Get the available dates by scanning SD card for folders
     File root_l = SD.open("/photos"); // Open the directory for scanning
     if (root_l && root_l.isDirectory()) {
@@ -519,7 +526,7 @@ void OnDataRecv(uint8_t *mac_addr, uint8_t *data, uint8_t data_len) {
   }
 }
 void server_end(AsyncWebServerRequest *request)
-{
+{   
     AsyncResponseStream *response = request->beginResponseStream("text/plain");  // Set content type to plain text
     response->addHeader("Server", "ESP Async Web Server");
 
@@ -532,6 +539,15 @@ void server_end(AsyncWebServerRequest *request)
     WiFi.disconnect(); // Disconnect WiFi
     WiFi.mode(WIFI_STA); // Set WiFi mode to Station
     wifi_set_channel(ESPNOW_CHANNEL); // Set the WiFi channel
+
+    WiFi.forceSleepBegin(); 
+    delay(1);                  // Allow some time for WiFi to go into sleep
+
+    // Set ESP8266 to light sleep
+    wifi_fpm_set_sleep_type(LIGHT_SLEEP_T);  // Set to light sleep mode
+    wifi_fpm_open();                        // Open light sleep mod
+
+    end_server_b = true ;
 }
 
 
@@ -638,7 +654,28 @@ if (LittleFS.format()) {
   Serial.println("Failed to format LittleFS!");
 } 
   printMemoryAndFileSystemStats();
+
+
 }
 
 void loop() {
+      if(end_server_b)
+      {
+      WiFi.forceSleepBegin(); // Disconnect WiF
+      Serial.print("\n Sleeping .\n");
+      wifi_fpm_do_sleep(2000000);
+
+      Serial.print("Woke up .\n");
+      WiFi.mode(WIFI_STA);
+      int lastTime = millis();
+      while (int(millis()) - lastTime < 2000)
+      {
+        yield();
+      }
+
+    }
+    elif(millis()-lastTime2 > 900000 && !end_server_b)
+    {
+      server_end();
+    }
 }
