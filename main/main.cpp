@@ -529,7 +529,7 @@ void capturePhotoSaveLittleFS( void ) {
   if(!fb) {
     Serial.println("Camera capture failed");
   ESP.restart();
-  }  
+  }  s
 
   digitalWrite(ONBOADLED,LOW);
   
