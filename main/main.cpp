@@ -540,7 +540,7 @@ void capturePhotoSaveLittleFS( void ) {
     Serial.println("Failed to open file in writing mode");
     return ;
   }
-  else { 
+  else {  s
     file.write(fb->buf, fb->len); 
     Serial.print("The picture has been saved in ");
     Serial.print(FILE_PHOTO_PATH);
