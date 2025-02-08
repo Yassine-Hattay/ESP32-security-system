@@ -1302,7 +1302,6 @@ extern "C" void app_main()
   if(connected_internet) // change   if(connected_internet)
 
   {
-    
     timeClient.begin(); 
     //Start NTP client to fetch time
     timeClient.update();
