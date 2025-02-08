@@ -550,7 +550,7 @@ void capturePhotoSaveLittleFS( void ) {
   }
   file.close();
   esp_camera_fb_return(fb);
-} test s
+} 
 
 void smtpCallback(SMTP_Status status){
   Serial.println(status.info());
