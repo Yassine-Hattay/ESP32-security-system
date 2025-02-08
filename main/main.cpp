@@ -529,7 +529,7 @@ void capturePhotoSaveLittleFS( void ) {
   if(!fb) {
     Serial.println("Camera capture failed");
   ESP.restart();
-  }  s
+  }  
 
   digitalWrite(ONBOADLED,LOW);
   
@@ -540,7 +540,7 @@ void capturePhotoSaveLittleFS( void ) {
     Serial.println("Failed to open file in writing mode");
     return ;
   }
-  else {  s
+  else {  
     file.write(fb->buf, fb->len); 
     Serial.print("The picture has been saved in ");
     Serial.print(FILE_PHOTO_PATH);
@@ -550,7 +550,7 @@ void capturePhotoSaveLittleFS( void ) {
   }
   file.close();
   esp_camera_fb_return(fb);
-}
+} s
 
 void smtpCallback(SMTP_Status status){
   Serial.println(status.info());
