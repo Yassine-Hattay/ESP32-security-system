@@ -1192,7 +1192,7 @@ void loop_f(void * parameter)
               100008 ,           
               NULL,            s
               2,               
-            &sending_photo_Handle            
+            &sending_photo_Handle             s
             );
           } 
       
