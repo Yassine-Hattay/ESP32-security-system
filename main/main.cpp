@@ -110,7 +110,6 @@ bool photo_not_sent;
 bool manual_b = true;
 // for esp now connect
 bool isPaired = 0;
-bool send_error_b = true ;
 
 // for photo name
 byte takeNextPhotoFlag = 1;
@@ -184,10 +183,6 @@ void sendData(uint8_t * dataArray, uint8_t dataArrayLength) {
   const uint8_t *peer_addr = slave.peer_addr;
 
   esp_err_t result = esp_now_send(peer_addr, dataArray, dataArrayLength);
-  if(result != ESP_OK)
-  {
-    send_error_b = true ;
-  }
   
 }
 
@@ -204,8 +199,10 @@ void sendNextPackage()
     Serial.print("\n Done submiting files .\n");
     
     if(connected_router)
-    {
+    { 
       WiFi.mode(WIFI_MODE_APSTA);
+      WiFi.reconnect();
+      
       pm_config = {
         .max_freq_mhz = 240,
         .min_freq_mhz = 160,
@@ -317,8 +314,10 @@ void takePhoto()
 
   esp_pm_configure(&pm_config);
 
-  send_error_b = false ;
   start_trans_time = millis();
+  
+  WiFi.disconnect();
+  WiFi.mode(WIFI_MODE_STA);
 
   WiFi.printDiag(Serial); // Uncomment to verify channel number before
   esp_wifi_set_promiscuous(true);
@@ -326,9 +325,9 @@ void takePhoto()
   esp_wifi_set_promiscuous(false);
   WiFi.printDiag(Serial);
 
-  isPaired = manageSlave(ESP_CHANNEL);
 
   takeNextPhotoFlag = 0;
+
   if ((hour() > 17) || ( hour() < 7) ) 
   {  digitalWrite(ONBOADLED,HIGH);
   }
@@ -914,6 +913,8 @@ void sending_photo_task(void * parameter)
     
         vTaskDelay(5);
 
+        
+
         if(digitalRead(GPIO_2))
                 {
             if(connected_internet)
@@ -945,11 +946,18 @@ void sending_photo_task(void * parameter)
                         if (sendNextPackageFlag)
                               {sendNextPackage();}   
 
-                        if ( (millis() - start_trans_time >= timeout_F)  || send_error_b) 
+                        int channel = WiFi.channel();  // Get the current channel
+                        Serial.print("Current Wi-Fi Channel: ");
+                        Serial.println(channel);
+                        if ( (millis() - start_trans_time >= timeout_F) ) 
                         {
                           Serial.println("ESP NOW Timed out or an error ocurred !");
+                          
+                          currentTransmitCurrentPosition = 0;
+                          currentTransmitTotalPackages = 0;
 
-                          if(!connected_router)
+                          if(!connected_router) 
+                          
                           {                         
                             connected_router = connectToWiFi_mod(ssid,password,10000);
                             if(connected_router){
@@ -972,7 +980,8 @@ void sending_photo_task(void * parameter)
                             connected_internet = checkSMTPService(smtpServer, smtpServerPort, emailSenderAccount, emailSenderPassword) ;
                             }
                           }
-                          else{  
+                          else 
+                          {  
 
                             if(loop_handle != NULL) {
                               vTaskDelete(loop_handle);
@@ -1238,10 +1247,6 @@ extern "C" void app_main()
 
   connected_router = connectToWiFi(ssid,password,10000);
   
-  connected_router = true ; //remove
-
-  connected_internet = false ; //remove
-
   while(!LittleFS.begin()) {
     LittleFS.format();
   }
@@ -1258,6 +1263,8 @@ extern "C" void app_main()
 
   initCamera();
   capturePhotoSaveLittleFS();
+
+  isPaired = manageSlave(ESP_CHANNEL);
 
   // Configure timer wake-up (15 seconds)
   esp_sleep_enable_timer_wakeup(15 * 1000000);
@@ -1290,7 +1297,6 @@ extern "C" void app_main()
   &loop_handle            
   );
 
-    if(false) //remove
   connected_internet = checkSMTPService(smtpServer, smtpServerPort, emailSenderAccount, emailSenderPassword) ;
 
   if(connected_internet) // change   if(connected_internet)
