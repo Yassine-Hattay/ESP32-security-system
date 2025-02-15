@@ -22,7 +22,7 @@
 #define emailRecipient1        "hattayyassine519@gmail.com"
 #define emailRecipient2      "yassine.hattay@etudiant-fst.utm.tn"
 
-#define ONBOADLED 4
+#define ONBOADLED 12
 
 #define ESP_CHANNEL 13
 // Pin definition for CAMERA_MODEL_AI_THINKER
@@ -912,9 +912,6 @@ void sending_photo_task(void * parameter)
   for(;;){
     
         vTaskDelay(5);
-
-        
-
         if(digitalRead(GPIO_2))
                 {
             if(connected_internet)
@@ -1080,7 +1077,7 @@ return ;
 void loop_f(void * parameter)
 {
   for(;;)
-  {      
+  {    
         server.handleClient();
         vTaskDelay(5);
 
