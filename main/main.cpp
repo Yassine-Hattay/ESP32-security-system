@@ -3,15 +3,15 @@
 #include "esp_http_server.h"
 #include <WebServer.h>
 #include <esp_now.h>
-#include <WiFi.h>
+#include <WiFi.h> 
 #include <esp_wifi.h>
 #include <FS.h>  
 #include <NTPClient.h>
-#include <WiFiUdp.h>
+#include <WiFiUdp.h> 
 #include <TimeLib.h>  
 #include "esp_system.h"
-#include "esp_pm.h"
-#include "Arduino.h"
+#include "esp_pm.h" 
+#include "Arduino.h" 
 
 
 #define emailSenderAccount    "yassinebeebotte@gmail.com"
@@ -47,7 +47,7 @@
 #define GPIO_12  12
 #define PART_BOUNDARY "123456789000000000000987654321"
 
-#define FILE_PHOTO "photo.jpg"
+#define FILE_PHOTO "photo.jpg" 
 #define FILE_PHOTO_PATH "/photo.jpg"
 
 #define fileDatainMessage 240.0
@@ -70,7 +70,7 @@ unsigned long lastCheckTime_h = 0;  // Last time check was done
 unsigned long start_trans_time ;
 
 esp_pm_config_t pm_config ;
-SemaphoreHandle_t manual_b_mutex;
+SemaphoreHandle_t manual_b_mutex; 
 
 
 uint8_t mac[6] = {0xCC, 0x50, 0xE3, 0x42, 0x2A, 0x61};  
@@ -127,9 +127,9 @@ void sending_photo_task(void * parameter);
 
 int32_t getWiFiChannel(const char *ssid) {
   if (int32_t n = WiFi.scanNetworks()) {
-      for (uint8_t i=0; i<n; i++) {
-          if (!strcmp(ssid, WiFi.SSID(i).c_str())) {
-              return WiFi.channel(i);
+      for (uint8_t a=0; a<n; a++) {
+          if (!strcmp(ssid, WiFi.SSID(a).c_str())) {
+              return WiFi.channel(a);
           }
       }
   }
@@ -137,7 +137,6 @@ int32_t getWiFiChannel(const char *ssid) {
 }
 
 void deletePeer() {
-  const esp_now_peer_info_t *peer = &slave;
   const uint8_t *peer_addr = slave.peer_addr;
   esp_err_t delStatus = esp_now_del_peer(peer_addr);
   Serial.print("Slave Delete Status: ");
@@ -165,8 +164,8 @@ bool manageSlave(int channel_v) {
       return true;
     } else {
       // Slave not paired, attempt pair
-      esp_err_t addStatus = esp_now_add_peer(peer);
-      if (addStatus == ESP_OK) {
+      esp_err_t addStatus1 = esp_now_add_peer(peer);
+      if (addStatus1 == ESP_OK) {
         // Pair success
         Serial.println("Pair success");
         return true;
@@ -270,10 +269,10 @@ void sendNextPackage()
 
   messageArray[1] = currentTransmitCurrentPosition >> 8;
   messageArray[2] = (byte) currentTransmitCurrentPosition;
-  int i = 0; // Initialize the index
-    while (i < fileDataSize && file.available()) {
-        messageArray[3 + i] = file.read();
-        i++; // Increment the index after reading a byte
+  int a = 0; // Initialize the index
+    while (a < fileDataSize && file.available()) {
+        messageArray[3 + a] = file.read();
+        a++; // Increment the index after reading a byte
     }
 
   sendData(messageArray, sizeof(messageArray));
@@ -335,7 +334,7 @@ void takePhoto()
   delay(adjustment_time);
   camera_fb_t * fb = NULL;
 
-  for (int i = 0; i < frames_skipped; i++) {
+  for (int a = 0; a < frames_skipped; a++) {
     fb = esp_camera_fb_get();
     esp_camera_fb_return(fb);
     fb = NULL;
@@ -414,11 +413,11 @@ static esp_err_t stream_handler(httpd_req_t *req){
       }
     }
     if(res == ESP_OK){
-      size_t hlen = snprintf((char *)part_buf, 64, _STREAM_PART, _jpg_buf_len);
-      res = httpd_resp_send_chunk(req, (const char *)part_buf, hlen);
+      size_t hlen = snprintf(reinterpret_cast<char*>(part_buf), 64, _STREAM_PART, _jpg_buf_len);
+      res = httpd_resp_send_chunk(req, reinterpret_cast<const char*>(part_buf), hlen);
     }
     if(res == ESP_OK){
-      res = httpd_resp_send_chunk(req, (const char *)_jpg_buf, _jpg_buf_len);
+      res = httpd_resp_send_chunk(req, reinterpret_cast<const char*>(_jpg_buf), _jpg_buf_len);
     }
     if(res == ESP_OK){
       res = httpd_resp_send_chunk(req, _STREAM_BOUNDARY, strlen(_STREAM_BOUNDARY));
@@ -518,7 +517,7 @@ void capturePhotoSaveLittleFS( void ) {
 
   delay(adjustment_time);
   camera_fb_t* fb = NULL;
-  for (int i = 0; i < frames_skipped; i++) {
+  for (int a= 0; a < frames_skipped; a++) {
     fb = esp_camera_fb_get();
     esp_camera_fb_return(fb);
     fb = NULL;
@@ -548,7 +547,7 @@ void capturePhotoSaveLittleFS( void ) {
     Serial.println(" bytes");
   }
   file.close();
-  esp_camera_fb_return(fb);
+  esp_camera_fb_return(fb); 
 }
 
 void smtpCallback(SMTP_Status status){
@@ -562,12 +561,12 @@ void smtpCallback(SMTP_Status status){
     Serial.println("----------------\n");
     struct tm dt;
 
-    for (size_t i = 0; i < smtp.sendingResult.size(); i++){
-      SMTP_Result result = smtp.sendingResult.getItem(i);
+    for (size_t a = 0; a < smtp.sendingResult.size(); a++){
+      SMTP_Result result = smtp.sendingResult.getItem(a);
       time_t ts = (time_t)result.timestamp;
       localtime_r(&ts, &dt);
 
-      ESP_MAIL_PRINTF("Message No: %d\n", i + 1);
+      ESP_MAIL_PRINTF("Message No: %d\n", a + 1);
       ESP_MAIL_PRINTF("Status: %s\n", result.completed ? "success" : "failed");
       ESP_MAIL_PRINTF("Date/Time: %d/%d/%d %d:%d:%d\n", dt.tm_year + 1900, dt.tm_mon + 1, dt.tm_mday, dt.tm_hour, dt.tm_min, dt.tm_sec);
       ESP_MAIL_PRINTF("Recipient: %s\n", result.recipients.c_str());
@@ -943,9 +942,7 @@ void sending_photo_task(void * parameter)
                         if (sendNextPackageFlag)
                               {sendNextPackage();}   
 
-                        int channel = WiFi.channel();  // Get the current channel
-                        Serial.print("Current Wi-Fi Channel: ");
-                        Serial.println(channel);
+                    
                         if ( (millis() - start_trans_time >= timeout_F) ) 
                         {
                           Serial.println("ESP NOW Timed out or an error ocurred !");
