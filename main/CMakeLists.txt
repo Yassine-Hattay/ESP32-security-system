@@ -1,4 +1,4 @@
 idf_component_register(
-    SRCS "main.cpp"
-    INCLUDE_DIRS ""
+    SRCS "main.cpp" "email/email_module.cpp"
+    INCLUDE_DIRS "include"
 )
