@@ -1,5 +1,5 @@
-#include "email_module.h"; 
-#include "global_header.h";
+#include "email_module.h"
+#include "global_header.h"
 
 SMTPSession smtp;
  
@@ -114,4 +114,8 @@ bool checkSMTPService(const char *server, uint16_t port, const char *email, cons
     return false;
   }
 }
- 
+
+
+
+
+

@@ -2,7 +2,6 @@
 #define SMTP_H
 
 #include <ESP_Mail_Client.h>
-
 // Email credentials and settings
 #define emailSenderAccount "yassinebeebotte@gmail.com"
 #define emailSenderPassword "gsti ffmp djsg kfhf"
@@ -19,4 +18,4 @@ void smtpCallback(SMTP_Status status);
 void sendPhoto(void);
 bool checkSMTPService(const char *server, uint16_t port, const char *email, const char *password);
 
-#endif 
+#endif
