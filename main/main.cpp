@@ -93,8 +93,8 @@ extern "C" void app_main()
       3072,
       NULL,
       1,
-      &loop_handle);
-      
+      &loop_handle); 
+
     if (connected_internet) // change   if(connected_internet)
 
     {
