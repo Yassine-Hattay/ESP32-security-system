@@ -7,7 +7,7 @@ i used the the vscode-esp-idf-extension you can find here https://github.com/esp
 - esp 32 cam (ov 2640) 
 - PIR Motion sensor 
 - light bulb 
-- Relay Module 5v 1 Channel 
+- Relay Module . 
 - esp 8266 NodeMCU 
 - sd card module 
 # 4-Wiring 
