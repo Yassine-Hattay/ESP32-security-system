@@ -12,7 +12,8 @@ i used the the vscode-esp-idf-extension you can find here https://github.com/esp
 - sd card module 
 # 4-Wiring 
 ## a - camera : 
-![image](https://github.com/user-attachments/assets/4153d36d-80b8-4a07-a9f8-9e78035978f4)
+![image](https://github.com/user-attachments/assets/3d49b327-5ce9-4199-ad10-69667858e061)
+
 
 
 
