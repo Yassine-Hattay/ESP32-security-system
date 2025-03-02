@@ -1,5 +1,0 @@
-var dir_93e9609d59770f62195e0d3d1c77d529 =
-[
-    [ "IMAP", "dir_71d22272b09e33318003871c37ee1261.html", "dir_71d22272b09e33318003871c37ee1261" ],
-    [ "SMTP", "dir_28887d8eb12e7167afb49b3ce0c6a370.html", "dir_28887d8eb12e7167afb49b3ce0c6a370" ]
-];
