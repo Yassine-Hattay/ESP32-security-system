@@ -21,7 +21,7 @@ The full Doxygen-generated documentation for this project is available online at
 
 # 5-code :
 ## a - camera :
-[View Doxygen Documentation](https://yassine-hattay.github.io/ESP32-security-system/docs/html/index.html)
+[View Doxygen Documentation](https://Yassine-Hattay.github.io/ESP32-security-system/docs)
 
 
 
