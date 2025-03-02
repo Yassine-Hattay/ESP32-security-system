@@ -1,0 +1,153 @@
+\doxysection{Zigbee\+Core.\+h}
+\hypertarget{_zigbee_core_8h_source}{}\label{_zigbee_core_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Zigbee/src/ZigbeeCore.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Zigbee/src/ZigbeeCore.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Zigbee\ core\ class\ */}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#if\ SOC\_IEEE802154\_SUPPORTED\ \&\&\ CONFIG\_ZB\_ENABLED}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_core.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}zdo/esp\_zigbee\_zdo\_common.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <esp32-\/hal-\/log.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}ZigbeeEP.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }ZigbeeEP;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ void\ (*voidFuncPtr)(void);}
+\DoxyCodeLine{00017\ \textcolor{keyword}{typedef}\ void\ (*voidFuncPtrArg)(\textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ esp\_zb\_network\_descriptor\_t\ zigbee\_scan\_result\_t;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ enum\ of\ Zigbee\ Roles}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00023\ \ \ ZIGBEE\_COORDINATOR\ =\ 0,}
+\DoxyCodeLine{00024\ \ \ ZIGBEE\_ROUTER\ =\ 1,}
+\DoxyCodeLine{00025\ \ \ ZIGBEE\_END\_DEVICE\ =\ 2}
+\DoxyCodeLine{00026\ \}\ zigbee\_role\_t;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ ZB\_SCAN\_RUNNING\ (-\/1)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ ZB\_SCAN\_FAILED\ \ (-\/2)}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ ZIGBEE\_DEFAULT\_ED\_CONFIG()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ .esp\_zb\_role\ =\ ESP\_ZB\_DEVICE\_TYPE\_ED,\ .install\_code\_policy\ =\ false,\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ .nwk\_cfg\ =\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ \ \ .zed\_cfg\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ .ed\_timeout\ =\ ESP\_ZB\_ED\_AGING\_TIMEOUT\_64MIN,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ .keep\_alive\ =\ 3000,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ \ \ \},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ ZIGBEE\_DEFAULT\_ROUTER\_CONFIG()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ .esp\_zb\_role\ =\ ESP\_ZB\_DEVICE\_TYPE\_ROUTER,\ .install\_code\_policy\ =\ false,\ .nwk\_cfg\ =\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ \ \ .zczr\_cfg\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ .max\_children\ =\ 10,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ZIGBEE\_DEFAULT\_COORDINATOR\_CONFIG()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ .esp\_zb\_role\ =\ ESP\_ZB\_DEVICE\_TYPE\_COORDINATOR,\ .install\_code\_policy\ =\ false,\ .nwk\_cfg\ =\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \ \ .zczr\_cfg\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ .max\_children\ =\ 10,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }ZigbeeCore\ \{}
+\DoxyCodeLine{00064\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00065\ \ \ esp\_zb\_radio\_config\_t\ \_radio\_config;}
+\DoxyCodeLine{00066\ \ \ esp\_zb\_host\_config\_t\ \_host\_config;}
+\DoxyCodeLine{00067\ \ \ uint32\_t\ \_primary\_channel\_mask;}
+\DoxyCodeLine{00068\ \ \ int16\_t\ \_scan\_status;}
+\DoxyCodeLine{00069\ \ \ uint8\_t\ \_scan\_duration;}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ \_rx\_on\_when\_idle;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ esp\_zb\_ep\_list\_t\ *\_zb\_ep\_list;}
+\DoxyCodeLine{00073\ \ \ zigbee\_role\_t\ \_role;}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{bool}\ \_started;}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{bool}\ \_connected;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ uint8\_t\ \_open\_network;}
+\DoxyCodeLine{00078\ \ \ zigbee\_scan\_result\_t\ *\_scan\_result;}
+\DoxyCodeLine{00079\ \ \ SemaphoreHandle\_t\ lock;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{bool}\ zigbeeInit(esp\_zb\_cfg\_t\ *zb\_cfg,\ \textcolor{keywordtype}{bool}\ erase\_nvs);}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ scanCompleteCallback(esp\_zb\_zdp\_status\_t\ zdo\_status,\ uint8\_t\ count,\ esp\_zb\_network\_descriptor\_t\ *nwk\_descriptor);}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *getDeviceTypeString(esp\_zb\_ha\_standard\_devices\_t\ deviceId);}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{void}\ searchBindings();}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ bindingTableCb(\textcolor{keyword}{const}\ esp\_zb\_zdo\_binding\_table\_info\_t\ *table\_info,\ \textcolor{keywordtype}{void}\ *user\_ctx);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00088\ \ \ ZigbeeCore();}
+\DoxyCodeLine{00089\ \ \ \string~ZigbeeCore();}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ std::list<ZigbeeEP\ *>\ ep\_objects;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{bool}\ begin(zigbee\_role\_t\ role\ =\ ZIGBEE\_END\_DEVICE,\ \textcolor{keywordtype}{bool}\ erase\_nvs\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ begin(esp\_zb\_cfg\_t\ *role\_cfg,\ \textcolor{keywordtype}{bool}\ erase\_nvs\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00095\ \ \ \textcolor{comment}{//\ bool\ end();}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{bool}\ started()\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{return}\ \_started;}
+\DoxyCodeLine{00099\ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{bool}\ connected()\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{return}\ \_connected;}
+\DoxyCodeLine{00102\ \ \ \}}
+\DoxyCodeLine{00103\ \ \ zigbee\_role\_t\ getRole()\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{return}\ \_role;}
+\DoxyCodeLine{00105\ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{void}\ addEndpoint(ZigbeeEP\ *ep);}
+\DoxyCodeLine{00108\ \ \ \textcolor{comment}{//void\ removeEndpoint(ZigbeeEP\ *ep);}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{void}\ setRadioConfig(esp\_zb\_radio\_config\_t\ config);}
+\DoxyCodeLine{00111\ \ \ esp\_zb\_radio\_config\_t\ getRadioConfig();}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{void}\ setHostConfig(esp\_zb\_host\_config\_t\ config);}
+\DoxyCodeLine{00114\ \ \ esp\_zb\_host\_config\_t\ getHostConfig();}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{void}\ setPrimaryChannelMask(uint32\_t\ mask);\ \ \textcolor{comment}{//\ By\ default\ all\ channels\ are\ scanned\ (11-\/26)\ -\/>\ mask\ 0x07FFF800}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{void}\ setScanDuration(uint8\_t\ duration);\ \ \ \ \ \textcolor{comment}{//\ Can\ be\ set\ from\ 1\ -\/\ 4.\ 1\ is\ fastest,\ 4\ is\ slowest}}
+\DoxyCodeLine{00118\ \ \ uint8\_t\ getScanDuration()\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{return}\ \_scan\_duration;}
+\DoxyCodeLine{00120\ \ \ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{void}\ setRxOnWhenIdle(\textcolor{keywordtype}{bool}\ rx\_on\_when\_idle)\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \_rx\_on\_when\_idle\ =\ rx\_on\_when\_idle;}
+\DoxyCodeLine{00124\ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{bool}\ getRxOnWhenIdle()\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{return}\ \_rx\_on\_when\_idle;}
+\DoxyCodeLine{00127\ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{void}\ setRebootOpenNetwork(uint8\_t\ time);}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{void}\ openNetwork(uint8\_t\ time);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{comment}{//scan\_duration\ Time\ spent\ scanning\ each\ channel,\ in\ units\ of\ ((1\ <<\ scan\_duration)\ +\ 1)\ *\ a\ beacon\ time.\ (15.36\ microseconds)}}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{void}\ scanNetworks(uint32\_t\ channel\_mask\ =\ ESP\_ZB\_TRANSCEIVER\_ALL\_CHANNELS\_MASK,\ uint8\_t\ scan\_duration\ =\ 5);}
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{//\ Zigbee\ scan\ complete\ status\ check,\ -\/2:\ failed\ or\ not\ started,\ -\/1:\ running,\ 0:\ no\ networks\ found,\ >0:\ number\ of\ networks\ found}}
+\DoxyCodeLine{00135\ \ \ int16\_t\ scanComplete();}
+\DoxyCodeLine{00136\ \ \ zigbee\_scan\_result\_t\ *getScanResult();}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{void}\ scanDelete();}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordtype}{void}\ factoryReset();}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \textcolor{comment}{//\ Friend\ function\ declaration\ to\ allow\ access\ to\ private\ members}}
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{void}\ esp\_zb\_app\_signal\_handler(esp\_zb\_app\_signal\_t\ *signal\_struct);}
+\DoxyCodeLine{00143\ \};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{extern}\ ZigbeeCore\ Zigbee;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//SOC\_IEEE802154\_SUPPORTED\ \&\&\ CONFIG\_ZB\_ENABLED}}
+
+\end{DoxyCode}

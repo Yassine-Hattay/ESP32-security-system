@@ -1,0 +1,74 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+secure\+\_\+cert\+\_\+mgr/examples/esp\+\_\+secure\+\_\+cert\+\_\+app Directory Reference}
+\hypertarget{dir_7fae6de7fd8b61940e224ff64c7d92bd}{}\label{dir_7fae6de7fd8b61940e224ff64c7d92bd}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_secure\_cert\_mgr/examples/esp\_secure\_cert\_app Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_secure\_cert\_mgr/examples/esp\_secure\_cert\_app Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_69ff093e6513ff9c855024aca2bfffbb}{main}}
+\item 
+directory \mbox{\hyperlink{dir_579a4b23a7077ab5665a438eb9ea7de9}{qemu\+\_\+test}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The sample app demonstrates the use of APIs from {\itshape esp\+\_\+secure\+\_\+cert\+\_\+mgr} to retrieve the contents of the {\itshape esp\+\_\+secure\+\_\+cert} partition. The example can also be used to verify the validity of the contents from the {\itshape esp\+\_\+secure\+\_\+cert} partition.\hypertarget{README.md_autotoc_md1287}{}\doxysubsection{\texorpdfstring{Requirements}{Requirements}}\label{README.md_autotoc_md1287}
+
+\begin{DoxyItemize}
+\item The device must be pre-\/provisioned and have an {\itshape esp\+\_\+secure\+\_\+cert} partition.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1288}{}\doxysubsection{\texorpdfstring{How to use the example}{How to use the example}}\label{README.md_autotoc_md1288}
+Before project configuration and build, be sure to set the correct chip target using {\ttfamily idf.\+py set-\/target \texorpdfstring{$<$}{<}chip\+\_\+name\texorpdfstring{$>$}{>}}. \hypertarget{README.md_autotoc_md1289}{}\doxysubsubsection{\texorpdfstring{Configure the project}{Configure the project}}\label{README.md_autotoc_md1289}
+
+\begin{DoxyItemize}
+\item The {\itshape esp\+\_\+secure\+\_\+cert} partition needs to be generated and flashed first with help of \href{https://github.com/espressif/esp_secure_cert_mgr/blob/main/tools/configure_esp_secure_cert.py}{\texttt{ configure\+\_\+esp\+\_\+secure\+\_\+cert.\+py}} script. See \href{https://github.com/espressif/esp_secure_cert_mgr/blob/main/tools/README.md}{\texttt{ tools/\+README.\+md}} for more details.
+\item Please ensure that appropriate type of esp\+\_\+secure\+\_\+cert partition has been set in your projects {\ttfamily partitions.\+csv} file. Please refer the "{}esp\+\_\+secure\+\_\+cert partition"{} section in the \href{https://github.com/espressif/esp_secure_cert_mgr\#readme}{\texttt{ component README}} for more details.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1290}{}\doxysubsubsection{\texorpdfstring{Build and Flash}{Build and Flash}}\label{README.md_autotoc_md1290}
+Build the project and flash it to the board, then run the monitor tool to view the serial output\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/p\ PORT\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+(Replace PORT with the name of the serial port to use.)
+
+(To exit the serial monitor, type {\ttfamily Ctrl-\/\mbox{]}}.)
+
+See the Getting Started Guide for full steps to configure and use ESP-\/\+IDF to build projects.\hypertarget{README.md_autotoc_md1291}{}\doxysubsubsection{\texorpdfstring{Example Output}{Example Output}}\label{README.md_autotoc_md1291}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{I\ (331)\ sample\_app:\ Device\ Cert:}
+\DoxyCodeLine{Length:\ 1233}
+\DoxyCodeLine{-\/-\/-\/-\/-\/BEGIN\ CERTIFICATE-\/-\/-\/-\/-\/}
+\DoxyCodeLine{.}
+\DoxyCodeLine{.}
+\DoxyCodeLine{-\/-\/-\/-\/-\/END\ CERTIFICATE-\/-\/-\/-\/-\/}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (441)\ sample\_app:\ CA\ Cert:}
+\DoxyCodeLine{Length:\ 1285}
+\DoxyCodeLine{-\/-\/-\/-\/-\/BEGIN\ CERTIFICATE-\/-\/-\/-\/-\/}
+\DoxyCodeLine{.}
+\DoxyCodeLine{.}
+\DoxyCodeLine{-\/-\/-\/-\/-\/END\ CERTIFICATE-\/-\/-\/-\/-\/}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (561)\ sample\_app:\ Successfuly\ obtained\ ciphertext,\ ciphertext\ length\ is\ 1200}
+\DoxyCodeLine{I\ (571)\ sample\_app:\ Successfuly\ obtained\ initialization\ vector,\ iv\ length\ is\ 16}
+\DoxyCodeLine{I\ (571)\ sample\_app:\ RSA\ length\ is\ 2048}
+\DoxyCodeLine{I\ (581)\ sample\_app:\ Efuse\ key\ id\ 1}
+\DoxyCodeLine{I\ (581)\ sample\_app:\ Successfully\ obtained\ the\ ds\ context}
+\DoxyCodeLine{I\ (831)\ sample\_app:\ Ciphertext\ validated\ succcessfully}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1292}{}\doxysubsection{\texorpdfstring{Additional configurations for {\ttfamily pre\+\_\+prov} partition}{Additional configurations for {\ttfamily pre\+\_\+prov} partition}}\label{README.md_autotoc_md1292}
+Few of the modules which were pre-\/provisioned initially had the name of the pre-\/provisioning partition as {\ttfamily pre\+\_\+prov}. For the modules which have pre-\/provisioning partition of name {\ttfamily esp\+\_\+secure\+\_\+cert} this part can be ignored.
+
+
+\begin{DoxyItemize}
+\item For modules with {\ttfamily pre\+\_\+prov} partition of type {\itshape cust\+\_\+flash}, please update the line refering to {\ttfamily esp\+\_\+secure\+\_\+cert} partition in the partitions.\+csv with following\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pre\_prov,\ \ \ \ \ \ \ \ \ 0x3F,\ \ \ \ \ \ \ \ \ \ ,\ \ \ \ 0xD000,\ \ \ \ \ 0x6000,}
+
+\end{DoxyCode}
+
+\item No change is necessary for {\ttfamily pre\+\_\+prov} partition of type {\itshape nvs}. 
+\end{DoxyItemize}

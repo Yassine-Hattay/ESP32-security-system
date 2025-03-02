@@ -1,0 +1,72 @@
+\doxysection{crypto\+\_\+kx.\+h}
+\hypertarget{crypto__kx_8h_source}{}\label{crypto__kx_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_kx.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_kx.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ crypto\_kx\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ crypto\_kx\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}export.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#\ ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#\ \ pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wlong-\/long"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ crypto\_kx\_PUBLICKEYBYTES\ 32}}
+\DoxyCodeLine{00016\ SODIUM\_EXPORT}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{size\_t}\ crypto\_kx\_publickeybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ crypto\_kx\_SECRETKEYBYTES\ 32}}
+\DoxyCodeLine{00020\ SODIUM\_EXPORT}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{size\_t}\ crypto\_kx\_secretkeybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ crypto\_kx\_SEEDBYTES\ 32}}
+\DoxyCodeLine{00024\ SODIUM\_EXPORT}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{size\_t}\ crypto\_kx\_seedbytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ crypto\_kx\_SESSIONKEYBYTES\ 32}}
+\DoxyCodeLine{00028\ SODIUM\_EXPORT}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{size\_t}\ crypto\_kx\_sessionkeybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ crypto\_kx\_PRIMITIVE\ "{}x25519blake2b"{}}}
+\DoxyCodeLine{00032\ SODIUM\_EXPORT}
+\DoxyCodeLine{00033\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *crypto\_kx\_primitive(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ SODIUM\_EXPORT}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{int}\ crypto\_kx\_seed\_keypair(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ pk[crypto\_kx\_PUBLICKEYBYTES],}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ sk[crypto\_kx\_SECRETKEYBYTES],}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ seed[crypto\_kx\_SEEDBYTES])}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ SODIUM\_EXPORT}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ crypto\_kx\_keypair(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ pk[crypto\_kx\_PUBLICKEYBYTES],}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ sk[crypto\_kx\_SECRETKEYBYTES])}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ SODIUM\_EXPORT}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{int}\ crypto\_kx\_client\_session\_keys(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ rx[crypto\_kx\_SESSIONKEYBYTES],}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tx[crypto\_kx\_SESSIONKEYBYTES],}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ client\_pk[crypto\_kx\_PUBLICKEYBYTES],}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ client\_sk[crypto\_kx\_SECRETKEYBYTES],}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ server\_pk[crypto\_kx\_PUBLICKEYBYTES])}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \ \_\_attribute\_\_\ ((nonnull(3,\ 4,\ 5)));}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ SODIUM\_EXPORT}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{int}\ crypto\_kx\_server\_session\_keys(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ rx[crypto\_kx\_SESSIONKEYBYTES],}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tx[crypto\_kx\_SESSIONKEYBYTES],}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ server\_pk[crypto\_kx\_PUBLICKEYBYTES],}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ server\_sk[crypto\_kx\_SECRETKEYBYTES],}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ client\_pk[crypto\_kx\_PUBLICKEYBYTES])}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \ \_\_attribute\_\_\ ((nonnull(3,\ 4,\ 5)));}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00063\ \}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

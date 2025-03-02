@@ -1,0 +1,148 @@
+\doxysection{test\+\_\+runner.\+h}
+\hypertarget{test__runner_8h_source}{}\label{test__runner_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/runners/test\_runner.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/runners/test\_runner.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Runner\ for\ littlefs\ tests}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2022,\ The\ littlefs\ authors.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ TEST\_RUNNER\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ TEST\_RUNNER\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ override\ LFS\_TRACE}}
+\DoxyCodeLine{00012\ \textcolor{keywordtype}{void}\ test\_trace(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ ...);}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ LFS\_TRACE\_(fmt,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ test\_trace("{}\%s:\%d:trace:\ "{}\ fmt\ "{}\%s\(\backslash\)n"{},\ \(\backslash\)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_\_FILE\_\_,\ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_\_LINE\_\_,\ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ LFS\_TRACE(...)\ LFS\_TRACE\_(\_\_VA\_ARGS\_\_,\ "{}"{})}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ LFS\_EMUBD\_TRACE(...)\ LFS\_TRACE\_(\_\_VA\_ARGS\_\_,\ "{}"{})}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ note\ these\ are\ indirectly\ included\ in\ any\ generated\ files}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}bd/lfs\_emubd.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ give\ source\ a\ chance\ to\ define\ feature\ macros}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#undef\ \_FEATURES\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#undef\ \_STDIO\_H}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ generated\ test\ configurations}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{enum}\ test\_flags\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ TEST\_REENTRANT\ =\ 0x1,}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ uint8\_t\ test\_flags\_t;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtest__define}{test\_define}}\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ intmax\_t\ (*cb)(\textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ *data;}
+\DoxyCodeLine{00043\ \}\ test\_define\_t;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtest__case}{test\_case}}\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path;}
+\DoxyCodeLine{00048\ \ \ \ \ test\_flags\_t\ flags;}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ permutations;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{const}\ test\_define\_t\ *defines;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ bool\ (*filter)(void);}
+\DoxyCodeLine{00054\ \ \ \ \ void\ (*run)(\textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtest__suite}{test\_suite}}\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path;}
+\DoxyCodeLine{00060\ \ \ \ \ test\_flags\_t\ flags;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\textcolor{keyword}{const}\ *define\_names;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ define\_count;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtest__case}{test\_case}}\ *cases;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ case\_count;}
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ deterministic\ prng\ for\ pseudo-\/randomness\ in\ testes}}
+\DoxyCodeLine{00071\ uint32\_t\ test\_prng(uint32\_t\ *state);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ TEST\_PRNG(state)\ test\_prng(state)}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ access\ generated\ test\ defines}}
+\DoxyCodeLine{00077\ intmax\_t\ \mbox{\hyperlink{structtest__define}{test\_define}}(\textcolor{keywordtype}{size\_t}\ define);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ TEST\_DEFINE(i)\ test\_define(i)}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ a\ few\ preconfigured\ defines\ that\ control\ how\ tests\ run}}
+\DoxyCodeLine{00082\ \ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ READ\_SIZE\_i\ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ PROG\_SIZE\_i\ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ ERASE\_SIZE\_i\ \ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ERASE\_COUNT\_i\ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ BLOCK\_SIZE\_i\ \ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ BLOCK\_COUNT\_i\ \ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ CACHE\_SIZE\_i\ \ \ \ \ \ \ \ \ 6}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ LOOKAHEAD\_SIZE\_i\ \ \ \ \ 7}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ COMPACT\_THRESH\_i\ \ \ \ \ 8}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ METADATA\_MAX\_i\ \ \ \ \ \ \ 9}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ INLINE\_MAX\_i\ \ \ \ \ \ \ \ \ 10}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ BLOCK\_CYCLES\_i\ \ \ \ \ \ \ 11}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ERASE\_VALUE\_i\ \ \ \ \ \ \ \ 12}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ ERASE\_CYCLES\_i\ \ \ \ \ \ \ 13}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ BADBLOCK\_BEHAVIOR\_i\ \ 14}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ POWERLOSS\_BEHAVIOR\_i\ 15}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ DISK\_VERSION\_i\ \ \ \ \ \ \ 16}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ READ\_SIZE\ \ \ \ \ \ \ \ \ \ \ TEST\_DEFINE(READ\_SIZE\_i)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ PROG\_SIZE\ \ \ \ \ \ \ \ \ \ \ TEST\_DEFINE(PROG\_SIZE\_i)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ ERASE\_SIZE\ \ \ \ \ \ \ \ \ \ TEST\_DEFINE(ERASE\_SIZE\_i)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ ERASE\_COUNT\ \ \ \ \ \ \ \ \ TEST\_DEFINE(ERASE\_COUNT\_i)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ BLOCK\_SIZE\ \ \ \ \ \ \ \ \ \ TEST\_DEFINE(BLOCK\_SIZE\_i)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ BLOCK\_COUNT\ \ \ \ \ \ \ \ \ TEST\_DEFINE(BLOCK\_COUNT\_i)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ CACHE\_SIZE\ \ \ \ \ \ \ \ \ \ TEST\_DEFINE(CACHE\_SIZE\_i)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ LOOKAHEAD\_SIZE\ \ \ \ \ \ TEST\_DEFINE(LOOKAHEAD\_SIZE\_i)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ COMPACT\_THRESH\ \ \ \ \ \ TEST\_DEFINE(COMPACT\_THRESH\_i)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ METADATA\_MAX\ \ \ \ \ \ \ \ TEST\_DEFINE(METADATA\_MAX\_i)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ INLINE\_MAX\ \ \ \ \ \ \ \ \ \ TEST\_DEFINE(INLINE\_MAX\_i)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ BLOCK\_CYCLES\ \ \ \ \ \ \ \ TEST\_DEFINE(BLOCK\_CYCLES\_i)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ ERASE\_VALUE\ \ \ \ \ \ \ \ \ TEST\_DEFINE(ERASE\_VALUE\_i)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ ERASE\_CYCLES\ \ \ \ \ \ \ \ TEST\_DEFINE(ERASE\_CYCLES\_i)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ BADBLOCK\_BEHAVIOR\ \ \ TEST\_DEFINE(BADBLOCK\_BEHAVIOR\_i)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ POWERLOSS\_BEHAVIOR\ \ TEST\_DEFINE(POWERLOSS\_BEHAVIOR\_i)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ DISK\_VERSION\ \ \ \ \ \ \ \ TEST\_DEFINE(DISK\_VERSION\_i)}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ TEST\_IMPLICIT\_DEFINES\ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(READ\_SIZE,\ \ \ \ \ \ \ \ \ \ PROG\_SIZE)\ \(\backslash\)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(PROG\_SIZE,\ \ \ \ \ \ \ \ \ \ ERASE\_SIZE)\ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(ERASE\_SIZE,\ \ \ \ \ \ \ \ \ 0)\ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(ERASE\_COUNT,\ \ \ \ \ \ \ \ (1024*1024)/ERASE\_SIZE)\ \(\backslash\)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(BLOCK\_SIZE,\ \ \ \ \ \ \ \ \ ERASE\_SIZE)\ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(BLOCK\_COUNT,\ \ \ \ \ \ \ \ ERASE\_COUNT/lfs\_max(BLOCK\_SIZE/ERASE\_SIZE,1))\ \(\backslash\)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(CACHE\_SIZE,\ \ \ \ \ \ \ \ \ lfs\_max(64,lfs\_max(READ\_SIZE,PROG\_SIZE)))\ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(LOOKAHEAD\_SIZE,\ \ \ \ \ 16)\ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(COMPACT\_THRESH,\ \ \ \ \ 0)\ \(\backslash\)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(METADATA\_MAX,\ \ \ \ \ \ \ 0)\ \(\backslash\)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(INLINE\_MAX,\ \ \ \ \ \ \ \ \ 0)\ \(\backslash\)}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(BLOCK\_CYCLES,\ \ \ \ \ \ \ -\/1)\ \(\backslash\)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(ERASE\_VALUE,\ \ \ \ \ \ \ \ 0xff)\ \(\backslash\)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(ERASE\_CYCLES,\ \ \ \ \ \ \ 0)\ \(\backslash\)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(BADBLOCK\_BEHAVIOR,\ \ LFS\_EMUBD\_BADBLOCK\_PROGERROR)\ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(POWERLOSS\_BEHAVIOR,\ LFS\_EMUBD\_POWERLOSS\_NOOP)\ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ \ \ TEST\_DEF(DISK\_VERSION,\ \ \ \ \ \ \ 0)}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ TEST\_GEOMETRY\_DEFINE\_COUNT\ 4}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ TEST\_IMPLICIT\_DEFINE\_COUNT\ 17}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

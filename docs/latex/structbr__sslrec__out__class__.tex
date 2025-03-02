@@ -1,0 +1,71 @@
+\doxysection{br\+\_\+sslrec\+\_\+out\+\_\+class\+\_\+ Struct Reference}
+\hypertarget{structbr__sslrec__out__class__}{}\label{structbr__sslrec__out__class__}\index{br\_sslrec\_out\_class\_@{br\_sslrec\_out\_class\_}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structbr__sslrec__out__class___a7d7a554e4e64be045946f5866332e735}\label{structbr__sslrec__out__class___a7d7a554e4e64be045946f5866332e735} 
+size\+\_\+t {\bfseries context\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Context size (in bytes). \end{DoxyCompactList}\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__sslrec__out__class___ad51570d6d9cc017374dc750b7641976e}{max\+\_\+plaintext}} )(const \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\+\_\+sslrec\+\_\+out\+\_\+class}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}ctx, size\+\_\+t \texorpdfstring{$\ast$}{*}start, size\+\_\+t \texorpdfstring{$\ast$}{*}end)
+\begin{DoxyCompactList}\small\item\em Compute maximum plaintext sizes and offsets. \end{DoxyCompactList}\item 
+unsigned char \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__sslrec__out__class___a0ee69f641c01f22ec5dcaf51a5c735b0}{encrypt}} )(const \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\+\_\+sslrec\+\_\+out\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, int record\+\_\+type, unsigned version, void \texorpdfstring{$\ast$}{*}plaintext, size\+\_\+t \texorpdfstring{$\ast$}{*}len)
+\begin{DoxyCompactList}\small\item\em Perform record encryption. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structbr__sslrec__out__class___a0ee69f641c01f22ec5dcaf51a5c735b0}\index{br\_sslrec\_out\_class\_@{br\_sslrec\_out\_class\_}!encrypt@{encrypt}}
+\index{encrypt@{encrypt}!br\_sslrec\_out\_class\_@{br\_sslrec\_out\_class\_}}
+\doxysubsubsection{\texorpdfstring{encrypt}{encrypt}}
+{\footnotesize\ttfamily \label{structbr__sslrec__out__class___a0ee69f641c01f22ec5dcaf51a5c735b0} 
+unsigned char \texorpdfstring{$\ast$}{*}(\texorpdfstring{$\ast$}{*} br\+\_\+sslrec\+\_\+out\+\_\+class\+\_\+\+::encrypt) (const \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\+\_\+sslrec\+\_\+out\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, int record\+\_\+type, unsigned version, void \texorpdfstring{$\ast$}{*}plaintext, size\+\_\+t \texorpdfstring{$\ast$}{*}len)}
+
+
+
+Perform record encryption. 
+
+This function encrypts the record. The plaintext address and length are provided. Returned value is the start of the encrypted record (or sequence of records, if a split was performed), {\itshape including} the 5-\/byte header, and {\ttfamily \texorpdfstring{$\ast$}{*}len} is adjusted to the total size of the record(s), there again including the header(s).
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & decryption engine context. \\
+\hline
+{\em record\+\_\+type} & record type (23 for application data, etc). \\
+\hline
+{\em version} & record version. \\
+\hline
+{\em plaintext} & address of plaintext. \\
+\hline
+{\em len} & pointer to plaintext length (updated). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to start of built record. 
+\end{DoxyReturn}
+\Hypertarget{structbr__sslrec__out__class___ad51570d6d9cc017374dc750b7641976e}\index{br\_sslrec\_out\_class\_@{br\_sslrec\_out\_class\_}!max\_plaintext@{max\_plaintext}}
+\index{max\_plaintext@{max\_plaintext}!br\_sslrec\_out\_class\_@{br\_sslrec\_out\_class\_}}
+\doxysubsubsection{\texorpdfstring{max\_plaintext}{max\_plaintext}}
+{\footnotesize\ttfamily \label{structbr__sslrec__out__class___ad51570d6d9cc017374dc750b7641976e} 
+void(\texorpdfstring{$\ast$}{*} br\+\_\+sslrec\+\_\+out\+\_\+class\+\_\+\+::max\+\_\+plaintext) (const \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\+\_\+sslrec\+\_\+out\+\_\+class}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}ctx, size\+\_\+t \texorpdfstring{$\ast$}{*}start, size\+\_\+t \texorpdfstring{$\ast$}{*}end)}
+
+
+
+Compute maximum plaintext sizes and offsets. 
+
+When this function is called, the {\ttfamily \texorpdfstring{$\ast$}{*}start} and {\ttfamily \texorpdfstring{$\ast$}{*}end} values contain offsets designating the free area in the outgoing buffer for plaintext data; that free area is preceded by a 5-\/byte space which will receive the record header.
+
+The {\ttfamily \doxylink{structbr__sslrec__out__class___ad51570d6d9cc017374dc750b7641976e}{max\+\_\+plaintext()}} function is responsible for adjusting both {\ttfamily \texorpdfstring{$\ast$}{*}start} and {\ttfamily \texorpdfstring{$\ast$}{*}end} to make room for any record-\/specific header, MAC, padding, and possible split.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & encryption engine context. \\
+\hline
+{\em start} & pointer to start of plaintext offset (updated). \\
+\hline
+{\em end} & pointer to start of plaintext offset (updated). \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/\mbox{\hyperlink{bearssl__ssl_8h}{bearssl\+\_\+ssl.\+h}}\end{DoxyCompactItemize}

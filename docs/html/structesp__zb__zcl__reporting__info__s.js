@@ -1,0 +1,25 @@
+var structesp__zb__zcl__reporting__info__s =
+[
+    [ "attr_id", "structesp__zb__zcl__reporting__info__s.html#a78c62445ab3d11c2eab5ef8d10a89821", null ],
+    [ "cluster_id", "structesp__zb__zcl__reporting__info__s.html#ac804c764fe01662de04bcfdbe61f22ff", null ],
+    [ "cluster_role", "structesp__zb__zcl__reporting__info__s.html#aba78330f8f33033a25ac323804952673", null ],
+    [ "def_max_interval", "structesp__zb__zcl__reporting__info__s.html#aae98ca560555a5d280ff5170a4b052c3", null ],
+    [ "def_min_interval", "structesp__zb__zcl__reporting__info__s.html#afc128d5670e574c0c27ff461c14e3940", null ],
+    [ "delta", "structesp__zb__zcl__reporting__info__s.html#a78d0b7c46ad82b1566ef3d12745b08e9", null ],
+    [ "direction", "structesp__zb__zcl__reporting__info__s.html#a7dc1135b28054b37509c68d6155f18f3", null ],
+    [ "dst", "structesp__zb__zcl__reporting__info__s.html#ae9cc3ad5adf01c65b50c2a0debe20400", null ],
+    [ "endpoint", "structesp__zb__zcl__reporting__info__s.html#a009980a7a0680b4858c32cecf9141bb7", null ],
+    [ "ep", "structesp__zb__zcl__reporting__info__s.html#a2cc658a58b981a1f0f133b5f087d250d", null ],
+    [ "flags", "structesp__zb__zcl__reporting__info__s.html#adaaf65acc0a8c7c3252edb1079050072", null ],
+    [ "manuf_code", "structesp__zb__zcl__reporting__info__s.html#ac9caae300505ad5485d66f02fc8c9090", null ],
+    [ "max_interval", "structesp__zb__zcl__reporting__info__s.html#a7c161122ddb30d8f7421e794ba1b99f1", null ],
+    [ "min_interval", "structesp__zb__zcl__reporting__info__s.html#ae901ac610251859361af41b5f6608677", null ],
+    [ "profile_id", "structesp__zb__zcl__reporting__info__s.html#a08ff125d57d157f8c946afae08e74c80", null ],
+    [ "recv_info", "structesp__zb__zcl__reporting__info__s.html#afe556ce4d06c54c29e09c1e4998c3f52", null ],
+    [ "reported_value", "structesp__zb__zcl__reporting__info__s.html#a59ed03e1c5013694742a39a373526f3f", null ],
+    [ "run_time", "structesp__zb__zcl__reporting__info__s.html#a16783b73f9810fc01b72f6af677693ad", null ],
+    [ "send_info", "structesp__zb__zcl__reporting__info__s.html#a53b72b9e43bbb997a1f18bd2c857519f", null ],
+    [ "short_addr", "structesp__zb__zcl__reporting__info__s.html#a13d74adcfad0c36cb79d689fc50d941e", null ],
+    [ "timeout", "structesp__zb__zcl__reporting__info__s.html#ab7a08ae170f024e96ff2789dac1b6079", null ],
+    [ "u", "structesp__zb__zcl__reporting__info__s.html#a6e4e7c093cd3510e541d02545dad75c9", null ]
+];

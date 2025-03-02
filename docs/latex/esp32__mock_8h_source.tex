@@ -1,0 +1,142 @@
+\doxysection{esp32\+\_\+mock.\+h}
+\hypertarget{esp32__mock_8h_source}{}\label{esp32__mock_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/tests/test\_afl\_fuzz\_host/esp32\_mock.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/tests/test\_afl\_fuzz\_host/esp32\_mock.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2015-\/2024\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ \_ESP32\_COMPAT\_H\_}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ \_ESP32\_COMPAT\_H\_}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Skip\ these\ include\ files}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ ESP\_MDNS\_NETWORKING\_H\_}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ INC\_FREERTOS\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ QUEUE\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ SEMAPHORE\_H}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ \_ESP\_TASK\_H\_}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifdef\ USE\_BSD\_STRING}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <features.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <bsd/string.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <signal.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <sys/time.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}esp\_timer.h"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ ESP\_FAIL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ ESP\_ERR\_NO\_MEM\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x101}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ ESP\_ERR\_INVALID\_ARG\ \ \ \ \ \ \ \ \ 0x102}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ ESP\_ERR\_INVALID\_STATE\ \ \ \ \ \ \ 0x103}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ ESP\_ERR\_INVALID\_SIZE\ \ \ \ \ \ \ \ 0x104}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ ESP\_ERR\_NOT\_FOUND\ \ \ \ \ \ \ \ \ \ \ 0x105}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ ESP\_ERR\_NOT\_SUPPORTED\ \ \ \ \ \ \ 0x106}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ ESP\_ERR\_TIMEOUT\ \ \ \ \ \ \ \ \ \ \ \ \ 0x107}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ESP\_ERR\_INVALID\_RESPONSE\ \ \ \ 0x108}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ ESP\_ERR\_INVALID\_CRC\ \ \ \ \ \ \ \ \ 0x109}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ pdTRUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ true}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ pdFALSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ false}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ pdPASS\ \ \ \ \ \ \ \ \ \ (\ pdTRUE\ )}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ pdFAIL\ \ \ \ \ \ \ \ \ \ (\ pdFALSE\ )}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ portMAX\_DELAY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xFFFFFFFF}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ portTICK\_PERIOD\_MS\ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ LWIP\_HDR\_PBUF\_H}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ \_\_ESP\_RANDOM\_H\_\_}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ INC\_TASK\_H}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ pdMS\_TO\_TICKS(a)\ a}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ xSemaphoreTake(s,d)\ \ \ \ \ \ \ \ true}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ xTaskDelete(a)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ vTaskDelete(a)\ \ \ \ \ \ \ \ \ \ \ \ \ free(a)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ xSemaphoreGive(s)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ xQueueCreateMutex(s)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ \_mdns\_pcb\_init(a,b)\ \ \ \ \ \ \ \ \ true}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ \_mdns\_pcb\_deinit(a,b)\ \ \ \ \ \ \ true}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ xSemaphoreCreateMutex()\ \ \ \ \ malloc(1)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ xSemaphoreCreateBinary()\ \ \ \ malloc(1)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ vSemaphoreDelete(s)\ \ \ \ \ \ \ \ \ free(s)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ queueQUEUE\_TYPE\_MUTEX\ \ \ \ \ \ \ (\ (\ uint8\_t\ )\ 1U}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ xTaskCreatePinnedToCore(a,b,c,d,e,f,g)\ \ \ \ \ *(f)\ =\ malloc(1)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ vTaskDelay(m)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ usleep((m)*0)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ esp\_random()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (rand()\%UINT32\_MAX)}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ESP\_TASK\_PRIO\_MAX\ 25}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ESP\_TASKD\_EVENT\_PRIO\ 5}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ \_mdns\_udp\_pcb\_write(tcpip\_if,\ ip\_protocol,\ ip,\ port,\ data,\ len)\ len}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ TaskHandle\_t\ TaskHandle\_t}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{typedef}\ int32\_t\ esp\_err\_t;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *SemaphoreHandle\_t;}
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *QueueHandle\_t;}
+\DoxyCodeLine{00079\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *TaskHandle\_t;}
+\DoxyCodeLine{00080\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \ \ \ BaseType\_t;}
+\DoxyCodeLine{00081\ \textcolor{keyword}{typedef}\ uint32\_t\ TickType\_t;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structudp__pcb}{udp\_pcb}}\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ uint8\_t\ dummy;}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structip4__addr}{ip4\_addr}}\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ uint32\_t\ addr;}
+\DoxyCodeLine{00090\ \};}
+\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structip4__addr}{ip4\_addr}}\ ip4\_addr\_t;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structip6__addr}{ip6\_addr}}\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ uint32\_t\ addr[4];}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structip6__addr}{ip6\_addr}}\ ip6\_addr\_t;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *system\_event\_t;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpbuf}{pbuf}}\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpbuf}{pbuf}}\ *next;}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ *payload;}
+\DoxyCodeLine{00103\ \ \ \ \ uint16\_t\ tot\_len;}
+\DoxyCodeLine{00104\ \ \ \ \ uint16\_t\ \ len;}
+\DoxyCodeLine{00105\ \ \ \ \ uint8\_t\ \ \textcolor{comment}{/*pbuf\_type*/}\ type;}
+\DoxyCodeLine{00106\ \ \ \ \ uint8\_t\ \ flags;}
+\DoxyCodeLine{00107\ \ \ \ \ uint16\_t\ \ ref;}
+\DoxyCodeLine{00108\ \};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ uint32\_t\ xTaskGetTickCount(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00111\ \textcolor{keyword}{typedef}\ void\ (*esp\_timer\_cb\_t)(\textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{//\ Queue\ mock}}
+\DoxyCodeLine{00114\ QueueHandle\_t\ xQueueCreate(\ uint32\_t\ uxQueueLength,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ uxItemSize\ );}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}\ vQueueDelete(\ QueueHandle\_t\ xQueue\ );}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ uint32\_t\ xQueueSend(QueueHandle\_t\ xQueue,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pvItemToQueue,\ TickType\_t\ xTicksToWait);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ uint32\_t\ xQueueReceive(QueueHandle\_t\ xQueue,\ \textcolor{keywordtype}{void}\ *pvBuffer,\ TickType\_t\ xTicksToWait);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{void}\ GetLastItem(\textcolor{keywordtype}{void}\ *pvBuffer);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keywordtype}{void}\ ForceTaskDelete(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ esp\_err\_t\ esp\_event\_handler\_register(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *event\_base,\ int32\_t\ event\_id,\ \textcolor{keywordtype}{void}\ *event\_handler,\ \textcolor{keywordtype}{void}\ *event\_handler\_arg);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ esp\_err\_t\ esp\_event\_handler\_unregister(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *event\_base,\ int32\_t\ event\_id,\ \textcolor{keywordtype}{void}\ *event\_handler);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ TaskHandle\_t\ xTaskGetCurrentTaskHandle(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00133\ \textcolor{keywordtype}{void}\ xTaskNotifyGive(TaskHandle\_t\ task);}
+\DoxyCodeLine{00134\ BaseType\_t\ xTaskNotifyWait(uint32\_t\ bits\_entry\_clear,\ uint32\_t\ bits\_exit\_clear,\ uint32\_t\ *value,\ TickType\_t\ wait\_time\ );}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\_ESP32\_COMPAT\_H\_}}
+
+\end{DoxyCode}

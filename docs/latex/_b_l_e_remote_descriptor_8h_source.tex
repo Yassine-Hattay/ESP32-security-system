@@ -1,0 +1,60 @@
+\doxysection{BLERemote\+Descriptor.\+h}
+\hypertarget{_b_l_e_remote_descriptor_8h_source}{}\label{_b_l_e_remote_descriptor_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/BLERemoteDescriptor.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/BLERemoteDescriptor.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ BLERemoteDescriptor.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Jul\ 8,\ 2017}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ kolban}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ COMPONENTS\_CPP\_UTILS\_BLEREMOTEDESCRIPTOR\_H\_}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ COMPONENTS\_CPP\_UTILS\_BLEREMOTEDESCRIPTOR\_H\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#if\ SOC\_BLE\_SUPPORTED}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_BLUEDROID\_ENABLED)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <esp\_gattc\_api.h>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}BLERemoteCharacteristic.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}BLEUUID.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}RTOS.h"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }BLERemoteCharacteristic;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }BLERemoteDescriptor\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ uint16\_t\ getHandle();}
+\DoxyCodeLine{00030\ \ \ BLERemoteCharacteristic\ *getRemoteCharacteristic();}
+\DoxyCodeLine{00031\ \ \ BLEUUID\ getUUID();}
+\DoxyCodeLine{00032\ \ \ String\ readValue(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00033\ \ \ uint8\_t\ readUInt8(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00034\ \ \ uint16\_t\ readUInt16(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00035\ \ \ uint32\_t\ readUInt32(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00036\ \ \ String\ toString(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ writeValue(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ length,\ \textcolor{keywordtype}{bool}\ response\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{void}\ writeValue(String\ newValue,\ \textcolor{keywordtype}{bool}\ response\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{void}\ writeValue(uint8\_t\ newValue,\ \textcolor{keywordtype}{bool}\ response\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{void}\ setAuth(esp\_gatt\_auth\_req\_t\ auth);}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{void}\ gattClientEventHandler(esp\_gattc\_cb\_event\_t\ event,\ esp\_gatt\_if\_t\ gattc\_if,\ esp\_ble\_gattc\_cb\_param\_t\ *evtParam);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }BLERemoteCharacteristic;}
+\DoxyCodeLine{00045\ \ \ BLERemoteDescriptor(uint16\_t\ handle,\ BLEUUID\ uuid,\ BLERemoteCharacteristic\ *pRemoteCharacteristic);}
+\DoxyCodeLine{00046\ \ \ uint16\_t\ m\_handle;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Server\ handle\ of\ this\ descriptor.}}
+\DoxyCodeLine{00047\ \ \ BLEUUID\ m\_uuid;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UUID\ of\ this\ descriptor.}}
+\DoxyCodeLine{00048\ \ \ String\ m\_value;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Last\ received\ value\ of\ the\ descriptor.}}
+\DoxyCodeLine{00049\ \ \ BLERemoteCharacteristic\ *m\_pRemoteCharacteristic;\ \ \textcolor{comment}{//\ Reference\ to\ the\ Remote\ characteristic\ of\ which\ this\ descriptor\ is\ associated.}}
+\DoxyCodeLine{00050\ \ \ FreeRTOS::Semaphore\ m\_semaphoreReadDescrEvt\ =\ FreeRTOS::Semaphore(\textcolor{stringliteral}{"{}ReadDescrEvt"{}});}
+\DoxyCodeLine{00051\ \ \ FreeRTOS::Semaphore\ m\_semaphoreWriteDescrEvt\ =\ FreeRTOS::Semaphore(\textcolor{stringliteral}{"{}WriteDescrEvt"{}});}
+\DoxyCodeLine{00052\ \ \ esp\_gatt\_auth\_req\_t\ m\_auth;}
+\DoxyCodeLine{00053\ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_BLUEDROID\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_BLE\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ COMPONENTS\_CPP\_UTILS\_BLEREMOTEDESCRIPTOR\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

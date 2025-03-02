@@ -1,0 +1,116 @@
+\doxysection{esp\+\_\+schedule.\+h}
+\hypertarget{esp__schedule_8h_source}{}\label{esp__schedule_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_schedule/include/esp\_schedule.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_schedule/include/esp\_schedule.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *esp\_schedule\_handle\_t;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ MAX\_SCHEDULE\_NAME\_LEN\ 16}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ void\ (*esp\_schedule\_trigger\_cb\_t)(esp\_schedule\_handle\_t\ handle,\ \textcolor{keywordtype}{void}\ *priv\_data);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ void\ (*esp\_schedule\_timestamp\_cb\_t)(esp\_schedule\_handle\_t\ handle,\ uint32\_t\ next\_timestamp,\ \textcolor{keywordtype}{void}\ *priv\_data);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_schedule\_type\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ ESP\_SCHEDULE\_TYPE\_INVALID\ =\ 0,}
+\DoxyCodeLine{00045\ \ \ \ \ ESP\_SCHEDULE\_TYPE\_DAYS\_OF\_WEEK,}
+\DoxyCodeLine{00046\ \ \ \ \ ESP\_SCHEDULE\_TYPE\_DATE,}
+\DoxyCodeLine{00047\ \ \ \ \ ESP\_SCHEDULE\_TYPE\_RELATIVE,}
+\DoxyCodeLine{00048\ \}\ esp\_schedule\_type\_t;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_schedule\_days\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ ESP\_SCHEDULE\_DAY\_ONCE\ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{00053\ \ \ \ \ ESP\_SCHEDULE\_DAY\_EVERYDAY\ \ =\ 0b1111111,}
+\DoxyCodeLine{00054\ \ \ \ \ ESP\_SCHEDULE\_DAY\_MONDAY\ \ \ \ =\ 1\ <<\ 0,}
+\DoxyCodeLine{00055\ \ \ \ \ ESP\_SCHEDULE\_DAY\_TUESDAY\ \ \ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00056\ \ \ \ \ ESP\_SCHEDULE\_DAY\_WEDNESDAY\ =\ 1\ <<\ 2,}
+\DoxyCodeLine{00057\ \ \ \ \ ESP\_SCHEDULE\_DAY\_THURSDAY\ \ =\ 1\ <<\ 3,}
+\DoxyCodeLine{00058\ \ \ \ \ ESP\_SCHEDULE\_DAY\_FRIDAY\ \ \ \ =\ 1\ <<\ 4,}
+\DoxyCodeLine{00059\ \ \ \ \ ESP\_SCHEDULE\_DAY\_SATURDAY\ \ =\ 1\ <<\ 5,}
+\DoxyCodeLine{00060\ \ \ \ \ ESP\_SCHEDULE\_DAY\_SUNDAY\ \ \ \ =\ 1\ <<\ 6,}
+\DoxyCodeLine{00061\ \}\ esp\_schedule\_days\_t;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_schedule\_months\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_ONCE\ \ \ \ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{00066\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_ALL\ \ \ \ \ \ \ \ \ \ =\ 0b1111111,}
+\DoxyCodeLine{00067\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_JANUARY\ \ \ \ \ \ =\ 1\ <<\ 0,}
+\DoxyCodeLine{00068\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_FEBRUARY\ \ \ \ \ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00069\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_MARCH\ \ \ \ \ \ \ \ =\ 1\ <<\ 2,}
+\DoxyCodeLine{00070\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_APRIL\ \ \ \ \ \ \ \ =\ 1\ <<\ 3,}
+\DoxyCodeLine{00071\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_MAY\ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,}
+\DoxyCodeLine{00072\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_JUNE\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5,}
+\DoxyCodeLine{00073\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_JULY\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6,}
+\DoxyCodeLine{00074\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_AUGUST\ \ \ \ \ \ \ =\ 1\ <<\ 7,}
+\DoxyCodeLine{00075\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_SEPTEMBER\ \ \ \ =\ 1\ <<\ 8,}
+\DoxyCodeLine{00076\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_OCTOBER\ \ \ \ \ \ =\ 1\ <<\ 9,}
+\DoxyCodeLine{00077\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_NOVEMBER\ \ \ \ \ =\ 1\ <<\ 10,}
+\DoxyCodeLine{00078\ \ \ \ \ ESP\_SCHEDULE\_MONTH\_DECEMBER\ \ \ \ \ =\ 1\ <<\ 11,}
+\DoxyCodeLine{00079\ \}\ esp\_schedule\_months\_t;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__schedule__trigger}{esp\_schedule\_trigger}}\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ esp\_schedule\_type\_t\ \mbox{\hyperlink{structesp__schedule__trigger_abbcce5278079ed9cf5102fa9c7106989}{type}};}
+\DoxyCodeLine{00086\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__schedule__trigger_ac8d4ee15fa07f806ab6d90669cc40579}{hours}};}
+\DoxyCodeLine{00088\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__schedule__trigger_a3a2de5e7f001484106eb094b695bb2c2}{minutes}};}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__schedule__trigger_abb61933a105308ace5657690a2960dbe}{repeat\_days}};}
+\DoxyCodeLine{00093\ \ \ \ \ \}\ day;}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__schedule__trigger_a36e1c2cb65b0b17b77d9e698bd2b93cd}{day}};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 'OR'\ list\ of\ esp\_schedule\_months\_t\ */}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ uint16\_t\ repeat\_months;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__schedule__trigger_a94a060ba4bb27f833a367e322d278dc9}{year}};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structesp__schedule__trigger_ad074904ee278aef2d181853392bc07cf}{repeat\_every\_year}};}
+\DoxyCodeLine{00104\ \ \ \ \ \}\ \mbox{\hyperlink{structesp__schedule__trigger_a2e6b0d454e9d1fd70dde594770894fba}{date}};}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structesp__schedule__trigger_adc3d572a7da9a40da87846e69d9122e4}{relative\_seconds}};}
+\DoxyCodeLine{00109\ \ \ \ \ time\_t\ \mbox{\hyperlink{structesp__schedule__trigger_a86c672e130eef97e6f3458f529baa25a}{next\_scheduled\_time\_utc}};}
+\DoxyCodeLine{00110\ \}\ esp\_schedule\_trigger\_t;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__schedule__validity}{esp\_schedule\_validity}}\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{/*\ Start\ time\ as\ UTC\ timestamp\ */}}
+\DoxyCodeLine{00117\ \ \ \ \ time\_t\ start\_time;}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{/*\ End\ time\ as\ UTC\ timestamp\ */}}
+\DoxyCodeLine{00119\ \ \ \ \ time\_t\ end\_time;}
+\DoxyCodeLine{00120\ \}\ esp\_schedule\_validity\_t;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__schedule__config}{esp\_schedule\_config}}\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__schedule__config_ae43665c250d961e0306d48285b0855a3}{name}}[MAX\_SCHEDULE\_NAME\_LEN\ +\ 1];}
+\DoxyCodeLine{00127\ \ \ \ \ esp\_schedule\_trigger\_t\ \mbox{\hyperlink{structesp__schedule__config_ace4501d99044de298073670ab7f69e21}{trigger}};}
+\DoxyCodeLine{00129\ \ \ \ \ esp\_schedule\_trigger\_cb\_t\ \mbox{\hyperlink{structesp__schedule__config_a18310b673ebede4c94f8a0eabff92c36}{trigger\_cb}};}
+\DoxyCodeLine{00131\ \ \ \ \ esp\_schedule\_timestamp\_cb\_t\ \mbox{\hyperlink{structesp__schedule__config_abc4e86f07b53d70daa76ab37262e9188}{timestamp\_cb}};}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structesp__schedule__config_ab4489f4576f03bf53147a66c3bf01fd7}{priv\_data}};}
+\DoxyCodeLine{00135\ \ \ \ \ esp\_schedule\_validity\_t\ \mbox{\hyperlink{structesp__schedule__config_ac3d65de14dc09709d7a34d9deab55f29}{validity}};}
+\DoxyCodeLine{00136\ \}\ esp\_schedule\_config\_t;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00153\ esp\_schedule\_handle\_t\ *esp\_schedule\_init(\textcolor{keywordtype}{bool}\ enable\_nvs,\ \textcolor{keywordtype}{char}\ *nvs\_partition,\ uint8\_t\ *schedule\_count);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00165\ esp\_schedule\_handle\_t\ esp\_schedule\_create(esp\_schedule\_config\_t\ *schedule\_config);}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00176\ esp\_err\_t\ esp\_schedule\_delete(esp\_schedule\_handle\_t\ handle);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00193\ esp\_err\_t\ esp\_schedule\_edit(esp\_schedule\_handle\_t\ handle,\ esp\_schedule\_config\_t\ *schedule\_config);}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00206\ esp\_err\_t\ esp\_schedule\_enable(esp\_schedule\_handle\_t\ handle);}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00219\ esp\_err\_t\ esp\_schedule\_disable(esp\_schedule\_handle\_t\ handle);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00232\ esp\_err\_t\ esp\_schedule\_get(esp\_schedule\_handle\_t\ handle,\ esp\_schedule\_config\_t\ *schedule\_config);}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00235\ \}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,70 @@
+\doxysection{br\+\_\+block\+\_\+cbcdec\+\_\+class\+\_\+ Struct Reference}
+\hypertarget{structbr__block__cbcdec__class__}{}\label{structbr__block__cbcdec__class__}\index{br\_block\_cbcdec\_class\_@{br\_block\_cbcdec\_class\_}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structbr__block__cbcdec__class___a3905f50afc18ac57e509e6fa3de7a6d6}\label{structbr__block__cbcdec__class___a3905f50afc18ac57e509e6fa3de7a6d6} 
+size\+\_\+t {\bfseries context\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Size (in bytes) of the context structure appropriate for containing subkeys. \end{DoxyCompactList}\item 
+\Hypertarget{structbr__block__cbcdec__class___a90d49ad45057502d5c317b88b196192f}\label{structbr__block__cbcdec__class___a90d49ad45057502d5c317b88b196192f} 
+unsigned {\bfseries block\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Size of individual blocks (in bytes). \end{DoxyCompactList}\item 
+\Hypertarget{structbr__block__cbcdec__class___a5ee75e036596d74d8acad3390105d590}\label{structbr__block__cbcdec__class___a5ee75e036596d74d8acad3390105d590} 
+unsigned {\bfseries log\+\_\+block\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Base-\/2 logarithm of the size of individual blocks, expressed in bytes. \end{DoxyCompactList}\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__block__cbcdec__class___af84792d60cd230b8ddda5ebce62a6252}{init}} )(const \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\+\_\+block\+\_\+cbcdec\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}key, size\+\_\+t key\+\_\+len)
+\begin{DoxyCompactList}\small\item\em Initialisation function. \end{DoxyCompactList}\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__block__cbcdec__class___ab1304ead1b43a55d35150d6d0b15a3e9}{run}} )(const \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\+\_\+block\+\_\+cbcdec\+\_\+class}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}iv, void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Run the CBC decryption. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structbr__block__cbcdec__class___af84792d60cd230b8ddda5ebce62a6252}\index{br\_block\_cbcdec\_class\_@{br\_block\_cbcdec\_class\_}!init@{init}}
+\index{init@{init}!br\_block\_cbcdec\_class\_@{br\_block\_cbcdec\_class\_}}
+\doxysubsubsection{\texorpdfstring{init}{init}}
+{\footnotesize\ttfamily \label{structbr__block__cbcdec__class___af84792d60cd230b8ddda5ebce62a6252} 
+void(\texorpdfstring{$\ast$}{*} br\+\_\+block\+\_\+cbcdec\+\_\+class\+\_\+\+::init) (const \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\+\_\+block\+\_\+cbcdec\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}key, size\+\_\+t key\+\_\+len)}
+
+
+
+Initialisation function. 
+
+This function sets the {\ttfamily vtable} field in the context structure. The key length MUST be one of the key lengths supported by the implementation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & context structure to initialise. \\
+\hline
+{\em key} & secret key. \\
+\hline
+{\em key\+\_\+len} & key length (in bytes). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structbr__block__cbcdec__class___ab1304ead1b43a55d35150d6d0b15a3e9}\index{br\_block\_cbcdec\_class\_@{br\_block\_cbcdec\_class\_}!run@{run}}
+\index{run@{run}!br\_block\_cbcdec\_class\_@{br\_block\_cbcdec\_class\_}}
+\doxysubsubsection{\texorpdfstring{run}{run}}
+{\footnotesize\ttfamily \label{structbr__block__cbcdec__class___ab1304ead1b43a55d35150d6d0b15a3e9} 
+void(\texorpdfstring{$\ast$}{*} br\+\_\+block\+\_\+cbcdec\+\_\+class\+\_\+\+::run) (const \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\+\_\+block\+\_\+cbcdec\+\_\+class}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}iv, void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)}
+
+
+
+Run the CBC decryption. 
+
+The {\ttfamily iv} parameter points to the IV for this run; it is updated with a copy of the last encrypted block. The data is decrypted "{}in place"{}; its length ({\ttfamily len}) MUST be a multiple of the block size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & context structure (already initialised). \\
+\hline
+{\em iv} & IV for CBC decryption (updated). \\
+\hline
+{\em data} & data to decrypt. \\
+\hline
+{\em len} & data length (in bytes, multiple of block size). \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/\mbox{\hyperlink{bearssl__block_8h}{bearssl\+\_\+block.\+h}}\end{DoxyCompactItemize}

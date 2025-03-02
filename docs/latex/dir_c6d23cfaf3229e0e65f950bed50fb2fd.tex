@@ -1,0 +1,2523 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src Directory Reference}
+\hypertarget{dir_c6d23cfaf3229e0e65f950bed50fb2fd}{}\label{dir_c6d23cfaf3229e0e65f950bed50fb2fd}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_a97ae12b540eab68c41abb3eae462e1d}{client}}
+\item 
+directory \mbox{\hyperlink{dir_6cb3e8eb6264a00367d0f10bc7cc34c3}{extras}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bfseries ESP\+\_\+\+Mail\+\_\+\+Client.\+h}
+\item 
+file {\bfseries ESP\+\_\+\+Mail\+\_\+\+Client\+\_\+\+Version.\+h}
+\item 
+file {\bfseries ESP\+\_\+\+Mail\+\_\+\+Const.\+h}
+\item 
+file {\bfseries ESP\+\_\+\+Mail\+\_\+\+Error.\+h}
+\item 
+file {\bfseries ESP\+\_\+\+Mail\+\_\+\+FS.\+h}
+\item 
+file {\bfseries ESP\+\_\+\+Mail\+\_\+\+IMAP.\+h}
+\item 
+file {\bfseries ESP\+\_\+\+Mail\+\_\+\+SMTP.\+h}
+\item 
+file {\bfseries ESP\+\_\+\+Mail\+\_\+\+TCPClient.\+h}
+\item 
+file {\bfseries Heap\+Stat.\+h}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The description of the available functions in the current reease are shown below.\hypertarget{README.md_autotoc_md112}{}\doxysubsection{\texorpdfstring{Global functions}{Global functions}}\label{README.md_autotoc_md112}
+\hypertarget{README.md_autotoc_md113}{}\doxysubsubsubsection{\texorpdfstring{Sending Email through the SMTP server.}{Sending Email through the SMTP server.}}\label{README.md_autotoc_md113}
+param {\bfseries{{\ttfamily smtp}}} The pointer to SMTP session object which holds the data and the TCP client.
+
+param {\bfseries{{\ttfamily msg}}} The pointer to \doxylink{class_s_m_t_p___message}{SMTP\+\_\+\+Message} class which contains the header, body, and attachments.
+
+param {\bfseries{{\ttfamily close\+Session}}} The option to Close the SMTP session after sent.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sendMail(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ closeSession\ =\ \textcolor{keyword}{true});}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md114}{}\doxysubsubsubsection{\texorpdfstring{Append message to the mailbox}{Append message to the mailbox}}\label{README.md_autotoc_md114}
+param {\bfseries{{\ttfamily imap}}} The pointer to IMAP sesssion object which holds the data and the TCP client.
+
+param {\bfseries{{\ttfamily msg}}} The pointer to \doxylink{class_s_m_t_p___message}{SMTP\+\_\+\+Message} class which contains the header, body, and attachments.
+
+param {\bfseries{{\ttfamily last\+Append}}} The last message to append (optional). In case MULTIAPPEND extension
+
+is supported, set this to false will append messages in single APPEND command.
+
+param {\bfseries{{\ttfamily flags}}} The flags to set to this message.
+
+param {\bfseries{{\ttfamily date\+Time}}} The date/time to set to this message (optional).
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ appendMessage(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ T\ flags\ =\ \textcolor{stringliteral}{"{}"{}});}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md115}{}\doxysubsubsubsection{\texorpdfstring{Reading Email through IMAP server.}{Reading Email through IMAP server.}}\label{README.md_autotoc_md115}
+param {\bfseries{{\ttfamily imap}}} The pointer to IMAP sesssion object which holds the data and the TCP client.
+
+param {\bfseries{{\ttfamily close\+Session}}} The option to close the IMAP session after fetching or searching the Email.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ readMail(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{bool}\ closeSession\ =\ \textcolor{keyword}{true});}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md116}{}\doxysubsubsubsection{\texorpdfstring{Set the argument to the Flags for the specified message.}{Set the argument to the Flags for the specified message.}}\label{README.md_autotoc_md116}
+param {\bfseries{{\ttfamily imap}}} The pointer to IMAP session object which holds the data and the TCP client.
+
+param {\bfseries{{\ttfamily msg\+UID}}} The UID of the message.
+
+param {\bfseries{{\ttfamily flags}}} The flag list to set.
+
+param {\bfseries{{\ttfamily close\+Session}}} The option to close the IMAP session after set flag.
+
+param {\bfseries{{\ttfamily silent}}} The option to ignore the response.
+
+param {\bfseries{{\ttfamily modsequence}}} The int32\+\_\+t option for UNCHANGESINCE conditional test.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+The modsequence value can be used only if IMAP server supports Conditional STORE extension and the selected mailbox supports modsequences.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ setFlag(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ msgUID,\ <\textcolor{keywordtype}{string}>\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md117}{}\doxysubsubsubsection{\texorpdfstring{Set the argument to the Flags for the specified message.}{Set the argument to the Flags for the specified message.}}\label{README.md_autotoc_md117}
+param {\bfseries{{\ttfamily imap}}} The pointer to IMAP session object which holds the data and the TCP client.
+
+param {\bfseries{{\ttfamily sequence\+Set}}} The sequence set string i.\+g., unique identifier (UID) or message sequence number or ranges of UID or sequence number.
+
+param {\bfseries{{\ttfamily UID}}} The option for sequence\+Set whether it is UID or message sequence number.
+
+param {\bfseries{{\ttfamily flags}}} The flag list to set.
+
+param {\bfseries{{\ttfamily close\+Session}}} The option to close the IMAP session after set flag.
+
+param {\bfseries{{\ttfamily silent}}} The option to ignore the response.
+
+param {\bfseries{{\ttfamily modsequence}}} The int32\+\_\+t option for UNCHANGESINCE conditional test.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+The modsequence value can be used only if IMAP server supports Conditional STORE extension and the selected mailbox supports modsequences.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ setFlag(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ <\textcolor{keywordtype}{string}>\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ <\textcolor{keywordtype}{string}>\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md118}{}\doxysubsubsubsection{\texorpdfstring{Add the argument to the Flags for the specified message.}{Add the argument to the Flags for the specified message.}}\label{README.md_autotoc_md118}
+param {\bfseries{{\ttfamily imap}}} The pointer to IMAP session object which holds the data and the TCP client.
+
+param {\bfseries{{\ttfamily msg\+UID}}} The UID of the message.
+
+param {\bfseries{{\ttfamily flags}}} The flag list to add.
+
+param {\bfseries{{\ttfamily close\+Session}}} The option to close the IMAP session after add flag.
+
+param {\bfseries{{\ttfamily silent}}} The option to ignore the response.
+
+param {\bfseries{{\ttfamily modsequence}}} The int32\+\_\+t option for UNCHANGESINCE conditional test.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+The modsequence value can be used only if IMAP server supports Conditional STORE extension and the selected mailbox supports modsequences.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ addFlag(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ msgUID,\ <\textcolor{keywordtype}{string}>\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ int32\_t\ modsequence\ =\ -\/1);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md119}{}\doxysubsubsubsection{\texorpdfstring{Add the argument to the Flags for the specified message.}{Add the argument to the Flags for the specified message.}}\label{README.md_autotoc_md119}
+param {\bfseries{{\ttfamily imap}}} The pointer to IMAP session object which holds the data and the TCP client.
+
+param {\bfseries{{\ttfamily sequence\+Set}}} The sequence set string i.\+g., unique identifier (UID) or message sequence number or ranges of UID or sequence number.
+
+param {\bfseries{{\ttfamily UID}}} The option for sequence\+Set whether it is UID or message sequence number.
+
+param {\bfseries{{\ttfamily flags}}} The flag list to add.
+
+param {\bfseries{{\ttfamily close\+Session}}} The option to close the IMAP session after set flag.
+
+param {\bfseries{{\ttfamily silent}}} The option to ignore the response.
+
+param {\bfseries{{\ttfamily modsequence}}} The int32\+\_\+t option for UNCHANGESINCE conditional test.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+The modsequence value can be used only if IMAP server supports Conditional STORE extension and the selected mailbox supports modsequences.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ addFlag(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ <\textcolor{keywordtype}{string}>\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ <\textcolor{keywordtype}{string}>\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md120}{}\doxysubsubsubsection{\texorpdfstring{Remove the argument from the Flags for the specified message.}{Remove the argument from the Flags for the specified message.}}\label{README.md_autotoc_md120}
+param {\bfseries{{\ttfamily imap}}} The pointer to IMAP session object which holds the data and the TCP client.
+
+param {\bfseries{{\ttfamily msg\+UID}}} The UID of the message that flags to be removed.
+
+param {\bfseries{{\ttfamily flags}}} The flag list to remove.
+
+param {\bfseries{{\ttfamily close\+Session}}} The option to close the IMAP session after remove flag.
+
+param {\bfseries{{\ttfamily silent}}} The option to ignore the response.
+
+param {\bfseries{{\ttfamily modsequence}}} The int32\+\_\+t option for UNCHANGESINCE conditional test.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+The modsequence value can be used only if IMAP server supports Conditional STORE extension and the selected mailbox supports modsequences.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ removeFlag(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ msgUID,\ <\textcolor{keywordtype}{string}>\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ int32\_t\ modsequence\ =\ -\/1);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md121}{}\doxysubsubsubsection{\texorpdfstring{Remove the argument from the Flags for the specified message.}{Remove the argument from the Flags for the specified message.}}\label{README.md_autotoc_md121}
+param {\bfseries{{\ttfamily imap}}} The pointer to IMAP session object which holds the data and the TCP client.
+
+param {\bfseries{{\ttfamily sequence\+Set}}} The sequence set string i.\+g., unique identifier (UID) or message sequence number or ranges of UID or sequence number.
+
+param {\bfseries{{\ttfamily UID}}} The option for sequence\+Set whether it is UID or message sequence number.
+
+param {\bfseries{{\ttfamily flags}}} The flag list to remove.
+
+param {\bfseries{{\ttfamily close\+Session}}} The option to close the IMAP session after set flag.
+
+param {\bfseries{{\ttfamily silent}}} The option to ignore the response.
+
+param {\bfseries{{\ttfamily modsequence}}} The int32\+\_\+t option for UNCHANGESINCE conditional test.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+The modsequence value can be used only if IMAP server supports Conditional STORE extension and the selected mailbox supports modsequences.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ removeFlag(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ <\textcolor{keywordtype}{string}>\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ <\textcolor{keywordtype}{string}>\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md122}{}\doxysubsubsubsection{\texorpdfstring{Reconnect Wi\+Fi or network if lost connection.}{Reconnect Wi\+Fi or network if lost connection.}}\label{README.md_autotoc_md122}
+param {\bfseries{{\ttfamily reconnect}}} The boolean to set/unset Wi\+Fi AP reconnection.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ networkReconnect(\textcolor{keywordtype}{bool}\ reconnect);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md123}{}\doxysubsubsubsection{\texorpdfstring{Initiate SD card with SPI port configuration.}{Initiate SD card with SPI port configuration.}}\label{README.md_autotoc_md123}
+param {\bfseries{{\ttfamily ss}}} The SPI Chip/\+Slave Select pin.
+
+param {\bfseries{{\ttfamily sck}}} The SPI Clock pin.
+
+param {\bfseries{{\ttfamily miso}}} The SPI MISO pin.
+
+param {\bfseries{{\ttfamily mosi}}} The SPI MOSI pin.
+
+aram {\bfseries{{\ttfamily frequency}}} The SPI frequency.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sdBegin(int8\_t\ ss\ =\ -\/1,\ int8\_t\ sck\ =\ -\/1,\ int8\_t\ miso\ =\ -\/1,\ int8\_t\ mosi\ =\ -\/1,\ uint32\_t\ frequency\ =\ 4000000);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md124}{}\doxysubsubsubsection{\texorpdfstring{Initiate SD card with SD FS configurations (ESP8266 only).}{Initiate SD card with SD FS configurations (ESP8266 only).}}\label{README.md_autotoc_md124}
+param {\bfseries{{\ttfamily ss}}} SPI Chip/\+Slave Select pin.
+
+param {\bfseries{{\ttfamily sd\+FSConfig}}} The pointer to SDFSConfig object (ESP8266 only).
+
+return {\bfseries{{\ttfamily boolean}}} type status indicates the success of the operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sdBegin(SDFSConfig\ *sdFSConfig);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md125}{}\doxysubsubsubsection{\texorpdfstring{Initiate SD card with chip select and SPI configuration (ESP32 only).}{Initiate SD card with chip select and SPI configuration (ESP32 only).}}\label{README.md_autotoc_md125}
+param {\bfseries{{\ttfamily ss}}} The SPI Chip/\+Slave Select pin.
+
+param {\bfseries{{\ttfamily spi\+Config}}} The pointer to SPIClass object for SPI configuartion.
+
+param {\bfseries{{\ttfamily frequency}}} The SPI frequency.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sdBegin(int8\_t\ ss,\ SPIClass\ *spiConfig\ =\ \textcolor{keyword}{nullptr},\ uint32\_t\ frequency\ =\ 4000000);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md126}{}\doxysubsubsubsection{\texorpdfstring{Initiate SD card with Sd\+Fat SPI and pins configurations (with Sd\+Fat included only).}{Initiate SD card with Sd\+Fat SPI and pins configurations (with Sd\+Fat included only).}}\label{README.md_autotoc_md126}
+param {\bfseries{{\ttfamily sd\+Fat\+SPIConfig}}} The pointer to Sd\+Spi\+Config object for Sd\+Fat SPI configuration.
+
+param {\bfseries{{\ttfamily ss}}} The SPI Chip/\+Slave Select pin.
+
+param {\bfseries{{\ttfamily sck}}} The SPI Clock pin.
+
+param {\bfseries{{\ttfamily miso}}} The SPI MISO pin.
+
+param {\bfseries{{\ttfamily mosi}}} The SPI MOSI pin.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sdBegin(SdSpiConfig\ *sdFatSPIConfig,\ int8\_t\ ss\ =\ -\/1,\ int8\_t\ sck\ =\ -\/1,\ int8\_t\ miso\ =\ -\/1,\ int8\_t\ mosi\ =\ -\/1);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md127}{}\doxysubsubsubsection{\texorpdfstring{Initiate SD card with Sd\+Fat SDIO configuration (with Sd\+Fat included only).}{Initiate SD card with Sd\+Fat SDIO configuration (with Sd\+Fat included only).}}\label{README.md_autotoc_md127}
+param {\bfseries{{\ttfamily sd\+Fat\+SDIOConfig}}} The pointer to Sdio\+Config object for Sd\+Fat SDIO configuration.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sdBegin(SdioConfig\ *sdFatSDIOConfig);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md128}{}\doxysubsubsubsection{\texorpdfstring{Initialize the SD\+\_\+\+MMC card (ESP32 only).}{Initialize the SD\+\_\+\+MMC card (ESP32 only).}}\label{README.md_autotoc_md128}
+param {\bfseries{{\ttfamily mountpoint}}} The mounting point.
+
+param {\bfseries{{\ttfamily mode1bit}}} Allow 1 bit data line (SPI mode).
+
+param {\bfseries{{\ttfamily format\+\_\+if\+\_\+mount\+\_\+failed}}} Format SD\+\_\+\+MMC card if mount failed.
+
+return {\bfseries{{\ttfamily Boolean}}} type status indicates the success of the operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sdMMCBegin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mountpoint\ =\ \textcolor{stringliteral}{"{}/sdcard"{}},\ \textcolor{keywordtype}{bool}\ mode1bit\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ format\_if\_mount\_failed\ =\ \textcolor{keyword}{false});}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md129}{}\doxysubsubsubsection{\texorpdfstring{Get free Heap memory.}{Get free Heap memory.}}\label{README.md_autotoc_md129}
+return {\bfseries{{\ttfamily int}}} Free memory amount in byte.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ getFreeHeap();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md130}{}\doxysubsection{\texorpdfstring{IMAPSession class functions}{IMAPSession class functions}}\label{README.md_autotoc_md130}
+The following functions are available from the IMAP Session class.
+
+This class used for controlling IMAP transports and retrieving the data from the IMAP server.\hypertarget{README.md_autotoc_md131}{}\doxysubsubsubsection{\texorpdfstring{Set the tcp timeout.}{Set the tcp timeout.}}\label{README.md_autotoc_md131}
+param {\bfseries{{\ttfamily timeout\+Sec}}} The tcp timeout in seconds.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setTCPTimeout(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeoutSec);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md132}{}\doxysubsubsubsection{\texorpdfstring{Assign custom Client from Arduino Clients.}{Assign custom Client from Arduino Clients.}}\label{README.md_autotoc_md132}
+param {\bfseries{{\ttfamily client}}} The pointer to Arduino \doxylink{class_client}{Client} derived class e.\+g. Wi\+Fi\+Client, Wi\+Fi\+Client\+Secure, Ethernet\+Client or GSMClient.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setClient(\mbox{\hyperlink{class_client}{Client}}\ *client);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md133}{}\doxysubsubsubsection{\texorpdfstring{Assign Tiny\+Gsm Clients.}{Assign Tiny\+Gsm Clients.}}\label{README.md_autotoc_md133}
+param {\bfseries{{\ttfamily client}}} The pointer to Tiny\+Gsm\+Client.
+
+param {\bfseries{{\ttfamily modem}}} The pointer to Tiny\+Gsm modem object. Modem should be initialized and/or set mode before transfering data.
+
+param {\bfseries{{\ttfamily pin}}} The SIM pin.
+
+param {\bfseries{{\ttfamily apn}}} The GPRS APN (Access Point Name).
+
+param {\bfseries{{\ttfamily user}}} The GPRS user.
+
+param {\bfseries{{\ttfamily password}}} The GPRS password.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setGSMClient(\mbox{\hyperlink{class_client}{Client}}\ *client,\ \textcolor{keywordtype}{void}\ *modem,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *apn,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *user,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md134}{}\doxysubsubsubsection{\texorpdfstring{Assign external Ethernet Client.}{Assign external Ethernet Client.}}\label{README.md_autotoc_md134}
+param {\bfseries{{\ttfamily client}}} The pointer to Ethernet client object.
+
+param {\bfseries{{\ttfamily mac\+Address}}} The Ethernet MAC address.
+
+param {\bfseries{{\ttfamily cs\+Pin}}} The Ethernet module SPI chip select pin.
+
+param {\bfseries{{\ttfamily reset\+Pin}}} The Ethernet module reset pin.
+
+param {\bfseries{{\ttfamily static\+IP}}} (Optional) The pointer to {\ttfamily ESP\+\_\+\+Mail\+\_\+\+Static\+IP} object which included these \doxylink{class_i_p_address}{IPAddress} properties ip\+Address, net\+Mask, default\+Gateway and dns\+Server.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \textcolor{keywordtype}{void}\ setEthernetClient(\mbox{\hyperlink{class_client}{Client}}\ *client,\ uint8\_t\ macAddress[6],\ \textcolor{keywordtype}{int}\ csPin,\ \textcolor{keywordtype}{int}\ resetPin,\ ESP\_Mail\_StaticIP\ *staticIP\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#\#\#\#\ Assign\ the\ callback\ function\ to\ handle\ the\ network\ connection\ for\ custom\ Client.}}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **\`{}networkConnectionCB\`{}**\ The\ function\ that\ handles\ the\ network\ connection.}
+
+\end{DoxyCode}
+ cpp void network\+Connection\+Request\+Callback(\+Network\+Connection\+Request\+Callback network\+Connection\+CB); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Assign\ the\ callback\ function\ to\ handle\ the\ network\ connection\ status\ acknowledgement.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`networkStatusCB`**\ The\ function\ that\ handle\ the\ network\ connection\ status\ acknowledgement.}
+
+\end{DoxyCode}
+ cpp void network\+Status\+Request\+Callback(\+Network\+Status\+Request\+Callback network\+Status\+CB); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Set\ the\ network\ status\ acknowledgement.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`status`**\ The\ network\ status.}
+
+\end{DoxyCode}
+ cpp void set\+Network\+Status(bool status); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Set\ the\ BearSSL\ IO\ buffer\ size.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`rx`**\ The\ BearSSL\ receive\ buffer\ size\ in\ bytes.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`tx`**\ The\ BearSSL\ trasmit\ buffer\ size\ in\ bytes.}
+
+\end{DoxyCode}
+ cpp void set\+SSLBuffer\+Size(int rx = -\/1, int tx = -\/1); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Set\ system\ time\ with\ timestamp.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`ts`**\ timestamp\ in\ seconds\ from\ midnight\ Jan\ 1,\ 1970.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`gmtOffset`**\ The\ GMT\ offset.}
+\DoxyCodeLine{}
+\DoxyCodeLine{This\ function\ allows\ the\ internal\ time\ setting\ by\ timestamp\ i.e.\ timestamp\ from\ external\ RTC.\ }
+
+\end{DoxyCode}
+ cpp void set\+System\+Time(time\+\_\+t ts, float gmt\+Offset = 0); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Begin\ the\ IMAP\ server\ connection.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`session\_config`**\ The\ pointer\ to\ Session\_Config\ structured\ data\ that\ keeps\ the\ server\ and\ log\ in\ details.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`imap\_data`**\ The\ pointer\ to\ IMAP\_Data\ structured\ data\ that\ keeps\ the\ operation\ options.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`login`**\ The\ bool\ option\ for\ login\ after\ server\ connection.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool connect(Session\+\_\+\+Config \texorpdfstring{$\ast$}{*}session\+\_\+config, IMAP\+\_\+\+Data \texorpdfstring{$\ast$}{*}imap\+\_\+data, bool login = true); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Login\ to\ IMAP\ server\ using\ Email\ and\ password.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`email`**\ The\ IMAP\ server\ account\ email.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`password`**\ The\ IMAP\ server\ account\ password.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bbool login\+With\+Password($<$string$>$ email, $<$string$>$ password); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Login\ to\ IMAP\ server\ using\ Email\ and\ access\ token.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`email`**\ The\ IMAP\ server\ account\ email.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`token`**\ The\ Access\ token\ to\ log\ in.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bbool login\+With\+Access\+Token($<$string$>$ email, $<$string$>$ token); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Send\ the\ client\ identification\ to\ the\ server}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`identification`**\ The\ pointer\ to\ IMAP\_Identification\ structured\ data\ that\ keeps}
+\DoxyCodeLine{}
+\DoxyCodeLine{the\ key\ properties\ e.g.,\ name,\ version,\ os,\ os\_version,\ vendor,\ support\_url,\ address,}
+\DoxyCodeLine{}
+\DoxyCodeLine{date,\ command,\ arguments,\ and\ environment.}
+
+\end{DoxyCode}
+ cpp bool id(\+IMAP\+\_\+\+Identification \texorpdfstring{$\ast$}{*}identification); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Return\ the\ server\ ID\ returns\ from\ ID\ command.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`The\ server\ ID\ string.`**}
+
+\end{DoxyCode}
+ cpp String server\+ID(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Return\ the\ SASL\ authentication\ status.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ indicates\ SASL\ authentication\ status.}
+
+\end{DoxyCode}
+ cpp bool is\+Authenticated(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Return\ the\ log\ in\ status.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ indicates\ log\ in\ status.}
+
+\end{DoxyCode}
+ cpp bool is\+Logged\+In(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Return\ firmware\ update\ result\ when\ attachment\ filename\ matches.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ indicates\ the\ firmware\ update\ status.}
+
+\end{DoxyCode}
+ cpp bool is\+Firmware\+Update\+Success(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Close\ the\ IMAP\ session.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool close\+Session(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Setup\ TCP\ KeepAlive\ for\ internal\ TCP\ client.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`tcpKeepIdleSeconds`**\ lwIP\ TCP\ Keepalive\ idle\ in\ seconds.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`tcpKeepIntervalSeconds`**\ lwIP\ TCP\ Keepalive\ interval\ in\ seconds.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`tcpKeepCount`**\ lwIP\ TCP\ Keepalive\ count.}
+\DoxyCodeLine{}
+\DoxyCodeLine{For\ the\ TCP\ (KeepAlive)\ options,\ see\ [this\ doc](https://docs.espressif.com/projects/esp-\/idf/en/latest/esp32/api-\/guides/lwip.html\#tcp-\/options).}
+\DoxyCodeLine{}
+\DoxyCodeLine{If\ value\ of\ one\ of\ these\ parameters\ is\ zero,\ the\ TCP\ KeepAlive\ will\ be\ disabled.}
+\DoxyCodeLine{}
+\DoxyCodeLine{You\ can\ check\ the\ server\ connecting\ status,\ by\ exexuting\ \`{}<IMAPSession>.connected()`\ which\ will\ return\ true\ when\ connection\ to\ the\ server\ is\ still\ alive.\ }
+
+\end{DoxyCode}
+ cpp void keep\+Alive(int tcp\+Keep\+Idle\+Seconds, int tcp\+Keep\+Interval\+Seconds, int tcp\+Keep\+Count); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ TCP\ KeepAlive\ status.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`Boolean`**\ status\ of\ TCP\ Keepalive.}
+
+\end{DoxyCode}
+ cpp bool is\+Keep\+Alive(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ TCP\ connection\ status.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ indicates\ the\ connection\ status.}
+
+\end{DoxyCode}
+ cpp bool connected(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Set\ to\ enable\ the\ debug.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`level`**\ The\ level\ to\ enable\ the\ debug\ message}
+\DoxyCodeLine{}
+\DoxyCodeLine{level\ =\ 0,\ no\ debugging}
+\DoxyCodeLine{}
+\DoxyCodeLine{level\ =\ 1,\ basic\ level\ debugging}
+
+\end{DoxyCode}
+ cpp void debug(int level); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ list\ of\ all\ the\ mailbox\ folders\ since\ the\ TCP\ session\ was\ opened\ and\ user\ was\ authenticated.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`folders`**\ The\ FoldersCollection\ class\ that\ contains\ the\ collection\ of\ the\ }
+\DoxyCodeLine{FolderInfo\ structured\ data.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool get\+Folders(\+Folders\+Collection \&folders); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Select\ or\ open\ the\ mailbox\ folder\ to\ search\ or\ fetch\ the\ message\ inside.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`folderName`**\ The\ known\ mailbox\ folder\ name.\ The\ default\ name\ is\ INBOX.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`readOnly`**\ The\ option\ to\ open\ the\ mailbox\ for\ read\ only.\ Set\ this\ option\ to\ false\ when\ you\ wish\ }
+\DoxyCodeLine{to\ modify\ the\ Flags\ using\ the\ setFlag,\ addFlag\ and\ removeFlag\ functions.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+\DoxyCodeLine{}
+\DoxyCodeLine{note:\ the\ function\ will\ exit\ immediately\ and\ return\ true\ if\ the\ time\ since\ previous\ success\ folder\ selection\ (open)\ with\ the\ same\ readOnly\ mode,\ is\ less\ than\ 5\ seconds.}
+
+\end{DoxyCode}
+ cpp bool select\+Folder($<$string$>$ folder\+Name, bool read\+Only = true); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Open\ the\ mailbox\ folder\ to\ read\ or\ search\ the\ mesages.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`folderName`**\ The\ name\ of\ known\ mailbox\ folder\ to\ be\ opened.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`readOnly`**\ The\ option\ to\ open\ the\ mailbox\ for\ reading\ only.\ Set\ this\ option\ to\ false\ when\ you\ wish\ }
+\DoxyCodeLine{to\ modify\ the\ flags\ using\ the\ setFlag,\ addFlag\ and\ removeFlag\ functions.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+\DoxyCodeLine{}
+\DoxyCodeLine{note:\ the\ function\ will\ exit\ immediately\ and\ return\ true\ if\ the\ time\ since\ previous\ success\ folder\ selection\ (open)\ with\ the\ same\ readOnly\ mode,\ is\ less\ than\ 5\ seconds.}
+
+\end{DoxyCode}
+ cpp bool open\+Folder($<$string$>$ folder\+Name, bool read\+Only = true); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Close\ the\ mailbox\ folder\ that\ was\ opened.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`expunge`**\ \ The\ option\ to\ allow\ emty\ the\ deleted\ flag\ set\ messages\ in\ case\ folder\ was\ open\ with\ editable\ mode.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool close\+Folder(bool expunge = false); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Create\ folder.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`folderName`**\ The\ name\ of\ folder\ to\ create.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool create\+Folder($<$string$>$ folder\+Name); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ subscribes\ mailboxes.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`reference`**\ The\ reference\ name.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`mailbox`**\ The\ mailbox\ name\ with\ possible\ wildcards.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`folders`**\ The\ return\ FoldersCollection\ that\ contains\ the\ folder\ info\ e.g.,\ name,\ attribute\ and\ delimiter.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool get\+Subscribes\+Mailboxes($<$string$>$ reference, $<$string$>$ mailbox, Folders\+Collection \&folders); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Subscribe\ mailbox.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`folderName`**\ The\ name\ of\ folder\ to\ subscribe.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool subscribe($<$string$>$ folder\+Name) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Unsubscribe\ mailbox.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`folderName`**\ The\ name\ of\ folder\ to\ unsubscribe.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool un\+Subscribe($<$string$>$ folder\+Name) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Rename\ folder.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`currentFolderName`**\ The\ name\ of\ folder\ to\ create.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`newFolderName`**\ The\ new\ name\ of\ folder\ to\ create.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool rename\+Folder($<$string$>$ current\+Folder\+Name, $<$string$>$ new\+Folder\+Name); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Delete\ folder.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`folderName`**\ The\ name\ of\ folder\ to\ delete..}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool delete\+Folder($<$string$>$ folder\+Name); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ UID\ number\ in\ selected\ or\ opened\ mailbox.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`msgNum`**\ The\ message\ number\ or\ order\ in\ the\ total\ message\ numbers.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Returns\ 0\ when\ fail\ to\ get\ UID.}
+
+\end{DoxyCode}
+ cpp int get\+UID(int msg\+Num); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ message\ flags\ in\ selected\ or\ opened\ mailbox.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`msgNum`**\ The\ message\ number\ or\ order\ in\ the\ total\ message\ numbers.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`string`**\ Message\ flags\ in\ selected\ or\ opened\ mailbox.}
+\DoxyCodeLine{}
+\DoxyCodeLine{empty\ string\ when\ fail\ to\ get\ flags.}
+
+\end{DoxyCode}
+ cpp const char \texorpdfstring{$\ast$}{*}get\+Flags(int msg\+Num); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Send\ the\ custom\ IMAP\ command\ and\ get\ the\ result\ via\ callback.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`cmd`**\ The\ command\ string.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`callback`**\ The\ function\ that\ accepts\ IMAP\_Response\ as\ parameter.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`tag`**\ The\ tag\ string\ to\ pass\ to\ the\ callback\ function.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+\DoxyCodeLine{}
+\DoxyCodeLine{imap.connect\ and\ imap.selectFolder\ or\ imap.openFolder\ are\ needed\ to\ call\ once\ prior\ to\ call\ this\ function.}
+
+\end{DoxyCode}
+ cpp bool send\+Custom\+Command($<$string$>$ cmd, imap\+Response\+Callback callback, $<$string$>$ tag); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Send\ the\ custom\ IMAP\ command\ data\ string.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`data`**\ The\ string\ data.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`lastData`**\ The\ flag\ represents\ the\ last\ data\ to\ send\ (optional).}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Should\ be\ used\ after\ calling\ sendCustomCommand("{}APPEND\ xxxxxx"{});}
+
+\end{DoxyCode}
+ cpp bool send\+Custom\+Data(T data, bool last\+Data = false); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Send\ the\ custom\ IMAP\ command\ data.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`data`**\ The\ byte\ data.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`size`**\ The\ data\ size.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`lastData`**\ The\ flag\ represents\ the\ last\ data\ to\ send\ (optional).}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Should\ be\ used\ after\ calling\ ssendCustomCommand("{}APPEND\ xxxxxx"{});}
+
+\end{DoxyCode}
+ cpp bool send\+Custom\+Data(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t size, bool last\+Data = false); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Begin\ the\ IMAP\ server\ connection\ without\ authentication.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`session\_config`**\ The\ pointer\ to\ Session\_Config\ structured\ data\ that\ keeps\ the\ server\ and\ log\ in\ details.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`callback`**\ The\ callback\ function\ that\ accepts\ IMAP\_Response\ as\ parameter.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`tag`**\ The\ tag\ that\ pass\ to\ the\ callback\ function.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`The\ boolean`**\ value\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool custom\+Connect(\+Session\+\_\+\+Config \texorpdfstring{$\ast$}{*}session\+\_\+config, imap\+Response\+Callback callback, $<$string$>$ tag); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Copy\ the\ messages\ to\ the\ defined\ mailbox\ folder.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`toCopy`**\ The\ pointer\ to\ the\ MessageList\ class\ that\ contains\ the\ list\ of\ messages\ to\ copy.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`dest`**\ The\ destination\ folder\ that\ the\ messages\ to\ copy\ to.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool copy\+Messages(\+Message\+List \texorpdfstring{$\ast$}{*}to\+Copy, $<$string$>$ dest); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Copy\ the\ messages\ to\ the\ defined\ mailbox\ folder.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`sequenceSet`**\ The\ sequence\ set\ string\ i.g.,\ unique\ identifier\ (UID)\ or\ }
+\DoxyCodeLine{message\ sequence\ number\ or\ ranges\ of\ UID\ or\ sequence\ number.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`UID`**\ The\ option\ for\ sequenceSet\ whether\ it\ is\ UID\ or\ message\ sequence\ number.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`dest`**\ The\ destination\ folder\ that\ the\ messages\ to\ copy\ to.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool copy\+Messages($<$string$>$ sequence\+Set, bool UID, $<$string$>$ dest); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Move\ the\ messages\ to\ the\ defined\ mailbox\ folder.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`toMove`**\ The\ pointer\ to\ the\ MessageList\ class\ that\ contains\ the\ list\ of\ messages\ to\ move.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`dest`**\ The\ destination\ folder\ that\ the\ messages\ to\ move\ to.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool move\+Messages(\+Message\+List \texorpdfstring{$\ast$}{*}to\+Move, $<$string$>$ dest); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Move\ the\ messages\ to\ the\ defined\ mailbox\ folder.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`sequenceSet`**\ The\ sequence\ set\ string\ i.g.,\ unique\ identifier\ (UID)\ or\ }
+\DoxyCodeLine{message\ sequence\ number\ or\ ranges\ of\ UID\ or\ sequence\ number.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`UID`**\ The\ option\ for\ sequenceSet\ whether\ it\ is\ UID\ or\ message\ sequence\ number.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`dest`**\ The\ destination\ folder\ that\ the\ messages\ to\ move\ to.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool move\+Messages($<$string$>$ sequence\+Set, bool UID, $<$string$>$ dest); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Delete\ the\ messages\ in\ the\ opened\ mailbox\ folder.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`toDelete`**\ The\ pointer\ to\ the\ MessageList\ class\ that\ contains\ the\ list\ of\ messages\ to\ delete.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`expunge`**\ The\ boolean\ option\ to\ expunge\ all\ messages.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`modsequence`**\ The\ int32\_t\ option\ for\ UNCHANGESINCE\ conditional\ test.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ indicates\ the\ success\ of\ operation.}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ modsequence\ value\ can\ be\ used\ only\ if\ IMAP\ server\ supports\ Conditional\ STORE\ extension\ and\ the\ selected\ mailbox\ supports\ modsequences.}
+
+\end{DoxyCode}
+ cpp bool delete\+Messages(\doxylink{class_message_list}{Message\+List} \texorpdfstring{$\ast$}{*}to\+Delete, bool expunge = false, int32\+\_\+t modsequence = -\/1); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Delete\ the\ messages\ in\ the\ opened\ mailbox\ folder.\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`sequenceSet`**\ The\ sequence\ set\ string\ i.g.,\ unique\ identifier\ (UID)\ or\ }
+\DoxyCodeLine{message\ sequence\ number\ or\ ranges\ of\ UID\ or\ sequence\ number.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`UID`**\ The\ option\ for\ sequenceSet\ whether\ it\ is\ UID\ or\ message\ sequence\ number.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`expunge`**\ The\ boolean\ option\ to\ expunge\ all\ messages.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`modsequence`**\ The\ int32\_t\ option\ for\ UNCHANGESINCE\ conditional\ test.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ indicates\ the\ success\ of\ operation.}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ modsequence\ value\ can\ be\ used\ only\ if\ IMAP\ server\ supports\ Conditional\ STORE\ extension\ and\ the\ selected\ mailbox\ supports\ modsequences.}
+
+\end{DoxyCode}
+ cpp bool delete\+Messages($<$string$>$ sequence\+Set, bool UID, bool expunge = false, int32\+\_\+t modsequence = -\/1); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ quota\ root's\ resource\ usage\ and\ limits.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`quotaRoot`**\ The\ quota\ root\ to\ get.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`info`**\ The\ pointer\ to\ \`{}IMAP\_Quota\_Root\_Info`\ that\ contains\ quota\ root's\ resource\ name,\ usage\ and\ limit.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool get\+Quota($<$string$>$ quota\+Root, IMAP\+\_\+\+Quota\+\_\+\+Root\+\_\+\+Info \texorpdfstring{$\ast$}{*}info); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Set\ the\ quota\ root's\ resource\ usage\ and\ limits.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`quotaRoot`**\ The\ quota\ root\ to\ set.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`data`**\ The\ pointer\ to\ \`{}IMAP\_Quota\_Root\_Info`\ that\ contains\ quota\ root's\ resource\ name,\ usage\ and\ limit.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool set\+Quota($<$string$>$ quota\+Root, IMAP\+\_\+\+Quota\+\_\+\+Root\+\_\+\+Info \texorpdfstring{$\ast$}{*}data); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ list\ of\ quota\ roots\ for\ the\ named\ mailbox.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`mailbox`**\ The\ mailbox\ name.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`quotaRootsList`**\ The\ pointer\ to\ \`{}IMAP\_Quota\_Roots\_List`\ that\ contains\ the\ list\ of\ \`{}IMAP\_Quota\_Root\_Info`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool get\+Quota\+Root($<$string$>$ mailbox, IMAP\+\_\+\+Quota\+\_\+\+Roots\+\_\+\+List \texorpdfstring{$\ast$}{*}quota\+Roots\+List); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ ACLs\ for\ a\ mailbox.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`mailbox`**\ The\ mailbox\ name.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`aclList`**\ The\ pointer\ to\ the\ returning\ \`{}IMAP\_Rights\_List`\ object.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool get\+ACL($<$string$>$ mailbox, IMAP\+\_\+\+Rights\+\_\+\+List \texorpdfstring{$\ast$}{*}acl\+List); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ ACLs\ for\ a\ mailbox.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`mailbox`**\ The\ mailbox\ name.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`acl`**\ The\ pointer\ to\ the\ acl\ IMAP\_Rights\_Info\ to\ set.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool set\+ACL($<$string$>$ mailbox, IMAP\+\_\+\+Rights\+\_\+\+Info \texorpdfstring{$\ast$}{*}acl); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Delete\ the\ ACLs\ set\ for\ identifier\ on\ mailbox.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`mailbox`**\ The\ mailbox\ name.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`identifier`**\ The\ identifier\ (user)\ to\ remove\ the\ rights.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool delete\+ACL($<$string$>$ mailbox, $<$string$>$ identifier); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Show\ my\ ACLs\ for\ a\ mailbox.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`mailbox`**\ The\ mailbox\ name.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`acl`**\ The\ pointer\ to\ the\ returning\ \`{}IMAP\_Rights\_Info`\ object.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool my\+Rights($<$string$>$ mailbox, IMAP\+\_\+\+Rights\+\_\+\+Info \texorpdfstring{$\ast$}{*}acl); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Returns\ IMAP\ namespaces.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`mailbox`**\ The\ mailbox\ name.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`ns`**\ The\ pointer\ to\ the\ returning\ \`{}IMAP\_Namespaces\_List`\ object.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool get\+Namespace(\+IMAP\+\_\+\+Namespaces\+\_\+\+List \texorpdfstring{$\ast$}{*}ns); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Enable\ IMAP\ capability.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`capability`**\ The\ mailbox\ name.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool enable($<$string$>$ capability); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Listen\ for\ the\ selected\ or\ open\ mailbox\ for\ updates.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool listen(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Stop\ listen\ for\ the\ mailbox\ for\ updates.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ success\ of\ operation.}
+
+\end{DoxyCode}
+ cpp bool stop\+Listen(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Check\ for\ the\ selected\ or\ open\ mailbox\ updates.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`boolean`**\ The\ boolean\ value\ which\ indicates\ the\ changes\ status\ of\ mailbox.}
+
+\end{DoxyCode}
+ cpp bool folder\+Changed(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Assign\ the\ callback\ function\ that\ returns\ the\ operating\ status\ when\ fetching\ or\ reading\ the\ Email.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`imapCallback`**\ The\ function\ that\ accepts\ the\ \`{}imapStatusCallback`\ as\ parameter.}
+
+\end{DoxyCode}
+ cpp void callback(imap\+Status\+Callback imap\+Callback); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Assign\ the\ callback\ function\ to\ decode\ the\ string\ based\ on\ the\ character\ set.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`callback`**\ The\ function\ that\ accepts\ the\ pointer\ to\ \`{}IMAP\_Decoding\_Info`\ as\ parameter.}
+
+\end{DoxyCode}
+ cpp void character\+Decoding\+Callback(imap\+Character\+Decoding\+Callback callback); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Assign\ the\ callback\ function\ that\ returns\ the\ MIME\ data\ stream\ from\ fetching\ or\ reading\ the\ Email.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`mimeDataStreamCallback`**\ The\ function\ that\ accepts\ the\ \`{}MIME\_Stream\_Info`\ as\ parameter.}
+
+\end{DoxyCode}
+ cpp void mime\+Data\+Stream\+Callback(\+MIMEData\+Stream\+Callback mime\+Data\+Stream\+Callback); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Determine\ if\ no\ message\ body\ contained\ in\ the\ search\ result\ and\ only\ the\ message\ header\ is\ available.}
+
+\end{DoxyCode}
+ cpp bool header\+Only(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ message\ list\ from\ search\ or\ fetch\ the\ Emails}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`The\ IMAP\_MSG\_List\ structured`**\ data\ which\ contains\ the\ text\ and\ html\ contents,\ }
+\DoxyCodeLine{attachments,\ inline\ images,\ embedded\ rfc822\ messages\ details\ for\ each\ message.}
+
+\end{DoxyCode}
+ cpp IMAP\+\_\+\+MSG\+\_\+\+List data(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ details\ of\ the\ selected\ or\ opned\ mailbox\ folder}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`The\ SelectedFolderInfo\ class`**\ instance\ which\ contains\ the\ info\ about\ flags,\ total\ messages,\ next\ UID,\ \ }
+\DoxyCodeLine{earch\ count\ and\ the\ available\ messages\ count.}
+
+\end{DoxyCode}
+ cpp \doxylink{class_selected_folder_info}{Selected\+Folder\+Info} selected\+Folder(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ error\ details\ when\ readingg\ the\ Emails.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`String`**\ The\ string\ of\ error\ details.}
+
+\end{DoxyCode}
+ cpp String error\+Reason(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ operating\ status\ error\ code.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`int`**\ The\ value\ of\ operating\ status\ error\ code.}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ negative\ value\ indicated\ error.}
+\DoxyCodeLine{}
+\DoxyCodeLine{See\ src/ESP\_Mail\_Error.h\ and\ extras/MB\_FS.h}
+
+\end{DoxyCode}
+ cpp int error\+Code(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Clear\ all\ the\ cache\ data\ stored\ in\ the\ IMAP\ session\ object.}
+
+\end{DoxyCode}
+ cpp void empty(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ status\ of\ message\ fetching\ and\ searching.}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{return\ **`IMAP\_Status`**\ The\ IMAP\_Status\ object\ contains\ the\ fetching\ and\ searching\ statuses.}
+
+\end{DoxyCode}
+ cpp \doxylink{class_i_m_a_p___status}{IMAP\+\_\+\+Status} status(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Get\ the\ JSON\ string\ of\ file\ name\ list\ of\ files\ that\ stored\ in\ SD\ card.}
+\DoxyCodeLine{}
+\DoxyCodeLine{return\ **`The\ JSON\ string`**\ of\ filenames.}
+\DoxyCodeLine{}
+\DoxyCodeLine{note\ This\ will\ available\ only\ when\ standard\ SD\ library\ was\ used\ and\ file\ storage\ is\ SD.}
+
+\end{DoxyCode}
+ cpp String file\+List(); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\ SMTPSession\ class\ functions}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ following\ functions\ are\ available\ from\ the\ SMTP\ Session\ class.}
+\DoxyCodeLine{}
+\DoxyCodeLine{This\ class\ is\ similar\ to\ the\ IMAP\ session\ class,\ used\ for\ controlling\ SMTP\ transports\ }
+\DoxyCodeLine{and\ retrieving\ the\ data\ from\ the\ SMTP\ server.}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\#\#\ Set\ the\ tcp\ timeout.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`timeoutSec`**\ The\ tcp\ timeout\ in\ seconds.}
+
+\end{DoxyCode}
+ cpp void set\+TCPTimeout(unsigned long timeout\+Sec); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Assign\ custom\ Client\ from\ Arduino\ Clients.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`client`**\ The\ pointer\ to\ Arduino\ Client\ derived\ class\ e.g.\ WiFiClient,\ WiFiClientSecure,\ EthernetClient\ or\ GSMClient.}
+
+\end{DoxyCode}
+ cpp void set\+Client(\+Client \texorpdfstring{$\ast$}{*}client); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Assign\ TinyGsm\ Clients.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`client`**\ The\ pointer\ to\ TinyGsmClient.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`modem`**\ The\ pointer\ to\ TinyGsm\ modem\ object.\ Modem\ should\ be\ initialized\ and/or\ set\ mode\ before\ transfering\ data.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`pin`**\ The\ SIM\ pin.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`apn`**\ The\ GPRS\ APN\ (Access\ Point\ Name).}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`user`**\ The\ GPRS\ user.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`password`**\ The\ GPRS\ password.}
+
+\end{DoxyCode}
+ cpp void set\+GSMClient(\+Client \texorpdfstring{$\ast$}{*}client, void \texorpdfstring{$\ast$}{*}modem, const char \texorpdfstring{$\ast$}{*}pin, const char \texorpdfstring{$\ast$}{*}apn, const char \texorpdfstring{$\ast$}{*}user, const char \texorpdfstring{$\ast$}{*}password); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\#\#\#\ Assign\ external\ Ethernet\ Client.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`client`**\ The\ pointer\ to\ Ethernet\ client\ object.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`macAddress`**\ The\ Ethernet\ MAC\ address.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`csPin`**\ The\ Ethernet\ module\ SPI\ chip\ select\ pin.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`resetPin`**\ The\ Ethernet\ module\ reset\ pin.}
+\DoxyCodeLine{}
+\DoxyCodeLine{param\ **`staticIP`**\ (Optional)\ The\ pointer\ to\ \`{}ESP\_Mail\_StaticIP`\ object\ which\ included\ these\ IPAddress\ properties\ ipAddress,\ netMask,\ defaultGateway\ and\ dnsServer.}
+
+\end{DoxyCode}
+ cpp void set\+Ethernet\+Client(\doxylink{class_client}{Client} \texorpdfstring{$\ast$}{*}client, uint8\+\_\+t mac\+Address\mbox{[}6\mbox{]}, int cs\+Pin, int reset\+Pin, ESP\+\_\+\+Mail\+\_\+\+Static\+IP \texorpdfstring{$\ast$}{*}static\+IP = nullptr);\hypertarget{README.md_autotoc_md135}{}\doxysubsubsubsection{\texorpdfstring{Assign the callback function to handle the network connection for custom Client.}{Assign the callback function to handle the network connection for custom Client.}}\label{README.md_autotoc_md135}
+param {\bfseries{{\ttfamily network\+Connection\+CB}}} The function that handles the network connection.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ networkConnectionRequestCallback(NetworkConnectionRequestCallback\ networkConnectionCB);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md136}{}\doxysubsubsubsection{\texorpdfstring{Assign the callback function to handle the network connection status acknowledgement.}{Assign the callback function to handle the network connection status acknowledgement.}}\label{README.md_autotoc_md136}
+param {\bfseries{{\ttfamily network\+Status\+CB}}} The function that handle the network connection status acknowledgement.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ networkStatusRequestCallback(NetworkStatusRequestCallback\ networkStatusCB);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md137}{}\doxysubsubsubsection{\texorpdfstring{Set the network status acknowledgement.}{Set the network status acknowledgement.}}\label{README.md_autotoc_md137}
+param {\bfseries{{\ttfamily status}}} The network status.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setNetworkStatus(\textcolor{keywordtype}{bool}\ status);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md138}{}\doxysubsubsubsection{\texorpdfstring{Set the Bear\+SSL IO buffer size.}{Set the Bear\+SSL IO buffer size.}}\label{README.md_autotoc_md138}
+param {\bfseries{{\ttfamily rx}}} The Bear\+SSL receive buffer size in bytes.
+
+param {\bfseries{{\ttfamily tx}}} The Bear\+SSL trasmit buffer size in bytes.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setSSLBufferSize(\textcolor{keywordtype}{int}\ rx\ =\ -\/1,\ \textcolor{keywordtype}{int}\ tx\ =\ -\/1);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md139}{}\doxysubsubsubsection{\texorpdfstring{Set system time with timestamp.}{Set system time with timestamp.}}\label{README.md_autotoc_md139}
+param {\bfseries{{\ttfamily ts}}} timestamp in seconds from midnight Jan 1, 1970.
+
+param {\bfseries{{\ttfamily gmt\+Offset}}} The GMT offset.
+
+This function allows the internal time setting by timestamp i.\+e. timestamp from external RTC.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setSystemTime(time\_t\ ts,\ \textcolor{keywordtype}{float}\ gmtOffset\ =\ 0);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md140}{}\doxysubsubsubsection{\texorpdfstring{Begin the SMTP server connection.}{Begin the SMTP server connection.}}\label{README.md_autotoc_md140}
+param {\bfseries{{\ttfamily session\+\_\+config}}} The pointer to Session\+\_\+\+Config structured data that keeps the server and log in details.
+
+param {\bfseries{{\ttfamily login}}} The bool option for login after server connection.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ connect(Session\_Config\ *session\_config,\ \textcolor{keywordtype}{bool}\ login\ =\ \textcolor{keyword}{true});}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md141}{}\doxysubsubsubsection{\texorpdfstring{Login to SMTP server using Email and password.}{Login to SMTP server using Email and password.}}\label{README.md_autotoc_md141}
+param {\bfseries{{\ttfamily email}}} The SMTP server account email.
+
+param {\bfseries{{\ttfamily password}}} The SMTP server account password.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value which indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ loginWithPassword(<\textcolor{keywordtype}{string}>\ email,\ <\textcolor{keywordtype}{string}>\ password);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md142}{}\doxysubsubsubsection{\texorpdfstring{Login to SMTP server using Email and access token.}{Login to SMTP server using Email and access token.}}\label{README.md_autotoc_md142}
+param {\bfseries{{\ttfamily email}}} The SMTP server account email.
+
+param {\bfseries{{\ttfamily token}}} The Access token to log in.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value which indicates the success of operation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ loginWithAccessToken(<\textcolor{keywordtype}{string}>\ email,\ <\textcolor{keywordtype}{string}>\ token);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md143}{}\doxysubsubsubsection{\texorpdfstring{Return the SASL authentication status.}{Return the SASL authentication status.}}\label{README.md_autotoc_md143}
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates SASL authentication status.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ isAuthenticated();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md144}{}\doxysubsubsubsection{\texorpdfstring{Return the log in status.}{Return the log in status.}}\label{README.md_autotoc_md144}
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates log in status.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ isLoggedIn();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md145}{}\doxysubsubsubsection{\texorpdfstring{Close the SMTP session.}{Close the SMTP session.}}\label{README.md_autotoc_md145}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ closeSession();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md146}{}\doxysubsubsubsection{\texorpdfstring{Setup TCP Keep\+Alive for internal TCP client.}{Setup TCP Keep\+Alive for internal TCP client.}}\label{README.md_autotoc_md146}
+param {\bfseries{{\ttfamily tcp\+Keep\+Idle\+Seconds}}} lw\+IP TCP Keepalive idle in seconds.
+
+param {\bfseries{{\ttfamily tcp\+Keep\+Interval\+Seconds}}} lw\+IP TCP Keepalive interval in seconds.
+
+param {\bfseries{{\ttfamily tcp\+Keep\+Count}}} lw\+IP TCP Keepalive count.
+
+For the TCP (Keep\+Alive) options, see \href{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/lwip.html\#tcp-options}{\texttt{ this doc}}.
+
+If value of one of these parameters is zero, the TCP Keep\+Alive will be disabled.
+
+You can check the server connecting status, by exexuting {\ttfamily \texorpdfstring{$<$}{<}\doxylink{class_s_m_t_p_session}{SMTPSession}\texorpdfstring{$>$}{>}.connected()} which will return true when connection to the server is still alive.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ keepAlive(\textcolor{keywordtype}{int}\ tcpKeepIdleSeconds,\ \textcolor{keywordtype}{int}\ tcpKeepIntervalSeconds,\ \textcolor{keywordtype}{int}\ tcpKeepCount);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md147}{}\doxysubsubsubsection{\texorpdfstring{Get TCP Keep\+Alive status.}{Get TCP Keep\+Alive status.}}\label{README.md_autotoc_md147}
+return {\bfseries{{\ttfamily Boolean}}} status of TCP Keepalive.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ isKeepAlive();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md148}{}\doxysubsubsubsection{\texorpdfstring{Get TCP connection status.}{Get TCP connection status.}}\label{README.md_autotoc_md148}
+return {\bfseries{{\ttfamily boolean}}} The boolean value indicates the connection status.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ connected();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md149}{}\doxysubsubsubsection{\texorpdfstring{Begin the SMTP server connection without authentication.}{Begin the SMTP server connection without authentication.}}\label{README.md_autotoc_md149}
+param {\bfseries{{\ttfamily session\+\_\+config}}} The pointer to Session\+\_\+\+Config structured data that keeps the server and log in details.
+
+param {\bfseries{{\ttfamily callback}}} The callback function that accepts the SMTP\+\_\+\+Response as parameter.
+
+param {\bfseries{{\ttfamily command\+ID}}} The command identifier number that will pass to the callback.
+
+return {\bfseries{{\ttfamily The int}}} value of response code.
+
+If command\+ID was not set or set to -\/1, the command identifier will be auto increased started from zero.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ customConnect(Session\_Config\ *session\_config,\ smtpResponseCallback\ callback,\ \textcolor{keywordtype}{int}\ commandID\ =\ -\/1);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md150}{}\doxysubsubsubsection{\texorpdfstring{Send the custom SMTP command and get the result via callback.}{Send the custom SMTP command and get the result via callback.}}\label{README.md_autotoc_md150}
+param {\bfseries{{\ttfamily cmd}}} The command string.
+
+param {\bfseries{{\ttfamily callback}}} The function that accepts the SMTP\+\_\+\+Response as parameter.
+
+return {\bfseries{{\ttfamily boolean}}} The boolean value which indicates the success of operation.
+
+smtp.\+connect or smtp.\+custom\+Connect is needed to call once prior to call this function.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sendCustomCommand(<\textcolor{keywordtype}{string}>\ cmd,\ smtpResponseCallback\ callback);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md151}{}\doxysubsubsubsection{\texorpdfstring{Send the custom SMTP command data string.}{Send the custom SMTP command data string.}}\label{README.md_autotoc_md151}
+param {\bfseries{{\ttfamily data}}} The string data.
+
+return {\bfseries{{\ttfamily The boolean}}} value which indicates the success of operation.
+
+Should be used after calling send\+Custom\+Command("{}\+DATA"{});
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sendCustomData(<\textcolor{keywordtype}{string}>\ data);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md152}{}\doxysubsubsubsection{\texorpdfstring{Send the custom SMTP command data.}{Send the custom SMTP command data.}}\label{README.md_autotoc_md152}
+param {\bfseries{{\ttfamily data}}} The byte data.
+
+param {\bfseries{{\ttfamily size}}} The data size.
+
+return {\bfseries{{\ttfamily The boolean}}} value which indicates the success of operation.
+
+Should be used after calling send\+Custom\+Command("{}\+DATA"{});
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ sendCustomData(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md153}{}\doxysubsubsubsection{\texorpdfstring{Set to enable the debug.}{Set to enable the debug.}}\label{README.md_autotoc_md153}
+param {\bfseries{{\ttfamily level}}} The level to enable the debug message
+
+level = 0, no debugging
+
+level = 1, basic level debugging
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ debug(\textcolor{keywordtype}{int}\ level);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md154}{}\doxysubsubsubsection{\texorpdfstring{Get the error details when sending the Email}{Get the error details when sending the Email}}\label{README.md_autotoc_md154}
+return {\bfseries{{\ttfamily String}}} The string of error details.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{String\ errorReason();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md155}{}\doxysubsubsubsection{\texorpdfstring{Get the operating status error code.}{Get the operating status error code.}}\label{README.md_autotoc_md155}
+return {\bfseries{{\ttfamily int}}} The value of operating status error code.
+
+The negative value indicated error.
+
+See \doxylink{_e_s_p___mail___error_8h_source}{src/\+ESP\+\_\+\+Mail\+\_\+\+Error.\+h} and \doxylink{_m_b___f_s_8h_source}{extras/\+MB\+\_\+\+FS.\+h}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ errorCode();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md156}{}\doxysubsubsubsection{\texorpdfstring{Get the SMTP server response status code.}{Get the SMTP server response status code.}}\label{README.md_autotoc_md156}
+return {\bfseries{{\ttfamily int}}} The value of SMTP server response status code.
+
+See RFC 5321 standard\textquotesingle{}s documentation.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ statusCode();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md157}{}\doxysubsubsubsection{\texorpdfstring{Get the SMTP server response status message.}{Get the SMTP server response status message.}}\label{README.md_autotoc_md157}
+return {\bfseries{{\ttfamily String}}} The value of SMTP server response status message.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{String\ statusMessage();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md158}{}\doxysubsubsubsection{\texorpdfstring{Set the Email sending status callback function.}{Set the Email sending status callback function.}}\label{README.md_autotoc_md158}
+param {\bfseries{{\ttfamily smtp\+Callback}}} The callback function that accept the {\ttfamily smtp\+Status\+Callback} param.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ callback(smtpStatusCallback\ smtpCallback);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md159}{}\doxysubsubsubsection{\texorpdfstring{Get the status of message fetching and searching.}{Get the status of message fetching and searching.}}\label{README.md_autotoc_md159}
+return {\bfseries{{\ttfamily \doxylink{class_s_m_t_p___status}{SMTP\+\_\+\+Status}}}} The \doxylink{class_s_m_t_p___status}{SMTP\+\_\+\+Status} object contains the sending status.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}}\ status();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md160}{}\doxysubsection{\texorpdfstring{SMTP\+\_\+\+Message class functions}{SMTP\+\_\+\+Message class functions}}\label{README.md_autotoc_md160}
+The following functions are available from the SMTP Message class.
+
+This class is used for storing the message data including headers, body and attachments which will be processed with the SMTP session class.\hypertarget{README.md_autotoc_md161}{}\doxysubsubsubsection{\texorpdfstring{To reset the SMTP\+\_\+\+Attachment item data}{To reset the SMTP\+\_\+\+Attachment item data}}\label{README.md_autotoc_md161}
+param {\bfseries{{\ttfamily att}}} The SMTP\+\_\+\+Attachment class that stores the info about attachment
+
+This function was used for clear the internal data of attachment item to be ready for reuse.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ resetAttachItem(SMTP\_Attachment\ \&att);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md162}{}\doxysubsubsubsection{\texorpdfstring{To clear all data in SMTP\+\_\+\+Message class included headers, bodies and attachments}{To clear all data in SMTP\+\_\+\+Message class included headers, bodies and attachments}}\label{README.md_autotoc_md162}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ clear();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md163}{}\doxysubsubsubsection{\texorpdfstring{To clear all the inline images in SMTP\+\_\+\+Message class.}{To clear all the inline images in SMTP\+\_\+\+Message class.}}\label{README.md_autotoc_md163}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ clearInlineimages();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md164}{}\doxysubsubsubsection{\texorpdfstring{To clear all the attachments.}{To clear all the attachments.}}\label{README.md_autotoc_md164}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ clearAttachments();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md165}{}\doxysubsubsubsection{\texorpdfstring{To clear all rfc822 message attachment.}{To clear all rfc822 message attachment.}}\label{README.md_autotoc_md165}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ clearRFC822Messages();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md166}{}\doxysubsubsubsection{\texorpdfstring{To clear the primary recipient mailboxes.}{To clear the primary recipient mailboxes.}}\label{README.md_autotoc_md166}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ clearRecipients();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md167}{}\doxysubsubsubsection{\texorpdfstring{To clear the Carbon-\/copy recipient mailboxes.}{To clear the Carbon-\/copy recipient mailboxes.}}\label{README.md_autotoc_md167}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ clearCc();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md168}{}\doxysubsubsubsection{\texorpdfstring{To clear the Blind-\/carbon-\/copy recipient mailboxes.}{To clear the Blind-\/carbon-\/copy recipient mailboxes.}}\label{README.md_autotoc_md168}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ clearBcc();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md169}{}\doxysubsubsubsection{\texorpdfstring{To clear the custom message headers.}{To clear the custom message headers.}}\label{README.md_autotoc_md169}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ clearHeader();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md170}{}\doxysubsubsubsection{\texorpdfstring{To add attachment to the message.}{To add attachment to the message.}}\label{README.md_autotoc_md170}
+param {\bfseries{{\ttfamily att}}} The SMTP\+\_\+\+Attachment data item
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ addAttachment(SMTP\_Attachment\ \&att);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md171}{}\doxysubsubsubsection{\texorpdfstring{To add parallel attachment to the message.}{To add parallel attachment to the message.}}\label{README.md_autotoc_md171}
+param {\bfseries{{\ttfamily att}}} The SMTP\+\_\+\+Attachment data item
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ addParallelAttachment(SMTP\_Attachment\ \&att);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md172}{}\doxysubsubsubsection{\texorpdfstring{To add inline image to the message.}{To add inline image to the message.}}\label{README.md_autotoc_md172}
+param {\bfseries{{\ttfamily att}}} The SMTP\+\_\+\+Attachment data item
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ addInlineImage(SMTP\_Attachment\ \&att);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md173}{}\doxysubsubsubsection{\texorpdfstring{To add rfc822 message to the message.}{To add rfc822 message to the message.}}\label{README.md_autotoc_md173}
+param {\bfseries{{\ttfamily msg}}} The RFC822\+\_\+\+Message class object
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ addMessage(\mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ \&msg);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md174}{}\doxysubsubsubsection{\texorpdfstring{To add the primary recipient mailbox to the message.}{To add the primary recipient mailbox to the message.}}\label{README.md_autotoc_md174}
+param {\bfseries{{\ttfamily name}}} The name of primary recipient
+
+param {\bfseries{{\ttfamily email}}} The Email address of primary recipient
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ addRecipient(<\textcolor{keywordtype}{string}>\ name,\ <\textcolor{keywordtype}{string}>\ email);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md175}{}\doxysubsubsubsection{\texorpdfstring{To add Carbon-\/copy recipient mailbox.}{To add Carbon-\/copy recipient mailbox.}}\label{README.md_autotoc_md175}
+param {\bfseries{{\ttfamily email}}} The Email address of secondary recipient
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ addCc(<\textcolor{keywordtype}{string}>\ email);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md176}{}\doxysubsubsubsection{\texorpdfstring{To add Blind-\/carbon-\/copy recipient mailbox.}{To add Blind-\/carbon-\/copy recipient mailbox.}}\label{README.md_autotoc_md176}
+param {\bfseries{{\ttfamily email}}} The Email address of the tertiary recipient
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ addBcc(<\textcolor{keywordtype}{string}>\ email);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md177}{}\doxysubsubsubsection{\texorpdfstring{To add the custom header to the message.}{To add the custom header to the message.}}\label{README.md_autotoc_md177}
+param {\bfseries{{\ttfamily hdr}}} The header name and value
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ addHeader(<\textcolor{keywordtype}{string}>\ hdr);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md178}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The message author config}{\mbox{[}properties\mbox{]} The message author config}}\label{README.md_autotoc_md178}
+This property has the sub properties\hypertarget{README.md_autotoc_md179}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} name -\/ The sender name.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} name -\/ The sender name.}}\label{README.md_autotoc_md179}
+\hypertarget{README.md_autotoc_md180}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} email -\/ The sender Email address.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} email -\/ The sender Email address.}}\label{README.md_autotoc_md180}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_email\_info\_t\ sender;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md181}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The topic of message}{\mbox{[}properties\mbox{]} The topic of message}}\label{README.md_autotoc_md181}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *subject;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md182}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The message type}{\mbox{[}properties\mbox{]} The message type}}\label{README.md_autotoc_md182}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{byte}\ type;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md183}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The PLAIN text message}{\mbox{[}properties\mbox{]} The PLAIN text message}}\label{README.md_autotoc_md183}
+This property has the sub properties\hypertarget{README.md_autotoc_md184}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}esp\+\_\+mail\+\_\+smtp\+\_\+embed\+\_\+message\+\_\+body\+\_\+t\mbox{]} embed -\/ The option to embed this message content as a file.}{\mbox{[}esp\+\_\+mail\+\_\+smtp\+\_\+embed\+\_\+message\+\_\+body\+\_\+t\mbox{]} embed -\/ The option to embed this message content as a file.}}\label{README.md_autotoc_md184}
+\hypertarget{README.md_autotoc_md185}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} content -\/ The PLAIN text content of the message.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} content -\/ The PLAIN text content of the message.}}\label{README.md_autotoc_md185}
+\hypertarget{README.md_autotoc_md186}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}esp\+\_\+mail\+\_\+blob\+\_\+message\+\_\+content\+\_\+t\mbox{]} blob -\/ The blob that contins PLAIN text content of the message.}{\mbox{[}esp\+\_\+mail\+\_\+blob\+\_\+message\+\_\+content\+\_\+t\mbox{]} blob -\/ The blob that contins PLAIN text content of the message.}}\label{README.md_autotoc_md186}
+\hypertarget{README.md_autotoc_md187}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}esp\+\_\+mail\+\_\+file\+\_\+message\+\_\+content\+\_\+t\mbox{]} file -\/ The file that contins PLAIN text content of the message.}{\mbox{[}esp\+\_\+mail\+\_\+file\+\_\+message\+\_\+content\+\_\+t\mbox{]} file -\/ The file that contins PLAIN text content of the message.}}\label{README.md_autotoc_md187}
+\hypertarget{README.md_autotoc_md188}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} char\+Set -\/ The character transcoding of the PLAIN text content of the message.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} char\+Set -\/ The character transcoding of the PLAIN text content of the message.}}\label{README.md_autotoc_md188}
+\hypertarget{README.md_autotoc_md189}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} content\+\_\+type -\/ The content type of message.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} content\+\_\+type -\/ The content type of message.}}\label{README.md_autotoc_md189}
+\hypertarget{README.md_autotoc_md190}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} transfer\+\_\+encoding -\/ The option to encode the content for data transfer.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} transfer\+\_\+encoding -\/ The option to encode the content for data transfer.}}\label{README.md_autotoc_md190}
+\hypertarget{README.md_autotoc_md191}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} flowed -\/ The option to send the PLAIN text with wrapping.}{\mbox{[}boolean\mbox{]} flowed -\/ The option to send the PLAIN text with wrapping.}}\label{README.md_autotoc_md191}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_plain\_body\_t\ text;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md192}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The HTML text message}{\mbox{[}properties\mbox{]} The HTML text message}}\label{README.md_autotoc_md192}
+This propery has the sub properties\hypertarget{README.md_autotoc_md193}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} content -\/ The HTML content of the message.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} content -\/ The HTML content of the message.}}\label{README.md_autotoc_md193}
+\hypertarget{README.md_autotoc_md194}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}esp\+\_\+mail\+\_\+blob\+\_\+message\+\_\+content\+\_\+t\mbox{]} blob -\/ The blob that contins HTML content of the message.}{\mbox{[}esp\+\_\+mail\+\_\+blob\+\_\+message\+\_\+content\+\_\+t\mbox{]} blob -\/ The blob that contins HTML content of the message.}}\label{README.md_autotoc_md194}
+\hypertarget{README.md_autotoc_md195}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}esp\+\_\+mail\+\_\+file\+\_\+message\+\_\+content\+\_\+t\mbox{]} file -\/ The file that contins HTML content of the message.}{\mbox{[}esp\+\_\+mail\+\_\+file\+\_\+message\+\_\+content\+\_\+t\mbox{]} file -\/ The file that contins HTML content of the message.}}\label{README.md_autotoc_md195}
+\hypertarget{README.md_autotoc_md196}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} char\+Set -\/ The character transcoding of the HTML content of the message.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} char\+Set -\/ The character transcoding of the HTML content of the message.}}\label{README.md_autotoc_md196}
+\hypertarget{README.md_autotoc_md197}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} content\+\_\+type -\/ The content type of message.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} content\+\_\+type -\/ The content type of message.}}\label{README.md_autotoc_md197}
+\hypertarget{README.md_autotoc_md198}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} transfer\+\_\+encoding -\/ The option to encode the content for data transfer.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} transfer\+\_\+encoding -\/ The option to encode the content for data transfer.}}\label{README.md_autotoc_md198}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_html\_body\_t\ html;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md199}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The response config}{\mbox{[}properties\mbox{]} The response config}}\label{README.md_autotoc_md199}
+This propery has the sub properties\hypertarget{README.md_autotoc_md200}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} reply\+\_\+to -\/ The author Email address to reply.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} reply\+\_\+to -\/ The author Email address to reply.}}\label{README.md_autotoc_md200}
+\hypertarget{README.md_autotoc_md201}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} return\+\_\+path -\/ The sender Email address to return the message.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} return\+\_\+path -\/ The sender Email address to return the message.}}\label{README.md_autotoc_md201}
+\hypertarget{README.md_autotoc_md202}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}int\mbox{]} notify -\/ The Delivery Status Notifications enumeration e.\+g.}{\mbox{[}int\mbox{]} notify -\/ The Delivery Status Notifications enumeration e.\+g.}}\label{README.md_autotoc_md202}
+esp\+\_\+mail\+\_\+smtp\+\_\+notify\+\_\+never = 0,
+
+esp\+\_\+mail\+\_\+smtp\+\_\+notify\+\_\+success = 1,
+
+esp\+\_\+mail\+\_\+smtp\+\_\+notify\+\_\+failure = 2, and
+
+esp\+\_\+mail\+\_\+smtp\+\_\+notify\+\_\+delay = 4
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__smtp__msg__response__t}{esp\_mail\_smtp\_msg\_response\_t}}\ response;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md203}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The priority of the message}{\mbox{[}properties\mbox{]} The priority of the message}}\label{README.md_autotoc_md203}
+This property has the enumeration values
+
+esp\+\_\+mail\+\_\+smtp\+\_\+priority\+\_\+high = 1,
+
+esp\+\_\+mail\+\_\+smtp\+\_\+priority\+\_\+normal = 3,
+
+esp\+\_\+mail\+\_\+smtp\+\_\+priority\+\_\+low = 5
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_smtp\_priority\ priority;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md204}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The enable options}{\mbox{[}properties\mbox{]} The enable options}}\label{README.md_autotoc_md204}
+This propery has the sub property\hypertarget{README.md_autotoc_md205}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} chunking -\/ enable chunk data sending for large message.}{\mbox{[}boolean\mbox{]} chunking -\/ enable chunk data sending for large message.}}\label{README.md_autotoc_md205}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__smtp__enable__option__t}{esp\_mail\_smtp\_enable\_option\_t}}\ enable;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md206}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The message from config}{\mbox{[}properties\mbox{]} The message from config}}\label{README.md_autotoc_md206}
+This property has the sub properties\hypertarget{README.md_autotoc_md207}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} name -\/ The messsage author name.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} name -\/ The messsage author name.}}\label{README.md_autotoc_md207}
+\hypertarget{README.md_autotoc_md208}{}\doxysubsubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} email -\/ The message author Email address.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} email -\/ The message author Email address.}}\label{README.md_autotoc_md208}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_email\_info\_t\ from;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md209}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The message identifier}{\mbox{[}properties\mbox{]} The message identifier}}\label{README.md_autotoc_md209}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ID;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md210}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The keywords or phrases, separated by commas}{\mbox{[}properties\mbox{]} The keywords or phrases, separated by commas}}\label{README.md_autotoc_md210}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *keywords;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md211}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The comments about message}{\mbox{[}properties\mbox{]} The comments about message}}\label{README.md_autotoc_md211}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *comments;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md212}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The date of message}{\mbox{[}properties\mbox{]} The date of message}}\label{README.md_autotoc_md212}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *date;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md213}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The return recipient of the message}{\mbox{[}properties\mbox{]} The return recipient of the message}}\label{README.md_autotoc_md213}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *return\_path;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md214}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The field that contains the parent\textquotesingle{}s message ID of the message to which this one is a reply}{\mbox{[}properties\mbox{]} The field that contains the parent\textquotesingle{}s message ID of the message to which this one is a reply}}\label{README.md_autotoc_md214}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *in\_reply\_to;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md215}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}properties\mbox{]} The field that contains the parent\textquotesingle{}s references (if any) and followed by the parent\textquotesingle{}s message ID (if any) of the message to which this one is a reply}{\mbox{[}properties\mbox{]} The field that contains the parent\textquotesingle{}s references (if any) and followed by the parent\textquotesingle{}s message ID (if any) of the message to which this one is a reply}}\label{README.md_autotoc_md215}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *references;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md216}{}\doxysubsection{\texorpdfstring{IMAP\+\_\+\+Status class functions}{IMAP\+\_\+\+Status class functions}}\label{README.md_autotoc_md216}
+The following functions are available from the IMAP Status class.
+
+This class is used as the callback parameter for retrieving the status while reading the Email.\hypertarget{README.md_autotoc_md217}{}\doxysubsubsubsection{\texorpdfstring{Get the information of each process in the reading operation.}{Get the information of each process in the reading operation.}}\label{README.md_autotoc_md217}
+return {\bfseries{{\ttfamily string}}} The info for each process
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *info();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md218}{}\doxysubsubsubsection{\texorpdfstring{Get the status of completion.}{Get the status of completion.}}\label{README.md_autotoc_md218}
+return {\bfseries{{\ttfamily boolean}}} The bool value indicates that all reading processes are finished
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ success();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md219}{}\doxysubsubsubsection{\texorpdfstring{To clear all data store in this class.}{To clear all data store in this class.}}\label{README.md_autotoc_md219}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ empty();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md220}{}\doxysubsection{\texorpdfstring{SMTP\+\_\+\+Status class functions}{SMTP\+\_\+\+Status class functions}}\label{README.md_autotoc_md220}
+The following functions are available from the SMTP Status class.
+
+This class is used as the callback parameter for retrieving the status while sending the Email.\hypertarget{README.md_autotoc_md221}{}\doxysubsubsubsection{\texorpdfstring{Get the information of each process in the sending operation.}{Get the information of each process in the sending operation.}}\label{README.md_autotoc_md221}
+return {\bfseries{{\ttfamily string}}} The info for each process
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *info();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md222}{}\doxysubsubsubsection{\texorpdfstring{Get the status of completion.}{Get the status of completion.}}\label{README.md_autotoc_md222}
+return {\bfseries{{\ttfamily boolean}}} The bool value indicates that all sending processes are finished
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ success();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md223}{}\doxysubsubsubsection{\texorpdfstring{To clear all data store in this class.}{To clear all data store in this class.}}\label{README.md_autotoc_md223}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ empty();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md224}{}\doxysubsubsubsection{\texorpdfstring{Get the number of complete sending message.}{Get the number of complete sending message.}}\label{README.md_autotoc_md224}
+return {\bfseries{{\ttfamily number}}} The number of message that was sent
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ completedCount();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md225}{}\doxysubsubsubsection{\texorpdfstring{Get the number of failed sending message.}{Get the number of failed sending message.}}\label{README.md_autotoc_md225}
+return {\bfseries{{\ttfamily number}}} The number of message that was not sent
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ failedCount();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md226}{}\doxysubsection{\texorpdfstring{Sending\+Result class functions}{Sending\+Result class functions}}\label{README.md_autotoc_md226}
+The following functions are available from the \doxylink{class_sending_result}{Sending\+Result} class.
+
+This class is used for retrieving the info about the result of sending the messages.\hypertarget{README.md_autotoc_md227}{}\doxysubsubsubsection{\texorpdfstring{Get the information of a message sending status.}{Get the information of a message sending status.}}\label{README.md_autotoc_md227}
+param {\bfseries{{\ttfamily index}}} The index number of a message sending status
+
+return {\bfseries{{\ttfamily SMTP\+\_\+\+Result}}} The SMTP\+\_\+\+Result type data that provides these properties\hypertarget{README.md_autotoc_md228}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}bool\mbox{]} completed -\/ The status of the message}{\mbox{[}bool\mbox{]} completed -\/ The status of the message}}\label{README.md_autotoc_md228}
+\hypertarget{README.md_autotoc_md229}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} recipients -\/ The primary recipient mailbox of the message}{\mbox{[}MB\+\_\+\+String\mbox{]} recipients -\/ The primary recipient mailbox of the message}}\label{README.md_autotoc_md229}
+\hypertarget{README.md_autotoc_md230}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} subject -\/ The topic of the message}{\mbox{[}MB\+\_\+\+String\mbox{]} subject -\/ The topic of the message}}\label{README.md_autotoc_md230}
+\hypertarget{README.md_autotoc_md231}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}time\+\_\+t\mbox{]} timesstamp -\/ The timestamp of the message}{\mbox{[}time\+\_\+t\mbox{]} timesstamp -\/ The timestamp of the message}}\label{README.md_autotoc_md231}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{SMTP\_Result\ getItem(\textcolor{keywordtype}{size\_t}\ index);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md232}{}\doxysubsubsubsection{\texorpdfstring{Get the amount of the result data.}{Get the amount of the result data.}}\label{README.md_autotoc_md232}
+return {\bfseries{{\ttfamily number}}} The number of result item
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ size();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md233}{}\doxysubsection{\texorpdfstring{SMTP\+\_\+\+Response type data}{SMTP\+\_\+\+Response type data}}\label{README.md_autotoc_md233}
+The following properties are available from the SMTP\+\_\+\+Response data type.
+
+This data type obtains the response from sending custom SMTP commands.\hypertarget{README.md_autotoc_md234}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The command identifier}{\mbox{[}Properties\mbox{]} The command identifier}}\label{README.md_autotoc_md234}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ id;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md235}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The response text}{\mbox{[}Properties\mbox{]} The response text}}\label{README.md_autotoc_md235}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ text;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md236}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The response code}{\mbox{[}Properties\mbox{]} The response code}}\label{README.md_autotoc_md236}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ respCode;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md237}{}\doxysubsection{\texorpdfstring{Folders\+Collection class functions}{Folders\+Collection class functions}}\label{README.md_autotoc_md237}
+The following functions are available from the \doxylink{class_folders_collection}{Folders\+Collection} class.
+
+This class is used for retrieving the info about the mailbox folders which available to read or serach in the user Email mailbox.\hypertarget{README.md_autotoc_md238}{}\doxysubsubsubsection{\texorpdfstring{Get the information of a folder in a folder collection.}{Get the information of a folder in a folder collection.}}\label{README.md_autotoc_md238}
+param {\bfseries{{\ttfamily index}}} The index number of folders
+
+return {\bfseries{{\ttfamily \doxylink{structesp__mail__folder__info__item__t}{esp\+\_\+mail\+\_\+folder\+\_\+info\+\_\+item\+\_\+t}}}} The \doxylink{structesp__mail__folder__info__item__t}{esp\+\_\+mail\+\_\+folder\+\_\+info\+\_\+item\+\_\+t} structured data that provides these properties\hypertarget{README.md_autotoc_md239}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} name -\/ The name of folder}{\mbox{[}MB\+\_\+\+String\mbox{]} name -\/ The name of folder}}\label{README.md_autotoc_md239}
+\hypertarget{README.md_autotoc_md240}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} attributes -\/ The attributes of folder}{\mbox{[}MB\+\_\+\+String\mbox{]} attributes -\/ The attributes of folder}}\label{README.md_autotoc_md240}
+\hypertarget{README.md_autotoc_md241}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} delimiter -\/ The delimeter of folder}{\mbox{[}MB\+\_\+\+String\mbox{]} delimiter -\/ The delimeter of folder}}\label{README.md_autotoc_md241}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__folder__info__item__t}{esp\_mail\_folder\_info\_item\_t}}\ info(\textcolor{keywordtype}{size\_t}\ index);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md242}{}\doxysubsubsubsection{\texorpdfstring{Get the number of folders in the collection.}{Get the number of folders in the collection.}}\label{README.md_autotoc_md242}
+return {\bfseries{{\ttfamily number}}} The number of folder in the collection
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ size();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md243}{}\doxysubsection{\texorpdfstring{Selected\+Folder\+Info class functions}{Selected\+Folder\+Info class functions}}\label{README.md_autotoc_md243}
+The following functions are available from the \doxylink{class_selected_folder_info}{Selected\+Folder\+Info} class.
+
+This class is used for retrieving the info about the sselected or opened mailbox folder.\hypertarget{README.md_autotoc_md244}{}\doxysubsubsubsection{\texorpdfstring{Get the numbers of flags in the user Email mailbox.}{Get the numbers of flags in the user Email mailbox.}}\label{README.md_autotoc_md244}
+return {\bfseries{{\ttfamily number}}} The numbers of flags
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ flagCount();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md245}{}\doxysubsubsubsection{\texorpdfstring{Get the numbers of messages in this mailbox.}{Get the numbers of messages in this mailbox.}}\label{README.md_autotoc_md245}
+return {\bfseries{{\ttfamily number}}} The numbers of messages in the selected mailbox folder
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ msgCount();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md246}{}\doxysubsubsubsection{\texorpdfstring{Get the numbers of messages in this mailbox that recent flag was set.}{Get the numbers of messages in this mailbox that recent flag was set.}}\label{README.md_autotoc_md246}
+return {\bfseries{{\ttfamily number}}} The numbers of messages in the selected mailbox folder that recent flag was set
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ recentCount();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md247}{}\doxysubsubsubsection{\texorpdfstring{Get the order of message in number of message in this mailbox that reoved.}{Get the order of message in number of message in this mailbox that reoved.}}\label{README.md_autotoc_md247}
+return {\bfseries{{\ttfamily IMAP\+\_\+\+Polling\+\_\+\+Status}}} The data that holds the polling status.
+
+The IMAP\+\_\+\+Polling\+\_\+\+Status has the properties e.\+g. type, message\+Num, and argument.
+
+The type property is the type of status e.\+g.\+imap\+\_\+polling\+\_\+status\+\_\+type\+\_\+undefined, imap\+\_\+polling\+\_\+status\+\_\+type\+\_\+new\+\_\+message, imap\+\_\+polling\+\_\+status\+\_\+type\+\_\+remove\+\_\+message, and imap\+\_\+polling\+\_\+status\+\_\+type\+\_\+fetch\+\_\+message.
+
+The message\+Num property is message number or order from the total number of message that added, fetched or deleted.
+
+The argument property is the argument of commands e.\+g. FETCH
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{struct\ }IMAP\_Polling\_Status\ pollingStatus();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md248}{}\doxysubsubsubsection{\texorpdfstring{Get the predicted next message UID in the sselected folder.}{Get the predicted next message UID in the sselected folder.}}\label{README.md_autotoc_md248}
+return {\bfseries{{\ttfamily number}}} The number represents the next message UID number
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ nextUID();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md249}{}\doxysubsubsubsection{\texorpdfstring{Get the numbers of messages from search result based on the search criteria.}{Get the numbers of messages from search result based on the search criteria.}}\label{README.md_autotoc_md249}
+return {\bfseries{{\ttfamily number}}} The total number of messsages from search
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ searchCount();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md250}{}\doxysubsubsubsection{\texorpdfstring{Get the numbers of messages to be stored in the ressult.}{Get the numbers of messages to be stored in the ressult.}}\label{README.md_autotoc_md250}
+return {\bfseries{{\ttfamily number}}} The number of messsage stored from search
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ availableMessages();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md251}{}\doxysubsubsubsection{\texorpdfstring{Get the flag argument at the specified index.}{Get the flag argument at the specified index.}}\label{README.md_autotoc_md251}
+return {\bfseries{{\ttfamily index}}} The index of flag in the flags list
+
+return {\bfseries{{\ttfamily String}}} The argument of selected flag
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{String\ flag(\textcolor{keywordtype}{size\_t}\ index);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md252}{}\doxysubsection{\texorpdfstring{Session\+\_\+\+Config type data}{Session\+\_\+\+Config type data}}\label{README.md_autotoc_md252}
+The following properties are available from the Session\+\_\+\+Config data type.
+
+This data type is used for storing the session info about the server and login credentials.\hypertarget{README.md_autotoc_md253}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The server config}{\mbox{[}Properties\mbox{]} The server config}}\label{README.md_autotoc_md253}
+This property has the sub properties\hypertarget{README.md_autotoc_md254}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} host\+\_\+name -\/ The host\+Name of the server.}{\mbox{[}MB\+\_\+\+String\mbox{]} host\+\_\+name -\/ The host\+Name of the server.}}\label{README.md_autotoc_md254}
+\hypertarget{README.md_autotoc_md255}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}uint16\+\_\+t\mbox{]} port -\/ The port on the server to connect to.}{\mbox{[}uint16\+\_\+t\mbox{]} port -\/ The port on the server to connect to.}}\label{README.md_autotoc_md255}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__sesson__sever__config__t}{esp\_mail\_sesson\_sever\_config\_t}}\ server;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md256}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The log in config}{\mbox{[}Properties\mbox{]} The log in config}}\label{README.md_autotoc_md256}
+This property has the sub properties\hypertarget{README.md_autotoc_md257}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} email -\/ The user Email address to log in.}{\mbox{[}MB\+\_\+\+String\mbox{]} email -\/ The user Email address to log in.}}\label{README.md_autotoc_md257}
+\hypertarget{README.md_autotoc_md258}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}consst char \texorpdfstring{$\ast$}{*}\mbox{]} password -\/ The user password to log in.}{\mbox{[}consst char \texorpdfstring{$\ast$}{*}\mbox{]} password -\/ The user password to log in.}}\label{README.md_autotoc_md258}
+\hypertarget{README.md_autotoc_md259}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}consst char \texorpdfstring{$\ast$}{*}\mbox{]} access\+Token -\/ The OAuth2.\+0 access token to log in.}{\mbox{[}consst char \texorpdfstring{$\ast$}{*}\mbox{]} access\+Token -\/ The OAuth2.\+0 access token to log in.}}\label{README.md_autotoc_md259}
+\hypertarget{README.md_autotoc_md260}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}consst char \texorpdfstring{$\ast$}{*}\mbox{]} user\+\_\+domain -\/ The host name or public IP of client system.}{\mbox{[}consst char \texorpdfstring{$\ast$}{*}\mbox{]} user\+\_\+domain -\/ The host name or public IP of client system.}}\label{README.md_autotoc_md260}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__sesson__login__config__t}{esp\_mail\_sesson\_login\_config\_t}}\ login;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md261}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The secure config}{\mbox{[}Properties\mbox{]} The secure config}}\label{README.md_autotoc_md261}
+This property has the sub properties\hypertarget{README.md_autotoc_md262}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}bool\mbox{]} start\+TLS -\/ The option to send the command to start the TLS connection.}{\mbox{[}bool\mbox{]} start\+TLS -\/ The option to send the command to start the TLS connection.}}\label{README.md_autotoc_md262}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__sesson__secure__config__t}{esp\_mail\_sesson\_secure\_config\_t}}\ secure;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md263}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The ports and protocols config}{\mbox{[}Properties\mbox{]} The ports and protocols config}}\label{README.md_autotoc_md263}
+This property has the sub properties\hypertarget{README.md_autotoc_md264}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}port\+\_\+function \texorpdfstring{$\ast$}{*}\mbox{]} list -\/ The list (aray) of port\+\_\+function.}{\mbox{[}port\+\_\+function \texorpdfstring{$\ast$}{*}\mbox{]} list -\/ The list (aray) of port\+\_\+function.}}\label{README.md_autotoc_md264}
+\hypertarget{README.md_autotoc_md265}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}size\+\_\+t\mbox{]} size -\/ The size of array.}{\mbox{[}size\+\_\+t\mbox{]} size -\/ The size of array.}}\label{README.md_autotoc_md265}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__ports__functions}{esp\_mail\_ports\_functions}}\ ports\_functions;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md266}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The certificate config}{\mbox{[}Properties\mbox{]} The certificate config}}\label{README.md_autotoc_md266}
+\hypertarget{README.md_autotoc_md267}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}const char \texorpdfstring{$\ast$}{*}\mbox{]} cert\+\_\+data -\/ The certificate data (base64 data).}{\mbox{[}const char \texorpdfstring{$\ast$}{*}\mbox{]} cert\+\_\+data -\/ The certificate data (base64 data).}}\label{README.md_autotoc_md267}
+\hypertarget{README.md_autotoc_md268}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}const char \texorpdfstring{$\ast$}{*}\mbox{]} cert\+\_\+file -\/ The certificate file (DER format).}{\mbox{[}const char \texorpdfstring{$\ast$}{*}\mbox{]} cert\+\_\+file -\/ The certificate file (DER format).}}\label{README.md_autotoc_md268}
+\hypertarget{README.md_autotoc_md269}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}esp\+\_\+mail\+\_\+file\+\_\+storage\+\_\+type\mbox{]} cert\+\_\+file\+\_\+storage\+\_\+type -\/ The storage type.}{\mbox{[}esp\+\_\+mail\+\_\+file\+\_\+storage\+\_\+type\mbox{]} cert\+\_\+file\+\_\+storage\+\_\+type -\/ The storage type.}}\label{README.md_autotoc_md269}
+\hypertarget{README.md_autotoc_md270}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}bool\mbox{]} verify -\/ The cerificate verification option.}{\mbox{[}bool\mbox{]} verify -\/ The cerificate verification option.}}\label{README.md_autotoc_md270}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__sesson__cert__config__t}{esp\_mail\_sesson\_cert\_config\_t}}\ certificate;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md271}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} SPI Ethernet Module config for ESP8266}{\mbox{[}Properties\mbox{]} SPI Ethernet Module config for ESP8266}}\label{README.md_autotoc_md271}
+\hypertarget{README.md_autotoc_md272}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}ENC28\+J60lw\+IP \texorpdfstring{$\ast$}{*}\mbox{]} enc28j60 -\/ The ENC28\+J60 Ethernet module lwip interfac.}{\mbox{[}ENC28\+J60lw\+IP \texorpdfstring{$\ast$}{*}\mbox{]} enc28j60 -\/ The ENC28\+J60 Ethernet module lwip interfac.}}\label{README.md_autotoc_md272}
+\hypertarget{README.md_autotoc_md273}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}Wiznet5100lw\+IP \texorpdfstring{$\ast$}{*}\mbox{]} w5100 -\/ The W5100 Ethernet module lwip interfac.}{\mbox{[}Wiznet5100lw\+IP \texorpdfstring{$\ast$}{*}\mbox{]} w5100 -\/ The W5100 Ethernet module lwip interfac.}}\label{README.md_autotoc_md273}
+\hypertarget{README.md_autotoc_md274}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}Wiznet5500lw\+IP \texorpdfstring{$\ast$}{*}\mbox{]} w5500 -\/ The W5500 Ethernet module lwip interfac.}{\mbox{[}Wiznet5500lw\+IP \texorpdfstring{$\ast$}{*}\mbox{]} w5500 -\/ The W5500 Ethernet module lwip interfac.}}\label{README.md_autotoc_md274}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__spi__ethernet__module__t}{esp\_mail\_spi\_ethernet\_module\_t}}\ spi\_ethernet\_module;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md275}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The callback function for Wi\+Fi connection}{\mbox{[}Properties\mbox{]} The callback function for Wi\+Fi connection}}\label{README.md_autotoc_md275}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{NetworkConnectionHandler\ network\_connection\_handler;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md276}{}\doxysubsection{\texorpdfstring{port\+\_\+function type data}{port\+\_\+function type data}}\label{README.md_autotoc_md276}
+\hypertarget{README.md_autotoc_md277}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The port number}{\mbox{[}Properties\mbox{]} The port number}}\label{README.md_autotoc_md277}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uint16\_t\ port;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md278}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The protocol}{\mbox{[}Properties\mbox{]} The protocol}}\label{README.md_autotoc_md278}
+The port protocol e.\+g. esp\+\_\+mail\+\_\+protocol\+\_\+plain\+\_\+text, esp\+\_\+mail\+\_\+protocol\+\_\+ssl and esp\+\_\+mail\+\_\+protocol\+\_\+tls.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_protocol\ protocol;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md279}{}\doxysubsection{\texorpdfstring{IMAP\+\_\+\+Data type data}{IMAP\+\_\+\+Data type data}}\label{README.md_autotoc_md279}
+The following properties are available from the IMAP\+\_\+\+Data data type.
+
+This data type is used for storing the IMAP transport and operating options to control and store the operation result e.\+g. the messahe contents from search and fetch.\hypertarget{README.md_autotoc_md280}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The config for fetching}{\mbox{[}Properties\mbox{]} The config for fetching}}\label{README.md_autotoc_md280}
+This property has the sub properties\hypertarget{README.md_autotoc_md281}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} uid -\/ The UID of message to fetch.}{\mbox{[}MB\+\_\+\+String\mbox{]} uid -\/ The UID of message to fetch.}}\label{README.md_autotoc_md281}
+\hypertarget{README.md_autotoc_md282}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} number -\/ The message sequence number to fetch.}{\mbox{[}MB\+\_\+\+String\mbox{]} number -\/ The message sequence number to fetch.}}\label{README.md_autotoc_md282}
+\hypertarget{README.md_autotoc_md283}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}esp\+\_\+mail\+\_\+imap\+\_\+sequence\+\_\+set\+\_\+t\mbox{]} sequence\+\_\+set -\/ The sequence set options.}{\mbox{[}esp\+\_\+mail\+\_\+imap\+\_\+sequence\+\_\+set\+\_\+t\mbox{]} sequence\+\_\+set -\/ The sequence set options.}}\label{README.md_autotoc_md283}
+\hypertarget{README.md_autotoc_md284}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} set\+\_\+seen -\/ Set the message flag as seen.}{\mbox{[}MB\+\_\+\+String\mbox{]} set\+\_\+seen -\/ Set the message flag as seen.}}\label{README.md_autotoc_md284}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__imap__fetch__config__t}{esp\_mail\_imap\_fetch\_config\_t}}\ fetch;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md285}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The config for IMAP sequence set fetching}{\mbox{[}Properties\mbox{]} The config for IMAP sequence set fetching}}\label{README.md_autotoc_md285}
+This property has the sub properties\hypertarget{README.md_autotoc_md286}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} string -\/ The sequence set string i.\+g., unique identifier (UID)}{\mbox{[}MB\+\_\+\+String\mbox{]} string -\/ The sequence set string i.\+g., unique identifier (UID)}}\label{README.md_autotoc_md286}
+or message sequence number or ranges of UID or sequence number.\hypertarget{README.md_autotoc_md287}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}bool\mbox{]} UID -\/ The option for sequence\+Set whether it is UID or message sequence number.}{\mbox{[}bool\mbox{]} UID -\/ The option for sequence\+Set whether it is UID or message sequence number.}}\label{README.md_autotoc_md287}
+\hypertarget{README.md_autotoc_md288}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}bool\mbox{]} header\+Only -\/ The option for header only fetching.}{\mbox{[}bool\mbox{]} header\+Only -\/ The option for header only fetching.}}\label{README.md_autotoc_md288}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__imap__sequence__set__t}{esp\_mail\_imap\_sequence\_set\_t}}\ fetch;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md289}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The config for search}{\mbox{[}Properties\mbox{]} The config for search}}\label{README.md_autotoc_md289}
+This property has the sub properties\hypertarget{README.md_autotoc_md290}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}MB\+\_\+\+String\mbox{]} criteria -\/ The search criteria.}{\mbox{[}MB\+\_\+\+String\mbox{]} criteria -\/ The search criteria.}}\label{README.md_autotoc_md290}
+\hypertarget{README.md_autotoc_md291}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} unseen\+\_\+msg -\/ The option to search the unseen message.}{\mbox{[}boolean\mbox{]} unseen\+\_\+msg -\/ The option to search the unseen message.}}\label{README.md_autotoc_md291}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__imap__search__config__t}{esp\_mail\_imap\_search\_config\_t}}\ search;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md292}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The config about the limits}{\mbox{[}Properties\mbox{]} The config about the limits}}\label{README.md_autotoc_md292}
+This property has the sub properties\hypertarget{README.md_autotoc_md293}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}size\+\_\+t\mbox{]} search -\/ The maximum messages from the search result.}{\mbox{[}size\+\_\+t\mbox{]} search -\/ The maximum messages from the search result.}}\label{README.md_autotoc_md293}
+\hypertarget{README.md_autotoc_md294}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}size\+\_\+t\mbox{]} fetch -\/ The maximum messages from the sequence set fetching result.}{\mbox{[}size\+\_\+t\mbox{]} fetch -\/ The maximum messages from the sequence set fetching result.}}\label{README.md_autotoc_md294}
+\hypertarget{README.md_autotoc_md295}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}size\+\_\+t\mbox{]} msg\+\_\+size -\/ The maximum size of the memory buffer to store the message content.}{\mbox{[}size\+\_\+t\mbox{]} msg\+\_\+size -\/ The maximum size of the memory buffer to store the message content.}}\label{README.md_autotoc_md295}
+This is only limit for data to be stored in the \doxylink{class_i_m_a_p_session}{IMAPSession}.\hypertarget{README.md_autotoc_md296}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}size\+\_\+t\mbox{]} attachment\+\_\+size -\/ The maximum size of each attachment to download.}{\mbox{[}size\+\_\+t\mbox{]} attachment\+\_\+size -\/ The maximum size of each attachment to download.}}\label{README.md_autotoc_md296}
+The IMAP idle (polling) timeout in ms (1 min to 29 min). Default is 10 min.\hypertarget{README.md_autotoc_md297}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}size\+\_\+t\mbox{]} imap\+\_\+idle\+\_\+timeout -\/ The IMAP idle timeout in ms.}{\mbox{[}size\+\_\+t\mbox{]} imap\+\_\+idle\+\_\+timeout -\/ The IMAP idle timeout in ms.}}\label{README.md_autotoc_md297}
+The IMAP idle (polling) host check interval in ms (30 sec to imap\+\_\+idle\+\_\+timeout) for internet availability checking to ensure the connection is active.
+
+Default is 1 min.\hypertarget{README.md_autotoc_md298}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}size\+\_\+t\mbox{]} imap\+\_\+idle\+\_\+host\+\_\+check\+\_\+interval -\/ The IMAP idle host check interval in ms.}{\mbox{[}size\+\_\+t\mbox{]} imap\+\_\+idle\+\_\+host\+\_\+check\+\_\+interval -\/ The IMAP idle host check interval in ms.}}\label{README.md_autotoc_md298}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__imap__limit__config__t}{esp\_mail\_imap\_limit\_config\_t}}\ limit;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md299}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The config to enable the features}{\mbox{[}Properties\mbox{]} The config to enable the features}}\label{README.md_autotoc_md299}
+This property has the sub properties\hypertarget{README.md_autotoc_md300}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} text -\/ To store the PLAIN text of the message in the IMAPSession.}{\mbox{[}boolean\mbox{]} text -\/ To store the PLAIN text of the message in the IMAPSession.}}\label{README.md_autotoc_md300}
+\hypertarget{README.md_autotoc_md301}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} html -\/ To store the HTML of the message in the IMAPSession.}{\mbox{[}boolean\mbox{]} html -\/ To store the HTML of the message in the IMAPSession.}}\label{README.md_autotoc_md301}
+\hypertarget{README.md_autotoc_md302}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} rfc822 -\/ To store the rfc822 messages in the IMAPSession.}{\mbox{[}boolean\mbox{]} rfc822 -\/ To store the rfc822 messages in the IMAPSession.}}\label{README.md_autotoc_md302}
+\hypertarget{README.md_autotoc_md303}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} download\+\_\+status -\/ To enable the download status via the serial port.}{\mbox{[}boolean\mbox{]} download\+\_\+status -\/ To enable the download status via the serial port.}}\label{README.md_autotoc_md303}
+\hypertarget{README.md_autotoc_md304}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} recent\+\_\+sort -\/ To sort the message UID of the search result in descending order.}{\mbox{[}boolean\mbox{]} recent\+\_\+sort -\/ To sort the message UID of the search result in descending order.}}\label{README.md_autotoc_md304}
+\hypertarget{README.md_autotoc_md305}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} header\+\_\+case\+\_\+sesitive -\/ To allow case sesitive in header parsing.}{\mbox{[}boolean\mbox{]} header\+\_\+case\+\_\+sesitive -\/ To allow case sesitive in header parsing.}}\label{README.md_autotoc_md305}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__imap__enable__config__t}{esp\_mail\_imap\_enable\_config\_t}}\ enable;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md306}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The config about downloads}{\mbox{[}Properties\mbox{]} The config about downloads}}\label{README.md_autotoc_md306}
+This property has the sub properties\hypertarget{README.md_autotoc_md307}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} text -\/ To download the PLAIN text content of the message.}{\mbox{[}boolean\mbox{]} text -\/ To download the PLAIN text content of the message.}}\label{README.md_autotoc_md307}
+\hypertarget{README.md_autotoc_md308}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} html -\/ To download the HTML content of the message.}{\mbox{[}boolean\mbox{]} html -\/ To download the HTML content of the message.}}\label{README.md_autotoc_md308}
+\hypertarget{README.md_autotoc_md309}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} attachment -\/ To download the attachments of the message.}{\mbox{[}boolean\mbox{]} attachment -\/ To download the attachments of the message.}}\label{README.md_autotoc_md309}
+\hypertarget{README.md_autotoc_md310}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} inline\+Img -\/ To download the inline image of the message.}{\mbox{[}boolean\mbox{]} inline\+Img -\/ To download the inline image of the message.}}\label{README.md_autotoc_md310}
+\hypertarget{README.md_autotoc_md311}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} rfc822 -\/ To download the rfc822 mesages in the message.}{\mbox{[}boolean\mbox{]} rfc822 -\/ To download the rfc822 mesages in the message.}}\label{README.md_autotoc_md311}
+\hypertarget{README.md_autotoc_md312}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}boolean\mbox{]} header -\/ To download the message header.}{\mbox{[}boolean\mbox{]} header -\/ To download the message header.}}\label{README.md_autotoc_md312}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__imap__download__config__t}{esp\_mail\_imap\_download\_config\_t}}\ download;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md313}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The config about the storage and path to save the downloaded file.}{\mbox{[}Properties\mbox{]} The config about the storage and path to save the downloaded file.}}\label{README.md_autotoc_md313}
+This property has the sub properties\hypertarget{README.md_autotoc_md314}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} saved\+\_\+path -\/ The path to save the downloaded file.}{\mbox{[}const char\texorpdfstring{$\ast$}{*}\mbox{]} saved\+\_\+path -\/ The path to save the downloaded file.}}\label{README.md_autotoc_md314}
+\hypertarget{README.md_autotoc_md315}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}esp\+\_\+mail\+\_\+file\+\_\+storage\+\_\+type\mbox{]} type -\/ The type of file storages enumeration e.\+g.}{\mbox{[}esp\+\_\+mail\+\_\+file\+\_\+storage\+\_\+type\mbox{]} type -\/ The type of file storages enumeration e.\+g.}}\label{README.md_autotoc_md315}
+esp\+\_\+mail\+\_\+file\+\_\+storage\+\_\+type\+\_\+none = 0,
+
+esp\+\_\+mail\+\_\+file\+\_\+storage\+\_\+type\+\_\+flash = 1, and
+
+esp\+\_\+mail\+\_\+file\+\_\+storage\+\_\+type\+\_\+sd = 2
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__imap__storage__config__t}{esp\_mail\_imap\_storage\_config\_t}}\ storage;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md316}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The config about firmware updates and downloads for ESP32, ESP8266 and Raspberry Pi Pico.}{\mbox{[}Properties\mbox{]} The config about firmware updates and downloads for ESP32, ESP8266 and Raspberry Pi Pico.}}\label{README.md_autotoc_md316}
+This property has the sub properties\hypertarget{README.md_autotoc_md317}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}string\mbox{]} attach\+\_\+filename -\/ Update firmware using message attachments if one of its filename matches.}{\mbox{[}string\mbox{]} attach\+\_\+filename -\/ Update firmware using message attachments if one of its filename matches.}}\label{README.md_autotoc_md317}
+\hypertarget{README.md_autotoc_md318}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}bool\mbox{]} save\+\_\+to\+\_\+file -\/ Save firmware file option.}{\mbox{[}bool\mbox{]} save\+\_\+to\+\_\+file -\/ Save firmware file option.}}\label{README.md_autotoc_md318}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structesp__mail__imap__firmware__config__t}{esp\_mail\_imap\_firmware\_config\_t}}\ firmware\_update;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md319}{}\doxysubsection{\texorpdfstring{esp\+\_\+mail\+\_\+smtp\+\_\+embed\+\_\+message\+\_\+body\+\_\+t structured data}{esp\+\_\+mail\+\_\+smtp\+\_\+embed\+\_\+message\+\_\+body\+\_\+t structured data}}\label{README.md_autotoc_md319}
+The following properties are available from the IMAP\+\_\+\+Data data type.
+
+This data type is used for storing the IMAP transport and operating options to control and store the operation result e.\+g. the messahe contents from search and fetch.\hypertarget{README.md_autotoc_md320}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} Enable to send this message body as file}{\mbox{[}Properties\mbox{]} Enable to send this message body as file}}\label{README.md_autotoc_md320}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ enable;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md321}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The name of embedded file}{\mbox{[}Properties\mbox{]} The name of embedded file}}\label{README.md_autotoc_md321}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ enable;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md322}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The embedded type enumeration}{\mbox{[}Properties\mbox{]} The embedded type enumeration}}\label{README.md_autotoc_md322}
+esp\+\_\+mail\+\_\+smtp\+\_\+embed\+\_\+message\+\_\+type\+\_\+attachment = 0
+
+sp\+\_\+mail\+\_\+smtp\+\_\+embed\+\_\+message\+\_\+type\+\_\+inline = 1
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_smtp\_embed\_message\_type\ type;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md323}{}\doxysubsection{\texorpdfstring{esp\+\_\+mail\+\_\+blob\+\_\+message\+\_\+content\+\_\+t structured data}{esp\+\_\+mail\+\_\+blob\+\_\+message\+\_\+content\+\_\+t structured data}}\label{README.md_autotoc_md323}
+The following properties are available from the \doxylink{structesp__mail__blob__message__content__t}{esp\+\_\+mail\+\_\+blob\+\_\+message\+\_\+content\+\_\+t} data type.
+
+This data type is used for storing the blob info of message body.\hypertarget{README.md_autotoc_md324}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The array of content in flash memory.}{\mbox{[}Properties\mbox{]} The array of content in flash memory.}}\label{README.md_autotoc_md324}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ uint8\_t\ *\ data;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md325}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The array size in bytes.}{\mbox{[}Properties\mbox{]} The array size in bytes.}}\label{README.md_autotoc_md325}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ size;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md326}{}\doxysubsection{\texorpdfstring{esp\+\_\+mail\+\_\+file\+\_\+message\+\_\+content\+\_\+t structured data}{esp\+\_\+mail\+\_\+file\+\_\+message\+\_\+content\+\_\+t structured data}}\label{README.md_autotoc_md326}
+The following properties are available from the \doxylink{structesp__mail__file__message__content__t}{esp\+\_\+mail\+\_\+file\+\_\+message\+\_\+content\+\_\+t} data type.
+
+This data type is used for storing the file info of message body.\hypertarget{README.md_autotoc_md327}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The file path include its name.}{\mbox{[}Properties\mbox{]} The file path include its name.}}\label{README.md_autotoc_md327}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md328}{}\doxysubsubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The type of file storages.}{\mbox{[}Properties\mbox{]} The type of file storages.}}\label{README.md_autotoc_md328}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_file\_storage\_type\ type;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md329}{}\doxysubsection{\texorpdfstring{IMAP\+\_\+\+MSG\+\_\+\+Item type data}{IMAP\+\_\+\+MSG\+\_\+\+Item type data}}\label{README.md_autotoc_md329}
+The following properties are available from the IMAP\+\_\+\+MSG\+\_\+\+Item data type.
+
+This data type is used for message item info and its contents from search and fetch.\hypertarget{README.md_autotoc_md330}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The message number}{\mbox{[}Properties\mbox{]} The message number}}\label{README.md_autotoc_md330}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ msgNo;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md331}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The message UID}{\mbox{[}Properties\mbox{]} The message UID}}\label{README.md_autotoc_md331}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ UID;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md332}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The message identifier}{\mbox{[}Properties\mbox{]} The message identifier}}\label{README.md_autotoc_md332}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ID;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md333}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The language(s) for auto-\/responses}{\mbox{[}Properties\mbox{]} The language(s) for auto-\/responses}}\label{README.md_autotoc_md333}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *acceptLang;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md334}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The language of message content}{\mbox{[}Properties\mbox{]} The language of message content}}\label{README.md_autotoc_md334}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *contentLang;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md335}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The mailbox of message author}{\mbox{[}Properties\mbox{]} The mailbox of message author}}\label{README.md_autotoc_md335}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *from;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md336}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The charset of the mailbox of message author (deprecate)}{\mbox{[}Properties\mbox{]} The charset of the mailbox of message author (deprecate)}}\label{README.md_autotoc_md336}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fromCharset;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md337}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The primary recipient mailbox}{\mbox{[}Properties\mbox{]} The primary recipient mailbox}}\label{README.md_autotoc_md337}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *to;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md338}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The charset of the primary recipient mailbox (deprecate)}{\mbox{[}Properties\mbox{]} The charset of the primary recipient mailbox (deprecate)}}\label{README.md_autotoc_md338}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *toCharset;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md339}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The Carbon-\/copy recipient mailboxes}{\mbox{[}Properties\mbox{]} The Carbon-\/copy recipient mailboxes}}\label{README.md_autotoc_md339}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cc;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md340}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The charset of the Carbon-\/copy recipient mailbox header (deprecate)}{\mbox{[}Properties\mbox{]} The charset of the Carbon-\/copy recipient mailbox header (deprecate)}}\label{README.md_autotoc_md340}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ccCharset;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md341}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The message date and time}{\mbox{[}Properties\mbox{]} The message date and time}}\label{README.md_autotoc_md341}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *date;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md342}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The topic of message}{\mbox{[}Properties\mbox{]} The topic of message}}\label{README.md_autotoc_md342}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *subject;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md343}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The topic of message charset (deprecate)}{\mbox{[}Properties\mbox{]} The topic of message charset (deprecate)}}\label{README.md_autotoc_md343}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *subjectCharset;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md344}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The PLAIN text content of the message}{\mbox{[}Properties\mbox{]} The PLAIN text content of the message}}\label{README.md_autotoc_md344}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_plain\_body\_t\ text;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md345}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The HTML content of the message}{\mbox{[}Properties\mbox{]} The HTML content of the message}}\label{README.md_autotoc_md345}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{esp\_mail\_html\_body\_t\ html;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md346}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The sender Email}{\mbox{[}Properties\mbox{]} The sender Email}}\label{README.md_autotoc_md346}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *sender;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md347}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The charset of the sender Email (obsoleted)}{\mbox{[}Properties\mbox{]} The charset of the sender Email (obsoleted)}}\label{README.md_autotoc_md347}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *senderCharset;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md348}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The keywords or phrases, separated by commas}{\mbox{[}Properties\mbox{]} The keywords or phrases, separated by commas}}\label{README.md_autotoc_md348}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *keyword;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md349}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The comments about message}{\mbox{[}Properties\mbox{]} The comments about message}}\label{README.md_autotoc_md349}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *comments;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md350}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The return recipient of the message}{\mbox{[}Properties\mbox{]} The return recipient of the message}}\label{README.md_autotoc_md350}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *return\_path;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md351}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The Email address to reply}{\mbox{[}Properties\mbox{]} The Email address to reply}}\label{README.md_autotoc_md351}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *reply\_to;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md352}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The field that contains the parent\textquotesingle{}s message ID of the message to which this one is a reply}{\mbox{[}Properties\mbox{]} The field that contains the parent\textquotesingle{}s message ID of the message to which this one is a reply}}\label{README.md_autotoc_md352}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *in\_reply\_to;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md353}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The field that contains the parent\textquotesingle{}s references (if any) and followed by the parent\textquotesingle{}s message ID (if any) of the message to which this one is a reply}{\mbox{[}Properties\mbox{]} The field that contains the parent\textquotesingle{}s references (if any) and followed by the parent\textquotesingle{}s message ID (if any) of the message to which this one is a reply}}\label{README.md_autotoc_md353}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *references;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md354}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The Blind carbon-\/copy recipients}{\mbox{[}Properties\mbox{]} The Blind carbon-\/copy recipients}}\label{README.md_autotoc_md354}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *bcc;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md355}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The charset of the Blind carbon-\/copy recipient mailbox header (obsoleted)}{\mbox{[}Properties\mbox{]} The charset of the Blind carbon-\/copy recipient mailbox header (obsoleted)}}\label{README.md_autotoc_md355}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *bccCharset;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md356}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The error description from fetching the message}{\mbox{[}Properties\mbox{]} The error description from fetching the message}}\label{README.md_autotoc_md356}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fetchError;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md357}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The info about the attachments in the message}{\mbox{[}Properties\mbox{]} The info about the attachments in the message}}\label{README.md_autotoc_md357}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::vector<IMAP\_Attach\_Item>\ attachments;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md358}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The info about the rfc822 messages included in the message}{\mbox{[}Properties\mbox{]} The info about the rfc822 messages included in the message}}\label{README.md_autotoc_md358}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{std::vector<IMAP\_MSG\_Item>\ rfc822;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md359}{}\doxysubsection{\texorpdfstring{IMAP\+\_\+\+Response type data}{IMAP\+\_\+\+Response type data}}\label{README.md_autotoc_md359}
+The following properties are available from the IMAP\+\_\+\+Response data type.
+
+This data type obtains the response from sending custom IMAP commands.\hypertarget{README.md_autotoc_md360}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The status tag}{\mbox{[}Properties\mbox{]} The status tag}}\label{README.md_autotoc_md360}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ tag;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md361}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The status text}{\mbox{[}Properties\mbox{]} The status text}}\label{README.md_autotoc_md361}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ text;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md362}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The completion of response}{\mbox{[}Properties\mbox{]} The completion of response}}\label{README.md_autotoc_md362}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ completed;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md363}{}\doxysubsection{\texorpdfstring{MIME\+\_\+\+Data\+\_\+\+Stream\+\_\+\+Info type data}{MIME\+\_\+\+Data\+\_\+\+Stream\+\_\+\+Info type data}}\label{README.md_autotoc_md363}
+The following properties are available from the MIME\+\_\+\+Data\+\_\+\+Stream\+\_\+\+Info data type.
+
+This data type obtains the IMAP multipart body or MIME stream data via the callback function.\hypertarget{README.md_autotoc_md364}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The message UID}{\mbox{[}Properties\mbox{]} The message UID}}\label{README.md_autotoc_md364}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uint32\_t\ uid;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md365}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The content type of the message part}{\mbox{[}Properties\mbox{]} The content type of the message part}}\label{README.md_autotoc_md365}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *type;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md366}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The content disposition of the message part}{\mbox{[}Properties\mbox{]} The content disposition of the message part}}\label{README.md_autotoc_md366}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *disposition;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md367}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The content character set of the message part}{\mbox{[}Properties\mbox{]} The content character set of the message part}}\label{README.md_autotoc_md367}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *charSet;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md368}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The text content flowed format parameter of the message part}{\mbox{[}Properties\mbox{]} The text content flowed format parameter of the message part}}\label{README.md_autotoc_md368}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ flowed;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md369}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The text content format Del\+Sp parameter of the message part}{\mbox{[}Properties\mbox{]} The text content format Del\+Sp parameter of the message part}}\label{README.md_autotoc_md369}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ delsp;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md370}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The content transfer encoding of the message part}{\mbox{[}Properties\mbox{]} The content transfer encoding of the message part}}\label{README.md_autotoc_md370}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *transfer\_encoding;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md371}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The content ID of the inline attachment type message part}{\mbox{[}Properties\mbox{]} The content ID of the inline attachment type message part}}\label{README.md_autotoc_md371}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cid;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md372}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The content description of the message part}{\mbox{[}Properties\mbox{]} The content description of the message part}}\label{README.md_autotoc_md372}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *description;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md373}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The file name of the attachment type message part}{\mbox{[}Properties\mbox{]} The file name of the attachment type message part}}\label{README.md_autotoc_md373}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md374}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The name of the attachment type message part}{\mbox{[}Properties\mbox{]} The name of the attachment type message part}}\label{README.md_autotoc_md374}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md375}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The creation date of the message part}{\mbox{[}Properties\mbox{]} The creation date of the message part}}\label{README.md_autotoc_md375}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *date;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md376}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The size of the attachment (unencoded) type message part}{\mbox{[}Properties\mbox{]} The size of the attachment (unencoded) type message part}}\label{README.md_autotoc_md376}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ size;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md377}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The total octet of the message part}{\mbox{[}Properties\mbox{]} The total octet of the message part}}\label{README.md_autotoc_md377}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ octet\_size;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md378}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The current octet count of the message part that currently parses}{\mbox{[}Properties\mbox{]} The current octet count of the message part that currently parses}}\label{README.md_autotoc_md378}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ octet\_count;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md379}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The size of content (unencoded) of message part}{\mbox{[}Properties\mbox{]} The size of content (unencoded) of message part}}\label{README.md_autotoc_md379}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{size\_t}\ data\_size;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md380}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The data buffer of message part that currently parses}{\mbox{[}Properties\mbox{]} The data buffer of message part that currently parses}}\label{README.md_autotoc_md380}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ *data;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md381}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The flag that states the first chunk data of message part that currently parses}{\mbox{[}Properties\mbox{]} The flag that states the first chunk data of message part that currently parses}}\label{README.md_autotoc_md381}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ isFirstData;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md382}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The flag that states the final chunk data of message part that currently parses}{\mbox{[}Properties\mbox{]} The flag that states the final chunk data of message part that currently parses}}\label{README.md_autotoc_md382}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ isLastData;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md383}{}\doxysubsection{\texorpdfstring{IMAP\+\_\+\+Decoding\+\_\+\+Info type data}{IMAP\+\_\+\+Decoding\+\_\+\+Info type data}}\label{README.md_autotoc_md383}
+The following properties are available from the IMAP\+\_\+\+Decoding\+\_\+\+Info data type.
+
+This data type obtains the IMAP header and text (plain and html) strings to be decoded via the callback function based on its character set.\hypertarget{README.md_autotoc_md384}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The character set of the string to decode}{\mbox{[}Properties\mbox{]} The character set of the string to decode}}\label{README.md_autotoc_md384}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *charset;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md385}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The string to decode}{\mbox{[}Properties\mbox{]} The string to decode}}\label{README.md_autotoc_md385}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md386}{}\doxysubsubsubsection{\texorpdfstring{\mbox{[}Properties\mbox{]} The type of data that currently processed}{\mbox{[}Properties\mbox{]} The type of data that currently processed}}\label{README.md_autotoc_md386}
+0 or IMAP\+\_\+\+Decoding\+\_\+\+Info\+::message\+\_\+part\+\_\+type\+\_\+header
+
+1 or IMAP\+\_\+\+Decoding\+\_\+\+Info\+::message\+\_\+part\+\_\+type\+\_\+text
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{message\_part\_type\ type;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md387}{}\doxysubsection{\texorpdfstring{Search Criteria}{Search Criteria}}\label{README.md_autotoc_md387}
+Search crieria is used for searching the mailbox for messages that match the given searching criteria. ~\newline
+
+
+Searching criteria consist of one or more search keys. When multiple keys are specified, the result is the intersection (AND function) of all the messages that match those keys. ~\newline
+
+
+Example\+:
+
+{\bfseries{{\ttfamily DELETED FROM "{}\+SMITH"{} SINCE 1-\/Feb-\/1994}}} refers to all deleted messages from Smith that were placed in the mailbox since February 1, 1994. ~\newline
+
+
+A search key can also be a parenthesized list of one or more search keys (e.\+g., for use with the OR and NOT keys).
+
+{\bfseries{{\ttfamily SINCE 10-\/Feb-\/2019}}} will search all messages that received since 10 Feb 2019
+
+{\bfseries{{\ttfamily UID SEARCH ALL}}} will seach all message which will return the message UID that can be use later for fetch one or more messages.
+
+The following keywords can be used for the search criteria.
+
+{\bfseries{ALL}} -\/ All messages in the mailbox; the default initial key for ANDing.
+
+{\bfseries{ANSWERED}} -\/ Messages with the \textbackslash{}\+Answered flag set.
+
+{\bfseries{BCC}} -\/ Messages that contain the specified string in the envelope structure\textquotesingle{}s BCC field.
+
+{\bfseries{BEFORE}} -\/ Messages whose internal date (disregarding time and timezone) is earlier than the specified date.
+
+{\bfseries{BODY}} -\/ Messages that contain the specified string in the body of the message.
+
+{\bfseries{CC}} -\/ Messages that contain the specified string in the envelope structure\textquotesingle{}s CC field.
+
+{\bfseries{DELETED}} -\/ Messages with the \textbackslash{}\+Deleted flag set.
+
+{\bfseries{DRAFT}} -\/ Messages with the \textbackslash{}\+Draft flag set.
+
+{\bfseries{FLAGGED}} -\/ Messages with the \textbackslash{}\+Flagged flag set.
+
+{\bfseries{FROM}} -\/ Messages that contain the specified string in the envelope structure\textquotesingle{}s FROM field.
+
+{\bfseries{HEADER}} -\/ Messages that have a header with the specified field-\/name (as defined in \mbox{[}RFC-\/2822\mbox{]})
+
+and that contains the specified string in the text of the header (what comes after the colon).
+
+If the string to search is zero-\/length, this matches all messages that have a header line with
+
+the specified field-\/name regardless of the contents.
+
+{\bfseries{KEYWORD}} -\/ Messages with the specified keyword flag set.
+
+{\bfseries{LARGER}} -\/ Messages with an (RFC-\/2822) size larger than the specified number of octets.
+
+{\bfseries{NEW}} -\/ Messages that have the \textbackslash{}\+Recent flag set but not the \textbackslash{}\+Seen flag.
+
+This is functionally equivalent to {\bfseries{"{}(\+RECENT UNSEEN)"{}}}.
+
+{\bfseries{NOT}} -\/ Messages that do not match the specified search key.
+
+{\bfseries{OLD}} -\/ Messages that do not have the \textbackslash{}\+Recent flag set. This is functionally equivalent to
+
+{\bfseries{"{}\+NOT RECENT"{}}} (as opposed to {\bfseries{"{}\+NOT NEW"{}}}).
+
+{\bfseries{ON}} -\/ Messages whose internal date (disregarding time and timezone) is within the specified date.
+
+{\bfseries{OR}} -\/ Messages that match either search key.
+
+{\bfseries{RECENT}} -\/ Messages that have the \textbackslash{}\+Recent flag set.
+
+{\bfseries{SEEN}} -\/ Messages that have the \textbackslash{}\+Seen flag set.
+
+{\bfseries{SENTBEFORE}} -\/ Messages whose (RFC-\/2822) Date\+: header (disregarding time and timezone) is earlier than the specified date.
+
+{\bfseries{SENTON}} -\/ Messages whose (RFC-\/2822) Date\+: header (disregarding time and timezone) is within the specified date.
+
+{\bfseries{SENTSINCE}} -\/ Messages whose (RFC-\/2822) Date\+: header (disregarding time and timezone) is within or later than the specified date.
+
+{\bfseries{SINCE}} -\/ Messages whose internal date (disregarding time and timezone) is within or later than the specified date.
+
+{\bfseries{SMALLER}} -\/ Messages with an (RFC-\/2822) size smaller than the specified number of octets.
+
+{\bfseries{SUBJECT}} -\/ Messages that contain the specified string in the envelope structure\textquotesingle{}s SUBJECT field.
+
+{\bfseries{TEXT}} -\/ Messages that contain the specified string in the header or body of the message.
+
+{\bfseries{TO}} -\/ Messages that contain the specified string in the envelope structure\textquotesingle{}s TO field.
+
+{\bfseries{UID}} -\/ Messages with unique identifiers corresponding to the specified unique identifier set. ~\newline
+
+
+Sequence set ranges are permitted.
+
+{\bfseries{UNANSWERED}} -\/ Messages that do not have the \textbackslash{}\+Answered flag set.
+
+{\bfseries{UNDELETED}} -\/ Messages that do not have the \textbackslash{}\+Deleted flag set.
+
+{\bfseries{UNDRAFT}} -\/ Messages that do not have the \textbackslash{}\+Draft flag set.
+
+{\bfseries{UNFLAGGED}} -\/ Messages that do not have the \textbackslash{}\+Flagged flag set.
+
+{\bfseries{UNKEYWORD}} -\/ Messages that do not have the specified keyword flag set.
+
+{\bfseries{UNSEEN}} -\/ Messages that do not have the \textbackslash{}\+Seen flag set.\hypertarget{README.md_autotoc_md388}{}\doxysubsection{\texorpdfstring{Mail\+Client.\+Time functions}{Mail\+Client.\+Time functions}}\label{README.md_autotoc_md388}
+The helper function to set and get the system time.\hypertarget{README.md_autotoc_md389}{}\doxysubsubsubsection{\texorpdfstring{Set the system time from the NTP server.}{Set the system time from the NTP server.}}\label{README.md_autotoc_md389}
+param {\bfseries{{\ttfamily gmt\+Offset}}} The GMT time offset in hour.
+
+param {\bfseries{{\ttfamily daylight\+Offset}}} The Daylight time offset in hour.
+
+return {\bfseries{{\ttfamily boolean}}} The status indicates the success of operation.
+
+This requires internet connection
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{bool}\ setClock(\textcolor{keywordtype}{float}\ gmtOffset,\ \textcolor{keywordtype}{float}\ daylightOffset);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md390}{}\doxysubsubsubsection{\texorpdfstring{Get the timestamp from the year, month, date, hour, minute, and second provided.}{Get the timestamp from the year, month, date, hour, minute, and second provided.}}\label{README.md_autotoc_md390}
+param {\bfseries{{\ttfamily year}}} The year.
+
+param {\bfseries{{\ttfamily mon}}} The months from 1 to 12.
+
+param {\bfseries{{\ttfamily date}}} The dates.
+
+param {\bfseries{{\ttfamily hour}}} The hours.
+
+param {\bfseries{{\ttfamily mins}}} The minutes.
+
+param {\bfseries{{\ttfamily sec}}} The seconds.
+
+return {\bfseries{{\ttfamily time\+\_\+t}}} The value of timestamp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{time\_t\ getTimestamp(\textcolor{keywordtype}{int}\ year,\ \textcolor{keywordtype}{int}\ mon,\ \textcolor{keywordtype}{int}\ date,\ \textcolor{keywordtype}{int}\ hour,\ \textcolor{keywordtype}{int}\ mins,\ \textcolor{keywordtype}{int}\ sec);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md391}{}\doxysubsubsubsection{\texorpdfstring{Get the timestamp from the time string.}{Get the timestamp from the time string.}}\label{README.md_autotoc_md391}
+param {\bfseries{{\ttfamily gmt}}} Return GMT time.
+
+return {\bfseries{{\ttfamily timestamp}}} of time string.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{time\_t\ getTimestamp(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ timeString,\ \textcolor{keywordtype}{bool}\ gmt\ =\ \textcolor{keyword}{false});}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md392}{}\doxysubsubsubsection{\texorpdfstring{Get the current timestamp.}{Get the current timestamp.}}\label{README.md_autotoc_md392}
+return {\bfseries{{\ttfamily uint64\+\_\+t}}} The value of current timestamp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uint64\_t\ getCurrentTimestamp();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md393}{}\doxysubsubsubsection{\texorpdfstring{Get the current date time string that valid for Email}{Get the current date time string that valid for Email}}\label{README.md_autotoc_md393}
+return {\bfseries{{\ttfamily String}}} The current date time string.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{String\ getDateTimeString();}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md394}{}\doxysubsection{\texorpdfstring{License}{License}}\label{README.md_autotoc_md394}
+The MIT License (MIT)
+
+Copyright (c) 2023 K. Suwatchai (Mobizt)
+
+Permission is hereby granted, free of charge, to any person returning a copy of this software and associated documentation files (the "{}\+Software"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "{}\+AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

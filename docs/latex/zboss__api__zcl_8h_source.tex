@@ -1,0 +1,918 @@
+\doxysection{zboss\+\_\+api\+\_\+zcl.\+h}
+\hypertarget{zboss__api__zcl_8h_source}{}\label{zboss__api__zcl_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_zcl.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_zcl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ ZBOSS\ Zigbee\ cluster\ library\ API\ header}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifndef\ ZBOSS\_API\_ZCL\_H}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ZBOSS\_API\_ZCL\_H\ 1}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}zb\_types.h"{}}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_config.h"{}}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_common.h"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_commands.h"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_NO\_SINGLE\_PRECISION\_DATA\_TYPE)}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *\ The\ following\ ZCL\ clusters\ use\ zb\_single\_t,\ which\ is\ not\ supported}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *\ if\ ZB\_NO\_SINGLE\_PRECISION\_DATA\_TYPE\ is\ defined.}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ TODO:\ Analog\ Input\ (Basic)\ also\ uses\ zb\_single\_t}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#undef\ ZB\_ZCL\_SUPPORT\_CLUSTER\_ANALOG\_VALUE}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#undef\ ZB\_ZCL\_SUPPORT\_CLUSTER\_MULTISTATE\_VALUE}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{/*\ All\ 4.13\ Concentration\ Measurement\ clusters\ */}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#undef\ ZB\_ZCL\_SUPPORT\_CLUSTER\_PM2\_5\_MEASUREMENT}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#undef\ ZB\_ZCL\_SUPPORT\_CLUSTER\_CARBON\_DIOXIDE\_MEASUREMENT}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_NO\_SINGLE\_PRECISION\_DATA\_TYPE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#if\ !(defined\ ZB\_ZCL\_DISABLE\_REPORTING)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_reporting.h"{}}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_SCENES)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_scenes.h"{}}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_BASIC)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_basic.h"{}}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_ALARMS)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_alarms.h"{}}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_POWER\_CONFIG)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_power\_config.h"{}}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#if\ defined(ZB\_ZCL\_SUPPORT\_CLUSTER\_IDENTIFY)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_identify.h"{}}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_ON\_OFF\_SWITCH\_CONFIG)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_on\_off\_switch\_conf.h"{}}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_ON\_OFF)\ ||\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_LEVEL\_CONTROL)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_on\_off.h"{}}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_GROUPS)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_groups.h"{}}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_DOOR\_LOCK)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_door\_lock.h"{}}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_ANALOG\_INPUT)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_analog\_input.h"{}}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_ANALOG\_VALUE)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_analog\_value.h"{}}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_BINARY\_INPUT)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_binary\_input.h"{}}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_MULTISTATE\_INPUT)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_multistate\_input.h"{}}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_MULTISTATE\_VALUE)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_multistate\_value.h"{}}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_CARBON\_DIOXIDE\_MEASUREMENT)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_carbon\_dioxide\_measurement.h"{}}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_PM2\_5\_MEASUREMENT)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_pm2\_5\_measurement.h"{}}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_DEVICE\_TEMP\_CONFIG)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_device\_temp\_config.h"{}}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_LEVEL\_CONTROL)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#ifndef\ ZB\_CVC\_FEATURE\_SUPPORT}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ ZB\_CVC\_FEATURE\_SUPPORT}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_level\_control.h"{}}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_WINDOW\_COVERING}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_window\_covering.h"{}}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_COLOR\_CONTROL)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_color\_control.h"{}}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_SHADE\_CONFIG)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_shade\_config.h"{}}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_cvc\_commands.h"{}}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#ifdef\ ZB\_CONTROL4\_NETWORK\_SUPPORT}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_control4\_networking.h"{}}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_TEMP\_MEASUREMENT)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_temp\_measurement.h"{}}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_PRESSURE\_MEASUREMENT)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_pressure\_measurement.h"{}}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_REL\_HUMIDITY\_MEASUREMENT)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_rel\_humidity\_measurement.h"{}}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_ILLUMINANCE\_MEASUREMENT)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_illuminance\_measurement.h"{}}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_IAS\_ACE)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_ias\_ace.h"{}}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_IAS\_WD)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_ias\_wd.h"{}}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_IAS\_ZONE)}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_ias\_zone.h"{}}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#if\ defined(ZB\_ZCL\_SUPPORT\_CLUSTER\_DIAGNOSTICS)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_diagnostics.h"{}}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_CUSTOM\_CLUSTER)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_custom\_cluster.h"{}}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_TIME)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_time.h"{}}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_DEHUMIDIFICATION\_CONTROL)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_dehumidification\_control.h"{}}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_ELECTRICAL\_MEASUREMENT)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_el\_measurement.h"{}}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_FAN\_CONTROL)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_fan\_control.h"{}}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_EN50523\_APPLIANCE\_EVENTS\_AND\_ALERTS)}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_en50523\_appliance\_events\_and\_alerts.h"{}}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_METERING)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_metering.h"{}}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_THERMOSTAT)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_thermostat.h"{}}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_THERMOSTAT\_UI\_CONFIG)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_thermostat\_ui\_config.h"{}}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_OCCUPANCY\_SENSING)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_occupancy\_sensing.h"{}}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_METER\_IDENTIFICATION)}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_meter\_identification.h"{}}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_WWAH)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_wwah.h"{}}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_SUPPORT\_CLUSTER\_WWAH\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_POLL\_CONTROL)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_poll\_control.h"{}}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_OTA\_UPGRADE)}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_ota\_upgrade.h"{}}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_PRICE)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_price.h"{}}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_DRLC)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_drlc.h"{}}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_METERING)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_metering.h"{}}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_MESSAGING)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_messaging.h"{}}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_DAILY\_SCHEDULE)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_daily\_schedule.h"{}}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_TUNNELING)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_tunneling.h"{}}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_SUBGHZ)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_subghz.h"{}}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_PREPAYMENT)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_prepayment.h"{}}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_CALENDAR)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_calendar.h"{}}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#ifdef\ ZB\_ENABLE\_SE\_CLUSTERS}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_EVENTS)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_events.h"{}}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_ENERGY\_MANAGEMENT)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_energy\_mgmt.h"{}}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_MDU\_PAIRING)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_mdu\_pairing.h"{}}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_DEVICE\_MANAGEMENT)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_device\_management.h"{}}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_SE\_CLUSTERS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#ifdef\ ZB\_ENABLE\_CUSTOM\_CLUSTERS}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_tunnel.h"{}}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_ir\_blaster.h"{}}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_CUSTOM\_CLUSTERS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_ZGP\_CLUSTER}}
+\DoxyCodeLine{00263\ \textcolor{comment}{//\#include\ "{}zgp/zgp\_internal.h"{}}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_grpw\_bed\_sensor.h"{}}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_grpw\_freq\_agility.h"{}}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_VERSION\ \ \ \ \ \ \ 8U}}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_SET\_MODIFY\_ATTR\_VALUE\_CB(func\_ptr)\ ZCL\_CTX().modify\_attr\_value\_cb\ =\ (func\_ptr)}}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#if\ !(defined\ ZB\_ZCL\_DISABLE\_REPORTING)\ ||\ defined(DOXYGEN)}}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_SET\_REPORT\_ATTR\_CB(func\_ptr)\ ZCL\_CTX().report\_attr\_cb\ =\ (func\_ptr)}}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_SET\_NO\_REPORTING\_CB(func\_ptr)\ ZCL\_CTX().no\_reporting\_cb\ =\ (func\_ptr)}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_SET\_DEFAULT\_VALUE\_CB(func\_ptr)\ ZCL\_CTX().set\_default\_attr\_cb\ =\ (func\_ptr)}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_HA}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CHECK\_ATTR\_VALUE\_CB(func\_ptr)\ ZCL\_CTX().app\_check\_attr\_value\_cb\ =\ (func\_ptr)}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CHECK\_ATTR\_VALUE\_MANUF\_CB(func\_ptr)\ ZCL\_CTX().app\_check\_attr\_value\_manuf\_cb\ =\ (func\_ptr)}}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_SET\_DISC\_MANUFACTURE\_COMMAND\_CB(func\_ptr)\ ZCL\_CTX().disc\_manuf\_cmd\_cb\ =\ (func\_ptr)}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_HA\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_SET\_BROADCAST\_EP\_CB(func\_ptr)\ ZCL\_CTX().broadcast\_ep\_cb\ =\ (func\_ptr)}}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\#define\ ZB\_GET\_TIME\_IN\_UNITS()\ \ \ \ ZB\_SYS\_TIMER\_INTERVAL\_TO\_TIME\_UNITS(ZB\_TIMER\_GET())}}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#define\ ZB\_SYS\_TIMER\_INTERVAL\_TO\_TIME\_UNITS(interval)\ \ \ \ ZB\_SYS\_TIMER\_INTERVAL\_TO\_MSEC(interval)\ /\ 100U}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00450\ \textcolor{preprocessor}{\#define\ ZB\_TIME\_UNITS\_TO\_SYS\_TIMER\_INTERVAL(uints)\ \ ZB\_MILLISECONDS\_TO\_SYS\_TIMER\_INTERVAL((uints)*100U)}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ internals\_doc\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00457\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_ga35caa2e3a9ef37535b1f75e0fe919266}{zb\_zcl\_device\_callback\_id\_e}}}
+\DoxyCodeLine{00458\ \{}
+\DoxyCodeLine{00460\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266accd01565be931bb352d99ae47a324aca}{ZB\_ZCL\_SET\_ATTR\_VALUE\_CB\_ID}}\ =\ 0,}
+\DoxyCodeLine{00463\ \ \ ZB\_ZCL\_REPORT\_ATTR\_CB\_ID,}
+\DoxyCodeLine{00465\ \ \ ZB\_ZCL\_NO\_REPORTING\_CB\_ID,\ \textcolor{comment}{/*\ DOXYGEN\_INTERNAL\_DOC\ */}}
+\DoxyCodeLine{00468\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a56774d84d04249c2f07d3ed92052ac00}{ZB\_ZCL\_ON\_OFF\_WITH\_EFFECT\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{00470\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a7e084feec6bd333001de9ecebb9cfa1e}{ZB\_ZCL\_SHADE\_SET\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{00472\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a62a6e0ec4246935657594fedf0f8cee3}{ZB\_ZCL\_SHADE\_GET\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{00474\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a4603c4302c3d36d0e640af8a99082745}{ZB\_ZCL\_IDENTIFY\_EFFECT\_CB\_ID}},}
+\DoxyCodeLine{00476\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a9a47e5f178ccee288c0ec99967af8617}{ZB\_ZCL\_LEVEL\_CONTROL\_SET\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{00478\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a711e0bc6da96a205ae8a6091bec6eb59}{ZB\_ZCL\_IAS\_ZONE\_ENROLL\_RESPONSE\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{00480\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ae251b9d7ac698d396bdef483b502f29d}{ZB\_ZCL\_IAS\_WD\_START\_WARNING\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{00482\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ae6ab1d6a3492a1ad019360bb87afa922}{ZB\_ZCL\_IAS\_WD\_SQUAWK\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{00496\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a1d163d63b62a5d719ab38c97e562504f}{ZB\_ZCL\_IAS\_ACE\_ARM\_CB\_ID}},}
+\DoxyCodeLine{00510\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266aad774f820202b1bb86502564991fe486}{ZB\_ZCL\_IAS\_ACE\_BYPASS\_CB\_ID}},}
+\DoxyCodeLine{00521\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a9a2860f9c09b5345b88cd9791f87a115}{ZB\_ZCL\_IAS\_ACE\_EMERGENCY\_CB\_ID}},}
+\DoxyCodeLine{00532\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a99cf11b9fb855a5455919f4eb8866407}{ZB\_ZCL\_IAS\_ACE\_FIRE\_CB\_ID}},}
+\DoxyCodeLine{00543\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a034b4ea44f16acce728fb598b7f0679b}{ZB\_ZCL\_IAS\_ACE\_PANIC\_CB\_ID}},}
+\DoxyCodeLine{00556\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a71196c7e71ec73c8c432bedce9b377f9}{ZB\_ZCL\_IAS\_ACE\_GET\_PANEL\_STATUS\_CB\_ID}},}
+\DoxyCodeLine{00569\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ae768a1d9b387e60003595ae733fb7445}{ZB\_ZCL\_IAS\_ACE\_GET\_BYPASSED\_ZONE\_LIST\_CB\_ID}},}
+\DoxyCodeLine{00583\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a5872ddad53cb69acb14b20827672f047}{ZB\_ZCL\_IAS\_ACE\_GET\_ZONE\_STATUS\_CB\_ID}},}
+\DoxyCodeLine{00595\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a7784bea1bf7f8f6229296a5be6ff25bf}{ZB\_ZCL\_IAS\_ACE\_ARM\_RESP\_CB\_ID}},}
+\DoxyCodeLine{00607\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a06c2d34611ba1c99f0635abf9ff7e461}{ZB\_ZCL\_IAS\_ACE\_GET\_ZONE\_ID\_MAP\_RESP\_CB\_ID}},}
+\DoxyCodeLine{00619\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a37eaca247c21582fa46a881613466fcc}{ZB\_ZCL\_IAS\_ACE\_GET\_ZONE\_INFO\_RESP\_CB\_ID}},}
+\DoxyCodeLine{00631\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a777e1f7db176b415b0f5b88506b48240}{ZB\_ZCL\_IAS\_ACE\_ZONE\_STATUS\_CHANGED\_CB\_ID}},}
+\DoxyCodeLine{00643\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266aaf401d80b7d8e64d9860ba9429bc0fbc}{ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_CHANGED\_CB\_ID}},}
+\DoxyCodeLine{00655\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a1ee47de22a5d3376f54e8bbed51bbfe4}{ZB\_ZCL\_IAS\_ACE\_GET\_PANEL\_STATUS\_RESP\_CB\_ID}},}
+\DoxyCodeLine{00667\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266af5e3f9369d92745edfba27880a2f5751}{ZB\_ZCL\_IAS\_ACE\_SET\_BYPASSED\_ZONE\_LIST\_CB\_ID}},}
+\DoxyCodeLine{00679\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a9e0ed0eaf740d7664dae88845da6e0b8}{ZB\_ZCL\_IAS\_ACE\_BYPASS\_RESP\_CB\_ID}},}
+\DoxyCodeLine{00691\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a16ac33affc4955e8ae2eb67b65b74b3e}{ZB\_ZCL\_IAS\_ACE\_GET\_ZONE\_STATUS\_RESP\_CB\_ID}},}
+\DoxyCodeLine{00693\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a8a87688c465e80b46ad821741a60fe84}{ZB\_ZCL\_OTA\_UPGRADE\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{00695\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a24ba8a23a915febcbe7827e063fa0ccb}{ZB\_ZCL\_OTA\_UPGRADE\_QUERY\_IMAGE\_RESP\_CB\_ID}},}
+\DoxyCodeLine{00697\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a918c694a3e7d3b6f6078995556f44bfb}{ZB\_ZCL\_BASIC\_RESET\_CB\_ID}},}
+\DoxyCodeLine{00699\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a3361c6dcfbc3fa9a664fe1bd0bb17233}{ZB\_ZCL\_THERMOSTAT\_WEEKLY\_SCHEDULE\_SET\_CB\_ID}},}
+\DoxyCodeLine{00701\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a5a896ee92926c6c8e53f2cc87df91deb}{ZB\_ZCL\_THERMOSTAT\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{00703\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a0642f957dd4a587bf1dcf2d8f5b32b8f}{ZB\_ZCL\_POLL\_CONTROL\_CHECK\_IN\_CLI\_CB\_ID}},}
+\DoxyCodeLine{00715\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a4c6edafc762fff14797d26e3041c08bf}{ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_CB\_ID}},}
+\DoxyCodeLine{00726\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a1db96f2e1ac6d8fa00f3a3b93799ec1a}{ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_RESP\_CB\_ID}},}
+\DoxyCodeLine{00738\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a8e484673354de2b7fb8dbdb26579ff5f}{ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_NOTIFICATION\_CB\_ID}},}
+\DoxyCodeLine{00748\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a2d99e355de56611a5061dce04dba8913}{ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_EVENT\_NOTIFICATION\_CB\_ID}},}
+\DoxyCodeLine{00750\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ac9bcb7b0e81a37f235cf732236107ff6}{ZB\_ZCL\_OTA\_UPGRADE\_SRV\_QUERY\_IMAGE\_CB\_ID}},}
+\DoxyCodeLine{00752\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266aeb446d6a07e2b3c5734e70891add2fb8}{ZB\_ZCL\_OTA\_UPGRADE\_SRV\_UPGRADE\_STARTED\_CB\_ID}},}
+\DoxyCodeLine{00754\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a86bbdeccd2c631a3e1a40599928dcc5f}{ZB\_ZCL\_OTA\_UPGRADE\_SRV\_UPGRADE\_ABORTED\_CB\_ID}},}
+\DoxyCodeLine{00756\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ab01261e7f003897540a73fdf611ce511}{ZB\_ZCL\_OTA\_UPGRADE\_SRV\_UPGRADE\_END\_CB\_ID}},}
+\DoxyCodeLine{00770\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ae3805b9de2f37afa5a70ee7feef36a7e}{ZB\_ZCL\_PRICE\_GET\_CURRENT\_PRICE\_CB\_ID}},}
+\DoxyCodeLine{00782\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a24e84e44394eff5372fe08b8be512c3f}{ZB\_ZCL\_PRICE\_GET\_SCHEDULED\_PRICES\_CB\_ID}},}
+\DoxyCodeLine{00796\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ac1b823860b5b00c12e45a9ece864503b}{ZB\_ZCL\_PRICE\_GET\_TIER\_LABELS\_CB\_ID}},}
+\DoxyCodeLine{00810\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a3bba55bc437e5f0faab716fe911c2cec}{ZB\_ZCL\_PRICE\_PUBLISH\_PRICE\_CB\_ID}},}
+\DoxyCodeLine{00822\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a19e8879c2a7d686375be5846a9e9849b}{ZB\_ZCL\_PRICE\_PUBLISH\_TIER\_LABELS\_CB\_ID}},}
+\DoxyCodeLine{00834\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ac8450ffe559959db8353039216be89a2}{ZB\_ZCL\_PRICE\_PRICE\_ACK\_CB\_ID}},}
+\DoxyCodeLine{00845\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a7d231513bed231f0d6ef1d6fb442b2df}{ZB\_ZCL\_DRLC\_REPORT\_EVENT\_STATUS\_CB\_ID}},}
+\DoxyCodeLine{00858\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a085cd7bb2a8e0de3115d4a2602b18e44}{ZB\_ZCL\_DRLC\_GET\_SCHEDULED\_EVENTS\_CB\_ID}},}
+\DoxyCodeLine{00873\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a82c8fcc9a92f0042e88ce9394b4dbe6a}{ZB\_ZCL\_DRLC\_LOAD\_CONTROL\_EVENT\_CB\_ID}},}
+\DoxyCodeLine{00888\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266abf656fce7e7232d3d8553f747186bc03}{ZB\_ZCL\_DRLC\_CANCEL\_LOAD\_CONTROL\_EVENT\_CB\_ID}},}
+\DoxyCodeLine{00902\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a333529124a759fed16138e4413a8db6a}{ZB\_ZCL\_DRLC\_CANCEL\_ALL\_LOAD\_CONTROL\_EVENTS\_CB\_ID}},}
+\DoxyCodeLine{00913\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a90bd61f5d8cffabe609d0f33d277ff62}{ZB\_ZCL\_MESSAGING\_MSG\_CONFIRMATION\_CB\_ID}},}
+\DoxyCodeLine{00926\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ab9c419cdad57b673ec97c72f95bd1810}{ZB\_ZCL\_MESSAGING\_GET\_LAST\_MSG\_CB\_ID}},}
+\DoxyCodeLine{00937\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ac95029d296adcd7d927723f64f5aa606}{ZB\_ZCL\_MESSAGING\_CANCEL\_MSG\_CB\_ID}},}
+\DoxyCodeLine{00948\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ae7a187edc243a90b0f7243257a3273dd}{ZB\_ZCL\_MESSAGING\_DISPLAY\_MSG\_CB\_ID}},}
+\DoxyCodeLine{00960\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a902afade21422598de20481123ed5fe8}{ZB\_ZCL\_TUNNELING\_REQUEST\_TUNNEL\_CB\_ID}},}
+\DoxyCodeLine{00971\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a82bd67c58c9b74925ef8b989a20091f3}{ZB\_ZCL\_TUNNELING\_REQUEST\_TUNNEL\_RESPONSE\_CB\_ID}},}
+\DoxyCodeLine{00983\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a56cbb74b9e49a9304e935621cf0d379b}{ZB\_ZCL\_TUNNELING\_TRANSFER\_DATA\_CLI\_CB\_ID}},}
+\DoxyCodeLine{00995\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266adce08bcafb8fbc3c6a528667901f3281}{ZB\_ZCL\_TUNNELING\_TRANSFER\_DATA\_SRV\_CB\_ID}},}
+\DoxyCodeLine{01006\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a25c5085b7070a8e4b5e48910434a2360}{ZB\_ZCL\_TUNNELING\_TRANSFER\_DATA\_ERROR\_CLI\_CB\_ID}},}
+\DoxyCodeLine{01017\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a5fa20adffa31ca8d4d96f86778e74501}{ZB\_ZCL\_TUNNELING\_TRANSFER\_DATA\_ERROR\_SRV\_CB\_ID}},}
+\DoxyCodeLine{01030\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266adbef5c4243a6e860c91a6900721dea9b}{ZB\_ZCL\_TUNNELING\_CLOSE\_TUNNEL\_CB\_ID}},}
+\DoxyCodeLine{01031\ }
+\DoxyCodeLine{01032\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_SE\ ||\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_CALENDAR\ ||\ defined\ DOXYGEN}\textcolor{preprocessor}{}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01060\ \ \ ZB\_ZCL\_CALENDAR\_GET\_CALENDAR\_CB\_ID,}
+\DoxyCodeLine{01074\ \ \ ZB\_ZCL\_CALENDAR\_GET\_DAY\_PROFILES\_CB\_ID,}
+\DoxyCodeLine{01088\ \ \ ZB\_ZCL\_CALENDAR\_GET\_WEEK\_PROFILES\_CB\_ID,}
+\DoxyCodeLine{01102\ \ \ ZB\_ZCL\_CALENDAR\_GET\_SEASONS\_CB\_ID,}
+\DoxyCodeLine{01116\ \ \ ZB\_ZCL\_CALENDAR\_GET\_SPECIAL\_DAYS\_CB\_ID,}
+\DoxyCodeLine{01129\ \ \ ZB\_ZCL\_CALENDAR\_GET\_CALENDAR\_CANCELLATION\_CB\_ID,}
+\DoxyCodeLine{01143\ \ \ ZB\_ZCL\_CALENDAR\_PUBLISH\_CALENDAR\_CB\_ID,}
+\DoxyCodeLine{01157\ \ \ ZB\_ZCL\_CALENDAR\_PUBLISH\_DAY\_PROFILE\_CB\_ID,}
+\DoxyCodeLine{01171\ \ \ ZB\_ZCL\_CALENDAR\_PUBLISH\_WEEK\_PROFILE\_CB\_ID,}
+\DoxyCodeLine{01185\ \ \ ZB\_ZCL\_CALENDAR\_PUBLISH\_SEASONS\_CB\_ID,}
+\DoxyCodeLine{01199\ \ \ ZB\_ZCL\_CALENDAR\_PUBLISH\_SPECIAL\_DAYS\_CB\_ID,}
+\DoxyCodeLine{01213\ \ \ ZB\_ZCL\_CALENDAR\_CANCEL\_CALENDAR\_CB\_ID,\ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ \&\&\ DOXYGEN\_SE\_SECTION\ */}}
+\DoxyCodeLine{01215\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_SE\ ||\ ZB\_ZCL\_SUPPORT\_CLUSTER\_CALENDAR\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01216\ }
+\DoxyCodeLine{01217\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_SE\ ||\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_DAILY\_SCHEDULE}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01229\ \ \ ZB\_ZCL\_DAILY\_SCHEDULE\_GET\_SCHEDULE\_CANCELLATION\_CB\_ID,}
+\DoxyCodeLine{01242\ \ \ ZB\_ZCL\_DAILY\_SCHEDULE\_GET\_DAY\_PROFILE\_CB\_ID,}
+\DoxyCodeLine{01254\ \ \ ZB\_ZCL\_DAILY\_SCHEDULE\_GET\_SCHEDULE\_CB\_ID,}
+\DoxyCodeLine{01264\ \ \ ZB\_ZCL\_DAILY\_SCHEDULE\_PUBLISH\_SCHEDULE\_CB\_ID,}
+\DoxyCodeLine{01274\ \ \ ZB\_ZCL\_DAILY\_SCHEDULE\_PUBLISH\_DAY\_PROFILE\_CB\_ID,}
+\DoxyCodeLine{01284\ \ \ ZB\_ZCL\_DAILY\_SCHEDULE\_CANCEL\_SCHEDULE\_CB\_ID,}
+\DoxyCodeLine{01292\ \ \ ZB\_ZCL\_DAILY\_SCHEDULE\_CANCEL\_ALL\_SCHEDULES\_CB\_ID,\ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ \&\&\ DOXYGEN\_SE\_SECTION\ */}}
+\DoxyCodeLine{01294\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_SE\ ||\ ZB\_ZCL\_SUPPORT\_CLUSTER\_DAILY\_SCHEDULE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01295\ }
+\DoxyCodeLine{01296\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_SE\ ||\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_ENERGY\_MANAGEMENT\ ||\ defined\ DOXYGEN}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01308\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_REPORT\_EVENT\_STATUS\_CB\_ID,}
+\DoxyCodeLine{01322\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_MANAGE\_EVENT\_CB\_ID,\ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ \&\&\ DOXYGEN\_SE\_SECTION\ */}}
+\DoxyCodeLine{01324\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_SE\ ||\ ZB\_ZCL\_SUPPORT\_CLUSTER\_ENERGY\_MANAGEMENT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01325\ }
+\DoxyCodeLine{01326\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_SE\ ||\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_MDU\_PAIRING}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01341\ \ \ ZB\_ZCL\_MDU\_PAIRING\_REQUEST\_CB\_ID,}
+\DoxyCodeLine{01352\ \ \ ZB\_ZCL\_MDU\_PAIRING\_RESPONSE\_CB\_ID,\ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ \&\&\ DOXYGEN\_SE\_SECTION\ */}}
+\DoxyCodeLine{01354\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_SE\ ||\ ZB\_ZCL\_SUPPORT\_CLUSTER\_MDU\_PAIRING\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01355\ }
+\DoxyCodeLine{01369\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ac4669dfe92b15040cb59cd3c70e4ff3e}{ZB\_ZCL\_METERING\_GET\_PROFILE\_CB\_ID}},}
+\DoxyCodeLine{01383\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a601ebaab24e8a61908a99db1d6eb1bef}{ZB\_ZCL\_METERING\_REQUEST\_FAST\_POLL\_MODE\_CB\_ID}},}
+\DoxyCodeLine{01397\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a632aae20e5016810563aaf00220ad090}{ZB\_ZCL\_METERING\_GET\_SNAPSHOT\_CB\_ID}},}
+\DoxyCodeLine{01412\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ad8b429681da3b6c7cd8163f89775045e}{ZB\_ZCL\_METERING\_GET\_SAMPLED\_DATA\_CB\_ID}},}
+\DoxyCodeLine{01424\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a8890fe0dc10079ef25ea5093a283521c}{ZB\_ZCL\_METERING\_GET\_PROFILE\_RESPONSE\_CB\_ID}},}
+\DoxyCodeLine{01436\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ab6f26cf027543a4c6483d9dfd7028f58}{ZB\_ZCL\_METERING\_REQUEST\_FAST\_POLL\_MODE\_RESPONSE\_CB\_ID}},}
+\DoxyCodeLine{01448\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a06be508d315bb05aa82383ce31288fd0}{ZB\_ZCL\_METERING\_PUBLISH\_SNAPSHOT\_CB\_ID}},}
+\DoxyCodeLine{01460\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a1130fc9cecf8628444bc92723a616a19}{ZB\_ZCL\_METERING\_GET\_SAMPLED\_DATA\_RESPONSE\_CB\_ID}},}
+\DoxyCodeLine{01463\ \ \ ZB\_ZCL\_BIG\_DATA\_TRANSFER\_COMPLETE\_CB\_ID,\ \textcolor{comment}{/*\ DOXYGEN\_INTERNAL\_DOC\ */}}
+\DoxyCodeLine{01465\ \textcolor{preprocessor}{\#ifdef\ ZB\_ENABLE\_SE}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01467\ \ \ ZB\_ZCL\_TIME\_SYNC\_CB\_ID,}
+\DoxyCodeLine{01468\ \ \ ZB\_ZCL\_TIME\_SYNC\_FAILED\_CB\_ID,}
+\DoxyCodeLine{01469\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_SE\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01480\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ad38d45f81d8be8d38499c3abd32b9ffc}{ZB\_ZCL\_WINDOW\_COVERING\_UP\_OPEN\_CB\_ID}},}
+\DoxyCodeLine{01491\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266abae1cdc18280076c0af319185da4184c}{ZB\_ZCL\_WINDOW\_COVERING\_DOWN\_CLOSE\_CB\_ID}},}
+\DoxyCodeLine{01502\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a3b726eb15be0e5570d0f45e06d2d7bb3}{ZB\_ZCL\_WINDOW\_COVERING\_STOP\_CB\_ID}},}
+\DoxyCodeLine{01503\ }
+\DoxyCodeLine{01515\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a6f6957b9420f2694532adf18ab099aed}{ZB\_ZCL\_WINDOW\_COVERING\_GO\_TO\_LIFT\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{01527\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ac528ffc821d3eaaecb8e4f06d8621037}{ZB\_ZCL\_WINDOW\_COVERING\_GO\_TO\_LIFT\_PERCENTAGE\_CB\_ID}},}
+\DoxyCodeLine{01539\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266afcfd22eec1f4c9c2da6b54d9ec0b51b0}{ZB\_ZCL\_WINDOW\_COVERING\_GO\_TO\_TILT\_VALUE\_CB\_ID}},}
+\DoxyCodeLine{01551\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a42fe7bdb063df4934a0c188478b5587e}{ZB\_ZCL\_WINDOW\_COVERING\_GO\_TO\_TILT\_PERCENTAGE\_CB\_ID}},}
+\DoxyCodeLine{01570\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ad52c9a1a95bdd8de4d71e8ede2c67467}{ZB\_ZCL\_SCENES\_ADD\_SCENE\_CB\_ID}},}
+\DoxyCodeLine{01588\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a30fad644c7cb69ebf347cf42d0e75df3}{ZB\_ZCL\_SCENES\_STORE\_SCENE\_CB\_ID}},}
+\DoxyCodeLine{01602\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a2431148ba781a6c7d4f3cafbe8909556}{ZB\_ZCL\_SCENES\_VIEW\_SCENE\_CB\_ID}},}
+\DoxyCodeLine{01618\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266aec10603b67af08647484ead79b62d0d0}{ZB\_ZCL\_SCENES\_REMOVE\_SCENE\_CB\_ID}},}
+\DoxyCodeLine{01634\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266adf2741406ad20fed5ca645588df57cce}{ZB\_ZCL\_SCENES\_REMOVE\_ALL\_SCENES\_CB\_ID}},}
+\DoxyCodeLine{01646\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ae7a3fad270a151873212bc19a6a969cc}{ZB\_ZCL\_SCENES\_RECALL\_SCENE\_CB\_ID}},}
+\DoxyCodeLine{01660\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266acd8de860ce3bff77b03e60c49a536f36}{ZB\_ZCL\_SCENES\_GET\_SCENE\_MEMBERSHIP\_CB\_ID}},}
+\DoxyCodeLine{01661\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_SCENES\_OPTIONAL\_COMMANDS\_DISABLED}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01681\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a54863a33c3c98ec1e86c930ea1a737bf}{ZB\_ZCL\_SCENES\_ENHANCED\_ADD\_SCENE\_CB\_ID}},}
+\DoxyCodeLine{01695\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a1f9ec6d749f941b403e9d4f4037a7208}{ZB\_ZCL\_SCENES\_ENHANCED\_VIEW\_SCENE\_CB\_ID}},}
+\DoxyCodeLine{01711\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266af40a17bcb85c202bb696ae21c80162b1}{ZB\_ZCL\_SCENES\_COPY\_SCENE\_CB\_ID}},}
+\DoxyCodeLine{01712\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !ZB\_ZCL\_SCENES\_OPTIONAL\_COMMANDS\_DISABLED\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01725\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a9d166d05e8a1fbdd4ab9aa78918ad6b9}{ZB\_ZCL\_SCENES\_INTERNAL\_REMOVE\_ALL\_SCENES\_ALL\_ENDPOINTS\_CB\_ID}},}
+\DoxyCodeLine{01737\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a72f2fcd08175c9cbdbb2046d4b2111ca}{ZB\_ZCL\_SCENES\_INTERNAL\_REMOVE\_ALL\_SCENES\_ALL\_ENDPOINTS\_ALL\_GROUPS\_CB\_ID}},}
+\DoxyCodeLine{01750\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ad41c987dc388b808d2accd3380fd64d7}{ZB\_ZCL\_DOOR\_LOCK\_LOCK\_DOOR\_CB\_ID}},}
+\DoxyCodeLine{01763\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a13d288e361523ec5b8a369fc809a7071}{ZB\_ZCL\_DOOR\_LOCK\_UNLOCK\_DOOR\_CB\_ID}},}
+\DoxyCodeLine{01775\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a6712ee87d89e423455bb7c6e9d36cce8}{ZB\_ZCL\_DOOR\_LOCK\_LOCK\_DOOR\_RESP\_CB\_ID}},}
+\DoxyCodeLine{01787\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a74c4b2fb1ff4ec77ff20367e851c3049}{ZB\_ZCL\_DOOR\_LOCK\_UNLOCK\_DOOR\_RESP\_CB\_ID}},}
+\DoxyCodeLine{01799\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a65e72e76e03feba7d76b59a28547265b}{ZB\_ZCL\_ALARMS\_RESET\_ALARM\_CB\_ID}},}
+\DoxyCodeLine{01810\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ab721458f3c250cce5beeeda4986129ef}{ZB\_ZCL\_ALARMS\_RESET\_ALL\_ALARMS\_CB\_ID}},}
+\DoxyCodeLine{01811\ \textcolor{preprocessor}{\#ifdef\ ZB\_ENABLE\_CUSTOM\_CLUSTERS}}
+\DoxyCodeLine{01812\ \ \ ZB\_ZCL\_IR\_BLASTER\_TRANSMIT\_IR\_DATA\_CB\_ID,}
+\DoxyCodeLine{01813\ \ \ ZB\_ZCL\_IR\_BLASTER\_TRANSMISSION\_STATUS\_CB\_ID,}
+\DoxyCodeLine{01814\ \ \ ZB\_ZCL\_IR\_BLASTER\_GET\_IR\_SIGNATURE\_CB\_ID,}
+\DoxyCodeLine{01815\ \ \ ZB\_ZCL\_IR\_BLASTER\_GET\_IR\_SIGNATURE\_RESP\_CB\_ID,}
+\DoxyCodeLine{01816\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_CUSTOM\_CLUSTERS\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01827\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a6c92cf200a7e93c4731c7c45ad356e51}{ZB\_ZCL\_ALARMS\_ALARM\_CB\_ID}},}
+\DoxyCodeLine{01839\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266ae6765dd76cabd4db3dc261f55f59fcd7}{ZB\_ZCL\_WWAH\_ENABLE\_APP\_EVENT\_RETRY\_ALGORITHM\_CB\_ID}},}
+\DoxyCodeLine{01851\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266aabfd999dee733d55891682fe66db0b43}{ZB\_ZCL\_WWAH\_DISABLE\_APP\_EVENT\_RETRY\_ALGORITHM\_CB\_ID}},}
+\DoxyCodeLine{01859\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a48ef6304bcd31a530c4be657d6292ef3}{ZB\_ZCL\_CONTROL4\_NETWORK\_ZAP\_INFO\_CB\_ID}},}
+\DoxyCodeLine{01874\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266afaf91f471885c9e0b5ee52270474eb62}{ZB\_ZCL\_WWAH\_DEBUG\_REPORT\_QUERY\_CB\_ID}},}
+\DoxyCodeLine{01882\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gga35caa2e3a9ef37535b1f75e0fe919266a43798d10efde09a30d0def57b64fa37e}{ZB\_ZCL\_WWAH\_SET\_IAS\_ZONE\_ENROLLMENT\_METHOD\_CB\_ID}},}
+\DoxyCodeLine{01883\ }
+\DoxyCodeLine{01884\ \}\ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gad27454b213ce8a00540ebc75288966ad}{zb\_zcl\_device\_callback\_id\_t}};}
+\DoxyCodeLine{01885\ }
+\DoxyCodeLine{01888\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zcl\_device\_cmd\_generic\_param\_s}
+\DoxyCodeLine{01889\ \{}
+\DoxyCodeLine{01893\ \ \ \textcolor{keyword}{const}\ zb\_zcl\_parsed\_hdr\_t\ *in\_cmd\_info;}
+\DoxyCodeLine{01894\ }
+\DoxyCodeLine{01896\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *in;}
+\DoxyCodeLine{01897\ }
+\DoxyCodeLine{01902\ \ \ \textcolor{keywordtype}{void}\ *out;}
+\DoxyCodeLine{01903\ \}\ zb\_zcl\_device\_cmd\_generic\_param\_t;\ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{01905\ }
+\DoxyCodeLine{01911\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzb__zcl__device__callback__param__s}{zb\_zcl\_device\_callback\_param\_s}}}
+\DoxyCodeLine{01912\ \{}
+\DoxyCodeLine{01914\ \ \ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_gad27454b213ce8a00540ebc75288966ad}{zb\_zcl\_device\_callback\_id\_t}}\ \mbox{\hyperlink{structzb__zcl__device__callback__param__s_a8d07ebdc70e0decd56c3a7902991ed8d}{device\_cb\_id}};}
+\DoxyCodeLine{01915\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ endpoint;}
+\DoxyCodeLine{01916\ \ \ zb\_zcl\_attr\_access\_t\ attr\_type;}
+\DoxyCodeLine{01918\ \ \ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{structzb__zcl__device__callback__param__s_ada92bec8a1c8a42df527ee59795dfcdc}{status}};}
+\DoxyCodeLine{01920\ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{01921\ \ \ \{}
+\DoxyCodeLine{01922\ \ \ \ \ zb\_zcl\_set\_attr\_value\_param\_t\ \ set\_attr\_value\_param;}
+\DoxyCodeLine{01923\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_ON\_OFF)}}
+\DoxyCodeLine{01924\ \ \ \ \ \textcolor{comment}{/*\ Off\ with\ effect\ command,\ On/Off\ cluster\ */}}
+\DoxyCodeLine{01925\ \ \ \ \ zb\_zcl\_on\_off\_set\_effect\_value\_param\_t\ \ on\_off\_set\_effect\_value\_param;}
+\DoxyCodeLine{01926\ \ \ \ \ \textcolor{comment}{/*\ */}}
+\DoxyCodeLine{01927\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01928\ \textcolor{preprocessor}{\#if\ defined(ZB\_ZCL\_SUPPORT\_CLUSTER\_IDENTIFY)}}
+\DoxyCodeLine{01929\ \ \ \ \ zb\_zcl\_identify\_effect\_value\_param\_t\ \ identify\_effect\_value\_param;}
+\DoxyCodeLine{01930\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01931\ }
+\DoxyCodeLine{01932\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_SHADE\_CONFIG)}}
+\DoxyCodeLine{01933\ \ \ \ \textcolor{comment}{//\ TODO:\ descript\ parameters\ struct\ for\ translate\ to\ User\ App\ ZB\_ZCL\_SHADE\_SET\_VALUE\_CB\_ID\ event}}
+\DoxyCodeLine{01934\ \ \ \ zb\_zcl\_shade\_set\_value\_param\_t\ \ shade\_set\_value\_param;}
+\DoxyCodeLine{01935\ \ \ \ \textcolor{comment}{//\ TODO:\ descript\ parameters\ struct\ for\ translate\ to\ User\ App\ ZB\_ZCL\_SHADE\_GET\_VALUE\_CB\_ID\ event}}
+\DoxyCodeLine{01936\ \ \ \ zb\_zcl\_shade\_get\_value\_param\_t\ \ shade\_get\_value\_param;}
+\DoxyCodeLine{01937\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01938\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_LEVEL\_CONTROL)}}
+\DoxyCodeLine{01939\ \ \ \ zb\_zcl\_level\_control\_set\_value\_param\_t\ \ level\_control\_set\_value\_param;}
+\DoxyCodeLine{01940\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01941\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_IAS\_WD)}}
+\DoxyCodeLine{01942\ \ \ \ zb\_zcl\_ias\_wd\_start\_warning\_value\_param\_t\ \ start\_warning\_value\_param;}
+\DoxyCodeLine{01943\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01944\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_HA}}
+\DoxyCodeLine{01945\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_IAS\_ZONE)}}
+\DoxyCodeLine{01946\ \ \ \ zb\_zcl\_ias\_zone\_enroll\_response\_value\_param\_t\ enroll\_response\_value\_param;}
+\DoxyCodeLine{01947\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01948\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined\ ZB\_ENABLE\_HA\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01949\ \ \ \ \ \textcolor{comment}{/*\ moved\ thermostat\_value\_param\ out\ of\ ZB\_ENABLE\_HA\ to\ be\ able\ to\ compile\ without\ that\ define\ */}}
+\DoxyCodeLine{01950\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_THERMOSTAT}}
+\DoxyCodeLine{01951\ \ \ \ zb\_zcl\_thermostat\_value\_param\_t\ thermostat\_value\_param;}
+\DoxyCodeLine{01952\ \ \ \ zb\_zcl\_thermostat\_weekly\_schedule\_table\_param\_t\ thermostat\_weekly\_schedule\_table\_param;}
+\DoxyCodeLine{01953\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01954\ \textcolor{preprocessor}{\#if\ defined\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_IAS\_WD)}}
+\DoxyCodeLine{01955\ \ \ \ zb\_zcl\_ias\_wd\_squawk\_value\_param\_t\ \ squawk\_value\_param;}
+\DoxyCodeLine{01956\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01957\ \textcolor{preprocessor}{\#ifdef\ ZB\_ZCL\_SUPPORT\_CLUSTER\_IR\_BLASTER}}
+\DoxyCodeLine{01958\ \ \ \ zb\_zcl\_ir\_blaster\_transmit\_ir\_data\_value\_param\_t\ irb\_tr\_value\_param;}
+\DoxyCodeLine{01959\ \ \ \ zb\_zcl\_ir\_blaster\_transmission\_status\_value\_param\_t\ irb\_tr\_status\_value\_param;}
+\DoxyCodeLine{01960\ \ \ \ zb\_zcl\_ir\_blaster\_get\_ir\_signature\_value\_param\_t\ irb\_get\_ir\_sig\_value\_param;}
+\DoxyCodeLine{01961\ \ \ \ zb\_zcl\_ir\_blaster\_get\_ir\_signature\_resp\_value\_param\_t\ irb\_get\_ir\_sig\_resp\_value\_param;}
+\DoxyCodeLine{01962\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01963\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_HA}}
+\DoxyCodeLine{01964\ \textcolor{preprocessor}{\#if\ defined\ ZB\_HA\_ENABLE\_OTA\_UPGRADE\_CLIENT\ ||\ defined\ DOXYGEN}}
+\DoxyCodeLine{01965\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{01966\ \ \ \ zb\_zcl\_ota\_upgrade\_value\_param\_t\ \ ota\_value\_param;}
+\DoxyCodeLine{01967\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*defined\ ZB\_HA\_ENABLE\_OTA\_UPGRADE\_CLIENT\ ||\ defined\ DOXYGEN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01968\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_POLL\_CONTROL}}
+\DoxyCodeLine{01969\ \ \ \ zb\_zcl\_poll\_control\_check\_in\_cli\_param\_t\ checkin\_cli\_param;}
+\DoxyCodeLine{01970\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_POLL\_CONTROL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01971\ \textcolor{preprocessor}{\#if\ defined\ ZB\_HA\_ENABLE\_OTA\_UPGRADE\_SERVER}}
+\DoxyCodeLine{01972\ \ \ \ zb\_zcl\_ota\_upgrade\_srv\_query\_img\_param\_t\ \ \ \ \ \ \ ota\_upgrade\_srv\_query\_img\_param;}
+\DoxyCodeLine{01973\ \ \ \ zb\_zcl\_ota\_upgrade\_srv\_upgrade\_started\_param\_t\ ota\_upgrade\_srv\_upgrade\_started\_param;}
+\DoxyCodeLine{01974\ \ \ \ zb\_zcl\_ota\_upgrade\_srv\_upgrade\_aborted\_param\_t\ ota\_upgrade\_srv\_upgrade\_aborted\_param;}
+\DoxyCodeLine{01975\ \ \ \ zb\_zcl\_ota\_upgrade\_srv\_upgrade\_end\_param\_t\ \ \ \ \ ota\_upgrade\_srv\_upgrade\_end\_param;}
+\DoxyCodeLine{01976\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01977\ \textcolor{preprocessor}{\#if\ defined\ ZB\_HA\_ENABLE\_OTA\_UPGRADE\_CLIENT}}
+\DoxyCodeLine{01978\ \ \ \ zb\_zcl\_ota\_upgrade\_query\_img\_resp\_param\_t\ \ ota\_upgrade\_query\_img\_resp\_param;}
+\DoxyCodeLine{01979\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01980\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined\ ZB\_ENABLE\_HA\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01981\ \ \ \ \ zb\_zcl\_device\_cmd\_generic\_param\_t\ gnr;}
+\DoxyCodeLine{01982\ \ \ \}}
+\DoxyCodeLine{01983\ \ \ \mbox{\hyperlink{structzb__zcl__device__callback__param__s_a3b24ffed4bacd995568cb90978bed148}{cb\_param}};}
+\DoxyCodeLine{01984\ \}\ \mbox{\hyperlink{group___z_b___z_c_l___i_n_i_t_i_a_l_i_z_a_t_i_o_n_ga0dfcc989252b93252f8bb1d27d2639fa}{zb\_zcl\_device\_callback\_param\_t}};}
+\DoxyCodeLine{01985\ }
+\DoxyCodeLine{01986\ }
+\DoxyCodeLine{01989\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param)\ \(\backslash\)}}
+\DoxyCodeLine{01990\ \textcolor{preprocessor}{\ \ \ \ (ZB\_BUF\_GET\_PARAM((\_param),\ zb\_zcl\_device\_callback\_param\_t))}}
+\DoxyCodeLine{01991\ }
+\DoxyCodeLine{01993\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM\_IN\_SET(\_param,\ \_pvalue)\ \(\backslash\)}}
+\DoxyCodeLine{01994\ \textcolor{preprocessor}{\ \ ((ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param))-\/>cb\_param.gnr.in\ =\ \_pvalue)}}
+\DoxyCodeLine{01995\ }
+\DoxyCodeLine{01997\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM\_OUT\_SET(\_param,\ \_pvalue)\ \(\backslash\)}}
+\DoxyCodeLine{01998\ \textcolor{preprocessor}{\ \ ((ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param))-\/>cb\_param.gnr.out\ =\ \_pvalue)}}
+\DoxyCodeLine{01999\ }
+\DoxyCodeLine{02001\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM\_INIT\_WITH(\_param,\ \_cb\_id,\ \_status,\ \_cmd\_info,\ \_in,\ \_out)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02002\ \textcolor{preprocessor}{\ \ (ZB\_BZERO(ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param),\ sizeof(*ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param))),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02003\ \textcolor{preprocessor}{\ \ \ \ (ZB\_ZCL\_DEVICE\_CMD\_PARAM\_CB\_ID(\_param)\ =\ \_cb\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02004\ \textcolor{preprocessor}{\ \ \ \ \ \ (ZB\_ZCL\_DEVICE\_CMD\_PARAM\_ENDPOINT(\_param)\ =\ (\_cmd\_info\ !=\ NULL\ ?\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02005\ \textcolor{preprocessor}{\ \ \ \ \ \ \ ZB\_ZCL\_PARSED\_HDR\_SHORT\_DATA((typeof(ZB\_ZCL\_DEVICE\_CMD\_PARAM\_CMD\_INFO(\_param)))\_cmd\_info).dst\_endpoint\ :\ 0x00),\(\backslash\)}}
+\DoxyCodeLine{02006\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ (ZB\_ZCL\_DEVICE\_CMD\_PARAM\_STATUS(\_param)\ =\ \_status,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02007\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ (ZB\_ZCL\_DEVICE\_CMD\_PARAM\_CMD\_INFO(\_param)\ =\ \_cmd\_info,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02008\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ (ZB\_ZCL\_DEVICE\_CMD\_PARAM\_IN\_SET(\_param,\ \_in),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02009\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ (ZB\_ZCL\_DEVICE\_CMD\_PARAM\_OUT\_SET(\_param,\ \_out))))))))}}
+\DoxyCodeLine{02010\ \ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{02012\ }
+\DoxyCodeLine{02019\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM\_IN\_GET(\_param,\ \_ptype)\ \(\backslash\)}}
+\DoxyCodeLine{02020\ \textcolor{preprocessor}{\ \ ((const\ \_ptype\ *)\ ((ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param))-\/>cb\_param.gnr.in))}}
+\DoxyCodeLine{02021\ }
+\DoxyCodeLine{02027\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM\_OUT\_GET(\_param,\ \_ptype)\ \(\backslash\)}}
+\DoxyCodeLine{02028\ \textcolor{preprocessor}{\ \ ((\_ptype\ *)\ ((ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param))-\/>cb\_param.gnr.out))}}
+\DoxyCodeLine{02029\ }
+\DoxyCodeLine{02034\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM\_CMD\_INFO(\_param)\ \(\backslash\)}}
+\DoxyCodeLine{02035\ \textcolor{preprocessor}{\ \ ((ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param))-\/>cb\_param.gnr.in\_cmd\_info)}}
+\DoxyCodeLine{02036\ }
+\DoxyCodeLine{02040\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM\_CB\_ID(\_param)\ \(\backslash\)}}
+\DoxyCodeLine{02041\ \textcolor{preprocessor}{\ \ ((ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param))-\/>device\_cb\_id)}}
+\DoxyCodeLine{02042\ }
+\DoxyCodeLine{02047\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM\_STATUS(\_param)\ \(\backslash\)}}
+\DoxyCodeLine{02048\ \textcolor{preprocessor}{\ \ ((ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param))-\/>status)}}
+\DoxyCodeLine{02049\ }
+\DoxyCodeLine{02050\ \textcolor{comment}{/*\ Set\ ENDPOINT\ device\ callback\ parameter\ with\ specific\ value.\ */}}
+\DoxyCodeLine{02051\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEVICE\_CMD\_PARAM\_ENDPOINT(\_param)\ \(\backslash\)}}
+\DoxyCodeLine{02052\ \textcolor{preprocessor}{\ \ \ \ \ ((ZB\_ZCL\_DEVICE\_CMD\_PARAM(\_param))-\/>endpoint)}}
+\DoxyCodeLine{02053\ }
+\DoxyCodeLine{02062\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_zcl\_handle(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{02068\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_zcl\_get\_tsn\_from\_packet(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buffer);}
+\DoxyCodeLine{02069\ }
+\DoxyCodeLine{02070\ \textcolor{preprocessor}{\#if\ !(defined\ ZB\_ZCL\_DISABLE\_REPORTING)}}
+\DoxyCodeLine{02071\ }
+\DoxyCodeLine{02072\ \textcolor{keywordtype}{void}\ zb\_zcl\_adjust\_reporting\_timer(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{02073\ }
+\DoxyCodeLine{02074\ \textcolor{keywordtype}{void}\ zb\_zcl\_update\_reporting\_info(zb\_zcl\_reporting\_info\_t\ *rep\_info);}
+\DoxyCodeLine{02075\ }
+\DoxyCodeLine{02076\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_zcl\_put\_default\_reporting\_info(zb\_zcl\_reporting\_info\_t*\ default\_rep\_info\_ptr);}
+\DoxyCodeLine{02077\ }
+\DoxyCodeLine{02078\ \textcolor{keywordtype}{void}\ zb\_zcl\_remove\_default\_reporting\_info(\mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cluster\_id,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ cluster\_role);}
+\DoxyCodeLine{02079\ }
+\DoxyCodeLine{02080\ \textcolor{keywordtype}{void}\ zb\_zcl\_mark\_report\_not\_sent(zb\_zcl\_reporting\_info\_t\ *rep\_info);}
+\DoxyCodeLine{02081\ }
+\DoxyCodeLine{02082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02083\ }
+\DoxyCodeLine{02090\ \textcolor{keywordtype}{void}\ zb\_zcl\_register\_device\_ctx(zb\_af\_device\_ctx\_t\ *device\_ctx);}
+\DoxyCodeLine{02091\ \textcolor{keywordtype}{void}\ zb\_zcl\_init\_endpoint(zb\_af\_endpoint\_desc\_t*\ ep);}
+\DoxyCodeLine{02092\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_zcl\_check\_cluster\_list(\textcolor{keywordtype}{void});\ \textcolor{comment}{/*\ internals\_doc\ */}\ \textcolor{comment}{/*\ ZB\_ZCL\_INITIALIZATION\ */}}
+\DoxyCodeLine{02095\ }
+\DoxyCodeLine{02096\ }
+\DoxyCodeLine{02097\ \textcolor{preprocessor}{\#ifdef\ ZB\_BDB\_MODE}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02105\ }
+\DoxyCodeLine{02110\ }
+\DoxyCodeLine{02115\ \textcolor{keyword}{enum}\ zb\_bdb\_error\_codes\_e}
+\DoxyCodeLine{02116\ \{}
+\DoxyCodeLine{02117\ \ \ ZB\_BDB\_STATUS\_SUCCESS\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02118\ \ \ ZB\_BDB\_STATUS\_IN\_PROGRESS,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02119\ \ \ ZB\_BDB\_STATUS\_NOT\_AA\_CAPABLE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02120\ \ \ ZB\_BDB\_STATUS\_NO\_NETWORK,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02121\ \ \ ZB\_BDB\_STATUS\_TARGET\_FAILURE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02122\ \ \ ZB\_BDB\_STATUS\_FORMATION\_FAILURE,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02123\ \ \ ZB\_BDB\_STATUS\_NO\_IDENTIFY\_QUERY\_RESPONSE,\ \ }
+\DoxyCodeLine{02124\ \ \ ZB\_BDB\_STATUS\_BINDING\_TABLE\_FULL,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02125\ \ \ ZB\_BDB\_STATUS\_NO\_SCAN\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02126\ \ \ ZB\_BDB\_STATUS\_NOT\_PERMITTED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02128\ \ \ ZB\_BDB\_STATUS\_TCLK\_EX\_FAILURE,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02129\ \ \ ZB\_BDB\_STATUS\_NOT\_ON\_A\_NETWORK,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02130\ \ \ ZB\_BDB\_STATUS\_ON\_A\_NETWORK,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02131\ \ \ ZB\_BDB\_STATUS\_CANCELLED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02132\ \ \ ZB\_BDB\_STATUS\_DEV\_ANNCE\_SEND\_FAILURE\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02133\ \};\ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{02136\ }
+\DoxyCodeLine{02141\ }
+\DoxyCodeLine{02145\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_bdb\_commissioning\_mode\_mask\_e}
+\DoxyCodeLine{02146\ \{}
+\DoxyCodeLine{02149\ \ \ ZB\_BDB\_INITIALIZATION\ =\ 0,\ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{02155\ \ \ ZB\_BDB\_TOUCHLINK\_COMMISSIONING\ =\ 1,\ \textcolor{comment}{/*\ touchlink\ */}}
+\DoxyCodeLine{02157\ }
+\DoxyCodeLine{02161\ \ \ ZB\_BDB\_NETWORK\_STEERING\ =\ 2,}
+\DoxyCodeLine{02165\ \ \ ZB\_BDB\_NETWORK\_FORMATION\ =\ 4,}
+\DoxyCodeLine{02171\ \ \ ZB\_BDB\_FINDING\_N\_BINDING\ =\ 8,}
+\DoxyCodeLine{02172\ }
+\DoxyCodeLine{02174\ \ \ \textcolor{comment}{/*\ Used\ internally\ */}}
+\DoxyCodeLine{02175\ \ \ ZB\_BDB\_LAST\_COMMISSIONING\_STEP\ =\ 0x10,}
+\DoxyCodeLine{02176\ \ \ \textcolor{comment}{/*\ Used\ internally\ */}}
+\DoxyCodeLine{02177\ \ \ ZB\_BDB\_COMMISSIONING\_STOP\ =\ 0x20,\ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{02179\ }
+\DoxyCodeLine{02181\ \ \ \textcolor{comment}{/*\ Used\ internally\ */}}
+\DoxyCodeLine{02182\ \ \ ZB\_BDB\_TOUCHLINK\_TARGET\ =\ 0x40,\ \textcolor{comment}{/*\ touchlink\ */}}
+\DoxyCodeLine{02184\ \textcolor{preprocessor}{\#ifndef\ BDB\_OLD}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02186\ \ \ \textcolor{comment}{/*\ Used\ internally\ */}}
+\DoxyCodeLine{02187\ \ \ ZB\_BDB\_REJOIN\ =\ 0x80,\ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{02189\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02190\ \}\ zb\_bdb\_commissioning\_mode\_mask\_t;}
+\DoxyCodeLine{02191\ }
+\DoxyCodeLine{02209\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ bdb\_start\_top\_level\_commissioning(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ mode\_mask);}
+\DoxyCodeLine{02210\ }
+\DoxyCodeLine{02218\ \textcolor{preprocessor}{\#ifdef\ ZB\_BDB\_TOUCHLINK}}
+\DoxyCodeLine{02219\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ bdb\_cancel\_touchlink\_target(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{02220\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_BDB\_TOUCHLINK\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02221\ }
+\DoxyCodeLine{02239\ \textcolor{keywordtype}{void}\ bdb\_cancel\_joining(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{02240\ }
+\DoxyCodeLine{02241\ }
+\DoxyCodeLine{02257\ \textcolor{keywordtype}{void}\ bdb\_cancel\_formation(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{02258\ }
+\DoxyCodeLine{02259\ }
+\DoxyCodeLine{02270\ \textcolor{keywordtype}{void}\ bdb\_set\_scan\_duration(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ duration);}
+\DoxyCodeLine{02271\ }
+\DoxyCodeLine{02289\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_bdb\_close\_network(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{02290\ }
+\DoxyCodeLine{02303\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_bdb\_is\_factory\_new(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{02304\ }
+\DoxyCodeLine{02306\ }
+\DoxyCodeLine{02307\ \textcolor{preprocessor}{\#if\ defined(ZB\_BDB\_ENABLE\_FINDING\_BINDING)\ ||\ defined(DOXYGEN)}}
+\DoxyCodeLine{02308\ }
+\DoxyCodeLine{02328\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_bdb\_finding\_binding\_target(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ endpoint);}
+\DoxyCodeLine{02329\ }
+\DoxyCodeLine{02341\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_bdb\_finding\_binding\_target\_ext(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ endpoint,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ commissioning\_time\_secs);}
+\DoxyCodeLine{02342\ }
+\DoxyCodeLine{02343\ }
+\DoxyCodeLine{02347\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_bdb\_comm\_binding\_cb\_state\_e}
+\DoxyCodeLine{02348\ \{}
+\DoxyCodeLine{02350\ \ \ ZB\_BDB\_COMM\_BIND\_SUCCESS\ =\ 0,}
+\DoxyCodeLine{02352\ \ \ ZB\_BDB\_COMM\_BIND\_FAIL\ =\ 1,}
+\DoxyCodeLine{02354\ \ \ ZB\_BDB\_COMM\_BIND\_ASK\_USER\ =\ 2,}
+\DoxyCodeLine{02355\ \}\ zb\_bdb\_comm\_binding\_cb\_state\_t;}
+\DoxyCodeLine{02356\ }
+\DoxyCodeLine{02372\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ (ZB\_CODE\ *\ zb\_bdb\_comm\_binding\_callback\_t)(}
+\DoxyCodeLine{02373\ \ \ \mbox{\hyperlink{group__base__types_gaa9116cd889644bec092c543d680b5bf2}{zb\_int16\_t}}\ status,\ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ addr,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ep,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cluster);}
+\DoxyCodeLine{02374\ }
+\DoxyCodeLine{02395\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_bdb\_finding\_binding\_initiator(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ endpoint,\ zb\_bdb\_comm\_binding\_callback\_t\ user\_binding\_cb);}
+\DoxyCodeLine{02396\ }
+\DoxyCodeLine{02400\ \textcolor{keywordtype}{void}\ zb\_bdb\_finding\_binding\_target\_cancel(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{02401\ }
+\DoxyCodeLine{02407\ \textcolor{keywordtype}{void}\ zb\_bdb\_finding\_binding\_target\_cancel\_ep(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ endpoint);}
+\DoxyCodeLine{02408\ }
+\DoxyCodeLine{02410\ \textcolor{keywordtype}{void}\ zb\_bdb\_finding\_binding\_initiator\_cancel(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{02411\ }
+\DoxyCodeLine{02413\ }
+\DoxyCodeLine{02414\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02415\ }
+\DoxyCodeLine{02427\ \textcolor{keywordtype}{void}\ zb\_set\_bdb\_primary\_channel\_set(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ channel\_mask);}
+\DoxyCodeLine{02434\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_get\_bdb\_primary\_channel\_set(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{02435\ }
+\DoxyCodeLine{02442\ \textcolor{keywordtype}{void}\ zb\_set\_bdb\_secondary\_channel\_set(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ channel\_mask);}
+\DoxyCodeLine{02443\ }
+\DoxyCodeLine{02448\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_get\_bdb\_secondary\_channel\_set(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{02449\ }
+\DoxyCodeLine{02455\ \textcolor{keywordtype}{void}\ zb\_bdb\_set\_legacy\_device\_support(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ state);}
+\DoxyCodeLine{02456\ }
+\DoxyCodeLine{02458\ }
+\DoxyCodeLine{02469\ \textcolor{keywordtype}{void}\ zb\_set\_bdb\_commissioning\_mode(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ commissioning\_mode);}
+\DoxyCodeLine{02470\ }
+\DoxyCodeLine{02472\ }
+\DoxyCodeLine{02480\ \textcolor{preprocessor}{\#define\ ZB\_BDB\_COMM\_ACTIVE\_ENDP\_LIST\_LEN\ 4}}
+\DoxyCodeLine{02481\ }
+\DoxyCodeLine{02485\ \textcolor{preprocessor}{\#define\ BDB\_MAX\_IDENTIFY\_QUERY\_RESP\_NUMBER\ 4}}
+\DoxyCodeLine{02486\ }
+\DoxyCodeLine{02490\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_bdb\_comm\_state\_e}
+\DoxyCodeLine{02491\ \{}
+\DoxyCodeLine{02492\ \ \ ZB\_BDB\_COMM\_IDLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ }
+\DoxyCodeLine{02493\ \ \ ZB\_BDB\_COMM\_FINDING\_AND\_BINDING\ \ \ \ \ \ \ \ =\ 4,\ \ \ }
+\DoxyCodeLine{02494\ \ \ ZB\_BDB\_COMM\_FINDING\_AND\_BINDING\_TARGET\ =\ 5,\ \ \ }
+\DoxyCodeLine{02495\ \}}
+\DoxyCodeLine{02496\ \ \ zb\_bdb\_comm\_state\_t;}
+\DoxyCodeLine{02497\ }
+\DoxyCodeLine{02499\ }
+\DoxyCodeLine{02500\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_BDB\_MODE*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02501\ }
+\DoxyCodeLine{02502\ }
+\DoxyCodeLine{02506\ }
+\DoxyCodeLine{02507\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzcl__cluster__handlers__s}{zcl\_cluster\_handlers\_s}}}
+\DoxyCodeLine{02508\ \{}
+\DoxyCodeLine{02509\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cluster\_id;}
+\DoxyCodeLine{02510\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ cluster\_role;}
+\DoxyCodeLine{02511\ \ \ zb\_zcl\_cluster\_handler\_t\ cluster\_handler;}
+\DoxyCodeLine{02512\ \ \ zb\_zcl\_cluster\_check\_value\_t\ cluster\_check\_value;}
+\DoxyCodeLine{02513\ \ \ zb\_zcl\_cluster\_write\_attr\_hook\_t\ cluster\_write\_attr\_hook;}
+\DoxyCodeLine{02514\ \}\ zcl\_cluster\_handlers\_t;}
+\DoxyCodeLine{02515\ }
+\DoxyCodeLine{02516\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_GENERAL\_GET\_CMD\_LISTS\_PARAM\ 0xFFU}}
+\DoxyCodeLine{02517\ }
+\DoxyCodeLine{02518\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_GATEWAY\_EP\_SIZE\ 5}}
+\DoxyCodeLine{02519\ }
+\DoxyCodeLine{02520\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ACCEPTABLE\_EP\_INVALID\_VALUE\ 0x00}}
+\DoxyCodeLine{02521\ }
+\DoxyCodeLine{02522\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_HANDLERS\_TABLE\_SIZE\ 30}}
+\DoxyCodeLine{02523\ }
+\DoxyCodeLine{02524\ \textcolor{comment}{/*\ See\ ZCL8\ spec,\ Table\ 2-\/10\ Nomenclature\ for\ Data\ Value\ Range\ and\ Default\ */}}
+\DoxyCodeLine{02526\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_NON\_VALUE\_INT32\ ((zb\_int32\_t)0x80000000)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02528\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_NON\_VALUE\_INT16\ ((zb\_int16\_t)0x8000)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02530\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_NON\_VALUE\_INT8\ ((zb\_int8\_t)0x80)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02532\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_NON\_VALUE\_INT24\ \ ((zb\_int24\_t)\ \ \{\ .low\ =\ 0x0000U,\ .high\ =\ 0x80U\ \})}}
+\DoxyCodeLine{02533\ }
+\DoxyCodeLine{02535\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_NON\_VALUE\_UINT8\ \ ((zb\_uint8\_t)0xff)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02537\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_NON\_VALUE\_UINT16\ ((zb\_uint16\_t)0xffff)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02539\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_NON\_VALUE\_UINT32\ ((zb\_uint32\_t)0xffffffff)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02541\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_NON\_VALUE\_UINT24\ ((zb\_uint24\_t)\ \{\ .low\ =\ 0xffffU,\ .high\ =\ 0xffU\ \})}}
+\DoxyCodeLine{02542\ }
+\DoxyCodeLine{02543\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzb__discover__cmd__list}{zb\_discover\_cmd\_list}}}
+\DoxyCodeLine{02544\ \{}
+\DoxyCodeLine{02545\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ received\_cnt;}
+\DoxyCodeLine{02546\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *received;}
+\DoxyCodeLine{02547\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ generated\_cnt;}
+\DoxyCodeLine{02548\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *generated;}
+\DoxyCodeLine{02549\ \}\ zb\_discover\_cmd\_list\_t;}
+\DoxyCodeLine{02550\ }
+\DoxyCodeLine{02551\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ (*zb\_zcl\_is\_high\_freq\_msg\_func\_t)(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}});}
+\DoxyCodeLine{02552\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ (*zb\_zcl\_block\_zcl\_cmd\_t)(zb\_zcl\_parsed\_hdr\_t*);}
+\DoxyCodeLine{02553\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ (*zb\_zcl\_read\_attr\_resp\_handler\_t)(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}});}
+\DoxyCodeLine{02554\ }
+\DoxyCodeLine{02555\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_SE\ ||\ defined\ ZB\_BDB\_ENABLE\_FINDING\_BINDING\ ||\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_WWAH}}
+\DoxyCodeLine{02556\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zcl\_func\_selector\_s}
+\DoxyCodeLine{02557\ \{}
+\DoxyCodeLine{02558\ \textcolor{preprocessor}{\#ifdef\ ZB\_ENABLE\_SE}}
+\DoxyCodeLine{02559\ \ \ zb\_zcl\_is\_high\_freq\_msg\_func\_t\ is\_high\_freq\_msg;}
+\DoxyCodeLine{02560\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_SE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02561\ }
+\DoxyCodeLine{02562\ \textcolor{preprocessor}{\#if\ defined\ ZB\_SE\_COMMISSIONING\ ||\ (defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_WWAH\ \&\&\ defined\ ZB\_ZCL\_ENABLE\_WWAH\_SERVER)}}
+\DoxyCodeLine{02563\ \ \ zb\_zcl\_block\_zcl\_cmd\_t\ block\_zcl\_cmd;}
+\DoxyCodeLine{02564\ \ \ zb\_zcl\_read\_attr\_resp\_handler\_t\ read\_attr\_resp\_handler;}
+\DoxyCodeLine{02565\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_SE\_COMMISSIONING\ ||\ (ZB\_ZCL\_SUPPORT\_CLUSTER\_WWAH\ \&\&\ ZB\_ZCL\_ENABLE\_WWAH\_SERVER)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02566\ }
+\DoxyCodeLine{02567\ \textcolor{preprocessor}{\#ifdef\ ZB\_BDB\_ENABLE\_FINDING\_BINDING}}
+\DoxyCodeLine{02568\ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ process\_identify\_query\_res;}
+\DoxyCodeLine{02569\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_BDB\_ENABLE\_FINDING\_BINDING\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02570\ \}\ zb\_zcl\_func\_selector\_t;}
+\DoxyCodeLine{02571\ }
+\DoxyCodeLine{02572\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_SE\ ||\ ZB\_BDB\_ENABLE\_FINDING\_BINDING\ ||\ ZB\_ZCL\_SUPPORT\_CLUSTER\_WWAH\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02573\ }
+\DoxyCodeLine{02575\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zcl\_globals\_s}
+\DoxyCodeLine{02576\ \{}
+\DoxyCodeLine{02578\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ seq\_number;}
+\DoxyCodeLine{02580\ }
+\DoxyCodeLine{02581\ \textcolor{comment}{//TODO:\ can\ be\ used\ for\ SHADE\ PROCESSING?}}
+\DoxyCodeLine{02582\ \ \ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ runtime\_buf;}
+\DoxyCodeLine{02583\ }
+\DoxyCodeLine{02585\ \ \ zb\_af\_device\_ctx\_t\ *device\_ctx;}
+\DoxyCodeLine{02588\ \ \ zb\_af\_device\_ctx\_t\ *device\_ctx\_arr[2];}
+\DoxyCodeLine{02590\ \ \ zcl\_cb\_hash\_ent\_t\ zcl\_cb[ZCL\_TRAN\_TABLE\_SIZE];}
+\DoxyCodeLine{02592\ \ \ zb\_zcl\_modify\_attr\_value\_cb\_t\ modify\_attr\_value\_cb;}
+\DoxyCodeLine{02593\ }
+\DoxyCodeLine{02594\ \textcolor{preprocessor}{\#if\ !(defined\ ZB\_ZCL\_DISABLE\_REPORTING)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02596\ \ \ zb\_zcl\_report\_attr\_cb\_t\ report\_attr\_cb;}
+\DoxyCodeLine{02599\ \ \ zb\_zcl\_no\_reporting\_cb\_t\ no\_reporting\_cb;}
+\DoxyCodeLine{02601\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02602\ }
+\DoxyCodeLine{02603\ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ device\_cb;}
+\DoxyCodeLine{02604\ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ checkin\_cb;}
+\DoxyCodeLine{02605\ }
+\DoxyCodeLine{02606\ \textcolor{preprocessor}{\#if\ !(defined\ ZB\_ZCL\_DISABLE\_REPORTING)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02608\ \ \ zb\_zcl\_reporting\_ctx\_t\ reporting\_ctx;}
+\DoxyCodeLine{02609\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02610\ }
+\DoxyCodeLine{02612\ \ \ zb\_zcl\_set\_default\_value\_attr\_cb\_t\ set\_default\_attr\_cb;}
+\DoxyCodeLine{02618\ \ \ zb\_zcl\_app\_check\_attr\_value\_cb\_t\ app\_check\_attr\_value\_cb;}
+\DoxyCodeLine{02620\ \ \ zb\_zcl\_app\_check\_attr\_value\_manuf\_cb\_t\ app\_check\_attr\_value\_manuf\_cb;}
+\DoxyCodeLine{02621\ \textcolor{preprocessor}{\#ifdef\ ZB\_HA\_ENABLE\_OTA\_UPGRADE\_SERVER}}
+\DoxyCodeLine{02622\ \ \ zb\_zcl\_ota\_upgrade\_next\_data\_ind\_t\ ota\_upgrade\_next\_data\_ind\_cb;}
+\DoxyCodeLine{02623\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_HA\_ENABLE\_OTA\_UPGRADE\_SERVER\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02624\ \textcolor{preprocessor}{\#ifdef\ ZB\_HA\_ENABLE\_OTA\_UPGRADE\_CLIENT}}
+\DoxyCodeLine{02625\ \ \ zb\_zcl\_ota\_upgrade\_cli\_ctx\_t\ ota\_cli;}
+\DoxyCodeLine{02626\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02627\ }
+\DoxyCodeLine{02628\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_HA}}
+\DoxyCodeLine{02629\ \ \ zb\_zcl\_disc\_manuf\_cmd\_cb\_t\ disc\_manuf\_cmd\_cb;}
+\DoxyCodeLine{02630\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_HA\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02631\ }
+\DoxyCodeLine{02632\ \ \ zcl\_cluster\_handlers\_t\ zcl\_handlers[ZB\_ZCL\_CLUSTER\_HANDLERS\_TABLE\_SIZE];}
+\DoxyCodeLine{02633\ \textcolor{preprocessor}{\#ifdef\ ZB\_CONTROL4\_NETWORK\_SUPPORT}}
+\DoxyCodeLine{02634\ \ \ \textcolor{comment}{/*\ Control4\ Network\ cluster\ specific\ handlers.\ Server\ and\ Client\ cluster\ roles\ */}}
+\DoxyCodeLine{02635\ \ \ zcl\_cluster\_handlers\_t\ control4\_zcl\_handlers[2];}
+\DoxyCodeLine{02636\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_CONTROL4\_NETWORK\_SUPPORT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02637\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zcl\_handlers\_cnt;}
+\DoxyCodeLine{02638\ \ \ zb\_discover\_cmd\_list\_t\ *zb\_zcl\_cluster\_cmd\_list;}
+\DoxyCodeLine{02639\ \textcolor{preprocessor}{\#ifdef\ ZB\_ZCL\_SUPPORT\_CLUSTER\_SUBGHZ}}
+\DoxyCodeLine{02640\ \ \ zb\_zcl\_subghz\_ctx\_t\ subghz\_ctx;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Sub-\/GHz\ cluster\ context\ of\ current\ device\ */}}
+\DoxyCodeLine{02641\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_SUPPORT\_CLUSTER\_SUBGHZ\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02642\ \textcolor{preprocessor}{\#if\ (defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_WWAH\ \&\&\ (defined\ ZB\_ZCL\_ENABLE\_WWAH\_SERVER\ ||\ defined\ ZB\_ZCL\_ENABLE\_WWAH\_CLIENT))}}
+\DoxyCodeLine{02643\ \ \ \textcolor{comment}{/*\ TODO:\ Split\ (client/server)\ !\ */}}
+\DoxyCodeLine{02644\ \ \ zb\_zcl\_wwah\_context\_t\ wwah\_ctx;}
+\DoxyCodeLine{02645\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02646\ }
+\DoxyCodeLine{02647\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_SE\ ||\ defined\ ZB\_BDB\_ENABLE\_FINDING\_BINDING\ ||\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_WWAH}}
+\DoxyCodeLine{02648\ \ \ zb\_zcl\_func\_selector\_t\ selector;}
+\DoxyCodeLine{02649\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ENABLE\_SE\ ||\ ZB\_BDB\_ENABLE\_FINDING\_BINDING\ ||\ ZB\_ZCL\_SUPPORT\_CLUSTER\_WWAH\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02650\ }
+\DoxyCodeLine{02652\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ backward\_comp\_mode;}
+\DoxyCodeLine{02653\ }
+\DoxyCodeLine{02655\ \ \ zb\_zcl\_peer\_revision\_cb\_t\ peer\_revision\_cb;}
+\DoxyCodeLine{02656\ }
+\DoxyCodeLine{02658\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ backward\_compatible\_statuses\_mode;}
+\DoxyCodeLine{02659\ }
+\DoxyCodeLine{02661\ \ \ \mbox{\hyperlink{group__af__management__service_ga4d58cf3d0e6c159c9c63bc2e9d88887c}{zb\_device\_handler\_t}}\ broadcast\_ep\_cb;}
+\DoxyCodeLine{02662\ }
+\DoxyCodeLine{02664\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ gateway\_ep[ZB\_ZCL\_GATEWAY\_EP\_SIZE];}
+\DoxyCodeLine{02665\ \}\ zb\_zcl\_globals\_t;}
+\DoxyCodeLine{02666\ }
+\DoxyCodeLine{02667\ \textcolor{preprocessor}{\#define\ ZCL\_SELECTOR()\ ZG-\/>zcl.selector}}
+\DoxyCodeLine{02668\ }
+\DoxyCodeLine{02673\ zb\_zcl\_globals\_t\ *zb\_zcl\_get\_ctx(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{02674\ \ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{02676\ }
+\DoxyCodeLine{02678\ \textcolor{preprocessor}{\#define\ ZCL\_CTX()\ (*zb\_zcl\_get\_ctx())}}
+\DoxyCodeLine{02679\ \ \textcolor{comment}{/*\ ZB\_ZCL\_INITIALIZATION\ */}}
+\DoxyCodeLine{02681\ }
+\DoxyCodeLine{02682\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_MAX\_EP\_NUMBER\ 10U}}
+\DoxyCodeLine{02683\ }
+\DoxyCodeLine{02684\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *(*zb\_zcl\_put\_payload\_cb\_t)(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{02685\ }
+\DoxyCodeLine{02686\ \textcolor{keywordtype}{void}\ zb\_zcl\_send\_cmd(}
+\DoxyCodeLine{02687\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,}
+\DoxyCodeLine{02688\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02689\ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,}
+\DoxyCodeLine{02690\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02691\ \ \ zb\_zcl\_frame\_direction\_t\ direction,}
+\DoxyCodeLine{02692\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{02693\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *payload,}
+\DoxyCodeLine{02694\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ payload\_size,}
+\DoxyCodeLine{02695\ \ \ zb\_zcl\_put\_payload\_cb\_t\ put\_payload,}
+\DoxyCodeLine{02696\ \ \ zb\_zcl\_cluster\_id\_t\ cluster\_id,}
+\DoxyCodeLine{02697\ \ \ zb\_zcl\_disable\_default\_response\_t\ def\_resp,}
+\DoxyCodeLine{02698\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ cmd\_id,}
+\DoxyCodeLine{02699\ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb}
+\DoxyCodeLine{02700\ );}
+\DoxyCodeLine{02701\ }
+\DoxyCodeLine{02702\ \textcolor{keywordtype}{void}\ zb\_zcl\_send\_cmd\_tsn(}
+\DoxyCodeLine{02703\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,}
+\DoxyCodeLine{02704\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02705\ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,}
+\DoxyCodeLine{02706\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02707\ \ \ zb\_zcl\_frame\_direction\_t\ direction,}
+\DoxyCodeLine{02708\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{02709\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *payload,}
+\DoxyCodeLine{02710\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ payload\_size,}
+\DoxyCodeLine{02711\ \ \ zb\_zcl\_put\_payload\_cb\_t\ put\_payload,}
+\DoxyCodeLine{02712\ \ \ zb\_zcl\_cluster\_id\_t\ cluster\_id,}
+\DoxyCodeLine{02713\ \ \ zb\_zcl\_disable\_default\_response\_t\ def\_resp,}
+\DoxyCodeLine{02714\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ cmd\_id,}
+\DoxyCodeLine{02715\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ tsn,}
+\DoxyCodeLine{02716\ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb}
+\DoxyCodeLine{02717\ );}
+\DoxyCodeLine{02718\ }
+\DoxyCodeLine{02719\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_zcl\_send\_default\_handler(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,}
+\DoxyCodeLine{02720\ \ \ \textcolor{keyword}{const}\ zb\_zcl\_parsed\_hdr\_t\ *cmd\_info,\ zb\_zcl\_status\_t\ status);}
+\DoxyCodeLine{02721\ }
+\DoxyCodeLine{02722\ \textcolor{keywordtype}{void}\ zb\_zcl\_send\_default\_resp\_ext(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,}
+\DoxyCodeLine{02723\ \ \ \textcolor{keyword}{const}\ zb\_zcl\_parsed\_hdr\_t\ *cmd\_info,\ zb\_zcl\_status\_t\ status);}
+\DoxyCodeLine{02724\ }
+\DoxyCodeLine{02725\ \textcolor{preprocessor}{\#if\ defined\ ZB\_APS\_ENCRYPTION\_PER\_CLUSTER}}
+\DoxyCodeLine{02726\ \textcolor{keywordtype}{void}\ zb\_zcl\_set\_cluster\_encryption(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ endpoint\_id,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cluster\_id,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ encrypt);}
+\DoxyCodeLine{02727\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_APS\_ENCRYPTION\_PER\_CLUSTER\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02728\ }
+\DoxyCodeLine{02743\ zb\_zcl\_status\_t\ zb\_zcl\_zcl8\_statuses\_conversion(zb\_zcl\_status\_t\ status);}
+\DoxyCodeLine{02744\ }
+\DoxyCodeLine{02745\ \textcolor{comment}{/*\ Gateway\ endpoints\ configuration\ */}}
+\DoxyCodeLine{02746\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_zcl\_add\_gateway\_endpoint(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ endpoint);}
+\DoxyCodeLine{02747\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_zcl\_remove\_gateway\_endpoint(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ endpoint);}
+\DoxyCodeLine{02748\ }
+\DoxyCodeLine{02749\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZBOSS\_API\_ZCL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

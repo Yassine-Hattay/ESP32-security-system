@@ -1,0 +1,51 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+SD Directory Reference}
+\hypertarget{dir_4957f7684b5f75d3346fa3c89c924532}{}\label{dir_4957f7684b5f75d3346fa3c89c924532}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/SD Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/SD Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_9df97122b11b49c8a7057eb2391800b9}{src}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This library provides the integration of ESP32 and SD (Secure Digital) and MMC (Multi Media Card) cards without additional modules. This library is using SPI to interface with the cards. Please note that SPI mode is slower than the intended SD or MMC mode, however, provides more flexibility as the SPI module is available on all ESP So\+Cs and can be routed to any GPIO through GPIO matrix.\hypertarget{README.md_autotoc_md564}{}\doxysubsection{\texorpdfstring{Sample wiring diagram\+:}{Sample wiring diagram\+:}}\label{README.md_autotoc_md564}
+
+
+For other SD formats\+:
+
+
+
+Image source\+: \href{https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/MMC-SD-miniSD-microSD-Color-Numbers-Names.gif/330px-MMC-SD-miniSD-microSD-Color-Numbers-Names.gif}{\texttt{ Wikipedia}}
+
+\begin{quote}
+{\bfseries{Warning}} Some ESP32 modules have different pin outs! \end{quote}
+\hypertarget{README.md_autotoc_md565}{}\doxysubsection{\texorpdfstring{Default SPI pins\+:}{Default SPI pins\+:}}\label{README.md_autotoc_md565}
+Note that SPI pins can be configured by using {\ttfamily SPI.\+begin(sck, miso, mosi, cs);} alternatively, you can change only the CS pin with {\ttfamily SD.\+begin(\+CSpin)}
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{8}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SPI Pin Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP8266   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+S2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+S3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+C3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+C6   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+H2    }\\\cline{1-8}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ SPI Pin Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP8266   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+S2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+S3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+C3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+C6   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32‑\+H2    }\\\cline{1-8}
+\endhead
+CS (SS)   &GPIO15   &GPIO5   &GPIO34   &GPIO10   &GPIO7   &GPIO18   &GPIO0    \\\cline{1-8}
+DI (MOSI)   &GPIO13   &GPIO23   &GPIO35   &GPIO11   &GPIO6   &GPIO19   &GPIO25    \\\cline{1-8}
+DO (MISO)   &GPIO12   &GPIO19   &GPIO37   &GPIO13   &GPIO5   &GPIO20   &GPIO11    \\\cline{1-8}
+SCK (SCLK)   &GPIO14   &GPIO18   &GPIO36   &GPIO12   &GPIO4   &GPIO21   &GPIO10   \\\cline{1-8}
+\end{longtabu}
+\hypertarget{README.md_autotoc_md566}{}\doxysubsection{\texorpdfstring{FAQ\+:}{FAQ\+:}}\label{README.md_autotoc_md566}
+{\bfseries{Do I need any additional modules}}, like {\bfseries{the \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+Arduino\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} SD module}}?\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
+
+No, just wire your SD card directly to ESP32.
+
+Tip\+: If you are using a micro\+SD card and have a spare adapter to full-\/sized SD, you can solder Dupont pins on the adapter.
+
+{\bfseries{What is the difference between SD and SD\+\_\+\+MMC libraries?}}
+
+SD runs on SPI, and SD\+\_\+\+MMC uses the SDMMC hardware bus on the ESP32. The SPI uses 4 communication pins + 2 power connections and operates on up to 80 MHz. The SPI option offers flexibility on pin connection because the data connections can be routed through GPIO matrix to any data pin. SD-\/\+SPI speed is approximately half of the SD-\/\+MMC even when used on 1-\/bit line. You can read more about SD SPI in the \href{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/sdspi_host.html}{\texttt{ documentation}}
+
+SD\+\_\+\+MMC is supported only by ESP32 and ESP32-\/\+S3 and can be connected only to dedicated pins. SD\+\_\+\+MMC allows to use of 1, 4 or 8 data pins + 2 additional communication pins and 2 power pins. The data pins need to be pulled up externally. You can read more about SD\+\_\+\+MMC in the \href{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/sdmmc_host.html}{\texttt{ documentation}} 1-\/bit\+: SD\+\_\+\+MMC\+\_\+ speed is approximately two-\/times faster than SPI mode 4-\/bit\+: SD\+\_\+\+MMC speed is approximately three-\/times faster than SPI mode. 

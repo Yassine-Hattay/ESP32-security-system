@@ -1,0 +1,107 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/main/src/tasks\+\_\+v.cpp File Reference}
+\hypertarget{tasks__v_8cpp}{}\label{tasks__v_8cpp}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/main/src/tasks\_v.cpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/main/src/tasks\_v.cpp}}
+
+
+free\+RTOS tasks code  
+
+
+{\ttfamily \#include "{}global\+\_\+header.\+h"{}}\newline
+{\ttfamily \#include "{}camera\+\_\+var.\+h"{}}\newline
+{\ttfamily \#include "{}server\+\_\+v.\+h"{}}\newline
+{\ttfamily \#include "{}email\+\_\+module.\+h"{}}\newline
+{\ttfamily \#include "{}tasks\+\_\+v.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tasks__v_8cpp_ae4345e71833d47bf95e3fa9e43a27c39}{sending\+\_\+photo\+\_\+task}} (void \texorpdfstring{$\ast$}{*}parameter)
+\begin{DoxyCompactList}\small\item\em a task that sends a photo when there is movment detected \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tasks__v_8cpp_af0243e005d92dd9a6c25ab4b49b068b4}{loop\+\_\+f}} (void \texorpdfstring{$\ast$}{*}parameter)
+\begin{DoxyCompactList}\small\item\em a task that handles connexion for the web pages \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tasks__v_8cpp_a9d5e47097c2fbeff9a6e94144de16a0a}{live\+\_\+f}} (void \texorpdfstring{$\ast$}{*}parameter)
+\begin{DoxyCompactList}\small\item\em task that handles life span of the live mode/web page \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{tasks__v_8cpp_a997d329266e8825dd9ef9bf2a4ca9ae9}\label{tasks__v_8cpp_a997d329266e8825dd9ef9bf2a4ca9ae9} 
+unsigned long {\bfseries start\+\_\+trans\+\_\+time}
+\item 
+\Hypertarget{tasks__v_8cpp_a2d2f7436a962d6ca636c768d50a96bd3}\label{tasks__v_8cpp_a2d2f7436a962d6ca636c768d50a96bd3} 
+unsigned long {\bfseries last\+Check\+Time\+\_\+h} = 0
+\item 
+\Hypertarget{tasks__v_8cpp_af444ac13552bb50cfb7beebff8ae4f5a}\label{tasks__v_8cpp_af444ac13552bb50cfb7beebff8ae4f5a} 
+unsigned long {\bfseries last\+Check\+Time} = 0
+\item 
+\Hypertarget{tasks__v_8cpp_a4a8e2805d4ebaf186a5ee881792b10c0}\label{tasks__v_8cpp_a4a8e2805d4ebaf186a5ee881792b10c0} 
+Task\+Handle\+\_\+t {\bfseries loop\+\_\+handle} = NULL
+\item 
+\Hypertarget{tasks__v_8cpp_aaa9d4d2e0567d6f715eb67e2e3f5faa7}\label{tasks__v_8cpp_aaa9d4d2e0567d6f715eb67e2e3f5faa7} 
+Task\+Handle\+\_\+t {\bfseries live\+\_\+f\+\_\+handle} = NULL
+\item 
+\Hypertarget{tasks__v_8cpp_a67b344c0dca1254f3e4f8d4be79f0768}\label{tasks__v_8cpp_a67b344c0dca1254f3e4f8d4be79f0768} 
+Task\+Handle\+\_\+t {\bfseries sending\+\_\+photo\+\_\+\+Handle} = NULL
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+free\+RTOS tasks code 
+
+\begin{DoxyAuthor}{Author}
+Yassine Hattay (\href{mailto:hattayyassine519@gmail.com}{\texttt{ hattayyassine519@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/03-\/02
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{tasks__v_8cpp_a9d5e47097c2fbeff9a6e94144de16a0a}\index{tasks\_v.cpp@{tasks\_v.cpp}!live\_f@{live\_f}}
+\index{live\_f@{live\_f}!tasks\_v.cpp@{tasks\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{live\_f()}{live\_f()}}
+{\footnotesize\ttfamily \label{tasks__v_8cpp_a9d5e47097c2fbeff9a6e94144de16a0a} 
+void live\+\_\+f (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{parameter}{}\end{DoxyParamCaption})}
+
+
+
+task that handles life span of the live mode/web page 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{tasks__v_8cpp_af0243e005d92dd9a6c25ab4b49b068b4}\index{tasks\_v.cpp@{tasks\_v.cpp}!loop\_f@{loop\_f}}
+\index{loop\_f@{loop\_f}!tasks\_v.cpp@{tasks\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{loop\_f()}{loop\_f()}}
+{\footnotesize\ttfamily \label{tasks__v_8cpp_af0243e005d92dd9a6c25ab4b49b068b4} 
+void loop\+\_\+f (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{parameter}{}\end{DoxyParamCaption})}
+
+
+
+a task that handles connexion for the web pages 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{tasks__v_8cpp_ae4345e71833d47bf95e3fa9e43a27c39}\index{tasks\_v.cpp@{tasks\_v.cpp}!sending\_photo\_task@{sending\_photo\_task}}
+\index{sending\_photo\_task@{sending\_photo\_task}!tasks\_v.cpp@{tasks\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{sending\_photo\_task()}{sending\_photo\_task()}}
+{\footnotesize\ttfamily \label{tasks__v_8cpp_ae4345e71833d47bf95e3fa9e43a27c39} 
+void sending\+\_\+photo\+\_\+task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{parameter}{}\end{DoxyParamCaption})}
+
+
+
+a task that sends a photo when there is movment detected 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}

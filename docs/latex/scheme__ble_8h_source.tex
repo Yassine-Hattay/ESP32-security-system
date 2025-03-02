@@ -1,0 +1,57 @@
+\doxysection{scheme\+\_\+ble.\+h}
+\hypertarget{scheme__ble_8h_source}{}\label{scheme__ble_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_network\_provisioning/include/network\_provisioning/scheme\_ble.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_network\_provisioning/include/network\_provisioning/scheme\_ble.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2019-\/2024\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <protocomm.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <protocomm\_ble.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}network\_provisioning/manager.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ network\_prov\_scheme\_t\ network\_prov\_scheme\_ble;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{/*\ This\ scheme\ specific\ event\ handler\ is\ to\ be\ used\ when\ application}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ doesn't\ require\ BT\ and\ BLE\ after\ provisioning\ has\ finished\ */}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ NETWORK\_PROV\_SCHEME\_BLE\_EVENT\_HANDLER\_FREE\_BTDM\ \{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ .event\_cb\ \ =\ network\_prov\_scheme\_ble\_event\_cb\_free\_btdm,\ \(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \ \ .user\_data\ =\ NULL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ This\ scheme\ specific\ event\ handler\ is\ to\ be\ used\ when\ application}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ doesn't\ require\ BLE\ to\ be\ active\ after\ provisioning\ has\ finished\ */}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ NETWORK\_PROV\_SCHEME\_BLE\_EVENT\_HANDLER\_FREE\_BLE\ \{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ .event\_cb\ \ =\ network\_prov\_scheme\_ble\_event\_cb\_free\_ble,\ \(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ .user\_data\ =\ NULL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ This\ scheme\ specific\ event\ handler\ is\ to\ be\ used\ when\ application}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ doesn't\ require\ BT\ to\ be\ active\ after\ provisioning\ has\ finished\ */}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ NETWORK\_PROV\_SCHEME\_BLE\_EVENT\_HANDLER\_FREE\_BT\ \{\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ .event\_cb\ \ =\ network\_prov\_scheme\_ble\_event\_cb\_free\_bt,\ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ .user\_data\ =\ NULL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}\ network\_prov\_scheme\_ble\_event\_cb\_free\_btdm(\textcolor{keywordtype}{void}\ *user\_data,\ network\_prov\_cb\_event\_t\ event,\ \textcolor{keywordtype}{void}\ *event\_data);}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ network\_prov\_scheme\_ble\_event\_cb\_free\_ble\ (\textcolor{keywordtype}{void}\ *user\_data,\ network\_prov\_cb\_event\_t\ event,\ \textcolor{keywordtype}{void}\ *event\_data);}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ network\_prov\_scheme\_ble\_event\_cb\_free\_bt\ \ (\textcolor{keywordtype}{void}\ *user\_data,\ network\_prov\_cb\_event\_t\ event,\ \textcolor{keywordtype}{void}\ *event\_data);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00070\ esp\_err\_t\ network\_prov\_scheme\_ble\_set\_service\_uuid(uint8\_t\ *uuid128);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00093\ esp\_err\_t\ network\_prov\_scheme\_ble\_set\_mfg\_data(uint8\_t\ *mfg\_data,\ ssize\_t\ mfg\_data\_len);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00096\ \}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

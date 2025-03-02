@@ -1,0 +1,239 @@
+\doxysection{argon2.\+h}
+\hypertarget{argon2_8h_source}{}\label{argon2_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_pwhash/argon2/argon2.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_pwhash/argon2/argon2.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Argon2\ source\ code\ package}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Written\ by\ Daniel\ Dinu\ and\ Dmitry\ Khovratovich,\ 2015}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ This\ work\ is\ licensed\ under\ a\ Creative\ Commons\ CC0\ 1.0\ License/Waiver.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ You\ should\ have\ received\ a\ copy\ of\ the\ CC0\ Public\ Domain\ Dedication\ along}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ with\ this\ software.\ If\ not,\ see}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ <http://creativecommons.org/publicdomain/zero/1.0/>.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ argon2\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ argon2\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <limits.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ Argon2\ input\ parameter\ restrictions}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{/*\ Minimum\ and\ maximum\ number\ of\ lanes\ (degree\ of\ parallelism)\ */}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN\_LANES\ UINT32\_C(1)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_LANES\ UINT32\_C(0xFFFFFF)}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ Minimum\ and\ maximum\ number\ of\ threads\ */}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN\_THREADS\ UINT32\_C(1)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_THREADS\ UINT32\_C(0xFFFFFF)}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*\ Number\ of\ synchronization\ points\ between\ lanes\ per\ pass\ */}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ ARGON2\_SYNC\_POINTS\ UINT32\_C(4)}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{/*\ Minimum\ and\ maximum\ digest\ size\ in\ bytes\ */}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN\_OUTLEN\ UINT32\_C(16)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_OUTLEN\ UINT32\_C(0xFFFFFFFF)}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ Minimum\ and\ maximum\ number\ of\ memory\ blocks\ (each\ of\ BLOCK\_SIZE\ bytes)\ */}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN\_MEMORY\ (2\ *\ ARGON2\_SYNC\_POINTS)\ }\textcolor{comment}{/*\ 2\ blocks\ per\ slice\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN(a,\ b)\ ((a)\ <\ (b)\ ?\ (a)\ :\ (b))}}
+\DoxyCodeLine{00042\ \textcolor{comment}{/*\ Max\ memory\ size\ is\ half\ the\ addressing\ space,\ topping\ at\ 2\string^32\ blocks\ (4\ TB)}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_MEMORY\_BITS\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ ARGON2\_MIN(UINT32\_C(32),\ (sizeof(void\ *)\ *\ CHAR\_BIT\ -\/\ 10\ -\/\ 1))}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_MEMORY\ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ ARGON2\_MIN(UINT32\_C(0xFFFFFFFF),\ UINT64\_C(1)\ <<\ ARGON2\_MAX\_MEMORY\_BITS)}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ Minimum\ and\ maximum\ number\ of\ passes\ */}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN\_TIME\ UINT32\_C(1)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_TIME\ UINT32\_C(0xFFFFFFFF)}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ Minimum\ and\ maximum\ password\ length\ in\ bytes\ */}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN\_PWD\_LENGTH\ UINT32\_C(0)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_PWD\_LENGTH\ UINT32\_C(0xFFFFFFFF)}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ Minimum\ and\ maximum\ associated\ data\ length\ in\ bytes\ */}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN\_AD\_LENGTH\ UINT32\_C(0)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_AD\_LENGTH\ UINT32\_C(0xFFFFFFFF)}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{/*\ Minimum\ and\ maximum\ salt\ length\ in\ bytes\ */}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN\_SALT\_LENGTH\ UINT32\_C(8)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_SALT\_LENGTH\ UINT32\_C(0xFFFFFFFF)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*\ Minimum\ and\ maximum\ key\ length\ in\ bytes\ */}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ARGON2\_MIN\_SECRET\ UINT32\_C(0)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ARGON2\_MAX\_SECRET\ UINT32\_C(0xFFFFFFFF)}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ARGON2\_FLAG\_CLEAR\_PASSWORD\ (UINT32\_C(1)\ <<\ 0)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ARGON2\_FLAG\_CLEAR\_SECRET\ (UINT32\_C(1)\ <<\ 1)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ARGON2\_FLAG\_CLEAR\_MEMORY\ (UINT32\_C(1)\ <<\ 2)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ARGON2\_DEFAULT\_FLAGS\ (UINT32\_C(0))}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ Error\ codes\ */}}
+\DoxyCodeLine{00075\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ Argon2\_ErrorCodes\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ ARGON2\_OK\ =\ 0,}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ ARGON2\_OUTPUT\_PTR\_NULL\ =\ -\/1,}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ ARGON2\_OUTPUT\_TOO\_SHORT\ =\ -\/2,}
+\DoxyCodeLine{00081\ \ \ \ \ ARGON2\_OUTPUT\_TOO\_LONG\ \ =\ -\/3,}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ ARGON2\_PWD\_TOO\_SHORT\ =\ -\/4,}
+\DoxyCodeLine{00084\ \ \ \ \ ARGON2\_PWD\_TOO\_LONG\ \ =\ -\/5,}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ ARGON2\_SALT\_TOO\_SHORT\ =\ -\/6,}
+\DoxyCodeLine{00087\ \ \ \ \ ARGON2\_SALT\_TOO\_LONG\ \ =\ -\/7,}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ ARGON2\_AD\_TOO\_SHORT\ =\ -\/8,}
+\DoxyCodeLine{00090\ \ \ \ \ ARGON2\_AD\_TOO\_LONG\ \ =\ -\/9,}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ ARGON2\_SECRET\_TOO\_SHORT\ =\ -\/10,}
+\DoxyCodeLine{00093\ \ \ \ \ ARGON2\_SECRET\_TOO\_LONG\ \ =\ -\/11,}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ ARGON2\_TIME\_TOO\_SMALL\ =\ -\/12,}
+\DoxyCodeLine{00096\ \ \ \ \ ARGON2\_TIME\_TOO\_LARGE\ =\ -\/13,}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ ARGON2\_MEMORY\_TOO\_LITTLE\ =\ -\/14,}
+\DoxyCodeLine{00099\ \ \ \ \ ARGON2\_MEMORY\_TOO\_MUCH\ \ \ =\ -\/15,}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ ARGON2\_LANES\_TOO\_FEW\ \ =\ -\/16,}
+\DoxyCodeLine{00102\ \ \ \ \ ARGON2\_LANES\_TOO\_MANY\ =\ -\/17,}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ ARGON2\_PWD\_PTR\_MISMATCH\ \ \ \ =\ -\/18,\ \textcolor{comment}{/*\ NULL\ ptr\ with\ non-\/zero\ length\ */}}
+\DoxyCodeLine{00105\ \ \ \ \ ARGON2\_SALT\_PTR\_MISMATCH\ \ \ =\ -\/19,\ \textcolor{comment}{/*\ NULL\ ptr\ with\ non-\/zero\ length\ */}}
+\DoxyCodeLine{00106\ \ \ \ \ ARGON2\_SECRET\_PTR\_MISMATCH\ =\ -\/20,\ \textcolor{comment}{/*\ NULL\ ptr\ with\ non-\/zero\ length\ */}}
+\DoxyCodeLine{00107\ \ \ \ \ ARGON2\_AD\_PTR\_MISMATCH\ \ \ \ \ =\ -\/21,\ \textcolor{comment}{/*\ NULL\ ptr\ with\ non-\/zero\ length\ */}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ ARGON2\_MEMORY\_ALLOCATION\_ERROR\ =\ -\/22,}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ ARGON2\_FREE\_MEMORY\_CBK\_NULL\ \ \ \ \ =\ -\/23,}
+\DoxyCodeLine{00112\ \ \ \ \ ARGON2\_ALLOCATE\_MEMORY\_CBK\_NULL\ =\ -\/24,}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ ARGON2\_INCORRECT\_PARAMETER\ =\ -\/25,}
+\DoxyCodeLine{00115\ \ \ \ \ ARGON2\_INCORRECT\_TYPE\ \ \ \ \ \ =\ -\/26,}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ ARGON2\_OUT\_PTR\_MISMATCH\ =\ -\/27,}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ ARGON2\_THREADS\_TOO\_FEW\ \ =\ -\/28,}
+\DoxyCodeLine{00120\ \ \ \ \ ARGON2\_THREADS\_TOO\_MANY\ =\ -\/29,}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ ARGON2\_MISSING\_ARGS\ =\ -\/30,}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ ARGON2\_ENCODING\_FAIL\ =\ -\/31,}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ ARGON2\_DECODING\_FAIL\ =\ -\/32,}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ ARGON2\_THREAD\_FAIL\ =\ -\/33,}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ ARGON2\_DECODING\_LENGTH\_FAIL\ =\ -\/34,}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ ARGON2\_VERIFY\_MISMATCH\ =\ -\/35}
+\DoxyCodeLine{00133\ \}\ argon2\_error\_codes;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{comment}{/*\ Argon2\ external\ data\ structures\ */}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *\ Context:\ structure\ to\ hold\ Argon2\ inputs:}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ output\ array\ and\ its\ length,}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ *\ password\ and\ its\ length,}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ *\ salt\ and\ its\ length,}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ secret\ and\ its\ length,}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *\ associated\ data\ and\ its\ length,}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *\ number\ of\ passes,\ amount\ of\ used\ memory\ (in\ KBytes,\ can\ be\ rounded\ up\ a\ bit)}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *\ number\ of\ parallel\ threads\ that\ will\ be\ run.}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ *\ All\ the\ parameters\ above\ affect\ the\ output\ hash\ value.}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ *\ Additionally,\ two\ function\ pointers\ can\ be\ provided\ to\ allocate\ and}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\ *\ deallocate\ the\ memory\ (if\ NULL,\ memory\ will\ be\ allocated\ internally).}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ *\ Also,\ three\ flags\ indicate\ whether\ to\ erase\ password,\ secret\ as\ soon\ as\ they}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ *\ are\ pre-\/hashed\ (and\ thus\ not\ needed\ anymore),\ and\ the\ entire\ memory}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ *****}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *\ Simplest\ situation:\ you\ have\ output\ array\ out[8],\ password\ is\ stored\ in}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ *\ pwd[32],\ salt\ is\ stored\ in\ salt[16],\ you\ do\ not\ have\ keys\ nor\ associated}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ *data.}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ *\ You\ need\ to\ spend\ 1\ GB\ of\ RAM\ and\ you\ run\ 5\ passes\ of\ Argon2\ with\ 4\ parallel}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ *lanes.}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ *\ You\ want\ to\ erase\ the\ password,\ but\ you're\ OK\ with\ last\ pass\ not\ being}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ *erased.}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ *\ You\ want\ to\ use\ the\ default\ memory\ allocator.}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ *\ Then\ you\ initialize:}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ *\ Argon2\_Context(out,8,pwd,32,salt,16,NULL,0,NULL,0,5,1<<20,4,4,NULL,NULL,true,false,false,false).}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00163\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_argon2___context}{Argon2\_Context}}\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ uint8\_t\ *out;\ \ \ \ \textcolor{comment}{/*\ output\ array\ */}}
+\DoxyCodeLine{00165\ \ \ \ \ uint32\_t\ outlen;\ \textcolor{comment}{/*\ digest\ length\ */}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ uint8\_t\ *pwd;\ \ \ \ \textcolor{comment}{/*\ password\ array\ */}}
+\DoxyCodeLine{00168\ \ \ \ \ uint32\_t\ pwdlen;\ \textcolor{comment}{/*\ password\ length\ */}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ uint8\_t\ *salt;\ \ \ \ \textcolor{comment}{/*\ salt\ array\ */}}
+\DoxyCodeLine{00171\ \ \ \ \ uint32\_t\ saltlen;\ \textcolor{comment}{/*\ salt\ length\ */}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ uint8\_t\ *secret;\ \ \ \ \textcolor{comment}{/*\ key\ array\ */}}
+\DoxyCodeLine{00174\ \ \ \ \ uint32\_t\ secretlen;\ \textcolor{comment}{/*\ key\ length\ */}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ uint8\_t\ *ad;\ \ \ \ \textcolor{comment}{/*\ associated\ data\ array\ */}}
+\DoxyCodeLine{00177\ \ \ \ \ uint32\_t\ adlen;\ \textcolor{comment}{/*\ associated\ data\ length\ */}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ uint32\_t\ t\_cost;\ \ \textcolor{comment}{/*\ number\ of\ passes\ */}}
+\DoxyCodeLine{00180\ \ \ \ \ uint32\_t\ m\_cost;\ \ \textcolor{comment}{/*\ amount\ of\ memory\ requested\ (KB)\ */}}
+\DoxyCodeLine{00181\ \ \ \ \ uint32\_t\ lanes;\ \ \ \textcolor{comment}{/*\ number\ of\ lanes\ */}}
+\DoxyCodeLine{00182\ \ \ \ \ uint32\_t\ threads;\ \textcolor{comment}{/*\ maximum\ number\ of\ threads\ */}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ uint32\_t\ flags;\ \textcolor{comment}{/*\ array\ of\ bool\ options\ */}}
+\DoxyCodeLine{00185\ \}\ argon2\_context;}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{comment}{/*\ Argon2\ primitive\ type\ */}}
+\DoxyCodeLine{00188\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ Argon2\_type\ \{\ Argon2\_i\ =\ 1,\ Argon2\_id\ =\ 2\ \}\ argon2\_type;}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ *\ Function\ that\ performs\ memory-\/hard\ hashing\ with\ certain\ degree\ of\ parallelism}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ *\ @param\ \ context\ \ Pointer\ to\ the\ Argon2\ internal\ structure}}
+\DoxyCodeLine{00193\ \textcolor{comment}{\ *\ @return\ Error\ code\ if\ smth\ is\ wrong,\ ARGON2\_OK\ otherwise}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00195\ \textcolor{keywordtype}{int}\ argon2\_ctx(argon2\_context\ *context,\ argon2\_type\ type);}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00212\ \textcolor{keywordtype}{int}\ argon2i\_hash\_encoded(\textcolor{keyword}{const}\ uint32\_t\ t\_cost,\ \textcolor{keyword}{const}\ uint32\_t\ m\_cost,}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ parallelism,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pwd,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ pwdlen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *salt,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ saltlen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ hashlen,}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *encoded,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ encodedlen);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00233\ \textcolor{keywordtype}{int}\ argon2id\_hash\_encoded(\textcolor{keyword}{const}\ uint32\_t\ t\_cost,\ \textcolor{keyword}{const}\ uint32\_t\ m\_cost,}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ parallelism,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pwd,}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ pwdlen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *salt,}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ saltlen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ hashlen,}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *encoded,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ encodedlen);}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00253\ \textcolor{keywordtype}{int}\ argon2i\_hash\_raw(\textcolor{keyword}{const}\ uint32\_t\ t\_cost,\ \textcolor{keyword}{const}\ uint32\_t\ m\_cost,}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ parallelism,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pwd,}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ pwdlen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *salt,}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ saltlen,\ \textcolor{keywordtype}{void}\ *hash,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ hashlen);}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00272\ \textcolor{keywordtype}{int}\ argon2id\_hash\_raw(\textcolor{keyword}{const}\ uint32\_t\ t\_cost,\ \textcolor{keyword}{const}\ uint32\_t\ m\_cost,}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ parallelism,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pwd,}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ pwdlen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *salt,}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ saltlen,\ \textcolor{keywordtype}{void}\ *hash,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ hashlen);}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \textcolor{comment}{/*\ generic\ function\ underlying\ the\ above\ ones\ */}}
+\DoxyCodeLine{00278\ \textcolor{keywordtype}{int}\ argon2\_hash(\textcolor{keyword}{const}\ uint32\_t\ t\_cost,\ \textcolor{keyword}{const}\ uint32\_t\ m\_cost,}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint32\_t\ parallelism,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pwd,}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ pwdlen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *salt,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ saltlen,}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *hash,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ hashlen,\ \textcolor{keywordtype}{char}\ *encoded,}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ encodedlen,\ argon2\_type\ type);}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00291\ \textcolor{keywordtype}{int}\ argon2i\_verify(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *encoded,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pwd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ pwdlen);}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00300\ \textcolor{keywordtype}{int}\ argon2id\_verify(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *encoded,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pwd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ pwdlen);}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ \textcolor{comment}{/*\ generic\ function\ underlying\ the\ above\ ones\ */}}
+\DoxyCodeLine{00303\ \textcolor{keywordtype}{int}\ argon2\_verify(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *encoded,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pwd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ pwdlen,}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ argon2\_type\ type);}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

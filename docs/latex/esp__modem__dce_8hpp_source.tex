@@ -1,0 +1,145 @@
+\doxysection{esp\+\_\+modem\+\_\+dce.\+hpp}
+\hypertarget{esp__modem__dce_8hpp_source}{}\label{esp__modem__dce_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_dce.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_dce.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2021-\/2024\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_netif.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_dce\_module.hpp"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{namespace\ }esp\_modem\ \{}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }DCE\_Mode\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ DCE\_Mode():\ mode(modem\_mode::UNDEF)\ \{\}}
+\DoxyCodeLine{00030\ \ \ \ \ \string~DCE\_Mode()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classesp__modem_1_1_d_c_e___mode_a5bd42a2a23bfa955ae99130b9b0922a1}{set}}(\mbox{\hyperlink{classesp__modem_1_1_d_t_e}{DTE}}\ *dte,\ \mbox{\hyperlink{classesp__modem_1_1_module_if}{ModuleIf}}\ *module,\ \mbox{\hyperlink{classesp__modem_1_1_netif}{Netif}}\ \&netif,\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ m);}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ get();}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ guess(\mbox{\hyperlink{classesp__modem_1_1_d_t_e}{DTE}}\ *dte,\ \textcolor{keywordtype}{bool}\ with\_cmux\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ set\_unsafe(\mbox{\hyperlink{classesp__modem_1_1_d_t_e}{DTE}}\ *dte,\ \mbox{\hyperlink{classesp__modem_1_1_module_if}{ModuleIf}}\ *module,\ \mbox{\hyperlink{classesp__modem_1_1_netif}{Netif}}\ \&netif,\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ m);}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ guess\_unsafe(\mbox{\hyperlink{classesp__modem_1_1_d_t_e}{DTE}}\ *dte,\ \textcolor{keywordtype}{bool}\ with\_cmux);}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ mode;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ SpecificModule>}
+\DoxyCodeLine{00047\ \textcolor{keyword}{class\ }DCE\_T\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_base\_of<ModuleIf,\ SpecificModule>::value,\ \textcolor{stringliteral}{"{}DCE\ must\ be\ instantiated\ with\ Module\ class\ only"{}});}
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{explicit}\ DCE\_T(\textcolor{keyword}{const}\ std::shared\_ptr<DTE>\ \&dte,\ std::shared\_ptr<SpecificModule>\ dev,\ esp\_netif\_t\ *netif):}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ dte(dte),\ device(std::move(dev)),\ netif(dte,\ netif)}
+\DoxyCodeLine{00052\ \ \ \ \ \{\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \string~DCE\_T()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classesp__modem_1_1_d_c_e___t_a0f41a6dbf86ff8058cb3ef727cefdc5f}{set\_data}}()}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ set\_mode(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gga80fa0ae4f6b04bc4e753bd207e0f298fa58e19a67d77f6b9de4aeb7f7ca337ee2}{modem\_mode::DATA\_MODE}});}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ exit\_data()}
+\DoxyCodeLine{00065\ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ set\_mode(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gga80fa0ae4f6b04bc4e753bd207e0f298fa023ec1c4bd62841e0c7d56d231e9c739}{modem\_mode::COMMAND\_MODE}});}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_cmux()}
+\DoxyCodeLine{00070\ \ \ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ set\_mode(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gga80fa0ae4f6b04bc4e753bd207e0f298fa30495670a3b2cf47b0dea06ee25e148b}{modem\_mode::CMUX\_MODE}});}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ SpecificModule\ *get\_module()}
+\DoxyCodeLine{00075\ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ device.get();}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ command(\textcolor{keyword}{const}\ std::string\ \&command,\ got\_line\_cb\ got\_line,\ uint32\_t\ time\_ms)}
+\DoxyCodeLine{00080\ \ \ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dte-\/>command(command,\ std::move(got\_line),\ time\_ms);}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ guess\_mode(\textcolor{keywordtype}{bool}\ with\_cmux\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00085\ \ \ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mode.guess(dte.get(),\ with\_cmux);}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{bool}\ set\_mode(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ m)}
+\DoxyCodeLine{00090\ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mode.set(dte.get(),\ device.get(),\ netif,\ m);}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ get\_mode()}
+\DoxyCodeLine{00095\ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mode.get();}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{bool}\ recover()}
+\DoxyCodeLine{00100\ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dte-\/>recover();}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ESP\_MODEM\_URC\_HANDLER}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_urc(got\_line\_cb\ on\_read\_cb)}
+\DoxyCodeLine{00106\ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ dte-\/>set\_urc\_cb(on\_read\_cb);}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ \mbox{\hyperlink{classesp__modem_1_1_d_c_e___t_ab890dbdd2004253608679e6383f678c2}{pause\_netif}}(\textcolor{keywordtype}{bool}\ do\_pause,\ \textcolor{keywordtype}{bool}\ force\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{int}\ delay\ =\ 1000)}
+\DoxyCodeLine{00118\ \ \ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ result;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (do\_pause)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ netif.pause();}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ Task::Delay(delay);\ \textcolor{comment}{//\ Mandatory\ 1s\ pause\ before}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ dte-\/>set\_command\_callbacks();}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ device-\/>set\_command\_mode();}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ device-\/>resume\_data\_mode();}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fae0aa021e21dddbd6d8cecec71e9cf564}{command\_result::OK}}\ ||\ force)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ netif.resume();}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00135\ \ \ \ \ std::shared\_ptr<DTE>\ dte;}
+\DoxyCodeLine{00136\ \ \ \ \ std::shared\_ptr<SpecificModule>\ device;}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{classesp__modem_1_1_netif}{Netif}}\ netif;}
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{classesp__modem_1_1_d_c_e___mode}{DCE\_Mode}}\ mode;}
+\DoxyCodeLine{00139\ \};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classesp__modem_1_1_d_c_e}{DCE}}\ :\ \textcolor{keyword}{public}\ DCE\_T<GenericModule>\ \{}
+\DoxyCodeLine{00146\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{using\ }DCE\_T<\mbox{\hyperlink{classesp__modem_1_1_generic_module}{GenericModule}}>::DCE\_T;}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ ESP\_MODEM\_DECLARE\_DCE\_COMMAND(name,\ return\_type,\ num,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ \ \ template\ <typename\ ...Agrs>\ \(\backslash\)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ \ \ return\_type\ name(Agrs\&\&...\ args)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ device-\/>name(std::forward<Agrs>(args)...);\ \(\backslash\)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ DECLARE\_ALL\_COMMAND\_APIS(forwards\ name(...)}
+\DoxyCodeLine{00157\ \ \ \ \ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ device-\/>name(...);}
+\DoxyCodeLine{00159\ \ \ \ \ \}\ )}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \#undef\ ESP\_MODEM\_DECLARE\_DCE\_COMMAND}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \}\ \textcolor{comment}{//\ esp\_modem}}
+
+\end{DoxyCode}

@@ -1,0 +1,111 @@
+\doxysection{bearssl\+\_\+pem.\+h}
+\hypertarget{bearssl__pem_8h_source}{}\label{bearssl__pem_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_pem.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_pem.h}}
+\mbox{\hyperlink{bearssl__pem_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Thomas\ Pornin\ <pornin@bolet.org>}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ }}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ }}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ }}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ SOFTWARE.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}../ESP\_SSLClient\_FS.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(USE\_LIB\_SSL\_ENGINE)}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifndef\ BR\_BEARSSL\_PEM\_H\_\_}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ BR\_BEARSSL\_PEM\_H\_\_}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{comment}{/*\ CPU\ for\ the\ T0\ virtual\ machine.\ */}}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ uint32\_t\ *dp;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ uint32\_t\ *rp;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ip;}
+\DoxyCodeLine{00122\ \ \ \ \ \}\ cpu;}
+\DoxyCodeLine{00123\ \ \ \ \ uint32\_t\ dp\_stack[32];}
+\DoxyCodeLine{00124\ \ \ \ \ uint32\_t\ rp\_stack[32];}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{int}\ err;}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hbuf;}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ hlen;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ void\ (*dest)(\textcolor{keywordtype}{void}\ *dest\_ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{void}\ *dest\_ctx;}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ event;}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{char}\ name[128];}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ buf[255];}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ptr;}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00138\ \}\ \mbox{\hyperlink{structbr__pem__decoder__context}{br\_pem\_decoder\_context}};}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00145\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__pem_8h_afd458a4c25710cfe2eb2458760bf71bf}{br\_pem\_decoder\_init}}(\mbox{\hyperlink{structbr__pem__decoder__context}{br\_pem\_decoder\_context}}\ *ctx);}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00160\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__pem_8h_a4d370a4ca904e4bcd0b90495821949ad}{br\_pem\_decoder\_push}}(\mbox{\hyperlink{structbr__pem__decoder__context}{br\_pem\_decoder\_context}}\ *ctx,}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00178\ br\_pem\_decoder\_setdest(\mbox{\hyperlink{structbr__pem__decoder__context}{br\_pem\_decoder\_context}}\ *ctx,}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{void}\ (*dest)(\textcolor{keywordtype}{void}\ *dest\_ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ len),}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{void}\ *dest\_ctx)}
+\DoxyCodeLine{00181\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ ctx-\/>dest\ =\ dest;}
+\DoxyCodeLine{00183\ \ \ \ \ ctx-\/>dest\_ctx\ =\ dest\_ctx;}
+\DoxyCodeLine{00184\ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00197\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__pem_8h_a9e0c4331448f2a7496fbfc83484019a6}{br\_pem\_decoder\_event}}(\mbox{\hyperlink{structbr__pem__decoder__context}{br\_pem\_decoder\_context}}\ *ctx);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#define\ BR\_PEM\_BEGIN\_OBJ\ \ \ 1}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ BR\_PEM\_END\_OBJ\ \ \ \ \ 2}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ BR\_PEM\_ERROR\ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00236\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{00237\ br\_pem\_decoder\_name(\mbox{\hyperlink{structbr__pem__decoder__context}{br\_pem\_decoder\_context}}\ *ctx)}
+\DoxyCodeLine{00238\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordflow}{return}\ ctx-\/>name;}
+\DoxyCodeLine{00240\ \}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00280\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__pem_8h_a90c9194770301eef8fc6f49883271497}{br\_pem\_encode}}(\textcolor{keywordtype}{void}\ *dest,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ len,}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *banner,\ \textcolor{keywordtype}{unsigned}\ flags);}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#define\ BR\_PEM\_LINE64\ \ \ 0x0001}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ BR\_PEM\_CRLF\ \ \ \ \ 0x0002}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00294\ \}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

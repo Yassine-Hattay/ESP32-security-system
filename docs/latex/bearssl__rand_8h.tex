@@ -1,0 +1,277 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/bearssl\+\_\+rand.h File Reference}
+\hypertarget{bearssl__rand_8h}{}\label{bearssl__rand_8h}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_rand.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_rand.h}}
+{\ttfamily \#include "{}../\+ESP\+\_\+\+SSLClient\+\_\+\+FS.\+h"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}bearssl\+\_\+block.\+h"{}}\newline
+{\ttfamily \#include "{}bearssl\+\_\+hash.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structbr__prng__class__}{br\+\_\+prng\+\_\+class\+\_\+}}
+\item 
+struct \mbox{\hyperlink{structbr__hmac__drbg__context}{br\+\_\+hmac\+\_\+drbg\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em Context for HMAC\+\_\+\+DRBG. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__aesctr__drbg__context}{br\+\_\+aesctr\+\_\+drbg\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em Context for AESCTR\+\_\+\+DRBG. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structbr__prng__class__}{br\+\_\+prng\+\_\+class\+\_\+}} \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\+\_\+prng\+\_\+class}}
+\begin{DoxyCompactList}\small\item\em Class type for PRNG implementations. \end{DoxyCompactList}\item 
+typedef int(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{bearssl__rand_8h_a7f747cc74fa6d396553b5e14fcc9c772}{br\+\_\+prng\+\_\+seeder}}) (const \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\+\_\+prng\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx)
+\begin{DoxyCompactList}\small\item\em Type for a provider of entropy seeds. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bearssl__rand_8h_a58cf6b0db9299c8fc9887fb3076faaa6}{br\+\_\+hmac\+\_\+drbg\+\_\+init}} (\mbox{\hyperlink{structbr__hmac__drbg__context}{br\+\_\+hmac\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}digest\+\_\+class, const void \texorpdfstring{$\ast$}{*}seed, size\+\_\+t seed\+\_\+len)
+\begin{DoxyCompactList}\small\item\em HMAC\+\_\+\+DRBG initialisation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__rand_8h_a437648daed6aa0bb3010afdf2007058e}{br\+\_\+hmac\+\_\+drbg\+\_\+generate}} (\mbox{\hyperlink{structbr__hmac__drbg__context}{br\+\_\+hmac\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}out, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Random bytes generation with HMAC\+\_\+\+DRBG. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__rand_8h_a385ff65e18d604dc5e1a83f57be261dc}{br\+\_\+hmac\+\_\+drbg\+\_\+update}} (\mbox{\hyperlink{structbr__hmac__drbg__context}{br\+\_\+hmac\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}seed, size\+\_\+t seed\+\_\+len)
+\begin{DoxyCompactList}\small\item\em Inject additional seed bytes in HMAC\+\_\+\+DRBG. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{bearssl__rand_8h_a7f747cc74fa6d396553b5e14fcc9c772}{br\+\_\+prng\+\_\+seeder}} \mbox{\hyperlink{bearssl__rand_8h_a68e106d317ed0a5468c6f9c7b0c9469b}{br\+\_\+prng\+\_\+seeder\+\_\+system}} (const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Get a seeder backed by the operating system or hardware. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__rand_8h_ae294fd1b6cfbcaabfbe4bbb06175e568}{br\+\_\+aesctr\+\_\+drbg\+\_\+init}} (\mbox{\hyperlink{structbr__aesctr__drbg__context}{br\+\_\+aesctr\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const \mbox{\hyperlink{bearssl__block_8h_a8934ac58af503220bfb6e6cbc2cfb209}{br\+\_\+block\+\_\+ctr\+\_\+class}} \texorpdfstring{$\ast$}{*}aesctr, const void \texorpdfstring{$\ast$}{*}seed, size\+\_\+t seed\+\_\+len)
+\begin{DoxyCompactList}\small\item\em AESCTR\+\_\+\+DRBG initialisation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__rand_8h_a2d83e2f602fa1c2ebb5455e28468abc0}{br\+\_\+aesctr\+\_\+drbg\+\_\+generate}} (\mbox{\hyperlink{structbr__aesctr__drbg__context}{br\+\_\+aesctr\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}out, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Random bytes generation with AESCTR\+\_\+\+DRBG. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__rand_8h_ad3b4395f288969292ba7444560411f45}{br\+\_\+aesctr\+\_\+drbg\+\_\+update}} (\mbox{\hyperlink{structbr__aesctr__drbg__context}{br\+\_\+aesctr\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}seed, size\+\_\+t seed\+\_\+len)
+\begin{DoxyCompactList}\small\item\em Inject additional seed bytes in AESCTR\+\_\+\+DRBG. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{bearssl__rand_8h_a163b0cd0209b0731af4a0bd3dc1d7372}\label{bearssl__rand_8h_a163b0cd0209b0731af4a0bd3dc1d7372} 
+const \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\+\_\+prng\+\_\+class}} {\bfseries br\+\_\+hmac\+\_\+drbg\+\_\+vtable}
+\begin{DoxyCompactList}\small\item\em Statically allocated, constant vtable for HMAC\+\_\+\+DRBG. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__rand_8h_a59292f33df84b88841a70a23f7feb816}\label{bearssl__rand_8h_a59292f33df84b88841a70a23f7feb816} 
+const \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\+\_\+prng\+\_\+class}} {\bfseries br\+\_\+aesctr\+\_\+drbg\+\_\+vtable}
+\begin{DoxyCompactList}\small\item\em Statically allocated, constant vtable for AESCTR\+\_\+\+DRBG. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{bearssl__rand_8h_autotoc_md101}{}\doxysubsection{\texorpdfstring{Pseudo-\/\+Random Generators}{Pseudo-\/\+Random Generators}}\label{bearssl__rand_8h_autotoc_md101}
+A PRNG is a state-\/based engine that outputs pseudo-\/random bytes on demand. It is initialized with an initial seed, and additional seed bytes can be added afterwards. Bytes produced depend on the seeds and also on the exact sequence of calls (including sizes requested for each call).\hypertarget{bearssl__rand_8h_autotoc_md102}{}\doxysubsubsection{\texorpdfstring{Procedural and OOP API}{Procedural and OOP API}}\label{bearssl__rand_8h_autotoc_md102}
+For the PRNG of name "{}\`{}xxx\`{}"{}, two API are provided. The {\itshape procedural} API defined a context structure {\ttfamily br\+\_\+xxx\+\_\+context} and three functions\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily br\+\_\+xxx\+\_\+init()}
+
+Initialise the context with an initial seed.
+\item {\ttfamily br\+\_\+xxx\+\_\+generate()}
+
+Produce some pseudo-\/random bytes.
+\item {\ttfamily br\+\_\+xxx\+\_\+update()}
+
+Inject some additional seed.
+\end{DoxyItemize}
+
+The initialisation function sets the first context field ({\ttfamily vtable}) to a pointer to the vtable that supports the OOP API. The OOP API provides access to the same functions through function pointers, named {\ttfamily init()}, {\ttfamily generate()} and {\ttfamily update()}.
+
+Note that the context initialisation method may accept additional parameters, provided as a \textquotesingle{}const void \texorpdfstring{$\ast$}{*}\textquotesingle{} pointer at API level. These additional parameters depend on the implemented PRNG.\hypertarget{bearssl__rand_8h_autotoc_md103}{}\doxysubsubsection{\texorpdfstring{HMAC\+\_\+\+DRBG}{HMAC\+\_\+\+DRBG}}\label{bearssl__rand_8h_autotoc_md103}
+HMAC\+\_\+\+DRBG is defined in \href{http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf}{\texttt{ NIST SP 800-\/90A Revision 1}}. It uses HMAC repeatedly, over some configurable underlying hash function. In Bear\+SSL, it is implemented under the "{}\`{}hmac\+\_\+drbg\`{}"{} name. The "{}extra parameters"{} pointer for context initialisation should be set to a pointer to the vtable for the underlying hash function (e.\+g. pointer to {\ttfamily br\+\_\+sha256\+\_\+vtable} to use HMAC\+\_\+\+DRBG with SHA-\/256).
+
+According to the NIST standard, each request shall produce up to 2\textsuperscript{19} bits (i.\+e. 64 kB of data); moreover, the context shall be reseeded at least once every 2\textsuperscript{48} requests. This implementation does not maintain the reseed counter (the threshold is too high to be reached in practice) and does not object to producing more than 64 kB in a single request; thus, the code cannot fail, which corresponds to the fact that the API has no room for error codes. However, this implies that requesting more than 64 kB in one {\ttfamily generate()} request, or making more than 2\textsuperscript{48} requests without reseeding, is formally out of NIST specification. There is no currently known security penalty for exceeding the NIST limits, and, in any case, HMAC\+\_\+\+DRBG usage in implementing SSL/\+TLS always stays much below these thresholds.\hypertarget{bearssl__rand_8h_autotoc_md104}{}\doxysubsubsection{\texorpdfstring{AESCTR\+\_\+\+DRBG}{AESCTR\+\_\+\+DRBG}}\label{bearssl__rand_8h_autotoc_md104}
+AESCTR\+\_\+\+DRBG is a custom PRNG based on AES-\/128 in CTR mode. This is meant to be used only in situations where you are desperate for speed, and have an hardware-\/optimized AES/\+CTR implementation. Whether this will yield perceptible improvements depends on what you use the pseudorandom bytes for, and how many you want; for instance, RSA key pair generation uses a substantial amount of randomness, and using AESCTR\+\_\+\+DRBG instead of HMAC\+\_\+\+DRBG yields a 15 to 20\% increase in key generation speed on a recent x86 CPU (Intel Core i7-\/6567U at 3.\+30 GHz).
+
+Internally, it uses CTR mode with successive counter values, starting at zero (counter value expressed over 128 bits, big-\/endian convention). The counter is not allowed to reach 32768; thus, every 32768\texorpdfstring{$\ast$}{*}16 bytes at most, the {\ttfamily update()} function is run (on an empty seed, if none is provided). The {\ttfamily update()} function computes the new AES-\/128 key by applying a custom hash function to the concatenation of a state-\/dependent word (encryption of an all-\/one block with the current key) and the new seed. The custom hash function uses Hirose\textquotesingle{}s construction over AES-\/256; see the comments in {\ttfamily aesctr\+\_\+drbg.\+c} for details.
+
+This DRBG does not follow an existing standard, and thus should be considered as inadequate for production use until it has been properly analysed. 
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}\index{bearssl\_rand.h@{bearssl\_rand.h}!br\_prng\_class@{br\_prng\_class}}
+\index{br\_prng\_class@{br\_prng\_class}!bearssl\_rand.h@{bearssl\_rand.h}}
+\doxysubsubsection{\texorpdfstring{br\_prng\_class}{br\_prng\_class}}
+{\footnotesize\ttfamily \label{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba} 
+typedef struct \mbox{\hyperlink{structbr__prng__class__}{br\+\_\+prng\+\_\+class\+\_\+}} \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\+\_\+prng\+\_\+class}}}
+
+
+
+Class type for PRNG implementations. 
+
+A {\ttfamily \doxylink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\+\_\+prng\+\_\+class}} instance references the methods implementing a PRNG. Constant instances of this structure are defined for each implemented PRNG. Such instances are also called "{}vtables"{}. \Hypertarget{bearssl__rand_8h_a7f747cc74fa6d396553b5e14fcc9c772}\index{bearssl\_rand.h@{bearssl\_rand.h}!br\_prng\_seeder@{br\_prng\_seeder}}
+\index{br\_prng\_seeder@{br\_prng\_seeder}!bearssl\_rand.h@{bearssl\_rand.h}}
+\doxysubsubsection{\texorpdfstring{br\_prng\_seeder}{br\_prng\_seeder}}
+{\footnotesize\ttfamily \label{bearssl__rand_8h_a7f747cc74fa6d396553b5e14fcc9c772} 
+typedef int(\texorpdfstring{$\ast$}{*} br\+\_\+prng\+\_\+seeder) (const \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\+\_\+prng\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx)}
+
+
+
+Type for a provider of entropy seeds. 
+
+A "{}seeder"{} is a function that is able to obtain random values from some source and inject them as entropy seed in a PRNG. A seeder shall guarantee that the total entropy of the injected seed is large enough to seed a PRNG for purposes of cryptographic key generation (i.\+e. at least 128 bits).
+
+A seeder may report a failure to obtain adequate entropy. Seeders shall endeavour to fix themselves transient errors by trying again; thus, callers may consider reported errors as permanent.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & PRNG context to seed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 on success, 0 on error. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{bearssl__rand_8h_a2d83e2f602fa1c2ebb5455e28468abc0}\index{bearssl\_rand.h@{bearssl\_rand.h}!br\_aesctr\_drbg\_generate@{br\_aesctr\_drbg\_generate}}
+\index{br\_aesctr\_drbg\_generate@{br\_aesctr\_drbg\_generate}!bearssl\_rand.h@{bearssl\_rand.h}}
+\doxysubsubsection{\texorpdfstring{br\_aesctr\_drbg\_generate()}{br\_aesctr\_drbg\_generate()}}
+{\footnotesize\ttfamily \label{bearssl__rand_8h_a2d83e2f602fa1c2ebb5455e28468abc0} 
+void br\+\_\+aesctr\+\_\+drbg\+\_\+generate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__aesctr__drbg__context}{br\+\_\+aesctr\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{out}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Random bytes generation with AESCTR\+\_\+\+DRBG. 
+
+This method produces {\ttfamily len} pseudorandom bytes, in the {\ttfamily out} buffer. The context is updated accordingly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & AESCTR\+\_\+\+DRBG context. \\
+\hline
+{\em out} & output buffer. \\
+\hline
+{\em len} & number of pseudorandom bytes to produce. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__rand_8h_ae294fd1b6cfbcaabfbe4bbb06175e568}\index{bearssl\_rand.h@{bearssl\_rand.h}!br\_aesctr\_drbg\_init@{br\_aesctr\_drbg\_init}}
+\index{br\_aesctr\_drbg\_init@{br\_aesctr\_drbg\_init}!bearssl\_rand.h@{bearssl\_rand.h}}
+\doxysubsubsection{\texorpdfstring{br\_aesctr\_drbg\_init()}{br\_aesctr\_drbg\_init()}}
+{\footnotesize\ttfamily \label{bearssl__rand_8h_ae294fd1b6cfbcaabfbe4bbb06175e568} 
+void br\+\_\+aesctr\+\_\+drbg\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__aesctr__drbg__context}{br\+\_\+aesctr\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const \mbox{\hyperlink{bearssl__block_8h_a8934ac58af503220bfb6e6cbc2cfb209}{br\+\_\+block\+\_\+ctr\+\_\+class}} \texorpdfstring{$\ast$}{*}}]{aesctr}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{seed}{, }\item[{size\+\_\+t}]{seed\+\_\+len}{}\end{DoxyParamCaption})}
+
+
+
+AESCTR\+\_\+\+DRBG initialisation. 
+
+The context to initialise is provided as a pointer to its first field (the vtable pointer); this function sets that first field to a pointer to the vtable.
+
+The internal AES key is first set to the all-\/zero key; then, the {\ttfamily \doxylink{bearssl__rand_8h_ad3b4395f288969292ba7444560411f45}{br\+\_\+aesctr\+\_\+drbg\+\_\+update()}} function is called with the provided {\ttfamily seed}. The call is performed even if the seed length ({\ttfamily seed\+\_\+len}) is zero.
+
+The {\ttfamily aesctr} parameter defines the underlying AES/\+CTR implementation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & AESCTR\+\_\+\+DRBG context to initialise. \\
+\hline
+{\em aesctr} & vtable for the AES/\+CTR implementation. \\
+\hline
+{\em seed} & initial seed (can be {\ttfamily NULL} if {\ttfamily seed\+\_\+len} is zero). \\
+\hline
+{\em seed\+\_\+len} & initial seed length (in bytes). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__rand_8h_ad3b4395f288969292ba7444560411f45}\index{bearssl\_rand.h@{bearssl\_rand.h}!br\_aesctr\_drbg\_update@{br\_aesctr\_drbg\_update}}
+\index{br\_aesctr\_drbg\_update@{br\_aesctr\_drbg\_update}!bearssl\_rand.h@{bearssl\_rand.h}}
+\doxysubsubsection{\texorpdfstring{br\_aesctr\_drbg\_update()}{br\_aesctr\_drbg\_update()}}
+{\footnotesize\ttfamily \label{bearssl__rand_8h_ad3b4395f288969292ba7444560411f45} 
+void br\+\_\+aesctr\+\_\+drbg\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__aesctr__drbg__context}{br\+\_\+aesctr\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{seed}{, }\item[{size\+\_\+t}]{seed\+\_\+len}{}\end{DoxyParamCaption})}
+
+
+
+Inject additional seed bytes in AESCTR\+\_\+\+DRBG. 
+
+The provided seed bytes are added into the AESCTR\+\_\+\+DRBG internal entropy pool. The process does not {\itshape replace} existing entropy, thus pushing non-\/random bytes (i.\+e. bytes which are known to the attackers) does not degrade the overall quality of generated bytes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & AESCTR\+\_\+\+DRBG context. \\
+\hline
+{\em seed} & additional seed. \\
+\hline
+{\em seed\+\_\+len} & additional seed length (in bytes). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__rand_8h_a437648daed6aa0bb3010afdf2007058e}\index{bearssl\_rand.h@{bearssl\_rand.h}!br\_hmac\_drbg\_generate@{br\_hmac\_drbg\_generate}}
+\index{br\_hmac\_drbg\_generate@{br\_hmac\_drbg\_generate}!bearssl\_rand.h@{bearssl\_rand.h}}
+\doxysubsubsection{\texorpdfstring{br\_hmac\_drbg\_generate()}{br\_hmac\_drbg\_generate()}}
+{\footnotesize\ttfamily \label{bearssl__rand_8h_a437648daed6aa0bb3010afdf2007058e} 
+void br\+\_\+hmac\+\_\+drbg\+\_\+generate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__hmac__drbg__context}{br\+\_\+hmac\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{out}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Random bytes generation with HMAC\+\_\+\+DRBG. 
+
+This method produces {\ttfamily len} pseudorandom bytes, in the {\ttfamily out} buffer. The context is updated accordingly. Formally, requesting more than 65536 bytes in one request falls out of specification limits (but it won\textquotesingle{}t fail).
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & HMAC\+\_\+\+DRBG context. \\
+\hline
+{\em out} & output buffer. \\
+\hline
+{\em len} & number of pseudorandom bytes to produce. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__rand_8h_a58cf6b0db9299c8fc9887fb3076faaa6}\index{bearssl\_rand.h@{bearssl\_rand.h}!br\_hmac\_drbg\_init@{br\_hmac\_drbg\_init}}
+\index{br\_hmac\_drbg\_init@{br\_hmac\_drbg\_init}!bearssl\_rand.h@{bearssl\_rand.h}}
+\doxysubsubsection{\texorpdfstring{br\_hmac\_drbg\_init()}{br\_hmac\_drbg\_init()}}
+{\footnotesize\ttfamily \label{bearssl__rand_8h_a58cf6b0db9299c8fc9887fb3076faaa6} 
+void br\+\_\+hmac\+\_\+drbg\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__hmac__drbg__context}{br\+\_\+hmac\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}}]{digest\+\_\+class}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{seed}{, }\item[{size\+\_\+t}]{seed\+\_\+len}{}\end{DoxyParamCaption})}
+
+
+
+HMAC\+\_\+\+DRBG initialisation. 
+
+The context to initialise is provided as a pointer to its first field (the vtable pointer); this function sets that first field to a pointer to the vtable.
+
+The {\ttfamily seed} value is what is called, in NIST terminology, the concatenation of the "{}seed"{}, "{}nonce"{} and "{}personalization string"{}, in that order.
+
+The {\ttfamily digest\+\_\+class} parameter defines the underlying hash function. Formally, the NIST standard specifies that the hash function shall be only SHA-\/1 or one of the SHA-\/2 functions. This implementation also works with any other implemented hash function (such as MD5), but this is non-\/standard and therefore not recommended.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & HMAC\+\_\+\+DRBG context to initialise. \\
+\hline
+{\em digest\+\_\+class} & vtable for the underlying hash function. \\
+\hline
+{\em seed} & initial seed. \\
+\hline
+{\em seed\+\_\+len} & initial seed length (in bytes). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__rand_8h_a385ff65e18d604dc5e1a83f57be261dc}\index{bearssl\_rand.h@{bearssl\_rand.h}!br\_hmac\_drbg\_update@{br\_hmac\_drbg\_update}}
+\index{br\_hmac\_drbg\_update@{br\_hmac\_drbg\_update}!bearssl\_rand.h@{bearssl\_rand.h}}
+\doxysubsubsection{\texorpdfstring{br\_hmac\_drbg\_update()}{br\_hmac\_drbg\_update()}}
+{\footnotesize\ttfamily \label{bearssl__rand_8h_a385ff65e18d604dc5e1a83f57be261dc} 
+void br\+\_\+hmac\+\_\+drbg\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__hmac__drbg__context}{br\+\_\+hmac\+\_\+drbg\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{seed}{, }\item[{size\+\_\+t}]{seed\+\_\+len}{}\end{DoxyParamCaption})}
+
+
+
+Inject additional seed bytes in HMAC\+\_\+\+DRBG. 
+
+The provided seed bytes are added into the HMAC\+\_\+\+DRBG internal entropy pool. The process does not {\itshape replace} existing entropy, thus pushing non-\/random bytes (i.\+e. bytes which are known to the attackers) does not degrade the overall quality of generated bytes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & HMAC\+\_\+\+DRBG context. \\
+\hline
+{\em seed} & additional seed. \\
+\hline
+{\em seed\+\_\+len} & additional seed length (in bytes). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__rand_8h_a68e106d317ed0a5468c6f9c7b0c9469b}\index{bearssl\_rand.h@{bearssl\_rand.h}!br\_prng\_seeder\_system@{br\_prng\_seeder\_system}}
+\index{br\_prng\_seeder\_system@{br\_prng\_seeder\_system}!bearssl\_rand.h@{bearssl\_rand.h}}
+\doxysubsubsection{\texorpdfstring{br\_prng\_seeder\_system()}{br\_prng\_seeder\_system()}}
+{\footnotesize\ttfamily \label{bearssl__rand_8h_a68e106d317ed0a5468c6f9c7b0c9469b} 
+\mbox{\hyperlink{bearssl__rand_8h_a7f747cc74fa6d396553b5e14fcc9c772}{br\+\_\+prng\+\_\+seeder}} br\+\_\+prng\+\_\+seeder\+\_\+system (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Get a seeder backed by the operating system or hardware. 
+
+Get a seeder that feeds on RNG facilities provided by the current operating system or hardware. If no such facility is known, then 0 is returned.
+
+If {\ttfamily name} is not {\ttfamily NULL}, then {\ttfamily \texorpdfstring{$\ast$}{*}name} is set to a symbolic string that identifies the seeder implementation. If no seeder is returned and {\ttfamily name} is not {\ttfamily NULL}, then {\ttfamily \texorpdfstring{$\ast$}{*}name} is set to a pointer to the constant string {\ttfamily "{}none"{}}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & receiver for seeder name, or {\ttfamily NULL}. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the system seeder, if available, or 0. 
+\end{DoxyReturn}

@@ -1,0 +1,132 @@
+\doxysection{FS.\+h}
+\hypertarget{_f_s_8h_source}{}\label{_f_s_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/FS/src/FS.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/FS/src/FS.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ FS.h\ -\/\ file\ system\ wrapper}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ Copyright\ (c)\ 2015\ Ivan\ Grokhotkov.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ This\ file\ is\ part\ of\ the\ esp8266\ core\ for\ Arduino\ environment.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifndef\ FS\_H}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ FS\_H}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{namespace\ }fs\ \{}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ FILE\_READ\ \ \ "{}r"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ FILE\_WRITE\ \ "{}w"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ FILE\_APPEND\ "{}a"{}}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfs_1_1_file}{File}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfs_1_1_file_impl}{FileImpl}};}
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ std::shared\_ptr<FileImpl>\ FileImplPtr;}
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfs_1_1_f_s_impl}{FSImpl}};}
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ std::shared\_ptr<FSImpl>\ FSImplPtr;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{enum}\ SeekMode\ \{}
+\DoxyCodeLine{00041\ \ \ SeekSet\ =\ 0,}
+\DoxyCodeLine{00042\ \ \ SeekCur\ =\ 1,}
+\DoxyCodeLine{00043\ \ \ SeekEnd\ =\ 2}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{class\ }File\ :\ \textcolor{keyword}{public}\ Stream\ \{}
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00048\ \ \ File(FileImplPtr\ p\ =\ FileImplPtr())\ :\ \_p(p)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \_timeout\ =\ 0;}
+\DoxyCodeLine{00050\ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{int}\ available()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{int}\ read()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{int}\ peek()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{void}\ flush()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{size\_t}\ read(uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{size\_t}\ readBytes(\textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ length)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{return}\ read((uint8\_t\ *)buffer,\ length);}
+\DoxyCodeLine{00061\ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{bool}\ seek(uint32\_t\ pos,\ SeekMode\ mode);}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{bool}\ seek(uint32\_t\ pos)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{return}\ seek(pos,\ SeekSet);}
+\DoxyCodeLine{00066\ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{size\_t}\ position()\ \textcolor{keyword}{const};\ \ \textcolor{comment}{//\ returns\ (size\_t)-\/1\ on\ error}}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{bool}\ setBufferSize(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{void}\ close();}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{operator}\ bool()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00072\ \ \ time\_t\ getLastWrite();}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{boolean}\ isDirectory(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{boolean}\ seekDir(\textcolor{keywordtype}{long}\ position);}
+\DoxyCodeLine{00078\ \ \ File\ openNextFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mode\ =\ FILE\_READ);}
+\DoxyCodeLine{00079\ \ \ String\ getNextFileName(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00080\ \ \ String\ getNextFileName(\textcolor{keywordtype}{boolean}\ *isDir);}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{void}\ rewindDirectory(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00084\ \ \ FileImplPtr\ \_p;}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{class\ }FS\ \{}
+\DoxyCodeLine{00088\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00089\ \ \ FS(FSImplPtr\ impl)\ :\ \_impl(impl)\ \{\}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \mbox{\hyperlink{classfs_1_1_file}{File}}\ open(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mode\ =\ FILE\_READ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ create\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00092\ \ \ \mbox{\hyperlink{classfs_1_1_file}{File}}\ open(\textcolor{keyword}{const}\ String\ \&path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mode\ =\ FILE\_READ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ create\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ exists(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{bool}\ exists(\textcolor{keyword}{const}\ String\ \&path);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{bool}\ remove(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{bool}\ remove(\textcolor{keyword}{const}\ String\ \&path);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{bool}\ rename(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pathFrom,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pathTo);}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{bool}\ rename(\textcolor{keyword}{const}\ String\ \&pathFrom,\ \textcolor{keyword}{const}\ String\ \&pathTo);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{bool}\ mkdir(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{bool}\ mkdir(\textcolor{keyword}{const}\ String\ \&path);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{bool}\ rmdir(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{bool}\ rmdir(\textcolor{keyword}{const}\ String\ \&path);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mountpoint();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00112\ \ \ FSImplPtr\ \_impl;}
+\DoxyCodeLine{00113\ \};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \}\ \ \textcolor{comment}{//\ namespace\ fs}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#ifndef\ FS\_NO\_GLOBALS}}
+\DoxyCodeLine{00118\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classfs_1_1_file}{fs::File}};}
+\DoxyCodeLine{00119\ \textcolor{keyword}{using\ }\mbox{\hyperlink{classfs_1_1_f_s}{fs::FS}};}
+\DoxyCodeLine{00120\ \textcolor{keyword}{using\ }fs::SeekCur;}
+\DoxyCodeLine{00121\ \textcolor{keyword}{using\ }fs::SeekEnd;}
+\DoxyCodeLine{00122\ \textcolor{keyword}{using\ }fs::SeekMode;}
+\DoxyCodeLine{00123\ \textcolor{keyword}{using\ }fs::SeekSet;}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//FS\_NO\_GLOBALS}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//FS\_H}}
+
+\end{DoxyCode}

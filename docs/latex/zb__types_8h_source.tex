@@ -1,0 +1,1223 @@
+\doxysection{zb\+\_\+types.\+h}
+\hypertarget{zb__types_8h_source}{}\label{zb__types_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_types.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_types.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ general-\/purpose\ typedefs}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_TYPES\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_TYPES\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifndef\ ZB\_CONFIG\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#error\ zb\_config.h\ must\ be\ included\ before\ zb\_types.h.\ Dont\ do\ it\ directly.\ Include\ zb\_common.h\ or\ zboss\_api.h\ instead.}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *\ C\ standard\ being\ used\ during\ compilation.}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *\ The\ preferred\ standard\ is\ C99\ and\ it\ should\ be\ used\ whenever\ possible.}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *\ However,\ C90\ compatibility\ should\ be\ maintained.\ Macros\ ZB\_STDC\_*\ can\ be}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ used\ for\ conditional\ compilation\ based\ on\ C\ standard.\ Note:\ \_\_STDC\_\_\ and}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ \_\_STDC\_VERSION\_\_\ are\ expected\ to\ be\ supported\ by\ all\ compilers\ in\ use.}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#if\ defined\ \_\_STDC\_\_}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#if\ defined\ \_\_STDC\_VERSION\_\_\ \ \&\&\ (\_\_STDC\_VERSION\_\_\ >=\ 199901L)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ZB\_STDC\_99}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ZB\_STDC\_90}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_STDC\_VERSION\_\_\ \ \&\&\ (\_\_STDC\_VERSION\_\_\ >=\ 199901L)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#warning\ \_\_STDC\_\_\ is\ not\ defined,\ assume\ C90\ standard}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ZB\_STDC\_90}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_STDC\_\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifdef\ \_\_IAR\_SYSTEMS\_ICC\_\_}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#ifndef\ ZB\_IAR}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ ZB\_IAR}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#if\ ((defined(ZB\_8BIT\_WORD)\ \&\&\ defined(ZB\_16BIT\_WORD))\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ \ ||\ (defined(ZB\_8BIT\_WORD)\ \&\&\ defined(ZB\_32BIT\_WORD))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ \ ||\ (defined(ZB\_16BIT\_WORD)\ \&\&\ defined(ZB\_32BIT\_WORD)))}}
+\DoxyCodeLine{00080\ \mbox{\hyperlink{group___z_b___a_s_s_e_r_t___s_t_a_t_i_c_ga45f8bfa5f2656a4e1c96257eb787ef3d}{ZB\_ASSERT\_COMPILE\_DECL}}(0);}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#if\ !defined(ZB\_8BIT\_WORD)\ \&\&\ !defined(ZB\_16BIT\_WORD)\ \&\&\ !defined(ZB\_32BIT\_WORD)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ ZB\_32BIT\_WORD}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{/*\ Really\ need\ xdata\ declaration\ here,\ not\ in\ osif:\ don't\ want\ to\ include\ osif.h\ here\ */}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#ifdef\ ZB\_IAR}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ ZB\_XDATA}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ ZB\_CODE}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ ZB\_IAR\_CODE}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#elif\ defined\ \_\_LINT\_\_}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ ZB\_XDATA}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ ZB\_CODE}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ZB\_IAR\_CODE}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#elif\ defined\ KEIL}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ ZB\_XDATA\ xdata}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ ZB\_CODE\ \ code}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ ZB\_IAR\_CODE\ code}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ ZB\_XDATA}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ ZB\_CODE}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ ZB\_IAR\_CODE}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{comment}{/*\ register\ modifier\ for\ variables.\ Can\ be\ defined\ to\ "{}register"{}.\ Will\ it\ help\ to\ the\ compiler?\ */}}
+\DoxyCodeLine{00107\ \textcolor{comment}{/*\ \#define\ ZB\_REGISTER\ */}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ ZB\_REGISTER\ register}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ ZB\_VOID\_ARGLIST\ void}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{/*\ Not\ sure\ all\ C\ compilers\ support\ 'const'.\ Let's\ add\ some\ conditional}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *\ compilation\ when\ we\ will\ find\ such\ compiler\ \ */}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ ZB\_CONST\ const}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{comment}{/*\ inline\ directive\ for\ functions\ placed\ into\ .h\ files\ in\ C\ */}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#if\ defined\ \_\_GNUC\_\_\ ||\ defined\ \_\_SUNPRO\_C\ ||\ defined\ \ \_\_cplusplus}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ ZB\_INLINE\ inline}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ ZB\_INLINE\_IN\_C}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ ZB\_BITFIELD\_CAST(x)\ (x)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#elif\ defined\ \_MSC\_VER}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ ZB\_INLINE\ \_\_inline}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ ZB\_BITFIELD\_CAST(x)\ (zb\_uint\_t)(x)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00125\ \textcolor{comment}{/*\ which\ other\ C\ compiler\ knows\ about\ inline?\ */}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ ZB\_INLINE}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ ZB\_BITFIELD\_CAST(x)\ (x)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ ZB\_CPP\_STR2(x)\ \#x}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ ZB\_CPP\_STR(x)\ ZB\_CPP\_STR2(x)}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__base__types_ga8dd568f22bec125d49dc2f8152a2fb8a}{zb\_param\_e}}}
+\DoxyCodeLine{00140\ \{}
+\DoxyCodeLine{00141\ \ \ \ ZB\_UNUSED\_PARAM\ =\ 0}
+\DoxyCodeLine{00142\ \};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#if\ defined\ WIN32\ \&\&\ !defined\ ZB\_WINDOWS}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ ZB\_WINDOWS}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#if\ defined\ ZB\_WINDOWS\ \&\&\ !defined\ ZB\_LITTLE\_ENDIAN}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ ZB\_LITTLE\_ENDIAN}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#if\ !defined\ ZB\_USE\_STDINT\ \&\&\ defined\ UNIX\ \&\&\ !defined\ ZB\_WINDOWS}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ ZB\_USE\_STDINT}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#ifndef\ ZB\_USE\_STDINT}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{comment}{/*\ base\ types\ */}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gad175efae1e727b05e00f9b69638d1bcd}{zb\_uchar\_t}};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}};}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}};}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{short}\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gaa9116cd889644bec092c543d680b5bf2}{zb\_int16\_t}};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#if\ defined\ ZB\_16BIT\_WORD}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}};}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}};}
+\DoxyCodeLine{00178\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ zb\_lbitfield\_t;}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gaa9116cd889644bec092c543d680b5bf2}{zb\_int16\_t}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab79a42e55c55567707f3f0db0f7ffb2b}{zb\_sbitfield\_t}};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{comment}{/*\ FIXME:\ 16\ or\ 32?\ */}}
+\DoxyCodeLine{00183\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gabd6b27c7980b71afaa5a85b2d74feefb}{zb\_size\_t}};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \ \ \ zb\_int64\_t;}
+\DoxyCodeLine{00186\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ zb\_uint64\_t;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ defined\ ZB\_16BIT\_WORD\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00189\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ \ \ project-\/local\ 4-\/byte\ unsigned\ int\ type}}
+\DoxyCodeLine{00191\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00192\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}};}
+\DoxyCodeLine{00193\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\ \ \ project-\/local\ 4-\/byte\ signed\ int\ type}}
+\DoxyCodeLine{00195\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00196\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}};}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ \ \ type\ to\ be\ used\ for\ unsigned\ bit\ fields\ inside\ structure}}
+\DoxyCodeLine{00201\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#if\ defined\ ZB\_TI\_ARM\_CODE\_COMPOSER}}
+\DoxyCodeLine{00203\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}};}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#elif\ defined\ ZB\_IAR}}
+\DoxyCodeLine{00205\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}};}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00207\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}};}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ zb\_lbitfield\_t;}
+\DoxyCodeLine{00211\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ \ \ type\ to\ be\ used\ for\ signed\ bit\ fields\ inside\ structure}}
+\DoxyCodeLine{00213\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00214\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab79a42e55c55567707f3f0db0f7ffb2b}{zb\_sbitfield\_t}};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gabd6b27c7980b71afaa5a85b2d74feefb}{zb\_size\_t}};}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \ \ \ zb\_int64\_t;}
+\DoxyCodeLine{00219\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ zb\_uint64\_t;}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined\ ZB\_16BIT\_WORD\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{/*\ !\ defined\ \ UNIX\ ||\ ZB\_WINDOWS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00225\ \textcolor{comment}{/*\ Unix\ */}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#include\ "{}stddef.h"{}}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{keyword}{typedef}\ uint8\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}};}
+\DoxyCodeLine{00234\ \textcolor{keyword}{typedef}\ int8\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}};}
+\DoxyCodeLine{00235\ \textcolor{keyword}{typedef}\ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}};}
+\DoxyCodeLine{00236\ \textcolor{keyword}{typedef}\ int16\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gaa9116cd889644bec092c543d680b5bf2}{zb\_int16\_t}};}
+\DoxyCodeLine{00237\ \textcolor{keyword}{typedef}\ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}};}
+\DoxyCodeLine{00238\ \textcolor{keyword}{typedef}\ int32\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}};}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \textcolor{keyword}{typedef}\ int64\_t\ \ \ \ \ \ \ \ \ \ \ \ zb\_int64\_t;}
+\DoxyCodeLine{00241\ \textcolor{keyword}{typedef}\ uint64\_t\ \ \ \ \ \ \ \ \ \ \ zb\_uint64\_t;}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}};}
+\DoxyCodeLine{00244\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gad175efae1e727b05e00f9b69638d1bcd}{zb\_uchar\_t}};}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}};}
+\DoxyCodeLine{00247\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \ \ \ \ \ \ \ \ \ \ zb\_lbitfield\_t;}
+\DoxyCodeLine{00248\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{signed}\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab79a42e55c55567707f3f0db0f7ffb2b}{zb\_sbitfield\_t}};}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{comment}{/*\ Integer\ with\ size\ equal\ to\ the\ pointer\ size.\ */}}
+\DoxyCodeLine{00251\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gabd6b27c7980b71afaa5a85b2d74feefb}{zb\_size\_t}};}
+\DoxyCodeLine{00252\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gabd6b27c7980b71afaa5a85b2d74feefb}{zb\_size\_t}}\ \ \ \ \ \ \ \ \ \ zb\_ptrsize\_uint\_t;}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ !\ defined\ UNIX\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ \ Our\ short\ and\ int\ definition.}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ \ Short\ size\ ==\ 8051\ register\ size,\ int\ size\ is\ 2\ bytes.}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#ifdef\ ZB\_8BIT\_WORD}}
+\DoxyCodeLine{00262\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00263\ \textcolor{comment}{\ \ \ Short\ int\ (can\ fit\ into\ single\ CPU\ register)}}
+\DoxyCodeLine{00264\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00265\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga0298efc478ce02314f683b50b86542ed}{zb\_short\_t}};}
+\DoxyCodeLine{00266\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ \ \ \ short\ unsigned\ int\ (can\ fit\ into\ single\ CPU\ register)}}
+\DoxyCodeLine{00268\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00269\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}};}
+\DoxyCodeLine{00270\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ \ \ \ short\ unsigned\ int\ (can\ fit\ into\ single\ CPU\ register)\ used\ as\ a\ loop\ index}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00273\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ \ \ \ \ \ \ \ zb\_uindex\_t;}
+\DoxyCodeLine{00274\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00275\ \textcolor{comment}{\ \ \ \ int\ (at\ least\ 2\ bytes)}}
+\DoxyCodeLine{00276\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00277\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gaa9116cd889644bec092c543d680b5bf2}{zb\_int16\_t}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9efdcc6c525d3c1348c205a5200429aa}{zb\_int\_t}};}
+\DoxyCodeLine{00278\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00279\ \textcolor{comment}{\ \ \ \ unsigned\ int\ (at\ least\ 2\ bytes)}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00281\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}};}
+\DoxyCodeLine{00282\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00283\ \textcolor{comment}{\ \ \ \ long\ int\ (at\ least\ 4\ bytes)}}
+\DoxyCodeLine{00284\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00285\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab088fd505103f89a8b4cd017d2602850}{zb\_long\_t}};}
+\DoxyCodeLine{00286\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ \ \ \ unsigned\ long\ int\ (at\ least\ 4\ bytes)}}
+\DoxyCodeLine{00288\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00289\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga49e4531c845a5e6e0873b24600e8295d}{zb\_ulong\_t}};}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#elif\ defined\ ZB\_16BIT\_WORD}}
+\DoxyCodeLine{00292\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00293\ \textcolor{comment}{\ \ \ \ short\ int\ (can\ fit\ into\ single\ CPU\ register)}}
+\DoxyCodeLine{00294\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00295\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga0298efc478ce02314f683b50b86542ed}{zb\_short\_t}};}
+\DoxyCodeLine{00296\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00297\ \textcolor{comment}{\ \ \ \ unsigned\ short\ int\ (can\ fit\ into\ single\ CPU\ register)}}
+\DoxyCodeLine{00298\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00299\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}};}
+\DoxyCodeLine{00300\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00301\ \textcolor{comment}{\ \ \ \ short\ unsigned\ int\ (can\ fit\ into\ single\ CPU\ register)\ used\ as\ a\ loop\ index}}
+\DoxyCodeLine{00302\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00303\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ \ \ \ \ \ \ \ \ zb\_uindex\_t;}
+\DoxyCodeLine{00304\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00305\ \textcolor{comment}{\ \ \ \ int\ (at\ least\ 2\ bytes)}}
+\DoxyCodeLine{00306\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00307\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9efdcc6c525d3c1348c205a5200429aa}{zb\_int\_t}};}
+\DoxyCodeLine{00308\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00309\ \textcolor{comment}{\ \ \ \ unsigned\ int\ (at\ least\ 2\ bytes)}}
+\DoxyCodeLine{00310\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00311\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}};}
+\DoxyCodeLine{00312\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00313\ \textcolor{comment}{\ \ \ \ long\ int\ (at\ least\ 4\ bytes)}}
+\DoxyCodeLine{00314\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00315\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab088fd505103f89a8b4cd017d2602850}{zb\_long\_t}};}
+\DoxyCodeLine{00316\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00317\ \textcolor{comment}{\ \ \ \ unsigned\ long\ int\ (at\ least\ 4\ bytes)}}
+\DoxyCodeLine{00318\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00319\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga49e4531c845a5e6e0873b24600e8295d}{zb\_ulong\_t}};}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{/*\ 32-\/bit\ word\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00322\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00323\ \textcolor{comment}{\ \ \ \ short\ int\ (can\ fit\ into\ single\ CPU\ register)}}
+\DoxyCodeLine{00324\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00325\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga0298efc478ce02314f683b50b86542ed}{zb\_short\_t}};}
+\DoxyCodeLine{00326\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00327\ \textcolor{comment}{\ \ \ \ unsigned\ short\ int\ (can\ fit\ into\ single\ CPU\ register)}}
+\DoxyCodeLine{00328\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00329\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}};}
+\DoxyCodeLine{00330\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00331\ \textcolor{comment}{\ \ \ \ short\ unsigned\ int\ (can\ fit\ into\ single\ CPU\ register)\ used\ as\ a\ loop\ index}}
+\DoxyCodeLine{00332\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00333\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ \ \ \ \ \ \ \ \ zb\_uindex\_t;}
+\DoxyCodeLine{00334\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00335\ \textcolor{comment}{\ \ \ \ int\ (at\ least\ 2\ bytes)}}
+\DoxyCodeLine{00336\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00337\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9efdcc6c525d3c1348c205a5200429aa}{zb\_int\_t}};}
+\DoxyCodeLine{00338\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00339\ \textcolor{comment}{\ \ \ \ unsigned\ int\ (at\ least\ 2\ bytes)}}
+\DoxyCodeLine{00340\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00341\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}};}
+\DoxyCodeLine{00342\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00343\ \textcolor{comment}{\ \ \ \ long\ int\ (at\ least\ 4\ bytes)}}
+\DoxyCodeLine{00344\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00345\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga9efdcc6c525d3c1348c205a5200429aa}{zb\_int\_t}}\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab088fd505103f89a8b4cd017d2602850}{zb\_long\_t}};}
+\DoxyCodeLine{00346\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00347\ \textcolor{comment}{\ \ \ \ unsigned\ long\ int\ (at\ least\ 4\ bytes)}}
+\DoxyCodeLine{00348\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00349\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga49e4531c845a5e6e0873b24600e8295d}{zb\_ulong\_t}};}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#ifdef\ ZB\_STDC\_90}}
+\DoxyCodeLine{00362\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}};}
+\DoxyCodeLine{00363\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ \mbox{\hyperlink{group__base__types_ga2fab40777044693e85ebf6823240ed41}{zb\_bitbool\_t}};}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#define\ ZB\_FALSE\ 0U\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#define\ ZB\_TRUE\ \ 1U\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#define\ ZB\_FALSE\_U\ ZB\_FALSE}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#define\ ZB\_TRUE\_U\ ZB\_TRUE}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#define\ ZB\_B2U(b)\ (((b)\ !=\ ZB\_FALSE)\ ?\ (1U)\ :\ (0U))}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#define\ ZB\_U2B(u)\ (((u)\ !=\ 0U)\ ?\ (ZB\_TRUE)\ :\ (ZB\_FALSE))}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ ZB\_STDC\_90\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}};}
+\DoxyCodeLine{00378\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{group__base__types_ga2fab40777044693e85ebf6823240ed41}{zb\_bitbool\_t}};}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#define\ ZB\_FALSE\ false\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\#define\ ZB\_TRUE\ \ true\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\#define\ ZB\_FALSE\_U\ 0U}}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#define\ ZB\_TRUE\_U\ 1U}}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ ZB\_B2U(b)\ ((b)\ ?\ (1U)\ :\ (0U))}}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\#define\ ZB\_U2B(u)\ ((u)\ !=\ 0U)}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_STDC\_90\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#define\ ZB\_INT8\_MIN\ \ \ \ \ \ \ (-\/127\ -\/\ 1)}}
+\DoxyCodeLine{00392\ \textcolor{preprocessor}{\#define\ ZB\_INT8\_MAX\ \ \ \ \ \ \ 127}}
+\DoxyCodeLine{00393\ \textcolor{preprocessor}{\#define\ ZB\_UINT8\_MIN\ \ \ \ \ \ 0U}}
+\DoxyCodeLine{00394\ \textcolor{preprocessor}{\#define\ ZB\_UINT8\_MAX\ \ \ \ \ \ 255U}}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#define\ ZB\_INT16\_MIN\ \ \ \ \ \ \ (-\/32767\ -\/\ 1)}}
+\DoxyCodeLine{00397\ \textcolor{preprocessor}{\#define\ ZB\_INT16\_MAX\ \ \ \ \ \ \ 32767}}
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#define\ ZB\_UINT16\_MIN\ \ \ \ \ \ 0U}}
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\#define\ ZB\_UINT16\_MAX\ \ \ \ \ \ 65535U}}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00401\ \textcolor{comment}{/*\ 2147483648\ is\ unsigned\ indeed\ -\/\ can't\ change\ its\ sign.\ prevent\ warning\ from}}
+\DoxyCodeLine{00402\ \textcolor{comment}{\ *\ msvc\ 8\ */}}
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#define\ ZB\_INT32\_MIN\ \ \ \ \ \ \ (-\/2147483647L\ -\/\ 1)}}
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#define\ ZB\_INT32\_MAX\ \ \ \ \ \ \ 2147483647L}}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#define\ ZB\_UINT32\_MIN\ \ \ \ \ \ 0UL}}
+\DoxyCodeLine{00406\ \textcolor{preprocessor}{\#define\ ZB\_UINT32\_MAX\ \ \ \ \ \ 4294967295UL}}
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\#define\ ZB\_UINT64\_MIN\ \ \ \ \ \ 0UL}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#define\ ZB\_UINT64\_MAX\ \ \ \ \ \ UINT64\_MAX}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#define\ ZB\_UINT\_MIN\ \ \ \ \ \ 0UL}}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00413\ \textcolor{comment}{\ \ Short\ defined\ as\ register\ size,\ int\ as\ large\ enough\ int\ on\ this\ platform.}}
+\DoxyCodeLine{00414\ \textcolor{comment}{\ \ 32\ bit\ on\ PC,\ 8\ and\ 16\ bit\ on\ 8051}}
+\DoxyCodeLine{00415\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00419\ \textcolor{comment}{\ \ Max\ value\ constants\ per\ type}}
+\DoxyCodeLine{00420\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#ifdef\ ZB\_32BIT\_WORD}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\#define\ ZB\_SHORT\_MIN\ \ \ \ \ \ \ ZB\_INT32\_MIN}}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\#define\ ZB\_SHORT\_MAX\ \ \ \ \ \ \ ZB\_INT32\_MAX}}
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\#define\ ZB\_USHORT\_MAX\ \ \ \ \ \ ZB\_UINT32\_MAX}}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\#define\ ZB\_INT\_MIN\ \ \ \ \ \ \ ZB\_INT32\_MIN}}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#define\ ZB\_INT\_MAX\ \ \ \ \ \ \ ZB\_INT32\_MAX}}
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\#define\ ZB\_UINT\_MAX\ \ \ \ \ \ ZB\_UINT32\_MAX}}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#define\ ZB\_INT\_MASK\ \ \ \ \ \ 0x7fffffffU}}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\#elif\ defined\ ZB\_16BIT\_WORD}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\#define\ ZB\_SHORT\_MIN\ \ \ \ \ \ \ ZB\_INT8\_MIN}}
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\#define\ ZB\_SHORT\_MAX\ \ \ \ \ \ \ ZB\_INT8\_MAX}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#define\ ZB\_USHORT\_MAX\ \ \ \ \ \ ZB\_UINT8\_MAX}}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\#define\ ZB\_INT\_MIN\ \ \ \ \ \ \ ZB\_INT16\_MIN}}
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\#define\ ZB\_INT\_MAX\ \ \ \ \ \ \ ZB\_INT16\_MAX}}
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\#define\ ZB\_UINT\_MAX\ \ \ \ \ \ ZB\_UINT16\_MAX}}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\#define\ ZB\_INT\_MASK\ \ \ \ \ \ 0x7fffU}}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\#elif\ defined\ ZB\_8BIT\_WORD}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#define\ ZB\_SHORT\_MIN\ \ \ \ \ \ \ ZB\_INT8\_MIN}}
+\DoxyCodeLine{00448\ \textcolor{preprocessor}{\#define\ ZB\_SHORT\_MAX\ \ \ \ \ \ \ ZB\_INT8\_MAX}}
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#define\ ZB\_USHORT\_MAX\ \ \ \ \ \ ZB\_UINT8\_MAX}}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#define\ ZB\_INT\_MIN\ \ \ \ \ \ \ ZB\_INT16\_MIN}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\#define\ ZB\_INT\_MAX\ \ \ \ \ \ \ ZB\_INT16\_MAX}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#define\ ZB\_UINT\_MAX\ \ \ \ \ \ ZB\_UINT16\_MAX}}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\#define\ ZB\_INT\_MASK\ \ \ \ \ \ 0x7fff}}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00458\ \textcolor{preprocessor}{\#error\ Portme}}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\#if\ defined\ \_\_GNUC\_\_\ ||\ defined\ \_\_TI\_COMPILER\_VERSION\_\_}}
+\DoxyCodeLine{00462\ \textcolor{preprocessor}{\ \ \#define\ ZB\_PACKED\_STRUCT\ \_\_attribute\_\_\ ((packed))}}
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\ \ \#define\ ZB\_WEAK\ \_\_attribute\_\_\ ((weak))}}
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00465\ \textcolor{preprocessor}{\ \ \#define\ ZB\_PACKED\_STRUCT}}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \textcolor{comment}{/*\ IAR\ or\ Keil\ ARM\ CPU\ */}}
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\#if\ (defined\ \_\_IAR\_SYSTEMS\_ICC\_\_\ ||\ defined\ \_\_ARMCC\_VERSION)}}
+\DoxyCodeLine{00470\ \textcolor{preprocessor}{\#define\ ZB\_PACKED\_PRE\ \_\_packed}}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\#define\ ZB\_WEAK\_PRE\ \_\_weak}}
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\#define\ ZB\_PACKED\_PRE}}
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \textcolor{preprocessor}{\#ifndef\ ZB\_WEAK\_PRE}}
+\DoxyCodeLine{00477\ \textcolor{preprocessor}{\#define\ ZB\_WEAK\_PRE}}
+\DoxyCodeLine{00478\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\#ifndef\ ZB\_WEAK}}
+\DoxyCodeLine{00480\ \textcolor{preprocessor}{\#define\ ZB\_WEAK}}
+\DoxyCodeLine{00481\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00483\ \textcolor{preprocessor}{\#if\ (defined\ \_\_ARMCC\_VERSION)}}
+\DoxyCodeLine{00484\ \textcolor{preprocessor}{\#define\ ZB\_ALIGNED\_PRE\ \_\_attribute\_\_((aligned))}}
+\DoxyCodeLine{00485\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00487\ \textcolor{preprocessor}{\#ifndef\ ZB\_ALIGNED\_PRE}}
+\DoxyCodeLine{00488\ \textcolor{preprocessor}{\#define\ ZB\_ALIGNED\_PRE}}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \textcolor{preprocessor}{\#if\ defined\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00492\ \textcolor{preprocessor}{\ \ \#define\ ZB\_DEPRECATED\ \_\_attribute\_\_((deprecated))}}
+\DoxyCodeLine{00493\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\ \ \#define\ ZB\_DEPRECATED}}
+\DoxyCodeLine{00495\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_GNUC\_\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \textcolor{preprocessor}{\#if\ defined\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00498\ \textcolor{preprocessor}{\ \ \#define\ ZB\_NORETURN\ \_\_attribute\_\_((noreturn))}}
+\DoxyCodeLine{00499\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00500\ \textcolor{preprocessor}{\ \ \#define\ ZB\_NORETURN}}
+\DoxyCodeLine{00501\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_GNUC\_\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00503\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00504\ \textcolor{comment}{\ \ \ 8-\/bytes\ address\ (xpanid\ or\ long\ device\ address)\ base\ type}}
+\DoxyCodeLine{00505\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00506\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{group__base__types_ga573548af2dd4483b1fe598a7cbc7ba1c}{zb\_64bit\_addr\_t}}[8];}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00508\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00509\ \textcolor{comment}{\ \ \ 8-\/bytes\ data\ base\ type}}
+\DoxyCodeLine{00510\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00511\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_64bit\_data\_t[8];}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ \textcolor{keyword}{extern}\ ZB\_CODE\ ZB\_CONST\ \mbox{\hyperlink{group__base__types_ga573548af2dd4483b1fe598a7cbc7ba1c}{zb\_64bit\_addr\_t}}\ g\_zero\_addr;}
+\DoxyCodeLine{00515\ \textcolor{keyword}{extern}\ ZB\_CODE\ ZB\_CONST\ \mbox{\hyperlink{group__base__types_ga573548af2dd4483b1fe598a7cbc7ba1c}{zb\_64bit\_addr\_t}}\ g\_unknown\_ieee\_addr;}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00518\ \textcolor{comment}{\ \ \ Return\ true\ if\ long\ address\ is\ zero}}
+\DoxyCodeLine{00519\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00520\ \ \ \textcolor{comment}{/*\ g\_zero\_addr\ is\ declared\ as\ ZB\_CONST\ which\ allows\ IAR\ to\ place\ it\ in\ CODE\ memory.}}
+\DoxyCodeLine{00521\ \textcolor{comment}{\ \ \ \ \ Compiled\ this\ by\ IAR\ 7.60\ for\ 8051.}}
+\DoxyCodeLine{00522\ \textcolor{comment}{\ \ \ \ \ This\ placement\ changes\ pointer\ type\ making\ it\ unusable}}
+\DoxyCodeLine{00523\ \textcolor{comment}{\ \ \ \ \ Is\ this\ cast\ needed\ here?}}
+\DoxyCodeLine{00524\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{00525\ \textcolor{preprocessor}{\#define\ ZB\_IS\_64BIT\_ADDR\_ZERO(addr)\ (ZB\_MEMCMP((addr),\ (void\ const*)g\_zero\_addr,\ 8)\ ==\ 0)}}
+\DoxyCodeLine{00526\ \textcolor{preprocessor}{\#define\ ZB\_IS\_64BIT\_ADDR\_UNKNOWN(addr)\ (ZB\_MEMCMP((addr),\ (void\ const*)g\_unknown\_ieee\_addr,\ 8)\ ==\ 0)}}
+\DoxyCodeLine{00527\ }
+\DoxyCodeLine{00528\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00529\ \textcolor{comment}{\ \ \ Clear\ long\ address}}
+\DoxyCodeLine{00530\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00531\ \textcolor{preprocessor}{\#define\ ZB\_64BIT\_ADDR\_ZERO(addr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\ \ ZB\_MEMSET((addr),\ 0,\ 8)}}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00534\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00535\ \textcolor{comment}{\ \ \ Make\ long\ address\ unknown}}
+\DoxyCodeLine{00536\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00537\ \textcolor{preprocessor}{\#define\ ZB\_64BIT\_ADDR\_UNKNOWN(addr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00538\ \textcolor{preprocessor}{\ \ ZB\_MEMSET((addr),\ -\/1,\ 8)}}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00540\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00541\ \textcolor{comment}{\ \ \ Copy\ long\ address}}
+\DoxyCodeLine{00542\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00543\ \textcolor{preprocessor}{\#define\ ZB\_64BIT\_ADDR\_COPY(dst,\ src)\ ZB\_MEMCPY(dst,\ src,\ sizeof(zb\_64bit\_addr\_t))}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00546\ \textcolor{comment}{\ \ \ Return\ 1\ if\ long\ addresses\ are\ equal}}
+\DoxyCodeLine{00547\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00548\ \textcolor{preprocessor}{\#define\ ZB\_64BIT\_ADDR\_CMP(one,\ two)\ (ZB\_MEMCMP((one),\ (two),\ 8)\ ==\ 0)}}
+\DoxyCodeLine{00549\ }
+\DoxyCodeLine{00550\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00551\ \textcolor{comment}{\ \ Long\ (64-\/bit)\ device\ address}}
+\DoxyCodeLine{00552\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00553\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga573548af2dd4483b1fe598a7cbc7ba1c}{zb\_64bit\_addr\_t}}\ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}};}
+\DoxyCodeLine{00554\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00555\ \textcolor{comment}{\ \ Long\ (64-\/bit)\ Extended\ Pan\ ID}}
+\DoxyCodeLine{00556\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00557\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga573548af2dd4483b1fe598a7cbc7ba1c}{zb\_64bit\_addr\_t}}\ \mbox{\hyperlink{group__base__types_gacc88c1d29982ff7e500c71db8979b084}{zb\_ext\_pan\_id\_t}};}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00559\ \textcolor{preprocessor}{\#define\ ZB\_EXTPANID\_IS\_ZERO\ ZB\_IS\_64BIT\_ADDR\_ZERO}}
+\DoxyCodeLine{00560\ \textcolor{preprocessor}{\#define\ ZB\_EXTPANID\_ZERO\ ZB\_64BIT\_ADDR\_ZERO}}
+\DoxyCodeLine{00561\ \textcolor{preprocessor}{\#define\ ZB\_EXTPANID\_COPY\ ZB\_64BIT\_ADDR\_COPY}}
+\DoxyCodeLine{00562\ \textcolor{preprocessor}{\#define\ ZB\_EXTPANID\_CMP\ ZB\_64BIT\_ADDR\_CMP}}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\#define\ ZB\_IEEE\_ADDR\_IS\_ZERO\ ZB\_IS\_64BIT\_ADDR\_ZERO}}
+\DoxyCodeLine{00565\ \textcolor{preprocessor}{\#define\ ZB\_IEEE\_ADDR\_IS\_UNKNOWN\ ZB\_IS\_64BIT\_ADDR\_UNKNOWN}}
+\DoxyCodeLine{00566\ \textcolor{preprocessor}{\#define\ ZB\_IEEE\_ADDR\_ZERO\ ZB\_64BIT\_ADDR\_ZERO}}
+\DoxyCodeLine{00567\ \textcolor{preprocessor}{\#define\ ZB\_IEEE\_ADDR\_UNKNOWN\ ZB\_64BIT\_ADDR\_UNKNOWN}}
+\DoxyCodeLine{00568\ \textcolor{preprocessor}{\#define\ ZB\_IEEE\_ADDR\_COPY\ ZB\_64BIT\_ADDR\_COPY}}
+\DoxyCodeLine{00569\ \textcolor{preprocessor}{\#define\ ZB\_IEEE\_ADDR\_CMP\ ZB\_64BIT\_ADDR\_CMP}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \textcolor{preprocessor}{\#define\ ZB\_CCM\_KEY\_IS\_ZERO(k)\ (ZB\_IS\_64BIT\_ADDR\_ZERO((zb\_uint8\_t*)(k))\ \&\&\ ZB\_IS\_64BIT\_ADDR\_ZERO(((zb\_uint8\_t*)(k))\ +\ 8U))}}
+\DoxyCodeLine{00572\ \textcolor{preprocessor}{\#define\ ZB\_IEEE\_ADDR\_IS\_VALID(addr)\ !(ZB\_IEEE\_ADDR\_IS\_ZERO(addr)||ZB\_IEEE\_ADDR\_IS\_UNKNOWN(addr))}}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \textcolor{preprocessor}{\#define\ ZB\_ADDR\_CMP(addr\_mode,\ addr1,\ addr2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00575\ \textcolor{preprocessor}{\ \ ((addr\_mode\ ==\ ZB\_ADDR\_16BIT\_DEV\_OR\_BROADCAST)\ ?\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00576\ \textcolor{preprocessor}{\ \ \ (addr1.addr\_short\ ==\ addr2.addr\_short)\ :\ ZB\_64BIT\_ADDR\_CMP(addr1.addr\_long,\ addr2.addr\_long))}}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionzb__addr__u__t}{zb\_addr\_u\_t}}}
+\DoxyCodeLine{00579\ \{}
+\DoxyCodeLine{00580\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ addr\_short;}
+\DoxyCodeLine{00581\ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ addr\_long;}
+\DoxyCodeLine{00582\ \}\ ZB\_PACKED\_STRUCT}
+\DoxyCodeLine{00583\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}};}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \textcolor{preprocessor}{\#define\ ZB\_ADDR\_U\_CAST(addr)\ ((const\ zb\_addr\_u\ *)(const\ void\ *)(\&(addr)))}}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00588\ \textcolor{comment}{\ definitions\ for\ constants\ of\ given\ type}}
+\DoxyCodeLine{00589\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00590\ \textcolor{preprocessor}{\#define\ ZB\_INT8\_C(c)\ \ c}}
+\DoxyCodeLine{00591\ \textcolor{preprocessor}{\#define\ ZB\_UINT8\_C(c)\ c\ \#\#\ U}}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \textcolor{preprocessor}{\#define\ ZB\_INT16\_C(c)\ \ c}}
+\DoxyCodeLine{00594\ \textcolor{preprocessor}{\#define\ ZB\_UINT16\_C(c)\ c\ \#\#\ U}}
+\DoxyCodeLine{00595\ }
+\DoxyCodeLine{00596\ \textcolor{preprocessor}{\#define\ ZB\_INT32\_C(c)\ \ c\ \#\#\ L}}
+\DoxyCodeLine{00597\ \textcolor{preprocessor}{\#define\ ZB\_UINT32\_C(c)\ c\ \#\#\ UL}}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \textcolor{preprocessor}{\#if\ (defined\ \_\_GNUC\_\_)\ \&\&\ (\_\_GNUC\_\_\ >\ 4\ ||\ (\_\_GNUC\_\_\ ==\ 4\ \&\&\ \_\_GNUC\_MINOR\_\_\ >=\ 6))}}
+\DoxyCodeLine{00600\ \textcolor{preprocessor}{\#define\ ZB\_OFFSETOF(t,\ f)\ \_\_builtin\_offsetof(t,f)}}
+\DoxyCodeLine{00601\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00602\ \textcolor{preprocessor}{\#define\ ZB\_OFFSETOF(t,\ f)\ ((zb\_size\_t)(\&((t\ *)NULL)-\/>f))}}
+\DoxyCodeLine{00603\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00604\ }
+\DoxyCodeLine{00605\ \textcolor{preprocessor}{\#define\ ZB\_OFFSETOF\_VAR(s,\ f)\ (zb\_size\_t)(((zb\_int8\_t\ *)(\&(s)-\/>f))\ -\/\ ((zb\_int8\_t\ *)(s)))}}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \textcolor{preprocessor}{\#define\ ZB\_SIZEOF\_FIELD(type,\ field)\ (sizeof(((type*)0)-\/>field))}}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00609\ \textcolor{preprocessor}{\#define\ ZB\_ARRAY\_SIZE(arr)\ (sizeof((arr))/sizeof((arr)[0]))}}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ }
+\DoxyCodeLine{00612\ \textcolor{preprocessor}{\#define\ ZB\_SIGNED\_SHIFT(v,\ s)\ ((zb\_int\_t)(v)\ >>\ (s))}}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ \textcolor{preprocessor}{\#define\ ZB\_ASSERT\_IF\_NOT\_ALIGNED(data\_type,length)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00615\ \textcolor{preprocessor}{\ \ ZB\_ASSERT\_COMPILE\_DECL(((sizeof(data\_type)\ \%\ (length))\ ==\ 0U))}}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \textcolor{preprocessor}{\#define\ ZB\_ASSERT\_IF\_NOT\_ALIGNED\_TO\_16(data\_type)\ ZB\_ASSERT\_IF\_NOT\_ALIGNED(data\_type,16U)}}
+\DoxyCodeLine{00618\ }
+\DoxyCodeLine{00619\ \textcolor{preprocessor}{\#define\ ZB\_ASSERT\_VALUE\_ALIGNED(const\_expr,\ length)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00620\ \textcolor{preprocessor}{\ \ ZB\_ASSERT\_COMPILE\_DECL((((const\_expr)\ \%\ (length))\ ==\ 0U))}}
+\DoxyCodeLine{00621\ }
+\DoxyCodeLine{00622\ \textcolor{preprocessor}{\#define\ ZB\_ASSERT\_VALUE\_ALIGNED\_TO\_4(const\_expr)\ ZB\_ASSERT\_VALUE\_ALIGNED(const\_expr,\ 4U)}}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \textcolor{preprocessor}{\#define\ ZB\_8BIT\_SIZE\ 1U}}
+\DoxyCodeLine{00637\ \textcolor{preprocessor}{\#define\ ZB\_16BIT\_SIZE\ 2U}}
+\DoxyCodeLine{00638\ \textcolor{preprocessor}{\#define\ ZB\_24BIT\_SIZE\ 3U}}
+\DoxyCodeLine{00639\ \textcolor{preprocessor}{\#define\ ZB\_32BIT\_SIZE\ 4U}}
+\DoxyCodeLine{00640\ \textcolor{preprocessor}{\#define\ ZB\_48BIT\_SIZE\ 6U}}
+\DoxyCodeLine{00641\ \textcolor{preprocessor}{\#define\ ZB\_64BIT\_SIZE\ 8U}}
+\DoxyCodeLine{00642\ }
+\DoxyCodeLine{00643\ \textcolor{preprocessor}{\#ifdef\ ZB\_LITTLE\_ENDIAN}}
+\DoxyCodeLine{00644\ }
+\DoxyCodeLine{00645\ \textcolor{preprocessor}{\#ifdef\ ZB\_NEED\_ALIGN}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00653\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE16(ptr,\ val)\ \ \ ZB\_MEMCPY((ptr),\ (val),\ ZB\_16BIT\_SIZE)}}
+\DoxyCodeLine{00654\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE32(ptr,\ val)\ \ \ ZB\_MEMCPY((ptr),\ (val),\ ZB\_32BIT\_SIZE)}}
+\DoxyCodeLine{00655\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE64(ptr,\ val)\ \ \ ZB\_MEMCPY((ptr),\ (val),\ ZB\_64BIT\_SIZE)}}
+\DoxyCodeLine{00656\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00658\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE16(ptr,\ val)\ \ \ (((zb\_uint16\_t\ *)(ptr))[0]\ =\ *((zb\_uint16\_t\ *)(val)))}}
+\DoxyCodeLine{00659\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE32(ptr,\ val)\ \ \ (((zb\_uint32\_t\ *)(ptr))[0]\ =\ *((zb\_uint32\_t\ *)(val)))}}
+\DoxyCodeLine{00660\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00661\ \textcolor{comment}{\#define\ ZB\_HTOLE64(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00662\ \textcolor{comment}{\ \ (((zb\_uint32\_t\ *)(ptr))[0]\ =\ ((zb\_uint32\_t\ *)(val))[0],\ \(\backslash\)}}
+\DoxyCodeLine{00663\ \textcolor{comment}{\ \ \ ((zb\_uint32\_t\ *)(ptr))[1]\ =\ ((zb\_uint32\_t\ *)(val))[1])}}
+\DoxyCodeLine{00664\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00665\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE64(ptr,\ val)\ zb\_memcpy8(ptr,\ val)}}
+\DoxyCodeLine{00666\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ need\_align\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00667\ }
+\DoxyCodeLine{00668\ }
+\DoxyCodeLine{00669\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE16\_ONPLACE(v)\ ZVUNUSED(v)}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE32\_ONPLACE(v)\ ZVUNUSED(v)}}
+\DoxyCodeLine{00672\ }
+\DoxyCodeLine{00673\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE64\_ONPLACE(v)\ ZVUNUSED(v)}}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00675\ \textcolor{preprocessor}{\#define\ ZB\_HTOBE16(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00676\ \textcolor{preprocessor}{\ \ (((zb\_uint8\_t\ *)(ptr))[0]\ =\ ((zb\_uint8\_t\ *)(val))[1],\ \(\backslash\)}}
+\DoxyCodeLine{00677\ \textcolor{preprocessor}{\ \ \ ((zb\_uint8\_t\ *)(ptr))[1]\ =\ ((zb\_uint8\_t\ *)(val))[0]\ \ \(\backslash\)}}
+\DoxyCodeLine{00678\ \textcolor{preprocessor}{\ \ )}}
+\DoxyCodeLine{00679\ }
+\DoxyCodeLine{00680\ \textcolor{keywordtype}{void}\ zb\_htobe32(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ZB\_XDATA\ *ptr,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ZB\_XDATA\ *val);}
+\DoxyCodeLine{00681\ \textcolor{preprocessor}{\#define\ ZB\_HTOBE32(ptr,\ val)\ zb\_htobe32((zb\_uint8\_t*)(ptr),\ (zb\_uint8\_t*)(val))}}
+\DoxyCodeLine{00682\ }
+\DoxyCodeLine{00683\ \textcolor{preprocessor}{\#define\ ZB\_HTOBE16\_VAL(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00684\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00685\ \textcolor{preprocessor}{\ \ zb\_uint16\_t\ \_v\ =\ (val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00686\ \textcolor{preprocessor}{\ \ ZB\_HTOBE16((ptr),\ \&\_v);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00687\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00688\ }
+\DoxyCodeLine{00689\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{/*\ !little\ endian\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00691\ \textcolor{keywordtype}{void}\ zb\_htole16(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ZB\_XDATA\ *ptr,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ZB\_XDATA\ *val);}
+\DoxyCodeLine{00692\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE16(ptr,\ val)\ zb\_htole16((zb\_uint8\_t*)(ptr),\ (zb\_uint8\_t*)(val))}}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00694\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE16\_ONPLACE(val)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00695\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00696\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *pval\ =\ (zb\_uint8\_t*)(\&(val));\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00697\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ a\ =\ pval[0];\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00698\ \textcolor{preprocessor}{\ \ pval[0]\ =\ pval[1];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00699\ \textcolor{preprocessor}{\ \ pval[1]\ =\ a;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00700\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00701\ }
+\DoxyCodeLine{00702\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE32\_ONPLACE(val)\ \{\ zb\_uint32\_t\ \_v\ =\ (val);\ ZB\_HTOLE32(\&(val),\ \&\_v);\ \}}}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00704\ \textcolor{keywordtype}{void}\ zb\_htole32(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ZB\_XDATA\ *ptr,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ZB\_XDATA\ *val);}
+\DoxyCodeLine{00705\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE32(ptr,\ val)\ zb\_htole32((zb\_uint8\_t*)(ptr),\ (zb\_uint8\_t*)(val))}}
+\DoxyCodeLine{00706\ }
+\DoxyCodeLine{00707\ \textcolor{preprocessor}{\#define\ ZB\_HTOBE32(ptr,\ val)\ ZB\_MEMCPY(ptr,\ val,\ 4U)}}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00709\ \textcolor{preprocessor}{\#define\ ZB\_HTOBE16(ptr,\ val)\ (*(zb\_uint16\_t\ *)(ptr))\ =\ *((zb\_uint16\_t\ *)(val))}}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00711\ \textcolor{preprocessor}{\#ifdef\ ZB\_NEED\_ALIGN}}
+\DoxyCodeLine{00712\ }
+\DoxyCodeLine{00713\ \textcolor{preprocessor}{\#define\ ZB\_HTOBE16\_VAL(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00714\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00715\ \textcolor{preprocessor}{\ \ zb\_uint16\_t\ \_v\ =\ (val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00716\ \textcolor{preprocessor}{\ \ ZB\_MEMCPY((ptr),\ \&\_v,\ 2U)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00717\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00718\ }
+\DoxyCodeLine{00719\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{/*\ ZB\_NEED\_ALIGN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00721\ \textcolor{preprocessor}{\#define\ ZB\_HTOBE16\_VAL(ptr,\ val)\ ((zb\_uint16\_t\ *)(ptr))[0]\ =\ (val)}}
+\DoxyCodeLine{00722\ }
+\DoxyCodeLine{00723\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_NEED\_ALIGN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00724\ }
+\DoxyCodeLine{00725\ \textcolor{comment}{/*\ Let's\ not\ rotate\ 64-\/bit\ address:\ store\ it\ as}}
+\DoxyCodeLine{00726\ \textcolor{comment}{\ *\ 8-\/byte\ array\ in\ the\ order\ it\ transmitted.\ */}}
+\DoxyCodeLine{00727\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE64(ptr,\ val)\ \ \ zb\_memcpy8(ptr,\ val)}}
+\DoxyCodeLine{00728\ }
+\DoxyCodeLine{00729\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_LITTLE\_ENDIAN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE32\_VAL(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00732\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00733\ \textcolor{preprocessor}{\ \ zb\_uint32\_t\ tmp\_val\ =\ (val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00734\ \textcolor{preprocessor}{\ \ ZB\_HTOLE32((ptr),\ \&tmp\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00735\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00736\ }
+\DoxyCodeLine{00737\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE16\_VAL(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00738\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00739\ \textcolor{preprocessor}{\ \ zb\_uint16\_t\ tmp\_val\ =\ (val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00740\ \textcolor{preprocessor}{\ \ ZB\_HTOLE16((ptr),\ \&tmp\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00741\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00752\ \textcolor{comment}{//void\ zb\_put\_next\_htole16(zb\_uint8\_t\ **dst,\ zb\_uint16\_t\ val);}}
+\DoxyCodeLine{00753\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{group__base__types_ga6e0a5e6d5b0e945b04486bbe1ed3a1a1}{zb\_put\_next\_htole16}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *dst,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ val);}
+\DoxyCodeLine{00754\ }
+\DoxyCodeLine{00755\ \textcolor{preprocessor}{\#ifdef\ ZB\_LITTLE\_ENDIAN}}
+\DoxyCodeLine{00756\ \textcolor{preprocessor}{\#define\ ZB\_PUT\_NEXT\_HTOLE16(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00757\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00758\ \textcolor{preprocessor}{\ \ *((ptr)++)\ =\ (zb\_uint8\_t)((val)\ \&\ 0xffU);\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00759\ \textcolor{preprocessor}{\ \ *((ptr)++)\ =\ (zb\_uint8\_t)(((val)\ >>\ 8U)\ \&\ 0xffU);\ \ \(\backslash\)}}
+\DoxyCodeLine{00760\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00761\ }
+\DoxyCodeLine{00762\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00763\ \textcolor{preprocessor}{\#define\ ZB\_PUT\_NEXT\_HTOLE16(ptr,\ val)\ \ \(\backslash\)}}
+\DoxyCodeLine{00764\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00765\ \textcolor{preprocessor}{\ \ *((ptr)++)\ =\ (zb\_uint8\_t)(((val)\ >>\ 8U)\ \&\ 0xffU);\ \(\backslash\)}}
+\DoxyCodeLine{00766\ \textcolor{preprocessor}{\ \ *((ptr)++)\ =\ (zb\_uint8\_t)((val)\ \&\ 0xffU);\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00767\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00768\ \textcolor{preprocessor}{\#endif\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ ZB\_LITTLE\_ENDIAN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00769\ }
+\DoxyCodeLine{00770\ \textcolor{keywordtype}{void}*\ zb\_put\_next\_htole32(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *dst,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ val1);}
+\DoxyCodeLine{00771\ }
+\DoxyCodeLine{00772\ \textcolor{preprocessor}{\#define\ ZB\_PUT\_NEXT\_HTOLE32(ptr,\ val)\ (ptr)\ =\ zb\_put\_next\_htole32((ptr),\ (val))}}
+\DoxyCodeLine{00773\ }
+\DoxyCodeLine{00774\ \textcolor{preprocessor}{\#ifndef\ ZB\_IAR}}
+\DoxyCodeLine{00775\ \textcolor{keywordtype}{void}\ zb\_get\_next\_letoh16(\mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ *dst,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ **src);}
+\DoxyCodeLine{00776\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00777\ \textcolor{comment}{/*\ for\ IAR\ define\ as\ macro\ due\ to\ problems\ with\ packet\ structs\ */}}
+\DoxyCodeLine{00778\ \textcolor{preprocessor}{\#define\ zb\_get\_next\_letoh16(dst,\ src)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00779\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00780\ \textcolor{preprocessor}{\ \ ZB\_LETOH16((dst),\ *(src));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00781\ \textcolor{preprocessor}{\ \ (*(src))\ =\ (void\ *)(((char\ *)(*(src)))\ +\ 2U);\ \ \(\backslash\)}}
+\DoxyCodeLine{00782\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00783\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00784\ }
+\DoxyCodeLine{00785\ \textcolor{keywordtype}{void}*\ zb\_put\_next\_2\_htole16(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *dst,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ val1,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ val2);}
+\DoxyCodeLine{00786\ \textcolor{keywordtype}{void}*\ zb\_put\_next\_2\_htole32(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *dst,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ val1,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ val2);}
+\DoxyCodeLine{00787\ \textcolor{preprocessor}{\#define\ ZB\_LETOH64(dst,\ src)\ zb\_memcpy8((zb\_uint8\_t*)dst,\ (zb\_uint8\_t*)src)}}
+\DoxyCodeLine{00788\ }
+\DoxyCodeLine{00795\ \textcolor{preprocessor}{\#define\ ZB\_LETOH16\ ZB\_HTOLE16}}
+\DoxyCodeLine{00796\ \textcolor{preprocessor}{\#define\ ZB\_LETOH24\ ZB\_HTOLE24}}
+\DoxyCodeLine{00797\ \textcolor{preprocessor}{\#define\ ZB\_LETOH48\ ZB\_HTOLE48}}
+\DoxyCodeLine{00798\ \textcolor{preprocessor}{\#define\ ZB\_LETOH32\ ZB\_HTOLE32}}
+\DoxyCodeLine{00799\ \textcolor{preprocessor}{\#define\ ZB\_BETOH16\ ZB\_HTOBE16}}
+\DoxyCodeLine{00800\ \textcolor{preprocessor}{\#define\ ZB\_BETOH32\ ZB\_HTOBE32}}
+\DoxyCodeLine{00801\ }
+\DoxyCodeLine{00802\ \textcolor{preprocessor}{\#define\ ZB\_LETOH16\_ONPLACE\ ZB\_HTOLE16\_ONPLACE}}
+\DoxyCodeLine{00803\ \textcolor{preprocessor}{\#define\ ZB\_LETOH32\_ONPLACE\ ZB\_HTOLE32\_ONPLACE}}
+\DoxyCodeLine{00804\ \ \textcolor{comment}{/*\ Endian\ change\ API.\ */}}
+\DoxyCodeLine{00806\ }
+\DoxyCodeLine{00807\ \textcolor{preprocessor}{\#define\ ZB\_GET\_LOW\_BYTE(val)\ (zb\_uint8\_t)((val)\ \&\ 0xFFU)}}
+\DoxyCodeLine{00808\ \textcolor{preprocessor}{\#define\ ZB\_GET\_HI\_BYTE(val)\ \ (zb\_uint8\_t)(((val)\ >>\ 8U)\ \&\ 0xFFU)}}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00810\ \textcolor{preprocessor}{\#define\ ZB\_SET\_LOW\_BYTE(res,\ val)\ (res)\ =\ ((((zb\_uint16\_t)(res))\ \&\ 0xFF00U)\ |\ (((zb\_uint16\_t)(val))\ \&\ 0xFFU))}}
+\DoxyCodeLine{00811\ \textcolor{preprocessor}{\#define\ ZB\_SET\_HI\_BYTE(res,\ val)\ (res)\ =\ (((((zb\_uint16\_t)(val))\ <<\ 8U)\ \&\ 0xFF00U)\ |\ (((zb\_uint16\_t)(res))\ \&\ 0xFFU))}}
+\DoxyCodeLine{00812\ }
+\DoxyCodeLine{00813\ \textcolor{preprocessor}{\#define\ ZB\_PKT\_16B\_ZERO\_BYTE\ 0U}}
+\DoxyCodeLine{00814\ \textcolor{preprocessor}{\#define\ ZB\_PKT\_16B\_FIRST\_BYTE\ 1U}}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00816\ \textcolor{preprocessor}{\#ifdef\ ZB\_NEED\_ALIGN}}
+\DoxyCodeLine{00817\ }
+\DoxyCodeLine{00818\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_UINT16(ptr,\ vp)\ ZB\_MEMCPY((ptr),\ (vp),\ 2U)}}
+\DoxyCodeLine{00819\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_INT16(ptr,\ vp)\ \ ZB\_MEMCPY((ptr),\ (vp),\ 2U)}}
+\DoxyCodeLine{00820\ \textcolor{preprocessor}{\#define\ ZB\_COPY\_UINT24(ptr,\ vp)\ \ \ ZB\_MEMCPY((ptr),\ (vp),\ 3U)}}
+\DoxyCodeLine{00821\ \textcolor{preprocessor}{\#define\ ZB\_COPY\_INT24(ptr,\ vp)\ \ \ \ ZB\_MEMCPY((ptr),\ (vp),\ 3U)}}
+\DoxyCodeLine{00822\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_UINT32(ptr,\ vp)\ ZB\_MEMCPY((ptr),\ (vp),\ 4U)}}
+\DoxyCodeLine{00823\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_INT32(ptr,\ vp)\ \ ZB\_MEMCPY((ptr),\ (vp),\ 4U)}}
+\DoxyCodeLine{00824\ }
+\DoxyCodeLine{00825\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00826\ }
+\DoxyCodeLine{00827\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_UINT16(ptr,\ vp)\ *((zb\_uint16\_t*)(ptr))\ =\ *(zb\_uint16\_t*)(vp)}}
+\DoxyCodeLine{00828\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_INT16(ptr,\ vp)\ \ *((zb\_int16\_t*)(ptr))\ =\ *(zb\_int16\_t*)(vp)}}
+\DoxyCodeLine{00829\ \textcolor{preprocessor}{\#define\ ZB\_COPY\_UINT24(ptr,\ vp)\ \ \ *((zb\_uint24\_t*)(ptr))\ =\ *(zb\_uint24\_t*)(vp)}}
+\DoxyCodeLine{00830\ \textcolor{preprocessor}{\#define\ ZB\_COPY\_INT24(ptr,\ vp)\ \ \ \ *((zb\_int24\_t*)(ptr))\ =\ *(zb\_int24\_t*)(vp)}}
+\DoxyCodeLine{00831\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_UINT32(ptr,\ vp)\ *((zb\_uint32\_t*)(ptr))\ =\ *(zb\_uint32\_t*)(vp)}}
+\DoxyCodeLine{00832\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_INT32(ptr,\ vp)\ \ *((zb\_int32\_t*)(ptr))\ =\ *(zb\_int32\_t*)(vp)}}
+\DoxyCodeLine{00833\ }
+\DoxyCodeLine{00834\ }
+\DoxyCodeLine{00835\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_NEED\_ALIGN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00836\ }
+\DoxyCodeLine{00837\ \textcolor{preprocessor}{\#define\ ZB\_REVERSE16(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00838\ \textcolor{preprocessor}{\ \ (((zb\_uint8\_t\ *)(ptr))[0]\ =\ ((zb\_uint8\_t\ *)(val))[1],\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00839\ \textcolor{preprocessor}{\ \ \ ((zb\_uint8\_t\ *)(ptr))[1]\ =\ ((zb\_uint8\_t\ *)(val))[0])}}
+\DoxyCodeLine{00840\ }
+\DoxyCodeLine{00841\ \textcolor{preprocessor}{\#define\ ZB\_REVERSE64(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00842\ \textcolor{preprocessor}{\ \ \ \ *((zb\_uint8\_t*)(ptr)+7)\ =\ *((zb\_uint8\_t*)(val)\ \ ),\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00843\ \textcolor{preprocessor}{\ \ \ \ *((zb\_uint8\_t*)(ptr)+6)\ =\ *((zb\_uint8\_t*)(val)+1),\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00844\ \textcolor{preprocessor}{\ \ \ \ *((zb\_uint8\_t*)(ptr)+5)\ =\ *((zb\_uint8\_t*)(val)+2),\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00845\ \textcolor{preprocessor}{\ \ \ \ *((zb\_uint8\_t*)(ptr)+4)\ =\ *((zb\_uint8\_t*)(val)+3),\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00846\ \textcolor{preprocessor}{\ \ \ \ *((zb\_uint8\_t*)(ptr)+3)\ =\ *((zb\_uint8\_t*)(val)+4),\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00847\ \textcolor{preprocessor}{\ \ \ \ *((zb\_uint8\_t*)(ptr)+2)\ =\ *((zb\_uint8\_t*)(val)+5),\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00848\ \textcolor{preprocessor}{\ \ \ \ *((zb\_uint8\_t*)(ptr)+1)\ =\ *((zb\_uint8\_t*)(val)+6),\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00849\ \textcolor{preprocessor}{\ \ \ \ *((zb\_uint8\_t*)(ptr)\ \ )\ =\ *((zb\_uint8\_t*)(val)+7)}}
+\DoxyCodeLine{00850\ }
+\DoxyCodeLine{00851\ \textcolor{preprocessor}{\#define\ ZB\_ARRAY\_IDX\_BY\_ELEM(ar,\ el)\ ((el)\ -\/\ (ar))}}
+\DoxyCodeLine{00852\ }
+\DoxyCodeLine{00853\ \textcolor{preprocessor}{\#define\ ZB\_ARRAY\_IDX\_BY\_STRUCT\_ELEM(ar,\ el,\ el\_size)\ (\ ((zb\_size\_t)(el)\ -\/\ (zb\_size\_t)(ar))\ /\ (el\_size)\ )}}
+\DoxyCodeLine{00854\ }
+\DoxyCodeLine{00920\ }
+\DoxyCodeLine{00957\ }
+\DoxyCodeLine{00958\ \textcolor{comment}{/*\ FIXME:\ which\ value\ to\ prefer?\ Because\ 0x800000\ is\ reserved\ in\ ZCL\ */}}
+\DoxyCodeLine{00959\ \textcolor{comment}{/*\ IAR\ C-\/STAT\ generates\ falsepositive\ for\ hexadecimal\ value\ */}}
+\DoxyCodeLine{00960\ \textcolor{preprocessor}{\#define\ MIN\_SIGNED\_24BIT\_VAL\ \ \ \ (-\/8388607LL)\ }\textcolor{comment}{/*\ (0xFF800001LL)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00961\ \textcolor{preprocessor}{\#define\ MAX\_SIGNED\_24BIT\_VAL\ \ \ \ (0x7FFFFF)}}
+\DoxyCodeLine{00962\ \textcolor{preprocessor}{\#define\ MAX\_UNSIGNED\_24BIT\_VAL\ \ (0xFFFFFFU)}}
+\DoxyCodeLine{00963\ }
+\DoxyCodeLine{00964\ \textcolor{comment}{/*\ IAR\ C-\/STAT\ generates\ falsepositive\ for\ hexadecimal\ value\ */}}
+\DoxyCodeLine{00965\ \textcolor{preprocessor}{\#define\ MIN\_SIGNED\_48BIT\_VAL\ \ \ (-\/140737488355327LL)\ }\textcolor{comment}{/*\ (0xFFFF800000000001LL)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00966\ \textcolor{preprocessor}{\#define\ MAX\_SIGNED\_48BIT\_VAL\ \ \ (0x7FFFFFFFFFFF)}}
+\DoxyCodeLine{00967\ \textcolor{preprocessor}{\#define\ MAX\_UNSIGNED\_48BIT\_VAL\ (0xFFFFFFFFFFFFU)}}
+\DoxyCodeLine{00968\ }
+\DoxyCodeLine{00969\ \textcolor{preprocessor}{\#define\ ZB\_S64\_FROM\_S48(x)\ ((x\ \&\ 0xFFFFFFFFFFFF)\ |\ ((x\ \&\ 0x800000000000)\ ?\ 0xFFFF000000000000\ :\ 0x0))}}
+\DoxyCodeLine{00970\ }
+\DoxyCodeLine{00971\ \textcolor{preprocessor}{\#define\ ZB\_S64\_TO\_S48(x)\ ((zb\_int64\_t)(x\ \&\ 0xFFFFFFFFFFFF))}}
+\DoxyCodeLine{00972\ }
+\DoxyCodeLine{00973\ \textcolor{preprocessor}{\#define\ ZB\_S32\_FROM\_S24(x)\ ((x\ \&\ 0xFFFFFF)\ |\ ((x\ \&\ 0x800000)\ ?\ 0xFF000000\ :\ 0x0))}}
+\DoxyCodeLine{00974\ }
+\DoxyCodeLine{00975\ \textcolor{preprocessor}{\#define\ ZB\_S32\_TO\_S24(x)\ ((zb\_int32\_t)(x\ \&\ 0xFFFFFF))}}
+\DoxyCodeLine{00976\ }
+\DoxyCodeLine{00977\ \textcolor{preprocessor}{\#ifdef\ ZB\_UINT24\_48\_SUPPORT}}
+\DoxyCodeLine{00978\ }
+\DoxyCodeLine{00979\ \textcolor{preprocessor}{\#define\ ZB\_INT32\_MINUS\_ONE\ \ \ \ (0xFFFFFFFF)}}
+\DoxyCodeLine{00980\ \textcolor{preprocessor}{\#define\ ZB\_INT24\_MAX\_POSITIVE\ (0x7FFFFF)}}
+\DoxyCodeLine{00981\ }
+\DoxyCodeLine{00982\ \textcolor{preprocessor}{\#define\ ZB\_INT24\_IS\_NEGATIVE(int24\_val)\ \(\backslash\)}}
+\DoxyCodeLine{00983\ \textcolor{preprocessor}{\ \ ((int24\_val).high\ \&\ 0x80U)}}
+\DoxyCodeLine{00984\ }
+\DoxyCodeLine{00985\ }
+\DoxyCodeLine{00986\ \textcolor{preprocessor}{\#if\ defined\ ZB\_LITTLE\_ENDIAN}}
+\DoxyCodeLine{00987\ }
+\DoxyCodeLine{00988\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_int24\_s}
+\DoxyCodeLine{00989\ \{}
+\DoxyCodeLine{00990\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ low;}
+\DoxyCodeLine{00991\ \ \ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ \ \ high;}
+\DoxyCodeLine{00992\ \}\ ZB\_PACKED\_STRUCT\ zb\_int24\_t;}
+\DoxyCodeLine{00993\ }
+\DoxyCodeLine{00994\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_uint24\_s}
+\DoxyCodeLine{00995\ \{}
+\DoxyCodeLine{00996\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ low;}
+\DoxyCodeLine{00997\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ high;}
+\DoxyCodeLine{00998\ \}\ ZB\_PACKED\_STRUCT\ zb\_uint24\_t;}
+\DoxyCodeLine{00999\ }
+\DoxyCodeLine{01000\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_uint48\_s}
+\DoxyCodeLine{01001\ \{}
+\DoxyCodeLine{01002\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ low;}
+\DoxyCodeLine{01003\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ high;}
+\DoxyCodeLine{01004\ \}\ ZB\_PACKED\_STRUCT\ zb\_uint48\_t;}
+\DoxyCodeLine{01005\ }
+\DoxyCodeLine{01006\ }
+\DoxyCodeLine{01007\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_int48\_s}
+\DoxyCodeLine{01008\ \{}
+\DoxyCodeLine{01009\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ low;}
+\DoxyCodeLine{01010\ \ \ \mbox{\hyperlink{group__base__types_gaa9116cd889644bec092c543d680b5bf2}{zb\_int16\_t}}\ high;}
+\DoxyCodeLine{01011\ \}\ ZB\_PACKED\_STRUCT\ zb\_int48\_t;}
+\DoxyCodeLine{01012\ }
+\DoxyCodeLine{01013\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ defined\ ZB\_BIG\_ENDIAN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01014\ }
+\DoxyCodeLine{01015\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_int24\_s}
+\DoxyCodeLine{01016\ \{}
+\DoxyCodeLine{01017\ \ \ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ \ \ high;}
+\DoxyCodeLine{01018\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ low;}
+\DoxyCodeLine{01019\ \}\ ZB\_PACKED\_STRUCT\ zb\_int24\_t;}
+\DoxyCodeLine{01020\ }
+\DoxyCodeLine{01021\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_uint24\_s}
+\DoxyCodeLine{01022\ \{}
+\DoxyCodeLine{01023\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ high;}
+\DoxyCodeLine{01024\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ low;}
+\DoxyCodeLine{01025\ \}\ ZB\_PACKED\_STRUCT\ zb\_uint24\_t;}
+\DoxyCodeLine{01026\ }
+\DoxyCodeLine{01027\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_uint48\_s}
+\DoxyCodeLine{01028\ \{}
+\DoxyCodeLine{01029\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ high;}
+\DoxyCodeLine{01030\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ low;}
+\DoxyCodeLine{01031\ \}\ ZB\_PACKED\_STRUCT\ zb\_uint48\_t;}
+\DoxyCodeLine{01032\ }
+\DoxyCodeLine{01033\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_int48\_s}
+\DoxyCodeLine{01034\ \{}
+\DoxyCodeLine{01035\ \ \ \mbox{\hyperlink{group__base__types_gaa9116cd889644bec092c543d680b5bf2}{zb\_int16\_t}}\ high;}
+\DoxyCodeLine{01036\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ low;}
+\DoxyCodeLine{01037\ \}\ ZB\_PACKED\_STRUCT\ zb\_int48\_t;}
+\DoxyCodeLine{01038\ }
+\DoxyCodeLine{01039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_LITTLE\_ENDIAN/ZB\_BIG\_ENDIAN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01040\ }
+\DoxyCodeLine{01041\ \textcolor{preprocessor}{\#define\ ZB\_INIT\_INT24(high\_val,\ low\_val)\ \(\backslash\)}}
+\DoxyCodeLine{01042\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01043\ \textcolor{preprocessor}{\ \ .low\ =\ (low\_val),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01044\ \textcolor{preprocessor}{\ \ .high\ =\ (high\_val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01045\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01046\ }
+\DoxyCodeLine{01047\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_INT24(var,\ high\_val,\ low\_val)\ \ \(\backslash\)}}
+\DoxyCodeLine{01048\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01049\ \textcolor{preprocessor}{\ \ var.low\ =\ (low\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01050\ \textcolor{preprocessor}{\ \ var.high\ =\ (high\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01051\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01052\ }
+\DoxyCodeLine{01053\ \textcolor{preprocessor}{\#define\ ZB\_GET\_INT32\_FROM\_INT24(int24\_val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01054\ \textcolor{preprocessor}{\ \ (zb\_int32\_t)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01055\ \textcolor{preprocessor}{\ \ (\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01056\ \textcolor{preprocessor}{\ \ \ ((ZB\_INT24\_IS\_NEGATIVE(int24\_val))?\ ((zb\_uint32\_t)0xFFU\ <<\ 24U):\ 0U)\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01057\ \textcolor{preprocessor}{\ \ \ ((zb\_uint32\_t)(int24\_val).high\ <<\ 16U)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01058\ \textcolor{preprocessor}{\ \ \ (int24\_val).low\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01059\ \textcolor{preprocessor}{\ \ )}}
+\DoxyCodeLine{01060\ }
+\DoxyCodeLine{01061\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_UINT24\_FROM\_UINT32(uint32\_val)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{01062\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01063\ \textcolor{preprocessor}{\ \ .low\ =\ (zb\_uint16\_t)((uint32\_val)\ \&\ 0xFFFFU),\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01064\ \textcolor{preprocessor}{\ \ \ \ .high\ =\ (zb\_uint8\_t)((uint32\_val)\ >>\ 16U)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01065\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01066\ }
+\DoxyCodeLine{01067\ \textcolor{preprocessor}{\#define\ ZB\_GET\_UINT32\_FROM\_UINT24(uint24\_val)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01068\ \textcolor{preprocessor}{((((zb\_uint32\_t)\ (uint24\_val).high)\ <<\ 16)\ +\ (uint24\_val).low)}}
+\DoxyCodeLine{01069\ }
+\DoxyCodeLine{01070\ \textcolor{preprocessor}{\#define\ ZB\_INIT\_UINT48(high\_val,\ low\_val)\ \ \(\backslash\)}}
+\DoxyCodeLine{01071\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01072\ \textcolor{preprocessor}{\ \ .low\ =\ (low\_val),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01073\ \textcolor{preprocessor}{\ \ .high\ =\ (high\_val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01074\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01075\ }
+\DoxyCodeLine{01076\ \textcolor{preprocessor}{\#define\ ZB\_INIT\_UINT24(high\_val,\ low\_val)\ \ \(\backslash\)}}
+\DoxyCodeLine{01077\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01078\ \textcolor{preprocessor}{\ \ .low\ =\ (low\_val),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01079\ \textcolor{preprocessor}{\ \ .high\ =\ (high\_val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01080\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01081\ }
+\DoxyCodeLine{01082\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_UINT48(var,\ high\_val,\ low\_val)\ \(\backslash\)}}
+\DoxyCodeLine{01083\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01084\ \textcolor{preprocessor}{\ \ var.low\ =\ (low\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01085\ \textcolor{preprocessor}{\ \ var.high\ =\ (high\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01086\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01087\ }
+\DoxyCodeLine{01088\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_UINT24(var,\ high\_val,\ low\_val)\ \(\backslash\)}}
+\DoxyCodeLine{01089\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01090\ \textcolor{preprocessor}{\ \ var.low\ =\ (low\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01091\ \textcolor{preprocessor}{\ \ var.high\ =\ (high\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01092\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01093\ }
+\DoxyCodeLine{01094\ \textcolor{comment}{/*\ TODO:\ test\ for\ negative\ int24\ */}}
+\DoxyCodeLine{01095\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_ADD\_INT24(uint48\_val,\ int24\_val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01096\ \textcolor{preprocessor}{\ \ if\ (ZB\_INT24\_IS\_NEGATIVE(int24\_val))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01097\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01098\ \textcolor{preprocessor}{\ \ \ \ if\ ((uint48\_val).low\ <\ (zb\_uint32\_t)((int24\_val).low\ +\ (int24\_val).high))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01099\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01100\ \textcolor{preprocessor}{\ \ \ \ \ \ (uint48\_val).high\ -\/=\ 1U;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01101\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01102\ \textcolor{preprocessor}{\ \ \ \ (uint48\_val).low\ -\/=\ (int24\_val).low\ +\ (int24\_val).high;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01103\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01104\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01105\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01106\ \textcolor{preprocessor}{\ \ \ \ if\ (((zb\_uint64\_t)\ (uint48\_val).low)\ +\ ZB\_GET\_UINT32\_FROM\_UINT24(int24\_val)\ >\ ZB\_UINT32\_MAX)\ \(\backslash\)}}
+\DoxyCodeLine{01107\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01108\ \textcolor{preprocessor}{\ \ \ \ \ \ (uint48\_val).high\ +=\ 1U;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01109\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01110\ \textcolor{preprocessor}{\ \ \ \ (uint48\_val).low\ +=\ ZB\_GET\_UINT32\_FROM\_UINT24(int24\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01111\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{01112\ }
+\DoxyCodeLine{01113\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_EQUAL(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01114\ \textcolor{preprocessor}{\ \ (((val1).high\ ==\ (val2).high)\ \&\&\ ((val1).low\ ==\ (val2).low))}}
+\DoxyCodeLine{01115\ }
+\DoxyCodeLine{01116\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_GREAT(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01117\ \textcolor{preprocessor}{\ \ ((val1).high\ >\ (val2).high\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01118\ \textcolor{preprocessor}{\ \ \ ((val1).high\ ==\ (val2).high\ \&\&\ (val1).low\ >\ (val2).low))}}
+\DoxyCodeLine{01119\ }
+\DoxyCodeLine{01120\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_LESS(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01121\ \textcolor{preprocessor}{\ \ (!ZB\_UINT48\_IS\_EQUAL(val1,\ val2)\ \&\&\ !ZB\_UINT48\_IS\_GREAT(val1,\ val2))}}
+\DoxyCodeLine{01122\ }
+\DoxyCodeLine{01123\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_GREAT\_OR\_EQUAL(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01124\ \textcolor{preprocessor}{\ \ (!ZB\_UINT48\_IS\_LESS(val1,\ val2))}}
+\DoxyCodeLine{01125\ }
+\DoxyCodeLine{01126\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_LESS\_OR\_EQUAL(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01127\ \textcolor{preprocessor}{\ \ (!ZB\_UINT48\_IS\_GREAT(val1,\ val2))}}
+\DoxyCodeLine{01128\ }
+\DoxyCodeLine{01129\ \textcolor{preprocessor}{\#if\ defined\ ZB\_LITTLE\_ENDIAN}}
+\DoxyCodeLine{01130\ }
+\DoxyCodeLine{01131\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE24(ptr,\ val)\ \ \ ZB\_MEMCPY((ptr),\ (val),\ ZB\_24BIT\_SIZE)}}
+\DoxyCodeLine{01132\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE48(ptr,\ val)\ \ \ ZB\_MEMCPY((ptr),\ (val),\ ZB\_48BIT\_SIZE)}}
+\DoxyCodeLine{01133\ }
+\DoxyCodeLine{01134\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ ZB\_BIG\_ENDIAN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01135\ }
+\DoxyCodeLine{01136\ \textcolor{keywordtype}{void}\ zb\_reverse\_bytes(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *ptr,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *val,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ size);}
+\DoxyCodeLine{01137\ }
+\DoxyCodeLine{01138\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE24(ptr,\ val)\ \ \ zb\_reverse\_bytes((zb\_uint8\_t*)(ptr),\ (val),\ ZB\_24BIT\_SIZE)}}
+\DoxyCodeLine{01139\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE48(ptr,\ val)\ \ \ zb\_reverse\_bytes((zb\_uint8\_t*)(ptr),\ (val),\ ZB\_48BIT\_SIZE)}}
+\DoxyCodeLine{01140\ }
+\DoxyCodeLine{01141\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_BIG\_ENDIAN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01142\ }
+\DoxyCodeLine{01143\ \textcolor{preprocessor}{\#if\ defined\ ZB\_UINT24\_48\_SUPPORT\ ||\ defined\ DOXYGEN}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01148\ }
+\DoxyCodeLine{01157\ \textcolor{preprocessor}{\#define\ ZB\_MATH\_OK\ \ \ \ \ \ \ 0U}}
+\DoxyCodeLine{01158\ \textcolor{preprocessor}{\#define\ ZB\_MATH\_OVERFLOW\ 1U}}
+\DoxyCodeLine{01159\ \textcolor{preprocessor}{\#define\ ZB\_MATH\_ERROR\ \ \ \ 2U}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01161\ }
+\DoxyCodeLine{01162\ }
+\DoxyCodeLine{01168\ \textcolor{keywordtype}{void}\ zb\_uint32\_to\_uint24(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ var,\ zb\_uint24\_t\ *res);}
+\DoxyCodeLine{01169\ }
+\DoxyCodeLine{01170\ }
+\DoxyCodeLine{01176\ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ zb\_int24\_to\_int32(\textcolor{keyword}{const}\ zb\_int24\_t\ *var);}
+\DoxyCodeLine{01177\ }
+\DoxyCodeLine{01178\ }
+\DoxyCodeLine{01184\ \textcolor{keywordtype}{void}\ zb\_int32\_to\_int24(\mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ var,\ zb\_int24\_t\ *res);}
+\DoxyCodeLine{01185\ }
+\DoxyCodeLine{01186\ }
+\DoxyCodeLine{01192\ \textcolor{keywordtype}{void}\ zb\_int32\_to\_uint24(\mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ var,\ zb\_uint24\_t\ *res);}
+\DoxyCodeLine{01193\ }
+\DoxyCodeLine{01194\ }
+\DoxyCodeLine{01200\ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ zb\_uint24\_to\_int32(\textcolor{keyword}{const}\ zb\_uint24\_t\ *var);}
+\DoxyCodeLine{01201\ }
+\DoxyCodeLine{01202\ }
+\DoxyCodeLine{01211\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint24\_add(\textcolor{keyword}{const}\ zb\_uint24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint24\_t\ *s,\ zb\_uint24\_t\ *r);}
+\DoxyCodeLine{01212\ }
+\DoxyCodeLine{01213\ }
+\DoxyCodeLine{01222\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int24\_add(\textcolor{keyword}{const}\ zb\_int24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int24\_t\ *s,\ zb\_int24\_t\ *r);}
+\DoxyCodeLine{01223\ }
+\DoxyCodeLine{01224\ }
+\DoxyCodeLine{01233\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int24\_sub(\textcolor{keyword}{const}\ zb\_int24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int24\_t\ *s,\ zb\_int24\_t\ *r);}
+\DoxyCodeLine{01234\ }
+\DoxyCodeLine{01235\ }
+\DoxyCodeLine{01244\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint24\_sub(\textcolor{keyword}{const}\ zb\_uint24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint24\_t\ *s,\ zb\_uint24\_t\ *r);}
+\DoxyCodeLine{01245\ }
+\DoxyCodeLine{01246\ }
+\DoxyCodeLine{01253\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int24\_neg(\textcolor{keyword}{const}\ zb\_int24\_t\ *f,\ zb\_int24\_t\ *r);}
+\DoxyCodeLine{01254\ }
+\DoxyCodeLine{01255\ }
+\DoxyCodeLine{01264\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint24\_mul(\textcolor{keyword}{const}\ zb\_uint24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint24\_t\ *s,\ zb\_uint24\_t\ *r);}
+\DoxyCodeLine{01265\ }
+\DoxyCodeLine{01266\ }
+\DoxyCodeLine{01275\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int24\_mul(\textcolor{keyword}{const}\ zb\_int24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int24\_t\ *s,\ zb\_int24\_t\ *r);}
+\DoxyCodeLine{01276\ }
+\DoxyCodeLine{01277\ }
+\DoxyCodeLine{01286\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint24\_div(\textcolor{keyword}{const}\ zb\_uint24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint24\_t\ *s,\ zb\_uint24\_t\ *r);}
+\DoxyCodeLine{01287\ }
+\DoxyCodeLine{01288\ }
+\DoxyCodeLine{01297\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int24\_div(\textcolor{keyword}{const}\ zb\_int24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int24\_t\ *s,\ zb\_int24\_t\ *r);}
+\DoxyCodeLine{01298\ }
+\DoxyCodeLine{01299\ }
+\DoxyCodeLine{01308\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint24\_mod(\textcolor{keyword}{const}\ zb\_uint24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint24\_t\ *s,\ zb\_uint24\_t\ *r);}
+\DoxyCodeLine{01309\ }
+\DoxyCodeLine{01310\ }
+\DoxyCodeLine{01319\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int24\_mod(\textcolor{keyword}{const}\ zb\_int24\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int24\_t\ *s,\ zb\_int24\_t\ *r);}
+\DoxyCodeLine{01320\ }
+\DoxyCodeLine{01321\ }
+\DoxyCodeLine{01327\ \textcolor{keywordtype}{void}\ zb\_uint64\_to\_uint48(zb\_uint64\_t\ var,\ zb\_uint48\_t\ *res);}
+\DoxyCodeLine{01328\ }
+\DoxyCodeLine{01329\ }
+\DoxyCodeLine{01335\ zb\_int64\_t\ zb\_int48\_to\_int64(\textcolor{keyword}{const}\ zb\_int48\_t\ *var);}
+\DoxyCodeLine{01336\ }
+\DoxyCodeLine{01337\ }
+\DoxyCodeLine{01343\ \textcolor{keywordtype}{void}\ zb\_int64\_to\_int48(zb\_int64\_t\ var,\ zb\_int48\_t\ *res);}
+\DoxyCodeLine{01344\ }
+\DoxyCodeLine{01345\ }
+\DoxyCodeLine{01351\ \textcolor{keywordtype}{void}\ zb\_int64\_to\_uint48(zb\_int64\_t\ var,\ zb\_uint48\_t\ *res);}
+\DoxyCodeLine{01352\ }
+\DoxyCodeLine{01353\ }
+\DoxyCodeLine{01359\ zb\_int64\_t\ zb\_uint48\_to\_int64(\textcolor{keyword}{const}\ zb\_uint48\_t\ *var);}
+\DoxyCodeLine{01360\ }
+\DoxyCodeLine{01361\ }
+\DoxyCodeLine{01370\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint48\_add(\textcolor{keyword}{const}\ zb\_uint48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint48\_t\ *s,\ zb\_uint48\_t\ *r);}
+\DoxyCodeLine{01371\ }
+\DoxyCodeLine{01372\ }
+\DoxyCodeLine{01381\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int48\_add(\textcolor{keyword}{const}\ zb\_int48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int48\_t\ *s,\ zb\_int48\_t\ *r);}
+\DoxyCodeLine{01382\ }
+\DoxyCodeLine{01383\ }
+\DoxyCodeLine{01392\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int48\_sub(\textcolor{keyword}{const}\ zb\_int48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int48\_t\ *s,\ zb\_int48\_t\ *r);}
+\DoxyCodeLine{01393\ }
+\DoxyCodeLine{01394\ }
+\DoxyCodeLine{01403\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint48\_sub(\textcolor{keyword}{const}\ zb\_uint48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint48\_t\ *s,\ zb\_uint48\_t\ *r);}
+\DoxyCodeLine{01404\ }
+\DoxyCodeLine{01405\ }
+\DoxyCodeLine{01412\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int48\_neg(\textcolor{keyword}{const}\ zb\_int48\_t\ *f,\ zb\_int48\_t\ *r);}
+\DoxyCodeLine{01413\ }
+\DoxyCodeLine{01414\ }
+\DoxyCodeLine{01423\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint48\_mul(\textcolor{keyword}{const}\ zb\_uint48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint48\_t\ *s,\ zb\_uint48\_t\ *r);}
+\DoxyCodeLine{01424\ }
+\DoxyCodeLine{01425\ }
+\DoxyCodeLine{01434\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int48\_mul(\textcolor{keyword}{const}\ zb\_int48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int48\_t\ *s,\ zb\_int48\_t\ *r);}
+\DoxyCodeLine{01435\ }
+\DoxyCodeLine{01436\ }
+\DoxyCodeLine{01445\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint48\_div(\textcolor{keyword}{const}\ zb\_uint48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint48\_t\ *s,\ zb\_uint48\_t\ *r);}
+\DoxyCodeLine{01446\ }
+\DoxyCodeLine{01447\ }
+\DoxyCodeLine{01456\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int48\_div(\textcolor{keyword}{const}\ zb\_int48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int48\_t\ *s,\ zb\_int48\_t\ *r);}
+\DoxyCodeLine{01457\ }
+\DoxyCodeLine{01458\ }
+\DoxyCodeLine{01467\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_uint48\_mod(\textcolor{keyword}{const}\ zb\_uint48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_uint48\_t\ *s,\ zb\_uint48\_t\ *r);}
+\DoxyCodeLine{01468\ }
+\DoxyCodeLine{01469\ }
+\DoxyCodeLine{01478\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_int48\_mod(\textcolor{keyword}{const}\ zb\_int48\_t\ *f,\ \textcolor{keyword}{const}\ zb\_int48\_t\ *s,\ zb\_int48\_t\ *r);}
+\DoxyCodeLine{01479\ \ \textcolor{comment}{/*\ 24\_and\_48\_bit\_arithm\ */}}
+\DoxyCodeLine{01481\ }
+\DoxyCodeLine{01482\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_ADD(val1,\ val2)\ \ zb\_uint48\_add(\&val1,\ \&val2,\ \&val1)}}
+\DoxyCodeLine{01483\ }
+\DoxyCodeLine{01484\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_SUB(val1,\ val2)\ \ zb\_uint48\_sub(\&val1,\ \&val2,\ \&val1)}}
+\DoxyCodeLine{01485\ }
+\DoxyCodeLine{01486\ \textcolor{preprocessor}{\#define\ ZB\_INT24\_FROM\_INT32(var,\ int32\_val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01487\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01488\ \textcolor{preprocessor}{\ \ if\ (int32\_val\ >=\ 0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01489\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01490\ \textcolor{preprocessor}{\ \ \ \ if\ (int32\_val\ >\ (zb\_int32\_t)ZB\_INT24\_MAX\_POSITIVE)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01491\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01492\ \textcolor{preprocessor}{\ \ \ \ \ \ int32\_val\ =\ (zb\_int32\_t)ZB\_INT24\_MAX\_POSITIVE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01493\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01494\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01495\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01496\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01497\ \textcolor{preprocessor}{\ \ \ \ if\ (int32\_val\ <\ (zb\_int32\_t)ZB\_INT32\_MINUS\_ONE\ -\/\ (zb\_int32\_t)ZB\_INT24\_MAX\_POSITIVE)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01498\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01499\ \textcolor{preprocessor}{\ \ \ \ \ \ int32\_val\ =\ (zb\_int32\_t)ZB\_INT32\_MINUS\_ONE\ -\/\ (zb\_int32\_t)ZB\_INT24\_MAX\_POSITIVE;\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01500\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01501\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01502\ \textcolor{preprocessor}{\ \ zb\_int32\_to\_int24(int32\_val,\ \&var);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01503\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01504\ }
+\DoxyCodeLine{01505\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ ZB\_UINT24\_48\_SUPPORT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01506\ }
+\DoxyCodeLine{01507\ \textcolor{comment}{/*\ Now\ U48\ type\ implemented\ as\ U32\ */}}
+\DoxyCodeLine{01508\ \textcolor{comment}{/*\ Now\ S24\ type\ implemented\ as\ S32\ */}}
+\DoxyCodeLine{01509\ }
+\DoxyCodeLine{01510\ \textcolor{keyword}{typedef}\ zb\_uint64\_t\ \ zb\_uint48\_t;}
+\DoxyCodeLine{01511\ \textcolor{keyword}{typedef}\ zb\_int64\_t\ \ \ zb\_int48\_t;}
+\DoxyCodeLine{01512\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ \ \ \ \ \ \ \ \ \ \ \ zb\_int24\_t;}
+\DoxyCodeLine{01513\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ \ \ \ zb\_uint24\_t;}
+\DoxyCodeLine{01514\ }
+\DoxyCodeLine{01515\ }
+\DoxyCodeLine{01516\ \textcolor{preprocessor}{\#define\ ZB\_INIT\_UINT48(high\_val,\ low\_val)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01517\ \textcolor{preprocessor}{\ \ (high\_val)}}
+\DoxyCodeLine{01518\ }
+\DoxyCodeLine{01519\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_UINT48(high\_val,\ low\_val)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01520\ \textcolor{preprocessor}{\ \ (high\_val)}}
+\DoxyCodeLine{01521\ }
+\DoxyCodeLine{01522\ \textcolor{comment}{/*\ Stubs\ for\ operations\ with\ this\ types\ */}}
+\DoxyCodeLine{01523\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_ADD(val1,\ val2)\ ((val1)\ +\ (val2))}}
+\DoxyCodeLine{01524\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_SUB(val1,\ val2)\ ((val1)\ -\/\ (val2))}}
+\DoxyCodeLine{01525\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_ADD\_INT24(uint48\_val,\ int24\_val)\ ((zb\_uint48\_t)((uint48\_val)\ +\ (int24\_val)))}}
+\DoxyCodeLine{01526\ }
+\DoxyCodeLine{01527\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_INT24\_FROM\_INT32(int32\_val)\ \(\backslash\)}}
+\DoxyCodeLine{01528\ \textcolor{preprocessor}{\ \ (int32\_val)}}
+\DoxyCodeLine{01529\ }
+\DoxyCodeLine{01530\ \textcolor{preprocessor}{\#define\ ZB\_GET\_INT32\_FROM\_INT24(int24\_val)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01531\ \textcolor{preprocessor}{\ \ (int24\_val)}}
+\DoxyCodeLine{01532\ }
+\DoxyCodeLine{01533\ \textcolor{preprocessor}{\#define\ ZB\_ASSIGN\_UINT24\_FROM\_UINT32(uint32\_val)\ \(\backslash\)}}
+\DoxyCodeLine{01534\ \textcolor{preprocessor}{\ \ (uint32\_val)}}
+\DoxyCodeLine{01535\ }
+\DoxyCodeLine{01536\ \textcolor{preprocessor}{\#define\ ZB\_GET\_UINT32\_FROM\_UINT24(uint24\_val)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01537\ \textcolor{preprocessor}{\ \ (uint24\_val)}}
+\DoxyCodeLine{01538\ }
+\DoxyCodeLine{01539\ \textcolor{preprocessor}{\#ifdef\ ZB\_LITTLE\_ENDIAN}}
+\DoxyCodeLine{01540\ }
+\DoxyCodeLine{01541\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE24(ptr,\ val)\ \ \ ZB\_MEMCPY((ptr),\ (val),\ ZB\_24BIT\_SIZE)}}
+\DoxyCodeLine{01542\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE48(ptr,\ val)\ \ \ ZB\_MEMCPY((ptr),\ (val),\ ZB\_48BIT\_SIZE)}}
+\DoxyCodeLine{01543\ }
+\DoxyCodeLine{01544\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01545\ }
+\DoxyCodeLine{01546\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE24(ptr,\ val)\ \ \ ZB\_HTOLE32((ptr),\ (val))}}
+\DoxyCodeLine{01547\ \textcolor{preprocessor}{\#define\ ZB\_HTOLE48(ptr,\ val)\ \ \ ZB\_HTOLE32((ptr),\ (val))}}
+\DoxyCodeLine{01548\ }
+\DoxyCodeLine{01549\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01550\ }
+\DoxyCodeLine{01551\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_EQUAL(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01552\ \textcolor{preprocessor}{\ \ ((val1)\ ==\ (val2))}}
+\DoxyCodeLine{01553\ }
+\DoxyCodeLine{01554\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_GREAT(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01555\ \textcolor{preprocessor}{\ \ ((val1)\ >\ (val2))}}
+\DoxyCodeLine{01556\ }
+\DoxyCodeLine{01557\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_LESS(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01558\ \textcolor{preprocessor}{\ \ ((val1)\ <\ (val2))}}
+\DoxyCodeLine{01559\ }
+\DoxyCodeLine{01560\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_GREAT\_OR\_EQUAL(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01561\ \textcolor{preprocessor}{\ \ (!ZB\_UINT48\_IS\_LESS(val1,\ val2))}}
+\DoxyCodeLine{01562\ }
+\DoxyCodeLine{01563\ \textcolor{preprocessor}{\#define\ ZB\_UINT48\_IS\_LESS\_OR\_EQUAL(val1,\ val2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01564\ \textcolor{preprocessor}{\ \ (!ZB\_UINT48\_IS\_GREAT(val1,\ val2))}}
+\DoxyCodeLine{01565\ }
+\DoxyCodeLine{01566\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_UINT24\_48\_SUPPORT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01567\ }
+\DoxyCodeLine{01568\ \textcolor{preprocessor}{\#define\ PUT\_DATA24(ptr,\ val)\ (ZB\_HTOLE24(ptr,\ val),\ (ptr)\ +=\ ZB\_24BIT\_SIZE)}}
+\DoxyCodeLine{01569\ \textcolor{preprocessor}{\#define\ PUT\_DATA24\_VAL(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01570\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01571\ \textcolor{preprocessor}{\ \ zb\_int24\_t\ tmp\_val\ =\ (val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01572\ \textcolor{preprocessor}{\ \ ZB\_HTOLE24((ptr),\ \&tmp\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01573\ \textcolor{preprocessor}{\ \ (ptr)\ +=\ ZB\_24BIT\_SIZE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01574\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01575\ }
+\DoxyCodeLine{01576\ \textcolor{preprocessor}{\#define\ PUT\_DATA48(ptr,\ val)\ (ZB\_HTOLE48(ptr,\ val),\ (ptr)\ +=\ ZB\_48BIT\_SIZE)}}
+\DoxyCodeLine{01577\ \textcolor{preprocessor}{\#define\ PUT\_DATA48\_VAL(ptr,\ val)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01578\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01579\ \textcolor{preprocessor}{\ \ zb\_uint48\_t\ tmp\_val\ =\ (val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01580\ \textcolor{preprocessor}{\ \ ZB\_HTOLE48((ptr),\ \&tmp\_val);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01581\ \textcolor{preprocessor}{\ \ (ptr)\ +=\ ZB\_48BIT\_SIZE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01582\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01583\ }
+\DoxyCodeLine{01584\ \textcolor{comment}{/*\ take\ MSB\ nibble\ from\ uint8\_t\ */}}
+\DoxyCodeLine{01585\ \textcolor{preprocessor}{\#define\ ZB\_UINT8\_MSB\_NIBBLE(X)\ (((X)\ >>\ 4U)\ \&\ 0x0FU)}}
+\DoxyCodeLine{01586\ }
+\DoxyCodeLine{01587\ \textcolor{comment}{/*\ take\ LSB\ nibble\ from\ uint8\_t\ */}}
+\DoxyCodeLine{01588\ \textcolor{preprocessor}{\#define\ ZB\_UINT8\_LSB\_NIBBLE(X)\ ((X)\ \&\ 0x0FU)}}
+\DoxyCodeLine{01589\ }
+\DoxyCodeLine{01590\ \textcolor{comment}{/*\ convert\ pair\ of\ nibbles\ into\ uint8\_t\ */}}
+\DoxyCodeLine{01591\ \textcolor{preprocessor}{\#define\ ZB\_UINT4x2\_TO\_UINT8(MSB\_N,\ LSB\_N)\ \(\backslash\)}}
+\DoxyCodeLine{01592\ \textcolor{preprocessor}{\ \ ((MSB\_N\ <<\ 4)\ |\ ZB\_UINT8\_LSB\_NIBBLE(LSB\_N))}}
+\DoxyCodeLine{01593\ }
+\DoxyCodeLine{01594\ }
+\DoxyCodeLine{01595\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_UINT24\_48\_SUPPORT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01596\ }
+\DoxyCodeLine{01598\ }
+\DoxyCodeLine{01603\ }
+\DoxyCodeLine{01604\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{float}\ zb\_single\_t;}
+\DoxyCodeLine{01605\ }
+\DoxyCodeLine{01607\ }
+\DoxyCodeLine{01608\ }
+\DoxyCodeLine{01609\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_TYPES\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

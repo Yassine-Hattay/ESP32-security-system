@@ -1,0 +1,160 @@
+\doxysection{Mqtt\+Client Class Reference}
+\hypertarget{class_mqtt_client}{}\label{class_mqtt_client}\index{MqttClient@{MqttClient}}
+
+
+Simple MQTT client wrapper.  
+
+
+
+
+{\ttfamily \#include $<$simple\+\_\+mqtt\+\_\+client.\+hpp$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_mqtt_client_a5b92711f3354172e5c51edd0042692c8}\label{class_mqtt_client_a5b92711f3354172e5c51edd0042692c8} 
+enum class {\bfseries Event} \{ {\bfseries CONNECT}
+, {\bfseries DATA}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_mqtt_client_a49ccd9dd5bf8005ef823db2e94b10038}\label{class_mqtt_client_a49ccd9dd5bf8005ef823db2e94b10038} 
+{\bfseries Mqtt\+Client} (const std\+::string \&uri)
+\begin{DoxyCompactList}\small\item\em Definitions of \doxylink{class_mqtt_client}{Mqtt\+Client} methods. \end{DoxyCompactList}\item 
+\Hypertarget{class_mqtt_client_ad2633395be0b9dc721d7d35fdc6b293c}\label{class_mqtt_client_ad2633395be0b9dc721d7d35fdc6b293c} 
+void {\bfseries connect} ()
+\begin{DoxyCompactList}\small\item\em Start the mqtt-\/client. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_mqtt_client_a19e8c5b96824a5688a8d319fdabf8f07}{publish}} (const std\+::string \&topic, const std\+::string \&data, int qos=0)
+\begin{DoxyCompactList}\small\item\em Publish to topic. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_mqtt_client_ae47b5202f965a124b8204b808820e8f3}{subscribe}} (const std\+::string \&topic, int qos=0)
+\begin{DoxyCompactList}\small\item\em Subscribe to a topic. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_mqtt_client_a65ac02998eee7d09be068fd5f9170856}{get\+\_\+topic}} (void \texorpdfstring{$\ast$}{*})
+\begin{DoxyCompactList}\small\item\em Get topic from event data. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_mqtt_client_af62462b186ad53f4dfec0e9c756a76ae}{get\+\_\+data}} (void \texorpdfstring{$\ast$}{*})
+\begin{DoxyCompactList}\small\item\em Get published data from event. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mqtt_client_a0bb2a3167009b7ac04dfc4324594f67e}{register\+\_\+handler}} (int32\+\_\+t id, esp\+\_\+event\+\_\+handler\+\_\+t event\+\_\+handler, void \texorpdfstring{$\ast$}{*}event\+\_\+handler\+\_\+arg)
+\begin{DoxyCompactList}\small\item\em Register MQTT event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int32\+\_\+t \mbox{\hyperlink{class_mqtt_client_a5529c0e92422b76091c2e1b81594f6e8}{get\+\_\+event}} (Event ev)
+\begin{DoxyCompactList}\small\item\em Convert internal MQTT event to standard ESPEvent. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Simple MQTT client wrapper. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_mqtt_client_af62462b186ad53f4dfec0e9c756a76ae}\index{MqttClient@{MqttClient}!get\_data@{get\_data}}
+\index{get\_data@{get\_data}!MqttClient@{MqttClient}}
+\doxysubsubsection{\texorpdfstring{get\_data()}{get\_data()}}
+{\footnotesize\ttfamily \label{class_mqtt_client_af62462b186ad53f4dfec0e9c756a76ae} 
+std\+::string Mqtt\+Client\+::get\+\_\+data (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{event\+\_\+data}{}\end{DoxyParamCaption})}
+
+
+
+Get published data from event. 
+
+\begin{DoxyReturn}{Returns}
+String representation of the data 
+\end{DoxyReturn}
+\Hypertarget{class_mqtt_client_a5529c0e92422b76091c2e1b81594f6e8}\index{MqttClient@{MqttClient}!get\_event@{get\_event}}
+\index{get\_event@{get\_event}!MqttClient@{MqttClient}}
+\doxysubsubsection{\texorpdfstring{get\_event()}{get\_event()}}
+{\footnotesize\ttfamily \label{class_mqtt_client_a5529c0e92422b76091c2e1b81594f6e8} 
+int32\+\_\+t Mqtt\+Client\+::get\+\_\+event (\begin{DoxyParamCaption}\item[{Mqtt\+Client\+::\+Event}]{ev}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Convert internal MQTT event to standard ESPEvent. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ev} & internal mqtt event \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+corresponding esp\+\_\+event id 
+\end{DoxyReturn}
+\Hypertarget{class_mqtt_client_a65ac02998eee7d09be068fd5f9170856}\index{MqttClient@{MqttClient}!get\_topic@{get\_topic}}
+\index{get\_topic@{get\_topic}!MqttClient@{MqttClient}}
+\doxysubsubsection{\texorpdfstring{get\_topic()}{get\_topic()}}
+{\footnotesize\ttfamily \label{class_mqtt_client_a65ac02998eee7d09be068fd5f9170856} 
+std\+::string Mqtt\+Client\+::get\+\_\+topic (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{event\+\_\+data}{}\end{DoxyParamCaption})}
+
+
+
+Get topic from event data. 
+
+\begin{DoxyReturn}{Returns}
+String topic 
+\end{DoxyReturn}
+\Hypertarget{class_mqtt_client_a19e8c5b96824a5688a8d319fdabf8f07}\index{MqttClient@{MqttClient}!publish@{publish}}
+\index{publish@{publish}!MqttClient@{MqttClient}}
+\doxysubsubsection{\texorpdfstring{publish()}{publish()}}
+{\footnotesize\ttfamily \label{class_mqtt_client_a19e8c5b96824a5688a8d319fdabf8f07} 
+int Mqtt\+Client\+::publish (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{topic}{, }\item[{const std\+::string \&}]{data}{, }\item[{int}]{qos}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Publish to topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em topic} & Topic to publish \\
+\hline
+{\em data} & Data to publish \\
+\hline
+{\em qos} & QoS (0 by default) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+message id 
+\end{DoxyReturn}
+\Hypertarget{class_mqtt_client_a0bb2a3167009b7ac04dfc4324594f67e}\index{MqttClient@{MqttClient}!register\_handler@{register\_handler}}
+\index{register\_handler@{register\_handler}!MqttClient@{MqttClient}}
+\doxysubsubsection{\texorpdfstring{register\_handler()}{register\_handler()}}
+{\footnotesize\ttfamily \label{class_mqtt_client_a0bb2a3167009b7ac04dfc4324594f67e} 
+void Mqtt\+Client\+::register\+\_\+handler (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{id}{, }\item[{esp\+\_\+event\+\_\+handler\+\_\+t}]{event\+\_\+handler}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{event\+\_\+handler\+\_\+arg}{}\end{DoxyParamCaption})}
+
+
+
+Register MQTT event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Event id \\
+\hline
+{\em event\+\_\+handler} & Event handler \\
+\hline
+{\em event\+\_\+handler\+\_\+arg} & Event handler parameters \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_mqtt_client_ae47b5202f965a124b8204b808820e8f3}\index{MqttClient@{MqttClient}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!MqttClient@{MqttClient}}
+\doxysubsubsection{\texorpdfstring{subscribe()}{subscribe()}}
+{\footnotesize\ttfamily \label{class_mqtt_client_ae47b5202f965a124b8204b808820e8f3} 
+int Mqtt\+Client\+::subscribe (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{topic}{, }\item[{int}]{qos}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+Subscribe to a topic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em topic} & Topic to subscribe \\
+\hline
+{\em qos} & QoS (0 by default) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+message id 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/examples/simple\+\_\+cmux\+\_\+client/main/simple\+\_\+mqtt\+\_\+client.\+hpp\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/examples/simple\+\_\+cmux\+\_\+client/main/simple\+\_\+mqtt\+\_\+client.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,72 @@
+\doxysection{Middlewares.\+h}
+\hypertarget{_middlewares_8h_source}{}\label{_middlewares_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/src/Middlewares.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/src/Middlewares.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MIDDLEWARES\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MIDDLEWARES\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <WebServer.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Stream.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ curl-\/like\ logging\ middleware}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_logging_middleware}{LoggingMiddleware}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_middleware}{Middleware}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \textcolor{keywordtype}{void}\ setOutput(\mbox{\hyperlink{class_print}{Print}}\ \&output);}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \textcolor{keywordtype}{bool}\ run(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ Middleware::Callback\ next)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ \ \ \mbox{\hyperlink{class_print}{Print}}\ *\_out\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_cors_middleware}{CorsMiddleware}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_middleware}{Middleware}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \mbox{\hyperlink{class_cors_middleware}{CorsMiddleware}}\ \&setOrigin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *origin);}
+\DoxyCodeLine{00023\ \ \ \mbox{\hyperlink{class_cors_middleware}{CorsMiddleware}}\ \&setMethods(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *methods);}
+\DoxyCodeLine{00024\ \ \ \mbox{\hyperlink{class_cors_middleware}{CorsMiddleware}}\ \&setHeaders(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *headers);}
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{class_cors_middleware}{CorsMiddleware}}\ \&setAllowCredentials(\textcolor{keywordtype}{bool}\ credentials);}
+\DoxyCodeLine{00026\ \ \ \mbox{\hyperlink{class_cors_middleware}{CorsMiddleware}}\ \&setMaxAge(uint32\_t\ seconds);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{void}\ addCORSHeaders(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{bool}\ run(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ Middleware::Callback\ next)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ String\ \_origin\ =\ F(\textcolor{stringliteral}{"{}*"{}});}
+\DoxyCodeLine{00034\ \ \ String\ \_methods\ =\ F(\textcolor{stringliteral}{"{}*"{}});}
+\DoxyCodeLine{00035\ \ \ String\ \_headers\ =\ F(\textcolor{stringliteral}{"{}*"{}});}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{bool}\ \_credentials\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00037\ \ \ uint32\_t\ \_maxAge\ =\ 86400;}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_authentication_middleware}{AuthenticationMiddleware}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_middleware}{Middleware}}\ \{}
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{class_authentication_middleware}{AuthenticationMiddleware}}\ \&setUsername(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *username);}
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{class_authentication_middleware}{AuthenticationMiddleware}}\ \&setPassword(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password);}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{class_authentication_middleware}{AuthenticationMiddleware}}\ \&setPasswordHash(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *sha1AsBase64orHex);}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{class_authentication_middleware}{AuthenticationMiddleware}}\ \&setCallback(WebServer::THandlerFunctionAuthCheck\ fn);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{class_authentication_middleware}{AuthenticationMiddleware}}\ \&setRealm(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *realm);}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{class_authentication_middleware}{AuthenticationMiddleware}}\ \&setAuthMethod(HTTPAuthMethod\ method);}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{class_authentication_middleware}{AuthenticationMiddleware}}\ \&setAuthFailureMessage(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *message);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{bool}\ isAllowed(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{bool}\ run(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ Middleware::Callback\ next)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00056\ \ \ String\ \_username;}
+\DoxyCodeLine{00057\ \ \ String\ \_password;}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{bool}\ \_hash\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00059\ \ \ WebServer::THandlerFunctionAuthCheck\ \_callback;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\_realm\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00062\ \ \ HTTPAuthMethod\ \_method\ =\ BASIC\_AUTH;}
+\DoxyCodeLine{00063\ \ \ String\ \_authFailMsg;}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

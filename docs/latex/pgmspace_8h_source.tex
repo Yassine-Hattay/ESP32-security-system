@@ -1,0 +1,99 @@
+\doxysection{pgmspace.\+h}
+\hypertarget{pgmspace_8h_source}{}\label{pgmspace_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/pgmspace.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/pgmspace.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ Copyright\ (c)\ 2015\ Hristo\ Gochkov.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ This\ file\ is\ part\ of\ the\ RaspberryPi\ core\ for\ Arduino\ environment.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ PGMSPACE\_INCLUDE}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ PGMSPACE\_INCLUDE}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ prog\_void;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{char}\ prog\_char;}
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ prog\_uchar;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{char}\ prog\_int8\_t;}
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ prog\_uint8\_t;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{short}\ prog\_int16\_t;}
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ prog\_uint16\_t;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{long}\ prog\_int32\_t;}
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ prog\_uint32\_t;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ PROGMEM}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ PGM\_P\ \ \ \ \ \ \ \ const\ char\ *}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ PGM\_VOID\_P\ \ \ const\ void\ *}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ PSTR(s)\ \ \ \ \ \ (s)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ \_SFR\_BYTE(n)\ (n)}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ pgm\_read\_byte(addr)\ (*(const\ unsigned\ char\ *)(addr))}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ pgm\_read\_word(addr)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ (\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ typeof(addr)\ \_addr\ =\ (addr);\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ *(const\ unsigned\ short\ *)(\_addr);\ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \})}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ pgm\_read\_dword(addr)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ (\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ typeof(addr)\ \_addr\ =\ (addr);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ *(const\ unsigned\ long\ *)(\_addr);\ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \})}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ pgm\_read\_float(addr)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ (\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \ \ typeof(addr)\ \_addr\ =\ (addr);\ \(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ *(const\ float\ *)(\_addr);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \})}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ pgm\_read\_ptr(addr)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ (\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ typeof(addr)\ \_addr\ =\ (addr);\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ *(void\ *const\ *)(\_addr);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \})}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ pgm\_get\_far\_address(x)\ ((uint32\_t)(\&(x)))}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ pgm\_read\_byte\_near(addr)\ \ pgm\_read\_byte(addr)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ pgm\_read\_word\_near(addr)\ \ pgm\_read\_word(addr)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ pgm\_read\_dword\_near(addr)\ pgm\_read\_dword(addr)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ pgm\_read\_float\_near(addr)\ pgm\_read\_float(addr)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ pgm\_read\_ptr\_near(addr)\ \ \ pgm\_read\_ptr(addr)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ pgm\_read\_byte\_far(addr)\ \ \ pgm\_read\_byte(addr)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ pgm\_read\_word\_far(addr)\ \ \ pgm\_read\_word(addr)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ pgm\_read\_dword\_far(addr)\ \ pgm\_read\_dword(addr)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ pgm\_read\_float\_far(addr)\ \ pgm\_read\_float(addr)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ pgm\_read\_ptr\_far(addr)\ \ \ \ pgm\_read\_ptr(addr)}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ memcmp\_P\ \ \ \ \ \ memcmp}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ memccpy\_P\ \ \ \ \ memccpy}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ memmem\_P\ \ \ \ \ \ memmem}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ memcpy\_P\ \ \ \ \ \ memcpy}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ strcpy\_P\ \ \ \ \ \ strcpy}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ strncpy\_P\ \ \ \ \ strncpy}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ strcat\_P\ \ \ \ \ \ strcat}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ strncat\_P\ \ \ \ \ strncat}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ strcmp\_P\ \ \ \ \ \ strcmp}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ strncmp\_P\ \ \ \ \ strncmp}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ strcasecmp\_P\ \ strcasecmp}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ strncasecmp\_P\ strncasecmp}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ strlen\_P\ \ \ \ \ \ strlen}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ strnlen\_P\ \ \ \ \ strnlen}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ strstr\_P\ \ \ \ \ \ strstr}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ printf\_P\ \ \ \ \ \ printf}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ sprintf\_P\ \ \ \ \ sprintf}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ snprintf\_P\ \ \ \ snprintf}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ vsnprintf\_P\ \ \ vsnprintf}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,79 @@
+\doxysection{USBHIDVendor.\+h}
+\hypertarget{_u_s_b_h_i_d_vendor_8h_source}{}\label{_u_s_b_h_i_d_vendor_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/USBHIDVendor.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/USBHIDVendor.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2020\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ SOC\_USB\_OTG\_SUPPORTED}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}Stream.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}USBHID.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#if\ CONFIG\_TINYUSB\_HID\_ENABLED}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ ESP\_EVENT\_DECLARE\_BASE(ARDUINO\_USB\_HID\_VENDOR\_EVENTS);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00027\ \ \ ARDUINO\_USB\_HID\_VENDOR\_ANY\_EVENT\ =\ ESP\_EVENT\_ANY\_ID,}
+\DoxyCodeLine{00028\ \ \ ARDUINO\_USB\_HID\_VENDOR\_SET\_FEATURE\_EVENT\ =\ 0,}
+\DoxyCodeLine{00029\ \ \ ARDUINO\_USB\_HID\_VENDOR\_GET\_FEATURE\_EVENT,}
+\DoxyCodeLine{00030\ \ \ ARDUINO\_USB\_HID\_VENDOR\_OUTPUT\_EVENT,}
+\DoxyCodeLine{00031\ \ \ ARDUINO\_USB\_HID\_VENDOR\_MAX\_EVENT,}
+\DoxyCodeLine{00032\ \}\ arduino\_usb\_hid\_vendor\_event\_t;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *buffer;}
+\DoxyCodeLine{00036\ \ \ uint16\_t\ len;}
+\DoxyCodeLine{00037\ \}\ arduino\_usb\_hid\_vendor\_event\_data\_t;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }USBHIDVendor\ :\ \textcolor{keyword}{public}\ USBHIDDevice,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_stream}{Stream}}\ \{}
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ USBHID\ hid;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00044\ \ \ \textcolor{comment}{//\ Max\ report\ size\ is\ 64,\ but\ we\ need\ one\ byte\ for\ report\ ID,\ so\ in\ reality\ max\ is\ 63.}}
+\DoxyCodeLine{00045\ \ \ \textcolor{comment}{//\ Because\ input\ packets\ are\ always\ with\ length\ equal\ to\ the\ report\ size}}
+\DoxyCodeLine{00046\ \ \ \textcolor{comment}{//\ it\ will\ not\ be\ known\ how\ many\ bytes\ actually\ matter.\ Setting\ 'prepend\_size'\ to\ 'true'\ will}}
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ make\ the\ first\ byte\ of\ each\ packet\ to\ be\ the\ length\ of\ data\ in\ that\ packet.}}
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//\ This\ comes\ with\ penalty\ of\ one\ byte,\ but\ is\ very\ useful\ when\ using\ Vendor\ for\ streaming}}
+\DoxyCodeLine{00049\ \ \ USBHIDVendor(uint8\_t\ report\_size\ =\ 63,\ \textcolor{keywordtype}{bool}\ prepend\_size\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{void}\ begin(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{void}\ end(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{void}\ prependInputPacketsWithSize(\textcolor{keywordtype}{bool}\ enable);}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{size\_t}\ setRxBufferSize(\textcolor{keywordtype}{size\_t});}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t);}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{int}\ available(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{int}\ peek(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{int}\ read(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{size\_t}\ read(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{void}\ flush(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ onEvent(esp\_event\_handler\_t\ callback);}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ onEvent(arduino\_usb\_hid\_vendor\_event\_t\ event,\ esp\_event\_handler\_t\ callback);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//\ internal\ use}}
+\DoxyCodeLine{00066\ \ \ uint16\_t\ \_onGetDescriptor(uint8\_t\ *buffer);}
+\DoxyCodeLine{00067\ \ \ uint16\_t\ \_onGetFeature(uint8\_t\ report\_id,\ uint8\_t\ *buffer,\ uint16\_t\ len);}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{void}\ \_onSetFeature(uint8\_t\ report\_id,\ \textcolor{keyword}{const}\ uint8\_t\ *buffer,\ uint16\_t\ len);}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{void}\ \_onOutput(uint8\_t\ report\_id,\ \textcolor{keyword}{const}\ uint8\_t\ *buffer,\ uint16\_t\ len);}
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_TINYUSB\_HID\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_USB\_OTG\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

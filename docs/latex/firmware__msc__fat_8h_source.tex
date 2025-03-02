@@ -1,0 +1,151 @@
+\doxysection{firmware\+\_\+msc\+\_\+fat.\+h}
+\hypertarget{firmware__msc__fat_8h_source}{}\label{firmware__msc__fat_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/firmware\_msc\_fat.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/firmware\_msc\_fat.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2021\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00024\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ FAT\_U8(v)\ \ ((v)\ \&\ 0xFF)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ FAT\_U16(v)\ FAT\_U8(v),\ FAT\_U8((v)\ >>\ 8)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ FAT\_U32(v)\ FAT\_U8(v),\ FAT\_U8((v)\ >>\ 8),\ FAT\_U8((v)\ >>\ 16),\ FAT\_U8((v)\ >>\ 24)}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ FAT12\_TBL2B(l,\ h)\ FAT\_U8(l),\ FAT\_U8(((l\ >>\ 8)\ \&\ 0xF)\ |\ ((h\ <<\ 4)\ \&\ 0xF0)),\ FAT\_U8(h\ >>\ 4)}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ FAT\_MS2B(s,\ ms)\ \ \ \ FAT\_U8(((((s)\ \&\ 0x1)\ *\ 1000)\ +\ (ms))\ /\ 10)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ FAT\_HMS2B(h,\ m,\ s)\ FAT\_U8(((s)\ >>\ 1)\ |\ (((m)\ \&\ 0x7)\ <<\ 5)),\ FAT\_U8((((m)\ >>\ 3)\ \&\ 0x7)\ |\ ((h)\ <<\ 3))}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ FAT\_YMD2B(y,\ m,\ d)\ FAT\_U8(((d)\ \&\ 0x1F)\ |\ (((m)\ \&\ 0x7)\ <<\ 5)),\ FAT\_U8((((m)\ >>\ 3)\ \&\ 0x1)\ |\ ((((y)\ -\/\ 1980)\ \&\ 0x7F)\ <<\ 1))}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ FAT\_MS2V(s,\ ms)\ \ \ \ FAT\_U8(((((s)\ \&\ 0x1)\ *\ 1000)\ +\ (ms))\ /\ 10)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ FAT\_HMS2V(h,\ m,\ s)\ (FAT\_U8(((s)\ >>\ 1)\ |\ (((m)\ \&\ 0x7)\ <<\ 5))\ |\ (FAT\_U8((((m)\ >>\ 3)\ \&\ 0x7)\ |\ ((h)\ <<\ 3))\ <<\ 8))}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ FAT\_YMD2V(y,\ m,\ d)\ (FAT\_U8(((d)\ \&\ 0x1F)\ |\ (((m)\ \&\ 0x7)\ <<\ 5))\ |\ (FAT\_U8((((m)\ >>\ 3)\ \&\ 0x1)\ |\ ((((y)\ -\/\ 1980)\ \&\ 0x7F)\ <<\ 1))\ <<\ 8))}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ FAT\_B2HMS(hms)\ ((hms\ >>\ 11)\ \&\ 0x1F),\ ((hms\ >>\ 5)\ \&\ 0x3F),\ ((hms\ \&\ 0x1F)\ <<\ 1)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ FAT\_B2YMD(ymd)\ (((ymd\ >>\ 9)\ \&\ 0x7F)\ +\ 1980),\ ((ymd\ >>\ 5)\ \&\ 0x0F),\ (ymd\ \&\ 0x1F)}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ FAT\_FILE\_ATTR\_READ\_ONLY\ \ \ \ 0x01}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ FAT\_FILE\_ATTR\_HIDDEN\ \ \ \ \ \ \ 0x02}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ FAT\_FILE\_ATTR\_SYSTEM\ \ \ \ \ \ \ 0x04}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ FAT\_FILE\_ATTR\_VOLUME\_LABEL\ 0x08}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ FAT\_FILE\_ATTR\_SUBDIRECTORY\ 0x10}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ FAT\_FILE\_ATTR\_ARCHIVE\ \ \ \ \ \ 0x20}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ FAT\_FILE\_ATTR\_DEVICE\ \ \ \ \ \ \ 0x40}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint16\_t\ DISK\_SECTOR\_SIZE\ =\ 512;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ FAT\_SIZE\_TO\_SECTORS(bytes)\ ((bytes)\ /\ DISK\_SECTOR\_SIZE)\ +\ (((bytes)\ \%\ DISK\_SECTOR\_SIZE)\ ?\ 1\ :\ 0)}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\_\_attribute\_\_((packed))\ \{}
+\DoxyCodeLine{00057\ \ \ uint8\_t\ jump\_instruction[3];}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{char}\ oem\_name[8];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//padded\ with\ spaces\ (0x20)}}
+\DoxyCodeLine{00059\ \ \ uint16\_t\ bytes\_per\_sector;\ \ \ \ \ \ \ \ \textcolor{comment}{//DISK\_SECTOR\_SIZE\ usually\ 512}}
+\DoxyCodeLine{00060\ \ \ uint8\_t\ sectors\_per\_cluster;\ \ \ \ \ \ \textcolor{comment}{//Allowed\ values\ are\ 1,\ 2,\ 4,\ 8,\ 16,\ 32,\ 64,\ and\ 128}}
+\DoxyCodeLine{00061\ \ \ uint16\_t\ reserved\_sectors\_count;\ \ \textcolor{comment}{//At\ least\ 1\ for\ this\ sector,\ usually\ 32\ for\ FAT32}}
+\DoxyCodeLine{00062\ \ \ uint8\_t\ file\_alloc\_tables\_num;\ \ \ \ \textcolor{comment}{//Almost\ always\ 2;\ RAM\ disks\ might\ use\ 1}}
+\DoxyCodeLine{00063\ \ \ uint16\_t\ max\_root\_dir\_entries;\ \ \ \ \textcolor{comment}{//FAT12\ and\ FAT16}}
+\DoxyCodeLine{00064\ \ \ uint16\_t\ fat12\_sector\_num;\ \ \ \ \ \ \ \ \textcolor{comment}{//DISK\_SECTOR\_NUM\ FAT12\ and\ FAT16}}
+\DoxyCodeLine{00065\ \ \ uint8\_t\ media\_descriptor;}
+\DoxyCodeLine{00066\ \ \ uint16\_t\ sectors\_per\_alloc\_table;\ \ \textcolor{comment}{//FAT12\ and\ FAT16}}
+\DoxyCodeLine{00067\ \ \ uint16\_t\ sectors\_per\_track;\ \ \ \ \ \ \ \ \textcolor{comment}{//A\ value\ of\ 0\ may\ indicate\ LBA-\/only\ access}}
+\DoxyCodeLine{00068\ \ \ uint16\_t\ num\_heads;}
+\DoxyCodeLine{00069\ \ \ uint32\_t\ hidden\_sectors\_count;}
+\DoxyCodeLine{00070\ \ \ uint32\_t\ total\_sectors\_32;}
+\DoxyCodeLine{00071\ \ \ uint8\_t\ physical\_drive\_number;\ \ \textcolor{comment}{//0x00\ for\ (first)\ removable\ media,\ 0x80\ for\ (first)\ fixed\ disk}}
+\DoxyCodeLine{00072\ \ \ uint8\_t\ reserved0;}
+\DoxyCodeLine{00073\ \ \ uint8\_t\ extended\_boot\_signature;\ \ \textcolor{comment}{//should\ be\ 0x29}}
+\DoxyCodeLine{00074\ \ \ uint32\_t\ serial\_number;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//0x1234\ =>\ 1234}}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{char}\ volume\_label[11];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//padded\ with\ spaces\ (0x20)}}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{char}\ file\_system\_type[8];\ \ \ \ \ \ \ \ \ \textcolor{comment}{//padded\ with\ spaces\ (0x20)}}
+\DoxyCodeLine{00077\ \ \ uint8\_t\ reserved[448];}
+\DoxyCodeLine{00078\ \ \ uint16\_t\ signature;\ \ \textcolor{comment}{//should\ be\ 0xAA55}}
+\DoxyCodeLine{00079\ \}\ fat\_boot\_sector\_t;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\_\_attribute\_\_((packed))\ \{}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ file\_name[8];\ \ \ \ \ \ \ \textcolor{comment}{//padded\ with\ spaces\ (0x20)}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ file\_extension[3];\ \ \textcolor{comment}{//padded\ with\ spaces\ (0x20)}}
+\DoxyCodeLine{00086\ \ \ \ \ \};}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ uint8\_t\ file\_magic;\ \ \textcolor{comment}{//\ 0xE5:deleted,\ 0x05:will\_be\_deleted,\ 0x00:end\_marker,\ 0x2E:dot\_marker(.\ or\ ..)}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ file\_magic\_data[10];}
+\DoxyCodeLine{00090\ \ \ \ \ \};}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{char}\ volume\_label[11];\ \ \textcolor{comment}{//padded\ with\ spaces\ (0x20)}}
+\DoxyCodeLine{00092\ \ \ \};}
+\DoxyCodeLine{00093\ \ \ uint8\_t\ file\_attr;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//mask\ of\ FAT\_FILE\_ATTR\_*}}
+\DoxyCodeLine{00094\ \ \ uint8\_t\ reserved;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//always\ 0}}
+\DoxyCodeLine{00095\ \ \ uint8\_t\ creation\_time\_ms;\ \ \ \ \textcolor{comment}{//ms\ *\ 10;\ max\ 1990\ (1s\ 990ms)}}
+\DoxyCodeLine{00096\ \ \ uint16\_t\ creation\_time\_hms;\ \ \textcolor{comment}{//\ [5:6:5]\ =>\ h:m:(s/2)}}
+\DoxyCodeLine{00097\ \ \ uint16\_t\ creation\_time\_ymd;\ \ \textcolor{comment}{//\ [7:4:5]\ =>\ (y+1980):m:d}}
+\DoxyCodeLine{00098\ \ \ uint16\_t\ last\_access\_ymd;}
+\DoxyCodeLine{00099\ \ \ uint16\_t\ extended\_attr;}
+\DoxyCodeLine{00100\ \ \ uint16\_t\ last\_modified\_hms;}
+\DoxyCodeLine{00101\ \ \ uint16\_t\ last\_modified\_ymd;}
+\DoxyCodeLine{00102\ \ \ uint16\_t\ data\_start\_sector;}
+\DoxyCodeLine{00103\ \ \ uint32\_t\ file\_size;}
+\DoxyCodeLine{00104\ \}\ fat\_dir\_entry\_t;}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\_\_attribute\_\_((packed))\ \{}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ uint8\_t\ number\ \ \ \ :\ 5;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ uint8\_t\ reserved0\ :\ 1;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ uint8\_t\ llfp\ \ \ \ \ \ :\ 1;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ uint8\_t\ reserved1\ :\ 1;}
+\DoxyCodeLine{00113\ \ \ \ \ \}\ seq;}
+\DoxyCodeLine{00114\ \ \ \ \ uint8\_t\ seq\_num;\ \ \textcolor{comment}{//0xE5:\ Deleted\ Entry}}
+\DoxyCodeLine{00115\ \ \ \};}
+\DoxyCodeLine{00116\ \ \ uint16\_t\ name0[5];}
+\DoxyCodeLine{00117\ \ \ uint8\_t\ attr;\ \ \textcolor{comment}{//ALWAYS\ 0x0F}}
+\DoxyCodeLine{00118\ \ \ uint8\_t\ type;\ \ \textcolor{comment}{//ALWAYS\ 0x00}}
+\DoxyCodeLine{00119\ \ \ uint8\_t\ dos\_checksum;}
+\DoxyCodeLine{00120\ \ \ uint16\_t\ name1[6];}
+\DoxyCodeLine{00121\ \ \ uint16\_t\ first\_cluster;\ \ \textcolor{comment}{//ALWAYS\ 0x0000}}
+\DoxyCodeLine{00122\ \ \ uint16\_t\ name2[2];}
+\DoxyCodeLine{00123\ \}\ fat\_lfn\_entry\_t;}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00126\ \ \ fat\_dir\_entry\_t\ dir;}
+\DoxyCodeLine{00127\ \ \ fat\_lfn\_entry\_t\ lfn;}
+\DoxyCodeLine{00128\ \}\ \mbox{\hyperlink{unionfat__entry__t}{fat\_entry\_t}};}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fat\_file\_system\_type(\textcolor{keywordtype}{bool}\ fat16);}
+\DoxyCodeLine{00131\ uint16\_t\ fat\_sectors\_per\_alloc\_table(uint32\_t\ sector\_num,\ \textcolor{keywordtype}{bool}\ fat16);}
+\DoxyCodeLine{00132\ uint8\_t\ *fat\_add\_table(uint8\_t\ *dst,\ fat\_boot\_sector\_t\ *boot,\ \textcolor{keywordtype}{bool}\ fat16);}
+\DoxyCodeLine{00133\ \textcolor{keywordtype}{void}\ fat\_set\_table\_index(uint8\_t\ *table,\ uint16\_t\ index,\ uint16\_t\ value,\ \textcolor{keywordtype}{bool}\ fat16);}
+\DoxyCodeLine{00134\ fat\_boot\_sector\_t\ *fat\_add\_boot\_sector(}
+\DoxyCodeLine{00135\ \ \ uint8\_t\ *dst,\ uint16\_t\ sector\_num,\ uint16\_t\ table\_sectors,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file\_system\_type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *volume\_label,\ uint32\_t\ serial\_number}
+\DoxyCodeLine{00136\ );}
+\DoxyCodeLine{00137\ fat\_dir\_entry\_t\ *fat\_add\_label(uint8\_t\ *dst,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *volume\_label);}
+\DoxyCodeLine{00138\ fat\_dir\_entry\_t\ *fat\_add\_root\_file(}
+\DoxyCodeLine{00139\ \ \ uint8\_t\ *dst,\ uint8\_t\ index,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file\_name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *file\_extension,\ \textcolor{keywordtype}{size\_t}\ file\_size,\ uint16\_t\ data\_start\_sector,\ \textcolor{keywordtype}{bool}\ is\_fat16}
+\DoxyCodeLine{00140\ );}
+\DoxyCodeLine{00141\ uint8\_t\ fat\_lfn\_checksum(\textcolor{keyword}{const}\ uint8\_t\ *short\_filename);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00144\ \}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

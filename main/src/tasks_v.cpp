@@ -1,3 +1,14 @@
+/**
+ * @file tasks_v.cpp
+ * @author Yassine Hattay (hattayyassine519@gmail.com)
+ * @brief freeRTOS tasks code
+ * @version 0.1
+ * @date 2025-03-02
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
+
 #include "global_header.h"
 #include "camera_var.h"
 #include "server_v.h"
@@ -7,11 +18,17 @@
 unsigned long start_trans_time;
 
 unsigned long lastCheckTime_h = 0;
-unsigned long lastCheckTime = 0; 
+unsigned long lastCheckTime = 0;
 
 TaskHandle_t loop_handle = NULL;
 TaskHandle_t live_f_handle = NULL;
-TaskHandle_t sending_photo_Handle =NULL; 
+TaskHandle_t sending_photo_Handle = NULL;
+
+/**
+ * @brief a task that sends a photo when there is movment detected
+ *
+ * @param parameter
+ */
 
 void sending_photo_task(void *parameter)
 {
@@ -174,6 +191,12 @@ void sending_photo_task(void *parameter)
   return;
 }
 
+/**
+ * @brief a task that handles connexion for the web pages
+ *
+ * @param parameter
+ */
+
 void loop_f(void *parameter)
 {
   for (;;)
@@ -202,7 +225,11 @@ void loop_f(void *parameter)
   return;
 }
 
-
+/**
+ * @brief function that streams video
+ *
+ * @param parameter
+ */
 
 static esp_err_t stream_handler(httpd_req_t *req)
 {
@@ -214,11 +241,11 @@ static esp_err_t stream_handler(httpd_req_t *req)
 
   res = httpd_resp_set_type(req, _STREAM_CONTENT_TYPE);
   if (res != ESP_OK)
-  { 
+  {
     return ESP_FAIL;
   }
 
-  while (true) 
+  while (true)
   {
     fb = esp_camera_fb_get();
     if (!fb)
@@ -281,6 +308,11 @@ static esp_err_t stream_handler(httpd_req_t *req)
   return res;
 }
 
+/**
+ * @brief task that handles life span of the live mode/web page 
+ *
+ * @param parameter
+ */
 
 void live_f(void *parameter)
 {

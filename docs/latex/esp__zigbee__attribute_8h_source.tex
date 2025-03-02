@@ -1,0 +1,131 @@
+\doxysection{esp\+\_\+zigbee\+\_\+attribute.\+h}
+\hypertarget{esp__zigbee__attribute_8h_source}{}\label{esp__zigbee__attribute_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/esp\_zigbee\_attribute.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/esp\_zigbee\_attribute.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022-\/2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_type.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}zcl/esp\_zigbee\_zcl\_common.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00027\ esp\_zb\_attribute\_list\_t\ *esp\_zb\_zcl\_attr\_list\_create(uint16\_t\ cluster\_id);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00042\ esp\_zb\_zcl\_attr\_t\ *esp\_zb\_zcl\_get\_attribute(uint8\_t\ endpoint,\ uint16\_t\ cluster\_id,\ uint8\_t\ cluster\_role,\ uint16\_t\ attr\_id);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00060\ esp\_zb\_zcl\_status\_t\ esp\_zb\_zcl\_set\_attribute\_val(uint8\_t\ endpoint,\ uint16\_t\ cluster\_id,\ uint8\_t\ cluster\_role,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p,\ \textcolor{keywordtype}{bool}\ check);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00073\ esp\_zb\_zcl\_attr\_t\ *esp\_zb\_zcl\_get\_manufacturer\_attribute(uint8\_t\ endpoint,\ uint16\_t\ cluster\_id,\ uint8\_t\ cluster\_role,\ uint16\_t\ attr\_id,}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ manuf\_code);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00088\ esp\_zb\_zcl\_status\_t\ esp\_zb\_zcl\_set\_manufacturer\_attribute\_val(uint8\_t\ endpoint,\ uint16\_t\ cluster\_id,\ uint8\_t\ cluster\_role,\ uint16\_t\ manuf\_code,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p,\ \textcolor{keywordtype}{bool}\ check);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00103\ esp\_err\_t\ esp\_zb\_basic\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00117\ esp\_err\_t\ esp\_zb\_power\_config\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00131\ esp\_err\_t\ esp\_zb\_identify\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00145\ esp\_err\_t\ esp\_zb\_groups\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00159\ esp\_err\_t\ esp\_zb\_scenes\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00173\ esp\_err\_t\ esp\_zb\_on\_off\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00187\ esp\_err\_t\ esp\_zb\_on\_off\_switch\_config\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00201\ esp\_err\_t\ esp\_zb\_level\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00215\ esp\_err\_t\ esp\_zb\_color\_control\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00229\ esp\_err\_t\ esp\_zb\_time\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00243\ esp\_err\_t\ esp\_zb\_binary\_input\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00257\ esp\_err\_t\ esp\_zb\_commissioning\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00271\ esp\_err\_t\ esp\_zb\_shade\_config\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00285\ esp\_err\_t\ esp\_zb\_door\_lock\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00299\ esp\_err\_t\ esp\_zb\_ias\_zone\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00311\ esp\_err\_t\ esp\_zb\_ias\_zone\_cluster\_set\_cie\_address(uint8\_t\ endpoint,\ esp\_zb\_ieee\_addr\_t\ cie\_ieee\_addr);}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00323\ esp\_err\_t\ esp\_zb\_ias\_ace\_get\_zone\_table\_length(uint8\_t\ endpoint,\ uint8\_t\ *table\_size);}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00335\ esp\_err\_t\ esp\_zb\_ias\_ace\_get\_zone\_table(uint8\_t\ endpoint,\ esp\_zb\_zcl\_ias\_ace\_zone\_table\_t**\ table\_p);}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00349\ esp\_err\_t\ esp\_zb\_ias\_wd\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00363\ esp\_err\_t\ esp\_zb\_temperature\_meas\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00377\ esp\_err\_t\ esp\_zb\_humidity\_meas\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00391\ esp\_err\_t\ esp\_zb\_ota\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00405\ esp\_err\_t\ esp\_zb\_illuminance\_meas\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00419\ esp\_err\_t\ esp\_zb\_pressure\_meas\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00433\ esp\_err\_t\ esp\_zb\_flow\_meas\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00447\ esp\_err\_t\ esp\_zb\_electrical\_meas\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00461\ esp\_err\_t\ esp\_zb\_window\_covering\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00462\ }
+\DoxyCodeLine{00475\ esp\_err\_t\ esp\_zb\_occupancy\_sensing\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00489\ esp\_err\_t\ esp\_zb\_thermostat\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t*\ attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}*\ value\_p);}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00503\ esp\_err\_t\ esp\_zb\_fan\_control\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t*\ attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}*\ value\_p);}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00517\ esp\_err\_t\ esp\_zb\_thermostat\_ui\_config\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00531\ esp\_err\_t\ esp\_zb\_analog\_input\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00545\ esp\_err\_t\ esp\_zb\_analog\_output\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00559\ esp\_err\_t\ esp\_zb\_analog\_value\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00573\ esp\_err\_t\ esp\_zb\_ec\_measurement\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00587\ esp\_err\_t\ esp\_zb\_ph\_measurement\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00601\ esp\_err\_t\ esp\_zb\_wind\_speed\_measurement\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00602\ }
+\DoxyCodeLine{00615\ esp\_err\_t\ esp\_zb\_carbon\_dioxide\_measurement\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00629\ esp\_err\_t\ esp\_zb\_pm2\_5\_measurement\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00643\ esp\_err\_t\ esp\_zb\_multistate\_value\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00644\ }
+\DoxyCodeLine{00657\ esp\_err\_t\ esp\_zb\_diagnostics\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00658\ }
+\DoxyCodeLine{00671\ esp\_err\_t\ esp\_zb\_meter\_identification\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00672\ }
+\DoxyCodeLine{00685\ esp\_err\_t\ esp\_zb\_drlc\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00686\ }
+\DoxyCodeLine{00702\ esp\_err\_t\ esp\_zb\_cluster\_add\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ cluster\_id,\ uint16\_t\ attr\_id,\ uint8\_t\ attr\_type,\ uint8\_t\ attr\_access,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00720\ esp\_err\_t\ esp\_zb\_cluster\_add\_manufacturer\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ cluster\_id,\ uint16\_t\ attr\_id,\ uint16\_t\ manuf\_code,\ uint8\_t\ attr\_type,\ uint8\_t\ attr\_access,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00721\ }
+\DoxyCodeLine{00736\ esp\_err\_t\ esp\_zb\_custom\_cluster\_add\_custom\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ uint8\_t\ attr\_type,\ uint8\_t\ attr\_access,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00751\ esp\_err\_t\ esp\_zb\_cluster\_update\_attr(esp\_zb\_attribute\_list\_t\ *attr\_list,\ uint16\_t\ attr\_id,\ \textcolor{keywordtype}{void}\ *value\_p);}
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00753\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00754\ \}}
+\DoxyCodeLine{00755\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

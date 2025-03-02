@@ -1,0 +1,80 @@
+\doxysection{Wi\+Fi\+Scan.\+h}
+\hypertarget{_wi_fi_scan_8h_source}{}\label{_wi_fi_scan_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFi/src/WiFiScan.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFi/src/WiFiScan.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ ESP8266WiFiScan.h\ -\/\ esp8266\ Wifi\ support.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ Based\ on\ WiFi.h\ from\ Ardiono\ WiFi\ shield\ library.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ Copyright\ (c)\ 2011-\/2014\ Arduino.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ Modified\ by\ Ivan\ Grokhotkov,\ December\ 2014}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ Reworked\ by\ Markus\ Sattler,\ December\ 2015}}
+\DoxyCodeLine{00007\ \textcolor{comment}{}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#if\ SOC\_WIFI\_SUPPORTED\ ||\ CONFIG\_ESP\_WIFI\_REMOTE\_ENABLED}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}WiFiType.h"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}WiFiGeneric.h"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }WiFiScanClass\ \{}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{void}\ setScanTimeout(uint32\_t\ ms);}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{void}\ setScanActiveMinTime(uint32\_t\ ms);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ int16\_t\ scanNetworks(}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{bool}\ async\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ show\_hidden\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ passive\ =\ \textcolor{keyword}{false},\ uint32\_t\ max\_ms\_per\_chan\ =\ 300,\ uint8\_t\ channel\ =\ 0,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ssid\ =\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *bssid\ =\ \textcolor{keyword}{nullptr}}
+\DoxyCodeLine{00041\ \ \ );}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ int16\_t\ scanComplete();}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ scanDelete();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \textcolor{comment}{//\ scan\ result}}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{bool}\ getNetworkInfo(uint8\_t\ networkItem,\ String\ \&ssid,\ uint8\_t\ \&encryptionType,\ int32\_t\ \&RSSI,\ uint8\_t\ *\&BSSID,\ int32\_t\ \&channel);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ String\ SSID(uint8\_t\ networkItem);}
+\DoxyCodeLine{00050\ \ \ wifi\_auth\_mode\_t\ encryptionType(uint8\_t\ networkItem);}
+\DoxyCodeLine{00051\ \ \ int32\_t\ RSSI(uint8\_t\ networkItem);}
+\DoxyCodeLine{00052\ \ \ uint8\_t\ *BSSID(uint8\_t\ networkItem,\ uint8\_t\ *bssid\ =\ NULL);}
+\DoxyCodeLine{00053\ \ \ String\ BSSIDstr(uint8\_t\ networkItem);}
+\DoxyCodeLine{00054\ \ \ int32\_t\ channel(uint8\_t\ networkItem);}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ *getScanInfoByIndex(\textcolor{keywordtype}{int}\ i)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ \_getScanInfoByIndex(i);}
+\DoxyCodeLine{00057\ \ \ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_scanDone();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \_scanAsync;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{static}\ uint32\_t\ \_scanStarted;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{static}\ uint32\_t\ \_scanTimeout;}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{static}\ uint16\_t\ \_scanCount;}
+\DoxyCodeLine{00067\ \ \ \textcolor{keyword}{static}\ uint32\_t\ \_scanActiveMinTime;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ *\_scanResult;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ *\_getScanInfoByIndex(\textcolor{keywordtype}{int}\ i);}
+\DoxyCodeLine{00072\ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_WIFI\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

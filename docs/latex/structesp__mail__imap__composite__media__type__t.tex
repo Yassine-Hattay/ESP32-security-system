@@ -1,0 +1,41 @@
+\doxysection{esp\+\_\+mail\+\_\+imap\+\_\+composite\+\_\+media\+\_\+type\+\_\+t Struct Reference}
+\hypertarget{structesp__mail__imap__composite__media__type__t}{}\label{structesp__mail__imap__composite__media__type__t}\index{esp\_mail\_imap\_composite\_media\_type\_t@{esp\_mail\_imap\_composite\_media\_type\_t}}
+
+
+{\ttfamily \#include $<$ESP\+\_\+\+Mail\+\_\+\+Const.\+h$>$}
+
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structesp__mail__imap__composite__media__type__t_a3dd45b06f614e3e01c8159ca27b3ccf6}{multipart}} = "{}multipart"{}
+\item 
+\Hypertarget{structesp__mail__imap__composite__media__type__t_a20f0e94d2059ad2e435192d41fee9a0f}\label{structesp__mail__imap__composite__media__type__t_a20f0e94d2059ad2e435192d41fee9a0f} 
+static constexpr const char \texorpdfstring{$\ast$}{*} {\bfseries message} = "{}message"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+composite media types (rfc 2046)
+
+As stated in the definition of the Content-\/\+Transfer-\/\+Encoding field \mbox{[}RFC 2045\mbox{]}, no encoding other than "{}7bit"{}, "{}8bit"{}, or "{}binary"{} is permitted for entities of type "{}multipart"{}. The "{}multipart"{} boundary delimiters and header fields are always represented as 7bit US-\/\+ASCII in any case (though the header fields may encode non-\/\+US-\/\+ASCII header text as per RFC 2047) and data within the body parts can be encoded on a part-\/by-\/part basis, with Content-\/\+Transfer-\/\+Encoding fields for each appropriate body part. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structesp__mail__imap__composite__media__type__t_a3dd45b06f614e3e01c8159ca27b3ccf6}\index{esp\_mail\_imap\_composite\_media\_type\_t@{esp\_mail\_imap\_composite\_media\_type\_t}!multipart@{multipart}}
+\index{multipart@{multipart}!esp\_mail\_imap\_composite\_media\_type\_t@{esp\_mail\_imap\_composite\_media\_type\_t}}
+\doxysubsubsection{\texorpdfstring{multipart}{multipart}}
+{\footnotesize\ttfamily \label{structesp__mail__imap__composite__media__type__t_a3dd45b06f614e3e01c8159ca27b3ccf6} 
+const char\texorpdfstring{$\ast$}{*} esp\+\_\+mail\+\_\+imap\+\_\+composite\+\_\+media\+\_\+type\+\_\+t\+::multipart = "{}multipart"{}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+data consisting of multiple entities of independent data types The Content-\/\+Type field for multipart entities requires one parameter, "{}boundary"{}. The boundary delimiter line is then defined as a line consisting entirely of two hyphen characters ("{}-\/"{}, decimal value 45) followed by the boundary parameter value from the Content-\/\+Type header field, optional linear whitespace, and a terminating CRLF.
+
+NOTE\+: The CRLF preceding the boundary delimiter line is conceptually attached to the boundary so that it is possible to have a part that does not end with a CRLF (line break). Body parts that must be considered to end with line breaks, therefore, must have two CRLFs preceding the boundary delimiter line, the first of which is part of the preceding body part, and the second of which is part of the encapsulation boundary.
+
+Boundary delimiters must not appear within the encapsulated material, and must be no longer than 70 characters, not counting the two leading hyphens.
+
+The boundary delimiter line following the last body part is a distinguished delimiter that indicates that no further body parts will follow. Such a delimiter line is identical to the previous delimiter lines, with the addition of two more hyphens after the boundary parameter value.
+
+See rfc2049 Appendix A for a Complex Multipart Example 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/ESP\+\_\+\+Mail\+\_\+\+Const.\+h\end{DoxyCompactItemize}

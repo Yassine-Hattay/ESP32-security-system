@@ -1,0 +1,40 @@
+\doxysection{argon2-\/encoding.h}
+\hypertarget{argon2-encoding_8h_source}{}\label{argon2-encoding_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_pwhash/argon2/argon2-\/encoding.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_pwhash/argon2/argon2-\/encoding.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ argon2\_encoding\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ argon2\_encoding\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}argon2.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ encode\ an\ Argon2\ hash\ string\ into\ the\ provided\ buffer.\ 'dst\_len'}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ contains\ the\ size,\ in\ characters,\ of\ the\ 'dst'\ buffer;\ if\ 'dst\_len'}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ is\ less\ than\ the\ number\ of\ required\ characters\ (including\ the}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ terminating\ 0),\ then\ this\ function\ returns\ 0.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ if\ ctx-\/>outlen\ is\ 0,\ then\ the\ hash\ string\ will\ be\ a\ salt\ string}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ (no\ output).\ if\ ctx-\/>saltlen\ is\ also\ 0,\ then\ the\ string\ will\ be\ a}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ parameter-\/only\ string\ (no\ salt\ and\ no\ output).}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ On\ success,\ ARGON2\_OK\ is\ returned.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ No\ other\ parameters\ are\ checked}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{int}\ argon2\_encode\_string(\textcolor{keywordtype}{char}\ *dst,\ \textcolor{keywordtype}{size\_t}\ dst\_len,\ argon2\_context\ *ctx,}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ argon2\_type\ type);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ Decodes\ an\ Argon2\ hash\ string\ into\ the\ provided\ structure\ 'ctx'.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ The\ fields\ ctx.saltlen,\ ctx.adlen,\ ctx.outlen\ set\ the\ maximal\ salt,\ ad,\ out}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ length\ values}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ that\ are\ allowed;\ invalid\ input\ string\ causes\ an\ error}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ Returned\ value\ is\ ARGON2\_OK\ on\ success.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{int}\ argon2\_decode\_string(argon2\_context\ *ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ argon2\_type\ type);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

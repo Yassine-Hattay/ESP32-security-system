@@ -1,0 +1,92 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Wi\+Fi/examples/\+FTM/\+FTM\+\_\+\+Responder Directory Reference}
+\hypertarget{dir_663b5e7a0acb8471815c1ff693d44fdd}{}\label{dir_663b5e7a0acb8471815c1ff693d44fdd}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFi/examples/FTM/FTM\_Responder Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFi/examples/FTM/FTM\_Responder Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+This example demonstrates how to use the Fine Timing Measurement (FTM) to calculate the distance from the Access Point and the device. This is calculated by the Wi-\/\+Fi Round Trip Time (Wi-\/\+Fi RTT) introduced on the \href{https://en.wikipedia.org/wiki/IEEE_802.11mc}{\texttt{ IEEE Std 802.\+11-\/2016}} standard.
+
+This example will simulate the Router with FTM capability.
+
+This example was based on the \href{https://github.com/espressif/esp-idf/tree/master/examples/wifi/ftm}{\texttt{ ESP-\/\+IDF FTM}}. See the README file for more details about on how to use this feature.
+
+Some usages for this feature includes\+:
+
+
+\begin{DoxyItemize}
+\item Indoor positioning systems.
+\item Navigation.
+\item Device Location.
+\item Smart Devices.
+\item Alarms.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md632}{}\doxysubsection{\texorpdfstring{Supported Targets}{Supported Targets}}\label{README.md_autotoc_md632}
+Currently, this example supports the following targets\+:
+
+\texorpdfstring{$\vert$}{|} Supported Targets \texorpdfstring{$\vert$}{|} ESP32-\/\+S2 \texorpdfstring{$\vert$}{|} ESP32-\/\+C3 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|}\hypertarget{README.md_autotoc_md633}{}\doxysubsubsection{\texorpdfstring{How to Use Example}{How to Use Example}}\label{README.md_autotoc_md633}
+See the {\bfseries{Initiator}} example to prepare the environment.
+
+
+\begin{DoxyItemize}
+\item How to install the Arduino IDE\+: \href{https://github.com/espressif/arduino-esp32/tree/master/docs/arduino-ide}{\texttt{ Install Arduino IDE}}.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md634}{}\doxysubsubsubsection{\texorpdfstring{Configure the Project}{Configure the Project}}\label{README.md_autotoc_md634}
+To configure this project, you can change the following configuration related to STA\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Change\ the\ SSID\ and\ PASSWORD\ here\ if\ needed}}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ WIFI\_FTM\_SSID\ =\ \textcolor{stringliteral}{"{}WiFi\_FTM\_Responder"{}};}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ WIFI\_FTM\_PASS\ =\ \textcolor{stringliteral}{"{}ftm\_responder"{}};}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item Change the Wi-\/\+Fi {\ttfamily SSID} and {\ttfamily PASSWORD} as the same as the Initiator.
+\end{DoxyItemize}
+
+To see more details about FTM, please see the \href{https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/api-reference/network/esp_wifi.html}{\texttt{ ESP-\/\+IDF docs}}.\hypertarget{README.md_autotoc_md635}{}\doxysubsubsubsubsection{\texorpdfstring{Using Arduino IDE}{Using Arduino IDE}}\label{README.md_autotoc_md635}
+To get more information about the Espressif boards see \href{https://www.espressif.com/en/products/devkits}{\texttt{ Espressif Development Kits}}.
+
+
+\begin{DoxyItemize}
+\item Before Compile/\+Verify, select the correct board\+: {\ttfamily Tools -\/\texorpdfstring{$>$}{>} Board}.
+\item Select the COM port\+: {\ttfamily Tools -\/\texorpdfstring{$>$}{>} Port\+: xxx} where the {\ttfamily xxx} is the detected COM port.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md636}{}\doxysubsubsection{\texorpdfstring{Log Output}{Log Output}}\label{README.md_autotoc_md636}
+Expected log output\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Build:Oct\ 25\ 2019}
+\DoxyCodeLine{rst:0x1\ (POWERON),boot:0x8\ (SPI\_FAST\_FLASH\_BOOT)}
+\DoxyCodeLine{SPIWP:0xee}
+\DoxyCodeLine{mode:DIO,\ clock\ div:1}
+\DoxyCodeLine{load:0x3ffe6100,len:0x4b0}
+\DoxyCodeLine{load:0x4004c000,len:0xa6c}
+\DoxyCodeLine{load:0x40050000,len:0x25c4}
+\DoxyCodeLine{entry\ 0x4004c198}
+\DoxyCodeLine{Starting\ SoftAP\ with\ FTM\ Responder\ support}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md637}{}\doxysubsubsection{\texorpdfstring{Troubleshooting}{Troubleshooting}}\label{README.md_autotoc_md637}
+{\itshape {\bfseries{Important\+: Make sure you are using a good quality USB cable and that you have a reliable power source.}}}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Programming Fail\+:}} If the programming/flash procedure fails, try reducing the serial connection speed.
+\item {\bfseries{COM port not detected\+:}} Check the USB cable and the USB to Serial driver installation.
+\end{DoxyItemize}
+
+If the error persist, you can ask for help at the official \href{https://esp32.com}{\texttt{ ESP32 forum}} or see Contribute.\hypertarget{README.md_autotoc_md638}{}\doxysubsubsection{\texorpdfstring{Contribute}{Contribute}}\label{README.md_autotoc_md638}
+To know how to contribute to this project, see \href{https://github.com/espressif/arduino-esp32/blob/master/CONTRIBUTING.rst}{\texttt{ How to contribute.}}
+
+If you have any {\bfseries{feedback}} or {\bfseries{issue}} to report on this example/library, please open an issue or fix it by creating a new PR. Contributions are more than welcome!
+
+Before creating a new issue, be sure to try the Troubleshooting and to check if the same issue was already created by someone else.\hypertarget{README.md_autotoc_md639}{}\doxysubsubsection{\texorpdfstring{Resources}{Resources}}\label{README.md_autotoc_md639}
+
+\begin{DoxyItemize}
+\item Official ESP32 Forum\+: \href{https://esp32.com}{\texttt{ Link}}
+\item Arduino-\/\+ESP32 Official Repository\+: \href{https://github.com/espressif/arduino-esp32}{\texttt{ espressif/arduino-\/esp32}}
+\item ESP32-\/\+S2 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item ESP32-\/\+C3 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item Official ESP-\/\+IDF documentation\+: \href{https://idf.espressif.com}{\texttt{ ESP-\/\+IDF}} 
+\end{DoxyItemize}

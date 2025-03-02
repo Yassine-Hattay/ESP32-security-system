@@ -1,0 +1,2042 @@
+\doxysection{ESP\+\_\+\+Mail\+\_\+\+Client.\+h}
+\hypertarget{_e_s_p___mail___client_8h_source}{}\label{_e_s_p___mail___client_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/ESP\_Mail\_Client.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/ESP\_Mail\_Client.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ESP\_MAIL\_CLIENT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_CLIENT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}extras/RFC2047.h"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <ctype.h>}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#if\ \_\_has\_include(<string.h>)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#if\ \_\_has\_include(<stdarg.h>)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}ESP\_Mail\_FS.h"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}ESP\_Mail\_Const.h"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}extras/MB\_Time.h"{}}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#if\ defined(MB\_ARDUINO\_ESP)\ ||\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_PRINTF\ ESP\_MAIL\_DEFAULT\_DEBUG\_PORT.printf}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_PRINTF\ MailClient.printf}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ ||\ defined(ESP8266)\ ||\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ UPLOAD\_CHUNKS\_NUM\ 12}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#if\ defined(ESP32)}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_MIN\_MEM\ 70000}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#elif\ defined(ESP8266)}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ SD\_CS\_PIN\ 15}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_MIN\_MEM\ 8000}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#elif\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_MIN\_MEM\ 70000}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ SD\_CS\_PIN\ PIN\_SPI1\_SS}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#undef\ min}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#undef\ max}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_MIN\_MEM\ 3000}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ UPLOAD\_CHUNKS\_NUM\ 5}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#ifdef\ \_\_arm\_\_}}
+\DoxyCodeLine{00089\ \textcolor{comment}{//\ should\ use\ uinstd.h\ to\ define\ sbrk\ but\ Due\ causes\ a\ conflict}}
+\DoxyCodeLine{00090\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{char}\ *sbrk(\textcolor{keywordtype}{int}\ incr);}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{//\ \_\_ARM\_\_}}
+\DoxyCodeLine{00092\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\_\_brkval;}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_\_arm\_\_}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#include\ "{}./client/ESP\_Mail\_TCPClient.h"{}}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{using\ namespace\ }mb\_string;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}};}
+\DoxyCodeLine{00102\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}};}
+\DoxyCodeLine{00103\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}};}
+\DoxyCodeLine{00104\ \textcolor{keyword}{class\ }DownloadProgress;}
+\DoxyCodeLine{00105\ \textcolor{keyword}{class\ }MessageData;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{class\ }MessageList}
+\DoxyCodeLine{00110\ \{}
+\DoxyCodeLine{00111\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }IMAPSession;}
+\DoxyCodeLine{00113\ \ \ MessageList()\{\};}
+\DoxyCodeLine{00114\ \ \ \string~MessageList()\ \{\ clear();\ \};}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keywordtype}{int}\ uid)}
+\DoxyCodeLine{00116\ \ \ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{if}\ (uid\ >\ 0)}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \_list.push\_back(uid);}
+\DoxyCodeLine{00119\ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{void}\ clear()\ \{\ \_list.clear();\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00124\ \ \ \_vectorImpl<int>\ \_list;}
+\DoxyCodeLine{00125\ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{comment}{/*\ The\ class\ that\ provides\ the\ info\ of\ selected\ or\ opened\ mailbox\ folder\ */}}
+\DoxyCodeLine{00128\ \textcolor{keyword}{class\ }SelectedFolderInfo}
+\DoxyCodeLine{00129\ \{}
+\DoxyCodeLine{00130\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }ESP\_Mail\_Client;}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }IMAPSession;}
+\DoxyCodeLine{00133\ \ \ SelectedFolderInfo()\{\};}
+\DoxyCodeLine{00134\ \ \ \string~SelectedFolderInfo()\ \{\ clear();\ \};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \textcolor{comment}{/*\ Get\ the\ flags\ count\ for\ this\ mailbox\ */}}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{size\_t}\ flagCount(\textcolor{keywordtype}{bool}\ permanent\ =\ \textcolor{keyword}{false})\ \{\ \textcolor{keywordflow}{return}\ permanent\ ?\ \_permanent\_flags.size()\ :\ \_flags.size();\ \};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \textcolor{comment}{/*\ Get\ the\ numbers\ of\ messages\ in\ this\ mailbox\ */}}
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{size\_t}\ msgCount()\ \{\ \textcolor{keywordflow}{return}\ \_msgCount;\ \};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \textcolor{comment}{/*\ Get\ the\ numbers\ of\ messages\ in\ this\ mailbox\ that\ recent\ flag\ was\ set\ */}}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{size\_t}\ recentCount()\ \{\ \textcolor{keywordflow}{return}\ \_recentCount;\ \};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{comment}{/*\ Get\ the\ order\ of\ message\ in\ number\ of\ message\ in\ this\ mailbox\ that\ reoved\ */}}
+\DoxyCodeLine{00156\ \ \ IMAP\_Polling\_Status\ \mbox{\hyperlink{class_selected_folder_info_aa20b0131c9c541c2e4bdaab4eb54cc06}{pollingStatus}}()\ \{\ \textcolor{keywordflow}{return}\ \_polling\_status;\ \};}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \textcolor{comment}{/*\ Get\ the\ The\ unique\ identifier\ (UID)\ validity\ value\ */}}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{size\_t}\ uidValidity()\ \{\ \textcolor{keywordflow}{return}\ \_uidValidity;\ \};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \textcolor{comment}{/*\ Get\ the\ predict\ next\ message\ UID\ */}}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{size\_t}\ nextUID()\ \{\ \textcolor{keywordflow}{return}\ \_nextUID;\ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \textcolor{comment}{/*\ Get\ the\ index\ of\ first\ unseen\ message\ */}}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{size\_t}\ unseenIndex()\ \{\ \textcolor{keywordflow}{return}\ \_unseenMsgIndex;\ \};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \textcolor{comment}{/*\ Get\ the\ highest\ modification\ sequence\ */}}
+\DoxyCodeLine{00168\ \ \ uint64\_t\ highestModSeq()\ \{\ \textcolor{keywordflow}{return}\ strtoull(\_highestModSeq.c\_str(),\ NULL,\ 10);\ \};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \textcolor{comment}{/*\ Check\ for\ the\ modification\ sequence\ supports\ */}}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{bool}\ modSeqSupported()\ \{\ \textcolor{keywordflow}{return}\ \_highestModSeq.length()\ >\ 0\ \&\&\ !\_nomodsec;\ \};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \textcolor{comment}{/*\ Get\ the\ numbers\ of\ messages\ from\ search\ result\ based\ on\ the\ search\ criteria}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{size\_t}\ searchCount()\ \{\ \textcolor{keywordflow}{return}\ \_searchCount;\ \};}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \textcolor{comment}{/*\ Get\ the\ numbers\ of\ messages\ to\ be\ stored\ in\ the\ ressult\ */}}
+\DoxyCodeLine{00178\ \ \ \textcolor{keywordtype}{size\_t}\ availableMessages()\ \{\ \textcolor{keywordflow}{return}\ \_availableItems;\ \};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \textcolor{comment}{/*\ Get\ the\ flag\ argument\ at\ the\ specified\ index\ */}}
+\DoxyCodeLine{00181\ \ \ String\ flag(\textcolor{keywordtype}{size\_t}\ index,\ \textcolor{keywordtype}{bool}\ permanent\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00182\ \ \ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size\ =\ permanent\ ?\ \_permanent\_flags.size()\ :\ \_flags.size();}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ size)}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ permanent\ ?\ \_permanent\_flags[index].c\_str()\ :\ \_flags[index].c\_str();}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00187\ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00190\ \ \ \textcolor{keywordtype}{void}\ addFlag(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *flag,\ \textcolor{keywordtype}{bool}\ permanent)}
+\DoxyCodeLine{00191\ \ \ \{}
+\DoxyCodeLine{00192\ \ \ \ \ MB\_String\ s\ =\ flag;}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{if}\ (permanent)}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \_permanent\_flags.push\_back(s);}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \_flags.push\_back(s);}
+\DoxyCodeLine{00197\ \ \ \};}
+\DoxyCodeLine{00198\ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00199\ \ \ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_flags.size();\ i++)}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \_flags[i].clear();}
+\DoxyCodeLine{00202\ \ \ \ \ \_flags.clear();}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_permanent\_flags.size();\ i++)}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \_permanent\_flags[i].clear();}
+\DoxyCodeLine{00206\ \ \ \ \ \_permanent\_flags.clear();}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \ \ \_msgCount\ =\ 0;}
+\DoxyCodeLine{00209\ \ \ \ \ \_polling\_status.argument.clear();}
+\DoxyCodeLine{00210\ \ \ \ \ \_polling\_status.messageNum\ =\ 0;}
+\DoxyCodeLine{00211\ \ \ \ \ \_polling\_status.type\ =\ imap\_polling\_status\_type\_undefined;}
+\DoxyCodeLine{00212\ \ \ \ \ \_idleTimeMs\ =\ 0;}
+\DoxyCodeLine{00213\ \ \ \ \ \_searchCount\ =\ 0;}
+\DoxyCodeLine{00214\ \ \ \}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordtype}{size\_t}\ \_msgCount\ =\ 0;}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{size\_t}\ \_recentCount\ =\ 0;}
+\DoxyCodeLine{00218\ \ \ \textcolor{keywordtype}{size\_t}\ \_uidValidity\ =\ 0;}
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordtype}{size\_t}\ \_nextUID\ =\ 0;}
+\DoxyCodeLine{00220\ \ \ \textcolor{keywordtype}{size\_t}\ \_unseenMsgIndex\ =\ 0;}
+\DoxyCodeLine{00221\ \ \ MB\_String\ \_highestModSeq;}
+\DoxyCodeLine{00222\ \ \ \textcolor{keywordtype}{size\_t}\ \_searchCount\ =\ 0;}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{size\_t}\ \_availableItems\ =\ 0;}
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_idleTimeMs\ =\ 0;}
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{bool}\ \_folderChanged\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordtype}{bool}\ \_floderChangedState\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{bool}\ \_nomodsec\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00228\ \ \ IMAP\_Polling\_Status\ \_polling\_status;}
+\DoxyCodeLine{00229\ \ \ \_vectorImpl<MB\_String>\ \_flags;}
+\DoxyCodeLine{00230\ \ \ \_vectorImpl<MB\_String>\ \_permanent\_flags;}
+\DoxyCodeLine{00231\ \};}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{comment}{/*\ The\ class\ that\ provides\ the\ list\ of\ FolderInfo\ e.g.\ name,\ attributes\ and}}
+\DoxyCodeLine{00234\ \textcolor{comment}{\ *\ delimiter\ */}}
+\DoxyCodeLine{00235\ \textcolor{keyword}{class\ }FoldersCollection}
+\DoxyCodeLine{00236\ \{}
+\DoxyCodeLine{00237\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00238\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }ESP\_Mail\_Client;}
+\DoxyCodeLine{00239\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }IMAPSession;}
+\DoxyCodeLine{00240\ \ \ FoldersCollection()\{\};}
+\DoxyCodeLine{00241\ \ \ \string~FoldersCollection()\ \{\ clear();\ \};}
+\DoxyCodeLine{00242\ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \{\ \textcolor{keywordflow}{return}\ \_folders.size();\ \};}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__folder__info__item__t}{esp\_mail\_folder\_info\_item\_t}}\ info(size\_t\ index)}
+\DoxyCodeLine{00245\ \ \ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__folder__info__item__t}{esp\_mail\_folder\_info\_item\_t}}\ fd;}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ \_folders.size())}
+\DoxyCodeLine{00248\ \ \ \ \ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ fd.name\ =\ \_folders[index].name.c\_str();}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ fd.attributes\ =\ \_folders[index].attributes.c\_str();}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ fd.delimiter\ =\ \_folders[index].delimiter.c\_str();}
+\DoxyCodeLine{00252\ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordflow}{return}\ fd;}
+\DoxyCodeLine{00254\ \ \ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \mbox{\hyperlink{structesp__mail__folder__info__t}{esp\_mail\_folder\_info\_t}}\ operator[](\textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{00257\ \ \ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ \_folders.size())}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_folders[index];}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structesp__mail__folder__info__t}{esp\_mail\_folder\_info\_t}}();}
+\DoxyCodeLine{00262\ \ \ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00265\ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structesp__mail__folder__info__t}{esp\_mail\_folder\_info\_t}}\ fd)\ \{\ \_folders.push\_back(fd);\ \};}
+\DoxyCodeLine{00266\ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00267\ \ \ \{}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_folders.size();\ i++)}
+\DoxyCodeLine{00269\ \ \ \ \ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \_folders[i].name.clear();}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \_folders[i].attributes.clear();}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \_folders[i].delimiter.clear();}
+\DoxyCodeLine{00273\ \ \ \ \ \}}
+\DoxyCodeLine{00274\ \ \ \ \ \_folders.clear();}
+\DoxyCodeLine{00275\ \ \ \}}
+\DoxyCodeLine{00276\ \ \ \_vectorImpl<esp\_mail\_folder\_info\_t>\ \_folders;}
+\DoxyCodeLine{00277\ \};}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \textcolor{comment}{/*\ The\ class\ that\ provides\ the\ list\ of\ IMAP\_Quota\_Root\_Info\ e.g.\ resource\ name,\ used\ and\ limit\ */}}
+\DoxyCodeLine{00280\ \textcolor{keyword}{class\ }IMAP\_Quota\_Roots\_List}
+\DoxyCodeLine{00281\ \{}
+\DoxyCodeLine{00282\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }IMAPSession;}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00285\ \ \ IMAP\_Quota\_Roots\_List()\{\};}
+\DoxyCodeLine{00286\ \ \ \string~IMAP\_Quota\_Roots\_List()\ \{\ clear();\ \};}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \{\ \textcolor{keywordflow}{return}\ \_quota\_roots.size();\ \};}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ IMAP\_Quota\_Root\_Info\ operator[](\textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{00291\ \ \ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ \_quota\_roots.size())}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_quota\_roots[index];}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordflow}{return}\ IMAP\_Quota\_Root\_Info();}
+\DoxyCodeLine{00296\ \ \ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00299\ \ \ \_vectorImpl<IMAP\_Quota\_Root\_Info>\ \_quota\_roots;}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \textcolor{keywordtype}{void}\ add(IMAP\_Quota\_Root\_Info\ v)}
+\DoxyCodeLine{00302\ \ \ \{}
+\DoxyCodeLine{00303\ \ \ \ \ \_quota\_roots.push\_back(v);}
+\DoxyCodeLine{00304\ \ \ \}}
+\DoxyCodeLine{00305\ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00306\ \ \ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \_quota\_roots.clear();}
+\DoxyCodeLine{00308\ \ \ \}}
+\DoxyCodeLine{00309\ \};}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{comment}{/*\ The\ class\ that\ provides\ the\ list\ of\ IMAP\_Namespaces\ */}}
+\DoxyCodeLine{00312\ \textcolor{keyword}{class\ }IMAP\_Namespaces}
+\DoxyCodeLine{00313\ \{}
+\DoxyCodeLine{00314\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }IMAPSession;}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00317\ \ \ IMAP\_Namespaces()\{\};}
+\DoxyCodeLine{00318\ \ \ \string~IMAP\_Namespaces()\ \{\ clear();\ \};}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \{\ \textcolor{keywordflow}{return}\ \_ns\_list.size();\ \};}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ IMAP\_Namespace\_Info\ operator[](\textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{00323\ \ \ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ \_ns\_list.size())}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_ns\_list[index];}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordflow}{return}\ IMAP\_Namespace\_Info();}
+\DoxyCodeLine{00328\ \ \ \}}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00331\ \ \ \_vectorImpl<IMAP\_Namespace\_Info>\ \_ns\_list;}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \textcolor{keywordtype}{void}\ add(IMAP\_Namespace\_Info\ v)}
+\DoxyCodeLine{00334\ \ \ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \_ns\_list.push\_back(v);}
+\DoxyCodeLine{00336\ \ \ \}}
+\DoxyCodeLine{00337\ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00338\ \ \ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \_ns\_list.clear();}
+\DoxyCodeLine{00340\ \ \ \}}
+\DoxyCodeLine{00341\ \};}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \textcolor{comment}{/*\ The\ class\ that\ provides\ the\ list\ of\ IMAP\_Namespaces\ */}}
+\DoxyCodeLine{00344\ \textcolor{keyword}{class\ }IMAP\_Rights\_List}
+\DoxyCodeLine{00345\ \{}
+\DoxyCodeLine{00346\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }IMAPSession;}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00349\ \ \ IMAP\_Rights\_List()\{\};}
+\DoxyCodeLine{00350\ \ \ \string~IMAP\_Rights\_List()\ \{\ clear();\ \};}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \{\ \textcolor{keywordflow}{return}\ \_rights\_list.size();\ \};}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ IMAP\_Rights\_Info\ operator[](\textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{00355\ \ \ \{}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ \_rights\_list.size())}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_rights\_list[index];}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keywordflow}{return}\ IMAP\_Rights\_Info();}
+\DoxyCodeLine{00360\ \ \ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00363\ \ \ \_vectorImpl<IMAP\_Rights\_Info>\ \_rights\_list;}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \textcolor{keywordtype}{void}\ add(IMAP\_Rights\_Info\ v)}
+\DoxyCodeLine{00366\ \ \ \{}
+\DoxyCodeLine{00367\ \ \ \ \ \_rights\_list.push\_back(v);}
+\DoxyCodeLine{00368\ \ \ \}}
+\DoxyCodeLine{00369\ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00370\ \ \ \{}
+\DoxyCodeLine{00371\ \ \ \ \ \_rights\_list.clear();}
+\DoxyCodeLine{00372\ \ \ \}}
+\DoxyCodeLine{00373\ \};}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__imap__nanespace__list__t}{esp\_mail\_imap\_nanespace\_list\_t}}}
+\DoxyCodeLine{00376\ \{}
+\DoxyCodeLine{00377\ \ \ \mbox{\hyperlink{class_i_m_a_p___namespaces}{IMAP\_Namespaces}}\ personal\_namespaces;}
+\DoxyCodeLine{00378\ \ \ \mbox{\hyperlink{class_i_m_a_p___namespaces}{IMAP\_Namespaces}}\ other\_users\_namespaces;}
+\DoxyCodeLine{00379\ \ \ \mbox{\hyperlink{class_i_m_a_p___namespaces}{IMAP\_Namespaces}}\ shared\_namespaces;}
+\DoxyCodeLine{00380\ \}\ IMAP\_Namespaces\_List;}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \textcolor{comment}{/*\ The\ class\ that\ provides\ the\ status\ of\ message\ feching\ and\ searching\ */}}
+\DoxyCodeLine{00383\ \textcolor{keyword}{class\ }IMAP\_Status}
+\DoxyCodeLine{00384\ \{}
+\DoxyCodeLine{00385\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00386\ \ \ IMAP\_Status();}
+\DoxyCodeLine{00387\ \ \ \string~IMAP\_Status();}
+\DoxyCodeLine{00388\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *info();}
+\DoxyCodeLine{00389\ \ \ \textcolor{keywordtype}{bool}\ success();}
+\DoxyCodeLine{00390\ \ \ \textcolor{keywordtype}{void}\ empty();}
+\DoxyCodeLine{00391\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }IMAPSession;}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_info;}
+\DoxyCodeLine{00394\ \ \ \textcolor{keywordtype}{bool}\ \_success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00395\ \};}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \textcolor{keyword}{typedef}\ void\ (*imapStatusCallback)(\mbox{\hyperlink{class_i_m_a_p___status}{IMAP\_Status}});}
+\DoxyCodeLine{00398\ \textcolor{keyword}{typedef}\ void\ (*imapResponseCallback)(IMAP\_Response);}
+\DoxyCodeLine{00399\ \textcolor{keyword}{typedef}\ void\ (*MIMEDataStreamCallback)(MIME\_Data\_Stream\_Info);}
+\DoxyCodeLine{00400\ \textcolor{keyword}{typedef}\ void\ (*imapCharacterDecodingCallback)(IMAP\_Decoding\_Info\ *);}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \textcolor{keyword}{enum}\ esp\_mail\_imap\_read\_capability\_types}
+\DoxyCodeLine{00405\ \{}
+\DoxyCodeLine{00406\ \ \ esp\_mail\_imap\_read\_capability\_maxType}
+\DoxyCodeLine{00407\ \};}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \textcolor{comment}{//\ Dummy\ class\ used\ in\ template\ functions\ (errorStatusCB).}}
+\DoxyCodeLine{00410\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}}
+\DoxyCodeLine{00411\ \{}
+\DoxyCodeLine{00412\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00413\ \ \ \textcolor{keyword}{struct\ }IMAP\_Status}
+\DoxyCodeLine{00414\ \ \ \{}
+\DoxyCodeLine{00415\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *info()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};\ \};}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keywordtype}{bool}\ success()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \};}
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{keywordtype}{void}\ empty();}
+\DoxyCodeLine{00419\ \ \ \ \ MB\_String\ \_info;}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00421\ \ \ \};}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \ \ \textcolor{keyword}{typedef}\ void\ (*imapStatusCallback)(IMAP\_Status);}
+\DoxyCodeLine{00424\ \ \ MB\_String\ \mbox{\hyperlink{class_i_m_a_p_session_a08b974024d950e8a8a024ddf93fe1f72}{errorReason}}()\ \{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};\ \}}
+\DoxyCodeLine{00425\ \ \ \textcolor{keywordtype}{bool}\ \_debug;}
+\DoxyCodeLine{00426\ \ \ imapStatusCallback\ \_statusCallback\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00427\ \ \ \textcolor{keywordtype}{void}\ *\_customCmdResCallback\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00428\ \ \ esp\_mail\_session\_type\ \_sessionType\ =\ esp\_mail\_session\_type\_imap;}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00430\ \ \ \textcolor{keyword}{struct\ }esp\_mail\_imap\_response\_status\_t}
+\DoxyCodeLine{00431\ \ \ \{}
+\DoxyCodeLine{00432\ \ \ \ \ \textcolor{keywordtype}{int}\ errorCode\ =\ 0;}
+\DoxyCodeLine{00433\ \ \ \ \ MB\_String\ tag;}
+\DoxyCodeLine{00434\ \ \ \ \ MB\_String\ text;}
+\DoxyCodeLine{00435\ \ \ \ \ MB\_String\ status;}
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{keywordtype}{bool}\ completed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00437\ \ \ \};}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00439\ \ \ esp\_mail\_imap\_response\_status\_t\ \_responseStatus;}
+\DoxyCodeLine{00440\ \ \ IMAP\_Status\ \_cbData;}
+\DoxyCodeLine{00441\ \};}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \textcolor{comment}{/*\ The\ SMTP\ message\ class\ */}}
+\DoxyCodeLine{00447\ \textcolor{keyword}{class\ }SMTP\_Message}
+\DoxyCodeLine{00448\ \{}
+\DoxyCodeLine{00449\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00450\ \ \ SMTP\_Message()}
+\DoxyCodeLine{00451\ \ \ \{}
+\DoxyCodeLine{00452\ \ \ \ \ text.content\_type\ =\ \textcolor{stringliteral}{"{}text/plain"{}};}
+\DoxyCodeLine{00453\ \ \ \ \ html.content\_type\ =\ \textcolor{stringliteral}{"{}text/html"{}};}
+\DoxyCodeLine{00454\ \ \ \};}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \string~SMTP\_Message()\ \{\ clear();\ \};}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \ \ \textcolor{keywordtype}{void}\ resetAttachItem(SMTP\_Attachment\ \&att)}
+\DoxyCodeLine{00459\ \ \ \{}
+\DoxyCodeLine{00460\ \ \ \ \ att.blob.size\ =\ 0;}
+\DoxyCodeLine{00461\ \ \ \ \ att.blob.data\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00462\ \ \ \ \ att.file.path.clear();}
+\DoxyCodeLine{00463\ \ \ \ \ att.file.\mbox{\hyperlink{structesp__mail__attach__file__t_a12b510c1d120a3bd321725b3e4f1cfe3}{storage\_type}}\ =\ esp\_mail\_file\_storage\_type\_none;}
+\DoxyCodeLine{00464\ \ \ \ \ att.descr.name.clear();}
+\DoxyCodeLine{00465\ \ \ \ \ att.descr.filename.clear();}
+\DoxyCodeLine{00466\ \ \ \ \ att.descr.transfer\_encoding.clear();}
+\DoxyCodeLine{00467\ \ \ \ \ att.descr.content\_encoding.clear();}
+\DoxyCodeLine{00468\ \ \ \ \ att.descr.mime.clear();}
+\DoxyCodeLine{00469\ \ \ \ \ att.descr.content\_id.clear();}
+\DoxyCodeLine{00470\ \ \ \ \ att.\_int.att\_type\ =\ esp\_mail\_att\_type\_none;}
+\DoxyCodeLine{00471\ \ \ \ \ att.\_int.index\ =\ 0;}
+\DoxyCodeLine{00472\ \ \ \ \ att.\_int.msg\_uid\ =\ 0;}
+\DoxyCodeLine{00473\ \ \ \ \ att.\_int.flash\_blob\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00474\ \ \ \ \ att.\_int.xencoding\ =\ esp\_mail\_msg\_xencoding\_none;}
+\DoxyCodeLine{00475\ \ \ \ \ att.\_int.parallel\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00476\ \ \ \ \ att.\_int.cid.clear();}
+\DoxyCodeLine{00477\ \ \ \}}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00480\ \ \ \{}
+\DoxyCodeLine{00481\ \ \ \ \ sender.name.clear();}
+\DoxyCodeLine{00482\ \ \ \ \ sender.email.clear();}
+\DoxyCodeLine{00483\ \ \ \ \ subject.clear();}
+\DoxyCodeLine{00484\ \ \ \ \ text.charSet.clear();}
+\DoxyCodeLine{00485\ \ \ \ \ text.content.clear();}
+\DoxyCodeLine{00486\ \ \ \ \ text.content\_type.clear();}
+\DoxyCodeLine{00487\ \ \ \ \ text.embed.enable\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00488\ \ \ \ \ html.charSet.clear();}
+\DoxyCodeLine{00489\ \ \ \ \ html.content.clear();}
+\DoxyCodeLine{00490\ \ \ \ \ html.content\_type.clear();}
+\DoxyCodeLine{00491\ \ \ \ \ html.embed.enable\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00492\ \ \ \ \ response.reply\_to.clear();}
+\DoxyCodeLine{00493\ \ \ \ \ response.notify\ =\ esp\_mail\_smtp\_notify::esp\_mail\_smtp\_notify\_never;}
+\DoxyCodeLine{00494\ \ \ \ \ priority\ =\ esp\_mail\_smtp\_priority::esp\_mail\_smtp\_priority\_normal;}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_rcp.size();\ i++)}
+\DoxyCodeLine{00497\ \ \ \ \ \{}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \_rcp[i].name.clear();}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \_rcp[i].email.clear();}
+\DoxyCodeLine{00500\ \ \ \ \ \}}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_cc.size();\ i++)}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \_cc[i].email.clear();}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_bcc.size();\ i++)}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \_bcc[i].email.clear();}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00508\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_hdr.size();\ i++)}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \_hdr[i].clear();}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_att.size();\ i++)}
+\DoxyCodeLine{00512\ \ \ \ \ \{}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \_att[i].descr.filename.clear();}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \_att[i].blob.data\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \_att[i].descr.mime.clear();}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \_att[i].descr.name.clear();}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \_att[i].blob.size\ =\ 0;}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \_att[i].descr.transfer\_encoding.clear();}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \_att[i].file.path.clear();}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \_att[i].file.storage\_type\ =\ esp\_mail\_file\_storage\_type\_none;}
+\DoxyCodeLine{00521\ \ \ \ \ \}}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_parallel.size();\ i++)}
+\DoxyCodeLine{00524\ \ \ \ \ \{}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \_parallel[i].descr.filename.clear();}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \_parallel[i].blob.data\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \_parallel[i].descr.mime.clear();}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \_parallel[i].descr.name.clear();}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \_parallel[i].blob.size\ =\ 0;}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \_parallel[i].descr.transfer\_encoding.clear();}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \_parallel[i].file.path.clear();}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \_parallel[i].file.storage\_type\ =\ esp\_mail\_file\_storage\_type\_none;}
+\DoxyCodeLine{00533\ \ \ \ \ \}}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ \ \ \ \ \_rcp.clear();}
+\DoxyCodeLine{00536\ \ \ \ \ \_cc.clear();}
+\DoxyCodeLine{00537\ \ \ \ \ \_bcc.clear();}
+\DoxyCodeLine{00538\ \ \ \ \ \_hdr.clear();}
+\DoxyCodeLine{00539\ \ \ \ \ \_att.clear();}
+\DoxyCodeLine{00540\ \ \ \ \ \_parallel.clear();}
+\DoxyCodeLine{00541\ \ \ \}}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00545\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a3f4d617a599ede6324afd774085e5ae6}{clearInlineimages}}()}
+\DoxyCodeLine{00546\ \ \ \{}
+\DoxyCodeLine{00547\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ (\textcolor{keywordtype}{int})\_att.size()\ -\/\ 1;\ i\ >=\ 0;\ i-\/-\/)}
+\DoxyCodeLine{00548\ \ \ \ \ \{}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_att[i].\_int.att\_type\ ==\ esp\_mail\_att\_type\_inline)}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \_att.erase(\_att.begin()\ +\ i);}
+\DoxyCodeLine{00551\ \ \ \ \ \}}
+\DoxyCodeLine{00552\ \ \ \};}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ \ \ \textcolor{comment}{/*\ Clear\ all\ the\ attachments\ */}}
+\DoxyCodeLine{00555\ \ \ \textcolor{keywordtype}{void}\ clearAttachments()}
+\DoxyCodeLine{00556\ \ \ \{}
+\DoxyCodeLine{00557\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ (\textcolor{keywordtype}{int})\_att.size()\ -\/\ 1;\ i\ >=\ 0;\ i-\/-\/)}
+\DoxyCodeLine{00558\ \ \ \ \ \{}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_att[i].\_int.att\_type\ ==\ esp\_mail\_att\_type\_attachment)}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \_att.erase(\_att.begin()\ +\ i);}
+\DoxyCodeLine{00561\ \ \ \ \ \}}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ (\textcolor{keywordtype}{int})\_parallel.size()\ -\/\ 1;\ i\ >=\ 0;\ i-\/-\/)}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \_parallel.erase(\_parallel.begin()\ +\ i);}
+\DoxyCodeLine{00565\ \ \ \};}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00569\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a8be0c738e97ab2d316857e47f50764a2}{clearRFC822Messages}}()}
+\DoxyCodeLine{00570\ \ \ \{}
+\DoxyCodeLine{00571\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ (\textcolor{keywordtype}{int})\_rfc822.size()\ -\/\ 1;\ i\ >=\ 0;\ i-\/-\/)}
+\DoxyCodeLine{00572\ \ \ \ \ \{}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \_rfc822[i].clear();}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \_rfc822.erase(\_rfc822.begin()\ +\ i);}
+\DoxyCodeLine{00575\ \ \ \ \ \}}
+\DoxyCodeLine{00576\ \ \ \};}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00580\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a1325655c3189914451df3f8bd03a64fb}{clearRecipients}}()\ \{\ \_rcp.clear();\ \};}
+\DoxyCodeLine{00581\ }
+\DoxyCodeLine{00584\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a030d3ce35b90f18f18b6a3053169e650}{clearCc}}()\ \{\ \_cc.clear();\ \};}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00588\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a732abe6938b6287a95505c95bcc21bb6}{clearBcc}}()\ \{\ \_bcc.clear();\ \};}
+\DoxyCodeLine{00589\ }
+\DoxyCodeLine{00592\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_adbabd9ffb152c740b44080c894853a9d}{clearHeader}}()\ \{\ \_hdr.clear();\ \};}
+\DoxyCodeLine{00593\ }
+\DoxyCodeLine{00598\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a9de73996f7234f7c4e5422dd5cea8d4b}{addAttachment}}(SMTP\_Attachment\ \&att)}
+\DoxyCodeLine{00599\ \ \ \{}
+\DoxyCodeLine{00600\ \ \ \ \ att.\_int.att\_type\ =\ esp\_mail\_att\_type\_attachment;}
+\DoxyCodeLine{00601\ \ \ \ \ att.\_int.parallel\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00602\ \ \ \ \ att.\_int.flash\_blob\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00603\ \ \ \ \ \_att.push\_back(att);}
+\DoxyCodeLine{00604\ \ \ \};}
+\DoxyCodeLine{00605\ }
+\DoxyCodeLine{00610\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a426eb7bbc867718b0256bf909be45cf5}{addParallelAttachment}}(SMTP\_Attachment\ \&att)}
+\DoxyCodeLine{00611\ \ \ \{}
+\DoxyCodeLine{00612\ \ \ \ \ att.\_int.att\_type\ =\ esp\_mail\_att\_type\_attachment;}
+\DoxyCodeLine{00613\ \ \ \ \ att.\_int.parallel\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00614\ \ \ \ \ att.\_int.flash\_blob\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00615\ \ \ \ \ \_parallel.push\_back(att);}
+\DoxyCodeLine{00616\ \ \ \};}
+\DoxyCodeLine{00617\ }
+\DoxyCodeLine{00622\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a3fca4ed87feb501bd3200a9c8c520180}{addInlineImage}}(SMTP\_Attachment\ \&att)}
+\DoxyCodeLine{00623\ \ \ \{}
+\DoxyCodeLine{00624\ \ \ \ \ att.\_int.flash\_blob\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00625\ \ \ \ \ att.\_int.parallel\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00626\ \ \ \ \ att.\_int.att\_type\ =\ esp\_mail\_att\_type\_inline;}
+\DoxyCodeLine{00627\ \ \ \ \ att.\_int.cid\ =\ random(2000,\ 4000);}
+\DoxyCodeLine{00628\ \ \ \ \ \_att.push\_back(att);}
+\DoxyCodeLine{00629\ \ \ \};}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00635\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_af6f52267168112c127e9fe5920aacf0c}{addMessage}}(SMTP\_Message\ \&msg)\ \{\ \_rfc822.push\_back(msg);\ \}}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00642\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00643\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_ada962c564f3705ffe60729cfb2eb2f40}{addRecipient}}(T1\ name,\ T2\ email)}
+\DoxyCodeLine{00644\ \ \ \{}
+\DoxyCodeLine{00645\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__address__info__t}{esp\_mail\_address\_info\_t}}\ rcp;}
+\DoxyCodeLine{00646\ \ \ \ \ rcp.name\ =\ toStringPtr(name);}
+\DoxyCodeLine{00647\ \ \ \ \ rcp.email\ =\ toStringPtr(email);}
+\DoxyCodeLine{00648\ \ \ \ \ \_rcp.push\_back(rcp);}
+\DoxyCodeLine{00649\ \ \ \};}
+\DoxyCodeLine{00650\ }
+\DoxyCodeLine{00655\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00656\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_ab8474d3e145865a4f0c987023191b188}{addCc}}(T\ email)}
+\DoxyCodeLine{00657\ \ \ \{}
+\DoxyCodeLine{00658\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__address__info__t}{esp\_mail\_address\_info\_t}}\ cc;}
+\DoxyCodeLine{00659\ \ \ \ \ cc.email\ =\ toStringPtr(email);}
+\DoxyCodeLine{00660\ \ \ \ \ \_cc.push\_back(cc);}
+\DoxyCodeLine{00661\ \ \ \};}
+\DoxyCodeLine{00662\ }
+\DoxyCodeLine{00667\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00668\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a7962ade3efdb1a8a2e6ffacdc6bbde72}{addBcc}}(T\ email)}
+\DoxyCodeLine{00669\ \ \ \{}
+\DoxyCodeLine{00670\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__address__info__t}{esp\_mail\_address\_info\_t}}\ bcc;}
+\DoxyCodeLine{00671\ \ \ \ \ bcc.email\ =\ toStringPtr(email);}
+\DoxyCodeLine{00672\ \ \ \ \ \_bcc.push\_back(bcc);}
+\DoxyCodeLine{00673\ \ \ \};}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00679\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00680\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p___message_a4277ba4c4d2ba5e32710db80afac60bb}{addHeader}}(T\ hdr)}
+\DoxyCodeLine{00681\ \ \ \{}
+\DoxyCodeLine{00682\ \ \ \ \ \_hdr.push\_back(\mbox{\hyperlink{class_m_b___string}{MB\_String}}().setPtr(toStringPtr(hdr)));}
+\DoxyCodeLine{00683\ \ \ \};}
+\DoxyCodeLine{00684\ }
+\DoxyCodeLine{00685\ \ \ \textcolor{comment}{/*\ The\ message\ author\ config\ */}}
+\DoxyCodeLine{00686\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__address__info__t}{esp\_mail\_address\_info\_t}}\ author;}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00688\ \ \ \textcolor{comment}{/*\ The\ message\ sender\ (agent\ or\ teansmitter)\ config\ */}}
+\DoxyCodeLine{00689\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__address__info__t}{esp\_mail\_address\_info\_t}}\ sender;}
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00691\ \ \ \textcolor{comment}{/*\ The\ topic\ of\ message\ */}}
+\DoxyCodeLine{00692\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ subject;}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00694\ \ \ \textcolor{comment}{/*\ The\ message\ type\ */}}
+\DoxyCodeLine{00695\ \ \ \textcolor{keywordtype}{byte}\ type\ =\ esp\_mail\_msg\_type\_none;}
+\DoxyCodeLine{00696\ }
+\DoxyCodeLine{00697\ \ \ \textcolor{comment}{/*\ The\ PLAIN\ text\ message\ */}}
+\DoxyCodeLine{00698\ \ \ esp\_mail\_plain\_body\_t\ text;}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \ \ \textcolor{comment}{/*\ The\ HTML\ text\ message\ */}}
+\DoxyCodeLine{00701\ \ \ esp\_mail\_html\_body\_t\ html;}
+\DoxyCodeLine{00702\ }
+\DoxyCodeLine{00703\ \ \ \textcolor{comment}{/*\ The\ response\ config\ */}}
+\DoxyCodeLine{00704\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__smtp__msg__response__t}{esp\_mail\_smtp\_msg\_response\_t}}\ response;}
+\DoxyCodeLine{00705\ }
+\DoxyCodeLine{00706\ \ \ \textcolor{comment}{/*\ The\ priority\ of\ the\ message\ */}}
+\DoxyCodeLine{00707\ \ \ esp\_mail\_smtp\_priority\ priority\ =\ esp\_mail\_smtp\_priority::esp\_mail\_smtp\_priority\_normal;}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00709\ \ \ \textcolor{comment}{/*\ The\ enable\ options\ */}}
+\DoxyCodeLine{00710\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__smtp__enable__option__t}{esp\_mail\_smtp\_enable\_option\_t}}\ enable;}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \ \ \textcolor{comment}{/*\ The\ message\ from\ config\ */}}
+\DoxyCodeLine{00713\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__address__info__t}{esp\_mail\_address\_info\_t}}\ from;}
+\DoxyCodeLine{00714\ }
+\DoxyCodeLine{00715\ \ \ \textcolor{comment}{/*\ The\ message\ identifier\ */}}
+\DoxyCodeLine{00716\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ messageID;}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \ \ \textcolor{comment}{/*\ The\ keywords\ or\ phrases,\ separated\ by\ commas\ */}}
+\DoxyCodeLine{00719\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ keywords;}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00721\ \ \ \textcolor{comment}{/*\ The\ comments\ about\ message\ */}}
+\DoxyCodeLine{00722\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ comments;}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00724\ \ \ \textcolor{comment}{/*\ The\ date\ of\ message\ */}}
+\DoxyCodeLine{00725\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ date;}
+\DoxyCodeLine{00726\ }
+\DoxyCodeLine{00727\ \ \ \textcolor{comment}{/*\ The\ field\ that\ contains\ the\ parent's\ message\ ID\ of\ the\ message\ to\ which\ this\ one\ is\ a\ reply\ */}}
+\DoxyCodeLine{00728\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ in\_reply\_to;}
+\DoxyCodeLine{00729\ }
+\DoxyCodeLine{00730\ \ \ \textcolor{comment}{/*\ The\ field\ that\ contains\ the\ parent's\ references\ (if\ any)\ and\ followed\ by\ the\ parent's\ message\ ID\ (if\ any)\ of\ the\ message\ to\ which\ this\ one\ is\ a\ reply\ */}}
+\DoxyCodeLine{00731\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ references;}
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00733\ \ \ \textcolor{comment}{/*\ The\ timestamp\ value\ to\ replace\ in\ text\ */}}
+\DoxyCodeLine{00734\ \ \ \mbox{\hyperlink{structesp__mail__timestamp__value__t}{esp\_mail\_timestamp\_value\_t}}\ timestamp;}
+\DoxyCodeLine{00735\ }
+\DoxyCodeLine{00736\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00737\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_e_s_p___mail___client}{ESP\_Mail\_Client}};}
+\DoxyCodeLine{00738\ \ \ \_vectorImpl<struct\ esp\_mail\_address\_info\_t>\ \_rcp;}
+\DoxyCodeLine{00739\ \ \ \_vectorImpl<struct\ esp\_mail\_address\_info\_t>\ \_cc;}
+\DoxyCodeLine{00740\ \ \ \_vectorImpl<struct\ esp\_mail\_address\_info\_t>\ \_bcc;}
+\DoxyCodeLine{00741\ \ \ \_vectorImpl<MB\_String>\ \_hdr;}
+\DoxyCodeLine{00742\ \ \ \_vectorImpl<SMTP\_Attachment>\ \_att;}
+\DoxyCodeLine{00743\ \ \ \_vectorImpl<SMTP\_Attachment>\ \_parallel;}
+\DoxyCodeLine{00744\ \ \ \_vectorImpl<SMTP\_Message>\ \_rfc822;}
+\DoxyCodeLine{00745\ \};}
+\DoxyCodeLine{00746\ }
+\DoxyCodeLine{00747\ \textcolor{keyword}{class\ }SMTP\_Status}
+\DoxyCodeLine{00748\ \{}
+\DoxyCodeLine{00749\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00750\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }SMTPSession;}
+\DoxyCodeLine{00751\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }ESP\_Mail\_Client;}
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00753\ \ \ SMTP\_Status();}
+\DoxyCodeLine{00754\ \ \ \string~SMTP\_Status();}
+\DoxyCodeLine{00755\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *info();}
+\DoxyCodeLine{00756\ \ \ \textcolor{keywordtype}{bool}\ success();}
+\DoxyCodeLine{00757\ \ \ \textcolor{keywordtype}{void}\ empty();}
+\DoxyCodeLine{00758\ \ \ \textcolor{keywordtype}{size\_t}\ completedCount();}
+\DoxyCodeLine{00759\ \ \ \textcolor{keywordtype}{size\_t}\ failedCount();}
+\DoxyCodeLine{00760\ }
+\DoxyCodeLine{00761\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00762\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_info;}
+\DoxyCodeLine{00763\ \ \ \textcolor{keywordtype}{bool}\ \_success\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00764\ \ \ \textcolor{keywordtype}{size\_t}\ \_sentSuccess\ =\ 0;}
+\DoxyCodeLine{00765\ \ \ \textcolor{keywordtype}{size\_t}\ \_sentFailed\ =\ 0;}
+\DoxyCodeLine{00766\ \};}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00768\ \textcolor{keyword}{typedef}\ void\ (*smtpStatusCallback)(\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}});}
+\DoxyCodeLine{00769\ \textcolor{keyword}{typedef}\ void\ (*smtpResponseCallback)(SMTP\_Response);}
+\DoxyCodeLine{00770\ }
+\DoxyCodeLine{00771\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00773\ \textcolor{keyword}{class\ }ESP\_Mail\_Client}
+\DoxyCodeLine{00774\ \{}
+\DoxyCodeLine{00775\ }
+\DoxyCodeLine{00776\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00777\ \ \ ESP\_Mail\_Client()}
+\DoxyCodeLine{00778\ \ \ \{}
+\DoxyCodeLine{00779\ \ \ \ \ mbfs\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_m_b___f_s}{MB\_FS}}();}
+\DoxyCodeLine{00780\ \ \ \};}
+\DoxyCodeLine{00781\ }
+\DoxyCodeLine{00782\ \ \ \string~ESP\_Mail\_Client()}
+\DoxyCodeLine{00783\ \ \ \{}
+\DoxyCodeLine{00784\ \ \ \ \ \textcolor{keywordflow}{if}\ (mbfs)}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \textcolor{keyword}{delete}\ mbfs;}
+\DoxyCodeLine{00786\ \ \ \ \ mbfs\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00787\ }
+\DoxyCodeLine{00788\ \ \ \ \ wifi.clearAP();}
+\DoxyCodeLine{00789\ \ \ \};}
+\DoxyCodeLine{00790\ }
+\DoxyCodeLine{00791\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00801\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___client_a50b5e8e1ace5abcd5c2fdd3922fb8fb1}{sendMail}}(SMTPSession\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ closeSession\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00802\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00803\ }
+\DoxyCodeLine{00804\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)\ \&\&\ defined(ENABLE\_IMAP)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00817\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00818\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___client_a2138fbf2fabfb7ad5f5fd32a0ea8abcb}{appendMessage}}(IMAPSession\ *imap,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ lastAppend\ =\ \textcolor{keyword}{true},\ T1\ flags\ =\ \textcolor{stringliteral}{"{}"{}},\ T2\ dateTime\ =\ \textcolor{stringliteral}{"{}"{}})\ \{\ \textcolor{keywordflow}{return}\ mAppendMessage(imap,\ msg,\ lastAppend,\ toStringPtr(flags),\ toStringPtr(dateTime));\ \}}
+\DoxyCodeLine{00819\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00820\ }
+\DoxyCodeLine{00821\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_IMAP)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00831\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___client_acb05bfa0ebe40fae23b78885f2cf6ad1}{readMail}}(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{bool}\ closeSession\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00832\ }
+\DoxyCodeLine{00847\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00848\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___client_a0e2a9df13f53aa1a83358adac3f3f3c8}{setFlag}}(IMAPSession\ *imap,\ \textcolor{keywordtype}{int}\ msgUID,\ T\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1)\ \{\ \textcolor{keywordflow}{return}\ mSetFlag(imap,\ toStringPtr(msgUID),\ toStringPtr(flags),\ esp\_mail\_imap\_store\_flag\_type\_set,\ closeSession,\ silent,\ \textcolor{keyword}{true},\ modsequence);\ \}}
+\DoxyCodeLine{00849\ }
+\DoxyCodeLine{00865\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00866\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___client_ae99b52bf413b0a223ed3a5a8c852ad54}{setFlag}}(IMAPSession\ *imap,\ T1\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ T2\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1)\ \{\ \textcolor{keywordflow}{return}\ mSetFlag(imap,\ toStringPtr(sequenceSet),\ toStringPtr(flags),\ esp\_mail\_imap\_store\_flag\_type\_set,\ closeSession,\ silent,\ UID,\ modsequence);\ \}}
+\DoxyCodeLine{00867\ }
+\DoxyCodeLine{00882\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00883\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___client_a2471014a5695cd1c382c618746262efa}{addFlag}}(IMAPSession\ *imap,\ \textcolor{keywordtype}{int}\ msgUID,\ T\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1)\ \{\ \textcolor{keywordflow}{return}\ mSetFlag(imap,\ toStringPtr(msgUID),\ toStringPtr(flags),\ esp\_mail\_imap\_store\_flag\_type\_add,\ closeSession,\ silent,\ \textcolor{keyword}{true},\ modsequence);\ \}}
+\DoxyCodeLine{00884\ }
+\DoxyCodeLine{00900\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00901\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___client_a64fe5494d3985d2701ac2446e8085348}{addFlag}}(IMAPSession\ *imap,\ T1\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ T2\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1)\ \{\ \textcolor{keywordflow}{return}\ mSetFlag(imap,\ toStringPtr(sequenceSet),\ toStringPtr(flags),\ esp\_mail\_imap\_store\_flag\_type\_add,\ closeSession,\ silent,\ UID,\ modsequence);\ \}}
+\DoxyCodeLine{00902\ }
+\DoxyCodeLine{00917\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00918\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___client_a604a970d82715cc63b45bd14eb8a2d4a}{removeFlag}}(IMAPSession\ *imap,\ \textcolor{keywordtype}{int}\ msgUID,\ T\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1)\ \{\ \textcolor{keywordflow}{return}\ mSetFlag(imap,\ toStringPtr(msgUID),\ toStringPtr(flags),\ esp\_mail\_imap\_store\_flag\_type\_remove,\ closeSession,\ silent,\ \textcolor{keyword}{true},\ modsequence);\ \}}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00935\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{00936\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___client_a9fb04e2e7db490ecb5fa036aecb0606d}{removeFlag}}(IMAPSession\ *imap,\ T1\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ T2\ flags,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1)\ \{\ \textcolor{keywordflow}{return}\ mSetFlag(imap,\ toStringPtr(sequenceSet),\ toStringPtr(flags),\ esp\_mail\_imap\_store\_flag\_type\_remove,\ closeSession,\ silent,\ UID,\ modsequence);\ \}}
+\DoxyCodeLine{00937\ }
+\DoxyCodeLine{00938\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00939\ }
+\DoxyCodeLine{00944\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___client_a80963e921b56b12c110ef82c5ed2c582}{networkReconnect}}(\textcolor{keywordtype}{bool}\ reconnect);}
+\DoxyCodeLine{00945\ }
+\DoxyCodeLine{00946\ \ \ \textcolor{comment}{/*\ Obsoleted\ */}}
+\DoxyCodeLine{00947\ \ \ \textcolor{keywordtype}{void}\ setUDPClient(\textcolor{keywordtype}{void}\ *client,\ \textcolor{keywordtype}{float}\ gmtOffset)\ \{\}}
+\DoxyCodeLine{00948\ }
+\DoxyCodeLine{00952\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___client_a646c42f6094e2ade88124e4761afab12}{clearAP}}();}
+\DoxyCodeLine{00953\ }
+\DoxyCodeLine{00959\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___client_a4abc1f4128f4571cc9115b97ae82537a}{addAP}}(\textcolor{keyword}{const}\ String\ \&ssid,\ \textcolor{keyword}{const}\ String\ \&password);}
+\DoxyCodeLine{00960\ }
+\DoxyCodeLine{00965\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___client_a130485c08383012bf3665c3462c53f18}{printf}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...);}
+\DoxyCodeLine{00966\ }
+\DoxyCodeLine{00967\ \textcolor{preprocessor}{\#if\ defined(MBFS\_SD\_FS)\ \&\&\ defined(MBFS\_CARD\_TYPE\_SD)}}
+\DoxyCodeLine{00968\ }
+\DoxyCodeLine{00978\ \ \ \textcolor{keywordtype}{bool}\ sdBegin(int8\_t\ ss\ =\ -\/1,\ int8\_t\ sck\ =\ -\/1,\ int8\_t\ miso\ =\ -\/1,\ int8\_t\ mosi\ =\ -\/1,\ uint32\_t\ frequency\ =\ 4000000);}
+\DoxyCodeLine{00979\ }
+\DoxyCodeLine{00980\ \textcolor{preprocessor}{\#if\ defined(ESP8266)\ ||\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00981\ }
+\DoxyCodeLine{00988\ \ \ \textcolor{keywordtype}{bool}\ sdBegin(SDFSConfig\ *sdFSConfig);}
+\DoxyCodeLine{00989\ }
+\DoxyCodeLine{00990\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00991\ }
+\DoxyCodeLine{00992\ \textcolor{preprocessor}{\#if\ defined(ESP32)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01000\ \ \ \textcolor{keywordtype}{bool}\ sdBegin(int8\_t\ ss,\ SPIClass\ *spiConfig\ =\ \textcolor{keyword}{nullptr},\ uint32\_t\ frequency\ =\ 4000000);}
+\DoxyCodeLine{01001\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01002\ }
+\DoxyCodeLine{01003\ \textcolor{preprocessor}{\#if\ defined(MBFS\_ESP32\_SDFAT\_ENABLED)\ ||\ defined(MBFS\_SDFAT\_ENABLED)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01013\ \ \ \textcolor{keywordtype}{bool}\ sdBegin(SdSpiConfig\ *sdFatSPIConfig,\ int8\_t\ ss\ =\ -\/1,\ int8\_t\ sck\ =\ -\/1,\ int8\_t\ miso\ =\ -\/1,\ int8\_t\ mosi\ =\ -\/1);}
+\DoxyCodeLine{01014\ }
+\DoxyCodeLine{01020\ \ \ \textcolor{keywordtype}{bool}\ sdBegin(SdioConfig\ *sdFatSDIOConfig);}
+\DoxyCodeLine{01021\ }
+\DoxyCodeLine{01022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01023\ }
+\DoxyCodeLine{01024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01025\ }
+\DoxyCodeLine{01026\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ \&\&\ defined(MBFS\_SD\_FS)\ \&\&\ defined(MBFS\_CARD\_TYPE\_SD\_MMC)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01034\ \ \ \textcolor{keywordtype}{bool}\ sdMMCBegin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mountpoint\ =\ \textcolor{stringliteral}{"{}/sdcard"{}},\ \textcolor{keywordtype}{bool}\ mode1bit\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ format\_if\_mount\_failed\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01036\ }
+\DoxyCodeLine{01041\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___client_a53d208aba85087131db3b4692b05297d}{getFreeHeap}}();}
+\DoxyCodeLine{01042\ }
+\DoxyCodeLine{01047\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01048\ \ \ String\ \mbox{\hyperlink{class_e_s_p___mail___client_af6d71220ec3e9d231cdcb228309b311f}{toBase64}}(T\ str)\ \{\ \textcolor{keywordflow}{return}\ mGetBase64(toStringPtr(str)).c\_str();\ \}}
+\DoxyCodeLine{01049\ }
+\DoxyCodeLine{01050\ \ \ \mbox{\hyperlink{class_m_b___time}{MB\_Time}}\ Time;}
+\DoxyCodeLine{01051\ }
+\DoxyCodeLine{01052\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{01053\ }
+\DoxyCodeLine{01054\ \ \ \textcolor{comment}{//\ Get\ encoding\ type\ from\ character\ set\ string}}
+\DoxyCodeLine{01055\ \ \ esp\_mail\_char\_decoding\_scheme\ getEncodingFromCharset(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *enc);}
+\DoxyCodeLine{01056\ }
+\DoxyCodeLine{01057\ \ \ \textcolor{comment}{//\ Decode\ Latin1\ to\ UTF-\/8}}
+\DoxyCodeLine{01058\ \ \ \textcolor{keywordtype}{int}\ decodeLatin1\_UTF8(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *out,\ \textcolor{keywordtype}{int}\ *outlen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,\ \textcolor{keywordtype}{int}\ *inlen);}
+\DoxyCodeLine{01059\ }
+\DoxyCodeLine{01060\ \ \ \textcolor{comment}{//\ Decode\ TIS620\ to\ UTF-\/8}}
+\DoxyCodeLine{01061\ \ \ \textcolor{keywordtype}{void}\ decodeTIS620\_UTF8(\textcolor{keywordtype}{char}\ *out,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *in,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{01062\ }
+\DoxyCodeLine{01063\ \ \ \textcolor{comment}{//\ handle\ rfc2047\ Q\ (quoted\ printable)\ and\ B\ (base64)\ decodings}}
+\DoxyCodeLine{01064\ \ \ \mbox{\hyperlink{class_r_f_c2047___decoder}{RFC2047\_Decoder}}\ RFC2047Decoder;}
+\DoxyCodeLine{01065\ }
+\DoxyCodeLine{01066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01067\ }
+\DoxyCodeLine{01068\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01069\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}};}
+\DoxyCodeLine{01070\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}};}
+\DoxyCodeLine{01071\ }
+\DoxyCodeLine{01072\ \ \ \mbox{\hyperlink{class_m_b___f_s}{MB\_FS}}\ *mbfs\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01073\ \ \ \textcolor{keywordtype}{bool}\ timeStatus\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01074\ \ \ time\_t\ ts\ =\ 0;}
+\DoxyCodeLine{01075\ \ \ \textcolor{keywordtype}{bool}\ networkAutoReconnect\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01076\ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ networkStatus\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01077\ \ \ \mbox{\hyperlink{structesp__mail__wifi__credentials__t}{esp\_mail\_wifi\_credentials\_t}}\ wifi;}
+\DoxyCodeLine{01078\ \ \ \textcolor{keywordtype}{bool}\ timezoneEnvSet\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01079\ }
+\DoxyCodeLine{01080\ \ \ \mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01081\ \ \ \textcolor{keywordtype}{bool}\ calDataLen\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01082\ \ \ uint32\_t\ dataLen\ =\ 0;}
+\DoxyCodeLine{01083\ \ \ uint32\_t\ imap\_ts\ =\ 0;}
+\DoxyCodeLine{01084\ }
+\DoxyCodeLine{01085\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)\ ||\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{01086\ }
+\DoxyCodeLine{01087\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_lastReconnectMillis\ =\ 0;}
+\DoxyCodeLine{01088\ \ \ uint16\_t\ \_reconnectTimeout\ =\ ESP\_MAIL\_NETWORK\_RECONNECT\_TIMEOUT;}
+\DoxyCodeLine{01089\ }
+\DoxyCodeLine{01090\ \ \ \textcolor{comment}{//\ Resume\ network\ connection}}
+\DoxyCodeLine{01091\ \ \ \textcolor{keywordtype}{void}\ resumeNetwork(\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client}{ESP\_Mail\_TCPClient}}\ *client);}
+\DoxyCodeLine{01092\ }
+\DoxyCodeLine{01093\ \ \ \textcolor{comment}{//\ Get\ the\ CRLF\ ending\ string\ w/wo\ CRLF\ included.\ Return\ the\ size\ of\ string\ read\ and\ the\ current\ octet\ read.}}
+\DoxyCodeLine{01094\ \ \ \textcolor{keywordtype}{int}\ readLine(\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client}{ESP\_Mail\_TCPClient}}\ *client,\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{int}\ bufLen,\ \textcolor{keywordtype}{bool}\ withLineBreak,\ \textcolor{keywordtype}{int}\ \&count,\ \textcolor{keywordtype}{bool}\ \&ovf,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeoutSec,\ \textcolor{keywordtype}{bool}\ \&isTimeout);}
+\DoxyCodeLine{01095\ }
+\DoxyCodeLine{01096\ \ \ \textcolor{comment}{//\ readLine\ with\ overflow\ handling.}}
+\DoxyCodeLine{01097\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01098\ \ \ \textcolor{keywordtype}{bool}\ readResponse(T\ sessionPtr,\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{int}\ bufLen,\ \textcolor{keywordtype}{int}\ \&readLen,\ \textcolor{keywordtype}{bool}\ withLineBreak,\ \textcolor{keywordtype}{int}\ \&count,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&ovfBuf);}
+\DoxyCodeLine{01099\ }
+\DoxyCodeLine{01100\ \ \ \textcolor{comment}{//\ Network\ reconnection\ and\ return\ the\ connection\ status}}
+\DoxyCodeLine{01101\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01102\ \ \ \textcolor{keywordtype}{bool}\ reconnect(T\ sessionPtr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ dataTime\ =\ 0,\ \textcolor{keywordtype}{bool}\ downloadRequest\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01103\ }
+\DoxyCodeLine{01104\ \ \ \textcolor{comment}{//\ Send\ callback}}
+\DoxyCodeLine{01105\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01106\ \ \ \textcolor{keywordtype}{void}\ sendCB(T\ sessionPtr,\ PGM\_P\ info\ =\ \textcolor{stringliteral}{"{}"{}},\ \textcolor{keywordtype}{bool}\ prependCRLF\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ success\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01107\ }
+\DoxyCodeLine{01108\ \ \ \textcolor{comment}{//\ PGM\ string\ replacement}}
+\DoxyCodeLine{01109\ \ \ \textcolor{keywordtype}{void}\ strReplaceP(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ PGM\_P\ key,\ PGM\_P\ value);}
+\DoxyCodeLine{01110\ }
+\DoxyCodeLine{01111\ \ \ \textcolor{comment}{//\ Check\ for\ OAuth\ log\ in\ error\ response}}
+\DoxyCodeLine{01112\ \ \ \textcolor{keywordtype}{bool}\ isOAuthError(\textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{int}\ bufLen,\ \textcolor{keywordtype}{int}\ \&chunkIdx,\ \textcolor{keywordtype}{int}\ ofs);}
+\DoxyCodeLine{01113\ }
+\DoxyCodeLine{01114\ \ \ \textcolor{comment}{//\ Get\ SASL\ XOAUTH2\ string}}
+\DoxyCodeLine{01115\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ getXOAUTH2String(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&email,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&accessToken);}
+\DoxyCodeLine{01116\ }
+\DoxyCodeLine{01117\ \ \ \textcolor{comment}{//\ Send\ error\ callback}}
+\DoxyCodeLine{01118\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01119\ \ \ \textcolor{keywordtype}{void}\ sendErrorCB(T\ sessionPtr,\ PGM\_P\ info,\ \textcolor{keywordtype}{bool}\ prependCRLF\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ success\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01120\ }
+\DoxyCodeLine{01121\ \ \ \textcolor{comment}{//\ Send\ the\ error\ status\ callback}}
+\DoxyCodeLine{01122\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T1,\ \textcolor{keyword}{class}\ T2>}
+\DoxyCodeLine{01123\ \ \ \textcolor{keywordtype}{void}\ errorStatusCB(T1\ sessionPtr,\ T2\ sessionPtr2,\ \textcolor{keywordtype}{int}\ error,\ \textcolor{keywordtype}{bool}\ clearLastStatus);}
+\DoxyCodeLine{01124\ }
+\DoxyCodeLine{01125\ \ \ \textcolor{comment}{//\ Check\ response\ callback\ was\ assigned?}}
+\DoxyCodeLine{01126\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01127\ \ \ \textcolor{keywordtype}{bool}\ isResponseCB(T\ sessionPtr);}
+\DoxyCodeLine{01128\ }
+\DoxyCodeLine{01129\ \ \ \textcolor{comment}{//\ Print\ library\ info}}
+\DoxyCodeLine{01130\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01131\ \ \ \textcolor{keywordtype}{void}\ printLibInfo(T\ sessionPtr);}
+\DoxyCodeLine{01132\ }
+\DoxyCodeLine{01133\ \ \ \textcolor{comment}{//\ Begin\ server\ connection}}
+\DoxyCodeLine{01134\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01135\ \ \ \textcolor{keywordtype}{bool}\ beginConnection(Session\_Config\ *session\_config,\ T\ sessionPtr,\ \textcolor{keywordtype}{bool}\ secureMode);}
+\DoxyCodeLine{01136\ }
+\DoxyCodeLine{01137\ \ \ \textcolor{comment}{//\ Prepare\ system\ time}}
+\DoxyCodeLine{01138\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01139\ \ \ \textcolor{keywordtype}{bool}\ prepareTime(Session\_Config\ *session\_config,\ T\ sessionPtr);}
+\DoxyCodeLine{01140\ }
+\DoxyCodeLine{01141\ \ \ \textcolor{comment}{//\ Check\ for\ session.\ Close\ session\ If\ not\ ready.}}
+\DoxyCodeLine{01142\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01143\ \ \ \textcolor{keywordtype}{bool}\ sessionReady(T\ sessionPtr);}
+\DoxyCodeLine{01144\ }
+\DoxyCodeLine{01145\ \ \ \textcolor{comment}{//\ Set\ cert\ data}}
+\DoxyCodeLine{01146\ \ \ \textcolor{keywordtype}{void}\ setCert(Session\_Config\ *session\_cfg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ca);}
+\DoxyCodeLine{01147\ \ \ \textcolor{comment}{//\ Set\ secure\ data}}
+\DoxyCodeLine{01148\ \ \ \textcolor{keywordtype}{void}\ setSecure(\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client}{ESP\_Mail\_TCPClient}}\ \&client,\ Session\_Config\ *session\_config);}
+\DoxyCodeLine{01149\ }
+\DoxyCodeLine{01150\ \ \ \textcolor{keywordtype}{void}\ appendMultipartContentType(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ esp\_mail\_multipart\_types\ type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *boundary);}
+\DoxyCodeLine{01151\ }
+\DoxyCodeLine{01152\ \ \ String\ errorReason(\textcolor{keywordtype}{bool}\ isSMTP,\ \textcolor{keywordtype}{int}\ errorCode,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *msg);}
+\DoxyCodeLine{01153\ }
+\DoxyCodeLine{01154\ \ \ \textcolor{comment}{//\ Close\ TCP\ session\ and\ clear\ auth\_capability,\ read/send\_capability,\ connected\ and\ authenticate\ statuses}}
+\DoxyCodeLine{01155\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01156\ \ \ \textcolor{keywordtype}{void}\ closeTCPSession(T\ sessionPtr);}
+\DoxyCodeLine{01157\ }
+\DoxyCodeLine{01158\ \ \ \textcolor{comment}{//\ Get\ and\ set\ timezone}}
+\DoxyCodeLine{01159\ \ \ \textcolor{keywordtype}{void}\ getSetTimezoneEnv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *TZ\_file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *TZ\_Var);}
+\DoxyCodeLine{01160\ }
+\DoxyCodeLine{01161\ \ \ \textcolor{comment}{//\ Get\ TCP\ connected\ status}}
+\DoxyCodeLine{01162\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01163\ \ \ \textcolor{keywordtype}{bool}\ connected(T\ sessionPtr);}
+\DoxyCodeLine{01164\ }
+\DoxyCodeLine{01165\ \ \ \textcolor{comment}{//\ Get\ the\ memory\ allocation\ block\ size\ of\ multiple\ of\ 4}}
+\DoxyCodeLine{01166\ \ \ \textcolor{keywordtype}{size\_t}\ getReservedLen(\textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{01167\ }
+\DoxyCodeLine{01168\ \ \ \textcolor{comment}{//\ Check\ Email\ for\ valid\ format}}
+\DoxyCodeLine{01169\ \ \ \textcolor{keywordtype}{bool}\ validEmail(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s);}
+\DoxyCodeLine{01170\ }
+\DoxyCodeLine{01171\ \ \ \textcolor{comment}{//\ Get\ random\ UID\ for\ SMTP\ content\ ID\ and\ IMAP\ attachment\ default\ file\ name}}
+\DoxyCodeLine{01172\ \ \ \textcolor{keywordtype}{char}\ *getRandomUID();}
+\DoxyCodeLine{01173\ }
+\DoxyCodeLine{01174\ \ \ \textcolor{comment}{//\ Spit\ the\ string\ into\ token\ strings}}
+\DoxyCodeLine{01175\ \ \ \textcolor{keywordtype}{void}\ splitToken(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str,\ \_vectorImpl<MB\_String>\ \&tk,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *delim);}
+\DoxyCodeLine{01176\ }
+\DoxyCodeLine{01177\ \ \ \textcolor{comment}{//\ Decode\ base64\ encoded\ string}}
+\DoxyCodeLine{01178\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *decodeBase64(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *src,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{size\_t}\ *out\_len);}
+\DoxyCodeLine{01179\ }
+\DoxyCodeLine{01180\ \ \ \textcolor{comment}{//\ Decode\ base64\ encoded\ string}}
+\DoxyCodeLine{01181\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ encodeBase64Str(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *src,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{01182\ }
+\DoxyCodeLine{01183\ \ \ \textcolor{comment}{//\ Decode\ base64\ encoded\ string}}
+\DoxyCodeLine{01184\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ encodeBase64Str(uint8\_t\ *src,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{01185\ }
+\DoxyCodeLine{01186\ \ \ \textcolor{comment}{//\ Decode\ base64\ encoded\ string}}
+\DoxyCodeLine{01187\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ mGetBase64(MB\_StringPtr\ str);}
+\DoxyCodeLine{01188\ \ \ }
+\DoxyCodeLine{01189\ \ \ \textcolor{comment}{//\ RFC2047\ encode\ word\ (UTF-\/8\ only)}}
+\DoxyCodeLine{01190\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ encodeBUTF8(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ str);}
+\DoxyCodeLine{01191\ }
+\DoxyCodeLine{01192\ \ \ \textcolor{comment}{//\ Sub\ string}}
+\DoxyCodeLine{01193\ \ \ \textcolor{keywordtype}{char}\ *subStr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ PGM\_P\ beginToken,\ PGM\_P\ endToken,\ \textcolor{keywordtype}{int}\ beginPos,\ \textcolor{keywordtype}{int}\ endPos\ =\ 0,\ \textcolor{keywordtype}{bool}\ caseSensitive\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01194\ }
+\DoxyCodeLine{01195\ \ \ \textcolor{comment}{//\ Find\ string}}
+\DoxyCodeLine{01196\ \ \ \textcolor{keywordtype}{int}\ strpos(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *haystack,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *needle,\ \textcolor{keywordtype}{int}\ offset,\ \textcolor{keywordtype}{bool}\ caseSensitive\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01197\ }
+\DoxyCodeLine{01198\ \ \ \textcolor{comment}{//\ Memory\ allocation}}
+\DoxyCodeLine{01199\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{01200\ \ \ T\ allocMem(\textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{bool}\ clear\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01201\ }
+\DoxyCodeLine{01202\ \ \ \textcolor{comment}{//\ Memory\ deallocation}}
+\DoxyCodeLine{01203\ \ \ \textcolor{keywordtype}{void}\ freeMem(\textcolor{keywordtype}{void}\ *ptr);}
+\DoxyCodeLine{01204\ }
+\DoxyCodeLine{01205\ \ \ \textcolor{comment}{//\ PGM\ string\ compare}}
+\DoxyCodeLine{01206\ \ \ \textcolor{keywordtype}{bool}\ strcmpP(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{int}\ ofs,\ PGM\_P\ beginToken,\ \textcolor{keywordtype}{bool}\ caseSensitive\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01207\ }
+\DoxyCodeLine{01208\ \ \ \textcolor{comment}{//\ Find\ PGM\ string}}
+\DoxyCodeLine{01209\ \ \ \textcolor{keywordtype}{int}\ strposP(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ PGM\_P\ beginToken,\ \textcolor{keywordtype}{int}\ ofs,\ \textcolor{keywordtype}{bool}\ caseSensitive\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01210\ }
+\DoxyCodeLine{01211\ \ \ \textcolor{comment}{//\ Memory\ allocation\ for\ PGM\ string}}
+\DoxyCodeLine{01212\ \ \ \textcolor{keywordtype}{char}\ *strP(PGM\_P\ pgm);}
+\DoxyCodeLine{01213\ }
+\DoxyCodeLine{01214\ \ \ \textcolor{comment}{//\ Memory\ allocation\ for\ PGM\ lower\ case\ string}}
+\DoxyCodeLine{01215\ \ \ \textcolor{keywordtype}{char}\ *strP2Lower(PGM\_P\ pgm);}
+\DoxyCodeLine{01216\ }
+\DoxyCodeLine{01217\ \ \ \textcolor{comment}{//\ Set\ or\ sync\ device\ system\ time\ with\ NTP\ server}}
+\DoxyCodeLine{01218\ \ \ \textcolor{comment}{//\ Do\ not\ modify\ or\ remove}}
+\DoxyCodeLine{01219\ \ \ \textcolor{keywordtype}{void}\ setTime(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *TZ\_Var,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *TZ\_file,\ \textcolor{keywordtype}{bool}\ wait,\ \textcolor{keywordtype}{bool}\ debugProgress);}
+\DoxyCodeLine{01220\ }
+\DoxyCodeLine{01221\ \ \ \textcolor{comment}{//\ Set\ the\ device\ time\ zone\ via\ TZ\ environment\ variable}}
+\DoxyCodeLine{01222\ \ \ \textcolor{keywordtype}{void}\ setTimezone(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *TZ\_Var,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *TZ\_file);}
+\DoxyCodeLine{01223\ }
+\DoxyCodeLine{01224\ \ \ \textcolor{comment}{//\ Get\ TZ\ environment\ variable\ from\ file}}
+\DoxyCodeLine{01225\ \ \ \textcolor{comment}{//\ Do\ not\ modify\ or\ remove}}
+\DoxyCodeLine{01226\ \ \ \textcolor{keywordtype}{void}\ getTimezone(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *TZ\_file,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&out);}
+\DoxyCodeLine{01227\ }
+\DoxyCodeLine{01228\ \ \ \textcolor{comment}{//\ Check\ the\ session\ existent}}
+\DoxyCodeLine{01229\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01230\ \ \ \textcolor{keywordtype}{bool}\ sessionExisted(T\ sessionPtr);}
+\DoxyCodeLine{01231\ }
+\DoxyCodeLine{01232\ \ \ \textcolor{comment}{//\ Send\ SMTP/IMAP\ callback}}
+\DoxyCodeLine{01233\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01234\ \ \ \textcolor{keywordtype}{void}\ sendCallback(T\ sessionPtr,\ PGM\_P\ info,\ \textcolor{keywordtype}{bool}\ prependCRLF,\ \textcolor{keywordtype}{bool}\ success);}
+\DoxyCodeLine{01235\ }
+\DoxyCodeLine{01236\ \ \ \textcolor{comment}{//\ Send\ IMAP/SMTP\ response\ callback\ and\ print\ debug\ message}}
+\DoxyCodeLine{01237\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01238\ \ \ \textcolor{keywordtype}{void}\ printDebug(T\ sessionPtr,\ PGM\_P\ cbMsg,\ PGM\_P\ dbMsg,\ esp\_mail\_debug\_tag\_type\ type,\ \textcolor{keywordtype}{bool}\ prependCRLF,\ \textcolor{keywordtype}{bool}\ success);}
+\DoxyCodeLine{01239\ }
+\DoxyCodeLine{01240\ \ \ \textcolor{comment}{//\ Get\ header\ content\ from\ response\ based\ on\ the\ field\ name}}
+\DoxyCodeLine{01241\ \ \ \textcolor{keywordtype}{bool}\ getHeader(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ PGM\_P\ beginToken,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&out,\ \textcolor{keywordtype}{bool}\ caseSensitive);}
+\DoxyCodeLine{01242\ }
+\DoxyCodeLine{01243\ \ \ \textcolor{comment}{//\ Append\ header\ field\ to\ buffer}}
+\DoxyCodeLine{01244\ \ \ \textcolor{keywordtype}{void}\ appendHeaderField(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ PGM\_P\ value,\ \textcolor{keywordtype}{bool}\ comma,\ \textcolor{keywordtype}{bool}\ newLine,\ esp\_mail\_string\_mark\_type\ type\ =\ esp\_mail\_string\_mark\_type\_none);}
+\DoxyCodeLine{01245\ }
+\DoxyCodeLine{01246\ \ \ \textcolor{comment}{//\ Append\ SMTP\ address\ header\ field}}
+\DoxyCodeLine{01247\ \ \ \textcolor{keywordtype}{void}\ appendAddressHeaderField(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \mbox{\hyperlink{structesp__mail__address__info__t}{esp\_mail\_address\_info\_t}}\ \&source,\ esp\_mail\_rfc822\_header\_field\_types\ type,\ \textcolor{keywordtype}{bool}\ header,\ \textcolor{keywordtype}{bool}\ comma,\ \textcolor{keywordtype}{bool}\ newLine,\ \textcolor{keywordtype}{bool}\ encode);}
+\DoxyCodeLine{01248\ }
+\DoxyCodeLine{01249\ \ \ \textcolor{comment}{//\ Append\ header\ field\ name\ to\ buffer}}
+\DoxyCodeLine{01250\ \ \ \textcolor{keywordtype}{void}\ appendHeaderName(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{bool}\ clear\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ lowercase\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ space\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01251\ }
+\DoxyCodeLine{01252\ \ \ \textcolor{comment}{//\ Append\ lowercase\ string\ to\ buffer}}
+\DoxyCodeLine{01253\ \ \ \textcolor{keywordtype}{void}\ appendLowerCaseString(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ PGM\_P\ value,\ \textcolor{keywordtype}{bool}\ clear\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01254\ }
+\DoxyCodeLine{01255\ \ \ \textcolor{comment}{//\ Append\ header\ field\ property\ to\ buffer}}
+\DoxyCodeLine{01256\ \ \ \textcolor{keywordtype}{void}\ appendHeaderProp(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ PGM\_P\ prop,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value,\ \textcolor{keywordtype}{bool}\ \&firstProp,\ \textcolor{keywordtype}{bool}\ lowerCase,\ \textcolor{keywordtype}{bool}\ isString,\ \textcolor{keywordtype}{bool}\ newLine);}
+\DoxyCodeLine{01257\ }
+\DoxyCodeLine{01258\ \ \ \textcolor{comment}{//\ Append\ quote\ string\ to\ buffer}}
+\DoxyCodeLine{01259\ \ \ \textcolor{keywordtype}{void}\ appendString(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ PGM\_P\ value,\ \textcolor{keywordtype}{bool}\ comma,\ \textcolor{keywordtype}{bool}\ newLine,\ esp\_mail\_string\_mark\_type\ type\ =\ esp\_mail\_string\_mark\_type\_none);}
+\DoxyCodeLine{01260\ }
+\DoxyCodeLine{01261\ \ \ \textcolor{comment}{//\ Append\ list\ to\ buffer}}
+\DoxyCodeLine{01262\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01263\ \ \ \textcolor{keywordtype}{void}\ appendList(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \_vectorImpl<T>\ \&list);}
+\DoxyCodeLine{01264\ }
+\DoxyCodeLine{01265\ \ \ \textcolor{comment}{//\ Append\ space\ to\ buffer}}
+\DoxyCodeLine{01266\ \ \ \textcolor{keywordtype}{void}\ appendSpace(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf);}
+\DoxyCodeLine{01267\ }
+\DoxyCodeLine{01268\ \ \ \textcolor{comment}{//\ Append\ space\ to\ buffer\ after\ value}}
+\DoxyCodeLine{01269\ \ \ \textcolor{keywordtype}{void}\ appendSpace(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keywordtype}{bool}\ withTag,\ PGM\_P\ value);}
+\DoxyCodeLine{01270\ }
+\DoxyCodeLine{01271\ \ \ \textcolor{comment}{//\ Append\ space\ to\ buffer\ after\ values}}
+\DoxyCodeLine{01272\ \ \ \textcolor{keywordtype}{void}\ appendSpace(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keywordtype}{bool}\ withTag,\ \textcolor{keywordtype}{int}\ nunArgs,\ ...);}
+\DoxyCodeLine{01273\ }
+\DoxyCodeLine{01274\ \ \ \textcolor{comment}{//\ Append\ space\ to\ buffer\ before\ value}}
+\DoxyCodeLine{01275\ \ \ \textcolor{keywordtype}{void}\ prependSpace(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ PGM\_P\ value);}
+\DoxyCodeLine{01276\ }
+\DoxyCodeLine{01277\ \ \ \textcolor{comment}{//\ Append\ dot\ to\ buffer}}
+\DoxyCodeLine{01278\ \ \ \textcolor{keywordtype}{void}\ appendDot(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf);}
+\DoxyCodeLine{01279\ }
+\DoxyCodeLine{01280\ \ \ \textcolor{comment}{//\ Append\ IMAP\ string\ key\ value\ list}}
+\DoxyCodeLine{01281\ \ \ \textcolor{keywordtype}{void}\ appendImap4KeyValue(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ PGM\_P\ key,\ PGM\_P\ value);}
+\DoxyCodeLine{01282\ }
+\DoxyCodeLine{01283\ \ \ \textcolor{comment}{//\ Append\ dot\ to\ buffer\ before\ value}}
+\DoxyCodeLine{01284\ \ \ \textcolor{keywordtype}{void}\ prependDot(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ PGM\_P\ value);}
+\DoxyCodeLine{01285\ }
+\DoxyCodeLine{01286\ \ \ \textcolor{comment}{//\ Join\ 2\ strings\ to\ buffer\ with\ space}}
+\DoxyCodeLine{01287\ \ \ \textcolor{keywordtype}{void}\ joinStringSpace(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keywordtype}{bool}\ withTag,\ \textcolor{keywordtype}{int}\ nunArgs,\ ...);}
+\DoxyCodeLine{01288\ }
+\DoxyCodeLine{01289\ \ \ \textcolor{comment}{//\ Join\ 2\ strings\ to\ buffer\ with\ dot}}
+\DoxyCodeLine{01290\ \ \ \textcolor{keywordtype}{void}\ joinStringDot(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keywordtype}{int}\ nunArgs,\ ...);}
+\DoxyCodeLine{01291\ }
+\DoxyCodeLine{01292\ \ \ \textcolor{comment}{//\ Append\ mask(*)\ string\ to\ buffer}}
+\DoxyCodeLine{01293\ \ \ \textcolor{keywordtype}{void}\ maskString(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keywordtype}{int}\ len);}
+\DoxyCodeLine{01294\ }
+\DoxyCodeLine{01295\ \ \ \textcolor{comment}{//\ Append\ domain\ to\ buffer}}
+\DoxyCodeLine{01296\ \ \ \textcolor{keywordtype}{void}\ appendDomain(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *domain);}
+\DoxyCodeLine{01297\ }
+\DoxyCodeLine{01298\ \ \ \textcolor{comment}{//\ Append\ embedded\ message\ header\ to\ buffer}}
+\DoxyCodeLine{01299\ \ \ \textcolor{keywordtype}{void}\ appendEmbedMessage(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \mbox{\hyperlink{structesp__mail__message__body__t}{esp\_mail\_message\_body\_t}}\ \&body,\ \textcolor{keywordtype}{bool}\ isHtml);}
+\DoxyCodeLine{01300\ }
+\DoxyCodeLine{01301\ \ \ \textcolor{comment}{//\ Append\ crlf\ to\ buffer}}
+\DoxyCodeLine{01302\ \ \ \textcolor{keywordtype}{void}\ appendNewline(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf);}
+\DoxyCodeLine{01303\ }
+\DoxyCodeLine{01304\ \ \ \textcolor{comment}{//\ Append\ tag\ to\ the\ buffer}}
+\DoxyCodeLine{01305\ \ \ \textcolor{keywordtype}{void}\ appendTagSpace(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ PGM\_P\ tag\ =\ NULL);}
+\DoxyCodeLine{01306\ }
+\DoxyCodeLine{01307\ \ \ \textcolor{comment}{//\ Print\ newline}}
+\DoxyCodeLine{01308\ \ \ \textcolor{keywordtype}{void}\ debugPrintNewLine();}
+\DoxyCodeLine{01309\ }
+\DoxyCodeLine{01310\ \ \ \textcolor{comment}{//\ Send\ newline\ to\ callback}}
+\DoxyCodeLine{01311\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{01312\ \ \ \textcolor{keywordtype}{void}\ callBackSendNewLine(T\ sessionPtr,\ \textcolor{keywordtype}{bool}\ success);}
+\DoxyCodeLine{01313\ }
+\DoxyCodeLine{01314\ \ \ \textcolor{comment}{//\ Print\ progress\ bar}}
+\DoxyCodeLine{01315\ \ \ \textcolor{keywordtype}{void}\ printProgress(\textcolor{keywordtype}{int}\ progress,\ \textcolor{keywordtype}{int}\ \&lastProgress);}
+\DoxyCodeLine{01316\ }
+\DoxyCodeLine{01317\ \ \ \textcolor{comment}{//\ Get\ file\ extension\ with\ dot\ from\ MIME\ string}}
+\DoxyCodeLine{01318\ \ \ \textcolor{keywordtype}{void}\ getExtfromMIME(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mime,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&ext);}
+\DoxyCodeLine{01319\ }
+\DoxyCodeLine{01320\ \ \ \textcolor{comment}{//\ Prepare\ ports}}
+\DoxyCodeLine{01321\ \ \ \textcolor{keywordtype}{void}\ preparePortFunction(Session\_Config\ *session\_config,\ \textcolor{keywordtype}{bool}\ isSMTP,\ \textcolor{keywordtype}{bool}\ \&secure,\ \textcolor{keywordtype}{bool}\ \&secureMode,\ \textcolor{keywordtype}{bool}\ \&ssl);}
+\DoxyCodeLine{01322\ }
+\DoxyCodeLine{01323\ \ \ \textcolor{comment}{//\ Get\ operation\ config\ based\ on\ port\ and\ its\ protocol}}
+\DoxyCodeLine{01324\ \ \ \textcolor{keywordtype}{void}\ getPortFunction(uint16\_t\ port,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structesp__mail__ports__functions}{esp\_mail\_ports\_functions}}\ \&ports\_functions,\ \textcolor{keywordtype}{bool}\ \&secure,\ \textcolor{keywordtype}{bool}\ \&secureMode,\ \textcolor{keywordtype}{bool}\ \&ssl,\ \textcolor{keywordtype}{bool}\ \&starttls);}
+\DoxyCodeLine{01325\ }
+\DoxyCodeLine{01326\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01327\ }
+\DoxyCodeLine{01328\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)}}
+\DoxyCodeLine{01329\ }
+\DoxyCodeLine{01330\ \ \ \textcolor{comment}{//\ Encode\ Quoted\ Printable\ string}}
+\DoxyCodeLine{01331\ \ \ \textcolor{keywordtype}{void}\ encodeQP(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{char}\ *out);}
+\DoxyCodeLine{01332\ }
+\DoxyCodeLine{01333\ \ \ \textcolor{comment}{//\ Add\ the\ soft\ line\ break\ to\ the\ long\ text\ line\ rfc\ 3676}}
+\DoxyCodeLine{01334\ \ \ \textcolor{keywordtype}{void}\ formatFlowedText(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&content);}
+\DoxyCodeLine{01335\ }
+\DoxyCodeLine{01336\ \ \ \textcolor{comment}{//\ Insert\ soft\ break}}
+\DoxyCodeLine{01337\ \ \ \textcolor{keywordtype}{void}\ softBreak(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&content,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *quoteMarks);}
+\DoxyCodeLine{01338\ }
+\DoxyCodeLine{01339\ \ \ \textcolor{comment}{//\ Get\ content\ type\ (MIME)\ from\ file\ extension}}
+\DoxyCodeLine{01340\ \ \ \textcolor{keywordtype}{void}\ getMIME(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ext,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&mime);}
+\DoxyCodeLine{01341\ }
+\DoxyCodeLine{01342\ \ \ \textcolor{comment}{//\ Get\ content\ type\ (MIME)\ from\ file\ name}}
+\DoxyCodeLine{01343\ \ \ \textcolor{keywordtype}{void}\ mimeFromFile(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&mime);}
+\DoxyCodeLine{01344\ }
+\DoxyCodeLine{01345\ \ \ \textcolor{comment}{//\ Get\ MIME\ boundary\ string}}
+\DoxyCodeLine{01346\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ getMIMEBoundary(\textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{01347\ }
+\DoxyCodeLine{01348\ \ \ \textcolor{comment}{//\ Send\ Email\ function}}
+\DoxyCodeLine{01349\ \ \ \textcolor{keywordtype}{bool}\ mSendMail(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ closeSession\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01350\ }
+\DoxyCodeLine{01351\ \ \ \textcolor{comment}{//\ SMTP\ send\ data}}
+\DoxyCodeLine{01352\ \ \ \textcolor{keywordtype}{size\_t}\ smtpSend(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ PGM\_P\ data,\ \textcolor{keywordtype}{bool}\ newline\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01353\ }
+\DoxyCodeLine{01354\ \ \ \textcolor{comment}{//\ SMTP\ send\ data}}
+\DoxyCodeLine{01355\ \ \ \textcolor{keywordtype}{size\_t}\ smtpSend(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \textcolor{keywordtype}{int}\ data,\ \textcolor{keywordtype}{bool}\ newline\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01356\ }
+\DoxyCodeLine{01357\ \ \ \textcolor{comment}{//\ SMTP\ send\ data}}
+\DoxyCodeLine{01358\ \ \ \textcolor{keywordtype}{size\_t}\ smtpSend(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{01359\ }
+\DoxyCodeLine{01360\ \ \ \textcolor{comment}{//\ Handle\ the\ error\ by\ sending\ callback\ and\ close\ session}}
+\DoxyCodeLine{01361\ \ \ \textcolor{keywordtype}{bool}\ handleSMTPError(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \textcolor{keywordtype}{int}\ err,\ \textcolor{keywordtype}{bool}\ ret\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01362\ }
+\DoxyCodeLine{01363\ \ \ \textcolor{comment}{//\ Send\ parallel\ attachment\ RFC1521}}
+\DoxyCodeLine{01364\ \ \ \textcolor{keywordtype}{bool}\ sendParallelAttachments(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&boundary);}
+\DoxyCodeLine{01365\ }
+\DoxyCodeLine{01366\ \ \ \textcolor{comment}{//\ Send\ attachment}}
+\DoxyCodeLine{01367\ \ \ \textcolor{keywordtype}{bool}\ sendAttachments(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&boundary,\ \textcolor{keywordtype}{bool}\ parallel\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01368\ }
+\DoxyCodeLine{01369\ \ \ \textcolor{comment}{//\ Send\ message\ content}}
+\DoxyCodeLine{01370\ \ \ \textcolor{keywordtype}{bool}\ sendContent(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ rfc822MSG);}
+\DoxyCodeLine{01371\ }
+\DoxyCodeLine{01372\ \ \ \textcolor{comment}{//\ Send\ imap\ or\ smtp\ callback}}
+\DoxyCodeLine{01373\ \ \ \textcolor{keywordtype}{void}\ altSendCallback(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ PGM\_P\ cbMsg,\ PGM\_P\ dbMsg,\ esp\_mail\_debug\_tag\_type\ type,\ \textcolor{keywordtype}{bool}\ prependCRLF,\ \textcolor{keywordtype}{bool}\ success);}
+\DoxyCodeLine{01374\ }
+\DoxyCodeLine{01375\ \ \ \textcolor{comment}{//\ Send\ message\ data}}
+\DoxyCodeLine{01376\ \ \ \textcolor{keywordtype}{bool}\ sendMSGData(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ rfc822MSG);}
+\DoxyCodeLine{01377\ }
+\DoxyCodeLine{01378\ \ \ \textcolor{comment}{//\ Send\ RFC\ 822\ message}}
+\DoxyCodeLine{01379\ \ \ \textcolor{keywordtype}{bool}\ sendRFC822Msg(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&boundary,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ rfc822MSG);}
+\DoxyCodeLine{01380\ }
+\DoxyCodeLine{01381\ \ \ \textcolor{comment}{//\ Get\ RFC\ 822\ message\ envelope}}
+\DoxyCodeLine{01382\ \ \ \textcolor{keywordtype}{void}\ getRFC822MsgEnvelope(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf);}
+\DoxyCodeLine{01383\ }
+\DoxyCodeLine{01384\ \ \ \textcolor{comment}{//\ Append\ boundary\ string\ to\ buffer}}
+\DoxyCodeLine{01385\ \ \ \textcolor{keywordtype}{void}\ appendBoundaryString(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value,\ \textcolor{keywordtype}{bool}\ endMark,\ \textcolor{keywordtype}{bool}\ newLine);}
+\DoxyCodeLine{01386\ }
+\DoxyCodeLine{01387\ \ \ \textcolor{comment}{//\ Send\ BDAT\ command\ RFC\ 3030}}
+\DoxyCodeLine{01388\ \ \ \textcolor{keywordtype}{bool}\ sendBDAT(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{int}\ len,\ \textcolor{keywordtype}{bool}\ last);}
+\DoxyCodeLine{01389\ }
+\DoxyCodeLine{01390\ \ \ \textcolor{comment}{//\ Get\ transfer\ encoding}}
+\DoxyCodeLine{01391\ \ \ \textcolor{keywordtype}{void}\ getXEncoding(esp\_mail\_msg\_xencoding\ \&xencoding,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *enc);}
+\DoxyCodeLine{01392\ }
+\DoxyCodeLine{01393\ \ \ \textcolor{comment}{//\ Set\ the\ unencoded\ xencoding\ enum\ for\ html,\ text\ and\ attachment\ from\ its\ xencoding\ string}}
+\DoxyCodeLine{01394\ \ \ \textcolor{keywordtype}{void}\ checkUnencodedData(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg);}
+\DoxyCodeLine{01395\ }
+\DoxyCodeLine{01396\ \ \ \textcolor{comment}{//\ Check\ imap\ or\ smtp\ has\ callback\ set}}
+\DoxyCodeLine{01397\ \ \ \textcolor{keywordtype}{bool}\ altIsCB(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp);}
+\DoxyCodeLine{01398\ }
+\DoxyCodeLine{01399\ \ \ \textcolor{comment}{//\ Check\ imap\ or\ smtp\ has\ debug\ set}}
+\DoxyCodeLine{01400\ \ \ \textcolor{keywordtype}{bool}\ altIsDebug(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp);}
+\DoxyCodeLine{01401\ }
+\DoxyCodeLine{01402\ \ \ \textcolor{comment}{//\ Send\ BLOB\ attachment}}
+\DoxyCodeLine{01403\ \ \ \textcolor{keywordtype}{bool}\ sendBlobAttachment(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ SMTP\_Attachment\ *att);}
+\DoxyCodeLine{01404\ }
+\DoxyCodeLine{01405\ \ \ \textcolor{comment}{//\ Send\ file\ content}}
+\DoxyCodeLine{01406\ \ \ \textcolor{keywordtype}{bool}\ sendFile(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ SMTP\_Attachment\ *att);}
+\DoxyCodeLine{01407\ }
+\DoxyCodeLine{01408\ \ \ \textcolor{comment}{//\ Send\ imap\ or\ smtp\ storage\ error\ callback}}
+\DoxyCodeLine{01409\ \ \ \textcolor{keywordtype}{void}\ altSendStorageErrorCB(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \textcolor{keywordtype}{int}\ err);}
+\DoxyCodeLine{01410\ }
+\DoxyCodeLine{01411\ \ \ \textcolor{comment}{//\ Open\ file\ to\ send\ an\ attachment}}
+\DoxyCodeLine{01412\ \ \ \textcolor{keywordtype}{bool}\ openFileRead(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ SMTP\_Attachment\ *att,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&boundary,\ \textcolor{keywordtype}{bool}\ inlined);}
+\DoxyCodeLine{01413\ }
+\DoxyCodeLine{01414\ \ \ \textcolor{comment}{//\ Open\ text\ file\ or\ html\ file\ for\ to\ send\ message}}
+\DoxyCodeLine{01415\ \ \ \textcolor{keywordtype}{bool}\ openFileRead2(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ esp\_mail\_file\_storage\_type\ storageType);}
+\DoxyCodeLine{01416\ }
+\DoxyCodeLine{01417\ \ \ \textcolor{comment}{//\ Send\ inline\ attachments}}
+\DoxyCodeLine{01418\ \ \ \textcolor{keywordtype}{bool}\ sendInline(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&boundary,\ \textcolor{keywordtype}{byte}\ type);}
+\DoxyCodeLine{01419\ }
+\DoxyCodeLine{01420\ \ \ \textcolor{comment}{//\ Send\ storage\ error\ callback}}
+\DoxyCodeLine{01421\ \ \ \textcolor{keywordtype}{void}\ sendStorageNotReadyError(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ esp\_mail\_file\_storage\_type\ storageType);}
+\DoxyCodeLine{01422\ }
+\DoxyCodeLine{01423\ \ \ \textcolor{comment}{//\ Append\ message}}
+\DoxyCodeLine{01424\ \ \ \textcolor{keywordtype}{bool}\ mAppendMessage(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ lastAppend,\ MB\_StringPtr\ flags,\ MB\_StringPtr\ dateTime);}
+\DoxyCodeLine{01425\ }
+\DoxyCodeLine{01426\ \ \ \textcolor{comment}{//\ Get\ numbers\ of\ attachment\ based\ on\ type}}
+\DoxyCodeLine{01427\ \ \ \textcolor{keywordtype}{size\_t}\ numAtt(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ esp\_mail\_attach\_type\ type,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg);}
+\DoxyCodeLine{01428\ }
+\DoxyCodeLine{01429\ \ \ \textcolor{comment}{//\ Check\ for\ valid\ recipient\ Email}}
+\DoxyCodeLine{01430\ \ \ \textcolor{keywordtype}{bool}\ checkEmail(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg);}
+\DoxyCodeLine{01431\ }
+\DoxyCodeLine{01432\ \ \ \textcolor{comment}{//\ Send\ text\ parts\ MIME\ message}}
+\DoxyCodeLine{01433\ \ \ \textcolor{keywordtype}{bool}\ sendPartText(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{byte}\ type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *boundary);}
+\DoxyCodeLine{01434\ }
+\DoxyCodeLine{01435\ \ \ \textcolor{comment}{//\ Alternative\ string\ data\ sending\ to\ send\ imap\ APPEND\ data\ or\ smtp\ data}}
+\DoxyCodeLine{01436\ \ \ \textcolor{keywordtype}{bool}\ altSendData(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&s,\ \textcolor{keywordtype}{bool}\ newLine,\ \mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ addSendResult,\ \textcolor{keywordtype}{bool}\ getResponse,\ esp\_mail\_smtp\_command\ cmd,\ esp\_mail\_smtp\_status\_code\ statusCode,\ \textcolor{keywordtype}{int}\ errCode);}
+\DoxyCodeLine{01437\ }
+\DoxyCodeLine{01438\ \ \ \textcolor{comment}{//\ Alternative\ bytes\ data\ sending\ to\ send\ imap\ APPEND\ data\ or\ smtp\ data}}
+\DoxyCodeLine{01439\ \ \ \textcolor{keywordtype}{bool}\ altSendData(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size,\ \mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ addSendResult,\ \textcolor{keywordtype}{bool}\ getResponse,\ esp\_mail\_smtp\_command\ cmd,\ esp\_mail\_smtp\_status\_code\ statusCode,\ \textcolor{keywordtype}{int}\ errCode);}
+\DoxyCodeLine{01440\ }
+\DoxyCodeLine{01441\ \ \ \textcolor{comment}{//\ Send\ MIME\ message}}
+\DoxyCodeLine{01442\ \ \ \textcolor{keywordtype}{bool}\ sendMSG(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&boundary);}
+\DoxyCodeLine{01443\ }
+\DoxyCodeLine{01444\ \ \ \textcolor{comment}{//\ Get\ an\ attachment\ part\ header\ string}}
+\DoxyCodeLine{01445\ \ \ \textcolor{keywordtype}{void}\ getAttachHeader(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&header,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&boundary,\ SMTP\_Attachment\ *attach,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{bool}\ isInline);}
+\DoxyCodeLine{01446\ }
+\DoxyCodeLine{01447\ \ \ \textcolor{comment}{//\ Get\ RFC\ 8222\ part\ header\ string}}
+\DoxyCodeLine{01448\ \ \ \textcolor{keywordtype}{void}\ getRFC822PartHeader(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&header,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&boundary);}
+\DoxyCodeLine{01449\ }
+\DoxyCodeLine{01450\ \ \ \textcolor{comment}{//\ Send\ BLOB\ type\ text\ part\ or\ html\ part\ MIME\ message}}
+\DoxyCodeLine{01451\ \ \ \textcolor{keywordtype}{bool}\ sendBlobBody(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ uint8\_t\ type);}
+\DoxyCodeLine{01452\ }
+\DoxyCodeLine{01453\ \ \ \textcolor{comment}{//\ Send\ file\ type\ text\ part\ or\ html\ part\ MIME\ message}}
+\DoxyCodeLine{01454\ \ \ \textcolor{keywordtype}{bool}\ sendFileBody(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ uint8\_t\ type);}
+\DoxyCodeLine{01455\ }
+\DoxyCodeLine{01456\ \ \ \textcolor{comment}{//\ Base64\ and\ QP\ encodings\ for\ text\ and\ html\ messages\ and\ replace\ embeded\ attachment\ file\ name\ with\ content\ ID}}
+\DoxyCodeLine{01457\ \ \ \textcolor{keywordtype}{void}\ encodingText(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ uint8\_t\ type,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&content);}
+\DoxyCodeLine{01458\ }
+\DoxyCodeLine{01459\ \ \ \textcolor{comment}{//\ Blob\ or\ Stream\ available}}
+\DoxyCodeLine{01460\ \ \ \textcolor{keywordtype}{int}\ chunkAvailable(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{structesp__mail__smtp__send__base64__data__info__t}{esp\_mail\_smtp\_send\_base64\_data\_info\_t}}\ \&data\_info);}
+\DoxyCodeLine{01461\ }
+\DoxyCodeLine{01462\ \ \ \textcolor{comment}{//\ Read\ chunk\ data\ of\ blob\ or\ file}}
+\DoxyCodeLine{01463\ \ \ \textcolor{keywordtype}{int}\ getChunk(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{structesp__mail__smtp__send__base64__data__info__t}{esp\_mail\_smtp\_send\_base64\_data\_info\_t}}\ \&data\_info,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *rawChunk,\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classbase64}{base64}});}
+\DoxyCodeLine{01464\ }
+\DoxyCodeLine{01465\ \ \ \textcolor{comment}{//\ Terminate\ chunk\ reading}}
+\DoxyCodeLine{01466\ \ \ \textcolor{keywordtype}{void}\ closeChunk(\mbox{\hyperlink{structesp__mail__smtp__send__base64__data__info__t}{esp\_mail\_smtp\_send\_base64\_data\_info\_t}}\ \&data\_info);}
+\DoxyCodeLine{01467\ }
+\DoxyCodeLine{01468\ \ \ \textcolor{comment}{//\ Get\ base64\ encoded\ buffer\ or\ raw\ buffer}}
+\DoxyCodeLine{01469\ \ \ \textcolor{keywordtype}{void}\ getBuffer(\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classbase64}{base64}},\ uint8\_t\ *out,\ uint8\_t\ *in,\ \textcolor{keywordtype}{int}\ \&encodedCount,\ \textcolor{keywordtype}{int}\ \&bufIndex,\ \textcolor{keywordtype}{bool}\ \&dataReady,\ \textcolor{keywordtype}{int}\ \&size,\ \textcolor{keywordtype}{size\_t}\ chunkSize);}
+\DoxyCodeLine{01470\ }
+\DoxyCodeLine{01471\ \ \ \textcolor{comment}{//\ Send\ blob\ or\ file\ as\ base64\ encoded\ chunk}}
+\DoxyCodeLine{01472\ \ \ \textcolor{keywordtype}{bool}\ sendBase64(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \mbox{\hyperlink{structesp__mail__smtp__send__base64__data__info__t}{esp\_mail\_smtp\_send\_base64\_data\_info\_t}}\ \&data\_info,\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classbase64}{base64}},\ \textcolor{keywordtype}{bool}\ report);}
+\DoxyCodeLine{01473\ }
+\DoxyCodeLine{01474\ \ \ \textcolor{comment}{//\ Save\ sending\ logs\ to\ file}}
+\DoxyCodeLine{01475\ \ \ \textcolor{keywordtype}{void}\ saveSendingLogs(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ result);}
+\DoxyCodeLine{01476\ }
+\DoxyCodeLine{01477\ \ \ \textcolor{comment}{//\ Get\ imap\ or\ smtp\ report\ progress\ var\ pointer}}
+\DoxyCodeLine{01478\ \ \ uint32\_t\ altProgressPtr(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp);}
+\DoxyCodeLine{01479\ }
+\DoxyCodeLine{01480\ \ \ \textcolor{comment}{//\ Get\ SMTP\ response\ status\ (statusCode\ and\ text)}}
+\DoxyCodeLine{01481\ \ \ \textcolor{keywordtype}{void}\ getResponseStatus(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ esp\_mail\_smtp\_status\_code\ statusCode,\ \textcolor{keywordtype}{int}\ beginPos,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structesp__mail__smtp__response__status__t}{esp\_mail\_smtp\_response\_status\_t}}\ \&status);}
+\DoxyCodeLine{01482\ }
+\DoxyCodeLine{01483\ \ \ \textcolor{comment}{//\ Parse\ SMTP\ authentication\ capability}}
+\DoxyCodeLine{01484\ \ \ \textcolor{keywordtype}{void}\ parseAuthCapability(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \textcolor{keywordtype}{char}\ *buf);}
+\DoxyCodeLine{01485\ }
+\DoxyCodeLine{01486\ \ \ \textcolor{comment}{//\ Add\ the\ sending\ result}}
+\DoxyCodeLine{01487\ \ \ \textcolor{keywordtype}{bool}\ addSendingResult(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ *msg,\ \textcolor{keywordtype}{bool}\ result,\ \textcolor{keywordtype}{bool}\ showResult);}
+\DoxyCodeLine{01488\ }
+\DoxyCodeLine{01489\ \ \ \textcolor{comment}{//\ Handle\ SMTP\ server\ authentication}}
+\DoxyCodeLine{01490\ \ \ \textcolor{keywordtype}{bool}\ smtpAuth(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ \textcolor{keywordtype}{bool}\ \&ssl);}
+\DoxyCodeLine{01491\ }
+\DoxyCodeLine{01492\ \ \ \textcolor{comment}{//\ Handle\ SMTP\ response}}
+\DoxyCodeLine{01493\ \ \ \textcolor{keywordtype}{bool}\ handleSMTPResponse(\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ *smtp,\ esp\_mail\_smtp\_command\ cmd,\ esp\_mail\_smtp\_status\_code\ statusCode,\ \textcolor{keywordtype}{int}\ errCode);}
+\DoxyCodeLine{01494\ }
+\DoxyCodeLine{01495\ \ \ \textcolor{comment}{//\ Print\ the\ upload\ status\ to\ the\ debug\ port}}
+\DoxyCodeLine{01496\ \ \ \textcolor{keywordtype}{void}\ uploadReport(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename,\ uint32\_t\ pgAddr,\ \textcolor{keywordtype}{int}\ progress);}
+\DoxyCodeLine{01497\ }
+\DoxyCodeLine{01498\ \ \ \textcolor{comment}{//\ Get\ MB\_FS\ object\ pointer}}
+\DoxyCodeLine{01499\ \ \ \mbox{\hyperlink{class_m_b___f_s}{MB\_FS}}\ *getMBFS();}
+\DoxyCodeLine{01500\ }
+\DoxyCodeLine{01501\ \ \ \textcolor{comment}{//\ Set\ device\ system\ time}}
+\DoxyCodeLine{01502\ \ \ \textcolor{keywordtype}{int}\ setTimestamp(time\_t\ ts);}
+\DoxyCodeLine{01503\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01504\ }
+\DoxyCodeLine{01505\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{01506\ }
+\DoxyCodeLine{01507\ \ \ \textcolor{comment}{//\ Check\ if\ child\ part\ (part\ number\ string)\ is\ a\ member\ of\ the\ parent\ part\ (part\ number\ string)}}
+\DoxyCodeLine{01508\ \ \ \textcolor{comment}{//\ part\ number\ string\ format:\ <part\ number>.<sub\ part\ number>.<sub\ part\ number>}}
+\DoxyCodeLine{01509\ \ \ \textcolor{keywordtype}{bool}\ multipartMember(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&parent,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&child);}
+\DoxyCodeLine{01510\ }
+\DoxyCodeLine{01511\ \ \ \textcolor{comment}{//\ Decode\ string}}
+\DoxyCodeLine{01512\ \ \ \textcolor{keywordtype}{int}\ decodeChar(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s);}
+\DoxyCodeLine{01513\ }
+\DoxyCodeLine{01514\ \ \ \textcolor{comment}{//\ Decode\ Quoted\ Printable\ string}}
+\DoxyCodeLine{01515\ \ \ \textcolor{keywordtype}{void}\ decodeQP\_UTF8(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{char}\ *out);}
+\DoxyCodeLine{01516\ }
+\DoxyCodeLine{01517\ \ \ \textcolor{comment}{//\ Actually\ not\ decode\ because\ 7bit\ string\ is\ enencode\ string\ unless\ prepare\ valid\ 7bit\ string\ and\ do\ qp\ decoding}}
+\DoxyCodeLine{01518\ \ \ \textcolor{keywordtype}{char}\ *decode7Bit\_UTF8(\textcolor{keywordtype}{char}\ *buf);}
+\DoxyCodeLine{01519\ }
+\DoxyCodeLine{01520\ \ \ \textcolor{comment}{//\ Actually\ not\ decode\ because\ 8bit\ string\ is\ enencode\ string\ unless\ prepare\ valid\ 8bit\ string}}
+\DoxyCodeLine{01521\ \ \ \textcolor{keywordtype}{char}\ *decode8Bit\_UTF8(\textcolor{keywordtype}{char}\ *buf);}
+\DoxyCodeLine{01522\ }
+\DoxyCodeLine{01523\ \ \ \textcolor{comment}{//\ Decode\ string\ base\ on\ encoding}}
+\DoxyCodeLine{01524\ \ \ \textcolor{keywordtype}{void}\ decodeString(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&\textcolor{keywordtype}{string},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *enc\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{01525\ }
+\DoxyCodeLine{01538\ \ \ \textcolor{keywordtype}{int}\ encodeUnicode\_UTF8(\textcolor{keywordtype}{char}\ *out,\ uint32\_t\ utf);}
+\DoxyCodeLine{01539\ }
+\DoxyCodeLine{01540\ \ \ \textcolor{comment}{//\ Append\ headers\ fetch\ command}}
+\DoxyCodeLine{01541\ \ \ \textcolor{keywordtype}{void}\ appendHeadersFetchCommand(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&cmd,\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{bool}\ debug);}
+\DoxyCodeLine{01542\ }
+\DoxyCodeLine{01543\ \ \ \textcolor{comment}{//\ Append\ rfc822\ headers\ fetch\ command}}
+\DoxyCodeLine{01544\ \ \ \textcolor{keywordtype}{void}\ appendRFC822HeadersFetchCommand(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&cmd);}
+\DoxyCodeLine{01545\ }
+\DoxyCodeLine{01546\ \ \ \textcolor{comment}{//\ Get\ multipart\ MIME\ fetch\ command}}
+\DoxyCodeLine{01547\ \ \ \textcolor{keywordtype}{bool}\ getMultipartFechCmd(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ msgIdx,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&partText);}
+\DoxyCodeLine{01548\ }
+\DoxyCodeLine{01549\ \ \ \textcolor{comment}{//\ Fetch\ multipart\ MIME\ body\ header}}
+\DoxyCodeLine{01550\ \ \ \textcolor{keywordtype}{bool}\ fetchMultipartBodyHeader(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ msgIdx);}
+\DoxyCodeLine{01551\ }
+\DoxyCodeLine{01552\ \ \ \textcolor{comment}{//\ Print\ body\ part\ fetching\ debug}}
+\DoxyCodeLine{01553\ \ \ \textcolor{keywordtype}{void}\ printBodyPartFechingDubug(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *partNum,\ \textcolor{keywordtype}{bool}\ multiLevel);}
+\DoxyCodeLine{01554\ }
+\DoxyCodeLine{01555\ \ \ \textcolor{comment}{//\ Handle\ IMAP\ server\ authentication}}
+\DoxyCodeLine{01556\ \ \ \textcolor{keywordtype}{bool}\ imapAuth(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{bool}\ \&ssl);}
+\DoxyCodeLine{01557\ }
+\DoxyCodeLine{01558\ \ \ \textcolor{comment}{//\ Send\ IMAP\ command}}
+\DoxyCodeLine{01559\ \ \ \textcolor{keywordtype}{bool}\ sendFetchCommand(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ msgIndex,\ esp\_mail\_imap\_command\ cmdCase);}
+\DoxyCodeLine{01560\ }
+\DoxyCodeLine{01561\ \ \ \textcolor{comment}{//\ Send\ data}}
+\DoxyCodeLine{01562\ \ \ \textcolor{keywordtype}{size\_t}\ imapSend(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ PGM\_P\ data,\ \textcolor{keywordtype}{bool}\ newline\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01563\ }
+\DoxyCodeLine{01564\ \ \ \textcolor{comment}{//\ Send\ data}}
+\DoxyCodeLine{01565\ \ \ \textcolor{keywordtype}{size\_t}\ imapSend(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ data,\ \textcolor{keywordtype}{bool}\ newline\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01566\ }
+\DoxyCodeLine{01567\ \ \ \textcolor{comment}{//\ Send\ data}}
+\DoxyCodeLine{01568\ \ \ \textcolor{keywordtype}{size\_t}\ imapSend(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{01569\ }
+\DoxyCodeLine{01570\ \ \ \textcolor{comment}{//\ Log\ out}}
+\DoxyCodeLine{01571\ \ \ \textcolor{keywordtype}{bool}\ imapLogout(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap);}
+\DoxyCodeLine{01572\ }
+\DoxyCodeLine{01573\ \ \ \textcolor{comment}{//\ Send\ storage\ error\ callback}}
+\DoxyCodeLine{01574\ \ \ \textcolor{keywordtype}{void}\ sendStorageNotReadyError(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ esp\_mail\_file\_storage\_type\ storageType);}
+\DoxyCodeLine{01575\ }
+\DoxyCodeLine{01576\ \ \ \textcolor{comment}{//\ Parse\ search\ response}}
+\DoxyCodeLine{01577\ \ \ \textcolor{keywordtype}{int}\ parseSearchResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{structesp__mail__imap__response__data}{esp\_mail\_imap\_response\_data}}\ \&res,\ PGM\_P\ tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{01578\ }
+\DoxyCodeLine{01579\ \ \ \textcolor{comment}{//\ Parse\ header\ state}}
+\DoxyCodeLine{01580\ \ \ \textcolor{keywordtype}{bool}\ parseHeaderField(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ PGM\_P\ beginToken,\ \textcolor{keywordtype}{bool}\ caseSensitive,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structesp__mail__message__header__t}{esp\_mail\_message\_header\_t}}\ \&header,\ \textcolor{keywordtype}{int}\ \&headerState,\ \textcolor{keywordtype}{int}\ state);}
+\DoxyCodeLine{01581\ }
+\DoxyCodeLine{01582\ \ \ \textcolor{comment}{//\ Parse\ header\ response}}
+\DoxyCodeLine{01583\ \ \ \textcolor{keywordtype}{void}\ parseHeaderResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{structesp__mail__imap__response__data}{esp\_mail\_imap\_response\_data}}\ \&res,\ \textcolor{keywordtype}{bool}\ caseSensitive\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01584\ }
+\DoxyCodeLine{01585\ \ \ \textcolor{comment}{//\ Set\ the\ header\ based\ on\ state\ parsed}}
+\DoxyCodeLine{01586\ \ \ \textcolor{keywordtype}{void}\ collectHeaderField(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structesp__mail__message__header__t}{esp\_mail\_message\_header\_t}}\ \&header,\ \textcolor{keywordtype}{int}\ state);}
+\DoxyCodeLine{01587\ }
+\DoxyCodeLine{01588\ \ \ \textcolor{comment}{//\ Get\ decoded\ header}}
+\DoxyCodeLine{01589\ \ \ \textcolor{keywordtype}{bool}\ getDecodedHeader(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ PGM\_P\ beginToken,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&out,\ \textcolor{keywordtype}{bool}\ caseSensitive);}
+\DoxyCodeLine{01590\ }
+\DoxyCodeLine{01591\ \ \ \textcolor{comment}{//\ Check\ attachment\ for\ firmware\ file}}
+\DoxyCodeLine{01592\ \ \ \textcolor{keywordtype}{void}\ checkFirmwareFile(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *filename,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structesp__mail__message__part__info__t}{esp\_mail\_message\_part\_info\_t}}\ \&part,\ \textcolor{keywordtype}{bool}\ defaultSize\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01593\ }
+\DoxyCodeLine{01594\ \ \ \textcolor{comment}{//\ Parse\ part\ header\ response}}
+\DoxyCodeLine{01595\ \ \ \textcolor{keywordtype}{void}\ parsePartHeaderResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{structesp__mail__imap__response__data}{esp\_mail\_imap\_response\_data}}\ \&res,\ \textcolor{keywordtype}{bool}\ caseSensitive\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01596\ }
+\DoxyCodeLine{01597\ \ \ \textcolor{comment}{//\ Count\ char\ in\ string}}
+\DoxyCodeLine{01598\ \ \ \textcolor{keywordtype}{int}\ countChar(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{char}\ find);}
+\DoxyCodeLine{01599\ }
+\DoxyCodeLine{01600\ \ \ \textcolor{comment}{//\ Store\ the\ value\ to\ string\ via\ its\ the\ pointer}}
+\DoxyCodeLine{01601\ \ \ \textcolor{keywordtype}{bool}\ storeStringPtr(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ uint32\_t\ addr,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&value,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf);}
+\DoxyCodeLine{01602\ }
+\DoxyCodeLine{01603\ \ \ \textcolor{comment}{//\ Get\ part\ header\ properties}}
+\DoxyCodeLine{01604\ \ \ \textcolor{keywordtype}{bool}\ getPartHeaderProperties(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ PGM\_P\ p,\ PGM\_P\ e,\ \textcolor{keywordtype}{bool}\ num,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&value,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&old\_value,\ esp\_mail\_char\_decoding\_scheme\ \&scheme,\ \textcolor{keywordtype}{bool}\ caseSensitive);}
+\DoxyCodeLine{01605\ }
+\DoxyCodeLine{01606\ \ \ \textcolor{comment}{//\ Url\ decode\ for\ UTF-\/8\ encoded\ header\ text}}
+\DoxyCodeLine{01607\ \ \ \textcolor{keywordtype}{char}\ *urlDecode(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str);}
+\DoxyCodeLine{01608\ }
+\DoxyCodeLine{01609\ \ \ \textcolor{comment}{//\ Reset\ the\ pointer\ to\ multiline\ response\ keeping\ string}}
+\DoxyCodeLine{01610\ \ \ \textcolor{keywordtype}{void}\ resetStringPtr(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structesp__mail__message__part__info__t}{esp\_mail\_message\_part\_info\_t}}\ \&part);}
+\DoxyCodeLine{01611\ }
+\DoxyCodeLine{01612\ \ \ \textcolor{comment}{//\ Get\ current\ part}}
+\DoxyCodeLine{01613\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__message__part__info__t}{esp\_mail\_message\_part\_info\_t}}\ *cPart(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap);}
+\DoxyCodeLine{01614\ }
+\DoxyCodeLine{01615\ \ \ \textcolor{comment}{//\ Get\ current\ header}}
+\DoxyCodeLine{01616\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__message__header__t}{esp\_mail\_message\_header\_t}}\ *cHeader(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap);}
+\DoxyCodeLine{01617\ }
+\DoxyCodeLine{01618\ \textcolor{preprocessor}{\#if\ !defined(MB\_USE\_STD\_VECTOR)}}
+\DoxyCodeLine{01619\ \ \ \textcolor{comment}{//\ Decending\ sort}}
+\DoxyCodeLine{01620\ \ \ \textcolor{keywordtype}{void}\ numDecSort(\_vectorImpl<struct\ esp\_mail\_imap\_msg\_num\_t>\ \&arr);}
+\DoxyCodeLine{01621\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01622\ }
+\DoxyCodeLine{01623\ \ \ \textcolor{comment}{//\ Handle\ IMAP\ response}}
+\DoxyCodeLine{01624\ \ \ \textcolor{keywordtype}{bool}\ handleIMAPResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ errCode,\ \textcolor{keywordtype}{bool}\ closeSession);}
+\DoxyCodeLine{01625\ }
+\DoxyCodeLine{01626\ \ \ \textcolor{comment}{//\ Print\ the\ file\ download\ status\ via\ debug\ port}}
+\DoxyCodeLine{01627\ \ \ \textcolor{keywordtype}{void}\ downloadReport(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ progress);}
+\DoxyCodeLine{01628\ }
+\DoxyCodeLine{01629\ \ \ \textcolor{comment}{//\ Print\ the\ message\ fetch\ status\ via\ debug\ port}}
+\DoxyCodeLine{01630\ \ \ \textcolor{keywordtype}{void}\ fetchReport(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ progress,\ \textcolor{keywordtype}{bool}\ html);}
+\DoxyCodeLine{01631\ }
+\DoxyCodeLine{01632\ \ \ \textcolor{comment}{//\ Print\ the\ message\ search\ status\ via\ debug\ port}}
+\DoxyCodeLine{01633\ \ \ \textcolor{keywordtype}{void}\ searchReport(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ progress);}
+\DoxyCodeLine{01634\ }
+\DoxyCodeLine{01635\ \ \ \textcolor{comment}{//\ Get\ current\ message\ num\ item}}
+\DoxyCodeLine{01636\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__imap__msg__num__t}{esp\_mail\_imap\_msg\_num\_t}}\ cMSG(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap);}
+\DoxyCodeLine{01637\ }
+\DoxyCodeLine{01638\ \ \ \textcolor{comment}{//\ Get\ current\ message\ Index}}
+\DoxyCodeLine{01639\ \ \ \textcolor{keywordtype}{int}\ cIdx(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap);}
+\DoxyCodeLine{01640\ }
+\DoxyCodeLine{01641\ \ \ \textcolor{comment}{//\ Get\ IMAP\ response\ status\ e.g.\ OK,\ NO\ and\ Bad\ status\ enum\ value}}
+\DoxyCodeLine{01642\ \ \ esp\_mail\_imap\_response\_status\ imapResponseStatus(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{char}\ *response,\ PGM\_P\ tag);}
+\DoxyCodeLine{01643\ }
+\DoxyCodeLine{01644\ \ \ \textcolor{comment}{//\ Add\ header\ item\ to\ string\ buffer}}
+\DoxyCodeLine{01645\ \ \ \textcolor{keywordtype}{void}\ addHeaderItem(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&str,\ \mbox{\hyperlink{structesp__mail__message__header__t}{esp\_mail\_message\_header\_t}}\ *header,\ \textcolor{keywordtype}{bool}\ json);}
+\DoxyCodeLine{01646\ }
+\DoxyCodeLine{01647\ \ \ \textcolor{comment}{//\ Get\ RFC822\ header\ string\ pointer\ by\ index}}
+\DoxyCodeLine{01648\ \ \ \textcolor{keywordtype}{int}\ getRFC822HeaderPtr(\textcolor{keywordtype}{int}\ index,\ \mbox{\hyperlink{structesp__mail__imap__rfc822__msg__header__item__t}{esp\_mail\_imap\_rfc822\_msg\_header\_item\_t}}\ *header);}
+\DoxyCodeLine{01649\ }
+\DoxyCodeLine{01650\ \ \ \textcolor{comment}{//\ Add\ RFC822\ headers\ to\ string\ buffer}}
+\DoxyCodeLine{01651\ \ \ \textcolor{keywordtype}{void}\ addRFC822Headers(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&s,\ \mbox{\hyperlink{structesp__mail__imap__rfc822__msg__header__item__t}{esp\_mail\_imap\_rfc822\_msg\_header\_item\_t}}\ *header,\ \textcolor{keywordtype}{bool}\ json);}
+\DoxyCodeLine{01652\ }
+\DoxyCodeLine{01653\ \ \ \textcolor{comment}{//\ Add\ RFC822\ header\ item\ to\ string\ buffer}}
+\DoxyCodeLine{01654\ \ \ \textcolor{keywordtype}{void}\ addRFC822HeaderItem(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&s,\ \mbox{\hyperlink{structesp__mail__imap__rfc822__msg__header__item__t}{esp\_mail\_imap\_rfc822\_msg\_header\_item\_t}}\ *header,\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{bool}\ json);}
+\DoxyCodeLine{01655\ }
+\DoxyCodeLine{01656\ \ \ \textcolor{comment}{//\ Add\ header\ string\ by\ name\ and\ value\ to\ string\ buffer}}
+\DoxyCodeLine{01657\ \ \ \textcolor{keywordtype}{void}\ addHeader(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&s,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s\_value,\ \textcolor{keywordtype}{int}\ num\_value,\ \textcolor{keywordtype}{bool}\ trim,\ \textcolor{keywordtype}{bool}\ isJson);}
+\DoxyCodeLine{01658\ }
+\DoxyCodeLine{01659\ \ \ \textcolor{comment}{//\ Save\ header\ string\ buffer\ to\ file}}
+\DoxyCodeLine{01660\ \ \ \textcolor{keywordtype}{void}\ saveHeader(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{bool}\ json);}
+\DoxyCodeLine{01661\ }
+\DoxyCodeLine{01662\ \ \ \textcolor{comment}{//\ Send\ MIME\ stream\ to\ callback}}
+\DoxyCodeLine{01663\ \ \ \textcolor{keywordtype}{void}\ sendStreamCB(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{void}\ *buf,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{int}\ chunkIndex,\ \textcolor{keywordtype}{bool}\ hrdBrk);}
+\DoxyCodeLine{01664\ }
+\DoxyCodeLine{01665\ \ \ \textcolor{comment}{//\ Prepare\ file\ path\ for\ saving}}
+\DoxyCodeLine{01666\ \ \ \textcolor{keywordtype}{void}\ prepareFilePath(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&filePath,\ \textcolor{keywordtype}{bool}\ header);}
+\DoxyCodeLine{01667\ }
+\DoxyCodeLine{01668\ \ \ \textcolor{comment}{//\ Decode\ text\ and\ store\ it\ to\ buffer\ or\ file}}
+\DoxyCodeLine{01669\ \ \ \textcolor{keywordtype}{void}\ decodeText(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{structesp__mail__imap__response__data}{esp\_mail\_imap\_response\_data}}\ \&res);}
+\DoxyCodeLine{01670\ }
+\DoxyCodeLine{01671\ \ \ \textcolor{comment}{//\ Handle\ atachment\ parsing\ and\ download}}
+\DoxyCodeLine{01672\ \ \ \textcolor{keywordtype}{bool}\ parseAttachmentResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{char}\ *buf,\ \mbox{\hyperlink{structesp__mail__imap__response__data}{esp\_mail\_imap\_response\_data}}\ \&res);}
+\DoxyCodeLine{01673\ }
+\DoxyCodeLine{01674\ \ \ \textcolor{comment}{//\ Get\ List}}
+\DoxyCodeLine{01675\ \ \ \textcolor{keywordtype}{char}\ *getList(\textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{bool}\ \&isList);}
+\DoxyCodeLine{01676\ }
+\DoxyCodeLine{01677\ \ \ \textcolor{comment}{//\ Parse\ mailbox\ folder\ open\ response}}
+\DoxyCodeLine{01678\ \ \ \textcolor{keywordtype}{void}\ parseFoldersResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{bool}\ list);}
+\DoxyCodeLine{01679\ }
+\DoxyCodeLine{01680\ \ \ \textcolor{comment}{//\ Prepare\ alias\ (short\ name)\ file\ list\ for\ unsupported\ long\ file\ name\ filesystem}}
+\DoxyCodeLine{01681\ \ \ \textcolor{keywordtype}{void}\ prepareFileList(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&filePath);}
+\DoxyCodeLine{01682\ }
+\DoxyCodeLine{01683\ \ \ \textcolor{comment}{//\ Parse\ capability\ response}}
+\DoxyCodeLine{01684\ \ \ \textcolor{keywordtype}{bool}\ parseCapabilityResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{int}\ \&chunkIdx);}
+\DoxyCodeLine{01685\ }
+\DoxyCodeLine{01686\ \ \ \textcolor{comment}{//\ Parse\ Idle\ response}}
+\DoxyCodeLine{01687\ \ \ \textcolor{keywordtype}{bool}\ parseIdleResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap);}
+\DoxyCodeLine{01688\ }
+\DoxyCodeLine{01689\ \ \ \textcolor{comment}{//\ Append\ Fetch\ UID/Flags\ string\ to\ buffer}}
+\DoxyCodeLine{01690\ \ \ \textcolor{keywordtype}{void}\ appendFetchString(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&buf,\ \textcolor{keywordtype}{bool}\ uid);}
+\DoxyCodeLine{01691\ }
+\DoxyCodeLine{01692\ \ \ \textcolor{comment}{//\ Parse\ command\ response}}
+\DoxyCodeLine{01693\ \ \ \textcolor{keywordtype}{void}\ parseCmdResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{char}\ *buf,\ PGM\_P\ find);}
+\DoxyCodeLine{01694\ }
+\DoxyCodeLine{01695\ \ \ \textcolor{comment}{//\ Get\ flags}}
+\DoxyCodeLine{01696\ \ \ \textcolor{keywordtype}{bool}\ getFlags(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{char}\ *buf,\ esp\_mail\_imap\_response\_types\ type);}
+\DoxyCodeLine{01697\ }
+\DoxyCodeLine{01698\ \ \ \textcolor{comment}{//\ Parse\ examine\ response}}
+\DoxyCodeLine{01699\ \ \ \textcolor{keywordtype}{void}\ parseExamineResponse(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{char}\ *buf);}
+\DoxyCodeLine{01700\ }
+\DoxyCodeLine{01701\ \ \ \textcolor{comment}{//\ Handle\ the\ error\ by\ sending\ callback\ and\ close\ session}}
+\DoxyCodeLine{01702\ \ \ \textcolor{keywordtype}{bool}\ handleIMAPError(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ \textcolor{keywordtype}{int}\ err,\ \textcolor{keywordtype}{bool}\ ret);}
+\DoxyCodeLine{01703\ }
+\DoxyCodeLine{01704\ \ \ \textcolor{comment}{//\ Set\ Flag}}
+\DoxyCodeLine{01705\ \ \ \textcolor{keywordtype}{bool}\ mSetFlag(\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ *imap,\ MB\_StringPtr\ sequenceSet,\ MB\_StringPtr\ flags,\ esp\_mail\_imap\_store\_flag\_type\ type,\ \textcolor{keywordtype}{bool}\ closeSession,\ \textcolor{keywordtype}{bool}\ silent\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ UID\ =\ \textcolor{keyword}{true},\ int32\_t\ modsequence\ =\ -\/1);}
+\DoxyCodeLine{01706\ }
+\DoxyCodeLine{01707\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01708\ \};}
+\DoxyCodeLine{01709\ }
+\DoxyCodeLine{01710\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{01711\ }
+\DoxyCodeLine{01712\ \textcolor{keyword}{class\ }IMAPSession}
+\DoxyCodeLine{01713\ \{}
+\DoxyCodeLine{01714\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{01715\ \ \ IMAPSession(\mbox{\hyperlink{class_client}{Client}}\ *client);}
+\DoxyCodeLine{01716\ \ \ IMAPSession();}
+\DoxyCodeLine{01717\ \ \ \string~IMAPSession();}
+\DoxyCodeLine{01718\ }
+\DoxyCodeLine{01723\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a5cd56e0fff410f43c1e8b8265c2c86e7}{setTCPTimeout}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeoutSec);}
+\DoxyCodeLine{01724\ }
+\DoxyCodeLine{01729\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a5b5c56b716efb56b30b3c494d6f20ab4}{setClient}}(\mbox{\hyperlink{class_client}{Client}}\ *client);}
+\DoxyCodeLine{01730\ }
+\DoxyCodeLine{01740\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a7a4737a3378300086b27adb8708b134c}{setGSMClient}}(\mbox{\hyperlink{class_client}{Client}}\ *client,\ \textcolor{keywordtype}{void}\ *modem,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *apn,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *user,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password);}
+\DoxyCodeLine{01741\ }
+\DoxyCodeLine{01751\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a4ac56a07018c94bce31e3bcc8adab8e3}{setEthernetClient}}(\mbox{\hyperlink{class_client}{Client}}\ *client,\ uint8\_t\ macAddress[6],\ \textcolor{keywordtype}{int}\ csPin,\ \textcolor{keywordtype}{int}\ resetPin,\ ESP\_Mail\_StaticIP\ *staticIP\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{01752\ }
+\DoxyCodeLine{01757\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a22e5630e22422dda41e5efbc7af55da3}{networkConnectionRequestCallback}}(NetworkConnectionRequestCallback\ networkConnectionCB);}
+\DoxyCodeLine{01758\ }
+\DoxyCodeLine{01763\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a2fc3be28cb96bf15d66ea8b55f49d357}{networkStatusRequestCallback}}(NetworkStatusRequestCallback\ networkStatusCB);}
+\DoxyCodeLine{01764\ }
+\DoxyCodeLine{01769\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a6e7f1f24ee7ee16ad93009fc39337db4}{setNetworkStatus}}(\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a71b23b0b99ab21f80fd23f7ce9a26a63}{status}});}
+\DoxyCodeLine{01770\ }
+\DoxyCodeLine{01776\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_adca6be894ed72542021ea1a7d4b25f09}{setSSLBufferSize}}(\textcolor{keywordtype}{int}\ rx\ =\ -\/1,\ \textcolor{keywordtype}{int}\ tx\ =\ -\/1);}
+\DoxyCodeLine{01777\ }
+\DoxyCodeLine{01787\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ac847cb874c8a7ce3b14e42bfe043dd97}{connect}}(Session\_Config\ *session\_config,\ IMAP\_Data\ *imap\_data,\ \textcolor{keywordtype}{bool}\ login\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01788\ }
+\DoxyCodeLine{01795\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01796\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_af47fe797b274ec4d0b5f4f03e988c721}{loginWithPassword}}(T1\ email,\ T2\ password)\ \{\ \textcolor{keywordflow}{return}\ mLogin(toStringPtr(email),\ toStringPtr(password),\ \textcolor{keyword}{false});\ \};}
+\DoxyCodeLine{01797\ }
+\DoxyCodeLine{01804\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01805\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_aba739eea6249174c4f009dc3ed6ce988}{loginWithAccessToken}}(T1\ email,\ T2\ token)\ \{\ \textcolor{keywordflow}{return}\ mLogin(toStringPtr(email),\ toStringPtr(token),\ \textcolor{keyword}{true});\ \};}
+\DoxyCodeLine{01806\ }
+\DoxyCodeLine{01813\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a3e9debaafab277f0e91922114a88c032}{id}}(IMAP\_Identification\ *identification);}
+\DoxyCodeLine{01814\ }
+\DoxyCodeLine{01818\ \ \ String\ \mbox{\hyperlink{class_i_m_a_p_session_a7fa8a5a379271fce1036052e9f728186}{serverID}}();}
+\DoxyCodeLine{01819\ }
+\DoxyCodeLine{01823\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ae9f7161990822ff8ad9b198b25d41490}{isAuthenticated}}();}
+\DoxyCodeLine{01824\ }
+\DoxyCodeLine{01828\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ae3979558ce5152e40d052ef398f45bbd}{isLoggedIn}}();}
+\DoxyCodeLine{01829\ }
+\DoxyCodeLine{01833\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ac434596f97526a02f1692d7d4d4c9666}{isFirmwareUpdateSuccess}}();}
+\DoxyCodeLine{01834\ }
+\DoxyCodeLine{01843\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01844\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_aa50eb3f02b5ea678d46775a900644b2d}{customConnect}}(Session\_Config\ *session\_config,\ imapResponseCallback\ \mbox{\hyperlink{class_i_m_a_p_session_a92155e5eba08596634241441d8c742ed}{callback}},\ T\ tag\ =\ \textcolor{stringliteral}{"{}"{}})\ \{\ \textcolor{keywordflow}{return}\ mCustomConnect(session\_config,\ \mbox{\hyperlink{class_i_m_a_p_session_a92155e5eba08596634241441d8c742ed}{callback}},\ toStringPtr(tag));\ \};}
+\DoxyCodeLine{01845\ }
+\DoxyCodeLine{01850\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a3018602eac448f8f5fb24576da6eb332}{closeSession}}();}
+\DoxyCodeLine{01851\ }
+\DoxyCodeLine{01856\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a104709d338c199f0d4e92d5e1dc67be3}{connected}}();}
+\DoxyCodeLine{01857\ }
+\DoxyCodeLine{01864\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a207a62fd4366ee6412079d0c184a9dd4}{debug}}(\textcolor{keywordtype}{int}\ level);}
+\DoxyCodeLine{01865\ }
+\DoxyCodeLine{01874\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a9313fc87a86b3a5f2e35d1308e159a2a}{getFolders}}(\mbox{\hyperlink{class_folders_collection}{FoldersCollection}}\ \&folders);}
+\DoxyCodeLine{01875\ }
+\DoxyCodeLine{01887\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01888\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a267c694656cbfc669a22d0a738595514}{selectFolder}}(T\ folderName,\ \textcolor{keywordtype}{bool}\ readOnly\ =\ \textcolor{keyword}{true})\ \{\ \textcolor{keywordflow}{return}\ mSelectFolder(toStringPtr(folderName),\ readOnly);\ \}}
+\DoxyCodeLine{01889\ }
+\DoxyCodeLine{01901\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01902\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_af09d3cce01af1921a79befaf54c4f323}{openFolder}}(T\ folderName,\ \textcolor{keywordtype}{bool}\ readOnly\ =\ \textcolor{keyword}{true})\ \{\ \textcolor{keywordflow}{return}\ mOpenFolder(toStringPtr(folderName),\ readOnly);\ \}}
+\DoxyCodeLine{01903\ }
+\DoxyCodeLine{01909\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a4ddf8201080bf862ec9e97c4ec15e44a}{closeFolder}}(\textcolor{keywordtype}{bool}\ expunge\ =\ \textcolor{keyword}{false})\ \{\ \textcolor{keywordflow}{return}\ mCloseFolder(expunge);\ \}}
+\DoxyCodeLine{01910\ }
+\DoxyCodeLine{01916\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01917\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ad61fc7c33ff10e39492c195bae3f533a}{createFolder}}(T\ folderName)\ \{\ \textcolor{keywordflow}{return}\ mCreateFolder(toStringPtr(folderName));\ \}}
+\DoxyCodeLine{01918\ }
+\DoxyCodeLine{01925\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01926\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ab3dda2e5ebe5617bdea614ab5f8dc009}{renameFolder}}(T1\ currentFolderName,\ T2\ newFolderName)\ \{\ \textcolor{keywordflow}{return}\ mRenameFolder(toStringPtr(currentFolderName),\ toStringPtr(newFolderName));\ \}}
+\DoxyCodeLine{01927\ }
+\DoxyCodeLine{01933\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01934\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_aaff3b0e9813e39ff3c0db60c0fdd4ebf}{deleteFolder}}(T\ folderName)\ \{\ \textcolor{keywordflow}{return}\ mDeleteFolder(toStringPtr(folderName));\ \}}
+\DoxyCodeLine{01935\ }
+\DoxyCodeLine{01943\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01944\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ac8dfd08db37da71023202c96dbd42130}{getSubscribesMailboxes}}(T1\ reference,\ T2\ mailbox,\ \mbox{\hyperlink{class_folders_collection}{FoldersCollection}}\ \&folders)\ \{\ \textcolor{keywordflow}{return}\ mGetSubscribesMailboxes(toStringPtr(reference),\ toStringPtr(mailbox),\ folders);\ \}}
+\DoxyCodeLine{01945\ }
+\DoxyCodeLine{01951\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01952\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a9571c9bb4017ac85d99ebb156dbae88a}{subscribe}}(T\ folderName)\ \{\ \textcolor{keywordflow}{return}\ mSubscribe(toStringPtr(folderName));\ \}}
+\DoxyCodeLine{01953\ }
+\DoxyCodeLine{01959\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01960\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ab8ba04b8b72c0ce8c9b93e6508fb4cbe}{unSubscribe}}(T\ folderName)\ \{\ \textcolor{keywordflow}{return}\ mUnSubscribe(toStringPtr(folderName));\ \}}
+\DoxyCodeLine{01961\ }
+\DoxyCodeLine{01969\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_i_m_a_p_session_afb9dab7ec428e1f6f8de18ebd7da4a09}{getUID}}(\textcolor{keywordtype}{int}\ msgNum);}
+\DoxyCodeLine{01970\ }
+\DoxyCodeLine{01978\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{class_i_m_a_p_session_a26c596def6d0a0ca2e09e26da5b3feb3}{getFlags}}(\textcolor{keywordtype}{int}\ msgNum);}
+\DoxyCodeLine{01979\ }
+\DoxyCodeLine{01989\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{01990\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a6fdb75f8c0d5a4d4bda8557825552056}{sendCustomCommand}}(T1\ cmd,\ imapResponseCallback\ \mbox{\hyperlink{class_i_m_a_p_session_a92155e5eba08596634241441d8c742ed}{callback}},\ T2\ tag\ =\ \textcolor{stringliteral}{"{}"{}})\ \{\ \textcolor{keywordflow}{return}\ mSendCustomCommand(toStringPtr(cmd),\ \mbox{\hyperlink{class_i_m_a_p_session_a92155e5eba08596634241441d8c742ed}{callback}},\ toStringPtr(tag));\ \}}
+\DoxyCodeLine{01991\ }
+\DoxyCodeLine{02000\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02001\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ab51882b44d4b974b4e68a8dc9c11225e}{sendCustomData}}(T\ \mbox{\hyperlink{class_i_m_a_p_session_aa541dd96f1c21e5387b62273a6b95371}{data}},\ \textcolor{keywordtype}{bool}\ lastData\ =\ \textcolor{keyword}{false})\ \{\ \textcolor{keywordflow}{return}\ mSendData(toStringPtr(\mbox{\hyperlink{class_i_m_a_p_session_aa541dd96f1c21e5387b62273a6b95371}{data}}),\ lastData,\ esp\_mail\_imap\_cmd\_custom);\ \}}
+\DoxyCodeLine{02002\ }
+\DoxyCodeLine{02012\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a92209812f9333a39a24fd1de1595de27}{sendCustomData}}(uint8\_t\ *\mbox{\hyperlink{class_i_m_a_p_session_aa541dd96f1c21e5387b62273a6b95371}{data}},\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{bool}\ lastData\ =\ \textcolor{keyword}{false})\ \{\ \textcolor{keywordflow}{return}\ mSendData(\mbox{\hyperlink{class_i_m_a_p_session_aa541dd96f1c21e5387b62273a6b95371}{data}},\ size,\ lastData,\ esp\_mail\_imap\_cmd\_custom);\ \}}
+\DoxyCodeLine{02013\ }
+\DoxyCodeLine{02021\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02022\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_aa3495209a48ca18e8591a37ca1ed48fd}{copyMessages}}(\mbox{\hyperlink{class_message_list}{MessageList}}\ *toCopy,\ T\ dest)\ \{\ \textcolor{keywordflow}{return}\ mCopyMessages(toCopy,\ toStringPtr(dest));\ \}}
+\DoxyCodeLine{02023\ }
+\DoxyCodeLine{02031\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02032\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_af9c33e0460fb9d52fe70530129acefd1}{copyMessages}}(T1\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ T2\ dest)\ \{\ \textcolor{keywordflow}{return}\ mCopyMessagesSet(toStringPtr(sequenceSet),\ UID,\ toStringPtr(dest));\ \}}
+\DoxyCodeLine{02033\ }
+\DoxyCodeLine{02041\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02042\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a5895a738552e1644e716e5d73fe9acb0}{moveMessages}}(\mbox{\hyperlink{class_message_list}{MessageList}}\ *toCopy,\ T\ dest)\ \{\ \textcolor{keywordflow}{return}\ mMoveMessages(toCopy,\ toStringPtr(dest));\ \}}
+\DoxyCodeLine{02043\ }
+\DoxyCodeLine{02051\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02052\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_abb95ba7c4a1ff9fcb39d27850eb39ccd}{moveMessages}}(T1\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ T2\ dest)\ \{\ \textcolor{keywordflow}{return}\ mMoveMessagesSet(toStringPtr(sequenceSet),\ UID,\ toStringPtr(dest));\ \}}
+\DoxyCodeLine{02053\ }
+\DoxyCodeLine{02065\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a725f18339ebc484f29dcc66c99ea2b85}{deleteMessages}}(\mbox{\hyperlink{class_message_list}{MessageList}}\ *toDelete,\ \textcolor{keywordtype}{bool}\ expunge\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1)\ \{\ \textcolor{keywordflow}{return}\ mDeleteMessages(toDelete,\ expunge,\ modsequence);\ \}}
+\DoxyCodeLine{02066\ }
+\DoxyCodeLine{02078\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02079\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a243a51a98f52cdfed48aca63dd5dc604}{deleteMessages}}(T\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ \textcolor{keywordtype}{bool}\ expunge\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1)\ \{\ \textcolor{keywordflow}{return}\ mDeleteMessagesSet(toStringPtr(sequenceSet),\ UID,\ expunge,\ modsequence);\ \}}
+\DoxyCodeLine{02080\ }
+\DoxyCodeLine{02087\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02088\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_abaee5cc6e2b707330438085df2f2bc6c}{getQuota}}(T\ quotaRoot,\ IMAP\_Quota\_Root\_Info\ *info)\ \{\ \textcolor{keywordflow}{return}\ mGetSetQuota(toStringPtr(quotaRoot),\ info,\ \textcolor{keyword}{true});\ \}}
+\DoxyCodeLine{02089\ }
+\DoxyCodeLine{02096\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02097\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a098aeef6f86ace8d799f74fd977ed273}{setQuota}}(T\ quotaRoot,\ IMAP\_Quota\_Root\_Info\ *\mbox{\hyperlink{class_i_m_a_p_session_aa541dd96f1c21e5387b62273a6b95371}{data}})\ \{\ \textcolor{keywordflow}{return}\ mGetSetQuota(toStringPtr(quotaRoot),\ \mbox{\hyperlink{class_i_m_a_p_session_aa541dd96f1c21e5387b62273a6b95371}{data}},\ \textcolor{keyword}{false});\ \}}
+\DoxyCodeLine{02098\ }
+\DoxyCodeLine{02105\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02106\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a612c3a5596925bc41089f23ffb3e4e49}{getQuotaRoot}}(T\ mailbox,\ \mbox{\hyperlink{class_i_m_a_p___quota___roots___list}{IMAP\_Quota\_Roots\_List}}\ *quotaRootsList)\ \{\ \textcolor{keywordflow}{return}\ mGetQuotaRoots(toStringPtr(mailbox),\ quotaRootsList);\ \}}
+\DoxyCodeLine{02107\ }
+\DoxyCodeLine{02114\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02115\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a9dffc4c93d1637dbb8b77721cf132580}{getACL}}(T\ mailbox,\ \mbox{\hyperlink{class_i_m_a_p___rights___list}{IMAP\_Rights\_List}}\ *aclList)\ \{\ \textcolor{keywordflow}{return}\ mManageACL(toStringPtr(mailbox),\ aclList,\ \textcolor{keyword}{nullptr},\ toStringPtr(\textcolor{stringliteral}{"{}"{}}),\ esp\_mail\_imap\_cmd\_get\_acl);\ \};}
+\DoxyCodeLine{02116\ }
+\DoxyCodeLine{02123\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02124\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a2cc11791053dbe4c16359a803ae0d9ea}{setACL}}(T\ mailbox,\ IMAP\_Rights\_Info\ *acl)\ \{\ \textcolor{keywordflow}{return}\ mManageACL(toStringPtr(mailbox),\ \textcolor{keyword}{nullptr},\ acl,\ toStringPtr(\textcolor{stringliteral}{"{}"{}}),\ esp\_mail\_imap\_cmd\_set\_acl);\ \};}
+\DoxyCodeLine{02125\ }
+\DoxyCodeLine{02132\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02133\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a8d325a7ee52955e6b5a74e2f11759cb5}{deleteACL}}(T1\ mailbox,\ T2\ identifier)\ \{\ \textcolor{keywordflow}{return}\ mManageACL(toStringPtr(mailbox),\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr},\ toStringPtr(identifier),\ esp\_mail\_imap\_cmd\_delete\_acl);\ \};}
+\DoxyCodeLine{02134\ }
+\DoxyCodeLine{02141\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02142\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_adbb2bb08db54cff1ea56306cdd0d8376}{myRights}}(T\ mailbox,\ IMAP\_Rights\_Info\ *acl)\ \{\ \textcolor{keywordflow}{return}\ mManageACL(toStringPtr(mailbox),\ \textcolor{keyword}{nullptr},\ acl,\ toStringPtr(\textcolor{stringliteral}{"{}"{}}),\ esp\_mail\_imap\_cmd\_my\_rights);\ \};}
+\DoxyCodeLine{02143\ }
+\DoxyCodeLine{02150\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ab5fde1199df89743d5168714c99a0d57}{getNamespace}}(IMAP\_Namespaces\_List\ *ns)\ \{\ \textcolor{keywordflow}{return}\ mNamespace(ns);\ \};}
+\DoxyCodeLine{02151\ }
+\DoxyCodeLine{02157\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02158\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a3605252149cbe526ef0b2c85b34f9aa1}{enable}}(T\ capability)\ \{\ \textcolor{keywordflow}{return}\ mEnable(toStringPtr(capability));\ \};}
+\DoxyCodeLine{02159\ }
+\DoxyCodeLine{02163\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ad248a205c3d929998b00ed3aebd1ae2b}{listen}}()\ \{\ \textcolor{keywordflow}{return}\ mListen(\textcolor{keyword}{false});\ \};}
+\DoxyCodeLine{02164\ }
+\DoxyCodeLine{02168\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a9d4d95355491b773cb93ad9747d9922e}{stopListen}}()\ \{\ \textcolor{keywordflow}{return}\ mStopListen(\textcolor{keyword}{false});\ \};}
+\DoxyCodeLine{02169\ }
+\DoxyCodeLine{02173\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a2ac37fe07a23976316422a0fb5b74528}{folderChanged}}();}
+\DoxyCodeLine{02174\ }
+\DoxyCodeLine{02178\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ad0653dc7ac10b6724d5721bc57a0062d}{noop}}();}
+\DoxyCodeLine{02179\ }
+\DoxyCodeLine{02186\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a92155e5eba08596634241441d8c742ed}{callback}}(imapStatusCallback\ imapCallback);}
+\DoxyCodeLine{02187\ }
+\DoxyCodeLine{02192\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a68bc5c13c33b0e71a842c9b67f380fc0}{characterDecodingCallback}}(imapCharacterDecodingCallback\ \mbox{\hyperlink{class_i_m_a_p_session_a92155e5eba08596634241441d8c742ed}{callback}});}
+\DoxyCodeLine{02193\ }
+\DoxyCodeLine{02200\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_ae6695ddd850cff6601e62c8c14ec9b50}{mimeDataStreamCallback}}(MIMEDataStreamCallback\ \mbox{\hyperlink{class_i_m_a_p_session_ae6695ddd850cff6601e62c8c14ec9b50}{mimeDataStreamCallback}});}
+\DoxyCodeLine{02201\ }
+\DoxyCodeLine{02205\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a70846dc6def6551d88c7a13364df3138}{headerOnly}}();}
+\DoxyCodeLine{02206\ }
+\DoxyCodeLine{02214\ \ \ IMAP\_MSG\_List\ \mbox{\hyperlink{class_i_m_a_p_session_aa541dd96f1c21e5387b62273a6b95371}{data}}();}
+\DoxyCodeLine{02215\ }
+\DoxyCodeLine{02222\ \ \ \mbox{\hyperlink{class_selected_folder_info}{SelectedFolderInfo}}\ \mbox{\hyperlink{class_i_m_a_p_session_a31eb8d21b873e37eb4fc24a5e3b499c5}{selectedFolder}}();}
+\DoxyCodeLine{02223\ }
+\DoxyCodeLine{02228\ \ \ String\ \mbox{\hyperlink{class_i_m_a_p_session_a08b974024d950e8a8a024ddf93fe1f72}{errorReason}}();}
+\DoxyCodeLine{02229\ }
+\DoxyCodeLine{02237\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_i_m_a_p_session_ab9b15a5dc50d40e1c2877f149697e550}{errorCode}}();}
+\DoxyCodeLine{02238\ }
+\DoxyCodeLine{02241\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_a148054dd623b5d46e5251c2e5f53743a}{empty}}();}
+\DoxyCodeLine{02242\ }
+\DoxyCodeLine{02247\ \ \ \mbox{\hyperlink{class_i_m_a_p___status}{IMAP\_Status}}\ \mbox{\hyperlink{class_i_m_a_p_session_a71b23b0b99ab21f80fd23f7ce9a26a63}{status}}();}
+\DoxyCodeLine{02248\ }
+\DoxyCodeLine{02254\ \ \ String\ \mbox{\hyperlink{class_i_m_a_p_session_a37e9ac713d4cc89107e09851aaa3ae5f}{fileList}}();}
+\DoxyCodeLine{02255\ }
+\DoxyCodeLine{02261\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_ab21bf47d2c8e648c0991c975ea661327}{setSystemTime}}(time\_t\ ts,\ \textcolor{keywordtype}{float}\ gmtOffset\ =\ 0);}
+\DoxyCodeLine{02262\ }
+\DoxyCodeLine{02275\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_i_m_a_p_session_aebbd0ef177e567f5e8a62cd1b9566727}{keepAlive}}(\textcolor{keywordtype}{int}\ tcpKeepIdleSeconds,\ \textcolor{keywordtype}{int}\ tcpKeepIntervalSeconds,\ \textcolor{keywordtype}{int}\ tcpKeepCount);}
+\DoxyCodeLine{02276\ }
+\DoxyCodeLine{02281\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_a795e5d2a54630b8ef6033e21bb4fc288}{isKeepAlive}}();}
+\DoxyCodeLine{02282\ }
+\DoxyCodeLine{02283\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_e_s_p___mail___client}{ESP\_Mail\_Client}};}
+\DoxyCodeLine{02284\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }foldderList;}
+\DoxyCodeLine{02285\ }
+\DoxyCodeLine{02286\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{02287\ \ \ \textcolor{keywordtype}{bool}\ \_sessionSSL\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02288\ \ \ \textcolor{keywordtype}{bool}\ \_sessionLogin\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02289\ \ \ \textcolor{keywordtype}{bool}\ \_loginStatus\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02290\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_last\_polling\_error\_ms\ =\ 0;}
+\DoxyCodeLine{02291\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_last\_host\_check\_ms\ =\ 0;}
+\DoxyCodeLine{02292\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_last\_server\_connect\_ms\ =\ 0;}
+\DoxyCodeLine{02293\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_last\_network\_error\_ms\ =\ 0;}
+\DoxyCodeLine{02294\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ tcpTimeout\ =\ TCP\_CLIENT\_DEFAULT\_TCP\_TIMEOUT\_SEC;}
+\DoxyCodeLine{02295\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__imap__response__status__t}{esp\_mail\_imap\_response\_status\_t}}\ \_responseStatus;}
+\DoxyCodeLine{02296\ \ \ \textcolor{keywordtype}{int}\ \_cMsgIdx\ =\ 0;}
+\DoxyCodeLine{02297\ \ \ \textcolor{keywordtype}{int}\ \_cPartIdx\ =\ 0;}
+\DoxyCodeLine{02298\ \ \ \textcolor{keywordtype}{int}\ \_totalRead\ =\ 0;}
+\DoxyCodeLine{02299\ \ \ \_vectorImpl<struct\ esp\_mail\_message\_header\_t>\ \_headers;}
+\DoxyCodeLine{02300\ }
+\DoxyCodeLine{02301\ \ \ esp\_mail\_imap\_command\ \_imap\_cmd\ =\ esp\_mail\_imap\_command::esp\_mail\_imap\_cmd\_sasl\_login;}
+\DoxyCodeLine{02302\ \ \ esp\_mail\_imap\_command\ \_prev\_imap\_cmd\ =\ esp\_mail\_imap\_command::esp\_mail\_imap\_cmd\_sasl\_login;}
+\DoxyCodeLine{02303\ \ \ esp\_mail\_imap\_command\ \_imap\_custom\_cmd\ =\ esp\_mail\_imap\_cmd\_custom;}
+\DoxyCodeLine{02304\ \ \ esp\_mail\_imap\_command\ \_prev\_imap\_custom\_cmd\ =\ esp\_mail\_imap\_cmd\_custom;}
+\DoxyCodeLine{02305\ \ \ \textcolor{keywordtype}{bool}\ \_idle\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02306\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_cmd;}
+\DoxyCodeLine{02307\ \ \ \_vectorImpl<struct\ esp\_mail\_imap\_multipart\_level\_t>\ \_multipart\_levels;}
+\DoxyCodeLine{02308\ \ \ \textcolor{keywordtype}{int}\ \_rfc822\_part\_count\ =\ 0;}
+\DoxyCodeLine{02309\ \ \ \textcolor{keywordtype}{bool}\ \_unseen\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02310\ \ \ \textcolor{keywordtype}{bool}\ \_readOnlyMode\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{02311\ \ \ \textcolor{keywordtype}{bool}\ \_msgDownload\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02312\ \ \ \textcolor{keywordtype}{bool}\ \_attDownload\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02313\ \ \ \textcolor{keywordtype}{bool}\ \_storageReady\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02314\ \ \ \textcolor{keywordtype}{bool}\ \_storageChecked\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02315\ }
+\DoxyCodeLine{02316\ \ \ \textcolor{keywordtype}{bool}\ \_auth\_capability[esp\_mail\_auth\_capability\_maxType];}
+\DoxyCodeLine{02317\ \ \ \textcolor{keywordtype}{bool}\ \_feature\_capability[esp\_mail\_imap\_read\_capability\_maxType];}
+\DoxyCodeLine{02318\ \ \ Session\_Config\ *\_session\_cfg;}
+\DoxyCodeLine{02319\ \ \ \_vectorImpl<int>\ \_configPtrList;}
+\DoxyCodeLine{02320\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_currentFolder;}
+\DoxyCodeLine{02321\ \ \ \textcolor{keywordtype}{bool}\ \_mailboxOpened\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02322\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_lastSameFolderOpenMillis\ =\ 0;}
+\DoxyCodeLine{02323\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_nextUID;}
+\DoxyCodeLine{02324\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_unseenMsgIndex;}
+\DoxyCodeLine{02325\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_flags\_tmp;}
+\DoxyCodeLine{02326\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_quota\_tmp;}
+\DoxyCodeLine{02327\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_quota\_root\_tmp;}
+\DoxyCodeLine{02328\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_acl\_tmp;}
+\DoxyCodeLine{02329\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_ns\_tmp;}
+\DoxyCodeLine{02330\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_server\_id\_tmp;}
+\DoxyCodeLine{02331\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \_sdFileList;}
+\DoxyCodeLine{02332\ }
+\DoxyCodeLine{02333\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__imap__data__config__t}{esp\_mail\_imap\_data\_config\_t}}\ *\_imap\_data\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{02334\ }
+\DoxyCodeLine{02335\ \ \ \textcolor{keywordtype}{int}\ \_userHeaderOnly\ =\ -\/1;}
+\DoxyCodeLine{02336\ \ \ \textcolor{keywordtype}{bool}\ \_headerOnly\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{02337\ \ \ \textcolor{keywordtype}{bool}\ \_uidSearch\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02338\ \ \ \textcolor{keywordtype}{bool}\ \_headerSaved\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02339\ \ \ \textcolor{keywordtype}{bool}\ \_debug\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02340\ \ \ \textcolor{keywordtype}{int}\ \_debugLevel\ =\ 0;}
+\DoxyCodeLine{02341\ \ \ \textcolor{keywordtype}{bool}\ \_secure\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02342\ \ \ \textcolor{keywordtype}{bool}\ \_authenticated\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02343\ \ \ \textcolor{keywordtype}{bool}\ \_isFirmwareUpdated\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02344\ \ \ imapStatusCallback\ \_statusCallback\ =\ NULL;}
+\DoxyCodeLine{02345\ \ \ imapResponseCallback\ \_customCmdResCallback\ =\ NULL;}
+\DoxyCodeLine{02346\ \ \ MIMEDataStreamCallback\ \_mimeDataStreamCallback\ =\ NULL;}
+\DoxyCodeLine{02347\ \ \ imapCharacterDecodingCallback\ \_charDecCallback\ =\ NULL;}
+\DoxyCodeLine{02348\ }
+\DoxyCodeLine{02349\ \ \ \_vectorImpl<struct\ esp\_mail\_imap\_msg\_num\_t>\ \_imap\_msg\_num;}
+\DoxyCodeLine{02350\ \ \ esp\_mail\_session\_type\ \_sessionType\ =\ esp\_mail\_session\_type\_imap;}
+\DoxyCodeLine{02351\ }
+\DoxyCodeLine{02352\ \ \ \mbox{\hyperlink{class_folders_collection}{FoldersCollection}}\ \_folders;}
+\DoxyCodeLine{02353\ \ \ \mbox{\hyperlink{class_selected_folder_info}{SelectedFolderInfo}}\ \_mbif;}
+\DoxyCodeLine{02354\ \ \ \textcolor{keywordtype}{int}\ \_uid\_tmp\ =\ 0;}
+\DoxyCodeLine{02355\ \ \ \textcolor{keywordtype}{int}\ \_lastProgress\ =\ -\/1;}
+\DoxyCodeLine{02356\ }
+\DoxyCodeLine{02357\ \ \ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client}{ESP\_Mail\_TCPClient}}\ client;}
+\DoxyCodeLine{02358\ }
+\DoxyCodeLine{02359\ \ \ \mbox{\hyperlink{class_i_m_a_p___status}{IMAP\_Status}}\ \_cbData;}
+\DoxyCodeLine{02360\ }
+\DoxyCodeLine{02361\ \ \ \mbox{\hyperlink{class_bear_s_s_l___session}{BearSSL\_Session}}\ \_bsslSession;}
+\DoxyCodeLine{02362\ }
+\DoxyCodeLine{02363\ \ \ \textcolor{comment}{//\ Log\ in\ to\ IMAP\ server}}
+\DoxyCodeLine{02364\ \ \ \textcolor{keywordtype}{bool}\ mLogin(MB\_StringPtr\ email,\ MB\_StringPtr\ password,\ \textcolor{keywordtype}{bool}\ isToken);}
+\DoxyCodeLine{02365\ }
+\DoxyCodeLine{02366\ \ \ \textcolor{comment}{//\ Clear\ message\ data}}
+\DoxyCodeLine{02367\ \ \ \textcolor{keywordtype}{void}\ clearMessageData();}
+\DoxyCodeLine{02368\ }
+\DoxyCodeLine{02369\ \ \ \textcolor{comment}{//\ Check\ for\ valid\ UID\ or\ set\ wildcard\ *\ as\ UID}}
+\DoxyCodeLine{02370\ \ \ \textcolor{keywordtype}{void}\ checkUID();}
+\DoxyCodeLine{02371\ }
+\DoxyCodeLine{02372\ \ \ \textcolor{comment}{//\ Check\ for\ valid\ saving\ file\ path\ or\ prepend\ /}}
+\DoxyCodeLine{02373\ \ \ \textcolor{keywordtype}{void}\ checkPath();}
+\DoxyCodeLine{02374\ }
+\DoxyCodeLine{02375\ \ \ \textcolor{comment}{//\ Get\ message\ item\ by\ index}}
+\DoxyCodeLine{02376\ \ \ \textcolor{keywordtype}{void}\ getMessages(uint16\_t\ messageIndex,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structesp__mail__imap__msg__item__t}{esp\_mail\_imap\_msg\_item\_t}}\ \&msg);}
+\DoxyCodeLine{02377\ }
+\DoxyCodeLine{02378\ \ \ \textcolor{comment}{//\ Get\ RFC822\ message\ item\ by\ index}}
+\DoxyCodeLine{02379\ \ \ \textcolor{keywordtype}{void}\ getRFC822Messages(uint16\_t\ messageIndex,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structesp__mail__imap__msg__item__t}{esp\_mail\_imap\_msg\_item\_t}}\ \&msg);}
+\DoxyCodeLine{02380\ }
+\DoxyCodeLine{02381\ \ \ \textcolor{comment}{//\ Close\ mailbox}}
+\DoxyCodeLine{02382\ \ \ \textcolor{keywordtype}{bool}\ closeMailbox(\textcolor{keywordtype}{bool}\ expunge\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{02383\ }
+\DoxyCodeLine{02384\ \ \ \textcolor{comment}{//\ Open\ mailbox}}
+\DoxyCodeLine{02385\ \ \ \textcolor{keywordtype}{bool}\ openMailbox(MB\_StringPtr\ folder,\ esp\_mail\_imap\_auth\_mode\ mode,\ \textcolor{keywordtype}{bool}\ waitResponse,\ \textcolor{keywordtype}{bool}\ unselect);}
+\DoxyCodeLine{02386\ }
+\DoxyCodeLine{02387\ \ \ \textcolor{comment}{//\ Get\ folders\ list}}
+\DoxyCodeLine{02388\ \ \ \textcolor{keywordtype}{bool}\ getMailboxes(\mbox{\hyperlink{class_folders_collection}{FoldersCollection}}\ \&folders);}
+\DoxyCodeLine{02389\ }
+\DoxyCodeLine{02390\ \ \ \textcolor{comment}{//\ Get\ subscribes\ mailboxes}}
+\DoxyCodeLine{02391\ \ \ \textcolor{keywordtype}{bool}\ mGetSubscribesMailboxes(MB\_StringPtr\ reference,\ MB\_StringPtr\ mailbox,\ \mbox{\hyperlink{class_folders_collection}{FoldersCollection}}\ \&folders);}
+\DoxyCodeLine{02392\ }
+\DoxyCodeLine{02393\ \ \ \textcolor{comment}{//\ Subscribe\ the\ mailbox}}
+\DoxyCodeLine{02394\ \ \ \textcolor{keywordtype}{bool}\ mSubscribe(MB\_StringPtr\ folder);}
+\DoxyCodeLine{02395\ }
+\DoxyCodeLine{02396\ \ \ \textcolor{comment}{//\ Unsubscribe\ the\ mailbox}}
+\DoxyCodeLine{02397\ \ \ \textcolor{keywordtype}{bool}\ mUnSubscribe(MB\_StringPtr\ folder);}
+\DoxyCodeLine{02398\ }
+\DoxyCodeLine{02399\ \ \ \textcolor{comment}{//\ Get\ UID}}
+\DoxyCodeLine{02400\ \ \ \textcolor{keywordtype}{int}\ mGetUID(\textcolor{keywordtype}{int}\ msgNum);}
+\DoxyCodeLine{02401\ }
+\DoxyCodeLine{02402\ \ \ \textcolor{comment}{//\ Fetch\ by\ sequence\ set}}
+\DoxyCodeLine{02403\ \ \ \textcolor{keywordtype}{bool}\ mFetchSequenceSet();}
+\DoxyCodeLine{02404\ }
+\DoxyCodeLine{02405\ \ \ \textcolor{comment}{//\ Return\ string\ from\ TAG\ prepended\ command}}
+\DoxyCodeLine{02406\ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ prependTag(PGM\_P\ cmd,\ PGM\_P\ tag\ =\ NULL);}
+\DoxyCodeLine{02407\ }
+\DoxyCodeLine{02408\ \ \ \textcolor{comment}{//\ Check\ capabilities}}
+\DoxyCodeLine{02409\ \ \ \textcolor{keywordtype}{bool}\ checkCapabilities();}
+\DoxyCodeLine{02410\ }
+\DoxyCodeLine{02411\ \ \ \textcolor{comment}{//\ Listen\ mailbox\ changes}}
+\DoxyCodeLine{02412\ \ \ \textcolor{keywordtype}{bool}\ mListen(\textcolor{keywordtype}{bool}\ recon);}
+\DoxyCodeLine{02413\ }
+\DoxyCodeLine{02414\ \ \ \textcolor{comment}{//\ Stop\ listen\ mailbox}}
+\DoxyCodeLine{02415\ \ \ \textcolor{keywordtype}{bool}\ mStopListen(\textcolor{keywordtype}{bool}\ recon);}
+\DoxyCodeLine{02416\ }
+\DoxyCodeLine{02417\ \ \ \textcolor{comment}{//\ Send\ custom\ command}}
+\DoxyCodeLine{02418\ \ \ \textcolor{keywordtype}{bool}\ mSendCustomCommand(MB\_StringPtr\ cmd,\ imapResponseCallback\ \mbox{\hyperlink{class_i_m_a_p_session_a92155e5eba08596634241441d8c742ed}{callback}},\ MB\_StringPtr\ tag);}
+\DoxyCodeLine{02419\ }
+\DoxyCodeLine{02420\ \ \ \textcolor{comment}{//\ Send\ data\ after\ sending\ APPEND\ command}}
+\DoxyCodeLine{02421\ \ \ \textcolor{keywordtype}{bool}\ mSendData(MB\_StringPtr\ data,\ \textcolor{keywordtype}{bool}\ lastData,\ esp\_mail\_imap\_command\ cmd);}
+\DoxyCodeLine{02422\ }
+\DoxyCodeLine{02423\ \ \ \textcolor{comment}{//\ Send\ data\ after\ sending\ APPEND\ command}}
+\DoxyCodeLine{02424\ \ \ \textcolor{keywordtype}{bool}\ mSendData(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{bool}\ lastData,\ esp\_mail\_imap\_command\ cmd);}
+\DoxyCodeLine{02425\ }
+\DoxyCodeLine{02426\ \ \ \textcolor{comment}{//\ Delete\ folder}}
+\DoxyCodeLine{02427\ \ \ \textcolor{keywordtype}{bool}\ mDeleteFolder(MB\_StringPtr\ folderName);}
+\DoxyCodeLine{02428\ }
+\DoxyCodeLine{02429\ \ \ \textcolor{comment}{//\ Create\ folder}}
+\DoxyCodeLine{02430\ \ \ \textcolor{keywordtype}{bool}\ mCreateFolder(MB\_StringPtr\ folderName);}
+\DoxyCodeLine{02431\ }
+\DoxyCodeLine{02432\ \ \ \textcolor{comment}{//\ Rename\ folder}}
+\DoxyCodeLine{02433\ \ \ \textcolor{keywordtype}{bool}\ mRenameFolder(MB\_StringPtr\ currentFolderName,\ MB\_StringPtr\ newFolderName);}
+\DoxyCodeLine{02434\ }
+\DoxyCodeLine{02435\ \ \ \textcolor{comment}{//\ Copy\ message}}
+\DoxyCodeLine{02436\ \ \ \textcolor{keywordtype}{bool}\ copyMsg(\mbox{\hyperlink{class_message_list}{MessageList}}\ *toCopy,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ MB\_StringPtr\ dest);}
+\DoxyCodeLine{02437\ }
+\DoxyCodeLine{02438\ \ \ \textcolor{comment}{//\ Copy\ message}}
+\DoxyCodeLine{02439\ \ \ \textcolor{keywordtype}{bool}\ mCopyMessages(\mbox{\hyperlink{class_message_list}{MessageList}}\ *toCopy,\ MB\_StringPtr\ dest);}
+\DoxyCodeLine{02440\ }
+\DoxyCodeLine{02441\ \ \ \textcolor{comment}{//\ Copy\ message\ using\ sequence\ set}}
+\DoxyCodeLine{02442\ \ \ \textcolor{keywordtype}{bool}\ mCopyMessagesSet(MB\_StringPtr\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ MB\_StringPtr\ dest);}
+\DoxyCodeLine{02443\ }
+\DoxyCodeLine{02444\ \ \ \textcolor{comment}{//\ Move\ message}}
+\DoxyCodeLine{02445\ \ \ \textcolor{keywordtype}{bool}\ moveMsg(\mbox{\hyperlink{class_message_list}{MessageList}}\ *toMove,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ MB\_StringPtr\ dest);}
+\DoxyCodeLine{02446\ }
+\DoxyCodeLine{02447\ \ \ \textcolor{comment}{//\ Move\ message}}
+\DoxyCodeLine{02448\ \ \ \textcolor{keywordtype}{bool}\ mMoveMessages(\mbox{\hyperlink{class_message_list}{MessageList}}\ *toMove,\ MB\_StringPtr\ dest);}
+\DoxyCodeLine{02449\ }
+\DoxyCodeLine{02450\ \ \ \textcolor{comment}{//\ Move\ message\ using\ sequence\ set}}
+\DoxyCodeLine{02451\ \ \ \textcolor{keywordtype}{bool}\ mMoveMessagesSet(MB\_StringPtr\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ MB\_StringPtr\ dest);}
+\DoxyCodeLine{02452\ }
+\DoxyCodeLine{02453\ \ \ \textcolor{comment}{//\ Check\ for\ conditional\ STORE\ extention\ support}}
+\DoxyCodeLine{02454\ \ \ \textcolor{keywordtype}{bool}\ isCondStoreSupported();}
+\DoxyCodeLine{02455\ }
+\DoxyCodeLine{02456\ \ \ \textcolor{comment}{//\ Check\ for\ mailbox\ mod-\/sequence\ support}}
+\DoxyCodeLine{02457\ \ \ \textcolor{keywordtype}{bool}\ isModseqSupported();}
+\DoxyCodeLine{02458\ }
+\DoxyCodeLine{02459\ \ \ \textcolor{comment}{//\ add\ UNCHANGEDSINCE\ STORE\ modifier\ and\ CHANGEDSINCE\ FETCH\ modifier\ to\ command}}
+\DoxyCodeLine{02460\ \ \ \textcolor{keywordtype}{void}\ addModifier(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&cmd,\ esp\_mail\_imap\_command\_types\ type,\ int32\_t\ modsequence);}
+\DoxyCodeLine{02461\ }
+\DoxyCodeLine{02462\ \ \ \textcolor{comment}{//\ Delete\ message}}
+\DoxyCodeLine{02463\ \ \ \textcolor{keywordtype}{bool}\ deleteMsg(\mbox{\hyperlink{class_message_list}{MessageList}}\ *toDelete,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ \textcolor{keywordtype}{bool}\ expunge,\ int32\_t\ modsequence\ =\ -\/1);}
+\DoxyCodeLine{02464\ }
+\DoxyCodeLine{02465\ \ \ \textcolor{comment}{//\ Delete\ messages}}
+\DoxyCodeLine{02466\ \ \ \textcolor{keywordtype}{bool}\ mDeleteMessages(\mbox{\hyperlink{class_message_list}{MessageList}}\ *toDelete,\ \textcolor{keywordtype}{bool}\ expunge\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1);}
+\DoxyCodeLine{02467\ }
+\DoxyCodeLine{02468\ \ \ \textcolor{comment}{//\ Delete\ messages}}
+\DoxyCodeLine{02469\ \ \ \textcolor{keywordtype}{bool}\ mDeleteMessagesSet(MB\_StringPtr\ sequenceSet,\ \textcolor{keywordtype}{bool}\ UID,\ \textcolor{keywordtype}{bool}\ expunge\ =\ \textcolor{keyword}{false},\ int32\_t\ modsequence\ =\ -\/1);}
+\DoxyCodeLine{02470\ }
+\DoxyCodeLine{02471\ \ \ \textcolor{comment}{//\ Get\ or\ set\ the\ quota\ root's\ resource\ usage\ and\ limits.}}
+\DoxyCodeLine{02472\ \ \ \textcolor{keywordtype}{bool}\ mGetSetQuota(MB\_StringPtr\ quotaRoot,\ IMAP\_Quota\_Root\_Info\ *data,\ \textcolor{keywordtype}{bool}\ getMode);}
+\DoxyCodeLine{02473\ }
+\DoxyCodeLine{02474\ \ \ \textcolor{comment}{//\ Parse\ the\ IMAP\_Quota\_Root\_info}}
+\DoxyCodeLine{02475\ \ \ \textcolor{keywordtype}{void}\ mParseQuota(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *quota,\ IMAP\_Quota\_Root\_Info\ *data);}
+\DoxyCodeLine{02476\ }
+\DoxyCodeLine{02477\ \ \ \textcolor{comment}{//\ Get\ the\ list\ of\ quota\ roots\ for\ the\ named\ mailbox.}}
+\DoxyCodeLine{02478\ \ \ \textcolor{keywordtype}{bool}\ mGetQuotaRoots(MB\_StringPtr\ mailbox,\ \mbox{\hyperlink{class_i_m_a_p___quota___roots___list}{IMAP\_Quota\_Roots\_List}}\ *quotaRootsList);}
+\DoxyCodeLine{02479\ }
+\DoxyCodeLine{02480\ \ \ \textcolor{comment}{//\ Get\ or\ set\ ACL.}}
+\DoxyCodeLine{02481\ \ \ \textcolor{keywordtype}{bool}\ mManageACL(MB\_StringPtr\ mailbox,\ \mbox{\hyperlink{class_i_m_a_p___rights___list}{IMAP\_Rights\_List}}\ *acl\_list,\ IMAP\_Rights\_Info\ *acl,\ MB\_StringPtr\ identifier,\ esp\_mail\_imap\_command\ type);}
+\DoxyCodeLine{02482\ }
+\DoxyCodeLine{02483\ \ \ \textcolor{comment}{//\ Parse\ ACL}}
+\DoxyCodeLine{02484\ \ \ \textcolor{keywordtype}{void}\ parseACL(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&acl\_str,\ \mbox{\hyperlink{class_i_m_a_p___rights___list}{IMAP\_Rights\_List}}\ *right\_list);}
+\DoxyCodeLine{02485\ }
+\DoxyCodeLine{02486\ \ \ \textcolor{comment}{//\ parse\ Rights}}
+\DoxyCodeLine{02487\ \ \ \textcolor{keywordtype}{void}\ parseRights(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&righs\_str,\ IMAP\_Rights\_Info\ *info);}
+\DoxyCodeLine{02488\ }
+\DoxyCodeLine{02489\ \ \ \textcolor{comment}{//\ Get\ Rights\ from\ IMAP\_Rights\_Info}}
+\DoxyCodeLine{02490\ \ \ \textcolor{keywordtype}{void}\ getRights(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&righs\_str,\ IMAP\_Rights\_Info\ *info);}
+\DoxyCodeLine{02491\ }
+\DoxyCodeLine{02492\ \ \ \textcolor{comment}{//\ Get\ namespace}}
+\DoxyCodeLine{02493\ \ \ \textcolor{keywordtype}{bool}\ mNamespace(IMAP\_Namespaces\_List\ *ns);}
+\DoxyCodeLine{02494\ }
+\DoxyCodeLine{02495\ \ \ \textcolor{comment}{//\ Enable\ the\ IMAP\ capability}}
+\DoxyCodeLine{02496\ \ \ \textcolor{keywordtype}{bool}\ mEnable(MB\_StringPtr\ capability);}
+\DoxyCodeLine{02497\ }
+\DoxyCodeLine{02498\ \ \ \textcolor{comment}{//\ Parse\ namespaces}}
+\DoxyCodeLine{02499\ \ \ \textcolor{keywordtype}{void}\ parseNamespaces(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&ns\_str,\ \mbox{\hyperlink{class_i_m_a_p___namespaces}{IMAP\_Namespaces}}\ *ns);}
+\DoxyCodeLine{02500\ }
+\DoxyCodeLine{02501\ \ \ \textcolor{comment}{//\ Close\ folder}}
+\DoxyCodeLine{02502\ \ \ \textcolor{keywordtype}{bool}\ mCloseFolder(\textcolor{keywordtype}{bool}\ expunge\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{02503\ }
+\DoxyCodeLine{02504\ \ \ \textcolor{comment}{//\ Open\ folder}}
+\DoxyCodeLine{02505\ \ \ \textcolor{keywordtype}{bool}\ mOpenFolder(MB\_StringPtr\ folderName,\ \textcolor{keywordtype}{bool}\ readOnly);}
+\DoxyCodeLine{02506\ }
+\DoxyCodeLine{02507\ \ \ \textcolor{comment}{//\ Select\ folder}}
+\DoxyCodeLine{02508\ \ \ \textcolor{keywordtype}{bool}\ mSelectFolder(MB\_StringPtr\ folderName,\ \textcolor{keywordtype}{bool}\ readOnly);}
+\DoxyCodeLine{02509\ }
+\DoxyCodeLine{02510\ \ \ \textcolor{comment}{//\ Custom\ TCP\ connection}}
+\DoxyCodeLine{02511\ \ \ \textcolor{keywordtype}{bool}\ mCustomConnect(Session\_Config\ *session\_config,\ imapResponseCallback\ \mbox{\hyperlink{class_i_m_a_p_session_a92155e5eba08596634241441d8c742ed}{callback}},\ MB\_StringPtr\ tag);}
+\DoxyCodeLine{02512\ }
+\DoxyCodeLine{02513\ \ \ \textcolor{comment}{//\ Append\ ID\ list\ to\ buffer}}
+\DoxyCodeLine{02514\ \ \ \textcolor{keywordtype}{void}\ appendIdList(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&list,\ IMAP\_Identification\ *identification);}
+\DoxyCodeLine{02515\ }
+\DoxyCodeLine{02516\ \ \ \textcolor{comment}{//\ Handle\ connection}}
+\DoxyCodeLine{02517\ \ \ \textcolor{keywordtype}{bool}\ handleConnection(Session\_Config\ *session\_config,\ IMAP\_Data\ *imap\_data,\ \textcolor{keywordtype}{bool}\ \&ssl);}
+\DoxyCodeLine{02518\ }
+\DoxyCodeLine{02519\ \ \ \textcolor{comment}{//\ Start\ TCP\ connection}}
+\DoxyCodeLine{02520\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_i_m_a_p_session_ac847cb874c8a7ce3b14e42bfe043dd97}{connect}}(\textcolor{keywordtype}{bool}\ \&ssl);}
+\DoxyCodeLine{02521\ }
+\DoxyCodeLine{02522\ \ \ \textcolor{comment}{//\ Print\ features\ not\ supported\ debug\ error\ message}}
+\DoxyCodeLine{02523\ \ \ \textcolor{keywordtype}{void}\ printDebugNotSupported();}
+\DoxyCodeLine{02524\ \};}
+\DoxyCodeLine{02525\ }
+\DoxyCodeLine{02526\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02527\ }
+\DoxyCodeLine{02528\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)}}
+\DoxyCodeLine{02529\ }
+\DoxyCodeLine{02530\ \textcolor{keyword}{class\ }SendingResult}
+\DoxyCodeLine{02531\ \{}
+\DoxyCodeLine{02532\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{02533\ \ \ \_vectorImpl<SMTP\_Result>\ \_result;}
+\DoxyCodeLine{02534\ }
+\DoxyCodeLine{02535\ \ \ \textcolor{keywordtype}{void}\ add(SMTP\_Result\ *r)}
+\DoxyCodeLine{02536\ \ \ \{}
+\DoxyCodeLine{02537\ \ \ \ \ \_result.push\_back(*r);}
+\DoxyCodeLine{02538\ \ \ \}}
+\DoxyCodeLine{02539\ }
+\DoxyCodeLine{02540\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{02541\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }SMTPSession;}
+\DoxyCodeLine{02542\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }ESP\_Mail\_Client;}
+\DoxyCodeLine{02543\ \ \ SendingResult()\{\};}
+\DoxyCodeLine{02544\ \ \ \string~SendingResult()\ \{\ clear();\ \};}
+\DoxyCodeLine{02545\ }
+\DoxyCodeLine{02546\ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{02547\ \ \ \{}
+\DoxyCodeLine{02548\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \_result.size();\ i++)}
+\DoxyCodeLine{02549\ \ \ \ \ \{}
+\DoxyCodeLine{02550\ \ \ \ \ \ \ \_result[i].recipients.clear();}
+\DoxyCodeLine{02551\ \ \ \ \ \ \ \_result[i].subject.clear();}
+\DoxyCodeLine{02552\ \ \ \ \ \ \ \_result[i].timestamp\ =\ 0;}
+\DoxyCodeLine{02553\ \ \ \ \ \ \ \_result[i].completed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02554\ \ \ \ \ \}}
+\DoxyCodeLine{02555\ \ \ \ \ \_result.clear();}
+\DoxyCodeLine{02556\ \ \ \}}
+\DoxyCodeLine{02557\ }
+\DoxyCodeLine{02558\ \ \ SMTP\_Result\ getItem(\textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{02559\ \ \ \{}
+\DoxyCodeLine{02560\ \ \ \ \ SMTP\_Result\ r;}
+\DoxyCodeLine{02561\ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ <\ \_result.size())}
+\DoxyCodeLine{02562\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_result[index];}
+\DoxyCodeLine{02563\ \ \ \ \ \textcolor{keywordflow}{return}\ r;}
+\DoxyCodeLine{02564\ \ \ \}}
+\DoxyCodeLine{02565\ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \{\ \textcolor{keywordflow}{return}\ \_result.size();\ \};}
+\DoxyCodeLine{02566\ \};}
+\DoxyCodeLine{02567\ }
+\DoxyCodeLine{02568\ \textcolor{keyword}{class\ }SMTPSession}
+\DoxyCodeLine{02569\ \{}
+\DoxyCodeLine{02570\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{02571\ \ \ SMTPSession(\mbox{\hyperlink{class_client}{Client}}\ *client);}
+\DoxyCodeLine{02572\ \ \ SMTPSession();}
+\DoxyCodeLine{02573\ \ \ \string~SMTPSession();}
+\DoxyCodeLine{02574\ }
+\DoxyCodeLine{02579\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_ad270859efdd03e099feb223b59682df9}{setTCPTimeout}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeoutSec);}
+\DoxyCodeLine{02580\ }
+\DoxyCodeLine{02585\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a5f6b6483b8af60aab097940effced4e7}{setClient}}(\mbox{\hyperlink{class_client}{Client}}\ *client);}
+\DoxyCodeLine{02586\ }
+\DoxyCodeLine{02596\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a0119d9a8d82ec01c6e4564116bab118d}{setGSMClient}}(\mbox{\hyperlink{class_client}{Client}}\ *client,\ \textcolor{keywordtype}{void}\ *modem,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *apn,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *user,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password);}
+\DoxyCodeLine{02597\ }
+\DoxyCodeLine{02607\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a50c035c14e4a0ca0673f5db64dd3eada}{setEthernetClient}}(\mbox{\hyperlink{class_client}{Client}}\ *client,\ uint8\_t\ macAddress[6],\ \textcolor{keywordtype}{int}\ csPin,\ \textcolor{keywordtype}{int}\ resetPin,\ ESP\_Mail\_StaticIP\ *staticIP\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{02608\ }
+\DoxyCodeLine{02613\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a18ffcb3640b05602369114d1efd093e9}{networkConnectionRequestCallback}}(NetworkConnectionRequestCallback\ networkConnectionCB);}
+\DoxyCodeLine{02614\ }
+\DoxyCodeLine{02619\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a2391e627534c5f849deb8a6d288a2dc0}{networkStatusRequestCallback}}(NetworkStatusRequestCallback\ networkStatusCB);}
+\DoxyCodeLine{02620\ }
+\DoxyCodeLine{02625\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a0bbc105d2c1be6e7b5aef0860af6fafb}{setNetworkStatus}}(\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a25c7d6dde36a35f61ad3c0d4b6c41503}{status}});}
+\DoxyCodeLine{02626\ }
+\DoxyCodeLine{02632\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a77d85f81bc97ca4594070098437957ea}{setSSLBufferSize}}(\textcolor{keywordtype}{int}\ rx\ =\ -\/1,\ \textcolor{keywordtype}{int}\ tx\ =\ -\/1);}
+\DoxyCodeLine{02633\ }
+\DoxyCodeLine{02641\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a5b397221de91f30c5361e844dd6902c9}{connect}}(Session\_Config\ *session\_config,\ \textcolor{keywordtype}{bool}\ login\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{02642\ }
+\DoxyCodeLine{02649\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02650\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a720bda3351aedd84fcba3370a4fc4083}{loginWithPassword}}(T1\ email,\ T2\ password)\ \{\ \textcolor{keywordflow}{return}\ mLogin(toStringPtr(email),\ toStringPtr(password),\ \textcolor{keyword}{false});\ \};}
+\DoxyCodeLine{02651\ }
+\DoxyCodeLine{02658\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T1\ =\ const\ \textcolor{keywordtype}{char}\ *,\ \textcolor{keyword}{typename}\ T2\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02659\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a0e92219ef8fb1aae1f2d37e6456bd812}{loginWithAccessToken}}(T1\ email,\ T2\ token)\ \{\ \textcolor{keywordflow}{return}\ mLogin(toStringPtr(email),\ toStringPtr(token),\ \textcolor{keyword}{true});\ \};}
+\DoxyCodeLine{02660\ }
+\DoxyCodeLine{02664\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a9e622cc0a7421ec610988acb2baa4d85}{isAuthenticated}}();}
+\DoxyCodeLine{02665\ }
+\DoxyCodeLine{02669\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a2ed98e63584befca339f90f50d93929f}{isLoggedIn}}();}
+\DoxyCodeLine{02670\ }
+\DoxyCodeLine{02681\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_s_m_t_p_session_aa877b1335b414129a753084a1793d8a9}{customConnect}}(Session\_Config\ *session\_config,\ smtpResponseCallback\ \mbox{\hyperlink{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a}{callback}},\ \textcolor{keywordtype}{int}\ commandID\ =\ -\/1);}
+\DoxyCodeLine{02682\ }
+\DoxyCodeLine{02686\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_ac1b3ce3a3b29204b4627a6e5737b645c}{closeSession}}();}
+\DoxyCodeLine{02687\ }
+\DoxyCodeLine{02692\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a74b2a5e5713c52b80bd864e8c69189d7}{connected}}();}
+\DoxyCodeLine{02693\ }
+\DoxyCodeLine{02705\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02706\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_s_m_t_p_session_a3c03e97e9589b52d97221e23b1640b70}{sendCustomCommand}}(T\ cmd,\ smtpResponseCallback\ \mbox{\hyperlink{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a}{callback}},\ \textcolor{keywordtype}{int}\ commandID\ =\ -\/1)\ \{\ \textcolor{keywordflow}{return}\ mSendCustomCommand(toStringPtr(cmd),\ \mbox{\hyperlink{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a}{callback}},\ commandID);\ \}}
+\DoxyCodeLine{02707\ }
+\DoxyCodeLine{02715\ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ const\ \textcolor{keywordtype}{char}\ *>}
+\DoxyCodeLine{02716\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a1035df3a37bee49be6b4fbc0789a1516}{sendCustomData}}(T\ data)\ \{\ \textcolor{keywordflow}{return}\ mSendData(toStringPtr(data));\ \}}
+\DoxyCodeLine{02717\ }
+\DoxyCodeLine{02726\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a28676db0d68b178003890cc508695618}{sendCustomData}}(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size)\ \{\ \textcolor{keywordflow}{return}\ mSendData(data,\ size);\ \}}
+\DoxyCodeLine{02727\ }
+\DoxyCodeLine{02734\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a45b3d8fe8b3de9ca54c0e62d5e1567c5}{debug}}(\textcolor{keywordtype}{int}\ level);}
+\DoxyCodeLine{02735\ }
+\DoxyCodeLine{02740\ \ \ String\ \mbox{\hyperlink{class_s_m_t_p_session_a8b0bbdfd9c1d86c5a3c48da994ec142a}{errorReason}}();}
+\DoxyCodeLine{02741\ }
+\DoxyCodeLine{02748\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_s_m_t_p_session_a63b07e34f46a5097f90af3a1ec553c51}{statusCode}}();}
+\DoxyCodeLine{02749\ }
+\DoxyCodeLine{02755\ \ \ String\ \mbox{\hyperlink{class_s_m_t_p_session_a9357dd2171c232b7f7c674b25b3567b8}{statusMessage}}();}
+\DoxyCodeLine{02756\ }
+\DoxyCodeLine{02764\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_s_m_t_p_session_a1251d861ef7b98488ab2bc51d4f26e84}{errorCode}}();}
+\DoxyCodeLine{02765\ }
+\DoxyCodeLine{02771\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a}{callback}}(smtpStatusCallback\ smtpCallback);}
+\DoxyCodeLine{02772\ }
+\DoxyCodeLine{02777\ \ \ \mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}}\ \mbox{\hyperlink{class_s_m_t_p_session_a25c7d6dde36a35f61ad3c0d4b6c41503}{status}}();}
+\DoxyCodeLine{02778\ }
+\DoxyCodeLine{02784\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_a6ecfee39eb4a23b4e7075e0af58313c2}{setSystemTime}}(time\_t\ ts,\ \textcolor{keywordtype}{float}\ gmtOffset\ =\ 0);}
+\DoxyCodeLine{02785\ }
+\DoxyCodeLine{02798\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_s_m_t_p_session_ac05ceefd50a9e0dbcb02884a68ae34e4}{keepAlive}}(\textcolor{keywordtype}{int}\ tcpKeepIdleSeconds,\ \textcolor{keywordtype}{int}\ tcpKeepIntervalSeconds,\ \textcolor{keywordtype}{int}\ tcpKeepCount);}
+\DoxyCodeLine{02799\ }
+\DoxyCodeLine{02804\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a1200764bcf42a5247cc6d48738cd88a1}{isKeepAlive}}();}
+\DoxyCodeLine{02805\ }
+\DoxyCodeLine{02806\ \ \ \mbox{\hyperlink{class_sending_result}{SendingResult}}\ sendingResult;}
+\DoxyCodeLine{02807\ }
+\DoxyCodeLine{02808\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_e_s_p___mail___client}{ESP\_Mail\_Client}};}
+\DoxyCodeLine{02809\ }
+\DoxyCodeLine{02810\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{02811\ \ \ \textcolor{keywordtype}{bool}\ \_sessionSSL\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02812\ \ \ \textcolor{keywordtype}{bool}\ \_sessionLogin\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02813\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__smtp__response__status__t}{esp\_mail\_smtp\_response\_status\_t}}\ \_responseStatus;}
+\DoxyCodeLine{02814\ \ \ \textcolor{keywordtype}{int}\ \_sentSuccessCount\ =\ 0;}
+\DoxyCodeLine{02815\ \ \ \textcolor{keywordtype}{int}\ \_sentFailedCount\ =\ 0;}
+\DoxyCodeLine{02816\ \ \ \textcolor{keywordtype}{bool}\ \_chunkedEnable\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02817\ \ \ \textcolor{keywordtype}{int}\ \_chunkCount\ =\ 0;}
+\DoxyCodeLine{02818\ \ \ uint32\_t\ ts\ =\ 0;}
+\DoxyCodeLine{02819\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ tcpTimeout\ =\ TCP\_CLIENT\_DEFAULT\_TCP\_TIMEOUT\_SEC;}
+\DoxyCodeLine{02820\ }
+\DoxyCodeLine{02821\ \ \ esp\_mail\_smtp\_command\ \_smtp\_cmd\ =\ esp\_mail\_smtp\_command::esp\_mail\_smtp\_cmd\_greeting;}
+\DoxyCodeLine{02822\ }
+\DoxyCodeLine{02823\ \ \ \textcolor{keywordtype}{bool}\ \_auth\_capability[esp\_mail\_auth\_capability\_maxType];}
+\DoxyCodeLine{02824\ \ \ \textcolor{keywordtype}{bool}\ \_feature\_capability[esp\_mail\_smtp\_send\_capability\_maxType];}
+\DoxyCodeLine{02825\ }
+\DoxyCodeLine{02826\ \ \ Session\_Config\ *\_session\_cfg\ =\ NULL;}
+\DoxyCodeLine{02827\ \ \ \_vectorImpl<int>\ \_configPtrList;}
+\DoxyCodeLine{02828\ }
+\DoxyCodeLine{02829\ \ \ \textcolor{keywordtype}{bool}\ \_debug\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02830\ \ \ \textcolor{keywordtype}{int}\ \_debugLevel\ =\ 0;}
+\DoxyCodeLine{02831\ \ \ \textcolor{keywordtype}{bool}\ \_secure\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02832\ \ \ \textcolor{keywordtype}{bool}\ \_authenticated\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02833\ \ \ \textcolor{keywordtype}{bool}\ \_loginStatus\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02834\ \ \ \textcolor{keywordtype}{bool}\ \_waitForAuthenticate\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02835\ \ \ \textcolor{keywordtype}{bool}\ \_canForward\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02836\ \ \ smtpStatusCallback\ \_statusCallback\ =\ NULL;}
+\DoxyCodeLine{02837\ \ \ smtpResponseCallback\ \_customCmdResCallback\ =\ NULL;}
+\DoxyCodeLine{02838\ \ \ \textcolor{keywordtype}{int}\ \_commandID\ =\ -\/1;}
+\DoxyCodeLine{02839\ \ \ \textcolor{keywordtype}{bool}\ \_sdStorageReady\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02840\ \ \ \textcolor{keywordtype}{bool}\ \_flashStorageReady\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02841\ \ \ \textcolor{keywordtype}{bool}\ \_sdStorageChecked\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02842\ \ \ \textcolor{keywordtype}{bool}\ \_flashStorageChecked\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{02843\ }
+\DoxyCodeLine{02844\ \ \ esp\_mail\_session\_type\ \_sessionType\ =\ esp\_mail\_session\_type\_smtp;}
+\DoxyCodeLine{02845\ \ \ \mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}}\ \_cbData;}
+\DoxyCodeLine{02846\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__mail__smtp__msg__type__t}{esp\_mail\_smtp\_msg\_type\_t}}\ \_msgType;}
+\DoxyCodeLine{02847\ \ \ \textcolor{keywordtype}{int}\ \_lastProgress\ =\ -\/1;}
+\DoxyCodeLine{02848\ \ \ \mbox{\hyperlink{class_bear_s_s_l___session}{BearSSL\_Session}}\ \_bsslSession;}
+\DoxyCodeLine{02849\ }
+\DoxyCodeLine{02850\ \ \ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client}{ESP\_Mail\_TCPClient}}\ client;}
+\DoxyCodeLine{02851\ }
+\DoxyCodeLine{02852\ \ \ \textcolor{comment}{//\ Start\ TCP\ connection}}
+\DoxyCodeLine{02853\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_s_m_t_p_session_a5b397221de91f30c5361e844dd6902c9}{connect}}(\textcolor{keywordtype}{bool}\ \&ssl);}
+\DoxyCodeLine{02854\ }
+\DoxyCodeLine{02855\ \ \ \textcolor{comment}{//\ Log\ in\ to\ SMTP\ server}}
+\DoxyCodeLine{02856\ \ \ \textcolor{keywordtype}{bool}\ mLogin(MB\_StringPtr\ email,\ MB\_StringPtr\ password,\ \textcolor{keywordtype}{bool}\ isToken);}
+\DoxyCodeLine{02857\ }
+\DoxyCodeLine{02858\ \ \ \textcolor{comment}{//\ Handle\ TCP\ connection}}
+\DoxyCodeLine{02859\ \ \ \textcolor{keywordtype}{bool}\ handleConnection(Session\_Config\ *session\_config,\ \textcolor{keywordtype}{bool}\ \&ssl);}
+\DoxyCodeLine{02860\ }
+\DoxyCodeLine{02861\ \ \ \textcolor{comment}{//\ Send\ custom\ command}}
+\DoxyCodeLine{02862\ \ \ \textcolor{keywordtype}{int}\ mSendCustomCommand(MB\_StringPtr\ cmd,\ smtpResponseCallback\ \mbox{\hyperlink{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a}{callback}},\ \textcolor{keywordtype}{int}\ commandID\ =\ -\/1);}
+\DoxyCodeLine{02863\ }
+\DoxyCodeLine{02864\ \ \ \textcolor{comment}{//\ Send\ data\ after\ sending\ DATA\ command}}
+\DoxyCodeLine{02865\ \ \ \textcolor{keywordtype}{bool}\ mSendData(MB\_StringPtr\ data);}
+\DoxyCodeLine{02866\ }
+\DoxyCodeLine{02867\ \ \ \textcolor{comment}{//\ Send\ data\ after\ sending\ DATA\ command}}
+\DoxyCodeLine{02868\ \ \ \textcolor{keywordtype}{bool}\ mSendData(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{02869\ \};}
+\DoxyCodeLine{02870\ }
+\DoxyCodeLine{02871\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02872\ }
+\DoxyCodeLine{02873\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)\ \&\&\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{02874\ }
+\DoxyCodeLine{02875\ \textcolor{keyword}{class\ }ESP\_Mail\_Message\ :\ \textcolor{keyword}{public}\ SMTP\_Message}
+\DoxyCodeLine{02876\ \{}
+\DoxyCodeLine{02877\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{02878\ \ \ ESP\_Mail\_Message()\{\};}
+\DoxyCodeLine{02879\ \ \ \string~ESP\_Mail\_Message()\{\};}
+\DoxyCodeLine{02880\ \};}
+\DoxyCodeLine{02881\ }
+\DoxyCodeLine{02882\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02883\ }
+\DoxyCodeLine{02884\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_e_s_p___mail___client}{ESP\_Mail\_Client}}\ MailClient;}
+\DoxyCodeLine{02885\ }
+\DoxyCodeLine{02886\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ESP\_MAIL\_CLIENT\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

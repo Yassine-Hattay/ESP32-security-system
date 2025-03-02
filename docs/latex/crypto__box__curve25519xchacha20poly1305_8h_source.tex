@@ -1,0 +1,170 @@
+\doxysection{crypto\+\_\+box\+\_\+curve25519xchacha20poly1305.\+h}
+\hypertarget{crypto__box__curve25519xchacha20poly1305_8h_source}{}\label{crypto__box__curve25519xchacha20poly1305_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_box\_curve25519xchacha20poly1305.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_box\_curve25519xchacha20poly1305.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ crypto\_box\_curve25519xchacha20poly1305\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ crypto\_box\_curve25519xchacha20poly1305\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}crypto\_stream\_xchacha20.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}export.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#\ ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#\ \ pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wlong-\/long"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ crypto\_box\_curve25519xchacha20poly1305\_SEEDBYTES\ 32U}}
+\DoxyCodeLine{00017\ SODIUM\_EXPORT}
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{size\_t}\ crypto\_box\_curve25519xchacha20poly1305\_seedbytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ crypto\_box\_curve25519xchacha20poly1305\_PUBLICKEYBYTES\ 32U}}
+\DoxyCodeLine{00021\ SODIUM\_EXPORT}
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{size\_t}\ crypto\_box\_curve25519xchacha20poly1305\_publickeybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ crypto\_box\_curve25519xchacha20poly1305\_SECRETKEYBYTES\ 32U}}
+\DoxyCodeLine{00025\ SODIUM\_EXPORT}
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{size\_t}\ crypto\_box\_curve25519xchacha20poly1305\_secretkeybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ crypto\_box\_curve25519xchacha20poly1305\_BEFORENMBYTES\ 32U}}
+\DoxyCodeLine{00029\ SODIUM\_EXPORT}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{size\_t}\ crypto\_box\_curve25519xchacha20poly1305\_beforenmbytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ crypto\_box\_curve25519xchacha20poly1305\_NONCEBYTES\ 24U}}
+\DoxyCodeLine{00033\ SODIUM\_EXPORT}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{size\_t}\ crypto\_box\_curve25519xchacha20poly1305\_noncebytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ crypto\_box\_curve25519xchacha20poly1305\_MACBYTES\ 16U}}
+\DoxyCodeLine{00037\ SODIUM\_EXPORT}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{size\_t}\ crypto\_box\_curve25519xchacha20poly1305\_macbytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ crypto\_box\_curve25519xchacha20poly1305\_MESSAGEBYTES\_MAX\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ (crypto\_stream\_xchacha20\_MESSAGEBYTES\_MAX\ -\/\ crypto\_box\_curve25519xchacha20poly1305\_MACBYTES)}}
+\DoxyCodeLine{00042\ SODIUM\_EXPORT}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{size\_t}\ crypto\_box\_curve25519xchacha20poly1305\_messagebytes\_max(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ SODIUM\_EXPORT}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_seed\_keypair(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *seed)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ SODIUM\_EXPORT}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_keypair(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ SODIUM\_EXPORT}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_easy(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(1,\ 4,\ 5,\ 6)));}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ SODIUM\_EXPORT}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_open\_easy(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ clen,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(2,\ 4,\ 5,\ 6)));}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ SODIUM\_EXPORT}
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_detached(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *mac,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(1,\ 2,\ 5,\ 6,\ 7)));}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ SODIUM\_EXPORT}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_open\_detached(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *mac,}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ clen,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(2,\ 3,\ 5,\ 6,\ 7)));}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{/*\ -\/-\/\ Precomputation\ interface\ -\/-\/\ */}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ SODIUM\_EXPORT}
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_beforenm(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k,}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ SODIUM\_EXPORT}
+\DoxyCodeLine{00103\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_easy\_afternm(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1,\ 4,\ 5)));}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ SODIUM\_EXPORT}
+\DoxyCodeLine{00111\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_open\_easy\_afternm(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ clen,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(2,\ 4,\ 5)));}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ SODIUM\_EXPORT}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_detached\_afternm(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *mac,}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen,}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1,\ 2,\ 5,\ 6)));}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ SODIUM\_EXPORT}
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_open\_detached\_afternm(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *mac,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ clen,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(2,\ 3,\ 5,\ 6)));}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{comment}{/*\ -\/-\/\ Ephemeral\ SK\ interface\ -\/-\/\ */}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ crypto\_box\_curve25519xchacha20poly1305\_SEALBYTES\ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ \ \ (crypto\_box\_curve25519xchacha20poly1305\_PUBLICKEYBYTES\ +\ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ \ \ \ crypto\_box\_curve25519xchacha20poly1305\_MACBYTES)}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ SODIUM\_EXPORT}
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{size\_t}\ crypto\_box\_curve25519xchacha20poly1305\_sealbytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ SODIUM\_EXPORT}
+\DoxyCodeLine{00146\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_seal(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen,}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk)}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1,\ 4)));}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ SODIUM\_EXPORT}
+\DoxyCodeLine{00153\ \textcolor{keywordtype}{int}\ crypto\_box\_curve25519xchacha20poly1305\_seal\_open(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ clen,}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(2,\ 4,\ 5)));}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00161\ \}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

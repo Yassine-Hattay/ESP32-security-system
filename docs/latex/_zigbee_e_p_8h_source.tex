@@ -1,0 +1,141 @@
+\doxysection{Zigbee\+EP.\+h}
+\hypertarget{_zigbee_e_p_8h_source}{}\label{_zigbee_e_p_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Zigbee/src/ZigbeeEP.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Zigbee/src/ZigbeeEP.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Common\ Class\ for\ Zigbee\ End\ point\ */}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}ZigbeeCore.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#if\ SOC\_IEEE802154\_SUPPORTED\ \&\&\ CONFIG\_ZB\_ENABLED}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{/*\ Useful\ defines\ */}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ ZB\_CMD\_TIMEOUT\ 10000\ \ }\textcolor{comment}{//\ 10\ seconds}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ ZB\_ARRAY\_LENTH(arr)\ (sizeof(arr)\ /\ sizeof(arr[0]))}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ XYZ\_TO\_RGB(X,\ Y,\ Z,\ r,\ g,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ r\ =\ (float)(3.240479\ *\ (X)\ -\/\ 1.537150\ *\ (Y)\ -\/\ 0.498535\ *\ (Z));\ \ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ g\ =\ (float)(-\/0.969256\ *\ (X)\ +\ 1.875992\ *\ (Y)\ +\ 0.041556\ *\ (Z));\ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ b\ =\ (float)(0.055648\ *\ (X)\ -\/\ 0.204043\ *\ (Y)\ +\ 1.057311\ *\ (Z));\ \ \(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ if\ (r\ >\ 1)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ \ \ r\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ if\ (g\ >\ 1)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \ \ g\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ if\ (b\ >\ 1)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ \ \ b\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ RGB\_TO\_XYZ(r,\ g,\ b,\ X,\ Y,\ Z)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ X\ =\ (float)(0.412453\ *\ (r)\ +\ 0.357580\ *\ (g)\ +\ 0.180423\ *\ (b));\ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ Y\ =\ (float)(0.212671\ *\ (r)\ +\ 0.715160\ *\ (g)\ +\ 0.072169\ *\ (b));\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ Z\ =\ (float)(0.019334\ *\ (r)\ +\ 0.119193\ *\ (g)\ +\ 0.950227\ *\ (b));\ \(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zbstring\_s\ \{}
+\DoxyCodeLine{00038\ \ \ uint8\_t\ len;}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{char}\ data[];}
+\DoxyCodeLine{00040\ \}\ ESP\_ZB\_PACKED\_STRUCT\ zbstring\_t;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_device\_params\_s\ \{}
+\DoxyCodeLine{00043\ \ \ esp\_zb\_ieee\_addr\_t\ ieee\_addr;}
+\DoxyCodeLine{00044\ \ \ uint8\_t\ endpoint;}
+\DoxyCodeLine{00045\ \ \ uint16\_t\ short\_addr;}
+\DoxyCodeLine{00046\ \}\ zb\_device\_params\_t;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00049\ \ \ ZB\_POWER\_SOURCE\_UNKNOWN\ =\ 0x00,}
+\DoxyCodeLine{00050\ \ \ ZB\_POWER\_SOURCE\_MAINS\ =\ 0x01,}
+\DoxyCodeLine{00051\ \ \ ZB\_POWER\_SOURCE\_BATTERY\ =\ 0x03,}
+\DoxyCodeLine{00052\ \}\ zb\_power\_source\_t;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{/*\ Zigbee\ End\ Device\ Class\ */}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{class\ }ZigbeeEP\ \{}
+\DoxyCodeLine{00056\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ ZigbeeEP(uint8\_t\ endpoint\ =\ 10);}
+\DoxyCodeLine{00058\ \ \ \string~ZigbeeEP();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \textcolor{comment}{//\ Set\ ep\ config\ and\ cluster\ list}}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ setEpConfig(esp\_zb\_endpoint\_config\_t\ ep\_config,\ esp\_zb\_cluster\_list\_t\ *cluster\_list)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \_ep\_config\ =\ ep\_config;}
+\DoxyCodeLine{00063\ \ \ \ \ \_cluster\_list\ =\ cluster\_list;}
+\DoxyCodeLine{00064\ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ setVersion(uint8\_t\ version);}
+\DoxyCodeLine{00067\ \ \ uint8\_t\ getEndpoint()\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{return}\ \_endpoint;}
+\DoxyCodeLine{00069\ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{void}\ printBoundDevices();}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ printBoundDevices(Print\ \&print);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ std::list<zb\_device\_params\_t\ *>\ getBoundDevices()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ \_bound\_devices;}
+\DoxyCodeLine{00076\ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ bound()\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ \_is\_bound;}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ allowMultipleBinding(\textcolor{keywordtype}{bool}\ bind)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \_allow\_multiple\_binding\ =\ bind;}
+\DoxyCodeLine{00083\ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ Manufacturer\ name\ and\ model\ implemented}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{void}\ setManufacturerAndModel(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *model);}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{void}\ setPowerSource(zb\_power\_source\_t\ power\_source,\ uint8\_t\ percentage\ =\ 255);}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{void}\ setBatteryPercentage(uint8\_t\ percentage);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{void}\ reportBatteryPercentage();}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{comment}{//\ Methods\ to\ read\ manufacturer\ and\ model\ name\ from\ selected\ endpoint\ and\ short\ address}}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{char}\ *readManufacturer(uint8\_t\ endpoint,\ uint16\_t\ short\_addr,\ esp\_zb\_ieee\_addr\_t\ ieee\_addr);}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{char}\ *readModel(uint8\_t\ endpoint,\ uint16\_t\ short\_addr,\ esp\_zb\_ieee\_addr\_t\ ieee\_addr);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{bool}\ epAllowMultipleBinding()\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ \_allow\_multiple\_binding;}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ findEndpoind\ may\ be\ implemented\ by\ EPs\ to\ find\ and\ bind\ devices}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ findEndpoint(esp\_zb\_zdo\_match\_desc\_req\_param\_t\ *cmd\_req)\ \{\};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//list\ of\ all\ handlers\ function\ calls,\ to\ be\ override\ by\ EPs\ implementation}}
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ zbAttributeSet(\textcolor{keyword}{const}\ esp\_zb\_zcl\_set\_attr\_value\_message\_t\ *message)\ \{\};}
+\DoxyCodeLine{00104\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ zbAttributeRead(uint16\_t\ cluster\_id,\ \textcolor{keyword}{const}\ esp\_zb\_zcl\_attribute\_t\ *attribute)\ \{\};}
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ zbReadBasicCluster(\textcolor{keyword}{const}\ esp\_zb\_zcl\_attribute\_t\ *attribute);\ \ \textcolor{comment}{//already\ implemented}}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ zbIdentify(\textcolor{keyword}{const}\ esp\_zb\_zcl\_set\_attr\_value\_message\_t\ *message);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{void}\ onIdentify(\textcolor{keywordtype}{void}\ (*callback)(uint16\_t))\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \_on\_identify\ =\ callback;}
+\DoxyCodeLine{00110\ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{char}\ *\_read\_manufacturer;}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{char}\ *\_read\_model;}
+\DoxyCodeLine{00115\ \ \ void\ (*\_on\_identify)(uint16\_t\ time);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00118\ \ \ uint8\_t\ \_endpoint;}
+\DoxyCodeLine{00119\ \ \ esp\_zb\_ha\_standard\_devices\_t\ \_device\_id;}
+\DoxyCodeLine{00120\ \ \ esp\_zb\_endpoint\_config\_t\ \_ep\_config;}
+\DoxyCodeLine{00121\ \ \ esp\_zb\_cluster\_list\_t\ *\_cluster\_list;}
+\DoxyCodeLine{00122\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \_is\_bound;}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \_allow\_multiple\_binding;}
+\DoxyCodeLine{00124\ \ \ std::list<zb\_device\_params\_t\ *>\ \_bound\_devices;}
+\DoxyCodeLine{00125\ \ \ SemaphoreHandle\_t\ lock;}
+\DoxyCodeLine{00126\ \ \ zb\_power\_source\_t\ \_power\_source;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{void}\ addBoundDevice(zb\_device\_params\_t\ *device)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \_bound\_devices.push\_back(device);}
+\DoxyCodeLine{00130\ \ \ \ \ \_is\_bound\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00131\ \ \ \}}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }ZigbeeCore;}
+\DoxyCodeLine{00133\ \};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//SOC\_IEEE802154\_SUPPORTED\ \&\&\ CONFIG\_ZB\_ENABLED}}
+
+\end{DoxyCode}

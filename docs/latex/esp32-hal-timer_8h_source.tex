@@ -1,0 +1,66 @@
+\doxysection{esp32-\/hal-\/timer.h}
+\hypertarget{esp32-hal-timer_8h_source}{}\label{esp32-hal-timer_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/timer.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/timer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ Arduino.h\ -\/\ Main\ include\ file\ for\ the\ Arduino\ SDK}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ Copyright\ (c)\ 2005-\/2013\ Arduino\ Team.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#if\ SOC\_GPTIMER\_SUPPORTED}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}driver/gptimer\_types.h"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }timer\_struct\_t;}
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }timer\_struct\_t\ hw\_timer\_t;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ hw\_timer\_t\ *timerBegin(uint32\_t\ frequency);}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ timerEnd(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ timerStart(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ timerStop(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{void}\ timerRestart(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ timerWrite(hw\_timer\_t\ *timer,\ uint64\_t\ val);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ uint64\_t\ timerRead(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00044\ uint64\_t\ timerReadMicros(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00045\ uint64\_t\ timerReadMillis(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{double}\ timerReadSeconds(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ uint32\_t\ timerGetFrequency(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ timerAttachInterrupt(hw\_timer\_t\ *timer,\ \textcolor{keywordtype}{void}\ (*userFunc)(\textcolor{keywordtype}{void}));}
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ timerAttachInterruptArg(hw\_timer\_t\ *timer,\ \textcolor{keywordtype}{void}\ (*userFunc)(\textcolor{keywordtype}{void}\ *),\ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ timerDetachInterrupt(hw\_timer\_t\ *timer);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ timerAlarm(hw\_timer\_t\ *timer,\ uint64\_t\ alarm\_value,\ \textcolor{keywordtype}{bool}\ autoreload,\ uint64\_t\ reload\_count);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00057\ \}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_GPTIMER\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

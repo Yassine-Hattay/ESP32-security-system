@@ -1,0 +1,125 @@
+\doxysection{Bluetooth\+Serial.\+h}
+\hypertarget{_bluetooth_serial_8h_source}{}\label{_bluetooth_serial_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BluetoothSerial/src/BluetoothSerial.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BluetoothSerial/src/BluetoothSerial.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2018\ Evandro\ Luis\ Copercini}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ \_BLUETOOTH\_SERIAL\_H\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ \_BLUETOOTH\_SERIAL\_H\_}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_BT\_ENABLED)\ \&\&\ defined(CONFIG\_BLUEDROID\_ENABLED)}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}Stream.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <esp\_gap\_bt\_api.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <esp\_spp\_api.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}BTScan.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}BTAdvertisedDevice.h"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ std::function<void(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size)>\ BluetoothSerialDataCb;}
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ std::function<void(uint32\_t\ num\_val)>\ ConfirmRequestCb;}
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ std::function<void()>\ KeyRequestCb;}
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ std::function<void(\textcolor{keywordtype}{boolean}\ success)>\ AuthCompleteCb;}
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ std::function<void(\mbox{\hyperlink{class_b_t_advertised_device}{BTAdvertisedDevice}}\ *pAdvertisedDevice)>\ BTAdvertisedDeviceCb;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }BluetoothSerial\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_stream}{Stream}}\ \{}
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ BluetoothSerial(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00040\ \ \ \string~BluetoothSerial(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{bool}\ begin(String\ localName\ =\ String(),\ \textcolor{keywordtype}{bool}\ isMaster\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ disableBLE\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{bool}\ begin(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ baud)\ \{\ \ \textcolor{comment}{//compatibility}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ begin();}
+\DoxyCodeLine{00045\ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{int}\ available(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{int}\ peek(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{bool}\ hasClient(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{int}\ read(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t\ c);}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{void}\ flush();}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{void}\ end(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{void}\ memrelease();}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ setTimeout(\textcolor{keywordtype}{int}\ timeoutMS);}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ onData(BluetoothSerialDataCb\ cb);}
+\DoxyCodeLine{00057\ \ \ esp\_err\_t\ register\_callback(esp\_spp\_cb\_t\ callback);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{void}\ onConfirmRequest(ConfirmRequestCb\ cb);}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{void}\ onKeyRequest(KeyRequestCb\ cb);}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ respondPasskey(uint32\_t\ passkey);}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ onAuthComplete(AuthCompleteCb\ cb);}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ confirmReply(\textcolor{keywordtype}{boolean}\ confirm);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{void}\ enableSSP();}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ enableSSP(\textcolor{keywordtype}{bool}\ inputCapability,\ \textcolor{keywordtype}{bool}\ outputCapability);}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ disableSSP();}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{bool}\ setPin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pin,\ uint8\_t\ pin\_code\_len);}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{bool}\ connect(String\ remoteName);}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ connect(}
+\DoxyCodeLine{00071\ \ \ \ \ uint8\_t\ remoteAddress[],\ \textcolor{keywordtype}{int}\ channel\ =\ 0,\ esp\_spp\_sec\_t\ sec\_mask\ =\ (ESP\_SPP\_SEC\_ENCRYPT\ |\ ESP\_SPP\_SEC\_AUTHENTICATE),}
+\DoxyCodeLine{00072\ \ \ \ \ esp\_spp\_role\_t\ role\ =\ ESP\_SPP\_ROLE\_MASTER}
+\DoxyCodeLine{00073\ \ \ );}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{bool}\ connect(}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{const}\ BTAddress\ \&remoteAddress,\ \textcolor{keywordtype}{int}\ channel\ =\ 0,\ esp\_spp\_sec\_t\ sec\_mask\ =\ (ESP\_SPP\_SEC\_ENCRYPT\ |\ ESP\_SPP\_SEC\_AUTHENTICATE),}
+\DoxyCodeLine{00076\ \ \ \ \ esp\_spp\_role\_t\ role\ =\ ESP\_SPP\_ROLE\_MASTER}
+\DoxyCodeLine{00077\ \ \ )\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ connect(*remoteAddress.getNative(),\ channel,\ sec\_mask);}
+\DoxyCodeLine{00079\ \ \ \};}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{bool}\ connect();}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{bool}\ connected(\textcolor{keywordtype}{int}\ timeout\ =\ 0);}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{bool}\ isClosed();}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{bool}\ isReady(\textcolor{keywordtype}{bool}\ checkMaster\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{int}\ timeout\ =\ 0);}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{bool}\ disconnect();}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{bool}\ unpairDevice(uint8\_t\ remoteAddress[]);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ BTScanResults\ *discover(\textcolor{keywordtype}{int}\ timeout\ =\ 0x30\ *\ 1280);}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{bool}\ discoverAsync(BTAdvertisedDeviceCb\ cb,\ \textcolor{keywordtype}{int}\ timeout\ =\ 0x30\ *\ 1280);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{void}\ discoverAsyncStop();}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{void}\ discoverClear();}
+\DoxyCodeLine{00091\ \ \ BTScanResults\ *getScanResults();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ std::map<int,\ std::string>\ getChannels(\textcolor{keyword}{const}\ BTAddress\ \&remoteAddress);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ INQ\_TIME\ =\ 1280;\ \ \textcolor{comment}{//\ Inquire\ Time\ unit\ 1280\ ms}}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MIN\_INQ\_TIME\ =\ (ESP\_BT\_GAP\_MIN\_INQ\_LEN\ *\ INQ\_TIME);}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ MAX\_INQ\_TIME\ =\ (ESP\_BT\_GAP\_MAX\_INQ\_LEN\ *\ INQ\_TIME);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{operator}\ bool()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{void}\ getBtAddress(uint8\_t\ *mac);}
+\DoxyCodeLine{00101\ \ \ BTAddress\ getBtAddressObject();}
+\DoxyCodeLine{00102\ \ \ String\ getBtAddressString();}
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//void\ dropCache();\ //\ To\ be\ replaced}}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{void}\ requestRemoteName(uint8\_t\ *remoteAddress);}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{bool}\ readRemoteName(\textcolor{keywordtype}{char}\ rmt\_name[ESP\_BT\_GAP\_MAX\_BDNAME\_LEN\ +\ 1]);}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{void}\ invalidateRemoteName();}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{int}\ getNumberOfBondedDevices();}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{int}\ getBondedDevices(uint\ dev\_num,\ esp\_bd\_addr\_t\ *dev\_list);}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{bool}\ deleteBondedDevice(uint8\_t\ *remoteAddress);}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{void}\ deleteAllBondedDevices();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00113\ \ \ String\ local\_name;}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{int}\ timeoutTicks\ =\ 0;}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

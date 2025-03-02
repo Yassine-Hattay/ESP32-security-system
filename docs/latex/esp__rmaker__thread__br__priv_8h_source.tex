@@ -1,0 +1,73 @@
+\doxysection{esp\+\_\+rmaker\+\_\+thread\+\_\+br\+\_\+priv.\+h}
+\hypertarget{esp__rmaker__thread__br__priv_8h_source}{}\label{esp__rmaker__thread__br__priv_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_rainmaker/src/thread\_br/esp\_rmaker\_thread\_br\_priv.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_rainmaker/src/thread\_br/esp\_rmaker\_thread\_br\_priv.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}esp\_rcp\_update.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <esp\_rmaker\_core.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <esp\_openthread.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <openthread/border\_agent.h>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{/**********\ THREAD\ BR\ PARAMS\ NAME\ ***********/}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_DEF\_BORDER\_AGENT\_ID\ \ \ \ \ \ "{}BorderAgentId"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_DEF\_ACTIVE\_DATASET\ \ \ \ \ \ \ "{}ActiveDataset"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_DEF\_PENDING\_DATASET\ \ \ \ \ \ "{}PendingDataset"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_DEF\_DEVICE\_ROLE\ \ \ \ \ \ \ \ \ \ "{}DeviceRole"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_DEF\_THREAD\_BR\_CMD\ \ \ \ \ \ \ \ "{}ThreadCmd"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{/**********\ THREAD\ BR\ SERVICE\ NAME\ ***********/}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_DEF\_THREAD\_BR\_SERVICE\ \ \ \ "{}TBRService"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{/**********\ THREAD\ BR\ PARAM\ TYPES\ ***********/}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_PARAM\_TBR\_BORDER\_AGENT\_ID\ \ \ "{}esp.param.tbr-\/border-\/agent-\/id"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_PARAM\_TBR\_ACTIVE\_DATASET\ \ \ \ "{}esp.param.tbr-\/active-\/dataset"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_PARAM\_TBR\_PENDING\_DATASET\ \ \ "{}esp.param.tbr-\/pending-\/dataset"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_PARAM\_TBR\_DEVICE\_ROLE\ \ \ \ \ \ \ "{}esp.param.tbr-\/device-\/role"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_PARAM\_TBR\_CMD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}esp.param.tbr-\/cmd"{}}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/**********\ THREAD\ BR\ SERVICE\ TYPE\ ***********/}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_SERVICE\_THREAD\_BR\ \ \ \ \ \ \ \ "{}esp.service.thread-\/br"{}}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{/**********\ THREAD\ BR\ CMD\ TYPE\ ***********/}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_THREAD\_BR\_CMD\_GEN\_DATASET\ 1}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ esp\_rmaker\_device\_t\ *esp\_rmaker\_thread\_br\_service\_create(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *serv\_name,\ esp\_rmaker\_device\_write\_cb\_t\ write\_cb,}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_rmaker\_device\_read\_cb\_t\ read\_cb,\ \textcolor{keywordtype}{void}\ *priv\_data);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ esp\_err\_t\ esp\_rmaker\_thread\_br\_report\_device\_role(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ esp\_err\_t\ esp\_rmaker\_thread\_br\_report\_border\_agent\_id(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ esp\_err\_t\ thread\_br\_set\_thread\_enabled(\textcolor{keywordtype}{bool}\ enabled);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ esp\_err\_t\ thread\_br\_set\_active\_dataset\_tlvs(otOperationalDatasetTlvs\ *dataset\_tlvs);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ esp\_err\_t\ thread\_br\_get\_active\_dataset\_tlvs(otOperationalDatasetTlvs\ *dataset\_tlvs);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ esp\_err\_t\ thread\_br\_set\_pending\_dataset\_tlvs(otOperationalDatasetTlvs\ *dataset\_tlvs);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ esp\_err\_t\ thread\_br\_get\_border\_agent\_id(otBorderAgentId\ *border\_agent\_id);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ otDeviceRole\ thread\_br\_get\_device\_role(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ esp\_err\_t\ thread\_br\_generate\_and\_commit\_new\_dataset(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ esp\_err\_t\ thread\_border\_router\_start(\textcolor{keyword}{const}\ esp\_openthread\_platform\_config\_t\ *platform\_config,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structesp__rcp__update__config__t}{esp\_rcp\_update\_config\_t}}\ *rcp\_update\_config);}
+
+\end{DoxyCode}

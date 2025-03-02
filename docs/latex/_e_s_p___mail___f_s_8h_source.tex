@@ -1,0 +1,74 @@
+\doxysection{ESP\+\_\+\+Mail\+\_\+\+FS.\+h}
+\hypertarget{_e_s_p___mail___f_s_8h_source}{}\label{_e_s_p___mail___f_s_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/ESP\_Mail\_FS.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/ESP\_Mail\_FS.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ ESP\_MAIL\_CONFIG\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_CONFIG\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}extras/MB\_MCU.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ ENABLE\_NTP\_TIME}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ ENABLE\_ERROR\_STRING}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ ENABLE\_IMAP}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ ENABLE\_SMTP}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_USE\_PSRAM}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ ||\ defined(ESP8266)\ ||\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#if\ defined(ESP8266)\ ||\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#include\ <LittleFS.h>}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_DEFAULT\_FLASH\_FS\ LittleFS}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#elif\ defined(ESP\_ARDUINO\_VERSION)\ }\textcolor{comment}{/*\ ESP32\ core\ >=\ v2.0.x\ */}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ ESP\_ARDUINO\_VERSION\ >=\ ESP\_ARDUINO\_VERSION\_VAL(2,\ 0,\ 0)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#include\ <LittleFS.h>}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_DEFAULT\_FLASH\_FS\ LittleFS}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#include\ <SPIFFS.h>}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_DEFAULT\_FLASH\_FS\ SPIFFS}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ For\ ESP32,\ format\ SPIFFS\ or\ FFat\ if\ mounting\ failed}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_FORMAT\_FLASH\_IF\_MOUNT\_FAILED\ 1}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ ||\ defined(ESP8266)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#include\ <SD.h>}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_DEFAULT\_SD\_FS\ SD}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_CARD\_TYPE\_SD\ 1}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#elif\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ Use\ SDFS\ (ESP8266SdFat)\ instead\ of\ SD}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#include\ <SDFS.h>}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_DEFAULT\_SD\_FS\ SDFS}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_CARD\_TYPE\_SD\ 1}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#define\ ENABLE\_ESP8266\_ENC28J60\_ETH}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#if\ \_\_has\_include("{}Custom\_ESP\_Mail\_FS.h"{})}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#include\ "{}Custom\_ESP\_Mail\_FS.h"{}}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#include\ "{}extras/Build\_Options.h"{}}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

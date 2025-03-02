@@ -1,0 +1,146 @@
+\doxysection{IPAddress.\+h}
+\hypertarget{_i_p_address_8h_source}{}\label{_i_p_address_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/IPAddress.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/IPAddress.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ IPAddress.h\ -\/\ Base\ class\ that\ provides\ IPAddress}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ Copyright\ (c)\ 2011\ Adrian\ McEwen.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}Printable.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}WString.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}lwip/ip\_addr.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}esp\_netif\_ip\_addr.h"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ IPADDRESS\_V4\_BYTES\_INDEX\ 12}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ IPADDRESS\_V4\_DWORD\_INDEX\ 3}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ A\ class\ to\ make\ it\ easier\ to\ handle\ and\ pass\ around\ IP\ addresses}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{enum}\ IPType\ \{}
+\DoxyCodeLine{00035\ \ \ IPv4,}
+\DoxyCodeLine{00036\ \ \ IPv6}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }IPAddress\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_printable}{Printable}}\ \{}
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00042\ \ \ \ \ uint8\_t\ bytes[16];}
+\DoxyCodeLine{00043\ \ \ \ \ uint32\_t\ dword[4];}
+\DoxyCodeLine{00044\ \ \ \}\ \_address;}
+\DoxyCodeLine{00045\ \ \ IPType\ \_type;}
+\DoxyCodeLine{00046\ \ \ uint8\_t\ \_zone;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//\ Access\ the\ raw\ byte\ array\ containing\ the\ address.\ \ Because\ this\ returns\ a\ pointer}}
+\DoxyCodeLine{00049\ \ \ \textcolor{comment}{//\ to\ the\ internal\ structure\ rather\ than\ a\ copy\ of\ the\ address\ this\ function\ should\ only}}
+\DoxyCodeLine{00050\ \ \ \textcolor{comment}{//\ be\ used\ when\ you\ know\ that\ the\ usage\ of\ the\ returned\ uint8\_t*\ will\ be\ transient\ and\ not}}
+\DoxyCodeLine{00051\ \ \ \textcolor{comment}{//\ stored.}}
+\DoxyCodeLine{00052\ \ \ uint8\_t\ *raw\_address()\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ \_type\ ==\ IPv4\ ?\ \&\_address.bytes[IPADDRESS\_V4\_BYTES\_INDEX]\ :\ \_address.bytes;}
+\DoxyCodeLine{00054\ \ \ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \textcolor{comment}{//\ Constructors}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \textcolor{comment}{//\ Default\ IPv4}}
+\DoxyCodeLine{00060\ \ \ IPAddress();}
+\DoxyCodeLine{00061\ \ \ IPAddress(IPType\ ip\_type);}
+\DoxyCodeLine{00062\ \ \ IPAddress(uint8\_t\ first\_octet,\ uint8\_t\ second\_octet,\ uint8\_t\ third\_octet,\ uint8\_t\ fourth\_octet);}
+\DoxyCodeLine{00063\ \ \ IPAddress(}
+\DoxyCodeLine{00064\ \ \ \ \ uint8\_t\ o1,\ uint8\_t\ o2,\ uint8\_t\ o3,\ uint8\_t\ o4,\ uint8\_t\ o5,\ uint8\_t\ o6,\ uint8\_t\ o7,\ uint8\_t\ o8,\ uint8\_t\ o9,\ uint8\_t\ o10,\ uint8\_t\ o11,\ uint8\_t\ o12,}
+\DoxyCodeLine{00065\ \ \ \ \ uint8\_t\ o13,\ uint8\_t\ o14,\ uint8\_t\ o15,\ uint8\_t\ o16,\ uint8\_t\ z\ =\ 0}
+\DoxyCodeLine{00066\ \ \ );}
+\DoxyCodeLine{00067\ \ \ \textcolor{comment}{//\ IPv4;\ see\ implementation\ note}}
+\DoxyCodeLine{00068\ \ \ IPAddress(uint32\_t\ address);}
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{//\ Default\ IPv4}}
+\DoxyCodeLine{00070\ \ \ IPAddress(\textcolor{keyword}{const}\ uint8\_t\ *address);}
+\DoxyCodeLine{00071\ \ \ IPAddress(IPType\ ip\_type,\ \textcolor{keyword}{const}\ uint8\_t\ *address,\ uint8\_t\ z\ =\ 0);}
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{//\ If\ IPv4\ fails\ tries\ IPv6\ see\ fromString\ function}}
+\DoxyCodeLine{00073\ \ \ IPAddress(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *address);}
+\DoxyCodeLine{00074\ \ \ IPAddress(\textcolor{keyword}{const}\ IPAddress\ \&address);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{bool}\ fromString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *address);}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{bool}\ fromString(\textcolor{keyword}{const}\ String\ \&address)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ fromString(address.c\_str());}
+\DoxyCodeLine{00079\ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{comment}{//\ Overloaded\ cast\ operator\ to\ allow\ IPAddress\ objects\ to\ be\ used\ where\ a\ uint32\_t\ is\ expected}}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ NOTE:\ IPv4\ only;\ see\ implementation\ note}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{operator}\ uint32\_t()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ \_type\ ==\ IPv4\ ?\ \_address.dword[IPADDRESS\_V4\_DWORD\_INDEX]\ :\ 0;}
+\DoxyCodeLine{00085\ \ \ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ IPAddress\ \&addr)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ IPAddress\ \&addr)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{return}\ !(*\textcolor{keyword}{this}\ ==\ addr);}
+\DoxyCodeLine{00090\ \ \ \};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{comment}{//\ NOTE:\ IPv4\ only;\ we\ don't\ know\ the\ length\ of\ the\ pointer}}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ uint8\_t\ *addr)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{comment}{//\ Overloaded\ index\ operator\ to\ allow\ getting\ and\ setting\ individual\ octets\ of\ the\ address}}
+\DoxyCodeLine{00096\ \ \ uint8\_t\ operator[](\textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00097\ \ \ uint8\_t\ \&operator[](\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ Overloaded\ copy\ operators\ to\ allow\ initialization\ of\ IPAddress\ objects\ from\ other\ types}}
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{//\ NOTE:\ IPv4\ only}}
+\DoxyCodeLine{00101\ \ \ IPAddress\ \&operator=(\textcolor{keyword}{const}\ uint8\_t\ *address);}
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ NOTE:\ IPv4\ only;\ see\ implementation\ note}}
+\DoxyCodeLine{00103\ \ \ IPAddress\ \&operator=(uint32\_t\ address);}
+\DoxyCodeLine{00104\ \ \ \textcolor{comment}{//\ If\ IPv4\ fails\ tries\ IPv6\ see\ fromString\ function}}
+\DoxyCodeLine{00105\ \ \ IPAddress\ \&operator=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *address);}
+\DoxyCodeLine{00106\ \ \ IPAddress\ \&operator=(\textcolor{keyword}{const}\ IPAddress\ \&address);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ printTo(\mbox{\hyperlink{class_print}{Print}}\ \&p)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00109\ \ \ String\ toString(\textcolor{keywordtype}{bool}\ includeZone\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ IPType\ type()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{return}\ \_type;}
+\DoxyCodeLine{00113\ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \textcolor{comment}{//\ Espresif\ LwIP\ conversions}}
+\DoxyCodeLine{00116\ \ \ IPAddress(\textcolor{keyword}{const}\ ip\_addr\_t\ *addr);}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{void}\ to\_ip\_addr\_t(ip\_addr\_t\ *addr)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00118\ \ \ IPAddress\ \&from\_ip\_addr\_t(\textcolor{keyword}{const}\ ip\_addr\_t\ *addr);}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#if\ CONFIG\_LWIP\_IPV6}}
+\DoxyCodeLine{00120\ \ \ esp\_ip6\_addr\_type\_t\ addr\_type()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00122\ \ \ uint8\_t\ zone()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{return}\ (type()\ ==\ IPv6)\ ?\ \_zone\ :\ 0;}
+\DoxyCodeLine{00124\ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{size\_t}\ printTo(\mbox{\hyperlink{class_print}{Print}}\ \&p,\ \textcolor{keywordtype}{bool}\ includeZone)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }UDP;}
+\DoxyCodeLine{00128\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Client;}
+\DoxyCodeLine{00129\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }Server;}
+\DoxyCodeLine{00130\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }EthernetClass;}
+\DoxyCodeLine{00131\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }DhcpClass;}
+\DoxyCodeLine{00132\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }DNSClient;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordtype}{bool}\ fromString4(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *address);}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{bool}\ fromString6(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *address);}
+\DoxyCodeLine{00137\ \};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ IN6ADDR\_ANY;}
+\DoxyCodeLine{00140\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ INADDR\_NONE;}
+
+\end{DoxyCode}

@@ -1,0 +1,1529 @@
+\doxysection{zb\+\_\+zcl\+\_\+metering.\+h}
+\hypertarget{zb__zcl__metering_8h_source}{}\label{zb__zcl__metering_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_metering.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_metering.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Metering\ cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_METERING\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_common.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_commands.h"{}}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_cli\_attr\_set\_e}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ ZB\_ZCL\_METERING\_SET\_CLI\_NOTIFICATION\_ATTRIBUTE\ \ =\ 0x00,\ \ }
+\DoxyCodeLine{00067\ \};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_cli\_attr\_e}
+\DoxyCodeLine{00072\ \{}
+\DoxyCodeLine{00073\ \ \ ZB\_ZCL\_ATTR\_METERING\_CLI\_FUNCTIONAL\_NOTIFICATION\_FLAGS\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_CLI\_NOTIFICATION\_ATTRIBUTE,\ 0x00),}
+\DoxyCodeLine{00077\ \ \ ZB\_ZCL\_ATTR\_METERING\_CLI\_NOTIFICATION\_FLAGS2,\ }
+\DoxyCodeLine{00081\ \ \ ZB\_ZCL\_ATTR\_METERING\_CLI\_NOTIFICATION\_FLAGS3,\ }
+\DoxyCodeLine{00082\ \ \ ZB\_ZCL\_ATTR\_METERING\_CLI\_NOTIFICATION\_FLAGS4,\ }
+\DoxyCodeLine{00083\ \ \ ZB\_ZCL\_ATTR\_METERING\_CLI\_NOTIFICATION\_FLAGS5,\ }
+\DoxyCodeLine{00084\ \ \ ZB\_ZCL\_ATTR\_METERING\_CLI\_NOTIFICATION\_FLAGS6,\ }
+\DoxyCodeLine{00085\ \ \ ZB\_ZCL\_ATTR\_METERING\_CLI\_NOTIFICATION\_FLAGS7,\ }
+\DoxyCodeLine{00086\ \ \ ZB\_ZCL\_ATTR\_METERING\_CLI\_NOTIFICATION\_FLAGS8,\ }
+\DoxyCodeLine{00087\ \};}
+\DoxyCodeLine{00088\ \ \textcolor{comment}{/*\ ZB\_ZCL\_METERING\_CLI\_ATTRS\ */}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_srv\_attr\_set\_e}
+\DoxyCodeLine{00099\ \{}
+\DoxyCodeLine{00100\ \ \ ZB\_ZCL\_METERING\_SET\_READ\_INFO\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ }
+\DoxyCodeLine{00101\ \ \ ZB\_ZCL\_METERING\_SET\_TOU\_INFORMATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{00102\ \ \ ZB\_ZCL\_METERING\_SET\_METER\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \ }
+\DoxyCodeLine{00103\ \ \ ZB\_ZCL\_METERING\_SET\_FORMATTING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03,\ \ }
+\DoxyCodeLine{00104\ \ \ ZB\_ZCL\_METERING\_SET\_HISTORICAL\_CONSUMPTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x04,\ \ }
+\DoxyCodeLine{00105\ \ \ ZB\_ZCL\_METERING\_SET\_LOAD\_PROFILE\_CONFIGURATION\ \ \ \ \ \ \ \ \ \ =\ 0x05,\ \ }
+\DoxyCodeLine{00106\ \ \ ZB\_ZCL\_METERING\_SET\_SUPPLY\_LIMIT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x06,\ \ }
+\DoxyCodeLine{00107\ \ \ ZB\_ZCL\_METERING\_SET\_BLOCK\_INFORMATION\_DELIVERED\ \ \ \ \ \ \ \ \ =\ 0x07,\ \ }
+\DoxyCodeLine{00108\ \ \ ZB\_ZCL\_METERING\_SET\_ALARMS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x08,\ \ }
+\DoxyCodeLine{00109\ \ \ ZB\_ZCL\_METERING\_SET\_BLOCK\_INFORMATION\_RECEIVED\ \ \ \ \ \ \ \ \ \ =\ 0x09,\ \ }
+\DoxyCodeLine{00110\ \ \ ZB\_ZCL\_METERING\_SET\_METER\_BILLING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0A,\ \ }
+\DoxyCodeLine{00111\ \ \ ZB\_ZCL\_METERING\_SET\_SUPPLY\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0B,\ \ }
+\DoxyCodeLine{00112\ \ \ ZB\_ZCL\_METERING\_SET\_ALTERNATIVE\_HISTORICAL\_CONSUMPTION\ \ =\ 0x0C,\ \ }
+\DoxyCodeLine{00113\ \ \ ZB\_ZCL\_METERING\_SET\_FOUR\_QUADRANT\_ELECTRICITY\ \ \ \ \ \ \ \ \ \ \ =\ 0x0D,\ \ }
+\DoxyCodeLine{00114\ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_attr\_e}
+\DoxyCodeLine{00119\ \{}
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{/*\ Reading\ Information\ Attribute\ Set,\ table\ D.11\ */}}
+\DoxyCodeLine{00121\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_SUMMATION\_DELIVERED\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_READ\_INFO,\ 0x00),\ \ \ }
+\DoxyCodeLine{00124\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00126\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MAX\_DEMAND\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00128\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MAX\_DEMAND\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ ZB\_ZCL\_ATTR\_METERING\_DFT\_SUMMATION\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ ZB\_ZCL\_ATTR\_METERING\_DAILY\_FREEZE\_TIME\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00134\ \ \ ZB\_ZCL\_ATTR\_METERING\_POWER\_FACTOR\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00136\ \ \ ZB\_ZCL\_ATTR\_METERING\_READING\_SNAPSHOT\_TIME\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00142\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MAX\_DEMAND\_DELIVERED\_TIME\_ID,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00145\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MAX\_DEMAND\_RECEIVED\_TIME\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00148\ \ \ ZB\_ZCL\_ATTR\_METERING\_DEFAULT\_UPDATE\_PERIOD\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00151\ \ \ ZB\_ZCL\_ATTR\_METERING\_FAST\_POLL\_UPDATE\_PERIOD\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00154\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_BLOCK\_PERIOD\_CONSUMPTION\_DELIVERED\_ID,\ \ \ }
+\DoxyCodeLine{00157\ \ \ ZB\_ZCL\_ATTR\_METERING\_DAILY\_CONSUMPTION\_TARGET\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00160\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_BLOCK\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00162\ \ \ ZB\_ZCL\_ATTR\_METERING\_PROFILE\_INTERVAL\_PERIOD\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00165\ \ \ \textcolor{comment}{/*\ 0x0010\ attribute\ is\ deprecated\ */}}
+\DoxyCodeLine{00166\ \ \ ZB\_ZCL\_ATTR\_METERING\_PRESET\_READING\_TIME\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_READ\_INFO,\ 0x11),\ \ \ }
+\DoxyCodeLine{00167\ \ \ ZB\_ZCL\_ATTR\_METERING\_SUMMATION\_DELIVERED\_PER\_REPORT\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00169\ \ \ ZB\_ZCL\_ATTR\_METERING\_FLOW\_RESTRICTION\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00172\ \ \ ZB\_ZCL\_ATTR\_METERING\_SUPPLY\_STATUS\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00174\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_INLET\_ENERGY\_CARRIER\_SUMMATION\_ID,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00176\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_OUTLET\_ENERGY\_CARRIER\_SUMMATION\_ID,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00178\ \ \ ZB\_ZCL\_ATTR\_METERING\_INLET\_TEMPERATURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00179\ \ \ ZB\_ZCL\_ATTR\_METERING\_OUTLET\_TEMPERATURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00180\ \ \ ZB\_ZCL\_ATTR\_METERING\_CONTROL\_TEMPERATURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_INLET\_ENERGY\_CARRIER\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00184\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_OUTLET\_ENERGY\_CARRIER\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00186\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_BLOCK\_PERIOD\_CONSUMPTION\_DELIVERED\_ID,\ \ }
+\DoxyCodeLine{00189\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_BLOCK\_PERIOD\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ }
+\DoxyCodeLine{00192\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_BLOCK\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00194\ \ \ ZB\_ZCL\_ATTR\_METERING\_DFT\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00198\ \ \ ZB\_ZCL\_ATTR\_METERING\_ACTIVE\_REGISTER\_TIER\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00200\ \ \ ZB\_ZCL\_ATTR\_METERING\_ACTIVE\_REGISTER\_TIER\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00202\ \ \ ZB\_ZCL\_ATTR\_METERING\_LAST\_BLOCK\_SWITCH\_TIME\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00204\ \ \ ZB\_ZCL\_ATTR\_METERING\_NUMBER\_OF\_TIERS\_IN\_USE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \textcolor{comment}{/*\ 0x0024\ to\ 0x00FF\ reserved\ */}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \textcolor{comment}{/*\ TOU\ Information\ Attribute\ Set,\ table\ D.14\ */}}
+\DoxyCodeLine{00210\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER1\_SUMMATION\_DELIVERED\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_TOU\_INFORMATION,\ 0x00),\ \ \ \ }
+\DoxyCodeLine{00213\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER1\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00216\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER2\_SUMMATION\_DELIVERED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00217\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER2\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00218\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER3\_SUMMATION\_DELIVERED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00219\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER3\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00220\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER4\_SUMMATION\_DELIVERED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00221\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER4\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00222\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER5\_SUMMATION\_DELIVERED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00223\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER5\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00224\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER6\_SUMMATION\_DELIVERED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00225\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER6\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00226\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER7\_SUMMATION\_DELIVERED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00227\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER7\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00228\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER8\_SUMMATION\_DELIVERED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00229\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER8\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00230\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER9\_SUMMATION\_DELIVERED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00231\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER9\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00232\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER10\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00233\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER10\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00234\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER11\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00235\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER11\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00236\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER12\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00237\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER12\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00238\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER13\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00239\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER13\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00240\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER14\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00241\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER14\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00242\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER15\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00243\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER15\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00244\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER16\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00245\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER16\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00246\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER17\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00247\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER17\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00248\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER18\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00249\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER18\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00250\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER19\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00251\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER19\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00252\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER20\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00253\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER20\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00254\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER21\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00255\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER21\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00256\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER22\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00257\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER22\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00258\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER23\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00259\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER23\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00260\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER24\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00261\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER24\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00262\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER25\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00263\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER25\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00264\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER26\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00265\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER26\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00266\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER27\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00267\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER27\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00268\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER28\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00269\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER28\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00270\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER29\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00271\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER29\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00272\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER30\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00273\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER30\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00274\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER31\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00275\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER31\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00276\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER32\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00277\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER32\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00278\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER33\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00279\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER33\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00280\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER34\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00281\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER34\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00282\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER35\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00283\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER35\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00284\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER36\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00285\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER36\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00286\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER37\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00287\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER37\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00288\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER38\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00289\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER38\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00290\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER39\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00291\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER39\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00292\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER40\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00293\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER40\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00294\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER41\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00295\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER41\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00296\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER42\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00297\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER42\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00298\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER43\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00299\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER43\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00300\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER44\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00301\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER44\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00302\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER45\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00303\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER45\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00304\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER46\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00305\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER46\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00306\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER47\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00307\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER47\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00308\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER48\_SUMMATION\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00309\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_TIER48\_SUMMATION\_RECEIVED\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00310\ \ \ \textcolor{comment}{/*\ 0x0160\ to\ 0x01FB\ reserved\ */}}
+\DoxyCodeLine{00311\ \ \ ZB\_ZCL\_ATTR\_METERING\_CPP1\_SUMMATION\_DELIVERED\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_TOU\_INFORMATION,\ 0xFC),\ \ \ }
+\DoxyCodeLine{00314\ \ \ \textcolor{comment}{/*\ 0x01FD\ reserved\ */}}
+\DoxyCodeLine{00315\ \ \ ZB\_ZCL\_ATTR\_METERING\_CPP2\_SUMMATION\_DELIVERED\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_TOU\_INFORMATION,\ 0xFE),\ \ \ }
+\DoxyCodeLine{00318\ \ \ \textcolor{comment}{/*\ 0x01FF\ reserved\ */}}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ \textcolor{comment}{/*\ Meter\ Status\ Attribute\ Set,\ table\ D.15.\ */}}
+\DoxyCodeLine{00322\ \ \ ZB\_ZCL\_ATTR\_METERING\_STATUS\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_METER\_STATUS,\ 0x00),\ \ }
+\DoxyCodeLine{00328\ \ \ ZB\_ZCL\_ATTR\_METERING\_REMAINING\_BATTERY\_LIFE\_ID,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00330\ \ \ ZB\_ZCL\_ATTR\_METERING\_HOURS\_IN\_OPERATION\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00331\ \ \ ZB\_ZCL\_ATTR\_METERING\_HOURS\_IN\_FAULT\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00333\ \ \ ZB\_ZCL\_ATTR\_METERING\_EXTENDED\_STATUS\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00339\ \ \ ZB\_ZCL\_ATTR\_METERING\_REMAINING\_BATTERY\_LIFE\_DAYS\_ID,\ \ \ \ }
+\DoxyCodeLine{00341\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_METER\_ID\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00343\ \ \ ZB\_ZCL\_ATTR\_METERING\_AMBIENT\_CONSUMPTION\_INDICATOR\_ID,\ \ }
+\DoxyCodeLine{00346\ \ \ ZB\_ZCL\_ATTR\_METERING\_SERVICE\_DISCONNECT\_REASON\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00348\ \ \ ZB\_ZCL\_ATTR\_METERING\_LINKY\_MODE\_OF\_OPERATION\_ID,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00351\ \ \ \textcolor{comment}{/*\ 0x020A\ to\ 0x02FF\ reserved\ */}}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ \textcolor{comment}{/*\ Formatting\ Attribute\ Set,\ table\ D.25\ */}}
+\DoxyCodeLine{00355\ \ \ ZB\_ZCL\_ATTR\_METERING\_UNIT\_OF\_MEASURE\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_FORMATTING,\ 0x00),\ \ \ \ }
+\DoxyCodeLine{00358\ \ \ ZB\_ZCL\_ATTR\_METERING\_MULTIPLIER\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00360\ \ \ ZB\_ZCL\_ATTR\_METERING\_DIVISOR\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00363\ \ \ ZB\_ZCL\_ATTR\_METERING\_SUMMATION\_FORMATTING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00365\ \ \ ZB\_ZCL\_ATTR\_METERING\_DEMAND\_FORMATTING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00367\ \ \ ZB\_ZCL\_ATTR\_METERING\_HISTORICAL\_CONSUMPTION\_FORMATTING\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00370\ \ \ ZB\_ZCL\_ATTR\_METERING\_METERING\_DEVICE\_TYPE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00373\ \ \ ZB\_ZCL\_ATTR\_METERING\_SITE\_ID\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00375\ \ \ ZB\_ZCL\_ATTR\_METERING\_METER\_SERIAL\_NUMBER\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00377\ \ \ ZB\_ZCL\_ATTR\_METERING\_ENERGY\_CARRIER\_UNIT\_OF\_MEASURE\_ID,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00379\ \ \ ZB\_ZCL\_ATTR\_METERING\_ENERGY\_CARRIER\_SUMMATION\_FORMATTING\_ID,\ \ \ \ }
+\DoxyCodeLine{00381\ \ \ ZB\_ZCL\_ATTR\_METERING\_ENERGY\_CARRIER\_DEMAND\_FORMATTING\_ID,\ \ \ \ \ \ \ }
+\DoxyCodeLine{00383\ \ \ ZB\_ZCL\_ATTR\_METERING\_TEMPERATURE\_UNIT\_OF\_MEASURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00386\ \ \ ZB\_ZCL\_ATTR\_METERING\_TEMPERATURE\_FORMATTING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00388\ \ \ ZB\_ZCL\_ATTR\_METERING\_MODULE\_SERIAL\_NUMBER\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00390\ \ \ ZB\_ZCL\_ATTR\_METERING\_OPERATING\_TARIFF\_LABEL\_DELIVERED\_ID,\ \ \ \ \ \ \ }
+\DoxyCodeLine{00392\ \ \ ZB\_ZCL\_ATTR\_METERING\_OPERATING\_TARIFF\_LABEL\_RECEIVED\_ID,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00394\ \ \ ZB\_ZCL\_ATTR\_METERING\_CUSTOMER\_ID\_NUMBER\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00396\ \ \ ZB\_ZCL\_ATTR\_METERING\_ALTERNATIVE\_UNIT\_OF\_MEASURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00398\ \ \ ZB\_ZCL\_ATTR\_METERING\_ALTERNATIVE\_DEMAND\_FORMATTING\_ID,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00400\ \ \ ZB\_ZCL\_ATTR\_METERING\_ALTERNATIVE\_CONSUMPTION\_FORMATTING\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00403\ \ \ \textcolor{comment}{/*\ 0x0313\ to\ 0x03FF\ reserved\ */}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \textcolor{comment}{/*\ Historical\ Consumption\ Attribute\ Set,\ table\ D.29\ */}}
+\DoxyCodeLine{00407\ \ \ ZB\_ZCL\_ATTR\_METERING\_INSTANTANEOUS\_DEMAND\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_HISTORICAL\_CONSUMPTION,\ 0x00),\ \ \ }
+\DoxyCodeLine{00409\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00411\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00413\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00416\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00419\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_PARTIAL\_PROFILE\_INTERVAL\_START\_TIME\_DELIVERED\_ID,\ \ \ \ }
+\DoxyCodeLine{00421\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_PARTIAL\_PROFILE\_INTERVAL\_START\_TIME\_RECEIVED\_ID,\ \ \ \ }
+\DoxyCodeLine{00423\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_PARTIAL\_PROFILE\_INTERVAL\_VALUE\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00425\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_PARTIAL\_PROFILE\_INTERVAL\_VALUE\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00427\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_MAX\_PRESSURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00429\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_MIN\_PRESSURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00431\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_MAX\_PRESSURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00433\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_MIN\_PRESSURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00435\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_MAX\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00437\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_MAX\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00439\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MONTH\_MAX\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00442\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_YEAR\_MAX\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00445\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_MAX\_ENERGY\_CARRIER\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00450\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_MAX\_ENERGY\_CARRIER\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00452\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MONTH\_MAX\_ENERGY\_CARRIER\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00455\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MONTH\_MIN\_ENERGY\_CARRIER\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00458\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_YEAR\_MAX\_ENERGY\_CARRIER\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00461\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_YEAR\_MIN\_ENERGY\_CARRIER\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00464\ \ \ \textcolor{comment}{/*\ 0x0417\ to\ 0x041F\ reserved\ */}}
+\DoxyCodeLine{00465\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY2\_CONSUMPTION\_DELIVERED\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_HISTORICAL\_CONSUMPTION,\ 0x20),\ \ \ \ }
+\DoxyCodeLine{00468\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY2\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00471\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY3\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00472\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY3\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00473\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY4\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00474\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY4\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00475\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY5\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00476\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY5\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00477\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY6\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00478\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY6\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00479\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY7\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00480\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY7\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00481\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY8\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00482\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY8\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00483\ \ \ \textcolor{comment}{/*\ 0x042E\ to\ 0x042F\ reserved\ */}}
+\DoxyCodeLine{00484\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_WEEK\_CONSUMPTION\_DELIVERED\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_HISTORICAL\_CONSUMPTION,\ 0x30),\ \ \ \ }
+\DoxyCodeLine{00487\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_WEEK\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00490\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00493\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00496\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK2\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00497\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK2\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00498\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK3\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00499\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK3\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00500\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK4\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00501\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK4\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00502\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK5\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00503\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK5\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00504\ \ \ \textcolor{comment}{/*\ 0x043C\ to\ 0x043F\ reserved\ */}}
+\DoxyCodeLine{00505\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MONTH\_CONSUMPTION\_DELIVERED\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_HISTORICAL\_CONSUMPTION,\ 0x40),\ \ \ }
+\DoxyCodeLine{00508\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MONTH\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00511\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00515\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00519\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH2\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00520\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH2\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00521\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH3\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00522\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH3\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00523\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH4\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00524\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH4\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00525\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH5\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00526\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH5\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00527\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH6\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00528\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH6\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00529\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH7\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00530\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH7\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00531\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH8\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00532\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH8\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00533\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH9\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00534\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH9\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00535\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH10\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00536\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH10\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00537\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH11\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00538\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH11\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00539\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH12\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00540\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH12\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00541\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH13\_CONSUMPTION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00542\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH13\_CONSUMPTION\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00543\ \ \ ZB\_ZCL\_ATTR\_METERING\_HISTORICAL\_FREEZE\_TIME\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00546\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_MAX\_DEMAND\_DELIVERED\_ID,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00548\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_MAX\_DEMAND\_DELIVERED\_TIME\_ID,\ \ \ }
+\DoxyCodeLine{00550\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_MAX\_DEMAND\_RECEIVED\_ID,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00553\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_MAX\_DEMAND\_RECEIVED\_TIME\_ID,\ \ \ \ }
+\DoxyCodeLine{00555\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_MAX\_DEMAND\_DELIVERED\_ID,\ \ \ \ \ \ \ }
+\DoxyCodeLine{00558\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_MAX\_DEMAND\_DELIVERED\_TIME\_ID,\ \ }
+\DoxyCodeLine{00560\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_MAX\_DEMAND\_RECEIVED\_ID,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00564\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_MAX\_DEMAND\_RECEIVED\_TIME\_ID,\ \ \ }
+\DoxyCodeLine{00567\ \ \ \textcolor{comment}{/*\ 0x045D\ to\ 0x04FF\ reserved\ */}}
+\DoxyCodeLine{00568\ }
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ \ \ \textcolor{comment}{/*\ Load\ Profile\ Configuration\ Attribute\ Set,\ table\ D.30\ */}}
+\DoxyCodeLine{00571\ \ \ ZB\_ZCL\_ATTR\_METERING\_MAX\_NUMBER\_OF\_PERIODS\_DELIVERED\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_LOAD\_PROFILE\_CONFIGURATION,\ 0x00),\ \ \ \ }
+\DoxyCodeLine{00577\ \ \ \textcolor{comment}{/*\ 0x0501\ to\ 0x05FF\ reserved\ */}}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \ \ \textcolor{comment}{/*\ Supply\ Limit\ Attribute\ Set,\ table\ D.31\ */}}
+\DoxyCodeLine{00581\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DEMAND\_DELIVERED\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_SUPPLY\_LIMIT,\ 0x00),\ \ \ }
+\DoxyCodeLine{00583\ \ \ ZB\_ZCL\_ATTR\_METERING\_DEMAND\_LIMIT\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00587\ \ \ ZB\_ZCL\_ATTR\_METERING\_DEMAND\_INTEGRATION\_PERIOD\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00590\ \ \ ZB\_ZCL\_ATTR\_METERING\_NUMBER\_OF\_DEMAND\_SUBINTERVALS\_ID,\ \ \ \ \ }
+\DoxyCodeLine{00596\ \ \ ZB\_ZCL\_ATTR\_METERING\_DEMAND\_LIMIT\_ARM\_DURATION\_ID,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00599\ \ \ ZB\_ZCL\_ATTR\_METERING\_LOAD\_LIMIT\_SUPPLY\_STATE\_ID,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00601\ \ \ ZB\_ZCL\_ATTR\_METERING\_LOAD\_LIMIT\_COUNTER\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00603\ \ \ ZB\_ZCL\_ATTR\_METERING\_SUPPLY\_TAMPER\_STATE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00605\ \ \ ZB\_ZCL\_ATTR\_METERING\_SUPPLY\_DEPLETION\_STATE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00607\ \ \ ZB\_ZCL\_ATTR\_METERING\_SUPPLY\_UNCONTROLLED\_FLOW\_STATE\_ID,\ \ \ \ }
+\DoxyCodeLine{00609\ \ \ \textcolor{comment}{/*\ 0x060A\ to\ 0x06FF\ reserved\ */}}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \textcolor{comment}{/*TODO:\ need\ to\ add\ set\ 0x07\ -\/\ ZB\_ZCL\_METERING\_SET\_BLOCK\_INFORMATION\_DELIVERED*/}}
+\DoxyCodeLine{00612\ \ \ \textcolor{comment}{/*FIXME:\ Does\ we\ need\ to\ use\ \_ID\ suffix\ in\ attributes?\ */}}
+\DoxyCodeLine{00613\ \ \ \textcolor{comment}{/*ZB\_ZCL\_METERING\_SET\_ALARMS\ attribute\ set*/}}
+\DoxyCodeLine{00614\ \ \ ZB\_ZCL\_ATTR\_METERING\_GENERIC\_ALARM\_MASK\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_ALARMS,\ 0x00),\ }
+\DoxyCodeLine{00621\ \ \ ZB\_ZCL\_ATTR\_METERING\_ELECTRICITY\_ALARM\_MASK\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00622\ \ \ ZB\_ZCL\_ATTR\_METERING\_GENERIC\_FLOW\_PRESSURE\_ALARM\_MASK\_ID,\ \ \ \ \ \ }
+\DoxyCodeLine{00623\ \ \ ZB\_ZCL\_ATTR\_METERING\_WATER\_SPECIFIC\_ALARM\_MASK\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00624\ \ \ ZB\_ZCL\_ATTR\_METERING\_HEAT\_AND\_COOLING\_SPECIFIC\_ALARM\_MASK\_ID,\ \ }
+\DoxyCodeLine{00625\ \ \ ZB\_ZCL\_ATTR\_METERING\_GAS\_SPECIFIC\_ALARM\_MASK\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00626\ \ \ ZB\_ZCL\_ATTR\_METERING\_EXTENDED\_GENERIC\_ALARM\_MASK\_ID,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00627\ \ \ ZB\_ZCL\_ATTR\_METERING\_MANUFACTURER\_ALARM\_MASK\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00628\ }
+\DoxyCodeLine{00629\ \ \ \textcolor{comment}{/*TODO:\ need\ to\ add\ set\ 0x09\ */}}
+\DoxyCodeLine{00630\ }
+\DoxyCodeLine{00631\ \ \ \textcolor{comment}{/*\ Meter\ Billing\ Attribute\ Set,\ table\ D.44\ */}}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00634\ \ \ ZB\_ZCL\_ATTR\_METERING\_BILL\_TO\_DATE\_DELIVERED\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_METER\_BILLING,\ 0x00),}
+\DoxyCodeLine{00635\ \ \ ZB\_ZCL\_ATTR\_METERING\_BILL\_TO\_DATE\_TIMESTAMP\_DELIVERED,\ }
+\DoxyCodeLine{00637\ \ \ ZB\_ZCL\_ATTR\_METERING\_PROJECTED\_BILL\_DELIVERED,\ }
+\DoxyCodeLine{00639\ \ \ ZB\_ZCL\_ATTR\_METERING\_PROJECTED\_BILL\_TIME\_STAMP\_DELIVERED,\ }
+\DoxyCodeLine{00641\ \ \ ZB\_ZCL\_ATTR\_METERING\_BILL\_DELIVERED\_TRAILING\_DIGIT,\ }
+\DoxyCodeLine{00643\ \ \ ZB\_ZCL\_ATTR\_METERING\_BILL\_TO\_DATE\_RECEIVED\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_METER\_BILLING,\ 0x10),}
+\DoxyCodeLine{00647\ \ \ ZB\_ZCL\_ATTR\_METERING\_BILL\_TO\_DATE\_TIMESTAMP\_RECEIVED,\ }
+\DoxyCodeLine{00649\ \ \ ZB\_ZCL\_ATTR\_METERING\_PROJECTED\_BILL\_RECEIVED,\ }
+\DoxyCodeLine{00651\ \ \ ZB\_ZCL\_ATTR\_METERING\_PROJECTED\_BILL\_TIME\_STAMP\_RECEIVED,\ }
+\DoxyCodeLine{00653\ \ \ ZB\_ZCL\_ATTR\_METERING\_BILL\_RECEIVED\_TRAILING\_DIGIT,\ }
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ \ \ \textcolor{comment}{/*\ Supply\ Control\ Attribute,\ table\ D.45\ */}}
+\DoxyCodeLine{00658\ }
+\DoxyCodeLine{00661\ \ \ ZB\_ZCL\_ATTR\_METERING\_PROPOSED\_CHANGE\_SUPPLY\_IMPLEMENTATION\_TIME\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_SUPPLY\_CONTROL,\ 0x00),}
+\DoxyCodeLine{00662\ \ \ ZB\_ZCL\_ATTR\_METERING\_PROPOSED\_CHANGE\_SUPPLY\_STATUS,\ }
+\DoxyCodeLine{00666\ \ \ ZB\_ZCL\_ATTR\_METERING\_UNCONTROLLED\_FLOW\_THRESHOLD\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_SUPPLY\_CONTROL,\ 0x10),}
+\DoxyCodeLine{00667\ \ \ ZB\_ZCL\_ATTR\_METERING\_UNCONTROLLED\_FLOW\_THRESHOLD\_UNIT\_OF\_MEASURE,\ }
+\DoxyCodeLine{00669\ \ \ ZB\_ZCL\_ATTR\_METERING\_UNCONTROLLED\_FLOW\_MULTIPLIER,\ }
+\DoxyCodeLine{00672\ \ \ ZB\_ZCL\_ATTR\_METERING\_UNCONTROLLED\_FLOW\_DIVISOR,\ }
+\DoxyCodeLine{00676\ \ \ ZB\_ZCL\_ATTR\_METERING\_FLOW\_STABILISATION\_PERIOD,\ }
+\DoxyCodeLine{00677\ \ \ ZB\_ZCL\_ATTR\_METERING\_FLOW\_MEASUREMENT\_PERIOD,\ }
+\DoxyCodeLine{00679\ }
+\DoxyCodeLine{00680\ \ \ \textcolor{comment}{/*\ Alternative\ Historical\ Consumption\ Attribute\ Set,\ table\ D.46\ */}}
+\DoxyCodeLine{00682\ \ \ ZB\_ZCL\_ATTR\_METERING\_ALT\_INSTANTANEOUS\_DEMAND\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_ALTERNATIVE\_HISTORICAL\_CONSUMPTION,\ 0x00),}
+\DoxyCodeLine{00683\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_ALT\_CONSUMPTION\_DELIVERED,\ }
+\DoxyCodeLine{00685\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_ALT\_CONSUMPTION\_RECEIVED,\ }
+\DoxyCodeLine{00687\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_ALT\_CONSUMPTION\_DELIVERED,\ }
+\DoxyCodeLine{00690\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_ALT\_CONSUMPTION\_RECEIVED,\ }
+\DoxyCodeLine{00693\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ALT\_PARTIAL\_PROFILE\_INTERVAL\_START\_TIME\_DELIVERED,\ }
+\DoxyCodeLine{00695\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ALT\_PARTIAL\_PROFILE\_INTERVAL\_START\_TIME\_RECEIVED,\ }
+\DoxyCodeLine{00697\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ALT\_PARTIAL\_PROFILE\_INTERVAL\_VALUE\_DELIVERED,\ }
+\DoxyCodeLine{00699\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ALT\_PARTIAL\_PROFILE\_INTERVAL\_VALUE\_RECEIVED,\ }
+\DoxyCodeLine{00701\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_ALT\_MAX\_PRESSURE,\ }
+\DoxyCodeLine{00703\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_ALT\_MIN\_PRESSURE,\ }
+\DoxyCodeLine{00705\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_ALT\_MAX\_PRESSURE,\ }
+\DoxyCodeLine{00707\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_ALT\_MIN\_PRESSURE,\ }
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00710\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_DAY\_ALT\_MAX\_DEMAND,\ }
+\DoxyCodeLine{00712\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY\_ALT\_MAX\_DEMAND,\ }
+\DoxyCodeLine{00714\ }
+\DoxyCodeLine{00715\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MONTH\_ALT\_MAX\_DEMAND,\ }
+\DoxyCodeLine{00716\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_YEAR\_ALT\_MAX\_DEMAND,\ }
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00720\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY2\_ALT\_CONSUMPTION\_DELIVERED\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_ALTERNATIVE\_HISTORICAL\_CONSUMPTION,\ 0x20),}
+\DoxyCodeLine{00721\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_DAY2\_ALT\_CONSUMPTION\_RECEIVED,\ }
+\DoxyCodeLine{00724\ }
+\DoxyCodeLine{00727\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_WEEK\_ALT\_CONSUMPTION\_DELIVERED\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_ALTERNATIVE\_HISTORICAL\_CONSUMPTION,\ 0x30),}
+\DoxyCodeLine{00728\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_WEEK\_ALT\_CONSUMPTION\_RECEIVED,\ }
+\DoxyCodeLine{00730\ }
+\DoxyCodeLine{00731\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK\_ALT\_CONSUMPTION\_DELIVERED,\ }
+\DoxyCodeLine{00734\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_WEEK\_ALT\_CONSUMPTION\_RECEIVED,\ }
+\DoxyCodeLine{00739\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MONTH\_ALT\_CONSUMPTION\_DELIVERED\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_ALTERNATIVE\_HISTORICAL\_CONSUMPTION,\ 0x40),}
+\DoxyCodeLine{00740\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_MONTH\_ALT\_CONSUMPTION\_RECEIVED,\ }
+\DoxyCodeLine{00743\ }
+\DoxyCodeLine{00744\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH\_ALT\_CONSUMPTION\_DELIVERED,\ }
+\DoxyCodeLine{00747\ \ \ ZB\_ZCL\_ATTR\_METERING\_PREVIOUS\_MONTH\_ALT\_CONSUMPTION\_RECEIVED,\ }
+\DoxyCodeLine{00750\ }
+\DoxyCodeLine{00751\ \ \ \textcolor{comment}{/*\ ZB\_ZCL\_METERING\_SET\_FOUR\_QUADRANT\_ELECTRICITY\ attribute\ set\ */}}
+\DoxyCodeLine{00752\ \ \ \textcolor{comment}{/*NOTE:\ the\ first\ attribute\ from\ this\ attribute\ set\ starts\ from\ 0x0D01\ value\ instead\ of\ 0x0D00\ */}}
+\DoxyCodeLine{00753\ \ \ \textcolor{comment}{/*NOTE:\ attribute\ 0x0D04\ in\ one\ spec\ it\ is\ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ACTIVE\_SUMMATION\_Q4\_ID,}}
+\DoxyCodeLine{00754\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ in\ another\ it\ is\ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_REACTIVE\_SUMMATION\_Q1\_ID}}
+\DoxyCodeLine{00755\ \textcolor{comment}{\ \ \ \ NOTE:\ It\ is\ supposed\ that\ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ACTIVE\_SUMMATION\_Q1\_ID\ =\ 0x0D00}}
+\DoxyCodeLine{00756\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00757\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ACTIVE\_SUMMATION\_Q1\_ID\ =\ ZB\_ZCL\_ATTR\_SET\_WITH\_ATTR\_ID(ZB\_ZCL\_METERING\_SET\_FOUR\_QUADRANT\_ELECTRICITY,\ 0x01),\ \ }
+\DoxyCodeLine{00761\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ACTIVE\_SUMMATION\_Q2\_ID,\ \ \ \ }
+\DoxyCodeLine{00765\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ACTIVE\_SUMMATION\_Q3\_ID,\ \ \ \ }
+\DoxyCodeLine{00769\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_ACTIVE\_SUMMATION\_Q4\_ID,\ \ \ \ }
+\DoxyCodeLine{00773\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_REACTIVE\_SUMMATION\_Q1\_ID,\ \ }
+\DoxyCodeLine{00777\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_REACTIVE\_SUMMATION\_Q2\_ID,\ \ }
+\DoxyCodeLine{00781\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_REACTIVE\_SUMMATION\_Q3\_ID,\ \ }
+\DoxyCodeLine{00785\ \ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_REACTIVE\_SUMMATION\_Q4\_ID\ \ \ }
+\DoxyCodeLine{00789\ \};}
+\DoxyCodeLine{00790\ }
+\DoxyCodeLine{00791\ }
+\DoxyCodeLine{00796\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_block\_e}
+\DoxyCodeLine{00797\ \{}
+\DoxyCodeLine{00798\ \ \ ZB\_ZCL\_METERING\_BLOCK\_NOT\_USED\ =\ 0x00,\ \ \ \ }
+\DoxyCodeLine{00799\ \ \ ZB\_ZCL\_METERING\_BLOCK\_1\ \ \ \ \ \ \ \ =\ 0x01,\ \ \ \ }
+\DoxyCodeLine{00800\ \ \ ZB\_ZCL\_METERING\_BLOCK\_2\ \ \ \ \ \ \ \ =\ 0x02,\ \ \ \ }
+\DoxyCodeLine{00801\ \ \ ZB\_ZCL\_METERING\_BLOCK\_3\ \ \ \ \ \ \ \ =\ 0x03,\ \ \ \ }
+\DoxyCodeLine{00802\ \ \ ZB\_ZCL\_METERING\_BLOCK\_4\ \ \ \ \ \ \ \ =\ 0x04,\ \ \ \ }
+\DoxyCodeLine{00803\ \ \ ZB\_ZCL\_METERING\_BLOCK\_5\ \ \ \ \ \ \ \ =\ 0x05,\ \ \ \ }
+\DoxyCodeLine{00804\ \ \ ZB\_ZCL\_METERING\_BLOCK\_6\ \ \ \ \ \ \ \ =\ 0x06,\ \ \ \ }
+\DoxyCodeLine{00805\ \ \ ZB\_ZCL\_METERING\_BLOCK\_7\ \ \ \ \ \ \ \ =\ 0x07,\ \ \ \ }
+\DoxyCodeLine{00806\ \ \ ZB\_ZCL\_METERING\_BLOCK\_8\ \ \ \ \ \ \ \ =\ 0x08,\ \ \ \ }
+\DoxyCodeLine{00807\ \ \ ZB\_ZCL\_METERING\_BLOCK\_9\ \ \ \ \ \ \ \ =\ 0x09,\ \ \ \ }
+\DoxyCodeLine{00808\ \ \ ZB\_ZCL\_METERING\_BLOCK\_10\ \ \ \ \ \ \ =\ 0x0A,\ \ \ \ }
+\DoxyCodeLine{00809\ \ \ ZB\_ZCL\_METERING\_BLOCK\_11\ \ \ \ \ \ \ =\ 0x0B,\ \ \ \ }
+\DoxyCodeLine{00810\ \ \ ZB\_ZCL\_METERING\_BLOCK\_12\ \ \ \ \ \ \ =\ 0x0C,\ \ \ \ }
+\DoxyCodeLine{00811\ \ \ ZB\_ZCL\_METERING\_BLOCK\_13\ \ \ \ \ \ \ =\ 0x0D,\ \ \ \ }
+\DoxyCodeLine{00812\ \ \ ZB\_ZCL\_METERING\_BLOCK\_14\ \ \ \ \ \ \ =\ 0x0E,\ \ \ \ }
+\DoxyCodeLine{00813\ \ \ ZB\_ZCL\_METERING\_BLOCK\_15\ \ \ \ \ \ \ =\ 0x0F,\ \ \ \ }
+\DoxyCodeLine{00814\ \ \ ZB\_ZCL\_METERING\_BLOCK\_16\ \ \ \ \ \ \ =\ 0x10,\ \ \ \ }
+\DoxyCodeLine{00815\ \ \ \textcolor{comment}{/*\ 0x11\ to\ 0xFF\ reserved\ */}}
+\DoxyCodeLine{00816\ \};}
+\DoxyCodeLine{00817\ }
+\DoxyCodeLine{00818\ }
+\DoxyCodeLine{00823\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_supply\_status\_e}
+\DoxyCodeLine{00824\ \{}
+\DoxyCodeLine{00825\ \ \ ZB\_ZCL\_SUPPLY\_STATUS\_OFF\ \ \ =\ 0x00,\ \ \ \ }
+\DoxyCodeLine{00826\ \ \ ZB\_ZCL\_SUPPLY\_STATUS\_ARMED\ =\ 0x01,\ \ \ \ }
+\DoxyCodeLine{00827\ \ \ ZB\_ZCL\_SUPPLY\_STATUS\_ON\ \ \ \ =\ 0x02\ \ \ \ \ }
+\DoxyCodeLine{00828\ \ \ \textcolor{comment}{/*\ 0x03\ to\ 0xFF\ reserved\ for\ future\ use\ */}}
+\DoxyCodeLine{00829\ \};}
+\DoxyCodeLine{00830\ }
+\DoxyCodeLine{00831\ }
+\DoxyCodeLine{00836\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_status\_electricity\_e}
+\DoxyCodeLine{00837\ \{}
+\DoxyCodeLine{00838\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_CHECK\_METER\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ \ }
+\DoxyCodeLine{00840\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_LOW\_BATTERY\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,\ \ \ }
+\DoxyCodeLine{00841\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_TAMPER\_DETECT\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,\ \ \ }
+\DoxyCodeLine{00842\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_POWER\_FAILURE\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 3,\ \ \ }
+\DoxyCodeLine{00843\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_POWER\_QUALITY\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,\ \ \ }
+\DoxyCodeLine{00845\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_LEAK\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5,\ \ \ }
+\DoxyCodeLine{00846\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_SERVICE\_DISCONNECT\_OPEN\ =\ 1\ <<\ 6,\ \ \ }
+\DoxyCodeLine{00847\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_RESERVED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7\ \ \ \ }
+\DoxyCodeLine{00848\ \};}
+\DoxyCodeLine{00849\ }
+\DoxyCodeLine{00850\ }
+\DoxyCodeLine{00855\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_status\_gas\_e}
+\DoxyCodeLine{00856\ \{}
+\DoxyCodeLine{00857\ \ \ ZB\_ZCL\_METERING\_GAS\_CHECK\_METER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ \ }
+\DoxyCodeLine{00859\ \ \ ZB\_ZCL\_METERING\_GAS\_LOW\_BATTERY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,\ \ \ }
+\DoxyCodeLine{00860\ \ \ ZB\_ZCL\_METERING\_GAS\_TAMPER\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,\ \ \ }
+\DoxyCodeLine{00861\ \ \ ZB\_ZCL\_METERING\_GAS\_RESERVED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 3,\ \ \ }
+\DoxyCodeLine{00862\ \ \ ZB\_ZCL\_METERING\_GAS\_LOW\_PRESSURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,\ \ \ }
+\DoxyCodeLine{00864\ \ \ ZB\_ZCL\_METERING\_GAS\_LEAK\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5,\ \ \ }
+\DoxyCodeLine{00865\ \ \ ZB\_ZCL\_METERING\_GAS\_SERVICE\_DISCONNECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6,\ \ \ }
+\DoxyCodeLine{00867\ \ \ ZB\_ZCL\_METERING\_GAS\_REVERSE\_FLOW\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7\ \ \ \ }
+\DoxyCodeLine{00869\ \};}
+\DoxyCodeLine{00870\ }
+\DoxyCodeLine{00871\ }
+\DoxyCodeLine{00876\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_status\_water\_e}
+\DoxyCodeLine{00877\ \{}
+\DoxyCodeLine{00878\ \ \ ZB\_ZCL\_METERING\_WATER\_CHECK\_METER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ \ }
+\DoxyCodeLine{00880\ \ \ ZB\_ZCL\_METERING\_WATER\_LOW\_BATTERY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,\ \ \ }
+\DoxyCodeLine{00881\ \ \ ZB\_ZCL\_METERING\_WATER\_TAMPER\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,\ \ \ }
+\DoxyCodeLine{00882\ \ \ ZB\_ZCL\_METERING\_WATER\_PIPE\_EMTPY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 3,\ \ \ }
+\DoxyCodeLine{00884\ \ \ ZB\_ZCL\_METERING\_WATER\_LOW\_PRESSURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,\ \ \ }
+\DoxyCodeLine{00886\ \ \ ZB\_ZCL\_METERING\_WATER\_LEAK\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5,\ \ \ }
+\DoxyCodeLine{00887\ \ \ ZB\_ZCL\_METERING\_WATER\_SERVICE\_DISCONNECT\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6,\ \ \ }
+\DoxyCodeLine{00889\ \ \ ZB\_ZCL\_METERING\_WATER\_REVERSE\_FLOW\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7\ \ \ \ }
+\DoxyCodeLine{00891\ \};}
+\DoxyCodeLine{00892\ }
+\DoxyCodeLine{00893\ }
+\DoxyCodeLine{00898\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_status\_heat\_cooling\_e}
+\DoxyCodeLine{00899\ \{}
+\DoxyCodeLine{00900\ \ \ ZB\_ZCL\_METERING\_HCOOL\_CHECK\_METER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ \ }
+\DoxyCodeLine{00902\ \ \ ZB\_ZCL\_METERING\_HCOOL\_LOW\_BATTERY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,\ \ \ }
+\DoxyCodeLine{00903\ \ \ ZB\_ZCL\_METERING\_HCOOL\_TAMPER\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,\ \ \ }
+\DoxyCodeLine{00904\ \ \ ZB\_ZCL\_METERING\_HCOOL\_TEMPERATURE\_SENSOR\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 3,\ \ \ }
+\DoxyCodeLine{00906\ \ \ ZB\_ZCL\_METERING\_HCOOL\_BURST\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,\ \ \ }
+\DoxyCodeLine{00907\ \ \ ZB\_ZCL\_METERING\_HCOOL\_LEAK\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5,\ \ \ }
+\DoxyCodeLine{00908\ \ \ ZB\_ZCL\_METERING\_HCOOL\_SERVICE\_DISCONNECT\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6,\ \ \ }
+\DoxyCodeLine{00910\ \ \ ZB\_ZCL\_METERING\_HCOOL\_FLOW\_SENSOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7\ \ \ \ }
+\DoxyCodeLine{00911\ \};}
+\DoxyCodeLine{00912\ }
+\DoxyCodeLine{00913\ }
+\DoxyCodeLine{00918\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_extstatus\_general\_e}
+\DoxyCodeLine{00919\ \{}
+\DoxyCodeLine{00920\ \ \ ZB\_ZCL\_METERING\_METER\_COVER\_REMOVED\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ \ \ }
+\DoxyCodeLine{00922\ \ \ ZB\_ZCL\_METERING\_STRONG\_MAGNETIC\_FIELD\_DETECTED\ =\ 1\ <<\ 1,\ \ \ \ }
+\DoxyCodeLine{00924\ \ \ ZB\_ZCL\_METERING\_BATTERY\_FAILURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,\ \ \ \ }
+\DoxyCodeLine{00926\ \ \ ZB\_ZCL\_METERING\_PROGRAM\_MEMORY\_ERROR\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 3,\ \ \ \ }
+\DoxyCodeLine{00928\ \ \ ZB\_ZCL\_METERING\_RAM\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,\ \ \ \ }
+\DoxyCodeLine{00930\ \ \ ZB\_ZCL\_METERING\_NV\_MEMORY\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5,\ \ \ \ }
+\DoxyCodeLine{00933\ \ \ ZB\_ZCL\_METERING\_MEASUREMENT\_SYSTEM\_ERROR\ \ \ \ \ \ \ =\ 1\ <<\ 6,\ \ \ \ }
+\DoxyCodeLine{00935\ \ \ ZB\_ZCL\_METERING\_WATCHDOG\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7,\ \ \ \ }
+\DoxyCodeLine{00937\ \ \ ZB\_ZCL\_METERING\_SUPPLY\_DISCONNECT\_FAILURE\ \ \ \ \ \ =\ 1\ <<\ 8,\ \ \ \ }
+\DoxyCodeLine{00940\ \ \ ZB\_ZCL\_METERING\_SUPPLY\_CONNECT\_FAILURE\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 9,\ \ \ \ }
+\DoxyCodeLine{00943\ \ \ ZB\_ZCL\_METERING\_MEASUREMENT\_SW\_CHANGED\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 10,\ \ \ }
+\DoxyCodeLine{00945\ \ \ ZB\_ZCL\_METERING\_CLOCK\_INVALID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 11,\ \ \ }
+\DoxyCodeLine{00947\ \ \ ZB\_ZCL\_METERING\_TEMPERATURE\_EXCEEDED\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 12,\ \ \ }
+\DoxyCodeLine{00950\ \ \ ZB\_ZCL\_METERING\_MOISTURE\_DETECTED\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 13\ \ \ \ }
+\DoxyCodeLine{00953\ \ \ \textcolor{comment}{/*\ bits\ 14-\/23\ reserved\ */}}
+\DoxyCodeLine{00954\ \};}
+\DoxyCodeLine{00955\ }
+\DoxyCodeLine{00956\ }
+\DoxyCodeLine{00961\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_extstatus\_electricity\_e}
+\DoxyCodeLine{00962\ \{}
+\DoxyCodeLine{00963\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_TERMINAL\_COVER\_REMOVED\ \ \ \ \ =\ 1L\ <<\ 24,\ \ \ \ \ }
+\DoxyCodeLine{00965\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_INCORRECT\_POLARITY\ \ \ \ \ \ \ \ \ =\ 1L\ <<\ 25,\ \ \ \ \ }
+\DoxyCodeLine{00967\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_CURRENT\_WITH\_NO\_VOLTAGE\ \ \ \ =\ 1L\ <<\ 26,\ \ \ \ \ }
+\DoxyCodeLine{00970\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_LIMIT\_THRESHOLD\_EXCEEDED\ \ \ =\ 1L\ <<\ 27,\ \ \ \ \ }
+\DoxyCodeLine{00972\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_UNDER\_VOLTAGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1L\ <<\ 28,\ \ \ \ \ }
+\DoxyCodeLine{00975\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_OVER\_VOLTAGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1L\ <<\ 29,\ \ \ \ \ }
+\DoxyCodeLine{00978\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_BIDIRECTION\_OPERATION\ \ \ \ \ \ =\ 1L\ <<\ 30,\ \ \ \ \ }
+\DoxyCodeLine{00980\ \ \ \textcolor{comment}{/*Each\ enumerator\ that\ appears\ in\ the\ body\ of\ an\ enumeration\ specifier\ becomes\ an\ integer\ constant\ with\ type\ int\ in\ the\ enclosing\ scope.*/}}
+\DoxyCodeLine{00981\ \ \ ZB\_ZCL\_METERING\_ELECTRICITY\_ACTIVE\_POWER\_RECEIVED\ \ \ \ \ \ =\ -\/2147483648LL\ }
+\DoxyCodeLine{00983\ \ \ \textcolor{comment}{/*\ bits\ 32-\/63\ reserved\ */}}
+\DoxyCodeLine{00984\ \};}
+\DoxyCodeLine{00985\ }
+\DoxyCodeLine{00986\ }
+\DoxyCodeLine{00991\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_extstatus\_gas\_e}
+\DoxyCodeLine{00992\ \{}
+\DoxyCodeLine{00993\ \ \ ZB\_ZCL\_METERING\_GAS\_BATTERY\_COVER\_REMOVED\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1L\ <<\ 24,\ \ \ }
+\DoxyCodeLine{00995\ \ \ ZB\_ZCL\_METERING\_GAS\_TILT\_TAMPER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1L\ <<\ 25,\ \ \ }
+\DoxyCodeLine{00998\ \ \ ZB\_ZCL\_METERING\_GAS\_EXCESS\_FLOW\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1L\ <<\ 26\ \ \ \ }
+\DoxyCodeLine{01000\ \ \ \textcolor{comment}{/*\ bits\ 26-\/63\ reserved\ */}}
+\DoxyCodeLine{01001\ \};}
+\DoxyCodeLine{01002\ }
+\DoxyCodeLine{01003\ }
+\DoxyCodeLine{01008\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_low\_medium\_high\_status\_e}
+\DoxyCodeLine{01009\ \{}
+\DoxyCodeLine{01010\ \ \ ZB\_ZCL\_METERING\_STATUS\_LOW\ \ \ \ =\ 0x00,\ \ \ \ }
+\DoxyCodeLine{01011\ \ \ ZB\_ZCL\_METERING\_STATUS\_MEDIUM\ =\ 0x01,\ \ \ \ }
+\DoxyCodeLine{01012\ \ \ ZB\_ZCL\_METERING\_STATUS\_HIGH\ \ \ =\ 0x02,\ \ \ \ }
+\DoxyCodeLine{01013\ \};}
+\DoxyCodeLine{01014\ }
+\DoxyCodeLine{01015\ }
+\DoxyCodeLine{01020\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_unit\_of\_measure\_e}
+\DoxyCodeLine{01021\ \{}
+\DoxyCodeLine{01022\ \ \ ZB\_ZCL\_METERING\_UNIT\_KW\_KWH\_BINARY\ \ \ \ \ \ \ =\ 0x00,\ \ \ }
+\DoxyCodeLine{01023\ \ \ ZB\_ZCL\_METERING\_UNIT\_M3\_M3H\_BINARY\ \ \ \ \ \ \ =\ 0x01,\ \ \ }
+\DoxyCodeLine{01024\ \ \ ZB\_ZCL\_METERING\_UNIT\_FT3\_FT3H\_BINARY\ \ \ \ \ =\ 0x02,\ \ \ }
+\DoxyCodeLine{01025\ \ \ ZB\_ZCL\_METERING\_UNIT\_CCF\_CCFH\_BINARY\ \ \ \ \ =\ 0x03,\ \ \ }
+\DoxyCodeLine{01026\ \ \ ZB\_ZCL\_METERING\_UNIT\_USGL\_USGLH\_BINARY\ \ \ =\ 0x04,\ \ \ }
+\DoxyCodeLine{01027\ \ \ ZB\_ZCL\_METERING\_UNIT\_IMPGL\_IMPGLH\_BINARY\ =\ 0x05,\ \ \ }
+\DoxyCodeLine{01028\ \ \ ZB\_ZCL\_METERING\_UNIT\_BTU\_BTUH\_BINARY\ \ \ \ \ =\ 0x06,\ \ \ }
+\DoxyCodeLine{01029\ \ \ ZB\_ZCL\_METERING\_UNIT\_L\_LH\_BINARY\ \ \ \ \ \ \ \ \ =\ 0x07,\ \ \ }
+\DoxyCodeLine{01030\ \ \ ZB\_ZCL\_METERING\_UNIT\_KPAG\_BINARY\ \ \ \ \ \ \ \ \ =\ 0x08,\ \ \ }
+\DoxyCodeLine{01031\ \ \ ZB\_ZCL\_METERING\_UNIT\_KPAA\_BINARY\ \ \ \ \ \ \ \ \ =\ 0x09,\ \ \ }
+\DoxyCodeLine{01032\ \ \ ZB\_ZCL\_METERING\_UNIT\_MCF\_MCFH\_BINARY\ \ \ \ \ =\ 0x0A,\ \ \ }
+\DoxyCodeLine{01033\ \ \ ZB\_ZCL\_METERING\_UNIT\_UNITLESS\_BINARY\ \ \ \ \ =\ 0x0B,\ \ \ }
+\DoxyCodeLine{01034\ \ \ ZB\_ZCL\_METERING\_UNIT\_MJ\_MJS\_BINARY\ \ \ \ \ \ \ =\ 0x0C,\ \ \ }
+\DoxyCodeLine{01035\ \ \ ZB\_ZCL\_METERING\_UNIT\_KVAR\_KVARH\_BINARY\ \ \ =\ 0x0D,\ \ \ }
+\DoxyCodeLine{01036\ }
+\DoxyCodeLine{01037\ \ \ ZB\_ZCL\_METERING\_UNIT\_BINARY\_RESERVED\ \ \ \ \ =\ 0x0E,\ \ \ }
+\DoxyCodeLine{01038\ }
+\DoxyCodeLine{01039\ }
+\DoxyCodeLine{01040\ \ \ ZB\_ZCL\_METERING\_UNIT\_KW\_KWH\_BCD\ \ \ \ \ \ \ \ \ \ =\ 0x80,\ \ \ }
+\DoxyCodeLine{01041\ \ \ ZB\_ZCL\_METERING\_UNIT\_M3\_M3H\_BCD\ \ \ \ \ \ \ \ \ \ =\ 0x81,\ \ \ }
+\DoxyCodeLine{01042\ \ \ ZB\_ZCL\_METERING\_UNIT\_FT3\_FT3H\_BCD\ \ \ \ \ \ \ \ =\ 0x82,\ \ \ }
+\DoxyCodeLine{01043\ \ \ ZB\_ZCL\_METERING\_UNIT\_CCF\_CCFH\_BCD\ \ \ \ \ \ \ \ =\ 0x83,\ \ \ }
+\DoxyCodeLine{01044\ \ \ ZB\_ZCL\_METERING\_UNIT\_USGL\_USGLH\_BCD\ \ \ \ \ \ =\ 0x84,\ \ \ }
+\DoxyCodeLine{01045\ \ \ ZB\_ZCL\_METERING\_UNIT\_IMPGL\_IMPGLH\_BCD\ \ \ \ =\ 0x85,\ \ \ }
+\DoxyCodeLine{01046\ \ \ ZB\_ZCL\_METERING\_UNIT\_BTU\_BTUH\_BCD\ \ \ \ \ \ \ \ =\ 0x86,\ \ \ }
+\DoxyCodeLine{01047\ \ \ ZB\_ZCL\_METERING\_UNIT\_L\_LH\_BCD\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x87,\ \ \ }
+\DoxyCodeLine{01048\ \ \ ZB\_ZCL\_METERING\_UNIT\_KPAG\_BCD\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x88,\ \ \ }
+\DoxyCodeLine{01049\ \ \ ZB\_ZCL\_METERING\_UNIT\_KPAA\_BCD\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x89,\ \ \ }
+\DoxyCodeLine{01050\ \ \ ZB\_ZCL\_METERING\_UNIT\_MCF\_MCFH\_BCD\ \ \ \ \ \ \ \ =\ 0x8A,\ \ \ }
+\DoxyCodeLine{01051\ \ \ ZB\_ZCL\_METERING\_UNIT\_UNITLESS\_BCD\ \ \ \ \ \ \ \ =\ 0x8B,\ \ \ }
+\DoxyCodeLine{01052\ \ \ ZB\_ZCL\_METERING\_UNIT\_MJ\_MJS\_BCD\ \ \ \ \ \ \ \ \ \ =\ 0x8C,\ \ \ }
+\DoxyCodeLine{01053\ \ \ ZB\_ZCL\_METERING\_UNIT\_KVAR\_KVARH\_BCD\ \ \ \ \ \ =\ 0x8D,\ \ \ }
+\DoxyCodeLine{01054\ }
+\DoxyCodeLine{01055\ \ \ ZB\_ZCL\_METERING\_UNIT\_BCD\_RESERVED\ \ \ \ \ \ \ \ =\ 0x8E\ \ \ \ }
+\DoxyCodeLine{01056\ \};}
+\DoxyCodeLine{01057\ }
+\DoxyCodeLine{01058\ }
+\DoxyCodeLine{01063\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_device\_type\_e}
+\DoxyCodeLine{01064\ \{}
+\DoxyCodeLine{01065\ \ \ ZB\_ZCL\_METERING\_ELECTRIC\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ }
+\DoxyCodeLine{01066\ \ \ ZB\_ZCL\_METERING\_GAS\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1,\ \ \ }
+\DoxyCodeLine{01067\ \ \ ZB\_ZCL\_METERING\_WATER\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 2,\ \ \ }
+\DoxyCodeLine{01068\ \ \ ZB\_ZCL\_METERING\_PRESSURE\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 4,\ \ \ }
+\DoxyCodeLine{01069\ \ \ ZB\_ZCL\_METERING\_HEAT\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 5,\ \ \ }
+\DoxyCodeLine{01070\ \ \ ZB\_ZCL\_METERING\_COOLING\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 6,\ \ \ }
+\DoxyCodeLine{01071\ \ \ ZB\_ZCL\_METERING\_EUMD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 7,\ \ \ }
+\DoxyCodeLine{01072\ \ \ ZB\_ZCL\_METERING\_PV\_GENERATION\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 8,\ \ \ }
+\DoxyCodeLine{01073\ \ \ ZB\_ZCL\_METERING\_WIND\_TURBINE\_GENERATION\_METERING\ \ \ \ =\ 9,\ \ \ }
+\DoxyCodeLine{01074\ \ \ ZB\_ZCL\_METERING\_WATER\_TURBINE\_GENERATION\_METERING\ \ \ =\ 10,\ \ }
+\DoxyCodeLine{01075\ \ \ ZB\_ZCL\_METERING\_MICRO\_GENERATION\_METERING\ \ \ \ \ \ \ \ \ \ \ =\ 11,\ \ }
+\DoxyCodeLine{01076\ \ \ ZB\_ZCL\_METERING\_SOLAR\_HOT\_WATER\_GENERATION\_METERING\ =\ 12,\ \ }
+\DoxyCodeLine{01077\ \ \ ZB\_ZCL\_METERING\_ELECTRIC\_METERING\_ELEMENT\_PHASE1\ \ \ \ =\ 13,\ \ }
+\DoxyCodeLine{01078\ \ \ ZB\_ZCL\_METERING\_ELECTRIC\_METERING\_ELEMENT\_PHASE2\ \ \ \ =\ 14,\ \ }
+\DoxyCodeLine{01079\ \ \ ZB\_ZCL\_METERING\_ELECTRIC\_METERING\_ELEMENT\_PHASE3\ \ \ \ =\ 15,\ \ }
+\DoxyCodeLine{01080\ \ \ \textcolor{comment}{/*\ 16\ to\ 126\ reserved\ for\ future\ growth\ */}}
+\DoxyCodeLine{01081\ }
+\DoxyCodeLine{01082\ }
+\DoxyCodeLine{01083\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_ELECTRIC\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 127,\ \ \ }
+\DoxyCodeLine{01084\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_GAS\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 128,\ \ \ }
+\DoxyCodeLine{01085\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_WATER\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 129,\ \ \ }
+\DoxyCodeLine{01086\ \ \ \textcolor{comment}{/*\ 130\ ==\ Mirrored\ Thermal\ Metering\ (deprecated)\ */}}
+\DoxyCodeLine{01087\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_PRESSURE\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 131,\ \ \ }
+\DoxyCodeLine{01088\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_HEAT\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 132,\ \ \ }
+\DoxyCodeLine{01089\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_COOLING\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 133,\ \ \ }
+\DoxyCodeLine{01090\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_EUMD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 134,\ \ \ }
+\DoxyCodeLine{01091\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_PV\_GENERATION\_METERING\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 135,\ \ \ }
+\DoxyCodeLine{01092\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_WIND\_TURBINE\_GENERATION\_METERING\ \ \ \ =\ 136,\ \ \ }
+\DoxyCodeLine{01093\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_WATER\_TURBINE\_GENERATION\_METERING\ \ \ =\ 137,\ \ \ }
+\DoxyCodeLine{01094\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_MICRO\_GENERATION\_METERING\ \ \ \ \ \ \ \ \ \ \ =\ 138,\ \ \ }
+\DoxyCodeLine{01095\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_SOLAR\_HOT\_WATER\_GENERATION\_METERING\ =\ 139,\ \ \ }
+\DoxyCodeLine{01096\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_ELECTRIC\_METERING\_ELEMENT\_PHASE1\ \ \ \ =\ 140,\ \ \ }
+\DoxyCodeLine{01097\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_ELECTRIC\_METERING\_ELEMENT\_PHASE2\ \ \ \ =\ 141,\ \ \ }
+\DoxyCodeLine{01098\ \ \ ZB\_ZCL\_METERING\_MIRRORED\_ELECTRIC\_METERING\_ELEMENT\_PHASE3\ \ \ \ =\ 142,\ \ \ }
+\DoxyCodeLine{01099\ \ \ \textcolor{comment}{/*\ 143\ to\ 255\ reserved\ for\ future\ growth\ */}}
+\DoxyCodeLine{01100\ }
+\DoxyCodeLine{01101\ \ \ ZB\_ZCL\_METERING\_RESERVED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 143}
+\DoxyCodeLine{01102\ \};}
+\DoxyCodeLine{01103\ }
+\DoxyCodeLine{01104\ }
+\DoxyCodeLine{01109\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_temperature\_unit\_of\_measure\_e}
+\DoxyCodeLine{01110\ \{}
+\DoxyCodeLine{01111\ \ \ ZB\_ZCL\_METERING\_TEMPERATURE\_UNIT\_KELVIN\_BINARY\ \ \ \ \ =\ 0x00,\ \ \ }
+\DoxyCodeLine{01112\ \ \ ZB\_ZCL\_METERING\_TEMPERATURE\_UNIT\_CELSIUS\_BINARY\ \ \ \ =\ 0x01,\ \ \ }
+\DoxyCodeLine{01113\ \ \ ZB\_ZCL\_METERING\_TEMPERATURE\_UNIT\_FAHRENHEIT\_BINARY\ =\ 0x02,\ \ \ }
+\DoxyCodeLine{01114\ \ \ \textcolor{comment}{/*\ 0x03\ -\/\ 0x7F\ reserved\ for\ future\ use\ */}}
+\DoxyCodeLine{01115\ \ \ ZB\_ZCL\_METERING\_TEMPERATURE\_UNIT\_KELVIN\_BCD\ \ \ \ \ \ \ \ =\ 0x80,\ \ \ }
+\DoxyCodeLine{01116\ \ \ ZB\_ZCL\_METERING\_TEMPERATURE\_UNIT\_CELSIUS\_BCD\ \ \ \ \ \ \ =\ 0x81,\ \ \ }
+\DoxyCodeLine{01117\ \ \ ZB\_ZCL\_METERING\_TEMPERATURE\_UNIT\_FAHRENHEIT\_BCD\ \ \ \ =\ 0x82,\ \ \ }
+\DoxyCodeLine{01118\ \ \ \textcolor{comment}{/*\ 0x83\ -\/\ 0xFF\ reserved\ for\ future\ use\ */}}
+\DoxyCodeLine{01119\ \};}
+\DoxyCodeLine{01120\ }
+\DoxyCodeLine{01126\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_generic\_alarm\_group\_e}
+\DoxyCodeLine{01127\ \{}
+\DoxyCodeLine{01128\ \ \ ZB\_ZCL\_METERING\_ALARM\_CHECK\_METER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{01129\ \ \ ZB\_ZCL\_METERING\_ALARM\_LOW\_BATTERY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{01130\ \ \ ZB\_ZCL\_METERING\_ALARM\_TAMPER\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ }
+\DoxyCodeLine{01131\ \ \ ZB\_ZCL\_METERING\_ALARM\_ELECTRICITY\_POWER\_FAILURE\ \ =\ 0x03,\ }
+\DoxyCodeLine{01132\ \ \ ZB\_ZCL\_METERING\_ALARM\_WATER\_PIPE\_EMPTY\ \ \ \ \ \ \ \ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{01133\ \ \ ZB\_ZCL\_METERING\_ALARM\_HEAT\_TEMPERATURE\_SENSOR\ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{01134\ \ \ ZB\_ZCL\_METERING\_ALARM\_COOLING\_TEMPERATURE\_SENSOR\ =\ 0x03,\ }
+\DoxyCodeLine{01135\ \ \ ZB\_ZCL\_METERING\_ALARM\_ELECTRICITY\_POWER\_QUALITY\ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{01136\ \ \ ZB\_ZCL\_METERING\_ALARM\_GAS\_LOW\_PRESSURE\ \ \ \ \ \ \ \ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{01137\ \ \ ZB\_ZCL\_METERING\_ALARM\_WATER\_LOW\_PRESSURE\ \ \ \ \ \ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{01138\ \ \ ZB\_ZCL\_METERING\_ALARM\_HEAT\_BURST\_DETECT\ \ \ \ \ \ \ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{01139\ \ \ ZB\_ZCL\_METERING\_ALARM\_COOLING\_BURST\_DETECT\ \ \ \ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{01140\ \ \ ZB\_ZCL\_METERING\_ALARM\_LEAK\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x05,\ }
+\DoxyCodeLine{01141\ \ \ ZB\_ZCL\_METERING\_ALARM\_SERVICE\_DISCONNECT\ \ \ \ \ \ \ \ \ =\ 0x06,\ }
+\DoxyCodeLine{01142\ \ \ ZB\_ZCL\_METERING\_ALARM\_ELECTRICITY\_RESERVED\ \ \ \ \ \ \ =\ 0x07,\ }
+\DoxyCodeLine{01143\ \ \ ZB\_ZCL\_METERING\_ALARM\_GAS\_REVERSE\_FLOW\ \ \ \ \ \ \ \ \ \ \ =\ 0x07,\ }
+\DoxyCodeLine{01144\ \ \ ZB\_ZCL\_METERING\_ALARM\_WATER\_REVERSE\_FLOW\ \ \ \ \ \ \ \ \ =\ 0x07,\ }
+\DoxyCodeLine{01145\ \ \ ZB\_ZCL\_METERING\_ALARM\_HEAT\_FLOW\_SENSOR\ \ \ \ \ \ \ \ \ \ \ =\ 0x07,\ }
+\DoxyCodeLine{01146\ \ \ ZB\_ZCL\_METERING\_ALARM\_COOLING\_FLOW\_SENSOR\ \ \ \ \ \ \ \ =\ 0x07,\ }
+\DoxyCodeLine{01147\ \ \ ZB\_ZCL\_METERING\_ALARM\_METER\_COVER\_REMOVED\ \ \ \ \ \ \ \ =\ 0x08,\ }
+\DoxyCodeLine{01148\ \ \ ZB\_ZCL\_METERING\_ALARM\_METER\_COVER\_CLOSED\ \ \ \ \ \ \ \ \ =\ 0x09,\ }
+\DoxyCodeLine{01149\ \ \ ZB\_ZCL\_METERING\_ALARM\_STRONG\_MAGNETIC\_FIELD\ \ \ \ \ \ =\ 0x0A,\ }
+\DoxyCodeLine{01150\ \ \ ZB\_ZCL\_METERING\_ALARM\_NO\_STRONG\_MAGNETIC\_FIELD\ \ \ =\ 0x0B,\ }
+\DoxyCodeLine{01151\ \ \ ZB\_ZCL\_METERING\_ALARM\_BATTERY\_FAILURE\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0C,\ }
+\DoxyCodeLine{01152\ \ \ ZB\_ZCL\_METERING\_ALARM\_PROGRAM\_MEMORY\_ERROR\ \ \ \ \ \ \ =\ 0x0D,\ }
+\DoxyCodeLine{01153\ \ \ ZB\_ZCL\_METERING\_ALARM\_RAM\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0E,\ }
+\DoxyCodeLine{01154\ \ \ ZB\_ZCL\_METERING\_ALARM\_NV\_MEMORY\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0F\ \ }
+\DoxyCodeLine{01155\ \};}
+\DoxyCodeLine{01156\ }
+\DoxyCodeLine{01157\ }
+\DoxyCodeLine{01162\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_electricity\_alarm\_group\_e}
+\DoxyCodeLine{01163\ \{}
+\DoxyCodeLine{01164\ \ \ ZB\_ZCL\_METERING\_ALARM\_LOW\_VOLTAGE\_L1\ \ \ \ \ \ \ \ \ =\ 0x10,\ \ }
+\DoxyCodeLine{01165\ \ \ ZB\_ZCL\_METERING\_ALARM\_HIGH\_VOLTAGE\_L1\ \ \ \ \ \ \ \ =\ 0x11,\ \ }
+\DoxyCodeLine{01166\ \ \ ZB\_ZCL\_METERING\_ALARM\_LOW\_VOLTAGE\_L2\ \ \ \ \ \ \ \ \ =\ 0x12,\ \ }
+\DoxyCodeLine{01167\ \ \ ZB\_ZCL\_METERING\_ALARM\_HIGH\_VOLTAGE\_L2\ \ \ \ \ \ \ \ =\ 0x13,\ \ }
+\DoxyCodeLine{01168\ \ \ ZB\_ZCL\_METERING\_ALARM\_LOW\_VOLTAGE\_L3\ \ \ \ \ \ \ \ \ =\ 0x14,\ \ }
+\DoxyCodeLine{01169\ \ \ ZB\_ZCL\_METERING\_ALARM\_HIGH\_VOLTAGE\_L3\ \ \ \ \ \ \ \ =\ 0x15,\ \ }
+\DoxyCodeLine{01170\ \ \ ZB\_ZCL\_METERING\_ALARM\_OVER\_CURRENT\_L1\ \ \ \ \ \ \ \ =\ 0x16,\ \ }
+\DoxyCodeLine{01171\ \ \ ZB\_ZCL\_METERING\_ALARM\_OVER\_CURRENT\_L2\ \ \ \ \ \ \ \ =\ 0x17,\ \ }
+\DoxyCodeLine{01172\ \ \ ZB\_ZCL\_METERING\_ALARM\_OVER\_CURRENT\_L3\ \ \ \ \ \ \ \ =\ 0x18,\ \ }
+\DoxyCodeLine{01173\ \ \ ZB\_ZCL\_METERING\_ALARM\_FREQUENCY\_TOO\_LOW\_L1\ \ \ =\ 0x19,\ \ }
+\DoxyCodeLine{01174\ \ \ ZB\_ZCL\_METERING\_ALARM\_FREQUENCY\_TOO\_HIGH\_L1\ \ =\ 0x1A,\ \ }
+\DoxyCodeLine{01175\ \ \ ZB\_ZCL\_METERING\_ALARM\_FREQUENCY\_TOO\_LOW\_L2\ \ \ =\ 0x1B,\ \ }
+\DoxyCodeLine{01176\ \ \ ZB\_ZCL\_METERING\_ALARM\_FREQUENCY\_TOO\_HIGH\_L2\ \ =\ 0x1C,\ \ }
+\DoxyCodeLine{01177\ \ \ ZB\_ZCL\_METERING\_ALARM\_FREQUENCY\_TOO\_LOW\_L3\ \ \ =\ 0x1D,\ \ }
+\DoxyCodeLine{01178\ \ \ ZB\_ZCL\_METERING\_ALARM\_FREQUENCY\_TOO\_HIGH\_L3\ \ =\ 0x1E,\ \ }
+\DoxyCodeLine{01179\ \ \ ZB\_ZCL\_METERING\_ALARM\_GROUND\_FAULT\ \ \ \ \ \ \ \ \ \ \ =\ 0x1F,\ \ }
+\DoxyCodeLine{01180\ \ \ ZB\_ZCL\_METERING\_ALARM\_ELECTRIC\_TAMPER\_DETECT\ =\ 0x20,\ \ }
+\DoxyCodeLine{01181\ \ \ ZB\_ZCL\_METERING\_ALARM\_INCORRECT\_POLARITY\ \ \ \ \ =\ 0x21,\ \ }
+\DoxyCodeLine{01182\ \ \ ZB\_ZCL\_METERING\_ALARM\_CURRENT\_NO\_VOLTAGE\ \ \ \ \ =\ 0x22,\ \ }
+\DoxyCodeLine{01183\ \ \ ZB\_ZCL\_METERING\_ALARM\_UNDER\_VOLTAGE\ \ \ \ \ \ \ \ \ \ =\ 0x23,\ \ }
+\DoxyCodeLine{01184\ \ \ ZB\_ZCL\_METERING\_ALARM\_OVER\_VOLTAGE\ \ \ \ \ \ \ \ \ \ \ =\ 0x24,\ \ }
+\DoxyCodeLine{01185\ \ \ ZB\_ZCL\_METERING\_ALARM\_NORMAL\_VOLTAGE\ \ \ \ \ \ \ \ \ =\ 0x25,\ \ }
+\DoxyCodeLine{01186\ \ \ ZB\_ZCL\_METERING\_ALARM\_PF\_BELOW\_THRESHOLD\ \ \ \ \ =\ 0x26,\ \ }
+\DoxyCodeLine{01187\ \ \ ZB\_ZCL\_METERING\_ALARM\_PF\_ABOVE\_THRESHOLD\ \ \ \ \ =\ 0x27,\ \ }
+\DoxyCodeLine{01188\ \ \ ZB\_ZCL\_METERING\_ALARM\_TERMINAL\_COVER\_REMOVED\ =\ 0x28,\ \ }
+\DoxyCodeLine{01189\ \ \ ZB\_ZCL\_METERING\_ALARM\_TERMINAL\_COVER\_CLOSED\ \ =\ 0x29,\ \ }
+\DoxyCodeLine{01190\ \};}
+\DoxyCodeLine{01191\ }
+\DoxyCodeLine{01192\ }
+\DoxyCodeLine{01198\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_generic\_flow\_pressure\_alarm\_group\_e}
+\DoxyCodeLine{01199\ \{}
+\DoxyCodeLine{01200\ \ \ ZB\_ZCL\_METERING\_ALARM\_BURST\_DETECT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x30,\ \ }
+\DoxyCodeLine{01201\ \ \ ZB\_ZCL\_METERING\_ALARM\_PRESSURE\_TOO\_LOW\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x31,\ \ }
+\DoxyCodeLine{01202\ \ \ ZB\_ZCL\_METERING\_ALARM\_PRESSURE\_TOO\_HIGH\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x32,\ \ }
+\DoxyCodeLine{01203\ \ \ ZB\_ZCL\_METERING\_ALARM\_FLOW\_SENSOR\_COMMUNICATION\_ERROR\ =\ 0x33,\ \ }
+\DoxyCodeLine{01204\ \ \ ZB\_ZCL\_METERING\_ALARM\_FLOW\_SENSOR\_MEASUREMENT\_FAULT\ \ \ =\ 0x34,\ \ }
+\DoxyCodeLine{01205\ \ \ ZB\_ZCL\_METERING\_ALARM\_FLOW\_SENSOR\_REVERSE\_FLOW\ \ \ \ \ \ \ \ =\ 0x35,\ \ }
+\DoxyCodeLine{01206\ \ \ ZB\_ZCL\_METERING\_ALARM\_FLOW\_SENSOR\_AIR\_DETECT\ \ \ \ \ \ \ \ \ \ =\ 0x36,\ \ }
+\DoxyCodeLine{01207\ \ \ ZB\_ZCL\_METERING\_ALARM\_PIPE\_EMPTY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x37,\ \ }
+\DoxyCodeLine{01208\ \};}
+\DoxyCodeLine{01209\ }
+\DoxyCodeLine{01210\ }
+\DoxyCodeLine{01215\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_heat\_and\_cooling\_specific\_alarm\_group\_e}
+\DoxyCodeLine{01216\ \{}
+\DoxyCodeLine{01217\ \ \ ZB\_ZCL\_METERING\_ALARM\_INLET\_TEMPERATURE\_SENSOR\_FAULT\ \ =\ 0x50,\ \ }
+\DoxyCodeLine{01218\ \ \ ZB\_ZCL\_METERING\_ALARM\_OUTLET\_TEMPERATURE\_SENSOR\_FAULT\ =\ 0x51,\ \ }
+\DoxyCodeLine{01219\ \};}
+\DoxyCodeLine{01220\ }
+\DoxyCodeLine{01221\ }
+\DoxyCodeLine{01226\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_gas\_specific\_alarm\_group\_e}
+\DoxyCodeLine{01227\ \{}
+\DoxyCodeLine{01228\ \ \ ZB\_ZCL\_METERING\_ALARM\_TILT\_TAMPER\ \ \ \ \ \ \ \ \ \ \ =\ 0x60,\ \ }
+\DoxyCodeLine{01229\ \ \ ZB\_ZCL\_METERING\_ALARM\_BATTERY\_COVER\_REMOVED\ =\ 0x61,\ \ }
+\DoxyCodeLine{01230\ \ \ ZB\_ZCL\_METERING\_ALARM\_BATTERY\_COVER\_CLOSED\ \ =\ 0x62,\ \ }
+\DoxyCodeLine{01231\ \ \ ZB\_ZCL\_METERING\_ALARM\_EXCESS\_FLOW\ \ \ \ \ \ \ \ \ \ \ =\ 0x63,\ \ }
+\DoxyCodeLine{01232\ \ \ ZB\_ZCL\_METERING\_ALARM\_TILT\_TAMPER\_ENDED\ \ \ \ \ =\ 0x64,\ \ }
+\DoxyCodeLine{01233\ \};}
+\DoxyCodeLine{01234\ }
+\DoxyCodeLine{01235\ }
+\DoxyCodeLine{01240\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_extended\_generic\_alarm\_group\_e}
+\DoxyCodeLine{01241\ \{}
+\DoxyCodeLine{01242\ \ \ ZB\_ZCM\_METERING\_ALARM\_MEASUREMENT\_SYSTEM\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x70,\ \ }
+\DoxyCodeLine{01243\ \ \ ZB\_ZCM\_METERING\_ALARM\_WATCHDOG\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x71,\ \ }
+\DoxyCodeLine{01244\ \ \ ZB\_ZCM\_METERING\_ALARM\_SUPPLY\_DISCONNECT\_FAILURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x72,\ \ }
+\DoxyCodeLine{01245\ \ \ ZB\_ZCM\_METERING\_ALARM\_SUPPLY\_CONNECT\_FAILURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x73,\ \ }
+\DoxyCodeLine{01246\ \ \ ZB\_ZCM\_METERING\_ALARM\_MEASUREMENT\_SOFTWARE\_CHANGED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x74,\ \ }
+\DoxyCodeLine{01247\ \ \ ZB\_ZCM\_METERING\_ALARM\_DST\_ENABLED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x75,\ \ }
+\DoxyCodeLine{01248\ \ \ ZB\_ZCM\_METERING\_ALARM\_DST\_DISABLED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x76,\ \ }
+\DoxyCodeLine{01249\ \ \ ZB\_ZCM\_METERING\_ALARM\_CLOCK\_ADJ\_BACKWARD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x77,\ \ }
+\DoxyCodeLine{01251\ \ \ ZB\_ZCM\_METERING\_ALARM\_CLOCK\_ADJ\_FORWARD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x78,\ \ }
+\DoxyCodeLine{01253\ \ \ ZB\_ZCM\_METERING\_ALARM\_CLOCK\_INVALID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x79,\ \ }
+\DoxyCodeLine{01254\ \ \ ZB\_ZCM\_METERING\_ALARM\_COMMUNICATION\_ERROR\_HAN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x7A,\ \ }
+\DoxyCodeLine{01255\ \ \ ZB\_ZCM\_METERING\_ALARM\_COMMUNICATION\_OK\_HAN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x7B,\ \ }
+\DoxyCodeLine{01256\ \ \ ZB\_ZCM\_METERING\_ALARM\_METER\_FRAUD\_ATTEMPT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x7C,\ \ }
+\DoxyCodeLine{01257\ \ \ ZB\_ZCM\_METERING\_ALARM\_POWER\_LOSS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x7D,\ \ }
+\DoxyCodeLine{01258\ \ \ ZB\_ZCM\_METERING\_ALARM\_UNUSUAL\_HAN\_TRAFFIC\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x7E,\ \ }
+\DoxyCodeLine{01259\ \ \ ZB\_ZCM\_METERING\_ALARM\_UNEXPECTED\_CLOCK\_CHANGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x7F,\ \ }
+\DoxyCodeLine{01260\ \ \ ZB\_ZCM\_METERING\_ALARM\_COMMS\_USING\_UNAUTHENTICATED\_COMPONENT\ \ \ \ \ \ \ \ =\ 0x80,\ \ }
+\DoxyCodeLine{01261\ \ \ ZB\_ZCM\_METERING\_ALARM\_ERROR\_REG\_CLEAR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x81,\ \ }
+\DoxyCodeLine{01262\ \ \ ZB\_ZCM\_METERING\_ALARM\_ALARM\_REG\_CLEAR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x82,\ \ }
+\DoxyCodeLine{01263\ \ \ ZB\_ZCM\_METERING\_ALARM\_UNEXPECTED\_HW\_RESET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x83,\ \ }
+\DoxyCodeLine{01264\ \ \ ZB\_ZCM\_METERING\_ALARM\_UNEXPECTED\_PROGRAM\_EXECUTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x84,\ \ }
+\DoxyCodeLine{01265\ \ \ ZB\_ZCM\_METERING\_ALARM\_EVENTLOG\_CLEARED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x85,\ \ }
+\DoxyCodeLine{01266\ \ \ ZB\_ZCM\_METERING\_ALARM\_LIMIT\_THRESHOLD\_EXCEEDED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x86,\ \ }
+\DoxyCodeLine{01267\ \ \ ZB\_ZCM\_METERING\_ALARM\_LIMIT\_THRESHOLD\_OK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x87,\ \ }
+\DoxyCodeLine{01268\ \ \ ZB\_ZCM\_METERING\_ALARM\_LIMIT\_THRESHOLD\_CHANGED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x88,\ \ }
+\DoxyCodeLine{01269\ \ \ ZB\_ZCM\_METERING\_ALARM\_MAXIMUM\_DEMAND\_EXCEEDED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x89,\ \ }
+\DoxyCodeLine{01270\ \ \ ZB\_ZCM\_METERING\_ALARM\_PROFILE\_CLEARED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x8A,\ \ }
+\DoxyCodeLine{01271\ \ \ ZB\_ZCM\_METERING\_ALARM\_SAMPLING\_BUFFER\_CLEARED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x8B,\ \ }
+\DoxyCodeLine{01272\ \ \ ZB\_ZCM\_METERING\_ALARM\_BATTERY\_WARNING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x8C,\ \ }
+\DoxyCodeLine{01273\ \ \ ZB\_ZCM\_METERING\_ALARM\_WRONG\_SIGNATURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x8D,\ \ }
+\DoxyCodeLine{01274\ \ \ ZB\_ZCM\_METERING\_ALARM\_NO\_SIGNATURE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x8E,\ \ }
+\DoxyCodeLine{01275\ \ \ ZB\_ZCM\_METERING\_ALARM\_UNAUTHORISED\_ACTION\_FROM\_HAN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x8F,\ \ }
+\DoxyCodeLine{01276\ \ \ ZB\_ZCM\_METERING\_ALARM\_FAST\_POLLING\_START\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x90,\ \ }
+\DoxyCodeLine{01277\ \ \ ZB\_ZCM\_METERING\_ALARM\_FAST\_POLLING\_END\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x91,\ \ }
+\DoxyCodeLine{01278\ \ \ ZB\_ZCM\_METERING\_ALARM\_METER\_REPORTING\_INTERVAL\_CHANGED\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x92,\ \ }
+\DoxyCodeLine{01279\ \ \ ZB\_ZCM\_METERING\_ALARM\_DISCONNECT\_DUE\_TO\_LOAD\_LIMIT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x93,\ \ }
+\DoxyCodeLine{01280\ \ \ ZB\_ZCM\_METERING\_ALARM\_METER\_SUPPLY\_STATUS\_REGISTER\_CHANGED\ \ \ \ \ \ \ \ \ =\ 0x94,\ \ }
+\DoxyCodeLine{01281\ \ \ ZB\_ZCM\_METERING\_ALARM\_METER\_ALARM\_STATUS\_REGISTER\_CHANGED\ \ \ \ \ \ \ \ \ \ =\ 0x95,\ \ }
+\DoxyCodeLine{01282\ \ \ ZB\_ZCM\_METERING\_ALARM\_EXTENDED\_METER\_ALARM\_STATUS\_REGISTER\_CHANGED\ =\ 0x96,\ \ }
+\DoxyCodeLine{01283\ \};}
+\DoxyCodeLine{01284\ }
+\DoxyCodeLine{01285\ }
+\DoxyCodeLine{01291\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_manufacturer\_specific\_alarm\_group\_e}
+\DoxyCodeLine{01292\ \{}
+\DoxyCodeLine{01293\ \ \ ZB\_ZCL\_METERING\_ALARM\_MANUFACTURER\_SPECIFIC\_A\ =\ 0xB0,\ }
+\DoxyCodeLine{01294\ \ \ ZB\_ZCL\_METERING\_ALARM\_MANUFACTURER\_SPECIFIC\_B\ =\ 0xB1,\ }
+\DoxyCodeLine{01295\ \ \ ZB\_ZCL\_METERING\_ALARM\_MANUFACTURER\_SPECIFIC\_C\ =\ 0xB2,\ }
+\DoxyCodeLine{01296\ \ \ ZB\_ZCL\_METERING\_ALARM\_MANUFACTURER\_SPECIFIC\_D\ =\ 0xB3,\ }
+\DoxyCodeLine{01297\ \ \ ZB\_ZCL\_METERING\_ALARM\_MANUFACTURER\_SPECIFIC\_E\ =\ 0xB4,\ }
+\DoxyCodeLine{01298\ \ \ ZB\_ZCL\_METERING\_ALARM\_MANUFACTURER\_SPECIFIC\_F\ =\ 0xB5,\ }
+\DoxyCodeLine{01299\ \ \ ZB\_ZCL\_METERING\_ALARM\_MANUFACTURER\_SPECIFIC\_G\ =\ 0xB6,\ }
+\DoxyCodeLine{01300\ \ \ ZB\_ZCL\_METERING\_ALARM\_MANUFACTURER\_SPECIFIC\_H\ =\ 0xB7,\ }
+\DoxyCodeLine{01301\ \ \ ZB\_ZCL\_METERING\_ALARM\_MANUFACTURER\_SPECIFIC\_I\ =\ 0xB8,\ }
+\DoxyCodeLine{01302\ \};}
+\DoxyCodeLine{01303\ }
+\DoxyCodeLine{01304\ }
+\DoxyCodeLine{01308\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_service\_disconnect\_reasons\_e}
+\DoxyCodeLine{01309\ \{}
+\DoxyCodeLine{01310\ \ \ ZB\_ZCL\_METERING\_REASON\_ON\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ }
+\DoxyCodeLine{01311\ \ \ ZB\_ZCL\_METERING\_REASON\_OFF\_DUE\_TO\_OVER\_POWER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{01312\ \ \ ZB\_ZCL\_METERING\_REASON\_OFF\_DUE\_TO\_OVER\_VOLTAGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \ }
+\DoxyCodeLine{01313\ \ \ ZB\_ZCL\_METERING\_REASON\_OFF\_DUE\_TO\_REMOTE\_DNO\_LOAD\_CONTROL\ \ \ =\ 0x03,\ \ }
+\DoxyCodeLine{01314\ \ \ ZB\_ZCL\_METERING\_REASON\_OFF\_BY\_OTHER\_REMOTE\_COMMAND\ \ \ \ \ \ \ \ \ \ =\ 0x04,\ \ }
+\DoxyCodeLine{01315\ \ \ ZB\_ZCL\_METERING\_REASON\_OFF\_DUE\_TO\_OVERHEATING\_SHORT\_CIRCUIT\ =\ 0x05,\ \ }
+\DoxyCodeLine{01317\ \ \ ZB\_ZCL\_METERING\_REASON\_OFF\_DUE\_TO\_OVERHEATING\_OTHER\ \ \ \ \ \ \ \ \ =\ 0x06,\ \ }
+\DoxyCodeLine{01319\ \};}
+\DoxyCodeLine{01320\ }
+\DoxyCodeLine{01322\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0002u)}}
+\DoxyCodeLine{01323\ }
+\DoxyCodeLine{01325\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_FORMATTING\_SUPPRESS\_ZERO(b)\ \ \ \ (((b)\ \&\ 0x80)==0x80)}}
+\DoxyCodeLine{01326\ }
+\DoxyCodeLine{01328\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_FORMATTING\_LEFT(b)\ \ \ \ \ \ \ \ \ \ \ (((b)>>3)\ \&\ 0x07)}}
+\DoxyCodeLine{01329\ }
+\DoxyCodeLine{01331\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_FORMATTING\_RIGHT(b)\ \ \ \ \ \ \ \ \ \ \ \ ((b)\ \&\ 0x07)}}
+\DoxyCodeLine{01332\ }
+\DoxyCodeLine{01334\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_FORMATTING\_SET(suppress\_zero,\ left,\ right)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01335\ \textcolor{preprocessor}{\ \ (\ ((suppress\_zero)\ ?\ 0x80\ :\ 0)\ |\ (((left)\ \&\ 7)<<3)\ |\ ((right)\ \&\ 7)\ )}}
+\DoxyCodeLine{01336\ }
+\DoxyCodeLine{01338\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_STATUS\_DEFAULT\_VALUE\ 0x00}}
+\DoxyCodeLine{01339\ }
+\DoxyCodeLine{01341\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_UNIT\_OF\_MEASURE\_DEFAULT\_VALUE\ 0x00}}
+\DoxyCodeLine{01342\ }
+\DoxyCodeLine{01344\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_INSTANTANEOUS\_DEMAND\_DEFAULT\_VALUE\ ZB\_INIT\_UINT24(0x00,\ 0x0000)}}
+\DoxyCodeLine{01345\ }
+\DoxyCodeLine{01347\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_DAILY\_FREEZE\_TIME\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{01348\ }
+\DoxyCodeLine{01350\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_POWER\_FACTOR\_DEFAULT\_VALUE\ ((zb\_int8\_t)0x00)}}
+\DoxyCodeLine{01351\ }
+\DoxyCodeLine{01353\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_DEFAULT\_UPDATE\_PERIOD\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x1E)}}
+\DoxyCodeLine{01354\ }
+\DoxyCodeLine{01356\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_FAST\_POLL\_UPDATE\_PERIOD\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x05)}}
+\DoxyCodeLine{01357\ }
+\DoxyCodeLine{01359\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_PRESET\_READING\_TIME\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{01360\ }
+\DoxyCodeLine{01362\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_MAX\_NUMBER\_OF\_PERIODS\_DELIVERED\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x18)}}
+\DoxyCodeLine{01363\ }
+\DoxyCodeLine{01365\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_GENERIC\_ALARM\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0xFFFF)}}
+\DoxyCodeLine{01366\ }
+\DoxyCodeLine{01368\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_ELECTRICITY\_ALARM\_MASK\_DEFAULT\_VALUE\ ((zb\_uint32\_t)0xFFFFFFFF)}}
+\DoxyCodeLine{01369\ }
+\DoxyCodeLine{01371\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_GENERIC\_FLOW\_PRESSURE\_ALARM\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0xFFFF)}}
+\DoxyCodeLine{01372\ }
+\DoxyCodeLine{01374\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_WATER\_SPECIFIC\_ALARM\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0xFFFF)}}
+\DoxyCodeLine{01375\ }
+\DoxyCodeLine{01377\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_HEAT\_AND\_COOLING\_SPECIFIC\_ALARM\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0xFFFF)}}
+\DoxyCodeLine{01378\ }
+\DoxyCodeLine{01380\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_GAS\_SPECIFIC\_ALARM\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0xFFFF)}}
+\DoxyCodeLine{01381\ }
+\DoxyCodeLine{01383\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_LINKY\_MODE\_ON\_OPERATION\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x00)}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ ZB\_ZCL\_METERING\_SRV\_ATTRS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01385\ }
+\DoxyCodeLine{01386\ }
+\DoxyCodeLine{01390\ }
+\DoxyCodeLine{01391\ }
+\DoxyCodeLine{01395\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_cli\_cmd\_e}
+\DoxyCodeLine{01396\ \{}
+\DoxyCodeLine{01397\ }
+\DoxyCodeLine{01398\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01399\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_GET\_PROFILE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ }
+\DoxyCodeLine{01400\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01401\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_REQUEST\_MIRROR\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01406\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01407\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_MIRROR\_REMOVED,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01412\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01413\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_REQUEST\_FAST\_POLL\_MODE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01414\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01415\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_SCHEDULE\_SNAPSHOT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01419\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01420\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_TAKE\_SNAPSHOT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01423\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01424\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_GET\_SNAPSHOT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01426\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01427\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_START\_SAMPLING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01431\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01432\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_GET\_SAMPLED\_DATA,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01435\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01436\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_MIRROR\_REPORT\_ATTRIBUTE\_RESPONSE,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01440\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01441\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_RESET\_LOAD\_LIMIT\_COUNTER,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01445\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01446\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_CHANGE\_SUPPLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01451\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01452\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_LOCAL\_CHANGE\_SUPPLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01457\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01458\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_SET\_SUPPLY\_STATUS,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01462\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01463\ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_SET\_UNCONTROLLED\_FLOW\_THRESHOLD,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01466\ \}\ zb\_zcl\_metering\_cli\_cmd\_t;}
+\DoxyCodeLine{01467\ }
+\DoxyCodeLine{01468\ }
+\DoxyCodeLine{01472\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_srv\_cmd\_e}
+\DoxyCodeLine{01473\ \{}
+\DoxyCodeLine{01474\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01475\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_GET\_PROFILE\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ \ }
+\DoxyCodeLine{01476\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01477\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_REQUEST\_MIRROR,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01480\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01481\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_REMOVE\_MIRROR,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01484\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01485\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_REQUEST\_FAST\_POLL\_MODE\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01486\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01487\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_SCHEDULE\_SNAPSHOT\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01491\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01492\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_TAKE\_SNAPSHOT\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01496\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01497\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_PUBLISH\_SNAPSHOT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01500\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01501\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_GET\_SAMPLED\_DATA\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01505\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01506\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_CONFIGURE\_MIRROR,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01512\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01513\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_CONFIGURE\_NOTIFICATION\_SCHEME,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01518\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01519\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_CONFIGURE\_NOTIFICATION\_FLAG,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01526\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01527\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_GET\_NOTIFIED\_MESSAGE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01532\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01533\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_SUPPLY\_STATUS\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01536\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01537\ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_START\_SAMPLING\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01540\ \}\ zb\_zcl\_metering\_srv\_cmd\_t;}
+\DoxyCodeLine{01541\ }
+\DoxyCodeLine{01542\ \textcolor{comment}{/*\ METERING\ cluster\ commands\ list\ :\ only\ for\ information\ -\/\ do\ not\ modify\ */}}
+\DoxyCodeLine{01543\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_METERING\_SERVER\_ROLE\_GENERATED\_CMD\_LIST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01544\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_GET\_PROFILE\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01545\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_REQUEST\_FAST\_POLL\_MODE\_RESPONSE,\ \(\backslash\)}}
+\DoxyCodeLine{01546\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_PUBLISH\_SNAPSHOT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01547\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_METERING\_SRV\_CMD\_GET\_SAMPLED\_DATA\_RESPONSE}}
+\DoxyCodeLine{01548\ }
+\DoxyCodeLine{01549\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_METERING\_CLIENT\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_METERING\_SERVER\_ROLE\_GENERATED\_CMD\_LIST}}
+\DoxyCodeLine{01550\ }
+\DoxyCodeLine{01551\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_METERING\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01552\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_GET\_PROFILE,\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01553\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_REQUEST\_FAST\_POLL\_MODE,\ \(\backslash\)}}
+\DoxyCodeLine{01554\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_GET\_SNAPSHOT,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01555\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_METERING\_CLI\_CMD\_GET\_SAMPLED\_DATA}}
+\DoxyCodeLine{01556\ }
+\DoxyCodeLine{01557\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_METERING\_SERVER\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_METERING\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST}}
+\DoxyCodeLine{01558\ }
+\DoxyCodeLine{01562\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_interval\_channel\_e}
+\DoxyCodeLine{01563\ \{}
+\DoxyCodeLine{01564\ \ \ ZB\_ZCL\_METERING\_CONSUMPTION\_DELIVERED\ \ \ \ \ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{01565\ \ \ ZB\_ZCL\_METERING\_CONSUMPTION\_RECEIVED\ \ \ \ \ \ \ \ \ \ \ =\ 1,}
+\DoxyCodeLine{01566\ \ \ ZB\_ZCL\_METERING\_REACTIVE\_CONSUMPTION\_DELIVERED\ =\ 2,}
+\DoxyCodeLine{01567\ \ \ ZB\_ZCL\_METERING\_REACTIVE\_CONSUMPTION\_RECEIVED\ \ =\ 3,}
+\DoxyCodeLine{01568\ \ \ \textcolor{comment}{/*\ Value\ 4\ is\ reserved.\ Values\ 5\ -\/\ 255\ is\ unused\ */}}
+\DoxyCodeLine{01569\ \};}
+\DoxyCodeLine{01570\ }
+\DoxyCodeLine{01571\ }
+\DoxyCodeLine{01575\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_get\_profile\_payload\_s}
+\DoxyCodeLine{01576\ \{}
+\DoxyCodeLine{01581\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ interval\_channel;}
+\DoxyCodeLine{01585\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ end\_time;}
+\DoxyCodeLine{01587\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_periods;}
+\DoxyCodeLine{01588\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_get\_profile\_payload\_t;}
+\DoxyCodeLine{01589\ }
+\DoxyCodeLine{01590\ }
+\DoxyCodeLine{01594\ \textcolor{comment}{/*\ FIXME:\ Discuss\ prefix\ */}}
+\DoxyCodeLine{01595\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_status\_field\_e}
+\DoxyCodeLine{01596\ \{}
+\DoxyCodeLine{01597\ \ \ ZB\_ZCL\_METERING\_SUCCESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ }
+\DoxyCodeLine{01598\ \ \ ZB\_ZCL\_METERING\_UNDEFINED\_INTERVAL\_CHANNEL\_REQUESTED\ \ \ \ \ \ \ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{01599\ \ \ ZB\_ZCL\_METERING\_INTERVAL\_CHANNEL\_NOT\_SUPPORTED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \ }
+\DoxyCodeLine{01600\ \ \ ZB\_ZCL\_METERING\_INVALID\_END\_TIME\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03,\ \ }
+\DoxyCodeLine{01601\ \ \ ZB\_ZCL\_METERING\_MORE\_PERIODS\_REQUESTED\_THAN\_CAN\_BE\_RETURNED\ \ \ =\ 0x04,\ \ }
+\DoxyCodeLine{01602\ \ \ ZB\_ZCL\_METERING\_NO\_INTERVALS\_AVAILABLE\_FOR\_THE\_REQUESTED\_TIME\ =\ 0x05\ \ \ }
+\DoxyCodeLine{01603\ \};}
+\DoxyCodeLine{01604\ }
+\DoxyCodeLine{01605\ }
+\DoxyCodeLine{01609\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_profile\_interval\_period\_e}
+\DoxyCodeLine{01610\ \{}
+\DoxyCodeLine{01611\ \ \ \ ZB\_ZCl\_METERING\_INTERVAL\_PERIOD\_DAILY\ \ \ \ \ \ \ =\ 0,\ \ }
+\DoxyCodeLine{01612\ \ \ \ ZB\_ZCl\_METERING\_INTERVAL\_PERIOD\_60\_MINUTES\ \ =\ 1,\ \ }
+\DoxyCodeLine{01613\ \ \ \ ZB\_ZCl\_METERING\_INTERVAL\_PERIOD\_30\_MINUTES\ \ =\ 2,\ \ }
+\DoxyCodeLine{01614\ \ \ \ ZB\_ZCl\_METERING\_INTERVAL\_PERIOD\_15\_MINUTES\ \ =\ 3,\ \ }
+\DoxyCodeLine{01615\ \ \ \ ZB\_ZCl\_METERING\_INTERVAL\_PERIOD\_10\_MINUTES\ \ =\ 4,\ \ }
+\DoxyCodeLine{01616\ \ \ \ ZB\_ZCl\_METERING\_INTERVAL\_PERIOD\_7\_5\_MINUTES\ =\ 5,\ \ }
+\DoxyCodeLine{01617\ \ \ \ ZB\_ZCl\_METERING\_INTERVAL\_PERIOD\_5\_MINUTES\ \ \ =\ 6,\ \ }
+\DoxyCodeLine{01618\ \ \ \ ZB\_ZCl\_METERING\_INTERVAL\_PERIOD\_2\_5\_MINUTES\ =\ 7,\ \ }
+\DoxyCodeLine{01619\ \ \ \ ZB\_ZCl\_METERING\_INTERVAL\_PERIOD\_1\_MINUTE\ \ \ \ =\ 8\ \ }
+\DoxyCodeLine{01620\ \};}
+\DoxyCodeLine{01621\ }
+\DoxyCodeLine{01622\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_GET\_PROFILE\_PAYLOAD\_SIZE\_IS\_VALID(current\_size)\ \(\backslash\)}}
+\DoxyCodeLine{01623\ \textcolor{preprocessor}{\ \ ((current\_size\ >=\ sizeof(zb\_zcl\_metering\_get\_profile\_payload\_t)\ ?\ ZB\_TRUE\ :\ ZB\_FALSE))}}
+\DoxyCodeLine{01624\ }
+\DoxyCodeLine{01628\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_get\_profile\_response\_payload\_s}
+\DoxyCodeLine{01629\ \{}
+\DoxyCodeLine{01633\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ end\_time;}
+\DoxyCodeLine{01637\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ status;}
+\DoxyCodeLine{01642\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ profile\_interval\_period;}
+\DoxyCodeLine{01645\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_periods\_delivered;}
+\DoxyCodeLine{01652\ \ \ zb\_uint24\_t\ *intervals;}
+\DoxyCodeLine{01653\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_get\_profile\_response\_payload\_t;}
+\DoxyCodeLine{01654\ }
+\DoxyCodeLine{01655\ }
+\DoxyCodeLine{01659\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_request\_fast\_poll\_mode\_payload\_s}
+\DoxyCodeLine{01660\ \{}
+\DoxyCodeLine{01663\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ fast\_poll\_update\_period;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01666\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ duration\_in\_minutes;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01667\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_request\_fast\_poll\_mode\_payload\_t;}
+\DoxyCodeLine{01668\ }
+\DoxyCodeLine{01669\ }
+\DoxyCodeLine{01673\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_request\_fast\_poll\_mode\_response\_payload\_s}
+\DoxyCodeLine{01674\ \{}
+\DoxyCodeLine{01677\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ applied\_update\_period\_in\_seconds;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01681\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ fast\_poll\_mode\_end\_time;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01682\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_request\_fast\_poll\_mode\_response\_payload\_t;}
+\DoxyCodeLine{01683\ }
+\DoxyCodeLine{01684\ }
+\DoxyCodeLine{01688\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_get\_sampled\_data\_response\_payload\_s}
+\DoxyCodeLine{01689\ \{}
+\DoxyCodeLine{01693\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ sample\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01695\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ sample\_start\_time;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01697\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ sample\_type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01699\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ sample\_request\_interval;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01703\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ number\_of\_samples;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01707\ \ \ zb\_uint24\_t\ *samples;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01708\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_get\_sampled\_data\_response\_payload\_t;}
+\DoxyCodeLine{01709\ }
+\DoxyCodeLine{01710\ }
+\DoxyCodeLine{01714\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_sample\_type\_e}
+\DoxyCodeLine{01715\ \{}
+\DoxyCodeLine{01716\ \ \ ZB\_ZCL\_METERING\_SAMPLE\_TYPE\_CONSUMPTION\_DELIVERED\ \ \ \ \ \ \ \ \ \ =\ 0,\ \ }
+\DoxyCodeLine{01717\ \ \ ZB\_ZCL\_METERING\_SAMPLE\_TYPE\_CONSUMPTION\_RECEIVED\ \ \ \ \ \ \ \ \ \ \ =\ 1,\ \ }
+\DoxyCodeLine{01718\ \ \ ZB\_ZCL\_METERING\_SAMPLE\_TYPE\_REACTIVE\_CONSUMPTION\_DELIVERED\ =\ 2,\ \ }
+\DoxyCodeLine{01719\ \ \ ZB\_ZCL\_METERING\_SAMPLE\_TYPE\_REACTIVE\_CONSUMPTION\_RECEIVED\ \ =\ 3,\ \ }
+\DoxyCodeLine{01720\ \ \ ZB\_ZCL\_METERING\_SAMPLE\_TYPE\_INSTANTANEOUS\_DEMAND\ \ \ \ \ \ \ \ \ \ \ =\ 4\ \ \ }
+\DoxyCodeLine{01721\ \};}
+\DoxyCodeLine{01722\ }
+\DoxyCodeLine{01723\ }
+\DoxyCodeLine{01727\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_get\_sampled\_data\_payload\_s}
+\DoxyCodeLine{01728\ \{}
+\DoxyCodeLine{01732\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ sample\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01734\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ earliest\_sample\_time;\ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01736\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ sample\_type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01740\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ number\_of\_samples;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01741\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_get\_sampled\_data\_payload\_t;}
+\DoxyCodeLine{01742\ }
+\DoxyCodeLine{01743\ }
+\DoxyCodeLine{01747\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_get\_snapshot\_payload\_s}
+\DoxyCodeLine{01748\ \{}
+\DoxyCodeLine{01752\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ earliest\_start\_time;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01756\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ latest\_end\_time;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01760\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ snapshot\_offset;\ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01762\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ snapshot\_cause;\ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01763\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_get\_snapshot\_payload\_t;}
+\DoxyCodeLine{01764\ }
+\DoxyCodeLine{01765\ }
+\DoxyCodeLine{01769\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_snapshot\_cause\_e}
+\DoxyCodeLine{01770\ \{}
+\DoxyCodeLine{01771\ \ \ ZB\_ZCL\_METERING\_CAUSE\_GENERAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ }
+\DoxyCodeLine{01772\ \ \ ZB\_ZCL\_METERING\_CAUSE\_END\_OF\_BILLING\_PERIOD\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,\ \ }
+\DoxyCodeLine{01773\ \ \ ZB\_ZCL\_METERING\_CAUSE\_END\_OF\_BLOCK\_PERIOD\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,\ \ }
+\DoxyCodeLine{01774\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CHANGE\_OF\_TARIFF\_INFORMATION\ \ \ \ =\ 1\ <<\ 3,\ \ }
+\DoxyCodeLine{01775\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CHANGE\_OF\_PRICE\_MATRIX\ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,\ \ }
+\DoxyCodeLine{01776\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CHANGE\_OF\_BLOCK\_THRESHOLDS\ \ \ \ \ \ =\ 1\ <<\ 5,\ \ }
+\DoxyCodeLine{01777\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CHANGE\_OF\_CV\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6,\ \ }
+\DoxyCodeLine{01778\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CHANGE\_OF\_CF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7,\ \ }
+\DoxyCodeLine{01779\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CHANGE\_OF\_CALENDAR\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 8,\ \ }
+\DoxyCodeLine{01780\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CRITICAL\_PEAK\_PRICING\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 9,\ \ }
+\DoxyCodeLine{01781\ \ \ ZB\_ZCL\_METERING\_CAUSE\_MANUALLY\_TRIGGERED\_FROM\_CLIENT\ \ =\ 1\ <<\ 10,\ \ }
+\DoxyCodeLine{01782\ \ \ ZB\_ZCL\_METERING\_CAUSE\_END\_OF\_RESOLVE\_PERIOD\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 11,\ \ }
+\DoxyCodeLine{01783\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CHANGE\_OF\_TENANCY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 12,\ \ }
+\DoxyCodeLine{01784\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CHANGE\_OF\_SUPPLIER\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 13,\ \ }
+\DoxyCodeLine{01785\ \ \ ZB\_ZCL\_METERING\_CAUSE\_CHANGE\_OF\_METER\_MODE\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 14,\ \ }
+\DoxyCodeLine{01786\ \ \ ZB\_ZCL\_METERING\_CAUSE\_DEBT\_PAYMENT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 15,\ \ }
+\DoxyCodeLine{01787\ \ \ ZB\_ZCL\_METERING\_CAUSE\_SCHEDULED\_SNAPSHOT\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 16,\ \ }
+\DoxyCodeLine{01788\ \ \ ZB\_ZCL\_METERING\_CAUSE\_OTA\_FIRMWARE\_DOWNLOAD\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 17,\ \ \ }
+\DoxyCodeLine{01789\ \ \ ZB\_ZCL\_METERING\_CAUSE\_SELECT\_ALL\_SNAPSHOTS\ \ \ \ \ \ \ \ \ \ \ \ =\ 0xFFFFFFFF\ \ }
+\DoxyCodeLine{01790\ \};}
+\DoxyCodeLine{01791\ }
+\DoxyCodeLine{01792\ }
+\DoxyCodeLine{01796\ \textcolor{keyword}{enum}\ zb\_zcl\_metering\_snapshot\_payload\_type\_e}
+\DoxyCodeLine{01797\ \{}
+\DoxyCodeLine{01798\ \ \ ZB\_ZCL\_METERING\_TOU\_DELIVERED\_REGISTERS\ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ }
+\DoxyCodeLine{01799\ \ \ ZB\_ZCL\_METERING\_TOU\_RECEIVED\_REGISTERS\ \ \ \ \ \ \ \ \ \ =\ 1,\ \ \ \ }
+\DoxyCodeLine{01800\ \ \ ZB\_ZCL\_METERING\_BLOCK\_TIER\_DELIVERED\ \ \ \ \ \ \ \ \ \ \ \ =\ 2,\ \ \ \ }
+\DoxyCodeLine{01801\ \ \ ZB\_ZCL\_METERING\_BLOCK\_TIER\_RECEIVED\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 3,\ \ \ \ }
+\DoxyCodeLine{01802\ \ \ ZB\_ZCL\_METERING\_TOU\_DELIVERED\_NO\_BILLING\ \ \ \ \ \ \ \ =\ 4,\ \ \ \ }
+\DoxyCodeLine{01803\ \ \ ZB\_ZCL\_METERING\_TOU\_RECEIVED\_NO\_BILLING\ \ \ \ \ \ \ \ \ =\ 5,\ \ \ \ }
+\DoxyCodeLine{01804\ \ \ ZB\_ZCL\_METERING\_BLOCK\_TIER\_DELIVERED\_NO\_BILLING\ =\ 6,\ \ \ \ }
+\DoxyCodeLine{01805\ \ \ ZB\_ZCL\_METERING\_BLOCK\_TIER\_RECEIVED\_NO\_BILLING\ \ =\ 7,\ \ \ \ }
+\DoxyCodeLine{01806\ \ \ ZB\_ZCL\_METERING\_DATA\_UNAVAILABLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 128,\ \ }
+\DoxyCodeLine{01807\ \};}
+\DoxyCodeLine{01808\ }
+\DoxyCodeLine{01809\ }
+\DoxyCodeLine{01813\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_tou\_delivered\_payload\_s}
+\DoxyCodeLine{01814\ \{}
+\DoxyCodeLine{01818\ \ \ zb\_uint48\_t\ current\_summation\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01820\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ bill\_to\_date\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01824\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ bill\_to\_date\_time\_stamp\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01828\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ projected\_bill\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01832\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ projected\_bill\_time\_stamp\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01836\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ bill\_delivered\_trailing\_digit;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01838\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_in\_use;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01843\ \ \ zb\_uint48\_t\ *tier\_summation;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01844\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_tou\_delivered\_payload\_t;}
+\DoxyCodeLine{01845\ }
+\DoxyCodeLine{01846\ }
+\DoxyCodeLine{01850\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_tou\_received\_payload\_s}
+\DoxyCodeLine{01851\ \{}
+\DoxyCodeLine{01855\ \ \ zb\_uint48\_t\ current\_summation\_received;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01857\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ bill\_to\_date\_received;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01861\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ bill\_to\_date\_time\_stamp\_received;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01865\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ projected\_bill\_received;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01869\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ projected\_bill\_time\_stamp\_received;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01873\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ bill\_received\_trailing\_digit;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01877\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_in\_use;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01882\ \ \ zb\_uint48\_t\ *tier\_summation;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01883\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_tou\_received\_payload\_t;}
+\DoxyCodeLine{01884\ }
+\DoxyCodeLine{01885\ }
+\DoxyCodeLine{01889\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_block\_delivered\_payload\_s}
+\DoxyCodeLine{01890\ \{}
+\DoxyCodeLine{01894\ \ \ zb\_uint48\_t\ current\_summation\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01896\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ bill\_to\_date\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01900\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ bill\_to\_date\_time\_stamp\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01904\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ projected\_bill\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01908\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ projected\_bill\_time\_stamp\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01912\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ bill\_delivered\_trailing\_digit;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01914\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_in\_use;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01918\ \ \ zb\_uint48\_t\ *tier\_summation;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01922\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_and\_block\_thresholds\_in\_use;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01927\ \ \ zb\_uint48\_t\ *tier\_block\_summation;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01928\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_block\_delivered\_payload\_t;}
+\DoxyCodeLine{01929\ }
+\DoxyCodeLine{01930\ }
+\DoxyCodeLine{01934\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_block\_received\_payload\_s}
+\DoxyCodeLine{01935\ \{}
+\DoxyCodeLine{01939\ \ \ zb\_uint48\_t\ current\_summation\_received;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01941\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ bill\_to\_date\_received;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01945\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ bill\_to\_date\_time\_stamp\_received;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01949\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ projected\_bill\_received;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01953\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ projected\_bill\_time\_stamp\_received;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01957\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ bill\_received\_trailing\_digit;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01959\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_in\_use;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01963\ \ \ zb\_uint48\_t\ *tier\_summation;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01967\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_and\_block\_thresholds\_in\_use;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01971\ \ \ zb\_uint48\_t\ *tier\_block\_summation;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01972\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_block\_received\_payload\_t;}
+\DoxyCodeLine{01973\ }
+\DoxyCodeLine{01974\ }
+\DoxyCodeLine{01978\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_tou\_delivered\_no\_billing\_payload\_s}
+\DoxyCodeLine{01979\ \{}
+\DoxyCodeLine{01983\ \ \ zb\_uint48\_t\ current\_summation\_delivered;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01985\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_in\_use;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01989\ \ \ zb\_uint48\_t\ *tier\_summation;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01990\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_tou\_delivered\_no\_billing\_payload\_t;}
+\DoxyCodeLine{01991\ }
+\DoxyCodeLine{01992\ }
+\DoxyCodeLine{01996\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_tou\_received\_no\_billing\_payload\_s}
+\DoxyCodeLine{01997\ \{}
+\DoxyCodeLine{02001\ \ \ zb\_uint48\_t\ current\_summation\_received;\ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02003\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_in\_use;\ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02007\ \ \ zb\_uint48\_t\ *tier\_summation;\ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02008\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_tou\_received\_no\_billing\_payload\_t;}
+\DoxyCodeLine{02009\ }
+\DoxyCodeLine{02010\ }
+\DoxyCodeLine{02014\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_block\_tier\_delivered\_no\_billing\_payload\_s}
+\DoxyCodeLine{02015\ \{}
+\DoxyCodeLine{02019\ \ \ zb\_uint48\_t\ current\_summation\_delivered;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02021\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_in\_use;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02025\ \ \ zb\_uint48\_t\ *tier\_summation;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02029\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_and\_block\_thresholds\_in\_use;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02034\ \ \ zb\_uint48\_t\ *tier\_block\_summation;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02035\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_block\_tier\_delivered\_no\_billing\_payload\_t;}
+\DoxyCodeLine{02036\ }
+\DoxyCodeLine{02037\ }
+\DoxyCodeLine{02041\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_block\_tier\_received\_no\_billing\_payload\_s}
+\DoxyCodeLine{02042\ \{}
+\DoxyCodeLine{02046\ \ \ zb\_uint48\_t\ current\_summation\_received;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02048\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_in\_use;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02052\ \ \ zb\_uint48\_t\ *tier\_summation;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02056\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ number\_of\_tiers\_and\_block\_thresholds\_in\_use;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02060\ \ \ zb\_uint48\_t\ *tier\_block\_summation;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02061\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_block\_tier\_received\_no\_billing\_payload\_t;}
+\DoxyCodeLine{02062\ }
+\DoxyCodeLine{02063\ }
+\DoxyCodeLine{02067\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{union\ }zb\_zcl\_metering\_snapshot\_sub\_payload\_s}
+\DoxyCodeLine{02068\ \{}
+\DoxyCodeLine{02071\ \ \ zb\_zcl\_metering\_tou\_delivered\_payload\_t\ tou\_delivered;}
+\DoxyCodeLine{02074\ \ \ zb\_zcl\_metering\_tou\_received\_payload\_t\ tou\_received;}
+\DoxyCodeLine{02077\ \ \ zb\_zcl\_metering\_block\_delivered\_payload\_t\ block\_delivered;}
+\DoxyCodeLine{02080\ \ \ zb\_zcl\_metering\_block\_received\_payload\_t\ block\_received;}
+\DoxyCodeLine{02083\ \ \ zb\_zcl\_metering\_tou\_delivered\_no\_billing\_payload\_t\ tou\_delivered\_no\_billing;}
+\DoxyCodeLine{02086\ \ \ zb\_zcl\_metering\_tou\_received\_no\_billing\_payload\_t\ tou\_received\_no\_billing;}
+\DoxyCodeLine{02089\ \ \ zb\_zcl\_metering\_block\_tier\_delivered\_no\_billing\_payload\_t\ block\_tier\_delivered\_no\_billing;}
+\DoxyCodeLine{02092\ \ \ zb\_zcl\_metering\_block\_tier\_received\_no\_billing\_payload\_t\ block\_tier\_received\_no\_billing;}
+\DoxyCodeLine{02093\ }
+\DoxyCodeLine{02094\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_snapshot\_sub\_payload\_t;}
+\DoxyCodeLine{02095\ }
+\DoxyCodeLine{02096\ }
+\DoxyCodeLine{02100\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_publish\_snapshot\_payload\_s}
+\DoxyCodeLine{02101\ \{}
+\DoxyCodeLine{02103\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ snapshot\_id;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02105\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ snapshot\_time;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02109\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ total\_snapshots\_found;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02113\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ command\_index;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02117\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ total\_number\_of\_commands;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02119\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ snapshot\_cause;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02123\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ snapshot\_payload\_type;\ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{02124\ }
+\DoxyCodeLine{02126\ \ \ zb\_zcl\_metering\_snapshot\_sub\_payload\_t\ snapshot\_sub\_payload;}
+\DoxyCodeLine{02127\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_metering\_publish\_snapshot\_payload\_t;}
+\DoxyCodeLine{02128\ }
+\DoxyCodeLine{02129\ }
+\DoxyCodeLine{02141\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_send\_cmd\_get\_snapshot(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{02144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zcl\_metering\_get\_snapshot\_payload\_t\ *payload,}
+\DoxyCodeLine{02145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02146\ }
+\DoxyCodeLine{02147\ }
+\DoxyCodeLine{02159\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_send\_cmd\_get\_sampled\_data(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{02162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zcl\_metering\_get\_sampled\_data\_payload\_t\ *payload,}
+\DoxyCodeLine{02163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02164\ }
+\DoxyCodeLine{02165\ }
+\DoxyCodeLine{02177\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_send\_cmd\_request\_fast\_poll\_mode(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{02180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zcl\_metering\_request\_fast\_poll\_mode\_payload\_t\ *payload,}
+\DoxyCodeLine{02181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02182\ }
+\DoxyCodeLine{02183\ }
+\DoxyCodeLine{02195\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_send\_cmd\_get\_profile(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,\ zb\_zcl\_metering\_get\_profile\_payload\_t\ *payload,}
+\DoxyCodeLine{02198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02199\ }
+\DoxyCodeLine{02200\ }
+\DoxyCodeLine{02212\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_send\_cmd\_publish\_snapshot(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{02215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ zb\_zcl\_metering\_publish\_snapshot\_payload\_t\ *pl,}
+\DoxyCodeLine{02216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02217\ }
+\DoxyCodeLine{02218\ }
+\DoxyCodeLine{02233\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_send\_cmd\_request\_fast\_poll\_mode\_response(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{02236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ zb\_zcl\_metering\_request\_fast\_poll\_mode\_response\_payload\_t\ *pl,}
+\DoxyCodeLine{02237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ pl\_size,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ tsn,\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02238\ }
+\DoxyCodeLine{02239\ }
+\DoxyCodeLine{02254\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_send\_cmd\_get\_profile\_response(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,\ \textcolor{keyword}{const}\ zb\_zcl\_metering\_get\_profile\_response\_payload\_t\ *pl,}
+\DoxyCodeLine{02257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ pl\_size,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ tsn,\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02258\ }
+\DoxyCodeLine{02259\ }
+\DoxyCodeLine{02274\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_send\_cmd\_get\_sampled\_data\_response(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{02275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{02276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{02277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ zb\_zcl\_metering\_get\_sampled\_data\_response\_payload\_t\ *pl,}
+\DoxyCodeLine{02278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ pl\_size,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ tsn,\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02279\ }
+\DoxyCodeLine{02282\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_SEND\_CMD\_GET\_SNAPSHOT(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \(\backslash\)}}
+\DoxyCodeLine{02283\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)\ \(\backslash\)}}
+\DoxyCodeLine{02284\ \textcolor{preprocessor}{\ \ zb\_zcl\_metering\_send\_cmd\_get\_snapshot(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02285\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)}}
+\DoxyCodeLine{02286\ }
+\DoxyCodeLine{02287\ }
+\DoxyCodeLine{02290\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_SEND\_CMD\_GET\_SAMPLED\_DATA(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \(\backslash\)}}
+\DoxyCodeLine{02291\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)\ \(\backslash\)}}
+\DoxyCodeLine{02292\ \textcolor{preprocessor}{\ \ zb\_zcl\_metering\_send\_cmd\_get\_sampled\_data(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02293\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)}}
+\DoxyCodeLine{02294\ }
+\DoxyCodeLine{02295\ }
+\DoxyCodeLine{02296\ }
+\DoxyCodeLine{02299\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_SEND\_CMD\_REQUEST\_FAST\_POLL\_MODE(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \(\backslash\)}}
+\DoxyCodeLine{02300\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)\ \(\backslash\)}}
+\DoxyCodeLine{02301\ \textcolor{preprocessor}{\ \ zb\_zcl\_metering\_send\_cmd\_request\_fast\_poll\_mode(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02302\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)}}
+\DoxyCodeLine{02303\ }
+\DoxyCodeLine{02304\ }
+\DoxyCodeLine{02307\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_SEND\_CMD\_GET\_PROFILE(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \(\backslash\)}}
+\DoxyCodeLine{02308\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)\ \(\backslash\)}}
+\DoxyCodeLine{02309\ \textcolor{preprocessor}{\ \ zb\_zcl\_metering\_send\_cmd\_get\_profile(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02310\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)}}
+\DoxyCodeLine{02311\ }
+\DoxyCodeLine{02312\ }
+\DoxyCodeLine{02315\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_SEND\_CMD\_PUBLISH\_SNAPSHOT(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \(\backslash\)}}
+\DoxyCodeLine{02316\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)\ \(\backslash\)}}
+\DoxyCodeLine{02317\ \textcolor{preprocessor}{\ \ zb\_zcl\_metering\_send\_cmd\_publish\_snapshot(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02318\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)}}
+\DoxyCodeLine{02319\ }
+\DoxyCodeLine{02320\ }
+\DoxyCodeLine{02323\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_SEND\_CMD\_REQUEST\_FAST\_POLL\_MODE\_RESPONSE(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \(\backslash\)}}
+\DoxyCodeLine{02324\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)\ \(\backslash\)}}
+\DoxyCodeLine{02325\ \textcolor{preprocessor}{\ \ zb\_zcl\_metering\_send\_cmd\_request\_fast\_poll\_mode\_response(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02326\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ cb)}}
+\DoxyCodeLine{02327\ }
+\DoxyCodeLine{02328\ }
+\DoxyCodeLine{02331\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_SEND\_CMD\_GET\_PROFILE\_RESPONSE(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \_dst\_ep,\ \ \(\backslash\)}}
+\DoxyCodeLine{02332\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_src\_ep,\ \_payload,\ \_pl\_size,\ cb)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02333\ \textcolor{preprocessor}{\ \ zb\_zcl\_metering\_send\_cmd\_get\_profile\_response(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \_dst\_ep,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02334\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_src\_ep,\ \_payload,\ \_pl\_size,\ cb)}}
+\DoxyCodeLine{02335\ }
+\DoxyCodeLine{02336\ }
+\DoxyCodeLine{02339\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_SEND\_CMD\_GET\_SAMPLED\_DATA\_RESPONSE(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \_dst\_ep,\ \(\backslash\)}}
+\DoxyCodeLine{02340\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_src\_ep,\ \_payload,\ \_pl\_size,\ cb)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02341\ \textcolor{preprocessor}{\ \ zb\_zcl\_metering\_send\_cmd\_get\_sampled\_data\_response(\_param,\ \_dst\_addr,\ \_addr\_mode,\ \_dst\_ep,\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02342\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_src\_ep,\ \_payload,\ \_pl\_size,\ cb)}}
+\DoxyCodeLine{02343\ }
+\DoxyCodeLine{02344\ \ \textcolor{comment}{/*\ ZB\_ZCL\_METERING\_CMDS\ */}}
+\DoxyCodeLine{02346\ }
+\DoxyCodeLine{02347\ }
+\DoxyCodeLine{02353\ }
+\DoxyCodeLine{02354\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_CURRENT\_SUMMATION\_DELIVERED\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{02355\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02356\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_CURRENT\_SUMMATION\_DELIVERED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02357\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U48,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02358\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY\ |\ ZB\_ZCL\_ATTR\_ACCESS\_REPORTING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02359\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02360\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02361\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02362\ }
+\DoxyCodeLine{02363\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_STATUS\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02364\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02365\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_STATUS\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02366\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02367\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY\ |\ ZB\_ZCL\_ATTR\_ACCESS\_REPORTING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02368\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02369\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02370\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02371\ }
+\DoxyCodeLine{02372\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_UNIT\_OF\_MEASURE\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02373\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02374\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_UNIT\_OF\_MEASURE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02375\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BIT\_ENUM,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02376\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02377\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02378\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02379\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02380\ }
+\DoxyCodeLine{02381\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_SUMMATION\_FORMATTING\_ID(data\_ptr)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02382\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02383\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_SUMMATION\_FORMATTING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02384\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02385\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02386\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02387\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02388\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02389\ }
+\DoxyCodeLine{02390\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_METERING\_DEVICE\_TYPE\_ID(data\_ptr)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02391\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02392\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_METERING\_DEVICE\_TYPE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02393\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02394\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02395\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02396\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02397\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02398\ }
+\DoxyCodeLine{02399\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_INSTANTANEOUS\_DEMAND\_ID(data\_ptr)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02400\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02401\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_INSTANTANEOUS\_DEMAND\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02402\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_S24,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02403\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY\ |\ ZB\_ZCL\_ATTR\_ACCESS\_REPORTING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02404\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02405\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02406\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02407\ }
+\DoxyCodeLine{02408\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_DEMAND\_FORMATTING\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02409\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02410\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_DEMAND\_FORMATTING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02411\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02412\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02413\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02414\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02415\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02416\ }
+\DoxyCodeLine{02417\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_HISTORICAL\_CONSUMPTION\_FORMATTING\_ID(data\_ptr)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02418\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02419\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_HISTORICAL\_CONSUMPTION\_FORMATTING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02420\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02421\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02422\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02423\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02424\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02425\ }
+\DoxyCodeLine{02426\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_MULTIPLIER\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02427\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02428\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_MULTIPLIER\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02429\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U24,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02430\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02431\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02432\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02433\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02434\ }
+\DoxyCodeLine{02435\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_METERING\_DIVISOR\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02436\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02437\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_METERING\_DIVISOR\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02438\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U24,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02439\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02440\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02441\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02442\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{02443\ }
+\DoxyCodeLine{02444\ }
+\DoxyCodeLine{02446\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_METERING\_REPORT\_ATTR\_COUNT\ 3}}
+\DoxyCodeLine{02447\ \ \textcolor{comment}{/*\ Metering\ cluster\ internals\ */}}
+\DoxyCodeLine{02450\ }
+\DoxyCodeLine{02451\ }
+\DoxyCodeLine{02463\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_METERING\_ATTRIB\_LIST(attr\_list,\ curr\_summ\_delivered,\ status,\ unit\_of\_measure,\ \(\backslash\)}}
+\DoxyCodeLine{02464\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ summation\_formatting,\ metering\_device\_type)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02465\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_METERING)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02466\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_CURRENT\_SUMMATION\_DELIVERED\_ID,\ (curr\_summ\_delivered))\ \ \ \(\backslash\)}}
+\DoxyCodeLine{02467\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_STATUS\_ID,\ (status))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02468\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_UNIT\_OF\_MEASURE\_ID,\ (unit\_of\_measure))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02469\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_SUMMATION\_FORMATTING\_ID,\ (summation\_formatting))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02470\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_METERING\_DEVICE\_TYPE\_ID,\ (metering\_device\_type))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02471\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{02472\ }
+\DoxyCodeLine{02473\ }
+\DoxyCodeLine{02487\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_METERING\_ATTRIB\_LIST\_EXT(attr\_list,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02488\ \textcolor{preprocessor}{\ \ \ \ \ \ curr\_summ\_delivered,\ status,\ unit\_of\_measure,\ summation\_formatting,\ metering\_device\_type,\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02489\ \textcolor{preprocessor}{\ \ \ \ \ \ instantaneous\_demand,\ demand\_formatting,\ historical\_consumption\_formatting,\ multiplier,\ divisor)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02490\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_METERING)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02491\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_CURRENT\_SUMMATION\_DELIVERED\_ID,\ (curr\_summ\_delivered))\ \ \ \(\backslash\)}}
+\DoxyCodeLine{02492\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_STATUS\_ID,\ (status))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02493\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_UNIT\_OF\_MEASURE\_ID,\ (unit\_of\_measure))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02494\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_SUMMATION\_FORMATTING\_ID,\ (summation\_formatting))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02495\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_METERING\_DEVICE\_TYPE\_ID,\ (metering\_device\_type))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02496\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_INSTANTANEOUS\_DEMAND\_ID,\ (instantaneous\_demand))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02497\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_DEMAND\_FORMATTING\_ID,\ (demand\_formatting))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02498\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_HISTORICAL\_CONSUMPTION\_FORMATTING\_ID,\ (historical\_consumption\_formatting))\ \ \(\backslash\)}}
+\DoxyCodeLine{02499\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_MULTIPLIER\_ID,\ (multiplier))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02500\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_METERING\_DIVISOR\_ID,\ (divisor))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02501\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{02502\ }
+\DoxyCodeLine{02503\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zcl\_metering\_attrs\_s}
+\DoxyCodeLine{02504\ \{}
+\DoxyCodeLine{02505\ }
+\DoxyCodeLine{02509\ \ \ zb\_uint48\_t\ curr\_summ\_delivered;}
+\DoxyCodeLine{02510\ }
+\DoxyCodeLine{02514\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ status;}
+\DoxyCodeLine{02515\ }
+\DoxyCodeLine{02519\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ unit\_of\_measure;}
+\DoxyCodeLine{02520\ }
+\DoxyCodeLine{02524\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ summation\_formatting;}
+\DoxyCodeLine{02525\ }
+\DoxyCodeLine{02529\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ device\_type;}
+\DoxyCodeLine{02530\ \}\ zb\_zcl\_metering\_attrs\_t;}
+\DoxyCodeLine{02531\ }
+\DoxyCodeLine{02532\ }
+\DoxyCodeLine{02537\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_METERING\_ATTR\_LIST(attr\_list,\ attrs)\ \(\backslash\)}}
+\DoxyCodeLine{02538\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_DECLARE\_METERING\_ATTRIB\_LIST(attr\_list,\ \&attrs.curr\_summ\_delivered,\ \(\backslash\)}}
+\DoxyCodeLine{02539\ \textcolor{preprocessor}{\ \ \ \ \&attrs.status,\ \&attrs.unit\_of\_measure,\ \&attrs.summation\_formatting,\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{02540\ \textcolor{preprocessor}{\ \ \ \ \&attrs.device\_type)}}
+\DoxyCodeLine{02541\ }
+\DoxyCodeLine{02542\ \ \textcolor{comment}{/*\ ZB\_ZCL\_METERING\ ZCL\ SE\ Metering\ cluster\ definitions\ */}}
+\DoxyCodeLine{02544\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ */}}
+\DoxyCodeLine{02546\ }
+\DoxyCodeLine{02547\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{02548\ \textcolor{keywordtype}{void}\ zb\_zcl\_metering\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{02549\ }
+\DoxyCodeLine{02550\ }
+\DoxyCodeLine{02551\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_METERING\_SERVER\_ROLE\_INIT\ zb\_zcl\_metering\_init\_server}}
+\DoxyCodeLine{02552\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_METERING\_CLIENT\_ROLE\_INIT\ zb\_zcl\_metering\_init\_client}}
+\DoxyCodeLine{02553\ }
+\DoxyCodeLine{02554\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_METERING\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,48 @@
+\doxysection{OThread\+CLI\+\_\+\+Util.\+h}
+\hypertarget{_o_thread_c_l_i___util_8h_source}{}\label{_o_thread_c_l_i___util_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/OpenThread/src/OThreadCLI\_Util.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/OpenThread/src/OThreadCLI\_Util.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ SOC\_IEEE802154\_SUPPORTED}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#if\ CONFIG\_OPENTHREAD\_ENABLED}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00022\ \ \ OT\_ROLE\_DISABLED\ =\ 0,\ \ }
+\DoxyCodeLine{00023\ \ \ OT\_ROLE\_DETACHED\ =\ 1,\ \ }
+\DoxyCodeLine{00024\ \ \ OT\_ROLE\_CHILD\ =\ 2,\ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ OT\_ROLE\_ROUTER\ =\ 3,\ \ \ \ }
+\DoxyCodeLine{00026\ \ \ OT\_ROLE\_LEADER\ =\ 4,\ \ \ \ }
+\DoxyCodeLine{00027\ \}\ ot\_device\_role\_t;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{int}\ errorCode;}
+\DoxyCodeLine{00031\ \ \ String\ errorMessage;}
+\DoxyCodeLine{00032\ \}\ ot\_cmd\_return\_t;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ ot\_device\_role\_t\ otGetDeviceRole();}
+\DoxyCodeLine{00035\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *otGetStringDeviceRole();}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{bool}\ otGetRespCmd(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cmd,\ \textcolor{keywordtype}{char}\ *resp\ =\ NULL,\ uint32\_t\ respTimeout\ =\ 5000);}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{bool}\ otExecCommand(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cmd,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *arg,\ ot\_cmd\_return\_t\ *returnCode\ =\ NULL);}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{bool}\ otPrintRespCLI(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cmd,\ \mbox{\hyperlink{class_stream}{Stream}}\ \&output,\ uint32\_t\ respTimeout);}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ otPrintNetworkInformation(\mbox{\hyperlink{class_stream}{Stream}}\ \&output);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_OPENTHREAD\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_IEEE802154\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

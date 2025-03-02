@@ -1,0 +1,56 @@
+\doxysection{esp\+\_\+insights\+\_\+cbor\+\_\+encoder.\+h}
+\hypertarget{esp__insights__cbor__encoder_8h_source}{}\label{esp__insights__cbor__encoder_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_insights/src/esp\_insights\_cbor\_encoder.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_insights/src/esp\_insights\_cbor\_encoder.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2021\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <cbor.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <esp\_diagnostics\_metrics.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <esp\_diagnostics\_variables.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#if\ CONFIG\_ESP\_INSIGHTS\_COREDUMP\_ENABLE}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <esp\_core\_dump.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_ESP\_INSIGHTS\_COREDUMP\_ENABLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <rtc\_store.h>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_diag\_begin(\textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ data\_size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *version);}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_diag\_data\_begin(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_diag\_boot\_info(\mbox{\hyperlink{structesp__diag__device__info__t}{esp\_diag\_device\_info\_t}}\ *device\_info);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_meta\_c\_hdr(\textcolor{keyword}{const}\ \mbox{\hyperlink{structrtc__store__meta__header__t}{rtc\_store\_meta\_header\_t}}\ *hdr);}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_meta\_nc\_hdr(\textcolor{keyword}{const}\ \mbox{\hyperlink{structrtc__store__meta__header__t}{rtc\_store\_meta\_header\_t}}\ *hdr);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#if\ CONFIG\_ESP\_INSIGHTS\_COREDUMP\_ENABLE}}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_diag\_crash(esp\_core\_dump\_summary\_t\ *summary);}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_ESP\_INSIGHTS\_COREDUMP\_ENABLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{size\_t}\ esp\_insights\_cbor\_encode\_diag\_logs(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{size\_t}\ esp\_insights\_cbor\_encode\_diag\_metrics(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{size\_t}\ esp\_insights\_cbor\_encode\_diag\_variables(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_diag\_data\_end(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{size\_t}\ esp\_insights\_cbor\_encode\_diag\_end(\textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{/*\ For\ encoding\ diag\ meta\ data\ */}}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_meta\_begin(\textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ data\_size,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *version,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *sha256);}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_meta\_data\_begin(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ CONFIG\_DIAG\_ENABLE\_METRICS}}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_meta\_metrics(\textcolor{keyword}{const}\ esp\_diag\_metrics\_meta\_t\ *metrics,\ uint32\_t\ metrics\_len);}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_DIAG\_ENABLE\_METRICS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#if\ CONFIG\_DIAG\_ENABLE\_VARIABLES}}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_meta\_variables(\textcolor{keyword}{const}\ esp\_diag\_variable\_meta\_t\ *variables,\ uint32\_t\ variables\_len);}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_DIAG\_ENABLE\_VARIABLES\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ esp\_insights\_cbor\_encode\_meta\_data\_end(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{size\_t}\ esp\_insights\_cbor\_encode\_meta\_end(\textcolor{keywordtype}{void}\ *data);}
+
+\end{DoxyCode}

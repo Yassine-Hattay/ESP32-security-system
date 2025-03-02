@@ -1,0 +1,26 @@
+\doxysection{randombytes\+\_\+internal.\+h}
+\hypertarget{randombytes__internal_8h_source}{}\label{randombytes__internal_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/port/randombytes\_internal.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/port/randombytes\_internal.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2017-\/2021\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#\ include\ "{}export.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#\ include\ "{}randombytes.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ SODIUM\_EXPORT}
+\DoxyCodeLine{00012\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structrandombytes__implementation}{randombytes\_implementation}}\ randombytes\_esp32\_implementation;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{/*\ Defining\ RANDOMBYTES\_DEFAULT\_IMPLEMENTATION\ here\ allows\ us\ to\ compile\ with\ the\ ESP32\ hardware}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ implementation\ as\ the\ default.\ No\ need\ to\ call\ randombytes\_set\_implementation().}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ Doing\ it\ in\ the\ header\ like\ this\ is\ easier\ than\ passing\ it\ via\ a\ -\/D\ argument\ to\ gcc.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#undef\ RANDOMBYTES\_DEFAULT\_IMPLEMENTATION}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ RANDOMBYTES\_DEFAULT\_IMPLEMENTATION\ \&randombytes\_esp32\_implementation}}
+
+\end{DoxyCode}

@@ -1,0 +1,79 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/dsp/examples/basic\+\_\+math Directory Reference}
+\hypertarget{dir_d5b24628c4f90f7eae468d7aaca41bc1}{}\label{dir_d5b24628c4f90f7eae468d7aaca41bc1}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/examples/basic\_math Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/examples/basic\_math Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_32df4d4cee99c0385d55998898ce710a}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+(See the README.\+md file in the upper level \textquotesingle{}examples\textquotesingle{} directory for more information about examples.)
+
+This example demonstrates how to use basic math functions from esp-\/dsp library. Example does the following steps\+:
+
+
+\begin{DoxyEnumerate}
+\item Initialize the library
+\item Initialize input signals with 1024 samples
+\item Apply window to input signal by standard C loop.
+\item Calculate FFT for 1024 complex samples and show the result
+\item Show results on the plots
+\item Apply window to input signal by basic math functions dsps\+\_\+mul\+\_\+f32 and dsps\+\_\+mulc\+\_\+f32.
+\item Calculate FFT for 1024 complex samples
+\item Show results on the plots
+\end{DoxyEnumerate}\hypertarget{README.md_autotoc_md972}{}\doxysubsection{\texorpdfstring{How to use example}{How to use example}}\label{README.md_autotoc_md972}
+\hypertarget{README.md_autotoc_md973}{}\doxysubsubsection{\texorpdfstring{Hardware required}{Hardware required}}\label{README.md_autotoc_md973}
+This example does not require any special hardware, and can be run on any common development board.\hypertarget{README.md_autotoc_md974}{}\doxysubsubsection{\texorpdfstring{Configure the project}{Configure the project}}\label{README.md_autotoc_md974}
+Under Component Config -\/-\/-\/\texorpdfstring{$>$}{>} DSP Library -\/-\/-\/\texorpdfstring{$>$}{>} DSP Optimization, it\textquotesingle{}s possible to choose either the optimized or ANSI implementation, to compare them.\hypertarget{README.md_autotoc_md975}{}\doxysubsubsection{\texorpdfstring{Build and flash}{Build and flash}}\label{README.md_autotoc_md975}
+Build the project and flash it to the board, then run monitor tool to view serial output (replace PORT with serial port name)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/p\ PORT\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+(To exit the serial monitor, type {\ttfamily Ctrl-\/\mbox{]}}.)
+
+See the Getting Started Guide for full steps to configure and use ESP-\/\+IDF to build projects.\hypertarget{README.md_autotoc_md976}{}\doxysubsection{\texorpdfstring{Example output}{Example output}}\label{README.md_autotoc_md976}
+Here is an typical example console output.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{I\ (132)\ main:\ ***\ Start\ Example.\ ***}
+\DoxyCodeLine{I\ (132)\ main:\ ***\ Multiply\ tone\ signal\ with\ Hann\ window\ by\ standard\ C\ loop.\ ***}
+\DoxyCodeLine{I\ (152)\ view:\ Data\ min[432]\ =\ -\/173.749878,\ Data\ max[205]\ =\ 23.849705}
+\DoxyCodeLine{\ \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\DoxyCodeLine{0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |||\ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |||||\ \ \ \ \ \ \ \ \ \ ||||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{8|||||||||||||||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||||||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |||||||||||||||||||||||||}
+\DoxyCodeLine{\ 0123456789012345678901234567890123456789012345678901234567890123}
+\DoxyCodeLine{I\ (162)\ view:\ Plot:\ Length=512,\ min=-\/120.000000,\ max=40.000000}
+\DoxyCodeLine{I\ (162)\ main:\ ***\ Multiply\ tone\ signal\ with\ Hann\ window\ by\ esp-\/dsp\ basic\ math\ functions.\ ***}
+\DoxyCodeLine{I\ (162)\ view:\ Data\ min[432]\ =\ -\/173.749878,\ Data\ max[205]\ =\ 23.849705}
+\DoxyCodeLine{\ \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\DoxyCodeLine{0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |||\ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |||||\ \ \ \ \ \ \ \ \ \ ||||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{8|||||||||||||||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||||||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |||||||||||||||||||||||||}
+\DoxyCodeLine{\ 0123456789012345678901234567890123456789012345678901234567890123}
+\DoxyCodeLine{I\ (172)\ view:\ Plot:\ Length=512,\ min=-\/120.000000,\ max=40.000000}
+\DoxyCodeLine{I\ (172)\ main:\ ***\ End\ Example.\ ***}
+
+\end{DoxyCode}
+ 

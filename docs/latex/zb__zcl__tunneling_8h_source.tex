@@ -1,0 +1,566 @@
+\doxysection{zb\+\_\+zcl\+\_\+tunneling.\+h}
+\hypertarget{zb__zcl__tunneling_8h_source}{}\label{zb__zcl__tunneling_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_tunneling.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_tunneling.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Tunneling\ cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_TUNNELING\_H}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_H\ 1}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_MAX\_INCOMING\_TRANSFER\_SIZE\ (ZB\_ASDU\_MAX\_FRAG\_LEN\ -\/\ 3\ }\textcolor{comment}{/*\ ZCL\ cmd\ */}\textcolor{preprocessor}{\ -\/\ 2\ }\textcolor{comment}{/*\ Tunnel\_ID\ */}\textcolor{preprocessor}{)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_SRV\_TABLE\_SIZE\ 10}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_common.h"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{enum}\ zb\_zcl\_tunneling\_attr\_e}
+\DoxyCodeLine{00073\ \{}
+\DoxyCodeLine{00082\ \ \ ZB\_ZCL\_ATTR\_TUNNELING\_CLOSE\_TUNNEL\_TIMEOUT\_ID\ =\ 0}
+\DoxyCodeLine{00083\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0002u)}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_CLOSE\_TUNNEL\_TIMEOUT\_MIN\_VALUE\ 0x0001}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_CLOSE\_TUNNEL\_TIMEOUT\_DEFAULT\_VALUE\ 0xFFFF}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_TUNNELING\_CLOSE\_TUNNEL\_TIMEOUT\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TUNNELING\_CLOSE\_TUNNEL\_TIMEOUT\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U16,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00107\ \ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_TUNNELING\_ATTRIB\_LIST(attr\_list,\ close\_tunnel\_timeout)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_TUNNELING)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_TUNNELING\_CLOSE\_TUNNEL\_TIMEOUT\_ID,\ (close\_tunnel\_timeout))\ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_attrs\_s}
+\DoxyCodeLine{00124\ \{}
+\DoxyCodeLine{00128\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ close\_tunnel\_timeout;}
+\DoxyCodeLine{00129\ \}\ zb\_zcl\_tunneling\_attrs\_t;}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_TUNNELING\_ATTR\_LIST(attr\_list,\ attrs)\ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_DECLARE\_TUNNELING\_ATTRIB\_LIST(attr\_list,\ \&attrs.close\_tunnel\_timeout\ )}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_TUNNEL\_ID\_INVALID\_VALUE\ 0xFFFF}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_MANUFACTURER\_CODE\_NOT\_USED\ 0xFFFF}}
+\DoxyCodeLine{00144\ \ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{00146\ \ \textcolor{comment}{/*\ ZB\_ZCL\_TUNNELING\_ATTRS\ */}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{enum}\ zb\_zcl\_tunneling\_cli\_cmd\_e}
+\DoxyCodeLine{00158\ \{}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_REQUEST\_TUNNEL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ }
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_CLOSE\_TUNNEL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_TRANSFER\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \ }
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_TRANSFER\_DATA\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03,\ \ }
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_ACK\_TRANSFER\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x04,\ \ }
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_READY\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x05,\ \ }
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_GET\_SUPPORTED\_TUNNEL\_PROTOCOLS\ =\ 0x06,\ \ }
+\DoxyCodeLine{00222\ \};}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00228\ \textcolor{keyword}{enum}\ zb\_zcl\_tunneling\_srv\_cmd\_e}
+\DoxyCodeLine{00229\ \{}
+\DoxyCodeLine{00230\ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_REQUEST\_TUNNEL\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ }
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_TRANSFER\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_TRANSFER\_DATA\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \ }
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_ACK\_TRANSFER\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03,\ \ }
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_READY\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x04,\ \ }
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_SUPPORTED\_TUNNEL\_PROTOCOLS\_RESPONSE\ \ =\ 0x05,\ \ }
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_TUNNEL\_CLOSURE\_NOTIFICATION\ \ \ \ \ \ \ \ \ \ =\ 0x06,\ \ }
+\DoxyCodeLine{00262\ \};}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00265\ \textcolor{comment}{/*\ TUNNELING\ cluster\ commands\ list\ :\ only\ for\ information\ -\/\ do\ not\ modify\ */}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING\_SERVER\_ROLE\_GENERATED\_CMD\_LIST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_REQUEST\_TUNNEL\_RESPONSE,\ \(\backslash\)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_TRANSFER\_DATA,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_TRANSFER\_DATA\_ERROR}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING\_CLIENT\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING\_SERVER\_ROLE\_GENERATED\_CMD\_LIST}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_REQUEST\_TUNNEL,\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_TRANSFER\_DATA,\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_TRANSFER\_DATA\_ERROR,\ \(\backslash\)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_CLOSE\_TUNNEL}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING\_SERVER\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ internals\_doc\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00288\ \textcolor{keyword}{enum}\ zb\_zcl\_tunneling\_tunnel\_status\_e}
+\DoxyCodeLine{00289\ \{}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ ZB\_ZCL\_TUNNELING\_STATUS\_SUCCESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0,\ \ }
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ ZB\_ZCL\_TUNNELING\_STATUS\_BUSY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1,\ \ }
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ ZB\_ZCL\_TUNNELING\_STATUS\_NO\_MORE\_IDS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 2,\ \ \ }
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ ZB\_ZCL\_TUNNELING\_STATUS\_PROTOCOL\_NOT\_SUPPORTED\ \ \ \ \ =\ 3,\ \ \ }
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \ \ ZB\_ZCL\_TUNNELING\_STATUS\_FLOW\_CONTROL\_NOT\_SUPPORTED\ =\ 4,\ \ \ }
+\DoxyCodeLine{00311\ \};}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00318\ \textcolor{keyword}{enum}\ zb\_zcl\_tunneling\_transfer\_data\_status\_e}
+\DoxyCodeLine{00319\ \{}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00324\ \ \ ZB\_ZCL\_TUNNELING\_TRANSFER\_DATA\_STATUS\_NO\_SUCH\_TUNNEL\ =\ 0x00,}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00329\ \ \ ZB\_ZCL\_TUNNELING\_TRANSFER\_DATA\_STATUS\_WRONG\_DEVICE\ \ \ =\ 0x01,}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00334\ \ \ ZB\_ZCL\_TUNNELING\_TRANSFER\_DATA\_STATUS\_DATA\_OVERFLOW\ \ =\ 0x02,}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ \textcolor{comment}{/*\ Custom\ Internal\ Error\ status\ */}}
+\DoxyCodeLine{00337\ \ \ ZB\_ZCL\_TUNNELING\_TRANSFER\_DATA\_INTERNAL\_ERROR\ \ \ \ \ \ \ \ =\ 0xFE,}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \textcolor{comment}{/*\ Custom\ OK\ status\ (does\ not\ sent\ in\ pkt)\ */}}
+\DoxyCodeLine{00340\ \ \ ZB\_ZCL\_TUNNELING\_TRANSFER\_DATA\_STATUS\_OK\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xFF,}
+\DoxyCodeLine{00341\ \};}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00348\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_tunneling\_protocol\_id\_e}
+\DoxyCodeLine{00349\ \{}
+\DoxyCodeLine{00350\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_DLMS\_COSEM\ \ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ }
+\DoxyCodeLine{00351\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_IEC\_61107\ \ \ \ \ \ \ \ \ \ \ \ =\ 1,\ \ \ \ \ }
+\DoxyCodeLine{00352\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_ANSI\_C12\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 2,\ \ \ \ \ }
+\DoxyCodeLine{00353\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_M\_BUS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 3,\ \ \ \ \ }
+\DoxyCodeLine{00354\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_SML\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 4,\ \ \ \ \ }
+\DoxyCodeLine{00355\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_CLIMATE\_TALK\ \ \ \ \ \ \ \ \ =\ 5,\ \ \ \ \ }
+\DoxyCodeLine{00356\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_GB\_HRGP\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 6,\ \ \ \ \ }
+\DoxyCodeLine{00357\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_IPv4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 7,\ \ \ \ \ }
+\DoxyCodeLine{00358\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_IPv6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 8,\ \ \ \ \ }
+\DoxyCodeLine{00359\ \ \ \textcolor{comment}{/*\ 9\ to\ 199\ reserved\ for\ future\ growth\ */}}
+\DoxyCodeLine{00360\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_MANUFACTURER\_DEFINED\ =\ 200,\ \ \ }
+\DoxyCodeLine{00361\ \ \ ZB\_ZCL\_TUNNELING\_PROTOCOL\_RESERVED\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 255\ \ \ \ }
+\DoxyCodeLine{00362\ \}\ zb\_zcl\_tunneling\_protocol\_id\_t;}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \textcolor{comment}{/*************\ Tunnel\ cluster\ command\ structures\ **************/}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00369\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_request\_tunnel\_s}
+\DoxyCodeLine{00370\ \{}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00376\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ protocol\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00384\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ manufacturer\_code;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00390\ \ \ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ flow\_control\_support;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00396\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ max\_incoming\_transfer\_size;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00397\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_request\_tunnel\_t;}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \textcolor{keywordtype}{void}\ zb\_zcl\_tunneling\_set\_max\_incoming\_to\_cli\_transfer\_size(\mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ transfer\_size);}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_SEND\_REQUEST\_TUNNEL(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\ \ \ \ \_param,\ \_addr,\ \_dst\_addr\_mode,\ \_dst\_ep,\ \_ep,\ \_prfl\_id,\ \_def\_resp,\ \_cb,\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\ \ \ \ \_protocol\_id,\ \_manufacturer\_code,\ \_flow\_control\_support,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\ \ \ \ \_max\_incoming\_transfer\_size)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\ \ zb\_zcl\_tunneling\_set\_max\_incoming\_to\_cli\_transfer\_size(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\ \ \ \ \_max\_incoming\_transfer\_size);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\ \ \ \ zb\_bufid\_t\ \_buffer\ =\ \_param;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\ \ \ \ zb\_uint8\_t*\ \_\_ptr\ =\ zb\_zcl\_start\_command\_header(\_buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_CONSTRUCT\_FRAME\_CONTROL(ZB\_ZCL\_FRAME\_TYPE\_CLUSTER\_SPECIFIC,\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00432\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_NOT\_MANUFACTURER\_SPECIFIC,\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_FRAME\_DIRECTION\_TO\_SRV,\ (\_def\_resp)),\ \(\backslash\)}}
+\DoxyCodeLine{00434\ \textcolor{preprocessor}{\ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ No\ manuf\_code\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_REQUEST\_TUNNEL,\ NULL);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(\_\_ptr,\ (\_protocol\_id));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA16\_VAL(\_\_ptr,\ (\_manufacturer\_code));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(\_\_ptr,\ (\_flow\_control\_support));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA16\_VAL(\_\_ptr,\ (\_max\_incoming\_transfer\_size));\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_FINISH\_PACKET(\_buffer,\ \_\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\ \ \ \ \ \ \_buffer,\ (\_addr),\ (\_dst\_addr\_mode),\ (\_dst\_ep),\ (\_ep),\ (\_prfl\_id),\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING,\ (\_cb));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_GET\_REQUEST\_TUNNEL(\_data\_ptr,\ \_buffer,\ \_status)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\ \ zb\_zcl\_tunneling\_request\_tunnel\_t\ *src\_ptr\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\ \ \ \ (zb\_zcl\_tunneling\_request\_tunnel\_t*)zb\_buf\_begin((\_buffer));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00458\ \textcolor{preprocessor}{\ \ if\ (zb\_buf\_len((\_buffer))\ <\ sizeof(zb\_zcl\_tunneling\_request\_tunnel\_t))\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00462\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00465\ \textcolor{preprocessor}{\ \ \ \ (\_data\_ptr)-\/>protocol\_id\ =\ src\_ptr-\/>protocol\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\ \ \ \ ZB\_HTOLE16(\&(\_data\_ptr)-\/>manufacturer\_code,\ \&(src\_ptr-\/>manufacturer\_code));\ \(\backslash\)}}
+\DoxyCodeLine{00467\ \textcolor{preprocessor}{\ \ \ \ (\_data\_ptr)-\/>flow\_control\_support\ =\ src\_ptr-\/>flow\_control\_support;\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\ \ \ \ ZB\_HTOLE16(\&(\_data\_ptr)-\/>max\_incoming\_transfer\_size,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&(src\_ptr-\/>max\_incoming\_transfer\_size));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00470\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00478\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_close\_tunnel\_s}
+\DoxyCodeLine{00479\ \{}
+\DoxyCodeLine{00485\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id;}
+\DoxyCodeLine{00486\ \}}
+\DoxyCodeLine{00487\ ZB\_PACKED\_STRUCT}
+\DoxyCodeLine{00488\ zb\_zcl\_tunneling\_close\_tunnel\_t;}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00505\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_SEND\_CLOSE\_TUNNEL(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00506\ \textcolor{preprocessor}{\ \ \ \ \_param,\ \_addr,\ \_dst\_addr\_mode,\ \_dst\_ep,\ \_ep,\ \_prfl\_id,\ \_def\_resp,\ \_cb,\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00507\ \textcolor{preprocessor}{\ \ \ \ \_tunnel\_id)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00508\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{\ \ zb\_bufid\_t\ \_buffer\ =\ \_param;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\ \ zb\_uint8\_t*\ \_\_ptr\ =\ zb\_zcl\_start\_command\_header(\_buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00511\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_CONSTRUCT\_FRAME\_CONTROL(ZB\_ZCL\_FRAME\_TYPE\_CLUSTER\_SPECIFIC,\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00512\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_NOT\_MANUFACTURER\_SPECIFIC,\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00513\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_FRAME\_DIRECTION\_TO\_SRV,\ (\_def\_resp)),\ \(\backslash\)}}
+\DoxyCodeLine{00514\ \textcolor{preprocessor}{\ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ No\ manuf\_code\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00515\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_TUNNELING\_CLI\_CMD\_CLOSE\_TUNNEL,\ NULL);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA16\_VAL(\_\_ptr,\ (\_tunnel\_id));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00517\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET(\_buffer,\ \_\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00518\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00519\ \textcolor{preprocessor}{\ \ \ \ \ \ \_buffer,\ (\_addr),\ (\_dst\_addr\_mode),\ (\_dst\_ep),\ (\_ep),\ (\_prfl\_id),\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING,\ (\_cb));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00521\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00529\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_GET\_CLOSE\_TUNNEL(\_data\_ptr,\ \_buffer,\ \_status)\ \(\backslash\)}}
+\DoxyCodeLine{00530\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00531\ \textcolor{preprocessor}{\ \ zb\_zcl\_tunneling\_close\_tunnel\_t\ *src\_ptr\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\ \ \ \ (zb\_zcl\_tunneling\_close\_tunnel\_t*)zb\_buf\_begin((\_buffer));\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00533\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00534\ \textcolor{preprocessor}{\ \ if\ (zb\_buf\_len((\_buffer))\ <\ sizeof(zb\_zcl\_tunneling\_close\_tunnel\_t))\ \(\backslash\)}}
+\DoxyCodeLine{00535\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00536\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00537\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00538\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00539\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00540\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00541\ \textcolor{preprocessor}{\ \ \ \ ZB\_HTOLE16(\&(\_data\_ptr)-\/>tunnel\_id,\ \&(src\_ptr-\/>tunnel\_id));\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00542\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00543\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00553\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_transfer\_data\_hdr\_s}
+\DoxyCodeLine{00554\ \{}
+\DoxyCodeLine{00560\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id;}
+\DoxyCodeLine{00561\ \}}
+\DoxyCodeLine{00562\ ZB\_PACKED\_STRUCT}
+\DoxyCodeLine{00563\ zb\_zcl\_tunneling\_transfer\_data\_hdr\_t;}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_srv\_rec\_s}
+\DoxyCodeLine{00567\ \{}
+\DoxyCodeLine{00568\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ dst\_addr;}
+\DoxyCodeLine{00569\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ dst\_ep;}
+\DoxyCodeLine{00570\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ src\_ep;}
+\DoxyCodeLine{00572\ \ \ zb\_zcl\_tunneling\_request\_tunnel\_t\ tunnel\_options;}
+\DoxyCodeLine{00573\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ close\_tunnel\_timeout;}
+\DoxyCodeLine{00574\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ max\_incoming\_to\_srv\_transfer\_size;}
+\DoxyCodeLine{00575\ \}}
+\DoxyCodeLine{00576\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_srv\_rec\_t;}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunnel\_request\_params\_out\_s}
+\DoxyCodeLine{00580\ \{}
+\DoxyCodeLine{00581\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ tunnel\_status;}
+\DoxyCodeLine{00582\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ max\_incoming\_to\_srv\_transfer\_size;}
+\DoxyCodeLine{00583\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunnel\_request\_params\_out\_t;}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00592\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_transfer\_data\_payload\_s}
+\DoxyCodeLine{00593\ \{}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00597\ \ \ zb\_zcl\_tunneling\_transfer\_data\_hdr\_t\ hdr;}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00600\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ data\_size;}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00612\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *tun\_data;}
+\DoxyCodeLine{00613\ \}}
+\DoxyCodeLine{00614\ ZB\_PACKED\_STRUCT}
+\DoxyCodeLine{00615\ zb\_zcl\_tunneling\_transfer\_data\_payload\_t;}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00618\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_zcl\_tunneling\_client\_send\_transfer\_data(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ep,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ prfl\_id,}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ def\_resp,\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id,}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ data\_size,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *image\_data);}
+\DoxyCodeLine{00621\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_zcl\_tunneling\_server\_send\_transfer\_data(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ep,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ prfl\_id,}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ def\_resp,\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id,}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ data\_size,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *image\_data);}
+\DoxyCodeLine{00624\ \ \textcolor{comment}{/*\ internal\_doc\ */}}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00641\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_SERVER\_SEND\_TRANSFER\_DATA(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00642\ \textcolor{preprocessor}{\ \ \_param,\ \_ep,\ \_prfl\_id,\ \_def\_resp,\ \_cb,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00643\ \textcolor{preprocessor}{\ \ \_tunnel\_id,\ \_data\_size,\ \_image\_data)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00644\ \textcolor{preprocessor}{\ \ zb\_zcl\_tunneling\_server\_send\_transfer\_data(\_param,\ \_ep,\ \_prfl\_id,\ \_def\_resp,\ \_cb,\ \(\backslash\)}}
+\DoxyCodeLine{00645\ \textcolor{preprocessor}{\ \ \_tunnel\_id,\ \_data\_size,\ \_image\_data)}}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00661\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_CLIENT\_SEND\_TRANSFER\_DATA(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00662\ \textcolor{preprocessor}{\ \ \_param,\ \_ep,\ \_prfl\_id,\ \_def\_resp,\ \_cb,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00663\ \textcolor{preprocessor}{\ \ \_tunnel\_id,\ \_data\_size,\ \_image\_data)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00664\ \textcolor{preprocessor}{\ \ zb\_zcl\_tunneling\_client\_send\_transfer\_data(\_param,\ \_ep,\ \_prfl\_id,\ \_def\_resp,\ \_cb,\ \(\backslash\)}}
+\DoxyCodeLine{00665\ \textcolor{preprocessor}{\ \ \_tunnel\_id,\ \_data\_size,\ \_image\_data)}}
+\DoxyCodeLine{00666\ }
+\DoxyCodeLine{00674\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_GET\_TRANSFER\_DATA(\_data\_ptr,\ \_buffer,\ \_status)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00675\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00676\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *src\_ptr\ =\ (zb\_uint8\_t*)zb\_buf\_begin((\_buffer));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00677\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00678\ \textcolor{preprocessor}{\ \ if\ (zb\_buf\_len((\_buffer))\ <\ sizeof(zb\_zcl\_tunneling\_transfer\_data\_hdr\_t))\ \(\backslash\)}}
+\DoxyCodeLine{00679\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00680\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00681\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00682\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00683\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00684\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00685\ \textcolor{preprocessor}{\ \ \ \ ZB\_HTOLE16(\&(\_data\_ptr)-\/>hdr.tunnel\_id,\ src\_ptr);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00686\ \textcolor{preprocessor}{\ \ \ \ (\_data\_ptr)-\/>data\_size\ =\ zb\_buf\_len((\_buffer))\ -\/\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00687\ \textcolor{preprocessor}{\ \ \ \ \ \ sizeof(zb\_zcl\_tunneling\_transfer\_data\_hdr\_t);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00688\ \textcolor{preprocessor}{\ \ \ \ (\_data\_ptr)-\/>tun\_data\ =\ (zb\_uint8\_t*)(src\_ptr\ +\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00689\ \textcolor{preprocessor}{\ \ \ \ \ \ sizeof(zb\_zcl\_tunneling\_transfer\_data\_hdr\_t));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00690\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00691\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00699\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_transfer\_data\_error\_s}
+\DoxyCodeLine{00700\ \{}
+\DoxyCodeLine{00701\ }
+\DoxyCodeLine{00707\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id;}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00713\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ transfer\_data\_status;}
+\DoxyCodeLine{00714\ \}}
+\DoxyCodeLine{00715\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_transfer\_data\_error\_t;}
+\DoxyCodeLine{00716\ }
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00735\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_SEND\_TRANSFER\_DATA\_ERROR(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00736\ \textcolor{preprocessor}{\ \ \_buffer,\ \_addr,\ \_dst\_addr\_mode,\ \_dst\_ep,\ \_ep,\ \_prfl\_id,\ \_def\_resp,\ \_cb,\ \_seq\_num,\ \(\backslash\)}}
+\DoxyCodeLine{00737\ \textcolor{preprocessor}{\ \ \_tunnel\_id,\ \_transfer\_data\_status,\ \_command\_id,\ \_direction)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00738\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00739\ \textcolor{preprocessor}{\ \ zb\_uint8\_t*\ \_\_ptr\ =\ ZB\_ZCL\_START\_PACKET((\_buffer));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00740\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_RESP\_FRAME\_CONTROL\_A(\_\_ptr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00741\ \textcolor{preprocessor}{\ \ \ \ \_direction,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00742\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_NOT\_MANUFACTURER\_SPECIFIC);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00743\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER(\_\_ptr,\ \_seq\_num,\ \_command\_id);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00744\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA16\_VAL(\_\_ptr,\ (\_tunnel\_id));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00745\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(\_\_ptr,\ (\_transfer\_data\_status));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00746\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((\_buffer),\ \_\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00747\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00748\ \textcolor{preprocessor}{\ \ \ \ \ \ (\_buffer),\ (\_addr),\ (\_dst\_addr\_mode),\ (\_dst\_ep),\ (\_ep),\ (\_prfl\_id),\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00749\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING,\ (\_cb));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00750\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00760\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_GET\_TRANSFER\_DATA\_ERROR(\_data\_ptr,\ \_buffer,\ \_status)\ \(\backslash\)}}
+\DoxyCodeLine{00761\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00762\ \textcolor{preprocessor}{\ \ zb\_zcl\_tunneling\_transfer\_data\_error\_t\ *src\_ptr\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00763\ \textcolor{preprocessor}{\ \ \ \ (zb\_zcl\_tunneling\_transfer\_data\_error\_t*)zb\_buf\_begin((\_buffer));\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00764\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00765\ \textcolor{preprocessor}{\ \ if\ (zb\_buf\_len((\_buffer))\ <\ sizeof(zb\_zcl\_tunneling\_transfer\_data\_error\_t))\ \(\backslash\)}}
+\DoxyCodeLine{00766\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00767\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00768\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00769\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00770\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00771\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00772\ \textcolor{preprocessor}{\ \ \ \ ZB\_HTOLE16(\&(\_data\_ptr)-\/>tunnel\_id,\ \&(src\_ptr-\/>tunnel\_id));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00773\ \textcolor{preprocessor}{\ \ \ \ (\_data\_ptr)-\/>transfer\_data\_status\ =\ src\_ptr-\/>transfer\_data\_status;\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00774\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00775\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00777\ }
+\DoxyCodeLine{00781\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_request\_tunnel\_response\_s}
+\DoxyCodeLine{00782\ \{}
+\DoxyCodeLine{00783\ }
+\DoxyCodeLine{00792\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id;}
+\DoxyCodeLine{00793\ }
+\DoxyCodeLine{00798\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ tunnel\_status;}
+\DoxyCodeLine{00799\ }
+\DoxyCodeLine{00803\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ max\_incoming\_transfer\_size;}
+\DoxyCodeLine{00804\ \}}
+\DoxyCodeLine{00805\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_request\_tunnel\_response\_t;}
+\DoxyCodeLine{00806\ }
+\DoxyCodeLine{00807\ }
+\DoxyCodeLine{00824\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_SEND\_REQUEST\_TUNNEL\_RESPONSE(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00825\ \textcolor{preprocessor}{\ \ \_param,\ \_addr,\ \_dst\_addr\_mode,\ \_dst\_ep,\ \_ep,\ \_prfl\_id,\ \_def\_resp,\ \_seq\_num,\ \_cb,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00826\ \textcolor{preprocessor}{\ \ \_tunnel\_id,\ \_tunnel\_status,\ \_max\_incoming\_transfer\_size)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00827\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00828\ \textcolor{preprocessor}{\ \ zb\_bufid\_t\ \_buffer\ =\ \_param;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00829\ \textcolor{preprocessor}{\ \ zb\_uint8\_t*\ \_\_ptr\ =\ ZB\_ZCL\_START\_PACKET(\_buffer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00830\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_RESP\_FRAME\_CONTROL\_A(\_\_ptr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00831\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_FRAME\_DIRECTION\_TO\_CLI,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00832\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_NOT\_MANUFACTURER\_SPECIFIC);\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00833\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER(\_\_ptr,\ \_seq\_num,\ ZB\_ZCL\_TUNNELING\_SRV\_CMD\_REQUEST\_TUNNEL\_RESPONSE);\ \(\backslash\)}}
+\DoxyCodeLine{00834\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA16\_VAL(\_\_ptr,\ (\_tunnel\_id));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00835\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(\_\_ptr,\ (\_tunnel\_status));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00836\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA16\_VAL(\_\_ptr,\ (\_max\_incoming\_transfer\_size));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00837\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET(\_buffer,\ \_\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00838\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00839\ \textcolor{preprocessor}{\ \ \ \ \ \ \_buffer,\ (\_addr),\ (\_dst\_addr\_mode),\ (\_dst\_ep),\ (\_ep),\ (\_prfl\_id),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00840\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING,\ (\_cb));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00841\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00842\ }
+\DoxyCodeLine{00843\ }
+\DoxyCodeLine{00849\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_TUNNELING\_GET\_REQUEST\_TUNNEL\_RESPONSE(\_data\_ptr,\ \_buffer,\ \_status)\ \(\backslash\)}}
+\DoxyCodeLine{00850\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00851\ \textcolor{preprocessor}{\ \ zb\_zcl\_tunneling\_request\_tunnel\_response\_t\ *src\_ptr\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00852\ \textcolor{preprocessor}{\ \ \ \ (zb\_zcl\_tunneling\_request\_tunnel\_response\_t*)zb\_buf\_begin((\_buffer));\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00853\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00854\ \textcolor{preprocessor}{\ \ if\ (zb\_buf\_len((\_buffer))\ <\ sizeof(zb\_zcl\_tunneling\_request\_tunnel\_response\_t))\ \(\backslash\)}}
+\DoxyCodeLine{00855\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00856\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00857\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00858\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00859\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00860\ \textcolor{preprocessor}{\ \ \ \ (\_status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00861\ \textcolor{preprocessor}{\ \ \ \ ZB\_HTOLE16(\&(\_data\_ptr)-\/>tunnel\_id,\ \&(src\_ptr-\/>tunnel\_id));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00862\ \textcolor{preprocessor}{\ \ \ \ (\_data\_ptr)-\/>tunnel\_status\ =\ src\_ptr-\/>tunnel\_status;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00863\ \textcolor{preprocessor}{\ \ \ \ ZB\_HTOLE16(\&(\_data\_ptr)-\/>max\_incoming\_transfer\_size,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00864\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&(src\_ptr-\/>max\_incoming\_transfer\_size));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00865\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00866\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00867\ }
+\DoxyCodeLine{00868\ }
+\DoxyCodeLine{00874\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_ack\_transfer\_data\_s}
+\DoxyCodeLine{00875\ \{}
+\DoxyCodeLine{00876\ }
+\DoxyCodeLine{00880\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00881\ }
+\DoxyCodeLine{00884\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ number\_of\_bytes\_left;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00885\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_ack\_transfer\_data\_t;}
+\DoxyCodeLine{00886\ }
+\DoxyCodeLine{00887\ }
+\DoxyCodeLine{00893\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_ready\_data\_s}
+\DoxyCodeLine{00894\ \{}
+\DoxyCodeLine{00895\ }
+\DoxyCodeLine{00899\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00900\ }
+\DoxyCodeLine{00905\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ number\_of\_octets\_left;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00906\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_ready\_data\_t;}
+\DoxyCodeLine{00907\ }
+\DoxyCodeLine{00908\ }
+\DoxyCodeLine{00912\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_get\_supported\_tunnel\_protocols\_s}
+\DoxyCodeLine{00913\ \{}
+\DoxyCodeLine{00918\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ protocol\_offset;\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00919\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_get\_supported\_tunnel\_protocols\_t;}
+\DoxyCodeLine{00920\ }
+\DoxyCodeLine{00921\ }
+\DoxyCodeLine{00926\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_protocol\_field\_s}
+\DoxyCodeLine{00927\ \{}
+\DoxyCodeLine{00928\ }
+\DoxyCodeLine{00932\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ manufacturer\_code;}
+\DoxyCodeLine{00933\ }
+\DoxyCodeLine{00939\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ protocol\_id;}
+\DoxyCodeLine{00940\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_protocol\_field\_t;}
+\DoxyCodeLine{00941\ }
+\DoxyCodeLine{00942\ }
+\DoxyCodeLine{00947\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_supported\_tunnel\_protocols\_response\_s}
+\DoxyCodeLine{00948\ \{}
+\DoxyCodeLine{00953\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ protocol\_list\_complete;}
+\DoxyCodeLine{00954\ }
+\DoxyCodeLine{00957\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ protocol\_count;}
+\DoxyCodeLine{00958\ }
+\DoxyCodeLine{00962\ \ \ zb\_zcl\_tunneling\_protocol\_field\_t\ protocol\_list[16];}
+\DoxyCodeLine{00963\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_supported\_tunnel\_protocols\_response\_t;}
+\DoxyCodeLine{00964\ }
+\DoxyCodeLine{00965\ }
+\DoxyCodeLine{00970\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_tunnel\_closure\_notification\_s}
+\DoxyCodeLine{00971\ \{}
+\DoxyCodeLine{00975\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00976\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_tunneling\_tunnel\_closure\_notification\_t;}
+\DoxyCodeLine{00977\ }
+\DoxyCodeLine{00978\ }
+\DoxyCodeLine{00979\ \textcolor{comment}{/***********************\ Tunnel\ API\ **************************/}}
+\DoxyCodeLine{00980\ }
+\DoxyCodeLine{00982\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_tunneling\_cli\_s}
+\DoxyCodeLine{00983\ \{}
+\DoxyCodeLine{00984\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ tunnel\_id;}
+\DoxyCodeLine{00985\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ dst\_addr;}
+\DoxyCodeLine{00986\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep;}
+\DoxyCodeLine{00987\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ max\_incoming\_to\_cli\_transfer\_size;}
+\DoxyCodeLine{00988\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ max\_outgoing\_to\_srv\_transfer\_size;}
+\DoxyCodeLine{00989\ \}}
+\DoxyCodeLine{00990\ ZB\_PACKED\_STRUCT}
+\DoxyCodeLine{00991\ zb\_zcl\_tunneling\_cli\_t;}
+\DoxyCodeLine{00992\ }
+\DoxyCodeLine{00993\ \textcolor{keyword}{extern}\ zb\_zcl\_tunneling\_cli\_t\ tunneling\_cli;}
+\DoxyCodeLine{00994\ \ \textcolor{comment}{/*\ internal\_doc\ */}}
+\DoxyCodeLine{00996\ \ \textcolor{comment}{/*\ ZB\_ZCL\_TUNNELING\_COMMANDS\ */}}
+\DoxyCodeLine{00998\ \ \textcolor{comment}{/*\ addtogroup\ */}}
+\DoxyCodeLine{01000\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ */}}
+\DoxyCodeLine{01002\ }
+\DoxyCodeLine{01003\ \textcolor{comment}{/****************************\ Tunnel\ internal\ **********************************/}}
+\DoxyCodeLine{01004\ }
+\DoxyCodeLine{01005\ \textcolor{keywordtype}{void}\ zb\_zcl\_tunneling\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01006\ \textcolor{keywordtype}{void}\ zb\_zcl\_tunneling\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01007\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING\_SERVER\_ROLE\_INIT\ zb\_zcl\_tunneling\_init\_server}}
+\DoxyCodeLine{01008\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_TUNNELING\_CLIENT\_ROLE\_INIT\ zb\_zcl\_tunneling\_init\_client}}
+\DoxyCodeLine{01009\ }
+\DoxyCodeLine{01010\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_TUNNELING\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

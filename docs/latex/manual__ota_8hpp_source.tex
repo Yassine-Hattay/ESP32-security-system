@@ -1,0 +1,77 @@
+\doxysection{manual\+\_\+ota.\+hpp}
+\hypertarget{manual__ota_8hpp_source}{}\label{manual__ota_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/test/target\_ota/components/manual\_ota/manual\_ota.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/test/target\_ota/components/manual\_ota/manual\_ota.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Unlicense\ OR\ CC0-\/1.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_http\_client.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_partition.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_transport\_tcp.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}esp\_ota\_ops.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmanual__ota_a1121d5d80bfb1d4e8a08f9d845f845de}{manual\_ota}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{classmanual__ota_af9cd7c31627bedd5135c2698af05fb3c}{mode}}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ BATCH,\ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmanual__ota_af9cd7c31627bedd5135c2698af05fb3ca1e23852820b9154316c7c06e2b7ba051}{NORMAL}}\ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \}\ mode\_\ \{\mbox{\hyperlink{classmanual__ota_af9cd7c31627bedd5135c2698af05fb3ca3dba7f2d2578ffb4bd657af94b1add80}{mode::BATCH}}\};}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{classmanual__ota_a707d10fd8cbdd085a131a8592481123b}{size\_}}\{32\};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classmanual__ota_a5b468e529fd0f9a47a7e3a37ddd570dc}{timeout\_}}\{2\};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{classmanual__ota_ac97e2b238c4b96144ae8f748c4cb606a}{common\_name\_}}\{\};}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classmanual__ota_1_1http__client}{http\_client}}\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }manual\_ota;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmanual__ota_1_1http__client}{\string~http\_client}}();}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ init();}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ esp\_http\_client\_handle\_t\ handle\_\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ handle\_redirects();}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ set\_range(\textcolor{keywordtype}{size\_t}\ from,\ \textcolor{keywordtype}{size\_t}\ to);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_data\_complete();}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ int64\_t\ get\_image\_len();}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ esp\_http\_client\_config\_t\ \mbox{\hyperlink{classmanual__ota_1_1http__client_ac802ffbf0c150aa74ca1a9ff6fe2cf0b}{config\_}}\{\};\ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \}\ http\_;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classmanual__ota_a1121d5d80bfb1d4e8a08f9d845f845de}{manual\_ota}}()\ \{\}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{classmanual__ota}{\string~manual\_ota}}();}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmanual__ota_af876785a5ed914c9733132c76b37ff64}{begin}}();}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmanual__ota_a9778a66ee93148a149ad6a575c9ba2b7}{perform}}();}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classmanual__ota_aebd19947e6b0f31c259b51de14b67586}{end}}();}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keyword}{enum\ class}\ state\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ UNDEF,}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ INIT,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ IMAGE\_CHECK,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ START,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ END,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ FAIL,}
+\DoxyCodeLine{00097\ \ \ \ \ \};}
+\DoxyCodeLine{00098\ \ \ \ \ int64\_t\ image\_length\_;}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ file\_length\_;}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ max\_buffer\_size\_\{\mbox{\hyperlink{classmanual__ota_a707d10fd8cbdd085a131a8592481123b}{size\_}}\ *\ 1024\};}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{const}\ esp\_partition\_t\ *partition\_\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00102\ \ \ \ \ state\ status\{state::UNDEF\};}
+\DoxyCodeLine{00103\ \ \ \ \ std::vector<char>\ buffer\_\{\};}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{int}\ reconnect\_attempts\_;}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_reconnect\_attempts\_\{3\};}
+\DoxyCodeLine{00106\ \ \ \ \ esp\_transport\_handle\_t\ ssl\_;}
+\DoxyCodeLine{00107\ \ \ \ \ esp\_ota\_handle\_t\ update\_handle\_\{0\};}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{bool}\ ota\_begin;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{bool}\ prepare\_reconnect();}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{bool}\ fail();}
+\DoxyCodeLine{00112\ \};}
+
+\end{DoxyCode}

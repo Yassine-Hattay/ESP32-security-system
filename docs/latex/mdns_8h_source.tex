@@ -1,0 +1,228 @@
+\doxysection{mdns.\+h}
+\hypertarget{mdns_8h_source}{}\label{mdns_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/include/mdns.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/include/mdns.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2015-\/2025\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ ESP\_MDNS\_H\_}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ ESP\_MDNS\_H\_}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <esp\_netif.h>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MDNS\_TYPE\_A\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0001}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ MDNS\_TYPE\_PTR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x000C}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ MDNS\_TYPE\_TXT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0010}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MDNS\_TYPE\_AAAA\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x001C}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ MDNS\_TYPE\_SRV\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0021}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ MDNS\_TYPE\_OPT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0029}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MDNS\_TYPE\_NSEC\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x002F}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ MDNS\_TYPE\_ANY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00FF}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_LWIP\_IPV6)\ \&\&\ defined(CONFIG\_MDNS\_RESPOND\_REVERSE\_QUERIES)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MDNS\_NAME\_MAX\_LEN\ \ \ \ \ \ \ \ \ \ \ (64+4)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Need\ to\ account\ for\ IPv6\ reverse\ queries\ (64\ char\ address\ \ +\ "{}.ip6"{}\ )}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ MDNS\_NAME\_MAX\_LEN\ \ \ \ \ \ \ \ \ \ \ 64\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Maximum\ string\ length\ of\ hostname,\ instance,\ service\ and\ proto}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ MDNS\_NAME\_BUF\_LEN\ \ \ \ \ \ \ \ \ \ \ (MDNS\_NAME\_MAX\_LEN+1)\ \ \ }\textcolor{comment}{//\ Maximum\ char\ buffer\ size\ to\ hold\ hostname,\ instance,\ service\ or\ proto}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmdns__search__once__s}{mdns\_search\_once\_s}}\ mdns\_search\_once\_t;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmdns__browse__s}{mdns\_browse\_s}}\ mdns\_browse\_t;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ MDNS\_EVENT\_ENABLE\_IP4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00044\ \ \ \ \ MDNS\_EVENT\_ENABLE\_IP6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,}
+\DoxyCodeLine{00045\ \ \ \ \ MDNS\_EVENT\_ANNOUNCE\_IP4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 3,}
+\DoxyCodeLine{00046\ \ \ \ \ MDNS\_EVENT\_ANNOUNCE\_IP6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,}
+\DoxyCodeLine{00047\ \ \ \ \ MDNS\_EVENT\_DISABLE\_IP4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5,}
+\DoxyCodeLine{00048\ \ \ \ \ MDNS\_EVENT\_DISABLE\_IP6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6,}
+\DoxyCodeLine{00049\ \ \ \ \ MDNS\_EVENT\_IP4\_REVERSE\_LOOKUP\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7,}
+\DoxyCodeLine{00050\ \ \ \ \ MDNS\_EVENT\_IP6\_REVERSE\_LOOKUP\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 8,}
+\DoxyCodeLine{00051\ \}\ mdns\_event\_actions\_t;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ MDNS\_IP\_PROTOCOL\_V4,}
+\DoxyCodeLine{00058\ \ \ \ \ MDNS\_IP\_PROTOCOL\_V6,}
+\DoxyCodeLine{00059\ \ \ \ \ MDNS\_IP\_PROTOCOL\_MAX}
+\DoxyCodeLine{00060\ \}\ mdns\_ip\_protocol\_t;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__txt__item__t_aac2205bf54deede319e61f03560677ee}{key}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__txt__item__t_afd248c401d6c0c00ba0a77eb6bd89fd7}{value}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \}\ \mbox{\hyperlink{structmdns__txt__item__t}{mdns\_txt\_item\_t}};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__subtype__item__t_a859723fd26ad7763a8df725ed97ff041}{subtype}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00077\ \}\ \mbox{\hyperlink{structmdns__subtype__item__t}{mdns\_subtype\_item\_t}};}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmdns__ip__addr__s}{mdns\_ip\_addr\_s}}\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ esp\_ip\_addr\_t\ \mbox{\hyperlink{structmdns__ip__addr__s_a6551a9e844533214d7da7f26921e8d7b}{addr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmdns__ip__addr__s}{mdns\_ip\_addr\_s}}\ *\mbox{\hyperlink{structmdns__ip__addr__s_acd517df206b0c3e16450f3fc0ada3185}{next}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \}\ mdns\_ip\_addr\_t;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ MDNS\_QUERY\_UNICAST,}
+\DoxyCodeLine{00092\ \ \ \ \ MDNS\_QUERY\_MULTICAST,}
+\DoxyCodeLine{00093\ \}\ mdns\_query\_transmission\_type\_t;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmdns__result__s}{mdns\_result\_s}}\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmdns__result__s}{mdns\_result\_s}}\ *\mbox{\hyperlink{structmdns__result__s_afd40f35c5cd387069c66f9bb7e4f622d}{next}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ esp\_netif\_t\ *\mbox{\hyperlink{structmdns__result__s_a44927f82f91a1e730f20c342ed12e4f9}{esp\_netif}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structmdns__result__s_ad9737835c45c2f11be1ee17a483fefff}{ttl}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ mdns\_ip\_protocol\_t\ \mbox{\hyperlink{structmdns__result__s_aff66b72bd7941a197d96d86a473f79e4}{ip\_protocol}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{comment}{//\ PTR}}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ae18827fe3e06b3ece9d4bf54606200d1}{proto}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{comment}{//\ SRV}}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_aa4d541285021faf8feb2e0f5abe89353}{hostname}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00111\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structmdns__result__s_a968bcd2e2ddec6c1ceba674dfa59e5bd}{port}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{//\ TXT}}
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{structmdns__txt__item__t}{mdns\_txt\_item\_t}}\ *\mbox{\hyperlink{structmdns__result__s_a895ba931c167a9159b331562781a83d2}{txt}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00114\ \ \ \ \ uint8\_t\ *\mbox{\hyperlink{structmdns__result__s_a4116fbfc03331cb0de5c1ac75efb81ad}{txt\_value\_len}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structmdns__result__s_af160c366650f60688c93dc0473af6385}{txt\_count}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ A\ and\ AAAA}}
+\DoxyCodeLine{00117\ \ \ \ \ mdns\_ip\_addr\_t\ *\mbox{\hyperlink{structmdns__result__s_ad1874ef7491e8a973182a8253b742514}{addr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00118\ \}\ mdns\_result\_t;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{keyword}{typedef}\ void\ (*mdns\_query\_notify\_t)(mdns\_search\_once\_t\ *search);}
+\DoxyCodeLine{00121\ \textcolor{keyword}{typedef}\ void\ (*mdns\_browse\_notify\_t)(mdns\_result\_t\ *result);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00132\ esp\_err\_t\ mdns\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00138\ \textcolor{keywordtype}{void}\ mdns\_free(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00151\ esp\_err\_t\ mdns\_hostname\_set(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00164\ esp\_err\_t\ mdns\_hostname\_get(\textcolor{keywordtype}{char}\ *hostname);}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00181\ esp\_err\_t\ mdns\_delegate\_hostname\_add(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ \textcolor{keyword}{const}\ mdns\_ip\_addr\_t\ *address\_list);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00196\ esp\_err\_t\ mdns\_delegate\_hostname\_set\_address(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ \textcolor{keyword}{const}\ mdns\_ip\_addr\_t\ *address\_list);}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00211\ esp\_err\_t\ mdns\_delegate\_hostname\_remove(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname);}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{bool}\ mdns\_hostname\_exists(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00235\ esp\_err\_t\ mdns\_instance\_name\_set(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}});}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00259\ esp\_err\_t\ mdns\_service\_add(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ uint16\_t\ port,\ \mbox{\hyperlink{structmdns__txt__item__t}{mdns\_txt\_item\_t}}\ txt[],\ \textcolor{keywordtype}{size\_t}\ num\_items);}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00284\ esp\_err\_t\ mdns\_service\_add\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ uint16\_t\ port,\ \mbox{\hyperlink{structmdns__txt__item__t}{mdns\_txt\_item\_t}}\ txt[],\ \textcolor{keywordtype}{size\_t}\ num\_items);}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00298\ \textcolor{keywordtype}{bool}\ mdns\_service\_exists(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname);}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00312\ \textcolor{keywordtype}{bool}\ mdns\_service\_exists\_with\_instance(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname);}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00327\ esp\_err\_t\ mdns\_service\_remove(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto);}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00343\ esp\_err\_t\ mdns\_service\_remove\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname);}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00358\ esp\_err\_t\ mdns\_service\_instance\_name\_set(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}});}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00375\ esp\_err\_t\ mdns\_service\_instance\_name\_set\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance\_old,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}});}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00391\ esp\_err\_t\ mdns\_service\_port\_set(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ uint16\_t\ port);}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00409\ esp\_err\_t\ mdns\_service\_port\_set\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ uint16\_t\ port);}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00428\ esp\_err\_t\ mdns\_service\_txt\_set(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \mbox{\hyperlink{structmdns__txt__item__t}{mdns\_txt\_item\_t}}\ txt[],\ uint8\_t\ num\_items);}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00448\ esp\_err\_t\ mdns\_service\_txt\_set\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmdns__txt__item__t}{mdns\_txt\_item\_t}}\ txt[],\ uint8\_t\ num\_items);}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00467\ esp\_err\_t\ mdns\_service\_txt\_item\_set(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value);}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00484\ esp\_err\_t\ mdns\_service\_txt\_item\_set\_with\_explicit\_value\_len(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value,\ uint8\_t\ value\_len);}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00505\ esp\_err\_t\ mdns\_service\_txt\_item\_set\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value);}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00525\ esp\_err\_t\ mdns\_service\_txt\_item\_set\_for\_host\_with\_explicit\_value\_len(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value,\ uint8\_t\ value\_len);}
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00542\ esp\_err\_t\ mdns\_service\_txt\_item\_remove(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00559\ esp\_err\_t\ mdns\_service\_txt\_item\_remove\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00577\ esp\_err\_t\ mdns\_service\_subtype\_add\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *subtype);}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00594\ esp\_err\_t\ mdns\_service\_subtype\_remove\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *subtype);}
+\DoxyCodeLine{00596\ }
+\DoxyCodeLine{00613\ esp\_err\_t\ mdns\_service\_subtype\_add\_multiple\_items\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ \mbox{\hyperlink{structmdns__subtype__item__t}{mdns\_subtype\_item\_t}}\ subtype[],\ uint8\_t\ num\_items);}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00634\ esp\_err\_t\ mdns\_service\_subtype\_update\_multiple\_items\_for\_host(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ \mbox{\hyperlink{structmdns__subtype__item__t}{mdns\_subtype\_item\_t}}\ subtype[],\ uint8\_t\ num\_items);}
+\DoxyCodeLine{00643\ esp\_err\_t\ mdns\_service\_remove\_all(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00644\ }
+\DoxyCodeLine{00655\ esp\_err\_t\ mdns\_query\_async\_delete(mdns\_search\_once\_t\ *search);}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00671\ \textcolor{keywordtype}{bool}\ mdns\_query\_async\_get\_results(mdns\_search\_once\_t\ *search,\ uint32\_t\ timeout,\ mdns\_result\_t\ **results,\ uint8\_t\ *num\_results);}
+\DoxyCodeLine{00672\ }
+\DoxyCodeLine{00688\ mdns\_search\_once\_t\ *mdns\_query\_async\_new(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ uint16\_t\ type,}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ uint32\_t\ timeout,\ \textcolor{keywordtype}{size\_t}\ max\_results,\ mdns\_query\_notify\_t\ notifier);}
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00711\ esp\_err\_t\ mdns\_query\_generic(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ uint16\_t\ type,}
+\DoxyCodeLine{00712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mdns\_query\_transmission\_type\_t\ transmission\_type,\ uint32\_t\ timeout,\ \textcolor{keywordtype}{size\_t}\ max\_results,\ mdns\_result\_t\ **results);}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00734\ esp\_err\_t\ mdns\_query(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ uint16\_t\ type,\ uint32\_t\ timeout,\ \textcolor{keywordtype}{size\_t}\ max\_results,\ mdns\_result\_t\ **results);}
+\DoxyCodeLine{00735\ }
+\DoxyCodeLine{00741\ \textcolor{keywordtype}{void}\ mdns\_query\_results\_free(mdns\_result\_t\ *results);}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00758\ esp\_err\_t\ mdns\_query\_ptr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ uint32\_t\ timeout,\ \textcolor{keywordtype}{size\_t}\ max\_results,\ mdns\_result\_t\ **results);}
+\DoxyCodeLine{00759\ }
+\DoxyCodeLine{00775\ esp\_err\_t\ mdns\_query\_srv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ uint32\_t\ timeout,\ mdns\_result\_t\ **result);}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00792\ esp\_err\_t\ mdns\_query\_txt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_ac67b4af869b06a6245e764675120ad7b}{instance\_name}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ uint32\_t\ timeout,\ mdns\_result\_t\ **result);}
+\DoxyCodeLine{00793\ }
+\DoxyCodeLine{00809\ esp\_err\_t\ mdns\_lookup\_delegated\_service(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keywordtype}{size\_t}\ max\_results,}
+\DoxyCodeLine{00810\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mdns\_result\_t\ **result);}
+\DoxyCodeLine{00811\ }
+\DoxyCodeLine{00827\ esp\_err\_t\ mdns\_lookup\_selfhosted\_service(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *instance,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structmdns__result__s_a23e829b4dfcd4c983fe20f8c88139be2}{service\_type}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ \textcolor{keywordtype}{size\_t}\ max\_results,}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ mdns\_result\_t\ **result);}
+\DoxyCodeLine{00829\ }
+\DoxyCodeLine{00843\ esp\_err\_t\ mdns\_query\_a(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host\_name,\ uint32\_t\ timeout,\ esp\_ip4\_addr\_t\ *\mbox{\hyperlink{structmdns__result__s_ad1874ef7491e8a973182a8253b742514}{addr}});}
+\DoxyCodeLine{00844\ }
+\DoxyCodeLine{00845\ \textcolor{preprocessor}{\#if\ CONFIG\_LWIP\_IPV6}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00861\ esp\_err\_t\ mdns\_query\_aaaa(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host\_name,\ uint32\_t\ timeout,\ esp\_ip6\_addr\_t\ *\mbox{\hyperlink{structmdns__result__s_ad1874ef7491e8a973182a8253b742514}{addr}});}
+\DoxyCodeLine{00862\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00863\ }
+\DoxyCodeLine{00864\ }
+\DoxyCodeLine{00877\ esp\_err\_t\ mdns\_register\_netif(esp\_netif\_t\ *esp\_netif);}
+\DoxyCodeLine{00878\ }
+\DoxyCodeLine{00888\ esp\_err\_t\ mdns\_unregister\_netif(esp\_netif\_t\ *esp\_netif);}
+\DoxyCodeLine{00889\ }
+\DoxyCodeLine{00909\ esp\_err\_t\ mdns\_netif\_action(esp\_netif\_t\ *esp\_netif,\ mdns\_event\_actions\_t\ event\_action);}
+\DoxyCodeLine{00910\ }
+\DoxyCodeLine{00920\ mdns\_browse\_t\ *mdns\_browse\_new(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *service,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto,\ mdns\_browse\_notify\_t\ notifier);}
+\DoxyCodeLine{00921\ }
+\DoxyCodeLine{00931\ esp\_err\_t\ mdns\_browse\_delete(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *service,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *proto);}
+\DoxyCodeLine{00932\ }
+\DoxyCodeLine{00933\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00934\ \}}
+\DoxyCodeLine{00935\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00936\ }
+\DoxyCodeLine{00937\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ESP\_MDNS\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

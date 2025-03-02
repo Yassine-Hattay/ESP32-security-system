@@ -1,0 +1,88 @@
+\doxysubsection{NWK PAN ID conflicts}
+\hypertarget{group__nwk__panid__conflicts}{}\label{group__nwk__panid__conflicts}\index{NWK PAN ID conflicts@{NWK PAN ID conflicts}}
+\doxysubsubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structzb__pan__id__conflict__info__s}{zb\+\_\+pan\+\_\+id\+\_\+conflict\+\_\+info\+\_\+s}}
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__nwk__panid__conflicts_ga424b9ca49fde474548116b6af72813b7}\label{group__nwk__panid__conflicts_ga424b9ca49fde474548116b6af72813b7} 
+\#define {\bfseries ZB\+\_\+\+PAN\+\_\+\+ID\+\_\+\+CONFLICT\+\_\+\+INFO\+\_\+\+MAX\+\_\+\+PANIDS\+\_\+\+COUNT}~16U
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__nwk__panid__conflicts_gaf94fcef7dee6e845e13fc25daedf45ab}\label{group__nwk__panid__conflicts_gaf94fcef7dee6e845e13fc25daedf45ab} 
+typedef ZB\+\_\+\+PACKED\+\_\+\+PRE struct \mbox{\hyperlink{structzb__pan__id__conflict__info__s}{zb\+\_\+pan\+\_\+id\+\_\+conflict\+\_\+info\+\_\+s}} {\bfseries zb\+\_\+pan\+\_\+id\+\_\+conflict\+\_\+info\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__nwk__panid__conflicts_ga7787cbfb580ca701cce02b2a962d247b}{zb\+\_\+start\+\_\+pan\+\_\+id\+\_\+conflict\+\_\+resolution}} (\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}} param)
+\item 
+void \mbox{\hyperlink{group__nwk__panid__conflicts_ga03120cc42789179aa8dbe184a940083b}{zb\+\_\+enable\+\_\+auto\+\_\+pan\+\_\+id\+\_\+conflict\+\_\+resolution}} (\mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\+\_\+bool\+\_\+t}} status)
+\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__nwk__panid__conflicts_ga03120cc42789179aa8dbe184a940083b}\index{NWK PAN ID conflicts@{NWK PAN ID conflicts}!zb\_enable\_auto\_pan\_id\_conflict\_resolution@{zb\_enable\_auto\_pan\_id\_conflict\_resolution}}
+\index{zb\_enable\_auto\_pan\_id\_conflict\_resolution@{zb\_enable\_auto\_pan\_id\_conflict\_resolution}!NWK PAN ID conflicts@{NWK PAN ID conflicts}}
+\doxysubsubsubsection{\texorpdfstring{zb\_enable\_auto\_pan\_id\_conflict\_resolution()}{zb\_enable\_auto\_pan\_id\_conflict\_resolution()}}
+{\footnotesize\ttfamily \label{group__nwk__panid__conflicts_ga03120cc42789179aa8dbe184a940083b} 
+void zb\+\_\+enable\+\_\+auto\+\_\+pan\+\_\+id\+\_\+conflict\+\_\+resolution (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\+\_\+bool\+\_\+t}}}]{status}{}\end{DoxyParamCaption})}
+
+This function must be used for enabling/disabling automatic PAN ID conflict resolution If the automatic resolution is disabled, ZBOSS will issue a ZB\+\_\+\+NWK\+\_\+\+SIGNAL\+\_\+\+PANID\+\_\+\+CONFLICT\+\_\+\+DETECTED signal each time it receives Network Report about PAN ID conflict or (in case the device is the network manager) each time it detects such conflicts.
+
+By default the automatic PAN ID conflict resolution is disabled.
+
+That call also enabled panid conflict resolution -\/ see zb\+\_\+enable\+\_\+panid\+\_\+conflict\+\_\+resolution();
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & -\/ ZB\+\_\+\+TRUE in order to enable automatic PAN ID conflict, ZB\+\_\+\+FALSE otherwise \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__nwk__panid__conflicts_ga7787cbfb580ca701cce02b2a962d247b}\index{NWK PAN ID conflicts@{NWK PAN ID conflicts}!zb\_start\_pan\_id\_conflict\_resolution@{zb\_start\_pan\_id\_conflict\_resolution}}
+\index{zb\_start\_pan\_id\_conflict\_resolution@{zb\_start\_pan\_id\_conflict\_resolution}!NWK PAN ID conflicts@{NWK PAN ID conflicts}}
+\doxysubsubsubsection{\texorpdfstring{zb\_start\_pan\_id\_conflict\_resolution()}{zb\_start\_pan\_id\_conflict\_resolution()}}
+{\footnotesize\ttfamily \label{group__nwk__panid__conflicts_ga7787cbfb580ca701cce02b2a962d247b} 
+void zb\+\_\+start\+\_\+pan\+\_\+id\+\_\+conflict\+\_\+resolution (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}}}]{param}{}\end{DoxyParamCaption})}
+
+Allow/disallow network joining
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & -\/ pointer to a structure containing PAN ID conflict information -\/ \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+zb\+\_\+pan\+\_\+id\+\_\+conflict\+\_\+info\+\_\+t
+\end{DoxySeeAlso}
+{\bfseries{Example\+:}} ZB\+\_\+\+ZDO\+\_\+\+SIGNAL\+\_\+\+CUT\+\_\+\+HEADER macro may be used to remove from the buffer everything but the signal parameter (zb\+\_\+pan\+\_\+id\+\_\+conflict\+\_\+info\+\_\+t structure in this case) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ zboss\_signal\_handler(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ zb\_pan\_id\_conflict\_info\_t\ *info\ =\ NULL;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__zb__comm__signals_ga39260b983d0f1c9e49e3f81229f89843}{zb\_zdo\_app\_signal\_hdr\_t}}\ *sg\_p\ =\ NULL;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__zb__comm__signals_ga0780642679d1de1797c0091d5a500026}{zb\_zdo\_app\_signal\_type\_t}}\ sig\ =\ \mbox{\hyperlink{group__zb__comm__signals_ga03ab4c87fbcc7cf8e12bbfa9cb8a3be6}{zb\_get\_app\_signal}}(param,\ \&sg\_p);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group__zb__comm__signals_ga92b8d5cdf1c243e1c47e72fbd0e14083}{ZB\_GET\_APP\_SIGNAL\_STATUS}}(param)\ ==\ 0)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{switch}\ (sig)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__zb__comm__signals_gad09944afa7a15094939c33eb0f35f005}{ZB\_NWK\_SIGNAL\_PANID\_CONFLICT\_DETECTED}}:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ info\ =\ \mbox{\hyperlink{group__zb__comm__signals_ga349e075e41b65290d2b1547f200a4e23}{ZB\_ZDO\_SIGNAL\_GET\_PARAMS}}(sg\_p,\ zb\_pan\_id\_conflict\_info\_t);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__zb__comm__signals_ga7f3c86ef6dd7ce7927fe74f843b0020a}{ZB\_ZDO\_SIGNAL\_CUT\_HEADER}}(ZB\_BUF\_FROM\_REF(param));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__nwk__panid__conflicts_ga7787cbfb580ca701cce02b2a962d247b}{zb\_start\_pan\_id\_conflict\_resolution}}(param);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 

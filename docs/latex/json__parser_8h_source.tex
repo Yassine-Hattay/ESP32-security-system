@@ -1,0 +1,86 @@
+\doxysection{json\+\_\+parser.\+h}
+\hypertarget{json__parser_8h_source}{}\label{json__parser_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_json\_parser/include/json\_parser.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_json\_parser/include/json\_parser.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ \ \ \ Copyright\ 2020\ Piyush\ Shah\ <shahpiyushv@gmail.com>}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ \ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ \ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ \ \ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ \ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ \_JSON\_PARSER\_H\_}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ \_JSON\_PARSER\_H\_}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ JSMN\_PARENT\_LINKS}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ JSMN\_HEADER}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <jsmn.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00026\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ OS\_SUCCESS\ \ 0}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ OS\_FAIL\ \ \ \ \ -\/1}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structjsmn__parser}{jsmn\_parser}}\ json\_parser\_t;}
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ jsmntok\_t\ json\_tok\_t;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00037\ \ \ \ \ json\_parser\_t\ parser;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *js;}
+\DoxyCodeLine{00039\ \ \ \ \ json\_tok\_t\ *tokens;}
+\DoxyCodeLine{00040\ \ \ \ \ json\_tok\_t\ *cur;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{int}\ num\_tokens;}
+\DoxyCodeLine{00042\ \}\ \mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{int}\ json\_parse\_start(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *js,\ \textcolor{keywordtype}{int}\ len);}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{int}\ json\_parse\_end(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx);}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{int}\ json\_parse\_start\_static(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *js,\ \textcolor{keywordtype}{int}\ len,\ json\_tok\_t\ *buffer\_tokens,\ \textcolor{keywordtype}{int}\ buffer\_tokens\_max\_count);}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{int}\ json\_parse\_end\_static(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ json\_obj\_get\_array(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{int}\ *num\_elem);}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{int}\ json\_obj\_leave\_array(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx);}
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{int}\ json\_obj\_get\_object(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{int}\ json\_obj\_leave\_object(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx);}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{int}\ json\_obj\_get\_bool(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{bool}\ *val);}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{int}\ json\_obj\_get\_int(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{int}\ *val);}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{int}\ json\_obj\_get\_int64(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ int64\_t\ *val);}
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{int}\ json\_obj\_get\_float(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{float}\ *val);}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{int}\ json\_obj\_get\_string(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{char}\ *val,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{int}\ json\_obj\_get\_strlen(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{int}\ *strlen);}
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{int}\ json\_obj\_get\_object\_str(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{char}\ *val,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{int}\ json\_obj\_get\_object\_strlen(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{int}\ *strlen);}
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{int}\ json\_obj\_get\_array\_str(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{char}\ *val,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{int}\ json\_obj\_get\_array\_strlen(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{int}\ *strlen);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{int}\ json\_arr\_get\_array(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ uint32\_t\ index);}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{int}\ json\_arr\_leave\_array(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx);}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{int}\ json\_arr\_get\_object(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ uint32\_t\ index);}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{int}\ json\_arr\_leave\_object(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx);}
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{int}\ json\_arr\_get\_bool(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ uint32\_t\ index,\ \textcolor{keywordtype}{bool}\ *val);}
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{int}\ json\_arr\_get\_int(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ uint32\_t\ index,\ \textcolor{keywordtype}{int}\ *val);}
+\DoxyCodeLine{00070\ \textcolor{keywordtype}{int}\ json\_arr\_get\_int64(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ uint32\_t\ index,\ int64\_t\ *val);}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{int}\ json\_arr\_get\_float(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ uint32\_t\ index,\ \textcolor{keywordtype}{float}\ *val);}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{int}\ json\_arr\_get\_string(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ uint32\_t\ index,\ \textcolor{keywordtype}{char}\ *val,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{int}\ json\_arr\_get\_strlen(\mbox{\hyperlink{structjparse__ctx__t}{jparse\_ctx\_t}}\ *jctx,\ uint32\_t\ index,\ \textcolor{keywordtype}{int}\ *strlen);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_JSON\_PARSER\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00080\ }
+
+\end{DoxyCode}

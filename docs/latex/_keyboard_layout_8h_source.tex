@@ -1,0 +1,74 @@
+\doxysection{Keyboard\+Layout.\+h}
+\hypertarget{_keyboard_layout_8h_source}{}\label{_keyboard_layout_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/keyboardLayout/KeyboardLayout.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/keyboardLayout/KeyboardLayout.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ KeyboardLayout.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ This\ file\ is\ not\ part\ of\ the\ public\ API.\ It\ is\ meant\ to\ be\ included}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ only\ in\ Keyboard.cpp\ and\ the\ keyboard\ layout\ files.\ Layout\ files\ map}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ ASCII\ character\ codes\ to\ keyboard\ scan\ codes\ (technically,\ to\ USB\ HID}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ Usage\ codes),\ possibly\ altered\ by\ the\ SHIFT\ or\ ALT\_GR\ modifiers.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ Non-\/ACSII\ characters\ (anything\ outside\ the\ 7-\/bit\ range\ NUL..DEL)\ are}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ not\ supported.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ ==\ Creating\ your\ own\ layout\ ==}}
+\DoxyCodeLine{00012\ \textcolor{comment}{}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ In\ order\ to\ create\ your\ own\ layout\ file,\ copy\ an\ existing\ layout\ that}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ is\ similar\ to\ yours,\ then\ modify\ it\ to\ use\ the\ correct\ keys.\ The}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ layout\ is\ an\ array\ in\ ASCII\ order.\ Each\ entry\ contains\ a\ scan\ code,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ possibly\ modified\ by\ "{}|SHIFT"{}\ or\ "{}|ALT\_GR"{},\ as\ in\ this\ excerpt\ from}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ the\ Italian\ layout:}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ \ \ \ 0x35,\ \ \ \ \ \ \ \ \ \ //\ bslash}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ \ \ \ 0x30|ALT\_GR,\ \ \ //\ ]}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ \ \ \ \ \ 0x2e|SHIFT,\ \ \ \ //\ \string^}}
+\DoxyCodeLine{00022\ \textcolor{comment}{}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ Do\ not\ change\ the\ control\ characters\ (those\ before\ scan\ code\ 0x2c,}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ corresponding\ to\ space).\ Do\ not\ attempt\ to\ grow\ the\ table\ past\ DEL.\ Do}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ not\ use\ both\ SHIFT\ and\ ALT\_GR\ on\ the\ same\ character:\ this\ is\ not}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ supported.\ Unsupported\ characters\ should\ have\ 0x00\ as\ scan\ code.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ For\ a\ keyboard\ with\ an\ ISO\ physical\ layout,\ use\ the\ scan\ codes\ below:}}
+\DoxyCodeLine{00029\ \textcolor{comment}{}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ \ \ \ +-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/+}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ \ \ \ |35\ |1e\ |1f\ |20\ |21\ |22\ |23\ |24\ |25\ |26\ |27\ |2d\ |2e\ |BackSp\ |}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ \ \ +-\/-\/-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/-\/-\/-\/-\/+}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ \ \ \ |\ Tab\ |14\ |1a\ |08\ |15\ |17\ |1c\ |18\ |0c\ |12\ |13\ |2f\ |30\ |\ Ret\ |}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ \ \ \ +-\/-\/-\/-\/-\/++-\/-\/++-\/-\/++-\/-\/++-\/-\/++-\/-\/++-\/-\/++-\/-\/++-\/-\/++-\/-\/++-\/-\/++-\/-\/++-\/-\/++\ \ \ \ |}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ \ \ \ |CapsL\ |04\ |16\ |07\ |09\ |0a\ |0b\ |0d\ |0e\ |0f\ |33\ |34\ |31\ |\ \ \ \ |}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ \ \ +-\/-\/-\/-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/+-\/-\/-\/+-\/-\/-\/-\/+}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ \ \ \ |Shi.|32\ |1d\ |1b\ |06\ |19\ |05\ |11\ |10\ |36\ |37\ |38\ |\ \ Shift\ \ \ |}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ \ \ \ +-\/-\/-\/-\/+-\/-\/-\/++-\/-\/+-\/+-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/-\/+-\/-\/++-\/-\/-\/+-\/-\/-\/++-\/-\/-\/-\/+-\/-\/-\/-\/+}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ \ |Ctrl|Win\ |Alt\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |AlGr|Win\ |Menu|Ctrl|}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ \ \ \ +-\/-\/-\/-\/+-\/-\/-\/-\/+-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/+-\/-\/-\/-\/+-\/-\/-\/-\/+-\/-\/-\/-\/+}}
+\DoxyCodeLine{00041\ \textcolor{comment}{}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ The\ ANSI\ layout\ is\ identical\ except\ that\ key\ 0x31\ is\ above\ (rather}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ than\ next\ to)\ Return,\ and\ there\ is\ not\ key\ 0x32.}}
+\DoxyCodeLine{00044\ \textcolor{comment}{}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ Give\ a\ unique\ name\ to\ the\ layout\ array,\ then\ declare\ it\ in\ Keyboard.h}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ with\ a\ line\ of\ the\ form:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ \ extern\ const\ uint8\_t\ KeyboardLayout\_xx\_YY[];}}
+\DoxyCodeLine{00049\ \textcolor{comment}{}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ ==\ Encoding\ details\ ==}}
+\DoxyCodeLine{00051\ \textcolor{comment}{}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ All\ scan\ codes\ are\ less\ than\ 0x80,\ which\ makes\ bit\ 7\ available\ to}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ signal\ that\ a\ modifier\ (Shift\ or\ AltGr)\ is\ needed\ to\ generate\ the}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ character.\ With\ only\ one\ exception,\ keys\ that\ are\ used\ with\ modifiers}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ have\ scan\ codes\ that\ are\ less\ than\ 0x40.\ This\ makes\ bit\ 6\ available}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ to\ signal\ whether\ the\ modifier\ is\ Shift\ or\ AltGr.\ The\ exception\ is}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ 0x64,\ the\ key\ next\ next\ to\ Left\ Shift\ on\ the\ ISO\ layout\ (and\ absent}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ from\ the\ ANSI\ layout).\ We\ handle\ it\ by\ replacing\ its\ value\ by\ 0x32\ in}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ \ the\ layout\ arrays.}}
+\DoxyCodeLine{00060\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ Modifier\ keys\ for\ \_asciimap[]\ table\ (not\ to\ be\ used\ directly)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ SHIFT\ \ \ \ \ \ \ \ \ \ \ 0x80}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ALT\_GR\ \ \ \ \ \ \ \ \ \ 0x40}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ISO\_KEY\ \ \ \ \ \ \ \ \ 0x64}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ISO\_REPLACEMENT\ 0x32}}
+
+\end{DoxyCode}

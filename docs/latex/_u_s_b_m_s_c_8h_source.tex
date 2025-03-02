@@ -1,0 +1,63 @@
+\doxysection{USBMSC.\+h}
+\hypertarget{_u_s_b_m_s_c_8h_source}{}\label{_u_s_b_m_s_c_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/USBMSC.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/USBMSC.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2021\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ SOC\_USB\_OTG\_SUPPORTED}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#if\ CONFIG\_TINYUSB\_MSC\_ENABLED}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ Invoked\ when\ received\ Start\ Stop\ Unit\ command}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ -\/\ Start\ =\ 0\ :\ stopped\ power\ mode,\ if\ load\_eject\ =\ 1\ :\ unload\ disk\ storage}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ -\/\ Start\ =\ 1\ :\ active\ mode,\ if\ load\_eject\ =\ 1\ :\ load\ disk\ storage}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ bool\ (*msc\_start\_stop\_cb)(uint8\_t\ power\_condition,\ \textcolor{keywordtype}{bool}\ start,\ \textcolor{keywordtype}{bool}\ load\_eject);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ Copy\ disk's\ data\ to\ buffer\ (up\ to\ bufsize)\ and\ return\ number\ of\ copied\ bytes.}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ int32\_t\ (*msc\_read\_cb)(uint32\_t\ lba,\ uint32\_t\ offset,\ \textcolor{keywordtype}{void}\ *buffer,\ uint32\_t\ bufsize);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ Process\ data\ in\ buffer\ to\ disk's\ storage\ and\ return\ number\ of\ written\ bytes}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ int32\_t\ (*msc\_write\_cb)(uint32\_t\ lba,\ uint32\_t\ offset,\ uint8\_t\ *buffer,\ uint32\_t\ bufsize);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }USBMSC\ \{}
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ USBMSC();}
+\DoxyCodeLine{00040\ \ \ \string~USBMSC();}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{bool}\ begin(uint32\_t\ block\_count,\ uint16\_t\ block\_size);}
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{void}\ vendorID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *vid);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//max\ 8\ chars}}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ productID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pid);\ \ \ \ \ \ \ \ \textcolor{comment}{//max\ 16\ chars}}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{void}\ productRevision(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ver);\ \ \textcolor{comment}{//max\ 4\ chars}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{void}\ mediaPresent(\textcolor{keywordtype}{bool}\ media\_present);}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{void}\ isWritable(\textcolor{keywordtype}{bool}\ is\_writable);}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ onStartStop(msc\_start\_stop\_cb\ cb);}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{void}\ onRead(msc\_read\_cb\ cb);}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{void}\ onWrite(msc\_write\_cb\ cb);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ uint8\_t\ \_lun;}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_TINYUSB\_MSC\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_USB\_OTG\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

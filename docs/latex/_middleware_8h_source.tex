@@ -1,0 +1,60 @@
+\doxysection{Middleware.\+h}
+\hypertarget{_middleware_8h_source}{}\label{_middleware_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/src/middleware/Middleware.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/src/middleware/Middleware.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MIDDLEWARE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MIDDLEWARE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_middleware_chain}{MiddlewareChain}};}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_web_server}{WebServer}};}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_middleware}{Middleware}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{typedef}\ std::function<bool(\textcolor{keywordtype}{void})>\ Callback;}
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{typedef}\ std::function<bool(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ Callback\ next)>\ Function;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_middleware}{\string~Middleware}}()\ \{\}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ run(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ Callback\ next)\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{return}\ next();}
+\DoxyCodeLine{00019\ \ \ \};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \textcolor{keyword}{friend}\ MiddlewareChain;}
+\DoxyCodeLine{00023\ \ \ \mbox{\hyperlink{class_middleware}{Middleware}}\ *\_next\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{bool}\ \_freeOnRemoval\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }MiddlewareFunction\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_middleware}{Middleware}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ MiddlewareFunction(Middleware::Function\ fn)\ :\ \_fn(fn)\ \{\}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{bool}\ run(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ Middleware::Callback\ next)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{return}\ \_fn(server,\ next);}
+\DoxyCodeLine{00033\ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ Middleware::Function\ \_fn;}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_middleware_chain}{MiddlewareChain}}\ \{}
+\DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{class_middleware_chain}{\string~MiddlewareChain}}();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{void}\ addMiddleware(Middleware::Function\ fn);}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ addMiddleware(\mbox{\hyperlink{class_middleware}{Middleware}}\ *middleware);}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{bool}\ removeMiddleware(\mbox{\hyperlink{class_middleware}{Middleware}}\ *middleware);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{bool}\ runChain(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ Middleware::Callback\ finalizer);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{class_middleware}{Middleware}}\ *\_root\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{class_middleware}{Middleware}}\ *\_current\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

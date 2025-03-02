@@ -1,0 +1,241 @@
+\doxysection{poly1305\+\_\+donna32.\+h}
+\hypertarget{poly1305__donna32_8h_source}{}\label{poly1305__donna32_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_onetimeauth/poly1305/donna/poly1305\_donna32.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_onetimeauth/poly1305/donna/poly1305\_donna32.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ poly1305\ implementation\ using\ 32\ bit\ *\ 32\ bit\ =\ 64\ bit\ multiplication}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ and\ 64\ bit\ addition}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#if\ defined(\_MSC\_VER)}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#\ define\ POLY1305\_NOINLINE\ \_\_declspec(noinline)}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#elif\ defined(\_\_clang\_\_)\ ||\ defined(\_\_GNUC\_\_)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#\ define\ POLY1305\_NOINLINE\ \_\_attribute\_\_((noinline))}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#\ define\ POLY1305\_NOINLINE}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}private/common.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ poly1305\_block\_size\ 16}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{/*\ 17\ +\ sizeof(unsigned\ long\ long)\ +\ 14*sizeof(unsigned\ long)\ */}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpoly1305__state__internal__t}{poly1305\_state\_internal\_t}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ r[5];}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ h[5];}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ pad[4];}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ leftover;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ buffer[poly1305\_block\_size];}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \textcolor{keyword}{final};}
+\DoxyCodeLine{00026\ \}\ \mbox{\hyperlink{structpoly1305__state__internal__t}{poly1305\_state\_internal\_t}};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00029\ poly1305\_init(\mbox{\hyperlink{structpoly1305__state__internal__t}{poly1305\_state\_internal\_t}}\ *st,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ key[32])}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{/*\ r\ \&=\ 0xffffffc0ffffffc0ffffffc0fffffff\ -\/\ wiped\ after\ finalization\ */}}
+\DoxyCodeLine{00032\ \ \ \ \ st-\/>r[0]\ =\ (LOAD32\_LE(\&key[0]))\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00033\ \ \ \ \ st-\/>r[1]\ =\ (LOAD32\_LE(\&key[3])\ >>\ 2)\ \&\ 0x3ffff03;}
+\DoxyCodeLine{00034\ \ \ \ \ st-\/>r[2]\ =\ (LOAD32\_LE(\&key[6])\ >>\ 4)\ \&\ 0x3ffc0ff;}
+\DoxyCodeLine{00035\ \ \ \ \ st-\/>r[3]\ =\ (LOAD32\_LE(\&key[9])\ >>\ 6)\ \&\ 0x3f03fff;}
+\DoxyCodeLine{00036\ \ \ \ \ st-\/>r[4]\ =\ (LOAD32\_LE(\&key[12])\ >>\ 8)\ \&\ 0x00fffff;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{/*\ h\ =\ 0\ */}}
+\DoxyCodeLine{00039\ \ \ \ \ st-\/>h[0]\ =\ 0;}
+\DoxyCodeLine{00040\ \ \ \ \ st-\/>h[1]\ =\ 0;}
+\DoxyCodeLine{00041\ \ \ \ \ st-\/>h[2]\ =\ 0;}
+\DoxyCodeLine{00042\ \ \ \ \ st-\/>h[3]\ =\ 0;}
+\DoxyCodeLine{00043\ \ \ \ \ st-\/>h[4]\ =\ 0;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{/*\ save\ pad\ for\ later\ */}}
+\DoxyCodeLine{00046\ \ \ \ \ st-\/>pad[0]\ =\ LOAD32\_LE(\&key[16]);}
+\DoxyCodeLine{00047\ \ \ \ \ st-\/>pad[1]\ =\ LOAD32\_LE(\&key[20]);}
+\DoxyCodeLine{00048\ \ \ \ \ st-\/>pad[2]\ =\ LOAD32\_LE(\&key[24]);}
+\DoxyCodeLine{00049\ \ \ \ \ st-\/>pad[3]\ =\ LOAD32\_LE(\&key[28]);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ st-\/>leftover\ =\ 0;}
+\DoxyCodeLine{00052\ \ \ \ \ st-\/>final\ \ \ \ =\ 0;}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00056\ poly1305\_blocks(\mbox{\hyperlink{structpoly1305__state__internal__t}{poly1305\_state\_internal\_t}}\ *st,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ bytes)}
+\DoxyCodeLine{00058\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ hibit\ =\ (st-\/>final)\ ?\ 0UL\ :\ (1UL\ <<\ 24);\ \textcolor{comment}{/*\ 1\ <<\ 128\ */}}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ r0,\ r1,\ r2,\ r3,\ r4;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ s1,\ s2,\ s3,\ s4;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ h0,\ h1,\ h2,\ h3,\ h4;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ d0,\ d1,\ d2,\ d3,\ d4;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ c;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ r0\ =\ st-\/>r[0];}
+\DoxyCodeLine{00067\ \ \ \ \ r1\ =\ st-\/>r[1];}
+\DoxyCodeLine{00068\ \ \ \ \ r2\ =\ st-\/>r[2];}
+\DoxyCodeLine{00069\ \ \ \ \ r3\ =\ st-\/>r[3];}
+\DoxyCodeLine{00070\ \ \ \ \ r4\ =\ st-\/>r[4];}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ s1\ =\ r1\ *\ 5;}
+\DoxyCodeLine{00073\ \ \ \ \ s2\ =\ r2\ *\ 5;}
+\DoxyCodeLine{00074\ \ \ \ \ s3\ =\ r3\ *\ 5;}
+\DoxyCodeLine{00075\ \ \ \ \ s4\ =\ r4\ *\ 5;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ h0\ =\ st-\/>h[0];}
+\DoxyCodeLine{00078\ \ \ \ \ h1\ =\ st-\/>h[1];}
+\DoxyCodeLine{00079\ \ \ \ \ h2\ =\ st-\/>h[2];}
+\DoxyCodeLine{00080\ \ \ \ \ h3\ =\ st-\/>h[3];}
+\DoxyCodeLine{00081\ \ \ \ \ h4\ =\ st-\/>h[4];}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{while}\ (bytes\ >=\ poly1305\_block\_size)\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ h\ +=\ m[i]\ */}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ h0\ +=\ (LOAD32\_LE(m\ +\ 0))\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ h1\ +=\ (LOAD32\_LE(m\ +\ 3)\ >>\ 2)\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ h2\ +=\ (LOAD32\_LE(m\ +\ 6)\ >>\ 4)\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ h3\ +=\ (LOAD32\_LE(m\ +\ 9)\ >>\ 6)\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ h4\ +=\ (LOAD32\_LE(m\ +\ 12)\ >>\ 8)\ |\ hibit;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ h\ *=\ r\ */}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ d0\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h0\ *\ r0)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h1\ *\ s4)\ +}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h2\ *\ s3)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h3\ *\ s2)\ +}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h4\ *\ s1);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ d1\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h0\ *\ r1)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h1\ *\ r0)\ +}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h2\ *\ s4)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h3\ *\ s3)\ +}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h4\ *\ s2);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ d2\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h0\ *\ r2)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h1\ *\ r1)\ +}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h2\ *\ r0)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h3\ *\ s4)\ +}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h4\ *\ s3);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ d3\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h0\ *\ r3)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h1\ *\ r2)\ +}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h2\ *\ r1)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h3\ *\ r0)\ +}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h4\ *\ s4);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ d4\ =\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h0\ *\ r4)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h1\ *\ r3)\ +}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h2\ *\ r2)\ +\ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long})\ h3\ *\ r1)\ +}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h4\ *\ r0);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (partial)\ h\ \%=\ p\ */}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ c\ \ =\ (\textcolor{keywordtype}{unsigned}\ long)\ (d0\ >>\ 26);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ h0\ =\ (\textcolor{keywordtype}{unsigned}\ long)\ d0\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ d1\ +=\ c;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ c\ \ =\ (\textcolor{keywordtype}{unsigned}\ long)\ (d1\ >>\ 26);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ h1\ =\ (\textcolor{keywordtype}{unsigned}\ long)\ d1\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ d2\ +=\ c;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ c\ \ =\ (\textcolor{keywordtype}{unsigned}\ long)\ (d2\ >>\ 26);}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ h2\ =\ (\textcolor{keywordtype}{unsigned}\ long)\ d2\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ d3\ +=\ c;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ c\ \ =\ (\textcolor{keywordtype}{unsigned}\ long)\ (d3\ >>\ 26);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ h3\ =\ (\textcolor{keywordtype}{unsigned}\ long)\ d3\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ d4\ +=\ c;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ c\ \ =\ (\textcolor{keywordtype}{unsigned}\ long)\ (d4\ >>\ 26);}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ h4\ =\ (\textcolor{keywordtype}{unsigned}\ long)\ d4\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ h0\ +=\ c\ *\ 5;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ c\ \ =\ (h0\ >>\ 26);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ h0\ \&=\ 0x3ffffff;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ h1\ +=\ c;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ m\ +=\ poly1305\_block\_size;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ bytes\ -\/=\ poly1305\_block\_size;}
+\DoxyCodeLine{00130\ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ st-\/>h[0]\ =\ h0;}
+\DoxyCodeLine{00133\ \ \ \ \ st-\/>h[1]\ =\ h1;}
+\DoxyCodeLine{00134\ \ \ \ \ st-\/>h[2]\ =\ h2;}
+\DoxyCodeLine{00135\ \ \ \ \ st-\/>h[3]\ =\ h3;}
+\DoxyCodeLine{00136\ \ \ \ \ st-\/>h[4]\ =\ h4;}
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{static}\ POLY1305\_NOINLINE\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00140\ poly1305\_finish(\mbox{\hyperlink{structpoly1305__state__internal__t}{poly1305\_state\_internal\_t}}\ *st,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ mac[16])}
+\DoxyCodeLine{00141\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ h0,\ h1,\ h2,\ h3,\ h4,\ c;}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ g0,\ g1,\ g2,\ g3,\ g4;}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ f;}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ mask;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{comment}{/*\ process\ the\ remaining\ block\ */}}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{if}\ (st-\/>leftover)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ i\ =\ st-\/>leftover;}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ st-\/>buffer[i++]\ =\ 1;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (;\ i\ <\ poly1305\_block\_size;\ i++)\ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ st-\/>buffer[i]\ =\ 0;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ st-\/>final\ =\ 1;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ poly1305\_blocks(st,\ st-\/>buffer,\ poly1305\_block\_size);}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{comment}{/*\ fully\ carry\ h\ */}}
+\DoxyCodeLine{00160\ \ \ \ \ h0\ =\ st-\/>h[0];}
+\DoxyCodeLine{00161\ \ \ \ \ h1\ =\ st-\/>h[1];}
+\DoxyCodeLine{00162\ \ \ \ \ h2\ =\ st-\/>h[2];}
+\DoxyCodeLine{00163\ \ \ \ \ h3\ =\ st-\/>h[3];}
+\DoxyCodeLine{00164\ \ \ \ \ h4\ =\ st-\/>h[4];}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ c\ \ =\ h1\ >>\ 26;}
+\DoxyCodeLine{00167\ \ \ \ \ h1\ =\ h1\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00168\ \ \ \ \ h2\ +=\ c;}
+\DoxyCodeLine{00169\ \ \ \ \ c\ \ =\ h2\ >>\ 26;}
+\DoxyCodeLine{00170\ \ \ \ \ h2\ =\ h2\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00171\ \ \ \ \ h3\ +=\ c;}
+\DoxyCodeLine{00172\ \ \ \ \ c\ \ =\ h3\ >>\ 26;}
+\DoxyCodeLine{00173\ \ \ \ \ h3\ =\ h3\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00174\ \ \ \ \ h4\ +=\ c;}
+\DoxyCodeLine{00175\ \ \ \ \ c\ \ =\ h4\ >>\ 26;}
+\DoxyCodeLine{00176\ \ \ \ \ h4\ =\ h4\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00177\ \ \ \ \ h0\ +=\ c\ *\ 5;}
+\DoxyCodeLine{00178\ \ \ \ \ c\ \ =\ h0\ >>\ 26;}
+\DoxyCodeLine{00179\ \ \ \ \ h0\ =\ h0\ \&\ 0x3ffffff;}
+\DoxyCodeLine{00180\ \ \ \ \ h1\ +=\ c;}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{comment}{/*\ compute\ h\ +\ -\/p\ */}}
+\DoxyCodeLine{00183\ \ \ \ \ g0\ =\ h0\ +\ 5;}
+\DoxyCodeLine{00184\ \ \ \ \ c\ \ =\ g0\ >>\ 26;}
+\DoxyCodeLine{00185\ \ \ \ \ g0\ \&=\ 0x3ffffff;}
+\DoxyCodeLine{00186\ \ \ \ \ g1\ =\ h1\ +\ c;}
+\DoxyCodeLine{00187\ \ \ \ \ c\ \ =\ g1\ >>\ 26;}
+\DoxyCodeLine{00188\ \ \ \ \ g1\ \&=\ 0x3ffffff;}
+\DoxyCodeLine{00189\ \ \ \ \ g2\ =\ h2\ +\ c;}
+\DoxyCodeLine{00190\ \ \ \ \ c\ \ =\ g2\ >>\ 26;}
+\DoxyCodeLine{00191\ \ \ \ \ g2\ \&=\ 0x3ffffff;}
+\DoxyCodeLine{00192\ \ \ \ \ g3\ =\ h3\ +\ c;}
+\DoxyCodeLine{00193\ \ \ \ \ c\ \ =\ g3\ >>\ 26;}
+\DoxyCodeLine{00194\ \ \ \ \ g3\ \&=\ 0x3ffffff;}
+\DoxyCodeLine{00195\ \ \ \ \ g4\ =\ h4\ +\ c\ -\/\ (1UL\ <<\ 26);}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{comment}{/*\ select\ h\ if\ h\ <\ p,\ or\ h\ +\ -\/p\ if\ h\ >=\ p\ */}}
+\DoxyCodeLine{00198\ \ \ \ \ mask\ =\ (g4\ >>\ ((\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ long)\ *\ 8)\ -\/\ 1))\ -\/\ 1;}
+\DoxyCodeLine{00199\ \ \ \ \ g0\ \&=\ mask;}
+\DoxyCodeLine{00200\ \ \ \ \ g1\ \&=\ mask;}
+\DoxyCodeLine{00201\ \ \ \ \ g2\ \&=\ mask;}
+\DoxyCodeLine{00202\ \ \ \ \ g3\ \&=\ mask;}
+\DoxyCodeLine{00203\ \ \ \ \ g4\ \&=\ mask;}
+\DoxyCodeLine{00204\ \ \ \ \ mask\ =\ \string~mask;}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ h0\ =\ (h0\ \&\ mask)\ |\ g0;}
+\DoxyCodeLine{00207\ \ \ \ \ h1\ =\ (h1\ \&\ mask)\ |\ g1;}
+\DoxyCodeLine{00208\ \ \ \ \ h2\ =\ (h2\ \&\ mask)\ |\ g2;}
+\DoxyCodeLine{00209\ \ \ \ \ h3\ =\ (h3\ \&\ mask)\ |\ g3;}
+\DoxyCodeLine{00210\ \ \ \ \ h4\ =\ (h4\ \&\ mask)\ |\ g4;}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{comment}{/*\ h\ =\ h\ \%\ (2\string^128)\ */}}
+\DoxyCodeLine{00213\ \ \ \ \ h0\ =\ ((h0)\ |\ (h1\ <<\ 26))\ \&\ 0xffffffff;}
+\DoxyCodeLine{00214\ \ \ \ \ h1\ =\ ((h1\ >>\ 6)\ |\ (h2\ <<\ 20))\ \&\ 0xffffffff;}
+\DoxyCodeLine{00215\ \ \ \ \ h2\ =\ ((h2\ >>\ 12)\ |\ (h3\ <<\ 14))\ \&\ 0xffffffff;}
+\DoxyCodeLine{00216\ \ \ \ \ h3\ =\ ((h3\ >>\ 18)\ |\ (h4\ <<\ 8))\ \&\ 0xffffffff;}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{comment}{/*\ mac\ =\ (h\ +\ pad)\ \%\ (2\string^128)\ */}}
+\DoxyCodeLine{00219\ \ \ \ \ f\ \ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h0\ +\ st-\/>pad[0];}
+\DoxyCodeLine{00220\ \ \ \ \ h0\ =\ (\textcolor{keywordtype}{unsigned}\ long)\ f;}
+\DoxyCodeLine{00221\ \ \ \ \ f\ \ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h1\ +\ st-\/>pad[1]\ +\ (f\ >>\ 32);}
+\DoxyCodeLine{00222\ \ \ \ \ h1\ =\ (\textcolor{keywordtype}{unsigned}\ long)\ f;}
+\DoxyCodeLine{00223\ \ \ \ \ f\ \ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h2\ +\ st-\/>pad[2]\ +\ (f\ >>\ 32);}
+\DoxyCodeLine{00224\ \ \ \ \ h2\ =\ (\textcolor{keywordtype}{unsigned}\ long)\ f;}
+\DoxyCodeLine{00225\ \ \ \ \ f\ \ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ long)\ h3\ +\ st-\/>pad[3]\ +\ (f\ >>\ 32);}
+\DoxyCodeLine{00226\ \ \ \ \ h3\ =\ (\textcolor{keywordtype}{unsigned}\ long)\ f;}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ STORE32\_LE(mac\ +\ 0,\ (uint32\_t)\ h0);}
+\DoxyCodeLine{00229\ \ \ \ \ STORE32\_LE(mac\ +\ 4,\ (uint32\_t)\ h1);}
+\DoxyCodeLine{00230\ \ \ \ \ STORE32\_LE(mac\ +\ 8,\ (uint32\_t)\ h2);}
+\DoxyCodeLine{00231\ \ \ \ \ STORE32\_LE(mac\ +\ 12,\ (uint32\_t)\ h3);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{comment}{/*\ zero\ out\ the\ state\ */}}
+\DoxyCodeLine{00234\ \ \ \ \ sodium\_memzero((\textcolor{keywordtype}{void}\ *)\ st,\ \textcolor{keyword}{sizeof}\ *st);}
+\DoxyCodeLine{00235\ \}}
+
+\end{DoxyCode}

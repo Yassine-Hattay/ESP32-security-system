@@ -1,0 +1,150 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+jsmn Directory Reference}
+\hypertarget{dir_43ff0601aa75d4b43946b3919ef4c3f3}{}\label{dir_43ff0601aa75d4b43946b3919ef4c3f3}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_jsmn Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_jsmn Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_0ab23a8cf71a8816c0fcc45986b7f91a}{include}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\href{https://travis-ci.org/zserge/jsmn}{\texttt{ }}
+
+jsmn (pronounced like \textquotesingle{}jasmine\textquotesingle{}) is a minimalistic JSON parser in C. It can be easily integrated into resource-\/limited or embedded projects.
+
+You can find more information about JSON format at \href{http://www.json.org/}{\texttt{ json.\+org}}
+
+Library sources are available at \href{https://github.com/zserge/jsmn}{\texttt{ https\+://github.\+com/zserge/jsmn}}
+
+The web page with some information about jsmn can be found at \href{http://zserge.com/jsmn.html}{\texttt{ http\+://zserge.\+com/jsmn.\+html}}\hypertarget{README.md_autotoc_md1310}{}\doxysubsection{\texorpdfstring{Philosophy}{Philosophy}}\label{README.md_autotoc_md1310}
+Most JSON parsers offer you a bunch of functions to load JSON data, parse it and extract any value by its name. jsmn proves that checking the correctness of every JSON packet or allocating temporary objects to store parsed JSON fields often is an overkill.
+
+JSON format itself is extremely simple, so why should we complicate it?
+
+jsmn is designed to be {\bfseries{robust}} (it should work fine even with erroneous data), {\bfseries{fast}} (it should parse data on the fly), {\bfseries{portable}} (no superfluous dependencies or non-\/standard C extensions). And of course, {\bfseries{simplicity}} is a key feature -\/ simple code style, simple algorithm, simple integration into other projects.\hypertarget{README.md_autotoc_md1311}{}\doxysubsection{\texorpdfstring{Features}{Features}}\label{README.md_autotoc_md1311}
+
+\begin{DoxyItemize}
+\item compatible with C89
+\item no dependencies (even libc!)
+\item highly portable (tested on x86/amd64, ARM, AVR)
+\item about 200 lines of code
+\item extremely small code footprint
+\item API contains only 2 functions
+\item no dynamic memory allocation
+\item incremental single-\/pass parsing
+\item library code is covered with unit-\/tests
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1312}{}\doxysubsection{\texorpdfstring{Design}{Design}}\label{README.md_autotoc_md1312}
+The rudimentary jsmn object is a {\bfseries{token}}. Let\textquotesingle{}s consider a JSON string\+: \begin{DoxyVerb}'{ "name" : "Jack", "age" : 27 }'
+\end{DoxyVerb}
+
+
+It holds the following tokens\+:
+
+
+\begin{DoxyItemize}
+\item Object\+: {\ttfamily \{ "{}name"{} \+: "{}\+Jack"{}, "{}age"{} \+: 27\}} (the whole object)
+\item Strings\+: {\ttfamily "{}name"{}}, {\ttfamily "{}\+Jack"{}}, {\ttfamily "{}age"{}} (keys and some values)
+\item Number\+: {\ttfamily 27}
+\end{DoxyItemize}
+
+In jsmn, tokens do not hold any data, but point to token boundaries in JSON string instead. In the example above jsmn will create tokens like\+: Object \mbox{[}0..31\mbox{]}, String \mbox{[}3..7\mbox{]}, String \mbox{[}12..16\mbox{]}, String \mbox{[}20..23\mbox{]}, Number \mbox{[}27..29\mbox{]}.
+
+Every jsmn token has a type, which indicates the type of corresponding JSON token. jsmn supports the following token types\+:
+
+
+\begin{DoxyItemize}
+\item Object -\/ a container of key-\/value pairs, e.\+g.\+: {\ttfamily \{ "{}foo"{}\+:"{}bar"{}, "{}x"{}\+:0.\+3 \}}
+\item Array -\/ a sequence of values, e.\+g.\+: {\ttfamily \mbox{[} 1, 2, 3 \mbox{]}}
+\item String -\/ a quoted sequence of chars, e.\+g.\+: {\ttfamily "{}foo"{}}
+\item Primitive -\/ a number, a boolean ({\ttfamily true}, {\ttfamily false}) or {\ttfamily null}
+\end{DoxyItemize}
+
+Besides start/end positions, jsmn tokens for complex types (like arrays or objects) also contain a number of child items, so you can easily follow object hierarchy.
+
+This approach provides enough information for parsing any JSON data and makes it possible to use zero-\/copy techniques.\hypertarget{README.md_autotoc_md1313}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{README.md_autotoc_md1313}
+Download {\ttfamily \doxylink{jsmn_8h_source}{jsmn.\+h}}, include it, done.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#include\ "{}jsmn.h"{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{...}
+\DoxyCodeLine{jsmn\_parser\ p;}
+\DoxyCodeLine{jsmntok\_t\ t[128];\ /*\ We\ expect\ no\ more\ than\ 128\ JSON\ tokens\ */}
+\DoxyCodeLine{}
+\DoxyCodeLine{jsmn\_init(\&p);}
+\DoxyCodeLine{r\ =\ jsmn\_parse(\&p,\ s,\ strlen(s),\ t,\ 128);\ //\ "{}s"{}\ is\ the\ char\ array\ holding\ the\ json\ content}
+
+\end{DoxyCode}
+
+
+Since jsmn is a single-\/header, header-\/only library, for more complex use cases you might need to define additional macros. {\ttfamily \#define JSMN\+\_\+\+STATIC} hides all jsmn API symbols by making them static. Also, if you want to include {\ttfamily \doxylink{jsmn_8h_source}{jsmn.\+h}} from multiple C files, to avoid duplication of symbols you may define {\ttfamily JSMN\+\_\+\+HEADER} macro.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{/*\ In\ every\ .c\ file\ that\ uses\ jsmn\ include\ only\ declarations:\ */}
+\DoxyCodeLine{\#define\ JSMN\_HEADER}
+\DoxyCodeLine{\#include\ "{}jsmn.h"{}}
+\DoxyCodeLine{}
+\DoxyCodeLine{/*\ Additionally,\ create\ one\ jsmn.c\ file\ for\ jsmn\ implementation:\ */}
+\DoxyCodeLine{\#include\ "{}jsmn.h"{}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1314}{}\doxysubsection{\texorpdfstring{API}{API}}\label{README.md_autotoc_md1314}
+Token types are described by {\ttfamily jsmntype\+\_\+t}\+: \begin{DoxyVerb}typedef enum {
+    JSMN_UNDEFINED = 0,
+    JSMN_OBJECT = 1 << 0,
+    JSMN_ARRAY = 1 << 1,
+    JSMN_STRING = 1 << 2,
+    JSMN_PRIMITIVE = 1 << 3
+} jsmntype_t;
+\end{DoxyVerb}
+
+
+{\bfseries{Note\+:}} Unlike JSON data types, primitive tokens are not divided into numbers, booleans and null, because one can easily tell the type using the first character\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily \textquotesingle{}t\textquotesingle{}, \textquotesingle{}f\textquotesingle{}} -\/ boolean
+\item {\ttfamily \textquotesingle{}n\textquotesingle{}} -\/ null
+\item {\ttfamily \textquotesingle{}-\/\textquotesingle{}, \textquotesingle{}0\textquotesingle{}..\textquotesingle{}9\textquotesingle{}} -\/ number
+\end{DoxyItemize}
+
+Token is an object of {\ttfamily jsmntok\+\_\+t} type\+: \begin{DoxyVerb}typedef struct {
+    jsmntype_t type; // Token type
+    int start;       // Token start position
+    int end;         // Token end position
+    int size;        // Number of child (nested) tokens
+} jsmntok_t;
+\end{DoxyVerb}
+
+
+{\bfseries{Note\+:}} string tokens point to the first character after the opening quote and the previous symbol before final quote. This was made to simplify string extraction from JSON data.
+
+All job is done by {\ttfamily \doxylink{structjsmn__parser}{jsmn\+\_\+parser}} object. You can initialize a new parser using\+: \begin{DoxyVerb}jsmn_parser parser;
+jsmntok_t tokens[10];
+
+jsmn_init(&parser);
+
+// js - pointer to JSON string
+// tokens - an array of tokens available
+// 10 - number of tokens available
+jsmn_parse(&parser, js, strlen(js), tokens, 10);
+\end{DoxyVerb}
+
+
+This will create a parser, and then it tries to parse up to 10 JSON tokens from the {\ttfamily js} string.
+
+A non-\/negative return value of {\ttfamily jsmn\+\_\+parse} is the number of tokens actually used by the parser. Passing NULL instead of the tokens array would not store parsing results, but instead the function will return the number of tokens needed to parse the given string. This can be useful if you don\textquotesingle{}t know yet how many tokens to allocate.
+
+If something goes wrong, you will get an error. Error will be one of these\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily JSMN\+\_\+\+ERROR\+\_\+\+INVAL} -\/ bad token, JSON string is corrupted
+\item {\ttfamily JSMN\+\_\+\+ERROR\+\_\+\+NOMEM} -\/ not enough tokens, JSON string is too large
+\item {\ttfamily JSMN\+\_\+\+ERROR\+\_\+\+PART} -\/ JSON string is too short, expecting more JSON data
+\end{DoxyItemize}
+
+If you get {\ttfamily JSMN\+\_\+\+ERROR\+\_\+\+NOMEM}, you can re-\/allocate more tokens and call {\ttfamily jsmn\+\_\+parse} once more. If you read json data from the stream, you can periodically call {\ttfamily jsmn\+\_\+parse} and check if return value is {\ttfamily JSMN\+\_\+\+ERROR\+\_\+\+PART}. You will get this error until you reach the end of JSON data.\hypertarget{README.md_autotoc_md1315}{}\doxysubsection{\texorpdfstring{Other info}{Other info}}\label{README.md_autotoc_md1315}
+This software is distributed under \href{http://www.opensource.org/licenses/mit-license.php}{\texttt{ MIT license}}, so feel free to integrate it in your commercial products. 

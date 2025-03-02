@@ -1,0 +1,140 @@
+\doxysection{esp\+\_\+zigbee\+\_\+zgpd.\+h}
+\hypertarget{esp__zigbee__zgpd_8h_source}{}\label{esp__zigbee__zgpd_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zgp/esp\_zigbee\_zgpd.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zgp/esp\_zigbee\_zgpd.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2023-\/2024\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}stdio.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zb\_zgpd\_signal\_e\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ ESP\_ZB\_ZGPD\_SIGNAL\_DEVICE\_STARTED\_UP,\ }
+\DoxyCodeLine{00021\ \ \ \ \ ESP\_ZB\_ZGPD\_SIGNAL\_COMMISSIONING,\ \ \ \ \ }
+\DoxyCodeLine{00022\ \}\ esp\_zb\_zgpd\_signal\_t;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zb\_zgpd\_cmd\_id\_e\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_IDENTIFY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00036\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x10,\ }
+\DoxyCodeLine{00037\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x11,}
+\DoxyCodeLine{00038\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x12,}
+\DoxyCodeLine{00039\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x13,}
+\DoxyCodeLine{00040\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x14,}
+\DoxyCodeLine{00041\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x15,}
+\DoxyCodeLine{00042\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x16,}
+\DoxyCodeLine{00043\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x17,}
+\DoxyCodeLine{00044\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x18,}
+\DoxyCodeLine{00045\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x19,}
+\DoxyCodeLine{00046\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE10\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1A,}
+\DoxyCodeLine{00047\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RECALL\_SCENE11\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1B,}
+\DoxyCodeLine{00048\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STORE\_SCENE4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1C,\ }
+\DoxyCodeLine{00049\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STORE\_SCENE5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1D,}
+\DoxyCodeLine{00050\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STORE\_SCENE6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1E,}
+\DoxyCodeLine{00051\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STORE\_SCENE7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1F,}
+\DoxyCodeLine{00052\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_OFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x20,\ }
+\DoxyCodeLine{00053\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_ON\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x21,}
+\DoxyCodeLine{00054\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_TOGGLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x22,}
+\DoxyCodeLine{00055\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RELEASE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x23,}
+\DoxyCodeLine{00056\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x30,\ \textcolor{comment}{/*\ Level\ control\ */}}
+\DoxyCodeLine{00057\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x31,}
+\DoxyCodeLine{00058\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STEP\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x32,}
+\DoxyCodeLine{00059\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STEP\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x33,}
+\DoxyCodeLine{00060\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_LC\_STOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x34,}
+\DoxyCodeLine{00061\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_UP\_W\_ONOFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x35,}
+\DoxyCodeLine{00062\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_DOWN\_W\_ONOFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x36,}
+\DoxyCodeLine{00063\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STEP\_UP\_W\_ONOFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x37,}
+\DoxyCodeLine{00064\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STEP\_DOWN\_W\_ONOFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x38,}
+\DoxyCodeLine{00065\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_HUE\_STOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x40,\ \textcolor{comment}{/*\ Color\ Control\ */}}
+\DoxyCodeLine{00066\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_HUE\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x41,}
+\DoxyCodeLine{00067\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_HUE\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x42,}
+\DoxyCodeLine{00068\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STEP\_HUE\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x43,}
+\DoxyCodeLine{00069\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STEP\_HUE\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x44,}
+\DoxyCodeLine{00070\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_SATURATION\_STOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x45,}
+\DoxyCodeLine{00071\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_SATURATION\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x46,}
+\DoxyCodeLine{00072\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_SATURATION\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x47,}
+\DoxyCodeLine{00073\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STEP\_SATURATION\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x48,}
+\DoxyCodeLine{00074\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STEP\_SATURATION\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x49,}
+\DoxyCodeLine{00075\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MOVE\_COLOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x4A,}
+\DoxyCodeLine{00076\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_STEP\_COLOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x4B,}
+\DoxyCodeLine{00077\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_LOCK\_DOOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x50,\ \textcolor{comment}{/*\ Door\ Lock\ */}}
+\DoxyCodeLine{00078\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_UNLOCK\_DOOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x51,}
+\DoxyCodeLine{00079\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_PRESS\_1\_OF\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x60,\ \textcolor{comment}{/*\ Simple\ Generic\ Switch\ */}}
+\DoxyCodeLine{00080\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RELEASE\_1\_OF\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x61,}
+\DoxyCodeLine{00081\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_PRESS\_1\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x62,}
+\DoxyCodeLine{00082\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RELEASE\_1\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x63,}
+\DoxyCodeLine{00083\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_PRESS\_2\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x64,}
+\DoxyCodeLine{00084\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_RELEASE\_2\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x65,}
+\DoxyCodeLine{00085\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_SHORT\_PRESS\_1\_OF\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x66,}
+\DoxyCodeLine{00086\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_SHORT\_PRESS\_1\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x67,}
+\DoxyCodeLine{00087\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_SHORT\_PRESS\_2\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x68,}
+\DoxyCodeLine{00088\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_8BIT\_VECTOR\_PRESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x69,}
+\DoxyCodeLine{00089\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_8BIT\_VECTOR\_RELEASE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x6A,}
+\DoxyCodeLine{00090\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_ATTR\_REPORT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA0,}
+\DoxyCodeLine{00091\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MANUF\_SPEC\_ATTR\_REPORT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA1,}
+\DoxyCodeLine{00092\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MULTI\_CLUSTER\_ATTR\_REPORT\ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA2,}
+\DoxyCodeLine{00093\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MANUF\_SPEC\_MULTI\_CLUSTER\_ATTR\_REPORT\ =\ 0xA3,}
+\DoxyCodeLine{00094\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_REQUEST\_ATTRIBUTES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA4,}
+\DoxyCodeLine{00095\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_READ\_ATTR\_RESP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA5,}
+\DoxyCodeLine{00096\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_ZCL\_TUNNELING\_FROM\_ZGPD\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA6,}
+\DoxyCodeLine{00097\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_COMPACT\_ATTR\_REPORTING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA8,}
+\DoxyCodeLine{00098\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_ATTR\_REPORT\_ANY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xAF,}
+\DoxyCodeLine{00099\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MANUF\_DEFINED\_B0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xB0,}
+\DoxyCodeLine{00100\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_MANUF\_DEFINED\_BF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xBF,}
+\DoxyCodeLine{00101\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_COMMISSIONING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE0,\ \textcolor{comment}{/*\ commissioning\ from\ ZGPD\ */}}
+\DoxyCodeLine{00102\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_DECOMMISSIONING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE1,}
+\DoxyCodeLine{00103\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_SUCCESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE2,}
+\DoxyCodeLine{00104\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_CHANNEL\_REQUEST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE3,}
+\DoxyCodeLine{00105\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_APPLICATION\_DESCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE4,}
+\DoxyCodeLine{00106\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_COMMISSIONING\_REPLY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF0,\ \textcolor{comment}{/*\ GPDF\ commands\ sent\ to\ GPD\ */}}
+\DoxyCodeLine{00107\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_WRITE\_ATTRIBUTES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF1,}
+\DoxyCodeLine{00108\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_READ\_ATTRIBUTES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF2,}
+\DoxyCodeLine{00109\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_CHANNEL\_CONFIGURATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF3,}
+\DoxyCodeLine{00110\ \ \ \ \ ESP\_ZB\_GPDF\_CMD\_ZCL\_TUNNELING\_TO\_ZGPD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF6,}
+\DoxyCodeLine{00111\ \}\ esp\_zb\_zgpd\_cmd\_id\_t;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{typedef}\ void\ (*\ esp\_zb\_zgpd\_commissioning\_signal\_callback\_t)(esp\_zb\_zgpd\_signal\_t,\ esp\_err\_t);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_stack\_init(esp\_zb\_zgpd\_commissioning\_signal\_callback\_t\ cb);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00132\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_init(uint8\_t\ zgp\_app\_id,\ uint8\_t\ zgpd\_commissioning\_method,\ uint8\_t\ zgpd\_device\_id);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00141\ esp\_err\_t\ esp\_zb\_zgpd\_dev\_start(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00147\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_main\_loop(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00153\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_start\_commissioning(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00160\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_set\_source\_id(uint32\_t\ src\_id);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00169\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_set\_security(uint8\_t\ level,\ uint8\_t\ type,\ uint8\_t\ *key);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00176\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_set\_OOB\_key(uint8\_t\ *key);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00183\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_set\_channel(uint8\_t\ \ channel);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00190\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_set\_security\_level(uint8\_t\ level);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00197\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_set\_security\_key\_type(uint8\_t\ type);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00204\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_set\_security\_frame\_counter(uint16\_t\ counter);}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00211\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_set\_application\_info\_present(uint8\_t\ presented);}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00219\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_config\_application\_info\_cmd(uint8\_t\ presented,\ uint8\_t*\ cmd);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00226\ \textcolor{keywordtype}{void}\ esp\_zb\_zgpd\_send\_command(esp\_zb\_zgpd\_cmd\_id\_t\ cmd\_id);}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00229\ \}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

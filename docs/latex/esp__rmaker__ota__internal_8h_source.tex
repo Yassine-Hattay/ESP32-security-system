@@ -1,0 +1,61 @@
+\doxysection{esp\+\_\+rmaker\+\_\+ota\+\_\+internal.\+h}
+\hypertarget{esp__rmaker__ota__internal_8h_source}{}\label{esp__rmaker__ota__internal_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_rainmaker/src/ota/esp\_rmaker\_ota\_internal.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_rainmaker/src/ota/esp\_rmaker\_ota\_internal.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2020\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <esp\_err.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <freertos/FreeRTOS.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <freertos/timers.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <esp\_rmaker\_ota.h>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ RMAKER\_OTA\_NVS\_NAMESPACE\ \ \ \ \ \ \ \ \ \ \ \ "{}rmaker\_ota"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ RMAKER\_OTA\_JOB\_ID\_NVS\_NAME\ \ \ \ \ \ \ \ \ \ "{}rmaker\_ota\_id"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ RMAKER\_OTA\_UPDATE\_FLAG\_NVS\_NAME\ \ \ \ \ "{}ota\_update"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ RMAKER\_OTA\_FETCH\_DELAY\ \ \ \ \ \ \ \ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00029\ \ \ \ \ esp\_rmaker\_ota\_type\_t\ type;}
+\DoxyCodeLine{00030\ \ \ \ \ esp\_rmaker\_ota\_cb\_t\ ota\_cb;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{void}\ *priv;}
+\DoxyCodeLine{00032\ \ \ \ \ esp\_rmaker\_post\_ota\_diag\_t\ ota\_diag;}
+\DoxyCodeLine{00033\ \ \ \ \ TimerHandle\_t\ rollback\_timer;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *server\_cert;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{char}\ *url;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{char}\ *fw\_version;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{int}\ filesize;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{bool}\ ota\_in\_progress;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{bool}\ validation\_in\_progress;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ rolled\_back;}
+\DoxyCodeLine{00041\ \ \ \ \ ota\_status\_t\ last\_reported\_status;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{void}\ *transient\_priv;}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{char}\ *metadata;}
+\DoxyCodeLine{00044\ \}\ \mbox{\hyperlink{structesp__rmaker__ota__t}{esp\_rmaker\_ota\_t}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{char}\ *esp\_rmaker\_ota\_status\_to\_string(ota\_status\_t\ status);}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{void}\ esp\_rmaker\_ota\_common\_cb(\textcolor{keywordtype}{void}\ *priv);}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{void}\ esp\_rmaker\_ota\_finish\_using\_params(\mbox{\hyperlink{structesp__rmaker__ota__t}{esp\_rmaker\_ota\_t}}\ *ota);}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ esp\_rmaker\_ota\_finish\_using\_topics(\mbox{\hyperlink{structesp__rmaker__ota__t}{esp\_rmaker\_ota\_t}}\ *ota);}
+\DoxyCodeLine{00050\ esp\_err\_t\ esp\_rmaker\_ota\_enable\_using\_params(\mbox{\hyperlink{structesp__rmaker__ota__t}{esp\_rmaker\_ota\_t}}\ *ota);}
+\DoxyCodeLine{00051\ esp\_err\_t\ esp\_rmaker\_ota\_report\_status\_using\_params(esp\_rmaker\_ota\_handle\_t\ ota\_handle,}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ ota\_status\_t\ status,\ \textcolor{keywordtype}{char}\ *additional\_info);}
+\DoxyCodeLine{00053\ esp\_err\_t\ esp\_rmaker\_ota\_enable\_using\_topics(\mbox{\hyperlink{structesp__rmaker__ota__t}{esp\_rmaker\_ota\_t}}\ *ota);}
+\DoxyCodeLine{00054\ esp\_err\_t\ esp\_rmaker\_ota\_report\_status\_using\_topics(esp\_rmaker\_ota\_handle\_t\ ota\_handle,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ ota\_status\_t\ status,\ \textcolor{keywordtype}{char}\ *additional\_info);}
+
+\end{DoxyCode}

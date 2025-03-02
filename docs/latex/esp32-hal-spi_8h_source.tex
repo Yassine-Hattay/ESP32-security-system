@@ -1,0 +1,161 @@
+\doxysection{esp32-\/hal-\/spi.h}
+\hypertarget{esp32-hal-spi_8h_source}{}\label{esp32-hal-spi_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/spi.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/spi.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2016\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ MAIN\_ESP32\_HAL\_SPI\_H\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MAIN\_ESP32\_HAL\_SPI\_H\_}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#if\ SOC\_GPSPI\_SUPPORTED}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ SPI\_HAS\_TRANSACTION}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_IDF\_TARGET\_ESP32S2}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ FSPI\ 1\ \ }\textcolor{comment}{//SPI\ 1\ bus.\ ESP32S2:\ for\ external\ memory\ only\ (can\ use\ the\ same\ data\ lines\ but\ different\ SS)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ HSPI\ 2\ \ }\textcolor{comment}{//SPI\ 2\ bus.\ ESP32S2:\ external\ memory\ or\ device\ \ -\/\ it\ can\ be\ matrixed\ to\ any\ pins}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ SPI2\ 2\ \ }\textcolor{comment}{//\ Another\ name\ for\ ESP32S2\ SPI\ 2}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ SPI3\ 3\ \ }\textcolor{comment}{//SPI\ 3\ bus.\ ESP32S2:\ device\ only\ -\/\ it\ can\ be\ matrixed\ to\ any\ pins}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ FSPI\ 1\ \ }\textcolor{comment}{//SPI\ 1\ bus\ attached\ to\ the\ flash\ (can\ use\ the\ same\ data\ lines\ but\ different\ SS)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ HSPI\ 2\ \ }\textcolor{comment}{//SPI\ 2\ bus\ normally\ mapped\ to\ pins\ 12\ -\/\ 15,\ but\ can\ be\ matrixed\ to\ any\ pins}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ VSPI\ 3\ \ }\textcolor{comment}{//SPI\ 3\ bus\ normally\ attached\ to\ pins\ 5,\ 18,\ 19\ and\ 23,\ but\ can\ be\ matrixed\ to\ any\ pins}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ FSPI\ 0}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ HSPI\ 1}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ This\ defines\ are\ not\ representing\ the\ real\ Divider\ of\ the\ ESP32}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ the\ Defines\ match\ to\ an\ AVR\ Arduino\ on\ 16MHz\ for\ better\ compatibility}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ SPI\_CLOCK\_DIV2\ \ \ 0x00101001\ \ }\textcolor{comment}{//8\ MHz}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ SPI\_CLOCK\_DIV4\ \ \ 0x00241001\ \ }\textcolor{comment}{//4\ MHz}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ SPI\_CLOCK\_DIV8\ \ \ 0x004c1001\ \ }\textcolor{comment}{//2\ MHz}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ SPI\_CLOCK\_DIV16\ \ 0x009c1001\ \ }\textcolor{comment}{//1\ MHz}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ SPI\_CLOCK\_DIV32\ \ 0x013c1001\ \ }\textcolor{comment}{//500\ KHz}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ SPI\_CLOCK\_DIV64\ \ 0x027c1001\ \ }\textcolor{comment}{//250\ KHz}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ SPI\_CLOCK\_DIV128\ 0x04fc1001\ \ }\textcolor{comment}{//125\ KHz}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ SPI\_MODE0\ 0}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ SPI\_MODE1\ 1}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ SPI\_MODE2\ 2}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ SPI\_MODE3\ 3}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ SPI\_SS0\ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ SPI\_SS1\ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ SPI\_SS2\ \ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ SPI\_SS\_MASK\_ALL\ 0x7}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ SPI\_LSBFIRST\ 0}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ SPI\_MSBFIRST\ 1}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{struct\ }spi\_struct\_t;}
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }spi\_struct\_t\ spi\_t;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ spi\_t\ *spiStartBus(uint8\_t\ spi\_num,\ uint32\_t\ clockDiv,\ uint8\_t\ dataMode,\ uint8\_t\ bitOrder);}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{void}\ spiStopBus(spi\_t\ *spi);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{//Attach/Detach\ Signal\ Pins}}
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{bool}\ spiAttachSCK(spi\_t\ *spi,\ int8\_t\ sck);}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{bool}\ spiAttachMISO(spi\_t\ *spi,\ int8\_t\ miso);}
+\DoxyCodeLine{00077\ \textcolor{keywordtype}{bool}\ spiAttachMOSI(spi\_t\ *spi,\ int8\_t\ mosi);}
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{bool}\ spiDetachSCK(spi\_t\ *spi);}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{bool}\ spiDetachMISO(spi\_t\ *spi);}
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{bool}\ spiDetachMOSI(spi\_t\ *spi);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{//Attach/Detach\ SS\ pin\ to\ SPI\_SSx\ signal}}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{bool}\ spiAttachSS(spi\_t\ *spi,\ uint8\_t\ ss\_num,\ int8\_t\ ss);}
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{bool}\ spiDetachSS(spi\_t\ *spi);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{//Enable/Disable\ SPI\_SSx\ pins}}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{void}\ spiEnableSSPins(spi\_t\ *spi,\ uint8\_t\ ss\_mask);}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{void}\ spiDisableSSPins(spi\_t\ *spi,\ uint8\_t\ ss\_mask);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{//Enable/Disable\ hardware\ control\ of\ SPI\_SSx\ pins}}
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{void}\ spiSSEnable(spi\_t\ *spi);}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{void}\ spiSSDisable(spi\_t\ *spi);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{//Activate\ enabled\ SPI\_SSx\ pins}}
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{void}\ spiSSSet(spi\_t\ *spi);}
+\DoxyCodeLine{00096\ \textcolor{comment}{//Deactivate\ enabled\ SPI\_SSx\ pins}}
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{void}\ spiSSClear(spi\_t\ *spi);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{void}\ spiWaitReady(spi\_t\ *spi);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ uint32\_t\ spiGetClockDiv(spi\_t\ *spi);}
+\DoxyCodeLine{00102\ uint8\_t\ spiGetDataMode(spi\_t\ *spi);}
+\DoxyCodeLine{00103\ uint8\_t\ spiGetBitOrder(spi\_t\ *spi);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ Non\ transaction\ based\ lock\ methods\ (each\ locks\ and\ unlocks\ when\ called)}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{void}\ spiSetClockDiv(spi\_t\ *spi,\ uint32\_t\ clockDiv);}
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{void}\ spiSetDataMode(spi\_t\ *spi,\ uint8\_t\ dataMode);}
+\DoxyCodeLine{00110\ \textcolor{keywordtype}{void}\ spiSetBitOrder(spi\_t\ *spi,\ uint8\_t\ bitOrder);}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{void}\ spiWrite(spi\_t\ *spi,\ \textcolor{keyword}{const}\ uint32\_t\ *data,\ uint8\_t\ len);}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}\ spiWriteByte(spi\_t\ *spi,\ uint8\_t\ data);}
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{void}\ spiWriteWord(spi\_t\ *spi,\ uint16\_t\ data);}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}\ spiWriteLong(spi\_t\ *spi,\ uint32\_t\ data);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}\ spiTransfer(spi\_t\ *spi,\ uint32\_t\ *out,\ uint8\_t\ len);}
+\DoxyCodeLine{00118\ uint8\_t\ spiTransferByte(spi\_t\ *spi,\ uint8\_t\ data);}
+\DoxyCodeLine{00119\ uint16\_t\ spiTransferWord(spi\_t\ *spi,\ uint16\_t\ data);}
+\DoxyCodeLine{00120\ uint32\_t\ spiTransferLong(spi\_t\ *spi,\ uint32\_t\ data);}
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{void}\ spiTransferBytes(spi\_t\ *spi,\ \textcolor{keyword}{const}\ uint8\_t\ *data,\ uint8\_t\ *out,\ uint32\_t\ size);}
+\DoxyCodeLine{00122\ \textcolor{keywordtype}{void}\ spiTransferBits(spi\_t\ *spi,\ uint32\_t\ data,\ uint32\_t\ *out,\ uint8\_t\ bits);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ New\ (EXPERIMENTAL)\ Transaction\ lock\ based\ API\ (lock\ once\ until\ endTransaction)}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{void}\ spiTransaction(spi\_t\ *spi,\ uint32\_t\ clockDiv,\ uint8\_t\ dataMode,\ uint8\_t\ bitOrder);}
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{void}\ spiSimpleTransaction(spi\_t\ *spi);}
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{void}\ spiEndTransaction(spi\_t\ *spi);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{void}\ spiWriteNL(spi\_t\ *spi,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data\_in,\ uint32\_t\ len);}
+\DoxyCodeLine{00132\ \textcolor{keywordtype}{void}\ spiWriteByteNL(spi\_t\ *spi,\ uint8\_t\ data);}
+\DoxyCodeLine{00133\ \textcolor{keywordtype}{void}\ spiWriteShortNL(spi\_t\ *spi,\ uint16\_t\ data);}
+\DoxyCodeLine{00134\ \textcolor{keywordtype}{void}\ spiWriteLongNL(spi\_t\ *spi,\ uint32\_t\ data);}
+\DoxyCodeLine{00135\ \textcolor{keywordtype}{void}\ spiWritePixelsNL(spi\_t\ *spi,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data\_in,\ uint32\_t\ len);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ spiTransferNL(spi,\ data,\ len)\ spiTransferBytesNL(spi,\ data,\ data,\ len)}}
+\DoxyCodeLine{00138\ uint8\_t\ spiTransferByteNL(spi\_t\ *spi,\ uint8\_t\ data);}
+\DoxyCodeLine{00139\ uint16\_t\ spiTransferShortNL(spi\_t\ *spi,\ uint16\_t\ data);}
+\DoxyCodeLine{00140\ uint32\_t\ spiTransferLongNL(spi\_t\ *spi,\ uint32\_t\ data);}
+\DoxyCodeLine{00141\ \textcolor{keywordtype}{void}\ spiTransferBytesNL(spi\_t\ *spi,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data\_in,\ uint8\_t\ *data\_out,\ uint32\_t\ len);}
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{void}\ spiTransferBitsNL(spi\_t\ *spi,\ uint32\_t\ data\_in,\ uint32\_t\ *data\_out,\ uint8\_t\ bits);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *\ Helper\ functions\ to\ translate\ frequency\ to\ clock\ divider\ and\ back}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{00147\ uint32\_t\ spiFrequencyToClockDiv(uint32\_t\ freq);}
+\DoxyCodeLine{00148\ uint32\_t\ spiClockDivToFrequency(uint32\_t\ freq);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00151\ \}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_GPSPI\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MAIN\_ESP32\_HAL\_SPI\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

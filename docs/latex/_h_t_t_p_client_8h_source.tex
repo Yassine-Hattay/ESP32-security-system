@@ -1,0 +1,282 @@
+\doxysection{HTTPClient.\+h}
+\hypertarget{_h_t_t_p_client_8h_source}{}\label{_h_t_t_p_client_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/HTTPClient/src/HTTPClient.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/HTTPClient/src/HTTPClient.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifndef\ HTTPClient\_H\_}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ HTTPClient\_H\_}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifndef\ HTTPCLIENT\_1\_1\_COMPATIBLE}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ HTTPCLIENT\_1\_1\_COMPATIBLE}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <NetworkClient.h>}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifndef\ HTTPCLIENT\_NOSECURE}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <NetworkClientSecure.h>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ HTTPCLIENT\_NOSECURE}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ HTTPCLIENT\_DEFAULT\_TCP\_TIMEOUT\ (5000)}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_CONNECTION\_REFUSED\ \ (-\/1)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_SEND\_HEADER\_FAILED\ \ (-\/2)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_SEND\_PAYLOAD\_FAILED\ (-\/3)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_NOT\_CONNECTED\ \ \ \ \ \ \ (-\/4)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_CONNECTION\_LOST\ \ \ \ \ (-\/5)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_NO\_STREAM\ \ \ \ \ \ \ \ \ \ \ (-\/6)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_NO\_HTTP\_SERVER\ \ \ \ \ \ (-\/7)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_TOO\_LESS\_RAM\ \ \ \ \ \ \ \ (-\/8)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_ENCODING\ \ \ \ \ \ \ \ \ \ \ \ (-\/9)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_STREAM\_WRITE\ \ \ \ \ \ \ \ (-\/10)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ HTTPC\_ERROR\_READ\_TIMEOUT\ \ \ \ \ \ \ \ (-\/11)}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ HTTP\_TCP\_RX\_BUFFER\_SIZE\ (4096)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ HTTP\_TCP\_TX\_BUFFER\_SIZE\ (1460)}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00065\ \ \ HTTP\_CODE\_CONTINUE\ =\ 100,}
+\DoxyCodeLine{00066\ \ \ HTTP\_CODE\_SWITCHING\_PROTOCOLS\ =\ 101,}
+\DoxyCodeLine{00067\ \ \ HTTP\_CODE\_PROCESSING\ =\ 102,}
+\DoxyCodeLine{00068\ \ \ HTTP\_CODE\_OK\ =\ 200,}
+\DoxyCodeLine{00069\ \ \ HTTP\_CODE\_CREATED\ =\ 201,}
+\DoxyCodeLine{00070\ \ \ HTTP\_CODE\_ACCEPTED\ =\ 202,}
+\DoxyCodeLine{00071\ \ \ HTTP\_CODE\_NON\_AUTHORITATIVE\_INFORMATION\ =\ 203,}
+\DoxyCodeLine{00072\ \ \ HTTP\_CODE\_NO\_CONTENT\ =\ 204,}
+\DoxyCodeLine{00073\ \ \ HTTP\_CODE\_RESET\_CONTENT\ =\ 205,}
+\DoxyCodeLine{00074\ \ \ HTTP\_CODE\_PARTIAL\_CONTENT\ =\ 206,}
+\DoxyCodeLine{00075\ \ \ HTTP\_CODE\_MULTI\_STATUS\ =\ 207,}
+\DoxyCodeLine{00076\ \ \ HTTP\_CODE\_ALREADY\_REPORTED\ =\ 208,}
+\DoxyCodeLine{00077\ \ \ HTTP\_CODE\_IM\_USED\ =\ 226,}
+\DoxyCodeLine{00078\ \ \ HTTP\_CODE\_MULTIPLE\_CHOICES\ =\ 300,}
+\DoxyCodeLine{00079\ \ \ HTTP\_CODE\_MOVED\_PERMANENTLY\ =\ 301,}
+\DoxyCodeLine{00080\ \ \ HTTP\_CODE\_FOUND\ =\ 302,}
+\DoxyCodeLine{00081\ \ \ HTTP\_CODE\_SEE\_OTHER\ =\ 303,}
+\DoxyCodeLine{00082\ \ \ HTTP\_CODE\_NOT\_MODIFIED\ =\ 304,}
+\DoxyCodeLine{00083\ \ \ HTTP\_CODE\_USE\_PROXY\ =\ 305,}
+\DoxyCodeLine{00084\ \ \ HTTP\_CODE\_TEMPORARY\_REDIRECT\ =\ 307,}
+\DoxyCodeLine{00085\ \ \ HTTP\_CODE\_PERMANENT\_REDIRECT\ =\ 308,}
+\DoxyCodeLine{00086\ \ \ HTTP\_CODE\_BAD\_REQUEST\ =\ 400,}
+\DoxyCodeLine{00087\ \ \ HTTP\_CODE\_UNAUTHORIZED\ =\ 401,}
+\DoxyCodeLine{00088\ \ \ HTTP\_CODE\_PAYMENT\_REQUIRED\ =\ 402,}
+\DoxyCodeLine{00089\ \ \ HTTP\_CODE\_FORBIDDEN\ =\ 403,}
+\DoxyCodeLine{00090\ \ \ HTTP\_CODE\_NOT\_FOUND\ =\ 404,}
+\DoxyCodeLine{00091\ \ \ HTTP\_CODE\_METHOD\_NOT\_ALLOWED\ =\ 405,}
+\DoxyCodeLine{00092\ \ \ HTTP\_CODE\_NOT\_ACCEPTABLE\ =\ 406,}
+\DoxyCodeLine{00093\ \ \ HTTP\_CODE\_PROXY\_AUTHENTICATION\_REQUIRED\ =\ 407,}
+\DoxyCodeLine{00094\ \ \ HTTP\_CODE\_REQUEST\_TIMEOUT\ =\ 408,}
+\DoxyCodeLine{00095\ \ \ HTTP\_CODE\_CONFLICT\ =\ 409,}
+\DoxyCodeLine{00096\ \ \ HTTP\_CODE\_GONE\ =\ 410,}
+\DoxyCodeLine{00097\ \ \ HTTP\_CODE\_LENGTH\_REQUIRED\ =\ 411,}
+\DoxyCodeLine{00098\ \ \ HTTP\_CODE\_PRECONDITION\_FAILED\ =\ 412,}
+\DoxyCodeLine{00099\ \ \ HTTP\_CODE\_PAYLOAD\_TOO\_LARGE\ =\ 413,}
+\DoxyCodeLine{00100\ \ \ HTTP\_CODE\_URI\_TOO\_LONG\ =\ 414,}
+\DoxyCodeLine{00101\ \ \ HTTP\_CODE\_UNSUPPORTED\_MEDIA\_TYPE\ =\ 415,}
+\DoxyCodeLine{00102\ \ \ HTTP\_CODE\_RANGE\_NOT\_SATISFIABLE\ =\ 416,}
+\DoxyCodeLine{00103\ \ \ HTTP\_CODE\_EXPECTATION\_FAILED\ =\ 417,}
+\DoxyCodeLine{00104\ \ \ HTTP\_CODE\_MISDIRECTED\_REQUEST\ =\ 421,}
+\DoxyCodeLine{00105\ \ \ HTTP\_CODE\_UNPROCESSABLE\_ENTITY\ =\ 422,}
+\DoxyCodeLine{00106\ \ \ HTTP\_CODE\_LOCKED\ =\ 423,}
+\DoxyCodeLine{00107\ \ \ HTTP\_CODE\_FAILED\_DEPENDENCY\ =\ 424,}
+\DoxyCodeLine{00108\ \ \ HTTP\_CODE\_UPGRADE\_REQUIRED\ =\ 426,}
+\DoxyCodeLine{00109\ \ \ HTTP\_CODE\_PRECONDITION\_REQUIRED\ =\ 428,}
+\DoxyCodeLine{00110\ \ \ HTTP\_CODE\_TOO\_MANY\_REQUESTS\ =\ 429,}
+\DoxyCodeLine{00111\ \ \ HTTP\_CODE\_REQUEST\_HEADER\_FIELDS\_TOO\_LARGE\ =\ 431,}
+\DoxyCodeLine{00112\ \ \ HTTP\_CODE\_INTERNAL\_SERVER\_ERROR\ =\ 500,}
+\DoxyCodeLine{00113\ \ \ HTTP\_CODE\_NOT\_IMPLEMENTED\ =\ 501,}
+\DoxyCodeLine{00114\ \ \ HTTP\_CODE\_BAD\_GATEWAY\ =\ 502,}
+\DoxyCodeLine{00115\ \ \ HTTP\_CODE\_SERVICE\_UNAVAILABLE\ =\ 503,}
+\DoxyCodeLine{00116\ \ \ HTTP\_CODE\_GATEWAY\_TIMEOUT\ =\ 504,}
+\DoxyCodeLine{00117\ \ \ HTTP\_CODE\_HTTP\_VERSION\_NOT\_SUPPORTED\ =\ 505,}
+\DoxyCodeLine{00118\ \ \ HTTP\_CODE\_VARIANT\_ALSO\_NEGOTIATES\ =\ 506,}
+\DoxyCodeLine{00119\ \ \ HTTP\_CODE\_INSUFFICIENT\_STORAGE\ =\ 507,}
+\DoxyCodeLine{00120\ \ \ HTTP\_CODE\_LOOP\_DETECTED\ =\ 508,}
+\DoxyCodeLine{00121\ \ \ HTTP\_CODE\_NOT\_EXTENDED\ =\ 510,}
+\DoxyCodeLine{00122\ \ \ HTTP\_CODE\_NETWORK\_AUTHENTICATION\_REQUIRED\ =\ 511}
+\DoxyCodeLine{00123\ \}\ t\_http\_codes;}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00126\ \ \ HTTPC\_TE\_IDENTITY,}
+\DoxyCodeLine{00127\ \ \ HTTPC\_TE\_CHUNKED}
+\DoxyCodeLine{00128\ \}\ transferEncoding\_t;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00142\ \ \ HTTPC\_DISABLE\_FOLLOW\_REDIRECTS,}
+\DoxyCodeLine{00143\ \ \ HTTPC\_STRICT\_FOLLOW\_REDIRECTS,}
+\DoxyCodeLine{00144\ \ \ HTTPC\_FORCE\_FOLLOW\_REDIRECTS}
+\DoxyCodeLine{00145\ \}\ followRedirects\_t;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#ifdef\ HTTPCLIENT\_1\_1\_COMPATIBLE}}
+\DoxyCodeLine{00148\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_transport_traits}{TransportTraits}};}
+\DoxyCodeLine{00149\ \textcolor{keyword}{typedef}\ std::unique\_ptr<TransportTraits>\ TransportTraitsPtr;}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{comment}{//\ cookie\ jar\ support}}
+\DoxyCodeLine{00153\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00154\ \ \ String\ host;\ \ \textcolor{comment}{//\ host\ which\ tries\ to\ set\ the\ cookie}}
+\DoxyCodeLine{00155\ \ \ time\_t\ date;\ \ \textcolor{comment}{//\ timestamp\ of\ the\ response\ that\ set\ the\ cookie}}
+\DoxyCodeLine{00156\ \ \ String\ name;}
+\DoxyCodeLine{00157\ \ \ String\ value;}
+\DoxyCodeLine{00158\ \ \ String\ domain;}
+\DoxyCodeLine{00159\ \ \ String\ path\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00160\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00161\ \ \ \ \ time\_t\ date\ =\ 0;}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{bool}\ valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00163\ \ \ \}\ expires;}
+\DoxyCodeLine{00164\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00165\ \ \ \ \ time\_t\ duration\ =\ 0;}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{bool}\ valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00167\ \ \ \}\ max\_age;}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{bool}\ http\_only\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00169\ \ \ \textcolor{keywordtype}{bool}\ secure\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00170\ \}\ \mbox{\hyperlink{struct_cookie}{Cookie}};}
+\DoxyCodeLine{00171\ \textcolor{keyword}{typedef}\ std::vector<Cookie>\ CookieJar;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_h_t_t_p_client_a23a15a8f27ac926a86c2ef7bc7bfebcb}{HTTPClient}}\ \{}
+\DoxyCodeLine{00174\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00175\ \ \ \mbox{\hyperlink{class_h_t_t_p_client_a23a15a8f27ac926a86c2ef7bc7bfebcb}{HTTPClient}}();}
+\DoxyCodeLine{00176\ \ \ \mbox{\hyperlink{class_h_t_t_p_client_a97467b9bd9469200fb5266ae3622acc2}{\string~HTTPClient}}();}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ *\ Since\ both\ begin()\ functions\ take\ a\ reference\ to\ client\ as\ a\ parameter,\ you\ need\ to}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ *\ ensure\ the\ client\ object\ lives\ the\ entire\ time\ of\ the\ HTTPClient}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(\mbox{\hyperlink{class_network_client}{NetworkClient}}\ \&client,\ String\ url);}
+\DoxyCodeLine{00183\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(\mbox{\hyperlink{class_network_client}{NetworkClient}}\ \&client,\ String\ host,\ uint16\_t\ port,\ String\ uri\ =\ \textcolor{stringliteral}{"{}/"{}},\ \textcolor{keywordtype}{bool}\ https\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#ifdef\ HTTPCLIENT\_1\_1\_COMPATIBLE}}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(String\ url);}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(String\ host,\ uint16\_t\ port,\ String\ uri\ =\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#ifndef\ HTTPCLIENT\_NOSECURE}}
+\DoxyCodeLine{00189\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(String\ url,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *CAcert);}
+\DoxyCodeLine{00190\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(String\ host,\ uint16\_t\ port,\ String\ uri,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *CAcert);}
+\DoxyCodeLine{00191\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(String\ host,\ uint16\_t\ port,\ String\ uri,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *CAcert,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_cert,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_key);}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(String\ url,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *CAcert)\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00195\ \ \ \};}
+\DoxyCodeLine{00196\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(String\ host,\ uint16\_t\ port,\ String\ uri,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *CAcert)\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00198\ \ \ \};}
+\DoxyCodeLine{00199\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ad7cb59d6b8c3c231837e7dc0b0601941}{begin}}(String\ host,\ uint16\_t\ port,\ String\ uri,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *CAcert,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_cert,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_key)\ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00201\ \ \ \};}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ HTTPCLIENT\_NOSECURE}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_ab2575ce8e970edf8613b47258cb5df41}{end}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_a4e650cf158b6963a4c522d2a868c93c2}{connected}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_af0059f5cb0f5e3464b71cb43aef9d6f4}{setReuse}}(\textcolor{keywordtype}{bool}\ reuse);\ \ }
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_ac91e131aee8ef86f2e5a2dc07a268eda}{setUserAgent}}(\textcolor{keyword}{const}\ String\ \&userAgent);}
+\DoxyCodeLine{00212\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_addfec365a1f06e91405bcb536c02f6f9}{setAcceptEncoding}}(\textcolor{keyword}{const}\ String\ \&acceptEncoding);}
+\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_a231d05636401adefaccd04a0ced0790c}{setAuthorization}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *user,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password);}
+\DoxyCodeLine{00214\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_a231d05636401adefaccd04a0ced0790c}{setAuthorization}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *auth);}
+\DoxyCodeLine{00215\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_a814a1ee848d533705bfcb8300122c847}{setAuthorizationType}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *authType);}
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_a4319221bb2efc08ecd37f48abbf56d75}{setConnectTimeout}}(int32\_t\ connectTimeout);}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_aecf2796973d47ca97350b506ca7cfda2}{setTimeout}}(uint16\_t\ timeout);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \textcolor{comment}{//\ Redirections}}
+\DoxyCodeLine{00220\ \ \ \textcolor{keywordtype}{void}\ setFollowRedirects(followRedirects\_t\ follow);}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordtype}{void}\ setRedirectLimit(uint16\_t\ limit);\ \ \textcolor{comment}{//\ max\ redirects\ to\ follow\ for\ a\ single\ request}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ab26b8608fa1913b9a217e3b0adab2958}{setURL}}(\textcolor{keyword}{const}\ String\ \&url);}
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_a9f3607dca940296fbaa533748ea00345}{useHTTP10}}(\textcolor{keywordtype}{bool}\ usehttp10\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_aee331934366e80758b190cdda7dcf556}{GET}}();}
+\DoxyCodeLine{00228\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_ab9e3e331e8e41a4b7f70ebc95b4b3e3b}{PATCH}}(uint8\_t\ *payload,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_ab9e3e331e8e41a4b7f70ebc95b4b3e3b}{PATCH}}(String\ payload);}
+\DoxyCodeLine{00230\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_a9ece928864f4e08334762ff90ca7208a}{POST}}(uint8\_t\ *payload,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_a9ece928864f4e08334762ff90ca7208a}{POST}}(String\ payload);}
+\DoxyCodeLine{00232\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_ae29b5d9a1df45ed45faf99c26161cc14}{PUT}}(uint8\_t\ *payload,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_ae29b5d9a1df45ed45faf99c26161cc14}{PUT}}(String\ payload);}
+\DoxyCodeLine{00234\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_a02990a956dd03561dca9accc25b94305}{sendRequest}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *type,\ String\ payload);}
+\DoxyCodeLine{00235\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_a02990a956dd03561dca9accc25b94305}{sendRequest}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *type,\ uint8\_t\ *payload\ =\ NULL,\ \textcolor{keywordtype}{size\_t}\ size\ =\ 0);}
+\DoxyCodeLine{00236\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_a02990a956dd03561dca9accc25b94305}{sendRequest}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *type,\ \mbox{\hyperlink{class_stream}{Stream}}\ *stream,\ \textcolor{keywordtype}{size\_t}\ size\ =\ 0);}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_a2cc159b388bb1b7cd8655effac1646d2}{addHeader}}(\textcolor{keyword}{const}\ String\ \&name,\ \textcolor{keyword}{const}\ String\ \&value,\ \textcolor{keywordtype}{bool}\ first\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ replace\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00241\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_af5f763b142544649d657f54245755d62}{collectHeaders}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *headerKeys[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ headerKeysCount);}
+\DoxyCodeLine{00242\ \ \ String\ header(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);\ \ \ \textcolor{comment}{//\ get\ request\ header\ value\ by\ name}}
+\DoxyCodeLine{00243\ \ \ String\ header(\textcolor{keywordtype}{size\_t}\ i);\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ header\ value\ by\ number}}
+\DoxyCodeLine{00244\ \ \ String\ headerName(\textcolor{keywordtype}{size\_t}\ i);\ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ header\ name\ by\ number}}
+\DoxyCodeLine{00245\ \ \ \textcolor{keywordtype}{int}\ headers();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ header\ count}}
+\DoxyCodeLine{00246\ \ \ \textcolor{keywordtype}{bool}\ hasHeader(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);\ \ \textcolor{comment}{//\ check\ if\ header\ exists}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_aa15267cd69b0b03da7f5ccbc3424c04a}{getSize}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00249\ \ \ \textcolor{keyword}{const}\ String\ \&getLocation(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \mbox{\hyperlink{class_network_client}{NetworkClient}}\ \&\mbox{\hyperlink{class_h_t_t_p_client_abdc3117b3a21d61f2919d94ca789e3b1}{getStream}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00252\ \ \ \mbox{\hyperlink{class_network_client}{NetworkClient}}\ *\mbox{\hyperlink{class_h_t_t_p_client_abc0453826089132bdcb606bd3a06f972}{getStreamPtr}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00253\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_a78073d0e1e71a503a4eff65f300ae7c9}{writeToStream}}(\mbox{\hyperlink{class_stream}{Stream}}\ *stream);}
+\DoxyCodeLine{00254\ \ \ String\ \mbox{\hyperlink{class_h_t_t_p_client_a0ef3c8beca12f724fc9cdaba983d6f80}{getString}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \textcolor{keyword}{static}\ String\ \mbox{\hyperlink{class_h_t_t_p_client_a67b2ddb847583db02ab58968f1973d06}{errorToString}}(\textcolor{keywordtype}{int}\ error);}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00259\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_a2bd02cdf4d1b50e35af2cce163021a97}{setCookieJar}}(CookieJar\ *cookieJar);}
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordtype}{void}\ resetCookieJar();}
+\DoxyCodeLine{00261\ \ \ \textcolor{keywordtype}{void}\ clearAllCookies();}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00264\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_h_t_t_p_client_1_1_request_argument}{RequestArgument}}\ \{}
+\DoxyCodeLine{00265\ \ \ \ \ String\ key;}
+\DoxyCodeLine{00266\ \ \ \ \ String\ value;}
+\DoxyCodeLine{00267\ \ \ \};}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \textcolor{keywordtype}{bool}\ beginInternal(String\ url,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *expectedProtocol);}
+\DoxyCodeLine{00270\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_a55e3b8fe24c86812ef67093af9365e77}{disconnect}}(\textcolor{keywordtype}{bool}\ preserveClient\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00271\ \ \ \textcolor{keywordtype}{void}\ clear();}
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_a5ab4b7cbafe2dba0a412b9acda8df186}{returnError}}(\textcolor{keywordtype}{int}\ error);}
+\DoxyCodeLine{00273\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_affd8a7e84664ccc1164c44d141a9e947}{connect}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00274\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_h_t_t_p_client_ab7b1bd3092859ccf554d749395cadd72}{sendHeader}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *type);}
+\DoxyCodeLine{00275\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_ae27ee769fe253cc25bcdf2d913f6c2d7}{handleHeaderResponse}}();}
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_h_t_t_p_client_a69a604ade19b7fded4bc6e669f67ebd3}{writeToStreamDataBlock}}(\mbox{\hyperlink{class_stream}{Stream}}\ *stream,\ \textcolor{keywordtype}{int}\ len);}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_h_t_t_p_client_a6d0095ee8d2fced1dd95781f96170fd8}{setCookie}}(String\ date,\ String\ headerValue);}
+\DoxyCodeLine{00280\ \ \ \textcolor{keywordtype}{bool}\ generateCookieString(String\ *cookieString);}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#ifdef\ HTTPCLIENT\_1\_1\_COMPATIBLE}}
+\DoxyCodeLine{00283\ \ \ TransportTraitsPtr\ \_transportTraits;}
+\DoxyCodeLine{00284\ \ \ std::unique\_ptr<NetworkClient>\ \_tcpDeprecated;}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \mbox{\hyperlink{class_network_client}{NetworkClient}}\ *\_client\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00290\ \ \ String\ \mbox{\hyperlink{class_h_t_t_p_client_a238146b62e23e9cf314651f3d00fae4a}{\_host}};}
+\DoxyCodeLine{00291\ \ \ uint16\_t\ \_port\ =\ 0;}
+\DoxyCodeLine{00292\ \ \ int32\_t\ \_connectTimeout\ =\ HTTPCLIENT\_DEFAULT\_TCP\_TIMEOUT;}
+\DoxyCodeLine{00293\ \ \ \textcolor{keywordtype}{bool}\ \_reuse\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00294\ \ \ uint16\_t\ \_tcpTimeout\ =\ HTTPCLIENT\_DEFAULT\_TCP\_TIMEOUT;}
+\DoxyCodeLine{00295\ \ \ \textcolor{keywordtype}{bool}\ \_useHTTP10\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00296\ \ \ \textcolor{keywordtype}{bool}\ \_secure\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ String\ \_uri;}
+\DoxyCodeLine{00299\ \ \ String\ \_protocol;}
+\DoxyCodeLine{00300\ \ \ String\ \_headers;}
+\DoxyCodeLine{00301\ \ \ String\ \_userAgent\ =\ \textcolor{stringliteral}{"{}ESP32HTTPClient"{}};}
+\DoxyCodeLine{00302\ \ \ String\ \_base64Authorization;}
+\DoxyCodeLine{00303\ \ \ String\ \_authorizationType\ =\ \textcolor{stringliteral}{"{}Basic"{}};}
+\DoxyCodeLine{00304\ \ \ String\ \_acceptEncoding\ =\ \textcolor{stringliteral}{"{}identity;q=1,chunked;q=0.1,*;q=0"{}};}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00307\ \ \ \mbox{\hyperlink{struct_h_t_t_p_client_1_1_request_argument}{RequestArgument}}\ *\mbox{\hyperlink{class_h_t_t_p_client_ae7c1fa483af7d0eb68ecf25b21c3395c}{\_currentHeaders}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00308\ \ \ \textcolor{keywordtype}{size\_t}\ \_headerKeysCount\ =\ 0;}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \textcolor{keywordtype}{int}\ \_returnCode\ =\ 0;}
+\DoxyCodeLine{00311\ \ \ \textcolor{keywordtype}{int}\ \_size\ =\ -\/1;}
+\DoxyCodeLine{00312\ \ \ \textcolor{keywordtype}{bool}\ \_canReuse\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00313\ \ \ followRedirects\_t\ \_followRedirects\ =\ HTTPC\_DISABLE\_FOLLOW\_REDIRECTS;}
+\DoxyCodeLine{00314\ \ \ uint16\_t\ \_redirectLimit\ =\ 10;}
+\DoxyCodeLine{00315\ \ \ String\ \_location;}
+\DoxyCodeLine{00316\ \ \ transferEncoding\_t\ \_transferEncoding\ =\ HTTPC\_TE\_IDENTITY;}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00319\ \ \ CookieJar\ *\mbox{\hyperlink{class_h_t_t_p_client_a163cc51bea69ab546ad6367fa149b035}{\_cookieJar}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00320\ \};}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HTTPClient\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

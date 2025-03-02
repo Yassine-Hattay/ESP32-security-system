@@ -1,0 +1,862 @@
+\doxysection{Parsing CBOR streams}
+\hypertarget{group___cbor_parsing}{}\label{group___cbor_parsing}\index{Parsing CBOR streams@{Parsing CBOR streams}}
+
+
+Group of functions used to parse CBOR streams.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_known_tag_data}{Known\+Tag\+Data}}
+\item 
+struct \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group___cbor_parsing_gabd1d1cdefd13316b96c6676fde6ee2ae}\label{group___cbor_parsing_gabd1d1cdefd13316b96c6676fde6ee2ae} 
+typedef uintptr\+\_\+t(\texorpdfstring{$\ast$}{*} {\bfseries Iterate\+Function}) (char \texorpdfstring{$\ast$}{*}, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}, size\+\_\+t)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group___cbor_parsing_ga25439bfd6ca61757f76f6a76c63926d4}\label{group___cbor_parsing_ga25439bfd6ca61757f76f6a76c63926d4} 
+uint64\+\_\+t {\bfseries \+\_\+cbor\+\_\+value\+\_\+decode\+\_\+int64\+\_\+internal} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga9016334cec2bfedef7eaa54da5144ea3}{cbor\+\_\+parser\+\_\+init}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t size, uint32\+\_\+t flags, \mbox{\hyperlink{struct_cbor_parser}{Cbor\+Parser}} \texorpdfstring{$\ast$}{*}parser, \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+\Hypertarget{group___cbor_parsing_gac5c051afa011a792f5b9a81f31df2a5e}\label{group___cbor_parsing_gac5c051afa011a792f5b9a81f31df2a5e} 
+Cbor\+Error {\bfseries cbor\+\_\+parser\+\_\+init\+\_\+reader} (const struct \mbox{\hyperlink{struct_cbor_parser_operations}{Cbor\+Parser\+Operations}} \texorpdfstring{$\ast$}{*}ops, \mbox{\hyperlink{struct_cbor_parser}{Cbor\+Parser}} \texorpdfstring{$\ast$}{*}parser, \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it, void \texorpdfstring{$\ast$}{*}token)
+\item 
+\Hypertarget{group___cbor_parsing_ga961dc860c1232c44836ed80f001c7d15}\label{group___cbor_parsing_ga961dc860c1232c44836ed80f001c7d15} 
+Cbor\+Error {\bfseries cbor\+\_\+value\+\_\+reparse} (\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga19b60bc2cff3d3ffcc81adbcad09fd58}{cbor\+\_\+value\+\_\+validate\+\_\+basic}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gac0701f791608589ddfff0bdb8acee7b4}{cbor\+\_\+value\+\_\+advance\+\_\+fixed}} (\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance}} (\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga2b805f0f440905a7ba4f93b3569bb97b}{cbor\+\_\+value\+\_\+skip\+\_\+tag}} (\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga0c8a61e484973272f34b00cfbef9ddfd}{cbor\+\_\+value\+\_\+enter\+\_\+container}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it, \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}recursed)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga51e02f0b62bc864fe8cf290988936e15}{cbor\+\_\+value\+\_\+leave\+\_\+container}} (\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it, const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}recursed)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga5bd9f8ab2b61aaeb31fd9b724622f0df}{cbor\+\_\+value\+\_\+get\+\_\+int64\+\_\+checked}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, int64\+\_\+t \texorpdfstring{$\ast$}{*}result)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gaf9b7aba18f57c255e744b874645ac9be}{cbor\+\_\+value\+\_\+get\+\_\+int\+\_\+checked}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, int \texorpdfstring{$\ast$}{*}result)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, size\+\_\+t \texorpdfstring{$\ast$}{*}len)
+\item 
+\Hypertarget{group___cbor_parsing_gaac27539aaeee95b130652fdecbb67429}\label{group___cbor_parsing_gaac27539aaeee95b130652fdecbb67429} 
+Cbor\+Error {\bfseries \+\_\+cbor\+\_\+value\+\_\+begin\+\_\+string\+\_\+iteration} (\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+\Hypertarget{group___cbor_parsing_gac911d3bc7dc7ab1f4d905fa0dd924c2b}\label{group___cbor_parsing_gac911d3bc7dc7ab1f4d905fa0dd924c2b} 
+Cbor\+Error {\bfseries \+\_\+cbor\+\_\+value\+\_\+finish\+\_\+string\+\_\+iteration} (\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+\Hypertarget{group___cbor_parsing_ga1f576f3db47f325884924758b3823b61}\label{group___cbor_parsing_ga1f576f3db47f325884924758b3823b61} 
+Cbor\+Error {\bfseries \+\_\+cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+chunk\+\_\+size} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, size\+\_\+t \texorpdfstring{$\ast$}{*}len)
+\item 
+\Hypertarget{group___cbor_parsing_gaddbe9e946c53da9db49b8c27070dbf35}\label{group___cbor_parsing_gaddbe9e946c53da9db49b8c27070dbf35} 
+Cbor\+Error {\bfseries \+\_\+cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+chunk} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, const void \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}bufferptr, size\+\_\+t \texorpdfstring{$\ast$}{*}len, \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}next)
+\item 
+\Hypertarget{group___cbor_parsing_ga126e0ea555950684450f57dab407bc26}\label{group___cbor_parsing_ga126e0ea555950684450f57dab407bc26} 
+Cbor\+Error {\bfseries \+\_\+cbor\+\_\+value\+\_\+copy\+\_\+string} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, void \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t \texorpdfstring{$\ast$}{*}buflen, \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}next)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gac8f08df74d65c8454528824a667550ec}{cbor\+\_\+value\+\_\+text\+\_\+string\+\_\+equals}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, const char \texorpdfstring{$\ast$}{*}string, bool \texorpdfstring{$\ast$}{*}result)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gaf145f4513ce734265d0128429cc4d5bd}{cbor\+\_\+value\+\_\+map\+\_\+find\+\_\+value}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}map, const char \texorpdfstring{$\ast$}{*}string, \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}element)
+\item 
+Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga4d114f26cbc9c40e3424a783a0c08e7e}{cbor\+\_\+value\+\_\+validate}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it, uint32\+\_\+t flags)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c}{cbor\+\_\+value\+\_\+at\+\_\+end}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API const uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group___cbor_parsing_ga63b68ca69abfaf77b14aebbcb3d624b7}{cbor\+\_\+value\+\_\+get\+\_\+next\+\_\+byte}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga8c1a6992342860f82b558565dc46e3c1}{cbor\+\_\+value\+\_\+is\+\_\+tag}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga9fbca99a44b699b212ebe2e46e878c64}{cbor\+\_\+value\+\_\+get\+\_\+tag}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, \mbox{\hyperlink{group___cbor_globals_ga1e767d4ba4cde0c284f42305758b34ff}{Cbor\+Tag}} \texorpdfstring{$\ast$}{*}result)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_gaa81dc38061da8f5c58e0aaa413d13723}{cbor\+\_\+value\+\_\+is\+\_\+container}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}it)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Type \mbox{\hyperlink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga469c8aa2802bdc40b88a4ee630fa15e5}{cbor\+\_\+value\+\_\+is\+\_\+null}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_gaf1f4eb0dfe7a7dc8d59e218c128e233e}{cbor\+\_\+value\+\_\+is\+\_\+undefined}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga67a305be87c24a078014ce34c0388a88}{cbor\+\_\+value\+\_\+is\+\_\+boolean}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga5a86e5a26bb5d0a38f5f97de9c6e4254}{cbor\+\_\+value\+\_\+get\+\_\+boolean}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, bool \texorpdfstring{$\ast$}{*}result)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga914cfcd3ef9a1bdb3a24e1d17a30a598}{cbor\+\_\+value\+\_\+is\+\_\+simple\+\_\+type}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gac709a9bf6f6bd7cf0b5990729b227347}{cbor\+\_\+value\+\_\+get\+\_\+simple\+\_\+type}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, uint8\+\_\+t \texorpdfstring{$\ast$}{*}result)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga635f32e893b27ce99c63481ac60039ea}{cbor\+\_\+value\+\_\+is\+\_\+unsigned\+\_\+integer}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga258aa8261b3a5c75c7f0e832cd432538}{cbor\+\_\+value\+\_\+is\+\_\+negative\+\_\+integer}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga4c2df69dc63dbf9f2851fbebbf7d2641}{cbor\+\_\+value\+\_\+get\+\_\+int}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, int \texorpdfstring{$\ast$}{*}result)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gacc040297bf54ba8edfca0c95999ee28f}{cbor\+\_\+value\+\_\+get\+\_\+int64}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, int64\+\_\+t \texorpdfstring{$\ast$}{*}result)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga0a16338a2e986df1943daa36ed45b314}{cbor\+\_\+value\+\_\+get\+\_\+uint64}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, uint64\+\_\+t \texorpdfstring{$\ast$}{*}result)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga456161362ca5f143873ec0920604e511}{cbor\+\_\+value\+\_\+get\+\_\+raw\+\_\+integer}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, uint64\+\_\+t \texorpdfstring{$\ast$}{*}result)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654}{cbor\+\_\+value\+\_\+is\+\_\+length\+\_\+known}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga813ddd9886a7cda6adfcf144a5c7e5d0}{cbor\+\_\+value\+\_\+is\+\_\+text\+\_\+string}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga2b8db3ef5ad00e753d91b80e4858cc09}{cbor\+\_\+value\+\_\+is\+\_\+byte\+\_\+string}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab}{cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+length}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, size\+\_\+t \texorpdfstring{$\ast$}{*}length)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga28a6a6ceccc0e296c88b19875e5f3db8}{cbor\+\_\+value\+\_\+get\+\_\+text\+\_\+string\+\_\+chunk}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}bufferptr, size\+\_\+t \texorpdfstring{$\ast$}{*}len, \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}next)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gaece0fd051a5d18ebcf10cd1c6bf6030a}{cbor\+\_\+value\+\_\+copy\+\_\+text\+\_\+string}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, char \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t \texorpdfstring{$\ast$}{*}buflen, \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}next)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga595476b2dd07513d2e81f2dff5fc434e}{cbor\+\_\+value\+\_\+copy\+\_\+byte\+\_\+string}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer, size\+\_\+t \texorpdfstring{$\ast$}{*}buflen, \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}next)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_gafe18c4b4a6cb185aaebceed878c2d0f9}{cbor\+\_\+value\+\_\+is\+\_\+array}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_gaadc932e7a29876faaaa4c2cee554c312}{cbor\+\_\+value\+\_\+get\+\_\+array\+\_\+length}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, size\+\_\+t \texorpdfstring{$\ast$}{*}length)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga8664656ba3e9c183015ee0597eb0ad14}{cbor\+\_\+value\+\_\+is\+\_\+map}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga4576c332f41f9843defd4518c9f05f9f}{cbor\+\_\+value\+\_\+get\+\_\+map\+\_\+length}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, size\+\_\+t \texorpdfstring{$\ast$}{*}length)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_gac16777137bc6ef5b4ccf29f158c48499}{cbor\+\_\+value\+\_\+is\+\_\+float}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga09c8d1d8f37f28cefcf1a9b803e5d63b}{cbor\+\_\+value\+\_\+get\+\_\+float}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, float \texorpdfstring{$\ast$}{*}result)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga2e16b4704a53c0aed1ca3d36ee4ea282}{cbor\+\_\+value\+\_\+is\+\_\+double}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool \mbox{\hyperlink{group___cbor_parsing_ga312ad05ab6722f26d67bbcf3744d9bf5}{cbor\+\_\+value\+\_\+is\+\_\+half\+\_\+float}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value)
+\item 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error \mbox{\hyperlink{group___cbor_parsing_ga4dfb0c399dba22bac9e029c98fc5945d}{cbor\+\_\+value\+\_\+get\+\_\+half\+\_\+float}} (const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}value, void \texorpdfstring{$\ast$}{*}result)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Group of functions used to parse CBOR streams. 
+
+Tiny\+CBOR provides functions for pull-\/based stream parsing of a CBOR-\/encoded payload. The main data type for the parsing is a \doxylink{struct_cbor_value}{Cbor\+Value}, which behaves like an iterator and can be used to extract the encoded data. It is first initialized with a call to \doxylink{group___cbor_parsing_ga9016334cec2bfedef7eaa54da5144ea3}{cbor\+\_\+parser\+\_\+init()} and is usually used to extract exactly one item, most often an array or map.
+
+Nested \doxylink{struct_cbor_value}{Cbor\+Value} objects can be parsed using \doxylink{group___cbor_parsing_ga0c8a61e484973272f34b00cfbef9ddfd}{cbor\+\_\+value\+\_\+enter\+\_\+container()}. Each call to \doxylink{group___cbor_parsing_ga0c8a61e484973272f34b00cfbef9ddfd}{cbor\+\_\+value\+\_\+enter\+\_\+container()} must be matched by a call to \doxylink{group___cbor_parsing_ga51e02f0b62bc864fe8cf290988936e15}{cbor\+\_\+value\+\_\+leave\+\_\+container()}, with the exact same parameters.
+
+The example below initializes a \doxylink{struct_cbor_parser}{Cbor\+Parser} object, begins the parsing with a \doxylink{struct_cbor_value}{Cbor\+Value} and decodes a single integer\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ extract\_int(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{struct_cbor_parser}{CborParser}}\ parser;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{struct_cbor_value}{CborValue}}\ value;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ result;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group___cbor_parsing_ga9016334cec2bfedef7eaa54da5144ea3}{cbor\_parser\_init}}(buffer,\ len,\ 0,\ \&parser,\ \&value);}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group___cbor_parsing_ga4c2df69dc63dbf9f2851fbebbf7d2641}{cbor\_value\_get\_int}}(\&value,\ \&result);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+The code above does no error checking, which means it assumes the data comes from a source trusted to send one properly-\/encoded integer. The following example does the exact same operation, but includes error checking and returns 0 on parsing failure\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ extract\_int(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{struct_cbor_parser}{CborParser}}\ parser;}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{struct_cbor_value}{CborValue}}\ value;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{int}\ result;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group___cbor_parsing_ga9016334cec2bfedef7eaa54da5144ea3}{cbor\_parser\_init}}(buffer,\ len,\ 0,\ \&parser,\ \&value)\ !=\ CborNoError)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\_value\_is\_integer}}(\&value)\ ||}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group___cbor_parsing_ga4c2df69dc63dbf9f2851fbebbf7d2641}{cbor\_value\_get\_int}}(\&value,\ \&result)\ !=\ CborNoError)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Note, in the example above, that one can\textquotesingle{}t distinguish a parsing failure from an encoded value of zero. Reporting a parsing error is left as an exercise to the reader.
+
+The code above does not execute a range-\/check either\+: it is possible that the value decoded from the CBOR stream encodes a number larger than what can be represented in a variable of type {\ttfamily }\{int\}. If detecting that case is important, the code should call \doxylink{group___cbor_parsing_gaf9b7aba18f57c255e744b874645ac9be}{cbor\+\_\+value\+\_\+get\+\_\+int\+\_\+checked()} instead.
+
+\doxysubsubsubsection*{Memory and parsing constraints}
+
+Tiny\+CBOR is designed to run with little memory and with minimal overhead. Except where otherwise noted, the parser functions always run on constant time (O(1)), do not recurse and never allocate memory (thus, stack usage is bounded and is O(1)).
+
+\doxysubsubsubsection*{Error handling and preconditions}
+
+All functions operating on a \doxylink{struct_cbor_value}{Cbor\+Value} return a Cbor\+Error condition, with Cbor\+No\+Error standing for the normal situation in which no parsing error occurred. All functions may return parsing errors in case the stream cannot be decoded properly, be it due to corrupted data or due to reaching the end of the input buffer.
+
+Error conditions must not be ignored. All decoder functions have undefined behavior if called after an error has been reported, and may crash.
+
+Some functions are also documented to have preconditions, like \doxylink{group___cbor_parsing_ga4c2df69dc63dbf9f2851fbebbf7d2641}{cbor\+\_\+value\+\_\+get\+\_\+int()} requiring that the input be an integral value. Violation of preconditions also results in undefined behavior and the program may crash.
+
+\doxysubsection{Function Documentation}
+\Hypertarget{group___cbor_parsing_ga9016334cec2bfedef7eaa54da5144ea3}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_parser\_init@{cbor\_parser\_init}}
+\index{cbor\_parser\_init@{cbor\_parser\_init}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_parser\_init()}{cbor\_parser\_init()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga9016334cec2bfedef7eaa54da5144ea3} 
+Cbor\+Error cbor\+\_\+parser\+\_\+init (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t}]{size}{, }\item[{uint32\+\_\+t}]{flags}{, }\item[{\mbox{\hyperlink{struct_cbor_parser}{Cbor\+Parser}} \texorpdfstring{$\ast$}{*}}]{parser}{, }\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{}\end{DoxyParamCaption})}
+
+Initializes the CBOR parser for parsing {\itshape size} bytes beginning at {\itshape buffer}. Parsing will use flags set in {\itshape flags}. The iterator to the first element is returned in {\itshape it}.
+
+The {\itshape parser} structure needs to remain valid throughout the decoding process. It is not thread-\/safe to share one \doxylink{struct_cbor_parser}{Cbor\+Parser} among multiple threads iterating at the same time, but the object can be copied so multiple threads can iterate. \Hypertarget{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_advance@{cbor\_value\_advance}}
+\index{cbor\_value\_advance@{cbor\_value\_advance}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_advance()}{cbor\_value\_advance()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a} 
+Cbor\+Error cbor\+\_\+value\+\_\+advance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{}\end{DoxyParamCaption})}
+
+Advances the CBOR value {\itshape it} by one element, skipping over containers. Unlike \doxylink{group___cbor_parsing_gac0701f791608589ddfff0bdb8acee7b4}{cbor\+\_\+value\+\_\+advance\+\_\+fixed()}, this function can be called on a CBOR value of any type. However, if the type is a container (map or array) or a string with a chunked payload, this function will not run in constant time and will recurse into itself (it will run on O(n) time for the number of elements or chunks and will use O(n) memory for the number of nested containers).
+
+The number of recursions can be limited at compile time to avoid stack exhaustion in constrained systems.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c}{cbor\+\_\+value\+\_\+at\+\_\+end()}, \doxylink{group___cbor_parsing_gac0701f791608589ddfff0bdb8acee7b4}{cbor\+\_\+value\+\_\+advance\+\_\+fixed()}, \doxylink{group___cbor_parsing_ga0c8a61e484973272f34b00cfbef9ddfd}{cbor\+\_\+value\+\_\+enter\+\_\+container()}, \doxylink{group___cbor_parsing_ga51e02f0b62bc864fe8cf290988936e15}{cbor\+\_\+value\+\_\+leave\+\_\+container()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gac0701f791608589ddfff0bdb8acee7b4}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_advance\_fixed@{cbor\_value\_advance\_fixed}}
+\index{cbor\_value\_advance\_fixed@{cbor\_value\_advance\_fixed}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_advance\_fixed()}{cbor\_value\_advance\_fixed()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gac0701f791608589ddfff0bdb8acee7b4} 
+Cbor\+Error cbor\+\_\+value\+\_\+advance\+\_\+fixed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{}\end{DoxyParamCaption})}
+
+Advances the CBOR value {\itshape it} by one fixed-\/size position. Fixed-\/size types are\+: integers, tags, simple types (including boolean, null and undefined values) and floating point types.
+
+If the type is not of fixed size, this function has undefined behavior. Code must be sure that the current type is one of the fixed-\/size types before calling this function. This function is provided because it can guarantee that it runs in constant time (O(1)).
+
+If the caller is not able to determine whether the type is fixed or not, code can use the \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()} function instead.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c}{cbor\+\_\+value\+\_\+at\+\_\+end()}, \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()}, \doxylink{group___cbor_parsing_ga0c8a61e484973272f34b00cfbef9ddfd}{cbor\+\_\+value\+\_\+enter\+\_\+container()}, \doxylink{group___cbor_parsing_ga51e02f0b62bc864fe8cf290988936e15}{cbor\+\_\+value\+\_\+leave\+\_\+container()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_at\_end@{cbor\_value\_at\_end}}
+\index{cbor\_value\_at\_end@{cbor\_value\_at\_end}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_at\_end()}{cbor\_value\_at\_end()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+at\+\_\+end (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{}\end{DoxyParamCaption})}
+
+Returns true if {\itshape it} has reached the end of the iteration, usually when advancing after the last item in an array or map.
+
+In the case of the outermost \doxylink{struct_cbor_value}{Cbor\+Value} object, this function returns true after decoding a single element. A pointer to the first byte of the remaining data (if any) can be obtained with \doxylink{group___cbor_parsing_ga63b68ca69abfaf77b14aebbcb3d624b7}{cbor\+\_\+value\+\_\+get\+\_\+next\+\_\+byte()}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga63b68ca69abfaf77b14aebbcb3d624b7}{cbor\+\_\+value\+\_\+get\+\_\+next\+\_\+byte()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_calculate\_string\_length@{cbor\_value\_calculate\_string\_length}}
+\index{cbor\_value\_calculate\_string\_length@{cbor\_value\_calculate\_string\_length}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_calculate\_string\_length()}{cbor\_value\_calculate\_string\_length()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044} 
+Cbor\+Error cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{len}{}\end{DoxyParamCaption})}
+
+Calculates the length of the byte or text string that {\itshape value} points to and stores it in {\itshape len}. If the iterator {\itshape value} does not point to a text string or a byte string, the behaviour is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type}, with \doxylink{group___cbor_parsing_ga813ddd9886a7cda6adfcf144a5c7e5d0}{cbor\+\_\+value\+\_\+is\+\_\+text\+\_\+string} or \doxylink{group___cbor_parsing_ga2b8db3ef5ad00e753d91b80e4858cc09}{cbor\+\_\+value\+\_\+is\+\_\+byte\+\_\+string} is recommended.
+
+This function is different from \doxylink{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab}{cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+length()} in that it calculates the length even for strings sent in chunks. For that reason, this function may not run in constant time (it will run in O(n) time on the number of chunks). It does use constant memory (O(1)).
+
+\begin{DoxyNote}{Note}
+On 32-\/bit platforms, this function will return error condition of Cbor\+Error\+Data\+Too\+Large if the stream indicates a length that is too big to fit in 32-\/bit.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab}{cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+length()}, \doxylink{group___cbor_parsing_gaece0fd051a5d18ebcf10cd1c6bf6030a}{cbor\+\_\+value\+\_\+copy\+\_\+text\+\_\+string()}, \doxylink{group___cbor_parsing_ga595476b2dd07513d2e81f2dff5fc434e}{cbor\+\_\+value\+\_\+copy\+\_\+byte\+\_\+string()}, \doxylink{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654}{cbor\+\_\+value\+\_\+is\+\_\+length\+\_\+known()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga595476b2dd07513d2e81f2dff5fc434e}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_copy\_byte\_string@{cbor\_value\_copy\_byte\_string}}
+\index{cbor\_value\_copy\_byte\_string@{cbor\_value\_copy\_byte\_string}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_copy\_byte\_string()}{cbor\_value\_copy\_byte\_string()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga595476b2dd07513d2e81f2dff5fc434e} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+copy\+\_\+byte\+\_\+string (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{buflen}{, }\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{next}{}\end{DoxyParamCaption})}
+
+Copies the string pointed by {\itshape value} into the buffer provided at {\itshape buffer} of {\itshape buflen} bytes. If {\itshape buffer} is a NULL pointer, this function will not copy anything and will only update the {\itshape next} value.
+
+If the iterator {\itshape value} does not point to a byte string, the behaviour is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or \doxylink{group___cbor_parsing_ga2b8db3ef5ad00e753d91b80e4858cc09}{cbor\+\_\+value\+\_\+is\+\_\+byte\+\_\+string} is recommended.
+
+If the provided buffer length was too small, this function returns an error condition of Cbor\+Error\+Out\+Of\+Memory. If you need to calculate the length of the string in order to preallocate a buffer, use \doxylink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length()}.
+
+On success, this function sets the number of bytes copied to {\ttfamily }\{\texorpdfstring{$\ast$}{*}buflen\}. If the buffer is large enough, this function will insert a null byte after the last copied byte, to facilitate manipulation of null-\/terminated strings. That byte is not included in the returned value of {\ttfamily }\{\texorpdfstring{$\ast$}{*}buflen\}.
+
+The {\itshape next} pointer, if not null, will be updated to point to the next item after this string. If {\itshape value} points to the last item, then {\itshape next} will be invalid.
+
+This function may not run in constant time (it will run in O(n) time on the number of chunks). It requires constant memory (O(1)).
+
+\begin{DoxySeeAlso}{See also}
+cbor\+\_\+value\+\_\+get\+\_\+byte\+\_\+string\+\_\+chunk(), \doxylink{tinycbor_2src_2cbor_8h_acb13d7784ff250b9b9f170cce866f685}{cbor\+\_\+value\+\_\+dup\+\_\+text\+\_\+string()}, \doxylink{group___cbor_parsing_gaece0fd051a5d18ebcf10cd1c6bf6030a}{cbor\+\_\+value\+\_\+copy\+\_\+text\+\_\+string()}, \doxylink{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab}{cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+length()}, \doxylink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gaece0fd051a5d18ebcf10cd1c6bf6030a}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_copy\_text\_string@{cbor\_value\_copy\_text\_string}}
+\index{cbor\_value\_copy\_text\_string@{cbor\_value\_copy\_text\_string}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_copy\_text\_string()}{cbor\_value\_copy\_text\_string()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gaece0fd051a5d18ebcf10cd1c6bf6030a} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+copy\+\_\+text\+\_\+string (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{buflen}{, }\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{next}{}\end{DoxyParamCaption})}
+
+Copies the string pointed to by {\itshape value} into the buffer provided at {\itshape buffer} of {\itshape buflen} bytes. If {\itshape buffer} is a NULL pointer, this function will not copy anything and will only update the {\itshape next} value.
+
+If the iterator {\itshape value} does not point to a text string, the behaviour is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or \doxylink{group___cbor_parsing_ga813ddd9886a7cda6adfcf144a5c7e5d0}{cbor\+\_\+value\+\_\+is\+\_\+text\+\_\+string} is recommended.
+
+If the provided buffer length was too small, this function returns an error condition of Cbor\+Error\+Out\+Of\+Memory. If you need to calculate the length of the string in order to preallocate a buffer, use \doxylink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length()}.
+
+On success, this function sets the number of bytes copied to {\ttfamily }\{\texorpdfstring{$\ast$}{*}buflen\}. If the buffer is large enough, this function will insert a null byte after the last copied byte, to facilitate manipulation of text strings. That byte is not included in the returned value of {\ttfamily }\{\texorpdfstring{$\ast$}{*}buflen\}. If there was no space for the terminating null, no error is returned, so callers must check the value of \texorpdfstring{$\ast$}{*}buflen after the call, before relying on the \textquotesingle{}\textbackslash{}0\textquotesingle{}; if it has not been changed by the call, there is no \textquotesingle{}\textbackslash{}0\textquotesingle{}-\/termination on the buffer\textquotesingle{}s contents.
+
+The {\itshape next} pointer, if not null, will be updated to point to the next item after this string. If {\itshape value} points to the last item, then {\itshape next} will be invalid.
+
+This function may not run in constant time (it will run in O(n) time on the number of chunks). It requires constant memory (O(1)).
+
+\begin{DoxyNote}{Note}
+This function does not perform UTF-\/8 validation on the incoming text string.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga28a6a6ceccc0e296c88b19875e5f3db8}{cbor\+\_\+value\+\_\+get\+\_\+text\+\_\+string\+\_\+chunk()} \doxylink{tinycbor_2src_2cbor_8h_acb13d7784ff250b9b9f170cce866f685}{cbor\+\_\+value\+\_\+dup\+\_\+text\+\_\+string()}, \doxylink{group___cbor_parsing_ga595476b2dd07513d2e81f2dff5fc434e}{cbor\+\_\+value\+\_\+copy\+\_\+byte\+\_\+string()}, \doxylink{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab}{cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+length()}, \doxylink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga0c8a61e484973272f34b00cfbef9ddfd}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_enter\_container@{cbor\_value\_enter\_container}}
+\index{cbor\_value\_enter\_container@{cbor\_value\_enter\_container}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_enter\_container()}{cbor\_value\_enter\_container()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga0c8a61e484973272f34b00cfbef9ddfd} 
+Cbor\+Error cbor\+\_\+value\+\_\+enter\+\_\+container (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{, }\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{recursed}{}\end{DoxyParamCaption})}
+
+Creates a \doxylink{struct_cbor_value}{Cbor\+Value} iterator pointing to the first element of the container represented by {\itshape it} and saves it in {\itshape recursed}. The {\itshape it} container object needs to be kept and passed again to \doxylink{group___cbor_parsing_ga51e02f0b62bc864fe8cf290988936e15}{cbor\+\_\+value\+\_\+leave\+\_\+container()} in order to continue iterating past this container.
+
+The {\itshape it} \doxylink{struct_cbor_value}{Cbor\+Value} iterator must point to a container.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gaa81dc38061da8f5c58e0aaa413d13723}{cbor\+\_\+value\+\_\+is\+\_\+container()}, \doxylink{group___cbor_parsing_ga51e02f0b62bc864fe8cf290988936e15}{cbor\+\_\+value\+\_\+leave\+\_\+container()}, \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gaadc932e7a29876faaaa4c2cee554c312}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_array\_length@{cbor\_value\_get\_array\_length}}
+\index{cbor\_value\_get\_array\_length@{cbor\_value\_get\_array\_length}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_array\_length()}{cbor\_value\_get\_array\_length()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gaadc932e7a29876faaaa4c2cee554c312} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+array\+\_\+length (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{length}{}\end{DoxyParamCaption})}
+
+Extracts the length of the CBOR array that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to a CBOR array, the behaviour is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or \doxylink{group___cbor_parsing_gafe18c4b4a6cb185aaebceed878c2d0f9}{cbor\+\_\+value\+\_\+is\+\_\+array} is recommended.
+
+If the length of this array is not encoded in the CBOR data stream, this function will return the recoverable error Cbor\+Error\+Unknown\+Length. You may also check whether that is the case by using \doxylink{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654}{cbor\+\_\+value\+\_\+is\+\_\+length\+\_\+known()}.
+
+\begin{DoxyNote}{Note}
+On 32-\/bit platforms, this function will return error condition of Cbor\+Error\+Data\+Too\+Large if the stream indicates a length that is too big to fit in 32-\/bit.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654}{cbor\+\_\+value\+\_\+is\+\_\+length\+\_\+known()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga5a86e5a26bb5d0a38f5f97de9c6e4254}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_boolean@{cbor\_value\_get\_boolean}}
+\index{cbor\_value\_get\_boolean@{cbor\_value\_get\_boolean}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_boolean()}{cbor\_value\_get\_boolean()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga5a86e5a26bb5d0a38f5f97de9c6e4254} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+boolean (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the boolean value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to a boolean value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_ga67a305be87c24a078014ce34c0388a88}{cbor\+\_\+value\+\_\+is\+\_\+boolean} is recommended.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga67a305be87c24a078014ce34c0388a88}{cbor\+\_\+value\+\_\+is\+\_\+boolean()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga09c8d1d8f37f28cefcf1a9b803e5d63b}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_float@{cbor\_value\_get\_float}}
+\index{cbor\_value\_get\_float@{cbor\_value\_get\_float}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_float()}{cbor\_value\_get\_float()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga09c8d1d8f37f28cefcf1a9b803e5d63b} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR single-\/precision floating point (32-\/bit) value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to a single-\/precision floating point value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_gac16777137bc6ef5b4ccf29f158c48499}{cbor\+\_\+value\+\_\+is\+\_\+float} is recommended.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gac16777137bc6ef5b4ccf29f158c48499}{cbor\+\_\+value\+\_\+is\+\_\+float()}, cbor\+\_\+value\+\_\+get\+\_\+double() 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga4dfb0c399dba22bac9e029c98fc5945d}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_half\_float@{cbor\_value\_get\_half\_float}}
+\index{cbor\_value\_get\_half\_float@{cbor\_value\_get\_half\_float}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_half\_float()}{cbor\_value\_get\_half\_float()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga4dfb0c399dba22bac9e029c98fc5945d} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+half\+\_\+float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR half-\/precision floating point (16-\/bit) value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to a half-\/precision floating point value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_ga312ad05ab6722f26d67bbcf3744d9bf5}{cbor\+\_\+value\+\_\+is\+\_\+half\+\_\+float} is recommended.
+
+Note\+: since the C language does not have a standard type for half-\/precision floating point, this function takes a {\ttfamily }\{void \texorpdfstring{$\ast$}{*}\} as a parameter for the storage area, which must be at least 16 bits wide.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga312ad05ab6722f26d67bbcf3744d9bf5}{cbor\+\_\+value\+\_\+is\+\_\+half\+\_\+float()}, \doxylink{tinycbor_2src_2cbor_8h_ab60d1baf169949ecda2ad47e2ad58a8c}{cbor\+\_\+value\+\_\+get\+\_\+half\+\_\+float\+\_\+as\+\_\+float()}, \doxylink{group___cbor_parsing_ga09c8d1d8f37f28cefcf1a9b803e5d63b}{cbor\+\_\+value\+\_\+get\+\_\+float()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga4c2df69dc63dbf9f2851fbebbf7d2641}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_int@{cbor\_value\_get\_int}}
+\index{cbor\_value\_get\_int@{cbor\_value\_get\_int}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_int()}{cbor\_value\_get\_int()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga4c2df69dc63dbf9f2851fbebbf7d2641} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+int (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR integer value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to an integer value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer} is recommended.
+
+Note that this function does not do range-\/checking\+: integral values that do not fit in a variable of type {\ttfamily }\{int\} are silently truncated to fit. Use \doxylink{group___cbor_parsing_gaf9b7aba18f57c255e744b874645ac9be}{cbor\+\_\+value\+\_\+get\+\_\+int\+\_\+checked()} if that is not acceptable.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gacc040297bf54ba8edfca0c95999ee28f}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_int64@{cbor\_value\_get\_int64}}
+\index{cbor\_value\_get\_int64@{cbor\_value\_get\_int64}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_int64()}{cbor\_value\_get\_int64()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gacc040297bf54ba8edfca0c95999ee28f} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+int64 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{int64\+\_\+t \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR integer value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to an integer value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer} is recommended.
+
+Note that this function does not do range-\/checking\+: integral values that do not fit in a variable of type {\ttfamily }\{int64\+\_\+t\} are silently truncated to fit. Use \doxylink{group___cbor_parsing_ga5bd9f8ab2b61aaeb31fd9b724622f0df}{cbor\+\_\+value\+\_\+get\+\_\+int64\+\_\+checked()} that is not acceptable.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga5bd9f8ab2b61aaeb31fd9b724622f0df}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_int64\_checked@{cbor\_value\_get\_int64\_checked}}
+\index{cbor\_value\_get\_int64\_checked@{cbor\_value\_get\_int64\_checked}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_int64\_checked()}{cbor\_value\_get\_int64\_checked()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga5bd9f8ab2b61aaeb31fd9b724622f0df} 
+Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+int64\+\_\+checked (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{int64\+\_\+t \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR integer value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to an integer value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer} is recommended.
+
+Unlike \doxylink{group___cbor_parsing_gacc040297bf54ba8edfca0c95999ee28f}{cbor\+\_\+value\+\_\+get\+\_\+int64()}, this function performs a check to see if the stored integer fits in {\itshape result} without data loss. If the number is outside the valid range for the data type, this function returns the recoverable error Cbor\+Error\+Data\+Too\+Large. In that case, use either \doxylink{group___cbor_parsing_ga0a16338a2e986df1943daa36ed45b314}{cbor\+\_\+value\+\_\+get\+\_\+uint64()} (if the number is positive) or \doxylink{group___cbor_parsing_ga456161362ca5f143873ec0920604e511}{cbor\+\_\+value\+\_\+get\+\_\+raw\+\_\+integer()}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer()}, \doxylink{group___cbor_parsing_gacc040297bf54ba8edfca0c95999ee28f}{cbor\+\_\+value\+\_\+get\+\_\+int64()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gaf9b7aba18f57c255e744b874645ac9be}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_int\_checked@{cbor\_value\_get\_int\_checked}}
+\index{cbor\_value\_get\_int\_checked@{cbor\_value\_get\_int\_checked}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_int\_checked()}{cbor\_value\_get\_int\_checked()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gaf9b7aba18f57c255e744b874645ac9be} 
+Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+int\+\_\+checked (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{int \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR integer value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to an integer value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer} is recommended.
+
+Unlike \doxylink{group___cbor_parsing_ga4c2df69dc63dbf9f2851fbebbf7d2641}{cbor\+\_\+value\+\_\+get\+\_\+int()}, this function performs a check to see if the stored integer fits in {\itshape result} without data loss. If the number is outside the valid range for the data type, this function returns the recoverable error Cbor\+Error\+Data\+Too\+Large. In that case, use one of the other integer functions to obtain the value.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer()}, \doxylink{group___cbor_parsing_gacc040297bf54ba8edfca0c95999ee28f}{cbor\+\_\+value\+\_\+get\+\_\+int64()}, \doxylink{group___cbor_parsing_ga0a16338a2e986df1943daa36ed45b314}{cbor\+\_\+value\+\_\+get\+\_\+uint64()}, \doxylink{group___cbor_parsing_ga5bd9f8ab2b61aaeb31fd9b724622f0df}{cbor\+\_\+value\+\_\+get\+\_\+int64\+\_\+checked()}, \doxylink{group___cbor_parsing_ga456161362ca5f143873ec0920604e511}{cbor\+\_\+value\+\_\+get\+\_\+raw\+\_\+integer()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga4576c332f41f9843defd4518c9f05f9f}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_map\_length@{cbor\_value\_get\_map\_length}}
+\index{cbor\_value\_get\_map\_length@{cbor\_value\_get\_map\_length}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_map\_length()}{cbor\_value\_get\_map\_length()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga4576c332f41f9843defd4518c9f05f9f} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+map\+\_\+length (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{length}{}\end{DoxyParamCaption})}
+
+Extracts the length of the CBOR map that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to a CBOR map, the behaviour is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or \doxylink{group___cbor_parsing_ga8664656ba3e9c183015ee0597eb0ad14}{cbor\+\_\+value\+\_\+is\+\_\+map} is recommended.
+
+If the length of this map is not encoded in the CBOR data stream, this function will return the recoverable error Cbor\+Error\+Unknown\+Length. You may also check whether that is the case by using \doxylink{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654}{cbor\+\_\+value\+\_\+is\+\_\+length\+\_\+known()}.
+
+\begin{DoxyNote}{Note}
+On 32-\/bit platforms, this function will return error condition of Cbor\+Error\+Data\+Too\+Large if the stream indicates a length that is too big to fit in 32-\/bit.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654}{cbor\+\_\+value\+\_\+is\+\_\+length\+\_\+known()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga63b68ca69abfaf77b14aebbcb3d624b7}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_next\_byte@{cbor\_value\_get\_next\_byte}}
+\index{cbor\_value\_get\_next\_byte@{cbor\_value\_get\_next\_byte}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_next\_byte()}{cbor\_value\_get\_next\_byte()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga63b68ca69abfaf77b14aebbcb3d624b7} 
+CBOR\+\_\+\+INLINE\+\_\+\+API const uint8\+\_\+t \texorpdfstring{$\ast$}{*} cbor\+\_\+value\+\_\+get\+\_\+next\+\_\+byte (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{}\end{DoxyParamCaption})}
+
+Returns a pointer to the next byte that would be decoded if this \doxylink{struct_cbor_value}{Cbor\+Value} object were advanced.
+
+This function is useful if \doxylink{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c}{cbor\+\_\+value\+\_\+at\+\_\+end()} returns true for the outermost \doxylink{struct_cbor_value}{Cbor\+Value}\+: the pointer returned is the first byte of the data remaining in the buffer, if any. Code can decide whether to begin decoding a new CBOR data stream from this point, or parse some other data appended to the same buffer.
+
+This function may be used even after a parsing error. If that occurred, then this function returns a pointer to where the parsing error occurred. Note that the error recovery is not precise and the pointer may not indicate the exact byte containing bad data.
+
+This function makes sense only when using a linear buffer (that is, when the parser is initialize by \doxylink{group___cbor_parsing_ga9016334cec2bfedef7eaa54da5144ea3}{cbor\+\_\+parser\+\_\+init()}). If using an external source, this function may return garbage; instead, consult the external source itself to find out more details about the presence of more data.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c}{cbor\+\_\+value\+\_\+at\+\_\+end()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga456161362ca5f143873ec0920604e511}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_raw\_integer@{cbor\_value\_get\_raw\_integer}}
+\index{cbor\_value\_get\_raw\_integer@{cbor\_value\_get\_raw\_integer}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_raw\_integer()}{cbor\_value\_get\_raw\_integer()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga456161362ca5f143873ec0920604e511} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+raw\+\_\+integer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR integer value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to an integer value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer} is recommended.
+
+This function is provided because CBOR negative integers can assume values that cannot be represented with normal 64-\/bit integer variables.
+
+If the integer is unsigned (that is, if \doxylink{group___cbor_parsing_ga635f32e893b27ce99c63481ac60039ea}{cbor\+\_\+value\+\_\+is\+\_\+unsigned\+\_\+integer()} returns true), then {\itshape result} will contain the actual value. If the integer is negative, then {\itshape result} will contain the absolute value of that integer, minus one. That is, {\ttfamily \{actual} = -\/result -\/ 1\}. On architectures using two\textquotesingle{}s complement for representation of negative integers, it is equivalent to say that {\itshape result} will contain the bitwise negation of the actual value.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}{cbor\+\_\+value\+\_\+is\+\_\+integer()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gac709a9bf6f6bd7cf0b5990729b227347}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_simple\_type@{cbor\_value\_get\_simple\_type}}
+\index{cbor\_value\_get\_simple\_type@{cbor\_value\_get\_simple\_type}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_simple\_type()}{cbor\_value\_get\_simple\_type()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gac709a9bf6f6bd7cf0b5990729b227347} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+simple\+\_\+type (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR Simple Type value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to a simple\+\_\+type value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_ga914cfcd3ef9a1bdb3a24e1d17a30a598}{cbor\+\_\+value\+\_\+is\+\_\+simple\+\_\+type} is recommended.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga914cfcd3ef9a1bdb3a24e1d17a30a598}{cbor\+\_\+value\+\_\+is\+\_\+simple\+\_\+type()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_string\_length@{cbor\_value\_get\_string\_length}}
+\index{cbor\_value\_get\_string\_length@{cbor\_value\_get\_string\_length}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_string\_length()}{cbor\_value\_get\_string\_length()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+length (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{length}{}\end{DoxyParamCaption})}
+
+Extracts the length of the byte or text string that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to a text string or a byte string, the behaviour is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type}, with \doxylink{group___cbor_parsing_ga813ddd9886a7cda6adfcf144a5c7e5d0}{cbor\+\_\+value\+\_\+is\+\_\+text\+\_\+string} or \doxylink{group___cbor_parsing_ga2b8db3ef5ad00e753d91b80e4858cc09}{cbor\+\_\+value\+\_\+is\+\_\+byte\+\_\+string} is recommended.
+
+If the length of this string is not encoded in the CBOR data stream, this function will return the recoverable error Cbor\+Error\+Unknown\+Length. You may also check whether that is the case by using \doxylink{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654}{cbor\+\_\+value\+\_\+is\+\_\+length\+\_\+known()}.
+
+If the length of the string is required but the length was not encoded, use \doxylink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length()}, but note that that function does not run in constant time.
+
+\begin{DoxyNote}{Note}
+On 32-\/bit platforms, this function will return error condition of Cbor\+Error\+Data\+Too\+Large if the stream indicates a length that is too big to fit in 32-\/bit.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654}{cbor\+\_\+value\+\_\+is\+\_\+length\+\_\+known()}, \doxylink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga9fbca99a44b699b212ebe2e46e878c64}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_tag@{cbor\_value\_get\_tag}}
+\index{cbor\_value\_get\_tag@{cbor\_value\_get\_tag}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_tag()}{cbor\_value\_get\_tag()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga9fbca99a44b699b212ebe2e46e878c64} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+tag (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{\mbox{\hyperlink{group___cbor_globals_ga1e767d4ba4cde0c284f42305758b34ff}{Cbor\+Tag}} \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR tag value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to a CBOR tag value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_ga8c1a6992342860f82b558565dc46e3c1}{cbor\+\_\+value\+\_\+is\+\_\+tag} is recommended.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga8c1a6992342860f82b558565dc46e3c1}{cbor\+\_\+value\+\_\+is\+\_\+tag()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga28a6a6ceccc0e296c88b19875e5f3db8}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_text\_string\_chunk@{cbor\_value\_get\_text\_string\_chunk}}
+\index{cbor\_value\_get\_text\_string\_chunk@{cbor\_value\_get\_text\_string\_chunk}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_text\_string\_chunk()}{cbor\_value\_get\_text\_string\_chunk()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga28a6a6ceccc0e296c88b19875e5f3db8} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+text\+\_\+string\+\_\+chunk (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{const char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{bufferptr}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{len}{, }\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{next}{}\end{DoxyParamCaption})}
+
+Extracts one text string chunk pointed to by {\itshape value} and stores a pointer to the data in {\itshape buffer} and the size in {\itshape len}, which must not be null. If no more chunks are available, then {\itshape bufferptr} will be set to null. This function may be used to iterate over any string without causing its contents to be copied to a separate buffer, like the convenience function \doxylink{group___cbor_parsing_gaece0fd051a5d18ebcf10cd1c6bf6030a}{cbor\+\_\+value\+\_\+copy\+\_\+text\+\_\+string()} does.
+
+It is designed to be used in code like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group___cbor_parsing_ga813ddd9886a7cda6adfcf144a5c7e5d0}{cbor\_value\_is\_text\_string}}(value))\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{char}\ *ptr;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{size\_t}\ len;}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{while}\ (1)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ err\ =\ \mbox{\hyperlink{group___cbor_parsing_ga28a6a6ceccc0e296c88b19875e5f3db8}{cbor\_value\_get\_text\_string\_chunk}}(value,\ \&ptr,\ \&len,\ \&value));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (err)\ \textcolor{keywordflow}{return}\ err;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr\ ==\ NULL)\ \textcolor{keywordflow}{return}\ CborNoError;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ consume(ptr,\ len);}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+If the iterator {\itshape value} does not point to a text string, the behaviour is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or \doxylink{group___cbor_parsing_ga813ddd9886a7cda6adfcf144a5c7e5d0}{cbor\+\_\+value\+\_\+is\+\_\+text\+\_\+string} is recommended.
+
+The {\itshape next} pointer, if not null, will be updated to point to the next item after this string. During iteration, the pointer must only be passed back again to this function; passing it to any other function in this library results in undefined behavior. If there are no more chunks to be read from {\itshape value}, then {\itshape next} will be set to the next item after this string; if {\itshape value} points to the last item, then {\itshape next} will be invalid.
+
+\begin{DoxyNote}{Note}
+This function does not perform UTF-\/8 validation on the incoming text string.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{tinycbor_2src_2cbor_8h_acb13d7784ff250b9b9f170cce866f685}{cbor\+\_\+value\+\_\+dup\+\_\+text\+\_\+string()}, \doxylink{group___cbor_parsing_gaece0fd051a5d18ebcf10cd1c6bf6030a}{cbor\+\_\+value\+\_\+copy\+\_\+text\+\_\+string()}, cbor\+\_\+value\+\_\+caculate\+\_\+string\+\_\+length(), cbor\+\_\+value\+\_\+get\+\_\+byte\+\_\+string\+\_\+chunk() 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_type@{cbor\_value\_get\_type}}
+\index{cbor\_value\_get\_type@{cbor\_value\_get\_type}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_type()}{cbor\_value\_get\_type()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Type cbor\+\_\+value\+\_\+get\+\_\+type (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns the type of the CBOR value that the iterator {\itshape value} points to. If {\itshape value} does not point to a valid value, this function returns Cbor\+Invalid\+Type.
+
+Tiny\+CBOR also provides functions to test directly if a given \doxylink{struct_cbor_value}{Cbor\+Value} object is of a given type, like \doxylink{group___cbor_parsing_ga813ddd9886a7cda6adfcf144a5c7e5d0}{cbor\+\_\+value\+\_\+is\+\_\+text\+\_\+string()} and \doxylink{group___cbor_parsing_ga469c8aa2802bdc40b88a4ee630fa15e5}{cbor\+\_\+value\+\_\+is\+\_\+null()}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga0a16338a2e986df1943daa36ed45b314}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_get\_uint64@{cbor\_value\_get\_uint64}}
+\index{cbor\_value\_get\_uint64@{cbor\_value\_get\_uint64}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_get\_uint64()}{cbor\_value\_get\_uint64()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga0a16338a2e986df1943daa36ed45b314} 
+CBOR\+\_\+\+INLINE\+\_\+\+API Cbor\+Error cbor\+\_\+value\+\_\+get\+\_\+uint64 (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{uint64\+\_\+t \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Retrieves the CBOR integer value that {\itshape value} points to and stores it in {\itshape result}. If the iterator {\itshape value} does not point to an unsigned integer value, the behavior is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or with \doxylink{group___cbor_parsing_ga635f32e893b27ce99c63481ac60039ea}{cbor\+\_\+value\+\_\+is\+\_\+unsigned\+\_\+integer} is recommended.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()}, \doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga635f32e893b27ce99c63481ac60039ea}{cbor\+\_\+value\+\_\+is\+\_\+unsigned\+\_\+integer()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gafe18c4b4a6cb185aaebceed878c2d0f9}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_array@{cbor\_value\_is\_array}}
+\index{cbor\_value\_is\_array@{cbor\_value\_is\_array}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_array()}{cbor\_value\_is\_array()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gafe18c4b4a6cb185aaebceed878c2d0f9} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+array (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR array.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga8664656ba3e9c183015ee0597eb0ad14}{cbor\+\_\+value\+\_\+is\+\_\+map()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga67a305be87c24a078014ce34c0388a88}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_boolean@{cbor\_value\_is\_boolean}}
+\index{cbor\_value\_is\_boolean@{cbor\_value\_is\_boolean}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_boolean()}{cbor\_value\_is\_boolean()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga67a305be87c24a078014ce34c0388a88} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+boolean (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR boolean type (true or false).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga5a86e5a26bb5d0a38f5f97de9c6e4254}{cbor\+\_\+value\+\_\+get\+\_\+boolean()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga2b8db3ef5ad00e753d91b80e4858cc09}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_byte\_string@{cbor\_value\_is\_byte\_string}}
+\index{cbor\_value\_is\_byte\_string@{cbor\_value\_is\_byte\_string}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_byte\_string()}{cbor\_value\_is\_byte\_string()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga2b8db3ef5ad00e753d91b80e4858cc09} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+byte\+\_\+string (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR byte string. CBOR byte strings are binary data with no specified encoding or format.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab}{cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+length()}, \doxylink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length()}, \doxylink{group___cbor_parsing_ga595476b2dd07513d2e81f2dff5fc434e}{cbor\+\_\+value\+\_\+copy\+\_\+byte\+\_\+string()}, \doxylink{tinycbor_2src_2cbor_8h_a71034c6ec68691f724263db74284fdaf}{cbor\+\_\+value\+\_\+dup\+\_\+byte\+\_\+string()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gaa81dc38061da8f5c58e0aaa413d13723}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_container@{cbor\_value\_is\_container}}
+\index{cbor\_value\_is\_container@{cbor\_value\_is\_container}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_container()}{cbor\_value\_is\_container()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gaa81dc38061da8f5c58e0aaa413d13723} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+container (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{}\end{DoxyParamCaption})}
+
+Returns true if the {\itshape it} value is a container and requires recursion in order to decode (maps and arrays), false otherwise. \Hypertarget{group___cbor_parsing_ga2e16b4704a53c0aed1ca3d36ee4ea282}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_double@{cbor\_value\_is\_double}}
+\index{cbor\_value\_is\_double@{cbor\_value\_is\_double}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_double()}{cbor\_value\_is\_double()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga2e16b4704a53c0aed1ca3d36ee4ea282} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+double (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR double-\/precision floating point (64-\/bit).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gac16777137bc6ef5b4ccf29f158c48499}{cbor\+\_\+value\+\_\+is\+\_\+float()}, \doxylink{group___cbor_parsing_ga312ad05ab6722f26d67bbcf3744d9bf5}{cbor\+\_\+value\+\_\+is\+\_\+half\+\_\+float()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gac16777137bc6ef5b4ccf29f158c48499}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_float@{cbor\_value\_is\_float}}
+\index{cbor\_value\_is\_float@{cbor\_value\_is\_float}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_float()}{cbor\_value\_is\_float()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gac16777137bc6ef5b4ccf29f158c48499} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR single-\/precision floating point (32-\/bit).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga2e16b4704a53c0aed1ca3d36ee4ea282}{cbor\+\_\+value\+\_\+is\+\_\+double()}, \doxylink{group___cbor_parsing_ga312ad05ab6722f26d67bbcf3744d9bf5}{cbor\+\_\+value\+\_\+is\+\_\+half\+\_\+float()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga312ad05ab6722f26d67bbcf3744d9bf5}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_half\_float@{cbor\_value\_is\_half\_float}}
+\index{cbor\_value\_is\_half\_float@{cbor\_value\_is\_half\_float}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_half\_float()}{cbor\_value\_is\_half\_float()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga312ad05ab6722f26d67bbcf3744d9bf5} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+half\+\_\+float (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR single-\/precision floating point (16-\/bit).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga2e16b4704a53c0aed1ca3d36ee4ea282}{cbor\+\_\+value\+\_\+is\+\_\+double()}, \doxylink{group___cbor_parsing_gac16777137bc6ef5b4ccf29f158c48499}{cbor\+\_\+value\+\_\+is\+\_\+float()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_integer@{cbor\_value\_is\_integer}}
+\index{cbor\_value\_is\_integer@{cbor\_value\_is\_integer}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_integer()}{cbor\_value\_is\_integer()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gab31913738c4470d6391d795143a97ab1} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+integer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR integer type.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga4c2df69dc63dbf9f2851fbebbf7d2641}{cbor\+\_\+value\+\_\+get\+\_\+int}, \doxylink{group___cbor_parsing_gacc040297bf54ba8edfca0c95999ee28f}{cbor\+\_\+value\+\_\+get\+\_\+int64}, \doxylink{group___cbor_parsing_ga0a16338a2e986df1943daa36ed45b314}{cbor\+\_\+value\+\_\+get\+\_\+uint64}, \doxylink{group___cbor_parsing_ga456161362ca5f143873ec0920604e511}{cbor\+\_\+value\+\_\+get\+\_\+raw\+\_\+integer} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_length\_known@{cbor\_value\_is\_length\_known}}
+\index{cbor\_value\_is\_length\_known@{cbor\_value\_is\_length\_known}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_length\_known()}{cbor\_value\_is\_length\_known()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga44927d2f0911683ab2936464185e2654} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+length\+\_\+known (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the length of this type is known without calculation. That is, if the length of this CBOR string, map or array is encoded in the data stream, this function returns true. If the length is not encoded, it returns false.
+
+If the length is known, code can call \doxylink{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab}{cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+length()}, \doxylink{group___cbor_parsing_gaadc932e7a29876faaaa4c2cee554c312}{cbor\+\_\+value\+\_\+get\+\_\+array\+\_\+length()} or \doxylink{group___cbor_parsing_ga4576c332f41f9843defd4518c9f05f9f}{cbor\+\_\+value\+\_\+get\+\_\+map\+\_\+length()} to obtain the length. If the length is not known but is necessary, code can use the \doxylink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length()} function (no equivalent function is provided for maps and arrays). \Hypertarget{group___cbor_parsing_ga8664656ba3e9c183015ee0597eb0ad14}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_map@{cbor\_value\_is\_map}}
+\index{cbor\_value\_is\_map@{cbor\_value\_is\_map}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_map()}{cbor\_value\_is\_map()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga8664656ba3e9c183015ee0597eb0ad14} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+map (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR map.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gafe18c4b4a6cb185aaebceed878c2d0f9}{cbor\+\_\+value\+\_\+is\+\_\+array()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga258aa8261b3a5c75c7f0e832cd432538}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_negative\_integer@{cbor\_value\_is\_negative\_integer}}
+\index{cbor\_value\_is\_negative\_integer@{cbor\_value\_is\_negative\_integer}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_negative\_integer()}{cbor\_value\_is\_negative\_integer()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga258aa8261b3a5c75c7f0e832cd432538} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+negative\+\_\+integer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR negative integer type.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga4c2df69dc63dbf9f2851fbebbf7d2641}{cbor\+\_\+value\+\_\+get\+\_\+int}, \doxylink{group___cbor_parsing_gacc040297bf54ba8edfca0c95999ee28f}{cbor\+\_\+value\+\_\+get\+\_\+int64}, \doxylink{group___cbor_parsing_ga456161362ca5f143873ec0920604e511}{cbor\+\_\+value\+\_\+get\+\_\+raw\+\_\+integer} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga469c8aa2802bdc40b88a4ee630fa15e5}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_null@{cbor\_value\_is\_null}}
+\index{cbor\_value\_is\_null@{cbor\_value\_is\_null}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_null()}{cbor\_value\_is\_null()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga469c8aa2802bdc40b88a4ee630fa15e5} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+null (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR null type.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gaf1f4eb0dfe7a7dc8d59e218c128e233e}{cbor\+\_\+value\+\_\+is\+\_\+undefined()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga914cfcd3ef9a1bdb3a24e1d17a30a598}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_simple\_type@{cbor\_value\_is\_simple\_type}}
+\index{cbor\_value\_is\_simple\_type@{cbor\_value\_is\_simple\_type}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_simple\_type()}{cbor\_value\_is\_simple\_type()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga914cfcd3ef9a1bdb3a24e1d17a30a598} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+simple\+\_\+type (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR Simple Type type (other than true, false, null and undefined).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gac709a9bf6f6bd7cf0b5990729b227347}{cbor\+\_\+value\+\_\+get\+\_\+simple\+\_\+type()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga8c1a6992342860f82b558565dc46e3c1}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_tag@{cbor\_value\_is\_tag}}
+\index{cbor\_value\_is\_tag@{cbor\_value\_is\_tag}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_tag()}{cbor\_value\_is\_tag()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga8c1a6992342860f82b558565dc46e3c1} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+tag (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR tag.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga9fbca99a44b699b212ebe2e46e878c64}{cbor\+\_\+value\+\_\+get\+\_\+tag()}, \doxylink{group___cbor_parsing_ga2b805f0f440905a7ba4f93b3569bb97b}{cbor\+\_\+value\+\_\+skip\+\_\+tag()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga813ddd9886a7cda6adfcf144a5c7e5d0}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_text\_string@{cbor\_value\_is\_text\_string}}
+\index{cbor\_value\_is\_text\_string@{cbor\_value\_is\_text\_string}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_text\_string()}{cbor\_value\_is\_text\_string()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga813ddd9886a7cda6adfcf144a5c7e5d0} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+text\+\_\+string (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR text string. CBOR text strings are UTF-\/8 encoded and usually contain human-\/readable text.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga8cac103d540efc93b42d8cb8d1af43ab}{cbor\+\_\+value\+\_\+get\+\_\+string\+\_\+length()}, \doxylink{group___cbor_parsing_gad5b2dd803244946b15603e09ce147044}{cbor\+\_\+value\+\_\+calculate\+\_\+string\+\_\+length()}, \doxylink{group___cbor_parsing_gaece0fd051a5d18ebcf10cd1c6bf6030a}{cbor\+\_\+value\+\_\+copy\+\_\+text\+\_\+string()}, \doxylink{tinycbor_2src_2cbor_8h_acb13d7784ff250b9b9f170cce866f685}{cbor\+\_\+value\+\_\+dup\+\_\+text\+\_\+string()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gaf1f4eb0dfe7a7dc8d59e218c128e233e}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_undefined@{cbor\_value\_is\_undefined}}
+\index{cbor\_value\_is\_undefined@{cbor\_value\_is\_undefined}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_undefined()}{cbor\_value\_is\_undefined()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gaf1f4eb0dfe7a7dc8d59e218c128e233e} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+undefined (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR undefined type.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga469c8aa2802bdc40b88a4ee630fa15e5}{cbor\+\_\+value\+\_\+is\+\_\+null()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga635f32e893b27ce99c63481ac60039ea}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_unsigned\_integer@{cbor\_value\_is\_unsigned\_integer}}
+\index{cbor\_value\_is\_unsigned\_integer@{cbor\_value\_is\_unsigned\_integer}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_unsigned\_integer()}{cbor\_value\_is\_unsigned\_integer()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga635f32e893b27ce99c63481ac60039ea} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+unsigned\+\_\+integer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape value} is valid and points to a CBOR unsigned integer type (positive values or zero).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_ga0a16338a2e986df1943daa36ed45b314}{cbor\+\_\+value\+\_\+get\+\_\+uint64()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_is\_valid@{cbor\_value\_is\_valid}}
+\index{cbor\_value\_is\_valid@{cbor\_value\_is\_valid}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_is\_valid()}{cbor\_value\_is\_valid()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb} 
+CBOR\+\_\+\+INLINE\+\_\+\+API bool cbor\+\_\+value\+\_\+is\+\_\+valid (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{}\end{DoxyParamCaption})}
+
+Returns true if the iterator {\itshape it} contains a valid value. Invalid iterators happen when iteration reaches the end of a container (see \doxylink{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c}{cbor\+\_\+value\+\_\+at\+\_\+end()}) or when a search function resulted in no matches.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()}, \doxylink{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c}{cbor\+\_\+value\+\_\+at\+\_\+end()}, \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga51e02f0b62bc864fe8cf290988936e15}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_leave\_container@{cbor\_value\_leave\_container}}
+\index{cbor\_value\_leave\_container@{cbor\_value\_leave\_container}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_leave\_container()}{cbor\_value\_leave\_container()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga51e02f0b62bc864fe8cf290988936e15} 
+Cbor\+Error cbor\+\_\+value\+\_\+leave\+\_\+container (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{, }\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{recursed}{}\end{DoxyParamCaption})}
+
+Updates {\itshape it} to point to the next element after the container. The {\itshape recursed} object needs to point to the element obtained either by advancing the last element of the container (via \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()}, \doxylink{group___cbor_parsing_gac0701f791608589ddfff0bdb8acee7b4}{cbor\+\_\+value\+\_\+advance\+\_\+fixed()}, a nested \doxylink{group___cbor_parsing_ga51e02f0b62bc864fe8cf290988936e15}{cbor\+\_\+value\+\_\+leave\+\_\+container()}, or the {\ttfamily next} pointer from cbor\+\_\+value\+\_\+copy\+\_\+string() or cbor\+\_\+value\+\_\+dup\+\_\+string()).
+
+The {\itshape it} and {\itshape recursed} parameters must be the exact same as passed to \doxylink{group___cbor_parsing_ga0c8a61e484973272f34b00cfbef9ddfd}{cbor\+\_\+value\+\_\+enter\+\_\+container()}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga0c8a61e484973272f34b00cfbef9ddfd}{cbor\+\_\+value\+\_\+enter\+\_\+container()}, \doxylink{group___cbor_parsing_ga053a5001d8dc2256eaac333a64c1cd9c}{cbor\+\_\+value\+\_\+at\+\_\+end()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gaf145f4513ce734265d0128429cc4d5bd}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_map\_find\_value@{cbor\_value\_map\_find\_value}}
+\index{cbor\_value\_map\_find\_value@{cbor\_value\_map\_find\_value}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_map\_find\_value()}{cbor\_value\_map\_find\_value()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gaf145f4513ce734265d0128429cc4d5bd} 
+Cbor\+Error cbor\+\_\+value\+\_\+map\+\_\+find\+\_\+value (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{map}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{element}{}\end{DoxyParamCaption})}
+
+Attempts to find the value in map {\itshape map} that corresponds to the text string entry {\itshape string}. If the iterator {\itshape value} does not point to a CBOR map, the behaviour is undefined, so checking with \doxylink{group___cbor_parsing_ga89c669eb345c1f6fa0c017e6a96d8fee}{cbor\+\_\+value\+\_\+get\+\_\+type} or \doxylink{group___cbor_parsing_ga8664656ba3e9c183015ee0597eb0ad14}{cbor\+\_\+value\+\_\+is\+\_\+map} is recommended.
+
+If the item is found, it is stored in {\itshape result}. If no item is found matching the key, then {\itshape result} will contain an element of type Cbor\+Invalid\+Type. Matching is performed using \doxylink{group___cbor_parsing_gac8f08df74d65c8454528824a667550ec}{cbor\+\_\+value\+\_\+text\+\_\+string\+\_\+equals()}, so tagged strings will also match.
+
+This function has a time complexity of O(n) where n is the number of elements in the map to be searched. In addition, this function is has O(n) memory requirement based on the number of nested containers (maps or arrays) found as elements of this map.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gab1f11e63bc074828e6366fb368def4fb}{cbor\+\_\+value\+\_\+is\+\_\+valid()}, \doxylink{group___cbor_parsing_gac8f08df74d65c8454528824a667550ec}{cbor\+\_\+value\+\_\+text\+\_\+string\+\_\+equals()}, \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga2b805f0f440905a7ba4f93b3569bb97b}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_skip\_tag@{cbor\_value\_skip\_tag}}
+\index{cbor\_value\_skip\_tag@{cbor\_value\_skip\_tag}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_skip\_tag()}{cbor\_value\_skip\_tag()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga2b805f0f440905a7ba4f93b3569bb97b} 
+Cbor\+Error cbor\+\_\+value\+\_\+skip\+\_\+tag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{}\end{DoxyParamCaption})}
+
+Advances the CBOR value {\itshape it} until it no longer points to a tag. If {\itshape it} is already not pointing to a tag, then this function returns it unchanged.
+
+This function does not run in constant time\+: it will run on O(n) for n being the number of tags. It does use constant memory (O(1) memory requirements).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_gac0701f791608589ddfff0bdb8acee7b4}{cbor\+\_\+value\+\_\+advance\+\_\+fixed()}, \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_gac8f08df74d65c8454528824a667550ec}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_text\_string\_equals@{cbor\_value\_text\_string\_equals}}
+\index{cbor\_value\_text\_string\_equals@{cbor\_value\_text\_string\_equals}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_text\_string\_equals()}{cbor\_value\_text\_string\_equals()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_gac8f08df74d65c8454528824a667550ec} 
+Cbor\+Error cbor\+\_\+value\+\_\+text\+\_\+string\+\_\+equals (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{string}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+Compares the entry {\itshape value} with the string {\itshape string} and stores the result in {\itshape result}. If the value is different from {\itshape string} {\itshape result} will contain {\ttfamily false}.
+
+The entry at {\itshape value} may be a tagged string. If {\itshape value} is not a string or a tagged string, the comparison result will be false.
+
+CBOR requires text strings to be encoded in UTF-\/8, but this function does not validate either the strings in the stream or the string {\itshape string} to be matched. Moreover, comparison is done on strict codepoint comparison, without any Unicode normalization.
+
+This function may not run in constant time (it will run in O(n) time on the number of chunks). It requires constant memory (O(1)).
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga2b805f0f440905a7ba4f93b3569bb97b}{cbor\+\_\+value\+\_\+skip\+\_\+tag()}, \doxylink{group___cbor_parsing_gaece0fd051a5d18ebcf10cd1c6bf6030a}{cbor\+\_\+value\+\_\+copy\+\_\+text\+\_\+string()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga4d114f26cbc9c40e3424a783a0c08e7e}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_validate@{cbor\_value\_validate}}
+\index{cbor\_value\_validate@{cbor\_value\_validate}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_validate()}{cbor\_value\_validate()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga4d114f26cbc9c40e3424a783a0c08e7e} 
+Cbor\+Error cbor\+\_\+value\+\_\+validate (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{, }\item[{uint32\+\_\+t}]{flags}{}\end{DoxyParamCaption})}
+
+Performs a full validation, controlled by the {\itshape flags} options, of the CBOR stream pointed by {\itshape it} and returns the error it found. If no error was found, it returns Cbor\+No\+Error and the application can iterate over the items with certainty that no errors will appear during parsing.
+
+If {\itshape flags} is Cbor\+Validate\+Basic, the result should be the same as \doxylink{group___cbor_parsing_ga19b60bc2cff3d3ffcc81adbcad09fd58}{cbor\+\_\+value\+\_\+validate\+\_\+basic()}.
+
+This function has the same timing and memory requirements as \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()} and \doxylink{group___cbor_parsing_ga19b60bc2cff3d3ffcc81adbcad09fd58}{cbor\+\_\+value\+\_\+validate\+\_\+basic()}.
+
+\begin{DoxySeeAlso}{See also}
+Cbor\+Validation\+Flags, \doxylink{group___cbor_parsing_ga19b60bc2cff3d3ffcc81adbcad09fd58}{cbor\+\_\+value\+\_\+validate\+\_\+basic()}, \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()} 
+\end{DoxySeeAlso}
+\Hypertarget{group___cbor_parsing_ga19b60bc2cff3d3ffcc81adbcad09fd58}\index{Parsing CBOR streams@{Parsing CBOR streams}!cbor\_value\_validate\_basic@{cbor\_value\_validate\_basic}}
+\index{cbor\_value\_validate\_basic@{cbor\_value\_validate\_basic}!Parsing CBOR streams@{Parsing CBOR streams}}
+\doxysubsubsection{\texorpdfstring{cbor\_value\_validate\_basic()}{cbor\_value\_validate\_basic()}}
+{\footnotesize\ttfamily \label{group___cbor_parsing_ga19b60bc2cff3d3ffcc81adbcad09fd58} 
+Cbor\+Error cbor\+\_\+value\+\_\+validate\+\_\+basic (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_cbor_value}{Cbor\+Value}} \texorpdfstring{$\ast$}{*}}]{it}{}\end{DoxyParamCaption})}
+
+Performs a basic validation of the CBOR stream pointed by {\itshape it} and returns the error it found. If no error was found, it returns Cbor\+No\+Error and the application can iterate over the items with certainty that no other errors will appear during parsing.
+
+A basic validation checks for\+: \textbackslash{}list \begin{DoxyItemize}
+\item absence of undefined additional information bytes; \item well-\/formedness of all numbers, lengths, and simple values; \item string contents match reported sizes; \item arrays and maps contain the number of elements they are reported to have; \textbackslash{}endlist\end{DoxyItemize}
+For further checks, see \doxylink{group___cbor_parsing_ga4d114f26cbc9c40e3424a783a0c08e7e}{cbor\+\_\+value\+\_\+validate()}.
+
+This function has the same timing and memory requirements as \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{group___cbor_parsing_ga4d114f26cbc9c40e3424a783a0c08e7e}{cbor\+\_\+value\+\_\+validate()}, \doxylink{group___cbor_parsing_gae2ede5aacd59f04437c24ef8ca2f449a}{cbor\+\_\+value\+\_\+advance()} 
+\end{DoxySeeAlso}

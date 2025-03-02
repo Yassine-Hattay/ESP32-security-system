@@ -1,0 +1,261 @@
+\doxysection{ekf\+\_\+imu13states Class Reference}
+\hypertarget{classekf__imu13states}{}\label{classekf__imu13states}\index{ekf\_imu13states@{ekf\_imu13states}}
+
+
+This class is used to process and calculate attitude from imu sensors.  
+
+
+
+
+{\ttfamily \#include $<$ekf\+\_\+imu13states.\+h$>$}
+
+Inheritance diagram for ekf\+\_\+imu13states\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classekf__imu13states}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classekf__imu13states_af9d689b4d151401d6a654390ac34599e}{Init}} ()
+\item 
+virtual \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf__imu13states_af497d6d258b35c5e602f9816cd515267}{State\+Xdot}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&x, float \texorpdfstring{$\ast$}{*}u)
+\item 
+virtual void \mbox{\hyperlink{classekf__imu13states_aa45e9518c23a0fb627e9018d75195008}{Linearize\+FG}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&x, float \texorpdfstring{$\ast$}{*}u)
+\item 
+void \mbox{\hyperlink{classekf__imu13states_a78292836f30dfd6439ee3bdda30ed20f}{Test}} ()
+\item 
+void \mbox{\hyperlink{classekf__imu13states_a7f315abd38007e57247edc0967d688f7}{Test\+Full}} (bool enable\+\_\+att)
+\item 
+void \mbox{\hyperlink{classekf__imu13states_a84709d79f66591f90fea7c532d73ba14}{Update\+Ref\+Measurement}} (float \texorpdfstring{$\ast$}{*}accel\+\_\+data, float \texorpdfstring{$\ast$}{*}magn\+\_\+data, float R\mbox{[}6\mbox{]})
+\item 
+void \mbox{\hyperlink{classekf__imu13states_ad56f37dbe6dece11f6ff670e478099b1}{Update\+Ref\+Measurement\+Magn}} (float \texorpdfstring{$\ast$}{*}accel\+\_\+data, float \texorpdfstring{$\ast$}{*}magn\+\_\+data, float R\mbox{[}6\mbox{]})
+\item 
+void \mbox{\hyperlink{classekf__imu13states_a09f6e9adfc80a65e41a6e11ffd89fc53}{Update\+Ref\+Measurement}} (float \texorpdfstring{$\ast$}{*}accel\+\_\+data, float \texorpdfstring{$\ast$}{*}magn\+\_\+data, float \texorpdfstring{$\ast$}{*}attitude, float R\mbox{[}10\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classekf}{ekf}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classekf_a48b8f056f76ddf4a0d3520cc4ef8bade}{ekf}} (int x, int w)
+\item 
+virtual \mbox{\hyperlink{classekf_a53310949764a49b3bcd3308a61035ea6}{\texorpdfstring{$\sim$}{\string~}ekf}} ()
+\item 
+virtual void \mbox{\hyperlink{classekf_a42ee022dba96611bf76d0d29bf964323}{Process}} (float \texorpdfstring{$\ast$}{*}u, float dt)
+\item 
+void \mbox{\hyperlink{classekf_a8f28807c86b11b95cc95bd514e65ea61}{Runge\+Kutta}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&x, float \texorpdfstring{$\ast$}{*}u, float dt)
+\item 
+virtual void \mbox{\hyperlink{classekf_a6588ad6c3eae0d1a177b35ea75b5a4f3}{Covariance\+Prediction}} (float dt)
+\item 
+virtual void \mbox{\hyperlink{classekf_a7df41e0ecb82824766219aa5f9b0baef}{Update}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&H, float \texorpdfstring{$\ast$}{*}measured, float \texorpdfstring{$\ast$}{*}expected, float \texorpdfstring{$\ast$}{*}R)
+\item 
+virtual void \mbox{\hyperlink{classekf_abd6f35d1ea69828aa0f757762fac9498}{Update\+Ref}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&H, float \texorpdfstring{$\ast$}{*}measured, float \texorpdfstring{$\ast$}{*}expected, float \texorpdfstring{$\ast$}{*}R)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf__imu13states_a6f9c0942bd5f15b48bf0994f9ff1de46}{mag0}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf__imu13states_a6310344a4fe79a1b43b12ba1a4a77f8f}{accel0}}
+\item 
+int \mbox{\hyperlink{classekf__imu13states_ae89c38a1cea846bbff4d29be0f889694}{NUMU}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classekf}{ekf}}}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classekf_a672e2e271d7379a892ae554bc85bb501}{NUMX}}
+\item 
+int \mbox{\hyperlink{classekf_a0ab2d70220897d9d46c69779a7b328b3}{NUMW}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_aafa437baa4fffcaf7f23a208b5f3c0ef}{X}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_a398d5183c29186005345fcd8c64527c6}{F}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_a74b97ee7d2233618504b3e75f63590f7}{G}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_ad3322abbbf7592fb5bd465f77852d1ca}{P}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_abff61d16eab399042a4812117ca2834d}{Q}}
+\item 
+float \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classekf_a5cc7771e316d6688d793eb577ef7233f}{HP}}
+\item 
+float \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classekf_ae2753a0e5f01f1aaab26f845bf285f94}{Km}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classekf}{ekf}}}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a535f152864f2732a9888d4f959bd21fa}{quat2rotm}} (float q\mbox{[}4\mbox{]})
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a148bfefd351013bb66d84b160ce31ee3}{rotm2quat}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&R)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_aabe55260916190d327990bcb152b4c00}{quat2eul}} (const float q\mbox{[}4\mbox{]})
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a6e279ffd67d217145d7891a44ea0d9e8}{eul2rotm}} (float xyz\mbox{[}3\mbox{]})
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a744bf24c20081158a4327aba7d922547}{rotm2eul}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&rotm)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a17fb9f1cd3507611560518882bc530fe}{d\+Fdq}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&vector, \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&quat)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a3affa0048058ee2485dcb28d718be907}{d\+Fdq\+\_\+inv}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&vector, \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&quat)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_aeca3bb4b4c62c2e5aa7728abb652d7b5}{Skew\+Sym4x4}} (float \texorpdfstring{$\ast$}{*}w)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_ac8d09350d77dfdc0525b1fd72333fa3e}{q\+Product}} (float \texorpdfstring{$\ast$}{*}q)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is used to process and calculate attitude from imu sensors. 
+
+The class use state vector with 13 follows values X\mbox{[}0..3\mbox{]} -\/ attitude quaternion X\mbox{[}4..6\mbox{]} -\/ gyroscope bias error, rad/sec X\mbox{[}7..9\mbox{]} -\/ magnetometer vector value -\/ magn\+\_\+ampl X\mbox{[}10..12\mbox{]} -\/ magnetometer offset value -\/ magn\+\_\+offset
+
+where, reference magnetometer value = magn\+\_\+ampl\texorpdfstring{$\ast$}{*}rotation\+\_\+matrix\textquotesingle{} + magn\+\_\+offset 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classekf__imu13states_af9d689b4d151401d6a654390ac34599e}\index{ekf\_imu13states@{ekf\_imu13states}!Init@{Init}}
+\index{Init@{Init}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{classekf__imu13states_af9d689b4d151401d6a654390ac34599e} 
+void ekf\+\_\+imu13states\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Initialization of EKF. The method should be called befare the first use of the filter. 
+
+Implements \mbox{\hyperlink{classekf_ace6dffc4003cb67f3021d7cb4e884c82}{ekf}}.
+
+\Hypertarget{classekf__imu13states_aa45e9518c23a0fb627e9018d75195008}\index{ekf\_imu13states@{ekf\_imu13states}!LinearizeFG@{LinearizeFG}}
+\index{LinearizeFG@{LinearizeFG}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{LinearizeFG()}{LinearizeFG()}}
+{\footnotesize\ttfamily \label{classekf__imu13states_aa45e9518c23a0fb627e9018d75195008} 
+void ekf\+\_\+imu13states\+::\+Linearize\+FG (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{u}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Calculation of system state matrices F and G 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & state vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em u} & control measurement \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classekf_a21cccadc5b6e3150a55b8964526e206f}{ekf}}.
+
+\Hypertarget{classekf__imu13states_af497d6d258b35c5e602f9816cd515267}\index{ekf\_imu13states@{ekf\_imu13states}!StateXdot@{StateXdot}}
+\index{StateXdot@{StateXdot}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{StateXdot()}{StateXdot()}}
+{\footnotesize\ttfamily \label{classekf__imu13states_af497d6d258b35c5e602f9816cd515267} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+\_\+imu13states\+::\+State\+Xdot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{u}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Derivative of state vector X The default calculation\+: x\+Dot = F\texorpdfstring{$\ast$}{*}x + G\texorpdfstring{$\ast$}{*}u It\textquotesingle{}s possible to implement optimized version 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & state vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em u} & control measurement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+x\+Dot -\/ derivative of input vector x and u 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{classekf_a09a763aeb193404116274d2885c42172}{ekf}}.
+
+\Hypertarget{classekf__imu13states_a78292836f30dfd6439ee3bdda30ed20f}\index{ekf\_imu13states@{ekf\_imu13states}!Test@{Test}}
+\index{Test@{Test}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{Test()}{Test()}}
+{\footnotesize\ttfamily \label{classekf__imu13states_a78292836f30dfd6439ee3bdda30ed20f} 
+void ekf\+\_\+imu13states\+::\+Test (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Method for development and tests only. \Hypertarget{classekf__imu13states_a7f315abd38007e57247edc0967d688f7}\index{ekf\_imu13states@{ekf\_imu13states}!TestFull@{TestFull}}
+\index{TestFull@{TestFull}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{TestFull()}{TestFull()}}
+{\footnotesize\ttfamily \label{classekf__imu13states_a7f315abd38007e57247edc0967d688f7} 
+void ekf\+\_\+imu13states\+::\+Test\+Full (\begin{DoxyParamCaption}\item[{bool}]{enable\+\_\+att}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Method for development and tests only.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em enable\+\_\+att} & -\/ enable attitude as input reference value \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classekf__imu13states_a09f6e9adfc80a65e41a6e11ffd89fc53}\index{ekf\_imu13states@{ekf\_imu13states}!UpdateRefMeasurement@{UpdateRefMeasurement}}
+\index{UpdateRefMeasurement@{UpdateRefMeasurement}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{UpdateRefMeasurement()}{UpdateRefMeasurement()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classekf__imu13states_a09f6e9adfc80a65e41a6e11ffd89fc53} 
+void ekf\+\_\+imu13states\+::\+Update\+Ref\+Measurement (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{accel\+\_\+data}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{magn\+\_\+data}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{attitude}{, }\item[{float}]{R}{\mbox{[}10\mbox{]}}\end{DoxyParamCaption})}
+
+Update system state by reference measurements accelerometer, magnetometer and attitude quaternion. This method could be used when system on constant state or in initialization phase. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em accel\+\_\+data} & accelerometer measurement vector XYZ in g, where 1 g \texorpdfstring{$\sim$}{\string~} 9.\+81 m/s\texorpdfstring{$^\wedge$}{\string^}2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em magn\+\_\+data} & magnetometer measurement vector XYZ \\
+\hline
+\mbox{\texttt{ in}}  & {\em attitude} & attitude quaternion \\
+\hline
+\mbox{\texttt{ in}}  & {\em R} & measurement noise covariance values for diagonal covariance matrix. Then smaller value, then more you trust them. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classekf__imu13states_a84709d79f66591f90fea7c532d73ba14}\index{ekf\_imu13states@{ekf\_imu13states}!UpdateRefMeasurement@{UpdateRefMeasurement}}
+\index{UpdateRefMeasurement@{UpdateRefMeasurement}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{UpdateRefMeasurement()}{UpdateRefMeasurement()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classekf__imu13states_a84709d79f66591f90fea7c532d73ba14} 
+void ekf\+\_\+imu13states\+::\+Update\+Ref\+Measurement (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{accel\+\_\+data}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{magn\+\_\+data}{, }\item[{float}]{R}{\mbox{[}6\mbox{]}}\end{DoxyParamCaption})}
+
+Update part of system state by reference measurements accelerometer and magnetometer. Only attitude and gyro bias will be updated. This method should be used as main method after calibration.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em accel\+\_\+data} & accelerometer measurement vector XYZ in g, where 1 g \texorpdfstring{$\sim$}{\string~} 9.\+81 m/s\texorpdfstring{$^\wedge$}{\string^}2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em magn\+\_\+data} & magnetometer measurement vector XYZ \\
+\hline
+\mbox{\texttt{ in}}  & {\em R} & measurement noise covariance values for diagonal covariance matrix. Then smaller value, then more you trust them. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classekf__imu13states_ad56f37dbe6dece11f6ff670e478099b1}\index{ekf\_imu13states@{ekf\_imu13states}!UpdateRefMeasurementMagn@{UpdateRefMeasurementMagn}}
+\index{UpdateRefMeasurementMagn@{UpdateRefMeasurementMagn}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{UpdateRefMeasurementMagn()}{UpdateRefMeasurementMagn()}}
+{\footnotesize\ttfamily \label{classekf__imu13states_ad56f37dbe6dece11f6ff670e478099b1} 
+void ekf\+\_\+imu13states\+::\+Update\+Ref\+Measurement\+Magn (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{accel\+\_\+data}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{magn\+\_\+data}{, }\item[{float}]{R}{\mbox{[}6\mbox{]}}\end{DoxyParamCaption})}
+
+Update full system state by reference measurements accelerometer and magnetometer. This method should be used at calibration phase.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em accel\+\_\+data} & accelerometer measurement vector XYZ in g, where 1 g \texorpdfstring{$\sim$}{\string~} 9.\+81 m/s\texorpdfstring{$^\wedge$}{\string^}2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em magn\+\_\+data} & magnetometer measurement vector XYZ \\
+\hline
+\mbox{\texttt{ in}}  & {\em R} & measurement noise covariance values for diagonal covariance matrix. Then smaller value, then more you trust them. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classekf__imu13states_a6310344a4fe79a1b43b12ba1a4a77f8f}\index{ekf\_imu13states@{ekf\_imu13states}!accel0@{accel0}}
+\index{accel0@{accel0}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{accel0}{accel0}}
+{\footnotesize\ttfamily \label{classekf__imu13states_a6310344a4fe79a1b43b12ba1a4a77f8f} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+\_\+imu13states\+::accel0}
+
+Initial reference valie for accelerometer. \Hypertarget{classekf__imu13states_a6f9c0942bd5f15b48bf0994f9ff1de46}\index{ekf\_imu13states@{ekf\_imu13states}!mag0@{mag0}}
+\index{mag0@{mag0}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{mag0}{mag0}}
+{\footnotesize\ttfamily \label{classekf__imu13states_a6f9c0942bd5f15b48bf0994f9ff1de46} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+\_\+imu13states\+::mag0}
+
+Initial reference valie for magnetometer. \Hypertarget{classekf__imu13states_ae89c38a1cea846bbff4d29be0f889694}\index{ekf\_imu13states@{ekf\_imu13states}!NUMU@{NUMU}}
+\index{NUMU@{NUMU}!ekf\_imu13states@{ekf\_imu13states}}
+\doxysubsubsection{\texorpdfstring{NUMU}{NUMU}}
+{\footnotesize\ttfamily \label{classekf__imu13states_ae89c38a1cea846bbff4d29be0f889694} 
+int ekf\+\_\+imu13states\+::\+NUMU}
+
+number of control measurements 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/dsp/modules/kalman/ekf\+\_\+imu13states/include/ekf\+\_\+imu13states.\+h\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/dsp/modules/kalman/ekf\+\_\+imu13states/ekf\+\_\+imu13states.\+cpp\end{DoxyCompactItemize}

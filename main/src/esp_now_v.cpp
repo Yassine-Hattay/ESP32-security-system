@@ -1,3 +1,14 @@
+/**
+ * @file esp_now_v.cpp
+ * @author Yassine Hattay (hattayyassine519@gmail.com)
+ * @brief back up server communication code
+ * @version 0.1
+ * @date 2025-03-02
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
+
 #include "global_header.h"
 #include "camera_var.h"
 #include "email_module.h"
@@ -19,9 +30,12 @@ int currentTransmitCurrentPosition = 0;
 int currentTransmitTotalPackages = 0;
 byte sendNextPackageFlag = 0;
 
-/* ***************************************************************** */
-/* callback when data is sent from Master to Slave                   */
-/* ***************************************************************** */
+/**
+ * @brief this function executes each time a packet is sent 
+ *
+ * @param parameter
+ */
+
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status)
 {
 
@@ -33,9 +47,12 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status)
   }
 }
 
-/* ***************************************************************** */
-/* Init ESP Now with fallback                                        */
-/* ***************************************************************** */
+/**
+ * @brief initialization of esp now 
+ *
+ * @param parameter
+ */
+
 void InitESPNow()
 {
   if (esp_now_init() == ESP_OK)
@@ -49,7 +66,11 @@ void InitESPNow()
   }
 }
 
-
+/**
+ * @brief sets the salve (esp 8266) mac address
+ *
+ * @param parameter
+ */
 
 void Set_SLAVE_data(uint8_t mac[6])
 {
@@ -63,7 +84,11 @@ void Set_SLAVE_data(uint8_t mac[6])
 
   slave.encrypt = 0;
 }
-
+/**
+ * @brief sends esp now packet
+ *
+ * @param parameter
+ */
 
 void sendData(uint8_t *dataArray, uint8_t dataArrayLength)
 {
@@ -71,6 +96,13 @@ void sendData(uint8_t *dataArray, uint8_t dataArrayLength)
 
   esp_err_t result = esp_now_send(peer_addr, dataArray, dataArrayLength);
 }
+
+/**
+ * @brief sends the first esp now packet
+ *
+ * @param parameter
+ */
+
 void startTransmit()
 {
   Serial.println("Starting transmit");
@@ -90,6 +122,7 @@ void startTransmit()
   };
   sendData(message, sizeof(message));
 }
+
 
 void sendNextPackage()
 {
@@ -183,7 +216,11 @@ void sendNextPackage()
   file.close();
 }
 
-
+/**
+ * @brief this deletes parameters of the slave 
+ *
+ * @param parameter
+ */
 
 void deletePeer()
 {
@@ -196,6 +233,12 @@ void deletePeer()
     Serial.println("Success");
   }
 }
+
+/**
+ * @brief this initializes parameters of the slave (wifi channel , mac address)
+ *
+ * @param parameter
+ */
 
 bool manageSlave(int channel_v)
 {
@@ -231,7 +274,11 @@ bool manageSlave(int channel_v)
   return true;
 }
 
-
+/**
+ * @brief this takes a photo and saves it to little FS 
+ *
+ * @param parameter
+ */
 
 void takePhoto()
 {

@@ -1,0 +1,139 @@
+\doxysection{esp\+\_\+modem\+::CMux Class Reference}
+\hypertarget{classesp__modem_1_1_c_mux}{}\label{classesp__modem_1_1_c_mux}\index{esp\_modem::CMux@{esp\_modem::CMux}}
+
+
+\doxylink{classesp__modem_1_1_c_mux}{CMux} class which consumes the original terminal and creates multiple virtual terminals from it. This class itself is not usable as a \doxylink{classesp__modem_1_1_d_t_e}{DTE} terminal, only via its instances defined in {\ttfamily \doxylink{classesp__modem_1_1_c_mux_instance}{CMux\+Instance}}  
+
+
+
+
+{\ttfamily \#include $<$esp\+\_\+modem\+\_\+cmux.\+hpp$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_c_mux_1_1_c_mux_frame}{CMux\+Frame}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classesp__modem_1_1_c_mux_a6271eac1aa3b8ae4ff4d95a722b098fd}\label{classesp__modem_1_1_c_mux_a6271eac1aa3b8ae4ff4d95a722b098fd} 
+{\bfseries CMux} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$ t, \mbox{\hyperlink{structesp__modem_1_1unique__buffer}{unique\+\_\+buffer}} \&\&b)
+\item 
+bool \mbox{\hyperlink{classesp__modem_1_1_c_mux_ab305c3da95f19aaf12f09b6c3326a627}{init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes \doxylink{classesp__modem_1_1_c_mux}{CMux} protocol. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classesp__modem_1_1_c_mux_af2651332c7afab5bddc432e5cfbe003a}{deinit}} ()
+\begin{DoxyCompactList}\small\item\em Closes and deinits \doxylink{classesp__modem_1_1_c_mux}{CMux} protocol. \end{DoxyCompactList}\item 
+std\+::pair$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$, \mbox{\hyperlink{structesp__modem_1_1unique__buffer}{unique\+\_\+buffer}} $>$ \mbox{\hyperlink{classesp__modem_1_1_c_mux_ad0c88ebfe57e20bd736078e2339fe445}{detach}} ()
+\begin{DoxyCompactList}\small\item\em Ejects the attached terminal and buffer, so they could be used as traditional command/data \doxylink{classesp__modem_1_1_d_t_e}{DTE}\textquotesingle{}s. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classesp__modem_1_1_c_mux_affb8c7da0b2aba9841860eee680bcd16}{set\+\_\+read\+\_\+cb}} (int inst, std\+::function$<$ bool(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)$>$ f)
+\begin{DoxyCompactList}\small\item\em Sets read callback for the appropriate terminal. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classesp__modem_1_1_c_mux_a9c73976dad0a97396d8ee386dd51e7bc}{write}} (int i, uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Writes to the appropriate terminal. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classesp__modem_1_1_c_mux_a40b4da2bb868f439bbc153a1d3eee7f5}{recover}} ()
+\begin{DoxyCompactList}\small\item\em Recovers the protocol. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classesp__modem_1_1_c_mux}{CMux} class which consumes the original terminal and creates multiple virtual terminals from it. This class itself is not usable as a \doxylink{classesp__modem_1_1_d_t_e}{DTE} terminal, only via its instances defined in {\ttfamily \doxylink{classesp__modem_1_1_c_mux_instance}{CMux\+Instance}} 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classesp__modem_1_1_c_mux_af2651332c7afab5bddc432e5cfbe003a}\index{esp\_modem::CMux@{esp\_modem::CMux}!deinit@{deinit}}
+\index{deinit@{deinit}!esp\_modem::CMux@{esp\_modem::CMux}}
+\doxysubsubsection{\texorpdfstring{deinit()}{deinit()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_c_mux_af2651332c7afab5bddc432e5cfbe003a} 
+bool CMux\+::deinit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Closes and deinits \doxylink{classesp__modem_1_1_c_mux}{CMux} protocol. 
+
+\begin{DoxyReturn}{Returns}
+true on success 
+\end{DoxyReturn}
+\Hypertarget{classesp__modem_1_1_c_mux_ad0c88ebfe57e20bd736078e2339fe445}\index{esp\_modem::CMux@{esp\_modem::CMux}!detach@{detach}}
+\index{detach@{detach}!esp\_modem::CMux@{esp\_modem::CMux}}
+\doxysubsubsection{\texorpdfstring{detach()}{detach()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_c_mux_ad0c88ebfe57e20bd736078e2339fe445} 
+std\+::pair$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$, \mbox{\hyperlink{structesp__modem_1_1unique__buffer}{unique\+\_\+buffer}} $>$ CMux\+::detach (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Ejects the attached terminal and buffer, so they could be used as traditional command/data \doxylink{classesp__modem_1_1_d_t_e}{DTE}\textquotesingle{}s. 
+
+\begin{DoxyReturn}{Returns}
+pair of the original terminal and buffer 
+\end{DoxyReturn}
+\Hypertarget{classesp__modem_1_1_c_mux_ab305c3da95f19aaf12f09b6c3326a627}\index{esp\_modem::CMux@{esp\_modem::CMux}!init@{init}}
+\index{init@{init}!esp\_modem::CMux@{esp\_modem::CMux}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_c_mux_ab305c3da95f19aaf12f09b6c3326a627} 
+bool CMux\+::init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Initializes \doxylink{classesp__modem_1_1_c_mux}{CMux} protocol. 
+
+\begin{DoxyReturn}{Returns}
+true on success 
+\end{DoxyReturn}
+\Hypertarget{classesp__modem_1_1_c_mux_a40b4da2bb868f439bbc153a1d3eee7f5}\index{esp\_modem::CMux@{esp\_modem::CMux}!recover@{recover}}
+\index{recover@{recover}!esp\_modem::CMux@{esp\_modem::CMux}}
+\doxysubsubsection{\texorpdfstring{recover()}{recover()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_c_mux_a40b4da2bb868f439bbc153a1d3eee7f5} 
+bool CMux\+::recover (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Recovers the protocol. 
+
+This restarts the CMUX state machine, which could have been in a wrong state due to communication issue on a lower layer.
+
+\begin{DoxyReturn}{Returns}
+true on success 
+\end{DoxyReturn}
+\Hypertarget{classesp__modem_1_1_c_mux_affb8c7da0b2aba9841860eee680bcd16}\index{esp\_modem::CMux@{esp\_modem::CMux}!set\_read\_cb@{set\_read\_cb}}
+\index{set\_read\_cb@{set\_read\_cb}!esp\_modem::CMux@{esp\_modem::CMux}}
+\doxysubsubsection{\texorpdfstring{set\_read\_cb()}{set\_read\_cb()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_c_mux_affb8c7da0b2aba9841860eee680bcd16} 
+void CMux\+::set\+\_\+read\+\_\+cb (\begin{DoxyParamCaption}\item[{int}]{inst}{, }\item[{std\+::function$<$ bool(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)$>$}]{f}{}\end{DoxyParamCaption})}
+
+
+
+Sets read callback for the appropriate terminal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inst} & Index of the terminal \\
+\hline
+{\em f} & function pointer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classesp__modem_1_1_c_mux_a9c73976dad0a97396d8ee386dd51e7bc}\index{esp\_modem::CMux@{esp\_modem::CMux}!write@{write}}
+\index{write@{write}!esp\_modem::CMux@{esp\_modem::CMux}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_c_mux_a9c73976dad0a97396d8ee386dd51e7bc} 
+int CMux\+::write (\begin{DoxyParamCaption}\item[{int}]{i}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Writes to the appropriate terminal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & Index of the terminal \\
+\hline
+{\em data} & Data to write \\
+\hline
+{\em len} & Data length to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The actual written length 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/include/cxx\+\_\+include/esp\+\_\+modem\+\_\+cmux.\+hpp\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/src/esp\+\_\+modem\+\_\+cmux.\+cpp\end{DoxyCompactItemize}

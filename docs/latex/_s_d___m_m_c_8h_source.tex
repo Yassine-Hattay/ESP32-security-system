@@ -1,0 +1,89 @@
+\doxysection{SD\+\_\+\+MMC.\+h}
+\hypertarget{_s_d___m_m_c_8h_source}{}\label{_s_d___m_m_c_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/SD\_MMC/src/SD\_MMC.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/SD\_MMC/src/SD\_MMC.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2016\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ \_SDMMC\_H\_}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ \_SDMMC\_H\_}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ SOC\_SDMMC\_HOST\_SUPPORTED}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifdef\ ARDUINO}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#warning\ The\ SDMMC\ library\ requires\ a\ device\ with\ an\ SDIO\ Host}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}FS.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}driver/sdmmc\_types.h"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}sd\_defines.h"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ If\ reading/writing\ to\ the\ SD\ card\ is\ unstable,}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ you\ can\ define\ BOARD\_MAX\_SDMMC\_FREQ\ with\ lower\ value\ (Ex.\ SDMMC\_FREQ\_DEFAULT)}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ in\ pins\_arduino.h\ for\ your\ board\ variant.}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ BOARD\_MAX\_SDMMC\_FREQ}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ BOARD\_MAX\_SDMMC\_FREQ\ SDMMC\_FREQ\_HIGHSPEED}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{namespace\ }fs\ \{}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }SDMMCFS\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classfs_1_1_f_s}{FS}}\ \{}
+\DoxyCodeLine{00039\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00040\ \ \ sdmmc\_card\_t\ *\_card;}
+\DoxyCodeLine{00041\ \ \ int8\_t\ \_pin\_clk\ =\ -\/1;}
+\DoxyCodeLine{00042\ \ \ int8\_t\ \_pin\_cmd\ =\ -\/1;}
+\DoxyCodeLine{00043\ \ \ int8\_t\ \_pin\_d0\ =\ -\/1;}
+\DoxyCodeLine{00044\ \ \ int8\_t\ \_pin\_d1\ =\ -\/1;}
+\DoxyCodeLine{00045\ \ \ int8\_t\ \_pin\_d2\ =\ -\/1;}
+\DoxyCodeLine{00046\ \ \ int8\_t\ \_pin\_d3\ =\ -\/1;}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifdef\ SOC\_SDMMC\_IO\_POWER\_EXTERNAL}}
+\DoxyCodeLine{00048\ \ \ int8\_t\ \_power\_channel\ =\ -\/1;}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ \ \ uint8\_t\ \_pdrv\ =\ 0xFF;}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{bool}\ \_mode1bit\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00054\ \ \ SDMMCFS(FSImplPtr\ impl);}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{bool}\ setPins(\textcolor{keywordtype}{int}\ clk,\ \textcolor{keywordtype}{int}\ cmd,\ \textcolor{keywordtype}{int}\ d0);}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{bool}\ setPins(\textcolor{keywordtype}{int}\ clk,\ \textcolor{keywordtype}{int}\ cmd,\ \textcolor{keywordtype}{int}\ d0,\ \textcolor{keywordtype}{int}\ d1,\ \textcolor{keywordtype}{int}\ d2,\ \textcolor{keywordtype}{int}\ d3);}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#ifdef\ SOC\_SDMMC\_IO\_POWER\_EXTERNAL}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{bool}\ setPowerChannel(\textcolor{keywordtype}{int}\ power\_channel);}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{bool}\ begin(}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mountpoint\ =\ \textcolor{stringliteral}{"{}/sdcard"{}},\ \textcolor{keywordtype}{bool}\ mode1bit\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ format\_if\_mount\_failed\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{int}\ sdmmc\_frequency\ =\ BOARD\_MAX\_SDMMC\_FREQ,}
+\DoxyCodeLine{00062\ \ \ \ \ uint8\_t\ maxOpenFiles\ =\ 5}
+\DoxyCodeLine{00063\ \ \ );}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{00065\ \ \ sdcard\_type\_t\ cardType();}
+\DoxyCodeLine{00066\ \ \ uint64\_t\ cardSize();}
+\DoxyCodeLine{00067\ \ \ uint64\_t\ totalBytes();}
+\DoxyCodeLine{00068\ \ \ uint64\_t\ usedBytes();}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{int}\ sectorSize();}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{int}\ numSectors();}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ readRAW(uint8\_t\ *buffer,\ uint32\_t\ sector);}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{bool}\ writeRAW(uint8\_t\ *buffer,\ uint32\_t\ sector);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ sdmmcDetachBus(\textcolor{keywordtype}{void}\ *bus\_pointer);}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \}\ \ \textcolor{comment}{//\ namespace\ fs}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{keyword}{extern}\ fs::SDMMCFS\ SD\_MMC;}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_SDMMC\_HOST\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_SDMMC\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,96 @@
+\doxysection{esp\+\_\+modem\+\_\+exception.\+hpp}
+\hypertarget{esp__modem__exception_8hpp_source}{}\label{esp__modem__exception_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_exception.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_exception.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ \_\_FILENAME\_\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ \_\_FILENAME\_\_\ \ \ \ \_\_FILE\_\_}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ ESP\_MODEM\_THROW\_IF\_FALSE(...)\ esp\_modem::throw\_if\_false(\_\_FILENAME\_\_,\ \_\_LINE\_\_,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ ESP\_MODEM\_THROW\_IF\_ERROR(...)\ esp\_modem::throw\_if\_error(\_\_FILENAME\_\_,\ \_\_LINE\_\_,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }esp\_modem\ \{}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_COMPILER\_CXX\_EXCEPTIONS}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ ESP\_MODEM\_THROW(exception)\ throw(exception)}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classesp__modem_1_1esp__err__exception}{esp\_err\_exception}}:\ \textcolor{keyword}{virtual}\ \textcolor{keyword}{public}\ std::exception\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{explicit}\ esp\_err\_exception(std::string\ msg):\ esp\_err(ESP\_FAIL),\ message(std::move(msg))\ \{\}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keyword}{explicit}\ esp\_err\_exception(std::string\ msg,\ esp\_err\_t\ err):\ esp\_err(err),\ message(std::move(msg))\ \{\}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ esp\_err\_t\ get\_err\_t()}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ esp\_err;}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \string~esp\_err\_exception()\ noexcept\ override\ =\ default;}
+\DoxyCodeLine{00033\ \ \ \ \ [[nodiscard]]\ const\ \textcolor{keywordtype}{char}\ *what()\ const\ noexcept\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00034\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ message.c\_str();}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00038\ \ \ \ \ esp\_err\_t\ esp\_err;}
+\DoxyCodeLine{00039\ \ \ \ \ std::string\ message;}
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ ESP\_MODEM\_THROW(exception)\ do\ \{\ exception;\ abort();\ \}\ while(0)}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{class\ }esp\_err\_exception\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::string\ msg)}
+\DoxyCodeLine{00047\ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ ESP\_LOGE(\textcolor{stringliteral}{"{}ESP\_MODEM\_THROW"{}},\ \textcolor{stringliteral}{"{}\%s\(\backslash\)n"{}},\ msg.c\_str());}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{explicit}\ esp\_err\_exception(std::string\ msg)}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ print(std::move(msg));}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{explicit}\ esp\_err\_exception(std::string\ msg,\ esp\_err\_t\ err)}
+\DoxyCodeLine{00056\ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ print(std::move(msg));}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ std::string\ make\_message(\textcolor{keyword}{const}\ std::string\ \&filename,\ \textcolor{keywordtype}{int}\ line,\ \textcolor{keyword}{const}\ std::string\ \&message\ =\ \textcolor{stringliteral}{"{}ERROR"{}})}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ std::string\ text\ =\ filename\ +\ \textcolor{stringliteral}{"{}:"{}}\ +\ std::to\_string(line)\ +\ \textcolor{stringliteral}{"{}\ "{}}\ +\ message;}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ text;}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ throw\_if\_false(\textcolor{keyword}{const}\ std::string\ \&filename,\ \textcolor{keywordtype}{int}\ line,\ \textcolor{keywordtype}{bool}\ condition,\ \textcolor{keyword}{const}\ std::string\ \&message)}
+\DoxyCodeLine{00070\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{if}\ (!condition)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ ESP\_MODEM\_THROW(esp\_err\_exception(make\_message(filename,\ line,\ message)));}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ throw\_if\_error(\textcolor{keyword}{const}\ std::string\ \&filename,\ \textcolor{keywordtype}{int}\ line,\ esp\_err\_t\ err,\ \textcolor{keyword}{const}\ std::string\ \&message)}
+\DoxyCodeLine{00077\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ ESP\_MODEM\_THROW(\mbox{\hyperlink{classesp__modem_1_1esp__err__exception}{esp\_err\_exception}}(make\_message(filename,\ line,\ message),\ err));}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ throw\_if\_error(\textcolor{keyword}{const}\ std::string\ \&filename,\ \textcolor{keywordtype}{int}\ line,\ esp\_err\_t\ err)}
+\DoxyCodeLine{00084\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ ESP\_OK)\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ ESP\_MODEM\_THROW(\mbox{\hyperlink{classesp__modem_1_1esp__err__exception}{esp\_err\_exception}}(make\_message(filename,\ line),\ err));}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \}\ \textcolor{comment}{//\ namespace\ esp\_modem}}
+
+\end{DoxyCode}

@@ -1,0 +1,56 @@
+\doxysection{sse2\+\_\+64\+\_\+32.\+h}
+\hypertarget{sse2__64__32_8h_source}{}\label{sse2__64__32_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/private/sse2\_64\_32.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/private/sse2\_64\_32.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ sse2\_64\_32\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ sse2\_64\_32\_H\ 1}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}private/common.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifdef\ HAVE\_INTRIN\_H}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#\ include\ <intrin.h>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#if\ defined(HAVE\_EMMINTRIN\_H)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ !(defined(\_\_amd64)\ ||\ defined(\_\_amd64\_\_)\ ||\ defined(\_\_x86\_64\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \ \ defined(\_M\_X64)\ ||\ defined(\_M\_AMD64))}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#\ include\ <emmintrin.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#\ include\ <stdint.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#\ ifndef\ \_mm\_set\_epi64x}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#\ \ define\ \_mm\_set\_epi64x(Q0,\ Q1)\ sodium\_\_mm\_set\_epi64x((Q0),\ (Q1))}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \_\_m128i}
+\DoxyCodeLine{00020\ sodium\_\_mm\_set\_epi64x(int64\_t\ q1,\ int64\_t\ q0)}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{union\ }\{\ int64\_t\ as64;\ int32\_t\ as32[2];\ \}\ x0,\ x1;}
+\DoxyCodeLine{00023\ \ \ \ \ x0.as64\ =\ q0;\ x1.as64\ =\ q1;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_set\_epi32(x1.as32[1],\ x1.as32[0],\ x0.as32[1],\ x0.as32[0]);}
+\DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#\ ifndef\ \_mm\_set1\_epi64x}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#\ \ define\ \_mm\_set1\_epi64x(Q)\ sodium\_\_mm\_set1\_epi64x(Q)}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \_\_m128i}
+\DoxyCodeLine{00031\ sodium\_\_mm\_set1\_epi64x(int64\_t\ q)}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_set\_epi64x(q,\ q);}
+\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#\ ifndef\ \_mm\_cvtsi64\_si128}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#\ \ define\ \_mm\_cvtsi64\_si128(Q)\ sodium\_\_mm\_cvtsi64\_si128(Q)}}
+\DoxyCodeLine{00039\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \_\_m128i}
+\DoxyCodeLine{00040\ sodium\_\_mm\_cvtsi64\_si128(int64\_t\ q)}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{union\ }\{\ int64\_t\ as64;\ int32\_t\ as32[2];\ \}\ x;}
+\DoxyCodeLine{00043\ \ \ \ \ x.as64\ =\ q;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ \_mm\_setr\_epi32(x.as32[0],\ x.as32[1],\ 0,\ 0);}
+\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

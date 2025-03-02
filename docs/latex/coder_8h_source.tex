@@ -1,0 +1,313 @@
+\doxysection{coder.\+h}
+\hypertarget{coder_8h_source}{}\label{coder_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/chmorgan\_\_esp-\/libhelix-\/mp3/libhelix-\/mp3/real/coder.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/chmorgan\_\_esp-\/libhelix-\/mp3/libhelix-\/mp3/real/coder.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ *****\ BEGIN\ LICENSE\ BLOCK\ *****\ }}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Version:\ RCSL\ 1.0/RPSL\ 1.0\ }}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ \ }}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Portions\ Copyright\ (c)\ 1995-\/2002\ RealNetworks,\ Inc.\ All\ Rights\ Reserved.\ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ \ \ \ }}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ The\ contents\ of\ this\ file,\ and\ the\ files\ included\ with\ this\ file,\ are\ }}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ subject\ to\ the\ current\ version\ of\ the\ RealNetworks\ Public\ Source\ License\ }}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ Version\ 1.0\ (the\ "{}RPSL"{})\ available\ at\ }}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ http://www.helixcommunity.org/content/rpsl\ unless\ you\ have\ licensed\ }}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ the\ file\ under\ the\ RealNetworks\ Community\ Source\ License\ Version\ 1.0\ }}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ (the\ "{}RCSL"{})\ available\ at\ http://www.helixcommunity.org/content/rcsl,\ }}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ in\ which\ case\ the\ RCSL\ will\ apply.\ You\ may\ also\ obtain\ the\ license\ terms\ }}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ directly\ from\ RealNetworks.\ \ You\ may\ not\ use\ this\ file\ except\ in\ }}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ compliance\ with\ the\ RPSL\ or,\ if\ you\ have\ a\ valid\ RCSL\ with\ RealNetworks\ }}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ applicable\ to\ this\ file,\ the\ RCSL.\ \ Please\ see\ the\ applicable\ RPSL\ or\ }}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ RCSL\ for\ the\ rights,\ obligations\ and\ limitations\ governing\ use\ of\ the\ }}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ contents\ of\ the\ file.\ \ }}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ \ }}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ This\ file\ is\ part\ of\ the\ Helix\ DNA\ Technology.\ RealNetworks\ is\ the\ }}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ developer\ of\ the\ Original\ Code\ and\ owns\ the\ copyrights\ in\ the\ portions\ }}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ it\ created.\ }}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ \ }}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ This\ file,\ and\ the\ files\ included\ with\ this\ file,\ is\ distributed\ and\ made\ }}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ available\ on\ an\ 'AS\ IS'\ basis,\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EITHER\ }}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ AND\ REALNETWORKS\ HEREBY\ DISCLAIMS\ ALL\ SUCH\ WARRANTIES,\ }}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ INCLUDING\ WITHOUT\ LIMITATION,\ ANY\ WARRANTIES\ OF\ MERCHANTABILITY,\ FITNESS\ }}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ FOR\ A\ PARTICULAR\ PURPOSE,\ QUIET\ ENJOYMENT\ OR\ NON-\/INFRINGEMENT.\ }}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ Technology\ Compatibility\ Kit\ Test\ Suite(s)\ Location:\ }}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ \ \ \ http://www.helixcommunity.org/content/tck\ }}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ }}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ Contributor(s):\ }}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ \ }}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ *****\ END\ LICENSE\ BLOCK\ *****\ */}\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/**************************************************************************************}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ *\ Fixed-\/point\ MP3\ decoder}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ Jon\ Recker\ (jrecker@real.com),\ Ken\ Cooke\ (kenc@real.com)}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ June\ 2003}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ coder.h\ -\/\ private,\ implementation-\/specific\ header\ file}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ **************************************************************************************/}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifndef\ \_CODER\_H}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ \_CODER\_H}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}mp3common.h"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ defined(ASSERT)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#undef\ ASSERT}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#if\ defined(\_WIN32)\ \&\&\ defined(\_M\_IX86)\ \&\&\ (defined\ (\_DEBUG)\ ||\ defined\ (REL\_ENABLE\_ASSERTS))}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ASSERT(x)\ if\ (!(x))\ \_\_asm\ int\ 3;}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ASSERT(x)\ }\textcolor{comment}{/*\ do\ nothing\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifndef\ MAX}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ MAX(a,b)\ \ \ \ ((a)\ >\ (b)\ ?\ (a)\ :\ (b))}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#ifndef\ MIN}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ MIN(a,b)\ \ \ \ ((a)\ <\ (b)\ ?\ (a)\ :\ (b))}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ clip\ to\ range\ [-\/2\string^n,\ 2\string^n\ -\/\ 1]\ */}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ CLIP\_2N(y,\ n)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ int\ sign\ =\ (y)\ >>\ 31;\ \ \(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ if\ (sign\ !=\ (y)\ >>\ (n))\ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ (y)\ =\ sign\ \string^\ ((1\ <<\ (n))\ -\/\ 1);\ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ \}\ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ SIBYTES\_MPEG1\_MONO\ \ \ \ \ \ 17}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ SIBYTES\_MPEG1\_STEREO\ \ \ \ 32}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ SIBYTES\_MPEG2\_MONO\ \ \ \ \ \ \ 9}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ SIBYTES\_MPEG2\_STEREO\ \ \ \ 17}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{comment}{/*\ number\ of\ fraction\ bits\ for\ pow43Tab\ (see\ comments\ there)\ */}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ POW43\_FRACBITS\_LOW\ \ \ \ \ \ 22}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ POW43\_FRACBITS\_HIGH\ \ \ \ \ 12}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ DQ\_FRACBITS\_OUT\ \ \ \ \ \ \ \ \ 25\ \ }\textcolor{comment}{/*\ number\ of\ fraction\ bits\ in\ output\ of\ dequant\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ IMDCT\_SCALE\ \ \ \ \ \ \ \ \ \ \ \ \ 2\ \ \ }\textcolor{comment}{/*\ additional\ scaling\ (by\ sqrt(2))\ for\ fast\ IMDCT36\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ HUFF\_PAIRTABS\ \ \ \ \ \ \ \ \ \ \ 32}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ BLOCK\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ 18}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ NBANDS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 32}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ MAX\_REORDER\_SAMPS\ \ \ \ \ \ \ ((192-\/126)*3)\ \ \ \ \ \ \ }\textcolor{comment}{/*\ largest\ critical\ band\ for\ short\ blocks\ (see\ sfBandTable)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ VBUF\_LENGTH\ \ \ \ \ \ \ \ \ \ \ \ \ (17\ *\ 2\ *\ NBANDS)\ \ \ }\textcolor{comment}{/*\ for\ double-\/sized\ vbuf\ FIFO\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*\ additional\ external\ symbols\ to\ name-\/mangle\ for\ static\ linking\ */}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ SetBitstreamPointer\ STATNAME(SetBitstreamPointer)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ GetBits\ \ \ \ \ \ \ \ \ \ \ \ \ STATNAME(GetBits)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ CalcBitsUsed\ \ \ \ \ \ \ \ STATNAME(CalcBitsUsed)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ DequantChannel\ \ \ \ \ \ STATNAME(DequantChannel)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ MidSideProc\ \ \ \ \ \ \ \ \ STATNAME(MidSideProc)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ IntensityProcMPEG1\ \ STATNAME(IntensityProcMPEG1)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ IntensityProcMPEG2\ \ STATNAME(IntensityProcMPEG2)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ PolyphaseMono\ \ \ \ \ \ \ STATNAME(PolyphaseMono)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ PolyphaseStereo\ \ \ \ \ STATNAME(PolyphaseStereo)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ FDCT32\ \ \ \ \ \ \ \ \ \ \ \ \ \ STATNAME(FDCT32)}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ ISFMpeg1\ \ \ \ \ \ \ \ \ \ \ \ STATNAME(ISFMpeg1)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ ISFMpeg2\ \ \ \ \ \ \ \ \ \ \ \ STATNAME(ISFMpeg2)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ ISFIIP\ \ \ \ \ \ \ \ \ \ \ \ \ \ STATNAME(ISFIIP)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ uniqueIDTab\ \ \ \ \ \ \ \ \ STATNAME(uniqueIDTab)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ coef32\ \ \ \ \ \ \ \ \ \ \ \ \ \ STATNAME(coef32)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ polyCoef\ \ \ \ \ \ \ \ \ \ \ \ STATNAME(polyCoef)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ csa\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ STATNAME(csa)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ imdctWin\ \ \ \ \ \ \ \ \ \ \ \ STATNAME(imdctWin)}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ huffTable\ \ \ \ \ \ \ \ \ \ \ STATNAME(huffTable)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ huffTabOffset\ \ \ \ \ \ \ STATNAME(huffTabOffset)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ huffTabLookup\ \ \ \ \ \ \ STATNAME(huffTabLookup)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ quadTable\ \ \ \ \ \ \ \ \ \ \ STATNAME(quadTable)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ quadTabOffset\ \ \ \ \ \ \ STATNAME(quadTabOffset)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ quadTabMaxBits\ \ \ \ \ \ STATNAME(quadTabMaxBits)}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{comment}{/*\ map\ these\ to\ the\ corresponding\ 2-\/bit\ values\ in\ the\ frame\ header\ */}}
+\DoxyCodeLine{00121\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ Stereo\ =\ 0x00,\ \ \textcolor{comment}{/*\ two\ independent\ channels,\ but\ L\ and\ R\ frames\ might\ have\ different\ \#\ of\ bits\ */}}
+\DoxyCodeLine{00123\ \ \ \ \ Joint\ =\ 0x01,\ \ \ \textcolor{comment}{/*\ coupled\ channels\ -\/\ layer\ III:\ mix\ of\ M-\/S\ and\ intensity,\ Layers\ I/II:\ intensity\ and\ direct\ coding\ only\ */}}
+\DoxyCodeLine{00124\ \ \ \ \ Dual\ =\ 0x02,\ \ \ \ \textcolor{comment}{/*\ two\ independent\ channels,\ L\ and\ R\ always\ have\ exactly\ 1/2\ the\ total\ bitrate\ */}}
+\DoxyCodeLine{00125\ \ \ \ \ Mono\ =\ 0x03\ \ \ \ \ \textcolor{comment}{/*\ one\ channel\ */}}
+\DoxyCodeLine{00126\ \}\ StereoMode;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___bit_stream_info}{\_BitStreamInfo}}\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *bytePtr;}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ iCache;}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{int}\ cachedBits;}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{int}\ nBytes;}
+\DoxyCodeLine{00133\ \}\ BitStreamInfo;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___frame_header}{\_FrameHeader}}\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ MPEGVersion\ ver;\ \ \ \ \textcolor{comment}{/*\ version\ ID\ */}}
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{int}\ layer;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ layer\ index\ (1,\ 2,\ or\ 3)\ */}}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{int}\ crc;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CRC\ flag:\ 0\ =\ disabled,\ 1\ =\ enabled\ */}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{int}\ brIdx;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ bitrate\ index\ (0\ -\/\ 15)\ */}}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{int}\ srIdx;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ sample\ rate\ index\ (0\ -\/\ 2)\ */}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{int}\ paddingBit;\ \ \ \ \ \textcolor{comment}{/*\ padding\ flag:\ 0\ =\ no\ padding,\ 1\ =\ single\ pad\ byte\ */}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{int}\ privateBit;\ \ \ \ \ \textcolor{comment}{/*\ unused\ */}}
+\DoxyCodeLine{00143\ \ \ \ \ StereoMode\ sMode;\ \ \ \textcolor{comment}{/*\ mono/stereo\ mode\ */}}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{int}\ modeExt;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ used\ to\ decipher\ joint\ stereo\ mode\ */}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{int}\ copyFlag;\ \ \ \ \ \ \ \textcolor{comment}{/*\ copyright\ flag:\ 0\ =\ no,\ 1\ =\ yes\ */}}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{int}\ origFlag;\ \ \ \ \ \ \ \textcolor{comment}{/*\ original\ flag:\ 0\ =\ copy,\ 1\ =\ original\ */}}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{int}\ emphasis;\ \ \ \ \ \ \ \textcolor{comment}{/*\ deemphasis\ mode\ */}}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{int}\ CRCWord;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CRC\ word\ (16\ bits,\ 0\ if\ crc\ not\ enabled)\ */}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{const}\ SFBandTable\ *sfBand;}
+\DoxyCodeLine{00151\ \}\ FrameHeader;}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___side_info_sub}{\_SideInfoSub}}\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordtype}{int}\ part23Length;\ \ \ \ \ \ \ \textcolor{comment}{/*\ number\ of\ bits\ in\ main\ data\ */}\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{int}\ nBigvals;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 2x\ this\ =\ first\ set\ of\ Huffman\ cw's\ (maximum\ amplitude\ can\ be\ >\ 1)\ */}}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{int}\ globalGain;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ overall\ gain\ for\ dequantizer\ */}}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{int}\ sfCompress;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ unpacked\ to\ figure\ out\ number\ of\ bits\ in\ scale\ factors\ */}}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{int}\ winSwitchFlag;\ \ \ \ \ \ \textcolor{comment}{/*\ window\ switching\ flag\ */}}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{int}\ blockType;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ block\ type\ */}}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{int}\ mixedBlock;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 0\ =\ regular\ block\ (all\ short\ or\ long),\ 1\ =\ mixed\ block\ */}}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{int}\ tableSelect[3];\ \ \ \ \ \textcolor{comment}{/*\ index\ of\ Huffman\ tables\ for\ the\ big\ values\ regions\ */}}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{int}\ subBlockGain[3];\ \ \ \ \textcolor{comment}{/*\ subblock\ gain\ offset,\ relative\ to\ global\ gain\ */}}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{int}\ region0Count;\ \ \ \ \ \ \ \textcolor{comment}{/*\ 1+region0Count\ =\ num\ scale\ factor\ bands\ in\ first\ region\ of\ bigvals\ */}}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{int}\ region1Count;\ \ \ \ \ \ \ \textcolor{comment}{/*\ 1+region1Count\ =\ num\ scale\ factor\ bands\ in\ second\ region\ of\ bigvals\ */}}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{int}\ preFlag;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ for\ optional\ high\ frequency\ boost\ */}}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{int}\ sfactScale;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ scaling\ of\ the\ scalefactors\ */}}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{int}\ count1TableSelect;\ \ \textcolor{comment}{/*\ index\ of\ Huffman\ table\ for\ quad\ codewords\ */}}
+\DoxyCodeLine{00168\ \}\ SideInfoSub;}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___side_info}{\_SideInfo}}\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{int}\ mainDataBegin;}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{int}\ privateBits;}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{int}\ scfsi[MAX\_NCHAN][MAX\_SCFBD];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 4\ scalefactor\ bands\ per\ channel\ */}}
+\DoxyCodeLine{00174\ \ \ \ \ }
+\DoxyCodeLine{00175\ \ \ \ \ SideInfoSub\ sis[MAX\_NGRAN][MAX\_NCHAN];}
+\DoxyCodeLine{00176\ \}\ SideInfo;}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{int}\ cbType;\ \ \ \ \ \textcolor{comment}{/*\ pure\ long\ =\ 0,\ pure\ short\ =\ 1,\ mixed\ =\ 2\ */}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{int}\ cbEndS[3];\ \ \textcolor{comment}{/*\ number\ nonzero\ short\ cb's,\ per\ subbblock\ */}}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{int}\ cbEndSMax;\ \ \textcolor{comment}{/*\ max\ of\ cbEndS[]\ */}}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{int}\ cbEndL;\ \ \ \ \ \textcolor{comment}{/*\ number\ nonzero\ long\ cb's\ \ */}}
+\DoxyCodeLine{00183\ \}\ \mbox{\hyperlink{struct_critical_band_info}{CriticalBandInfo}};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___dequant_info}{\_DequantInfo}}\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordtype}{int}\ workBuf[MAX\_REORDER\_SAMPS];\ \ \ \ \ \textcolor{comment}{/*\ workbuf\ for\ reordering\ short\ blocks\ */}}
+\DoxyCodeLine{00187\ \ \ \ \ \mbox{\hyperlink{struct_critical_band_info}{CriticalBandInfo}}\ cbi[MAX\_NCHAN];\ \ \ \ \textcolor{comment}{/*\ filled\ in\ dequantizer,\ used\ in\ joint\ stereo\ reconstruction\ */}}
+\DoxyCodeLine{00188\ \}\ DequantInfo;}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___huffman_info}{\_HuffmanInfo}}\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{int}\ huffDecBuf[MAX\_NCHAN][MAX\_NSAMP];\ \ \ \ \ \ \ \textcolor{comment}{/*\ used\ both\ for\ decoded\ Huffman\ values\ and\ dequantized\ coefficients\ */}}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordtype}{int}\ nonZeroBound[MAX\_NCHAN];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ number\ of\ coeffs\ in\ huffDecBuf[ch]\ which\ can\ be\ >\ 0\ */}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordtype}{int}\ gb[MAX\_NCHAN];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ minimum\ number\ of\ guard\ bits\ in\ huffDecBuf[ch]\ */}}
+\DoxyCodeLine{00194\ \}\ HuffmanInfo;}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \_HuffTabType\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ noBits,}
+\DoxyCodeLine{00198\ \ \ \ \ oneShot,}
+\DoxyCodeLine{00199\ \ \ \ \ loopNoLinbits,}
+\DoxyCodeLine{00200\ \ \ \ \ loopLinbits,}
+\DoxyCodeLine{00201\ \ \ \ \ quadA,}
+\DoxyCodeLine{00202\ \ \ \ \ quadB,}
+\DoxyCodeLine{00203\ \ \ \ \ invalidTab}
+\DoxyCodeLine{00204\ \}\ HuffTabType;}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___huff_tab_lookup}{\_HuffTabLookup}}\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{int}\ linBits;}
+\DoxyCodeLine{00208\ \ \ \ \ HuffTabType\ tabType;}
+\DoxyCodeLine{00209\ \}\ HuffTabLookup;}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___i_m_d_c_t_info}{\_IMDCTInfo}}\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordtype}{int}\ outBuf[MAX\_NCHAN][BLOCK\_SIZE][NBANDS];\ \ \textcolor{comment}{/*\ output\ of\ IMDCT\ */}\ \ \ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordtype}{int}\ overBuf[MAX\_NCHAN][MAX\_NSAMP\ /\ 2];\ \ \ \ \ \ \textcolor{comment}{/*\ overlap-\/add\ buffer\ (by\ symmetry,\ only\ need\ 1/2\ size)\ */}}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordtype}{int}\ numPrevIMDCT[MAX\_NCHAN];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ how\ many\ IMDCT's\ calculated\ in\ this\ channel\ on\ prev.\ granule\ */}}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{int}\ prevType[MAX\_NCHAN];}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordtype}{int}\ prevWinSwitch[MAX\_NCHAN];}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{int}\ gb[MAX\_NCHAN];}
+\DoxyCodeLine{00218\ \}\ IMDCTInfo;}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___block_count}{\_BlockCount}}\ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{int}\ nBlocksLong;}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordtype}{int}\ nBlocksTotal;}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{int}\ nBlocksPrev;\ }
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keywordtype}{int}\ prevType;}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordtype}{int}\ prevWinSwitch;}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordtype}{int}\ currWinSwitch;}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{int}\ gbIn;}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keywordtype}{int}\ gbOut;}
+\DoxyCodeLine{00229\ \}\ BlockCount;}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{comment}{/*\ max\ bits\ in\ scalefactors\ =\ 5,\ so\ use\ char's\ to\ save\ space\ */}}
+\DoxyCodeLine{00232\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___scale_factor_info_sub}{\_ScaleFactorInfoSub}}\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordtype}{char}\ l[23];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ [band]\ */}}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordtype}{char}\ s[13][3];\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ [band][window]\ */}}
+\DoxyCodeLine{00235\ \}\ ScaleFactorInfoSub;\ \ }
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \textcolor{comment}{/*\ used\ in\ MPEG\ 2,\ 2.5\ intensity\ (joint)\ stereo\ only\ */}}
+\DoxyCodeLine{00238\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___scale_factor_j_s}{\_ScaleFactorJS}}\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordtype}{int}\ intensityScale;\ \ \ \ \ }
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordtype}{int}\ slen[4];}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordtype}{int}\ nr[4];}
+\DoxyCodeLine{00242\ \}\ ScaleFactorJS;}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___scale_factor_info}{\_ScaleFactorInfo}}\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ ScaleFactorInfoSub\ sfis[MAX\_NGRAN][MAX\_NCHAN];}
+\DoxyCodeLine{00246\ \ \ \ \ ScaleFactorJS\ sfjs;}
+\DoxyCodeLine{00247\ \}\ ScaleFactorInfo;}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \textcolor{comment}{/*\ NOTE\ -\/\ could\ get\ by\ with\ smaller\ vbuf\ if\ memory\ is\ more\ important\ than\ speed}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ *\ \ (in\ Subband,\ instead\ of\ replicating\ each\ block\ in\ FDCT32\ you\ would\ do\ a\ memmove\ on\ the}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ *\ \ \ last\ 15\ blocks\ to\ shift\ them\ down\ one,\ a\ hardware\ style\ FIFO)}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ */}\ }
+\DoxyCodeLine{00253\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct___subband_info}{\_SubbandInfo}}\ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordtype}{int}\ vbuf[MAX\_NCHAN\ *\ VBUF\_LENGTH];\ \ \ \ \ \ \textcolor{comment}{/*\ vbuf\ for\ fast\ DCT-\/based\ synthesis\ PQMF\ -\/\ double\ size\ for\ speed\ (no\ modulo\ indexing)\ */}}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordtype}{int}\ vindex;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ internal\ index\ for\ tracking\ position\ in\ vbuf\ */}}
+\DoxyCodeLine{00256\ \}\ SubbandInfo;}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ \textcolor{comment}{/*\ bitstream.c\ */}}
+\DoxyCodeLine{00259\ \textcolor{keywordtype}{void}\ SetBitstreamPointer(BitStreamInfo\ *bsi,\ \textcolor{keywordtype}{int}\ nBytes,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *buf);}
+\DoxyCodeLine{00260\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ GetBits(BitStreamInfo\ *bsi,\ \textcolor{keywordtype}{int}\ nBits);}
+\DoxyCodeLine{00261\ \textcolor{keywordtype}{int}\ CalcBitsUsed(BitStreamInfo\ *bsi,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *startBuf,\ \textcolor{keywordtype}{int}\ startOffset);}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \textcolor{comment}{/*\ dequant.c,\ dqchan.c,\ stproc.c\ */}}
+\DoxyCodeLine{00264\ \textcolor{keywordtype}{int}\ DequantChannel(\textcolor{keywordtype}{int}\ *sampleBuf,\ \textcolor{keywordtype}{int}\ *workBuf,\ \textcolor{keywordtype}{int}\ *nonZeroBound,\ FrameHeader\ *fh,\ SideInfoSub\ *sis,\ }
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ScaleFactorInfoSub\ *sfis,\ \mbox{\hyperlink{struct_critical_band_info}{CriticalBandInfo}}\ *cbi);}
+\DoxyCodeLine{00266\ \textcolor{keywordtype}{void}\ MidSideProc(\textcolor{keywordtype}{int}\ x[MAX\_NCHAN][MAX\_NSAMP],\ \textcolor{keywordtype}{int}\ nSamps,\ \textcolor{keywordtype}{int}\ mOut[2]);}
+\DoxyCodeLine{00267\ \textcolor{keywordtype}{void}\ IntensityProcMPEG1(\textcolor{keywordtype}{int}\ x[MAX\_NCHAN][MAX\_NSAMP],\ \textcolor{keywordtype}{int}\ nSamps,\ FrameHeader\ *fh,\ ScaleFactorInfoSub\ *sfis,\ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_critical_band_info}{CriticalBandInfo}}\ *cbi,\ \textcolor{keywordtype}{int}\ midSideFlag,\ \textcolor{keywordtype}{int}\ mixFlag,\ \textcolor{keywordtype}{int}\ mOut[2]);}
+\DoxyCodeLine{00269\ \textcolor{keywordtype}{void}\ IntensityProcMPEG2(\textcolor{keywordtype}{int}\ x[MAX\_NCHAN][MAX\_NSAMP],\ \textcolor{keywordtype}{int}\ nSamps,\ FrameHeader\ *fh,\ ScaleFactorInfoSub\ *sfis,\ }
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_critical_band_info}{CriticalBandInfo}}\ *cbi,\ ScaleFactorJS\ *sfjs,\ \textcolor{keywordtype}{int}\ midSideFlag,\ \textcolor{keywordtype}{int}\ mixFlag,\ \textcolor{keywordtype}{int}\ mOut[2]);}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{comment}{/*\ dct32.c\ */}}
+\DoxyCodeLine{00273\ \textcolor{comment}{//\ about\ 1\ ms\ faster\ in\ RAM,\ but\ very\ large}}
+\DoxyCodeLine{00274\ \textcolor{keywordtype}{void}\ FDCT32(\textcolor{keywordtype}{int}\ *x,\ \textcolor{keywordtype}{int}\ *d,\ \textcolor{keywordtype}{int}\ offset,\ \textcolor{keywordtype}{int}\ oddBlock,\ \textcolor{keywordtype}{int}\ gb);\textcolor{comment}{//\ \_\_attribute\_\_\ ((section\ ("{}.data"{})));}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \textcolor{comment}{/*\ hufftabs.c\ */}}
+\DoxyCodeLine{00277\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ HuffTabLookup\ huffTabLookup[HUFF\_PAIRTABS];}
+\DoxyCodeLine{00278\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ huffTabOffset[HUFF\_PAIRTABS];}
+\DoxyCodeLine{00279\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ huffTable[];}
+\DoxyCodeLine{00280\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ quadTable[64+16];}
+\DoxyCodeLine{00281\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ quadTabOffset[2];}
+\DoxyCodeLine{00282\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ quadTabMaxBits[2];}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{comment}{/*\ polyphase.c\ (or\ asmpoly.s)}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ *\ some\ platforms\ require\ a\ C++\ compile\ of\ all\ source\ files,}}
+\DoxyCodeLine{00286\ \textcolor{comment}{\ *\ so\ if\ we're\ compiling\ C\ as\ C++\ and\ using\ native\ assembly}}
+\DoxyCodeLine{00287\ \textcolor{comment}{\ *\ for\ these\ functions\ we\ need\ to\ prevent\ C++\ name\ mangling.}}
+\DoxyCodeLine{00288\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00290\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00292\ \textcolor{keywordtype}{void}\ PolyphaseMono(\textcolor{keywordtype}{short}\ *pcm,\ \textcolor{keywordtype}{int}\ *vbuf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ *coefBase);}
+\DoxyCodeLine{00293\ \textcolor{keywordtype}{void}\ PolyphaseStereo(\textcolor{keywordtype}{short}\ *pcm,\ \textcolor{keywordtype}{int}\ *vbuf,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ *coefBase);}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00295\ \}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \textcolor{comment}{/*\ trigtabs.c\ */}}
+\DoxyCodeLine{00299\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ imdctWin[4][36];}
+\DoxyCodeLine{00300\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ISFMpeg1[2][7];}
+\DoxyCodeLine{00301\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ISFMpeg2[2][2][16];}
+\DoxyCodeLine{00302\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ISFIIP[2][2];}
+\DoxyCodeLine{00303\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ csa[8][2];}
+\DoxyCodeLine{00304\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ coef32[31];}
+\DoxyCodeLine{00305\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ polyCoef[264];}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ \_CODER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

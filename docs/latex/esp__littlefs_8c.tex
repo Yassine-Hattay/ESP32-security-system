@@ -1,0 +1,305 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/joltwallet\+\_\+\+\_\+littlefs/src/esp\+\_\+littlefs.c File Reference}
+\hypertarget{esp__littlefs_8c}{}\label{esp__littlefs_8c}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/esp\_littlefs.c@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/esp\_littlefs.c}}
+
+
+Maps Little\+FS \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} ESP\+\_\+\+VFS.  
+
+
+{\ttfamily \#include "{}esp\+\_\+littlefs.\+h"{}}\newline
+{\ttfamily \#include "{}littlefs/lfs.\+h"{}}\newline
+{\ttfamily \#include "{}sdkconfig.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+log.\+h"{}}\newline
+{\ttfamily \#include "{}esp\+\_\+system.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/\+Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/semphr.\+h"{}}\newline
+{\ttfamily \#include "{}freertos/task.\+h"{}}\newline
+{\ttfamily \#include "{}littlefs\+\_\+api.\+h"{}}\newline
+{\ttfamily \#include $<$sys/dirent.\+h$>$}\newline
+{\ttfamily \#include $<$sys/errno.\+h$>$}\newline
+{\ttfamily \#include $<$sys/fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/lock.\+h$>$}\newline
+{\ttfamily \#include $<$sys/param.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include "{}spi\+\_\+flash\+\_\+mmap.\+h"{}}\newline
+{\ttfamily \#include "{}rom/spi\+\_\+flash.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structvfs__littlefs__dir__t}{vfs\+\_\+littlefs\+\_\+dir\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em littlefs DIR structure \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{esp__littlefs_8c_a5155a7b7465dd9b5e6167122827d0158}\label{esp__littlefs_8c_a5155a7b7465dd9b5e6167122827d0158} 
+\#define {\bfseries LOG\+\_\+\+LOCAL\+\_\+\+LEVEL}~CONFIG\+\_\+\+LOG\+\_\+\+DEFAULT\+\_\+\+LEVEL
+\item 
+\Hypertarget{esp__littlefs_8c_a9b2e3f7043790479aae2a67117d871bc}\label{esp__littlefs_8c_a9b2e3f7043790479aae2a67117d871bc} 
+\#define {\bfseries CONFIG\+\_\+\+LITTLEFS\+\_\+\+BLOCK\+\_\+\+SIZE}~4096 /\texorpdfstring{$\ast$}{*} ESP32 can only operate at 4kb \texorpdfstring{$\ast$}{*}/
+\item 
+\Hypertarget{esp__littlefs_8c_abc4b1417f68068ae308ea29b4f213628}\label{esp__littlefs_8c_abc4b1417f68068ae308ea29b4f213628} 
+\#define {\bfseries CONFIG\+\_\+\+LITTLEFS\+\_\+\+FD\+\_\+\+CACHE\+\_\+\+REALLOC\+\_\+\+FACTOR}~2  /\texorpdfstring{$\ast$}{*} Amount to resize FD cache by \texorpdfstring{$\ast$}{*}/
+\item 
+\Hypertarget{esp__littlefs_8c_a5094aeb4aa361ad46b1592b62b23944e}\label{esp__littlefs_8c_a5094aeb4aa361ad46b1592b62b23944e} 
+\#define {\bfseries CONFIG\+\_\+\+LITTLEFS\+\_\+\+FD\+\_\+\+CACHE\+\_\+\+MIN\+\_\+\+SIZE}~4  /\texorpdfstring{$\ast$}{*} Minimum size of FD cache \texorpdfstring{$\ast$}{*}/
+\item 
+\Hypertarget{esp__littlefs_8c_afaf82e929e348338760c9bb5c3db19bc}\label{esp__littlefs_8c_afaf82e929e348338760c9bb5c3db19bc} 
+\#define {\bfseries CONFIG\+\_\+\+LITTLEFS\+\_\+\+FD\+\_\+\+CACHE\+\_\+\+HYST}~4  /\texorpdfstring{$\ast$}{*} When shrinking, leave this many trailing FD slots available \texorpdfstring{$\ast$}{*}/
+\item 
+\#define \mbox{\hyperlink{esp__littlefs_8c_abd47793b39899862eed8ad9b6955e6dc}{LITTLEFS\+\_\+\+ATTR\+\_\+\+MTIME}}~((uint8\+\_\+t) \textquotesingle{}t\textquotesingle{})
+\begin{DoxyCompactList}\small\item\em Last Modified Time. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{esp__littlefs_8c_a7ca544a29c8ee44a78fa903871752ff4}{esp\+\_\+littlefs\+\_\+errno}}(x)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{esp__littlefs_8c_a1a25dbbb165cd8a90ceefa87d585526d}{esp\+\_\+littlefs\+\_\+mounted}} (const char \texorpdfstring{$\ast$}{*}partition\+\_\+label)
+\item 
+bool \mbox{\hyperlink{esp__littlefs_8c_acd0adec940013d70e83995e5c8955a8e}{esp\+\_\+littlefs\+\_\+partition\+\_\+mounted}} (const esp\+\_\+partition\+\_\+t \texorpdfstring{$\ast$}{*}partition)
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{esp__littlefs_8c_aed687fab912c6265d828f885ee34fbd2}{esp\+\_\+littlefs\+\_\+info}} (const char \texorpdfstring{$\ast$}{*}partition\+\_\+label, size\+\_\+t \texorpdfstring{$\ast$}{*}total\+\_\+bytes, size\+\_\+t \texorpdfstring{$\ast$}{*}used\+\_\+bytes)
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{esp__littlefs_8c_a5939b8311f6df13c63346425baadc39d}{esp\+\_\+littlefs\+\_\+partition\+\_\+info}} (const esp\+\_\+partition\+\_\+t \texorpdfstring{$\ast$}{*}partition, size\+\_\+t \texorpdfstring{$\ast$}{*}total\+\_\+bytes, size\+\_\+t \texorpdfstring{$\ast$}{*}used\+\_\+bytes)
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{esp__littlefs_8c_a2c4fb8290a31ae483ffa46d2feead268}{esp\+\_\+vfs\+\_\+littlefs\+\_\+register}} (const \mbox{\hyperlink{structesp__vfs__littlefs__conf__t}{esp\+\_\+vfs\+\_\+littlefs\+\_\+conf\+\_\+t}} \texorpdfstring{$\ast$}{*}conf)
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{esp__littlefs_8c_ae9735d7e754fac3b20533944d4331957}{esp\+\_\+vfs\+\_\+littlefs\+\_\+unregister}} (const char \texorpdfstring{$\ast$}{*}partition\+\_\+label)
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{esp__littlefs_8c_ab0d48bbe675f45bb80e26e235390884f}{esp\+\_\+vfs\+\_\+littlefs\+\_\+unregister\+\_\+partition}} (const esp\+\_\+partition\+\_\+t \texorpdfstring{$\ast$}{*}partition)
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{esp__littlefs_8c_aa7344b3a35d7e85ff03897fe8e4a616f}{esp\+\_\+littlefs\+\_\+format}} (const char \texorpdfstring{$\ast$}{*}partition\+\_\+label)
+\item 
+esp\+\_\+err\+\_\+t \mbox{\hyperlink{esp__littlefs_8c_a882f07bdf8c759b877866464f1790f46}{esp\+\_\+littlefs\+\_\+format\+\_\+partition}} (const esp\+\_\+partition\+\_\+t \texorpdfstring{$\ast$}{*}partition)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Maps Little\+FS \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} ESP\+\_\+\+VFS. 
+
+\begin{DoxyAuthor}{Author}
+Brian Pugh 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{esp__littlefs_8c_a7ca544a29c8ee44a78fa903871752ff4}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_littlefs\_errno@{esp\_littlefs\_errno}}
+\index{esp\_littlefs\_errno@{esp\_littlefs\_errno}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_littlefs\_errno}{esp\_littlefs\_errno}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_a7ca544a29c8ee44a78fa903871752ff4} 
+\#define esp\+\_\+littlefs\+\_\+errno(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{stringliteral}{"{}"{}}}
+
+\end{DoxyCode}
+\Hypertarget{esp__littlefs_8c_abd47793b39899862eed8ad9b6955e6dc}\index{esp\_littlefs.c@{esp\_littlefs.c}!LITTLEFS\_ATTR\_MTIME@{LITTLEFS\_ATTR\_MTIME}}
+\index{LITTLEFS\_ATTR\_MTIME@{LITTLEFS\_ATTR\_MTIME}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{LITTLEFS\_ATTR\_MTIME}{LITTLEFS\_ATTR\_MTIME}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_abd47793b39899862eed8ad9b6955e6dc} 
+\#define LITTLEFS\+\_\+\+ATTR\+\_\+\+MTIME~((uint8\+\_\+t) \textquotesingle{}t\textquotesingle{})}
+
+
+
+Last Modified Time. 
+
+Use \textquotesingle{}t\textquotesingle{} for LITTLEFS\+\_\+\+ATTR\+\_\+\+MTIME to match example\+: \href{https://github.com/ARMmbed/littlefs/issues/23\#issuecomment-482293539}{\texttt{ https\+://github.\+com/\+ARMmbed/littlefs/issues/23\#issuecomment-\/482293539}} And to match other external tools such as\+: \href{https://github.com/earlephilhower/mklittlefs}{\texttt{ https\+://github.\+com/earlephilhower/mklittlefs}} 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{esp__littlefs_8c_aa7344b3a35d7e85ff03897fe8e4a616f}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_littlefs\_format@{esp\_littlefs\_format}}
+\index{esp\_littlefs\_format@{esp\_littlefs\_format}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_littlefs\_format()}{esp\_littlefs\_format()}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_aa7344b3a35d7e85ff03897fe8e4a616f} 
+esp\+\_\+err\+\_\+t esp\+\_\+littlefs\+\_\+format (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{partition\+\_\+label}{}\end{DoxyParamCaption})}
+
+Format the littlefs partition
+
+
+\begin{DoxyParams}{Parameters}
+{\em partition\+\_\+label} & Label of the partition to format. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK if successful
+\item ESP\+\_\+\+FAIL on error 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{esp__littlefs_8c_a882f07bdf8c759b877866464f1790f46}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_littlefs\_format\_partition@{esp\_littlefs\_format\_partition}}
+\index{esp\_littlefs\_format\_partition@{esp\_littlefs\_format\_partition}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_littlefs\_format\_partition()}{esp\_littlefs\_format\_partition()}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_a882f07bdf8c759b877866464f1790f46} 
+esp\+\_\+err\+\_\+t esp\+\_\+littlefs\+\_\+format\+\_\+partition (\begin{DoxyParamCaption}\item[{const esp\+\_\+partition\+\_\+t \texorpdfstring{$\ast$}{*}}]{partition}{}\end{DoxyParamCaption})}
+
+Format the littlefs partition
+
+
+\begin{DoxyParams}{Parameters}
+{\em partition} & partition to format. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK if successful
+\item ESP\+\_\+\+FAIL on error 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{esp__littlefs_8c_aed687fab912c6265d828f885ee34fbd2}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_littlefs\_info@{esp\_littlefs\_info}}
+\index{esp\_littlefs\_info@{esp\_littlefs\_info}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_littlefs\_info()}{esp\_littlefs\_info()}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_aed687fab912c6265d828f885ee34fbd2} 
+esp\+\_\+err\+\_\+t esp\+\_\+littlefs\+\_\+info (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{partition\+\_\+label}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{total\+\_\+bytes}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{used\+\_\+bytes}{}\end{DoxyParamCaption})}
+
+Get information for littlefs
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em partition\+\_\+label} & Optional, label of the partition to get info for. \\
+\hline
+\mbox{\texttt{ out}}  & {\em total\+\_\+bytes} & Size of the file system \\
+\hline
+\mbox{\texttt{ out}}  & {\em used\+\_\+bytes} & Current used bytes in the file system\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK if success
+\item ESP\+\_\+\+ERR\+\_\+\+INVALID\+\_\+\+STATE if not mounted 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{esp__littlefs_8c_a1a25dbbb165cd8a90ceefa87d585526d}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_littlefs\_mounted@{esp\_littlefs\_mounted}}
+\index{esp\_littlefs\_mounted@{esp\_littlefs\_mounted}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_littlefs\_mounted()}{esp\_littlefs\_mounted()}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_a1a25dbbb165cd8a90ceefa87d585526d} 
+bool esp\+\_\+littlefs\+\_\+mounted (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{partition\+\_\+label}{}\end{DoxyParamCaption})}
+
+Check if littlefs is mounted
+
+
+\begin{DoxyParams}{Parameters}
+{\em partition\+\_\+label} & Label of the partition to check.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+
+\begin{DoxyItemize}
+\item true if mounted
+\item false if not mounted 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{esp__littlefs_8c_a5939b8311f6df13c63346425baadc39d}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_littlefs\_partition\_info@{esp\_littlefs\_partition\_info}}
+\index{esp\_littlefs\_partition\_info@{esp\_littlefs\_partition\_info}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_littlefs\_partition\_info()}{esp\_littlefs\_partition\_info()}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_a5939b8311f6df13c63346425baadc39d} 
+esp\+\_\+err\+\_\+t esp\+\_\+littlefs\+\_\+partition\+\_\+info (\begin{DoxyParamCaption}\item[{const esp\+\_\+partition\+\_\+t \texorpdfstring{$\ast$}{*}}]{partition}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{total\+\_\+bytes}{, }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{used\+\_\+bytes}{}\end{DoxyParamCaption})}
+
+Get information for littlefs
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em parition} & the partition to get info for. \\
+\hline
+\mbox{\texttt{ out}}  & {\em total\+\_\+bytes} & Size of the file system \\
+\hline
+\mbox{\texttt{ out}}  & {\em used\+\_\+bytes} & Current used bytes in the file system\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK if success
+\item ESP\+\_\+\+ERR\+\_\+\+INVALID\+\_\+\+STATE if not mounted 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{esp__littlefs_8c_acd0adec940013d70e83995e5c8955a8e}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_littlefs\_partition\_mounted@{esp\_littlefs\_partition\_mounted}}
+\index{esp\_littlefs\_partition\_mounted@{esp\_littlefs\_partition\_mounted}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_littlefs\_partition\_mounted()}{esp\_littlefs\_partition\_mounted()}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_acd0adec940013d70e83995e5c8955a8e} 
+bool esp\+\_\+littlefs\+\_\+partition\+\_\+mounted (\begin{DoxyParamCaption}\item[{const esp\+\_\+partition\+\_\+t \texorpdfstring{$\ast$}{*}}]{partition}{}\end{DoxyParamCaption})}
+
+Check if littlefs is mounted
+
+
+\begin{DoxyParams}{Parameters}
+{\em partition} & partition to check.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+
+\begin{DoxyItemize}
+\item true if mounted
+\item false if not mounted 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{esp__littlefs_8c_a2c4fb8290a31ae483ffa46d2feead268}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_vfs\_littlefs\_register@{esp\_vfs\_littlefs\_register}}
+\index{esp\_vfs\_littlefs\_register@{esp\_vfs\_littlefs\_register}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_vfs\_littlefs\_register()}{esp\_vfs\_littlefs\_register()}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_a2c4fb8290a31ae483ffa46d2feead268} 
+esp\+\_\+err\+\_\+t esp\+\_\+vfs\+\_\+littlefs\+\_\+register (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structesp__vfs__littlefs__conf__t}{esp\+\_\+vfs\+\_\+littlefs\+\_\+conf\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{conf}{}\end{DoxyParamCaption})}
+
+Register and mount (if configured to) littlefs to VFS with given path prefix.
+
+
+\begin{DoxyParams}{Parameters}
+{\em conf} & Pointer to \doxylink{structesp__vfs__littlefs__conf__t}{esp\+\_\+vfs\+\_\+littlefs\+\_\+conf\+\_\+t} configuration structure\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK if success
+\item ESP\+\_\+\+ERR\+\_\+\+NO\+\_\+\+MEM if objects could not be allocated
+\item ESP\+\_\+\+ERR\+\_\+\+INVALID\+\_\+\+STATE if already mounted or partition is encrypted
+\item ESP\+\_\+\+ERR\+\_\+\+NOT\+\_\+\+FOUND if partition for littlefs was not found
+\item ESP\+\_\+\+FAIL if mount or format fails 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{esp__littlefs_8c_ae9735d7e754fac3b20533944d4331957}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_vfs\_littlefs\_unregister@{esp\_vfs\_littlefs\_unregister}}
+\index{esp\_vfs\_littlefs\_unregister@{esp\_vfs\_littlefs\_unregister}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_vfs\_littlefs\_unregister()}{esp\_vfs\_littlefs\_unregister()}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_ae9735d7e754fac3b20533944d4331957} 
+esp\+\_\+err\+\_\+t esp\+\_\+vfs\+\_\+littlefs\+\_\+unregister (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{partition\+\_\+label}{}\end{DoxyParamCaption})}
+
+Unregister and unmount littlefs from VFS
+
+
+\begin{DoxyParams}{Parameters}
+{\em partition\+\_\+label} & Label of the partition to unregister.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK if successful
+\item ESP\+\_\+\+ERR\+\_\+\+INVALID\+\_\+\+STATE already unregistered 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{esp__littlefs_8c_ab0d48bbe675f45bb80e26e235390884f}\index{esp\_littlefs.c@{esp\_littlefs.c}!esp\_vfs\_littlefs\_unregister\_partition@{esp\_vfs\_littlefs\_unregister\_partition}}
+\index{esp\_vfs\_littlefs\_unregister\_partition@{esp\_vfs\_littlefs\_unregister\_partition}!esp\_littlefs.c@{esp\_littlefs.c}}
+\doxysubsubsection{\texorpdfstring{esp\_vfs\_littlefs\_unregister\_partition()}{esp\_vfs\_littlefs\_unregister\_partition()}}
+{\footnotesize\ttfamily \label{esp__littlefs_8c_ab0d48bbe675f45bb80e26e235390884f} 
+esp\+\_\+err\+\_\+t esp\+\_\+vfs\+\_\+littlefs\+\_\+unregister\+\_\+partition (\begin{DoxyParamCaption}\item[{const esp\+\_\+partition\+\_\+t \texorpdfstring{$\ast$}{*}}]{partition}{}\end{DoxyParamCaption})}
+
+Unregister and unmount littlefs from VFS
+
+
+\begin{DoxyParams}{Parameters}
+{\em partition} & partition to unregister.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+~\newline
+
+\begin{DoxyItemize}
+\item ESP\+\_\+\+OK if successful
+\item ESP\+\_\+\+ERR\+\_\+\+INVALID\+\_\+\+STATE already unregistered 
+\end{DoxyItemize}
+\end{DoxyReturn}

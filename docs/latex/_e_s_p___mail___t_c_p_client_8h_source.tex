@@ -1,0 +1,1034 @@
+\doxysection{ESP\+\_\+\+Mail\+\_\+\+TCPClient.\+h}
+\hypertarget{_e_s_p___mail___t_c_p_client_8h_source}{}\label{_e_s_p___mail___t_c_p_client_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/ESP\_Mail\_TCPClient.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/ESP\_Mail\_TCPClient.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifndef\ ESP\_MAIL\_TCPCLIENT\_H}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_TCPCLIENT\_H}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}ESP\_Mail\_Client\_Version.h"{}}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ !VALID\_VERSION\_CHECK(30415)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#error\ "{}Mixed\ versions\ compilation."{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wunused-\/variable"{}}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wdelete-\/non-\/virtual-\/dtor"{}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ "{}ESP\_Mail\_Const.h"{}}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ \&\&\ (defined(ENABLE\_SMTP)\ ||\ defined(ENABLE\_IMAP))}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}IPAddress.h"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}lwip/sockets.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#if\ defined(ESP32)}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ WIFI\_HAS\_HOST\_BY\_NAME}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}extras/WiFiClientImpl.h"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ BASE\_WIFICLIENT\ WiFiClientImpl}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#elif\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}WiFiClient.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ BASE\_WIFICLIENT\ WiFiClient}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#include\ "{}SSLClient/ESP\_SSLClient.h"{}}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client}{ESP\_Mail\_TCPClient}}}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00064\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00065\ \ \ \ \ ESP\_Mail\_TCPClient()}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \_tcp\_client\ =\ \textcolor{keyword}{new}\ ESP\_SSLClient();}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00070\ \ \ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \string~ESP\_Mail\_TCPClient()}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_tcp\_client)}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \_tcp\_client;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \_tcp\_client\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a61ed23e3326a6d51314ba2104329299e}{setClient}}(\mbox{\hyperlink{class_client}{Client}}\ *client)}
+\DoxyCodeLine{00087\ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \_basic\_client\ =\ client;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \_client\_type\ =\ esp\_mail\_client\_type\_external\_generic\_client;}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a5b37cd1ac690b7bf2c33d9d3f96bbbbb}{setGSMClient}}(\mbox{\hyperlink{class_client}{Client}}\ *client,\ \textcolor{keywordtype}{void}\ *modem\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pin\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *apn\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *user\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00103\ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_GSM\_MODEM\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \_client\_type\ =\ esp\_mail\_client\_type\_external\_gsm\_client;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \_basic\_client\ =\ client;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \_modem\ =\ modem;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \_pin\ =\ pin;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \_apn\ =\ apn;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \_user\ =\ user;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \_password\ =\ password;}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a81bb08692213c12bebf76748bd58cfaf}{setEthernetClient}}(\mbox{\hyperlink{class_client}{Client}}\ *client,\ uint8\_t\ macAddress[6],\ \textcolor{keywordtype}{int}\ csPin,\ \textcolor{keywordtype}{int}\ resetPin,\ ESP\_Mail\_StaticIP\ *staticIP\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \_client\_type\ =\ esp\_mail\_client\_type\_external\_ethernet\_client;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \_basic\_client\ =\ client;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \_ethernet\_mac\ =\ macAddress;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \_ethernet\_cs\_pin\ =\ csPin;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \_ethernet\_reset\_pin\ =\ resetPin;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \_static\_ip\ =\ staticIP;}
+\DoxyCodeLine{00132\ \ \ \ \ \};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_add2a67573bc2d41c7ce85dcb851c1cae}{setCACert}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *caCert)}
+\DoxyCodeLine{00139\ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (caCert)}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_x509)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \_x509;}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \_x509\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classbssl_1_1_x509_list}{X509List}}(caCert);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \_tcp\_client-\/>setTrustAnchors(\_x509);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ setCertType(esp\_mail\_cert\_type\_data);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ setTA(\textcolor{keyword}{true});}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ setCertType(esp\_mail\_cert\_type\_none);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ setInSecure();}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a2f8b41f71f2e55a18d4cf14ddbc92806}{setCertFile}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *certFile,\ mb\_fs\_mem\_storage\_type\ storageType)}
+\DoxyCodeLine{00167\ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_mbfs)}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_clock\_ready\ \&\&\ strlen(certFile)\ >\ 0)}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ filename\ =\ certFile;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (filename.length()\ >\ 0)}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (filename[0]\ !=\ \textcolor{charliteral}{'/'})}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filename.prepend(\textcolor{charliteral}{'/'});}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ len\ =\ \_mbfs-\/>open(filename,\ storageType,\ mb\_fs\_open\_mode\_read);}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ >\ -\/1)}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *der\ =\ (uint8\_t\ *)\_mbfs-\/>newP(len);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_mbfs-\/>available(storageType))}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mbfs-\/>read(storageType,\ der,\ len);}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mbfs-\/>close(storageType);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_x509)}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \_x509;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_x509\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{classbssl_1_1_x509_list}{X509List}}(der,\ len);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_tcp\_client-\/>setTrustAnchors(\_x509);}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ setTA(\textcolor{keyword}{true});}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mbfs-\/>delP(\&der);}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ setCertType(esp\_mail\_cert\_type\_file);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ getCertType()\ ==\ esp\_mail\_cert\_type\_file;}
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_aea9f6960046228c674a979873b04219b}{setTimeout}}(uint32\_t\ timeoutSec)}
+\DoxyCodeLine{00210\ \ \ \ \ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \_tcp\_client-\/>setTimeout(timeoutSec);}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a9824ef04b81a4074cc6eea19a835f0db}{setIOBufferSize}}(\textcolor{keywordtype}{int}\ rx,\ \textcolor{keywordtype}{int}\ tx)}
+\DoxyCodeLine{00220\ \ \ \ \ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \_rx\_size\ =\ rx;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \_tx\_size\ =\ tx;}
+\DoxyCodeLine{00223\ \ \ \ \ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a9a93496d5bd00906b766fce13cf33693}{ethLinkUp}}()}
+\DoxyCodeLine{00230\ \ \ \ \ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_NATIVE\_ETHERNET)\ \&\&\ (defined(ENABLE\_IMAP)\ ||\ defined(ENABLE\_SMTP))}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_ETH\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#if\ defined(ESP32)}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a4acbf93c2b0ae1cf6ca8385ce6573b78}{validIP}}(ETH.localIP()))}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ ETH.linkUp();}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#elif\ defined(ESP8266)}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)\ ||\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_session\_config)}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#if\ defined(ESP8266)\ \&\&\ defined(ESP8266\_CORE\_SDK\_V3\_X\_X)}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#if\ defined(INC\_ENC28J60\_LWIP)}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_session\_config-\/>spi\_ethernet\_module.enc28j60)}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \_session\_config-\/>spi\_ethernet\_module.enc28j60-\/>status()\ ==\ WL\_CONNECTED;}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ ex;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#if\ defined(INC\_W5100\_LWIP)}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_session\_config-\/>spi\_ethernet\_module.w5100)}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \_session\_config-\/>spi\_ethernet\_module.w5100-\/>status()\ ==\ WL\_CONNECTED;}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ ex;}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#if\ defined(INC\_W5500\_LWIP)}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_session\_config-\/>spi\_ethernet\_module.w5500)}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \_session\_config-\/>spi\_ethernet\_module.w5500-\/>status()\ ==\ WL\_CONNECTED;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ ex;}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#elif\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#if\ defined(INC\_ENC28J60\_LWIP)\ ||\ defined(INC\_W5100\_LWIP)\ ||\ defined(INC\_W5500\_LWIP)}}
+\DoxyCodeLine{00280\ \ \ \ \ ex:}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ workaround\ for\ ESP8266\ Ethernet}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ delayMicroseconds(0);}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a4acbf93c2b0ae1cf6ca8385ce6573b78}{validIP}}(\mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip)}
+\DoxyCodeLine{00298\ \ \ \ \ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buf[16];}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ sprintf(buf,\ \textcolor{stringliteral}{"{}\%u.\%u.\%u.\%u"{}},\ ip[0],\ ip[1],\ ip[2],\ ip[3]);}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ strcmp(buf,\ \textcolor{stringliteral}{"{}0.0.0.0"{}})\ !=\ 0;}
+\DoxyCodeLine{00302\ \ \ \ \ \}}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_af46178213ec4aedf98f05113793b0034}{ethDNSWorkAround}}()}
+\DoxyCodeLine{00308\ \ \ \ \ \{}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_NATIVE\_ETHERNET)\ \&\&\ (defined(ENABLE\_SMTP)\ ||\ defined(ENABLE\_IMAP))}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_session\_config)}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#if\ defined(ESP8266\_CORE\_SDK\_V3\_X\_X)}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#if\ defined(INC\_ENC28J60\_LWIP)}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_session\_config-\/>spi\_ethernet\_module.enc28j60)}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ ex;}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#if\ defined(INC\_W5100\_LWIP)}}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_session\_config-\/>spi\_ethernet\_module.w5100)}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ ex;}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#if\ defined(INC\_W5500\_LWIP)}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_session\_config-\/>spi\_ethernet\_module.w5500)}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ ex;}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#elif\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#if\ defined(INC\_ENC28J60\_LWIP)\ ||\ defined(INC\_W5100\_LWIP)\ ||\ defined(INC\_W5500\_LWIP)}}
+\DoxyCodeLine{00336\ \ \ \ \ ex:}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ BASE\_WIFICLIENT\ client;}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ client.connect(\_session\_config-\/>server.host\_name.c\_str(),\ \_session\_config-\/>server.port);}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ client.stop();}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00345\ \ \ \ \ \}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_aeb6cf621bf8510eab20cf8ca222b09d7}{networkReady}}()}
+\DoxyCodeLine{00352\ \ \ \ \ \{}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ will\ not\ invoke\ the\ network\ status\ request\ when\ device\ has\ built-\/in\ WiFi\ or\ Ethernet\ and\ it\ is\ connected.}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_external\_gsm\_client)}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \_network\_status\ =\ gprsConnected();}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_network\_status)}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gprsConnect();}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_external\_ethernet\_client)}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ethernetConnected())}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ethernetConnect();}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ also\ check\ the\ native\ network\ before\ calling\ external\ cb}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_internal\_basic\_client\ ||\ WiFI\_CONNECTED\ ||\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a9a93496d5bd00906b766fce13cf33693}{ethLinkUp}}())}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \_network\_status\ =\ WiFI\_CONNECTED\ ||\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a9a93496d5bd00906b766fce13cf33693}{ethLinkUp}}();}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_external\_generic\_client)}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_network\_status\_cb)}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_last\_error\ =\ 1;}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_network\_status\_cb();}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \_network\_status\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_network\_status;}
+\DoxyCodeLine{00380\ \ \ \ \ \}}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a521040113a18edcc331144893dd6bee5}{networkReconnect}}()}
+\DoxyCodeLine{00386\ \ \ \ \ \{}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_external\_generic\_client)}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00390\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_HAS\_WIFI\_DISCONNECT)}}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ can\ reconnect\ WiFi\ when\ device\ connected\ via\ built-\/in\ WiFi\ that\ supports\ reconnect}}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (WiFI\_CONNECTED)}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ WiFi.reconnect();}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_network\_connection\_cb)}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_network\_connection\_cb();}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_external\_gsm\_client)}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ gprsDisconnect();}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ gprsConnect();}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_external\_ethernet\_client)}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ ethernetConnect();}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_internal\_basic\_client)}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ ||\ defined(ESP8266)}}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ WiFi.reconnect();}
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_wifi\_multi\ \&\&\ \_wifi\_multi-\/>credentials.size())}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_wifi\_multi-\/>reconnect();}
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00424\ \ \ \ \ \}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_ac57f7e9855e6d9a8e8c17010f4f79438}{networkDisconnect}}()\ \{\}}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00435\ \ \ \ \ esp\_mail\_client\_type\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a6796a0041580d1e649aa210c7780cd67}{type}}()\ \{\ \textcolor{keywordflow}{return}\ \_client\_type;\ \}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_ac7fccb14ba685e462a1d89930fa23833}{isInitialized}}()}
+\DoxyCodeLine{00442\ \ \ \ \ \{}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ rdy\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_external\_generic\_client\ \&\&}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ (!\_network\_connection\_cb\ ||\ !\_network\_status\_cb))}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ rdy\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_client\_type\ !=\ esp\_mail\_client\_type\_external\_generic\_client\ \&\&}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_client\_type\ !=\ esp\_mail\_client\_type\_external\_gsm\_client)}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ rdy\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ assume\ external\ client\ is\ WiFiClient\ and\ network\ status\ request\ callback\ is\ not\ required}}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ when\ device\ was\ connected\ to\ network\ using\ on\ board\ WiFi}}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_external\_generic\_client\ \&\&}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ (!\_network\_connection\_cb\ ||\ (!\_network\_status\_cb\ \&\&\ !WiFI\_CONNECTED\ \&\&\ !\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a9a93496d5bd00906b766fce13cf33693}{ethLinkUp}}())))}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ rdy\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!rdy)}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)\ \&\&\ (defined(ENABLE\_SMTP)\ ||\ defined(ENABLE\_IMAP))}}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_debug\_level\ >\ 0)}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_network\_connection\_cb)}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag(esp\_mail\_error\_client\_str\_2\ \textcolor{comment}{/*\ "{}network\ connection\ callback\ is\ required"{}\ */},\ esp\_mail\_debug\_tag\_type\_error,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!WiFI\_CONNECTED\ \&\&\ !\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a9a93496d5bd00906b766fce13cf33693}{ethLinkUp}}())}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_network\_status\_cb)}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag(esp\_mail\_error\_client\_str\_3\ \textcolor{comment}{/*\ "{}network\ connection\ status\ callback\ is\ required"{}\ */},\ esp\_mail\_debug\_tag\_type\_error,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rdy;}
+\DoxyCodeLine{00479\ \ \ \ \ \}}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_afbf2cbc035989829b7cc312740043b6e}{hostByName}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ \&ip)}
+\DoxyCodeLine{00488\ \ \ \ \ \{}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ WiFi.hostByName(name,\ ip);}
+\DoxyCodeLine{00491\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00493\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00494\ \ \ \ \ \}}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00502\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a990ca4e2b5f62a94d35a50164721bab1}{begin}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host,\ uint16\_t\ port)}
+\DoxyCodeLine{00503\ \ \ \ \ \{}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \_host\ =\ host;}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \_port\ =\ port;}
+\DoxyCodeLine{00506\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \_tcp\_client-\/>setBufferSizes(\_rx\_size\ >=\ \_minRXTXBufSize\ \&\&\ \_rx\_size\ <=\ \_maxRXBufSize\ ?\ \_rx\_size\ :\ \_maxRXBufSize\ /\ rxBufDivider,}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_tx\_size\ >=\ \_minRXTXBufSize\ \&\&\ \_tx\_size\ <=\ \_maxTXBufSize\ ?\ \_tx\_size\ :\ \_maxTXBufSize\ /\ txBufDivider);}
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \_last\_error\ =\ 0;}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00512\ \ \ \ \ \}}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{keywordtype}{void}\ setBSSLSession(\mbox{\hyperlink{class_bear_s_s_l___session}{BearSSL\_Session}}\ *session)}
+\DoxyCodeLine{00515\ \ \ \ \ \{}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_tcp\_client)}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \_tcp\_client-\/>setSession(session);}
+\DoxyCodeLine{00519\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00520\ \ \ \ \ \}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00529\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a9f306a0672c948b1f57a5ac57326d215}{connect}}(\textcolor{keywordtype}{bool}\ secured,\ \textcolor{keywordtype}{bool}\ verify)}
+\DoxyCodeLine{00530\ \ \ \ \ \{}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)\ ||\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \_last\_error\ =\ 0;}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \_tcp\_client-\/>enableSSL(secured);}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ setSecure(secured);}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ setVerify(verify);}
+\DoxyCodeLine{00540\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a34f09a1d5cee4a77a33f29a92bb06bf2}{connected}}())}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a1a51673dc152e0a7a59b69a1b53367f9}{flush}}();}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_basic\_client)}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_external\_generic\_client)}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_last\_error\ =\ 1;}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_client\_type\ !=\ esp\_mail\_client\_type\_external\_gsm\_client)}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00557\ \textcolor{comment}{//\ Device\ has\ no\ built-\/in\ WiFi,\ external\ client\ required.}}
+\DoxyCodeLine{00558\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_basic\_client\ =\ \textcolor{keyword}{new}\ BASE\_WIFICLIENT();}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_client\_type\ =\ esp\_mail\_client\_type\_internal\_basic\_client;}
+\DoxyCodeLine{00561\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_last\_error\ =\ 1;}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \_tcp\_client\ =\ \_basic\_client;}
+\DoxyCodeLine{00570\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \_tcp\_client-\/>setClient(\_basic\_client);}
+\DoxyCodeLine{00572\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_tcp\_client-\/>connect(\_host.c\_str(),\ \_port))}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00576\ }
+\DoxyCodeLine{00577\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)\ \&\&\ (defined(ESP32)\ ||\ defined(ESP8266)\ ||\ defined(MB\_ARDUINO\_PICO))}}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_internal\_basic\_client)}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{reinterpret\_cast<}BASE\_WIFICLIENT\ *\textcolor{keyword}{>}(\_basic\_client)-\/>setNoDelay(\textcolor{keyword}{true});}
+\DoxyCodeLine{00580\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00581\ }
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ TCP\ keepalive\ should\ work\ in\ ESP8266\ core\ >\ 3.1.2.}}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ https://github.com/esp8266/Arduino/pull/8940}}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Not\ currently\ supported\ by\ WiFiClientSecure\ in\ Arduino\ Pico\ core}}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_client\_type\ ==\ esp\_mail\_client\_type\_internal\_basic\_client)}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isKeepAliveSet())}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00591\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \textcolor{preprocessor}{\#if\ defined(ESP8266)}}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_tcpKeepIdleSeconds\ ==\ 0\ ||\ \_tcpKeepIntervalSeconds\ ==\ 0\ ||\ \_tcpKeepCount\ ==\ 0)}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{reinterpret\_cast<}BASE\_WIFICLIENT\ *\textcolor{keyword}{>}(\_basic\_client)-\/>disableKeepAlive();}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{reinterpret\_cast<}BASE\_WIFICLIENT\ *\textcolor{keyword}{>}(\_basic\_client)-\/>keepAlive(\_tcpKeepIdleSeconds,\ \_tcpKeepIntervalSeconds,\ \_tcpKeepCount);}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \textcolor{preprocessor}{\#elif\ defined(ESP32)}}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_tcpKeepIdleSeconds\ ==\ 0\ ||\ \_tcpKeepIntervalSeconds\ ==\ 0\ ||\ \_tcpKeepCount\ ==\ 0)}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_tcpKeepIdleSeconds\ =\ 0;}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_tcpKeepIntervalSeconds\ =\ 0;}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_tcpKeepCount\ =\ 0;}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ success\ =\ setOption(TCP\_KEEPIDLE,\ \&\_tcpKeepIdleSeconds)\ >\ -\/1\ \&\&}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ setOption(TCP\_KEEPINTVL,\ \&\_tcpKeepIntervalSeconds)\ >\ -\/1\ \&\&}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ setOption(TCP\_KEEPCNT,\ \&\_tcpKeepCount)\ >\ -\/1;}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!success)}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_isKeepAlive\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00613\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00615\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00618\ }
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ ret\ =\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a34f09a1d5cee4a77a33f29a92bb06bf2}{connected}}();}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ret)}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a52dd2c3431fe4a941b627c7bde398706}{stop}}();}
+\DoxyCodeLine{00622\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00624\ \ \ \ \ \}}
+\DoxyCodeLine{00625\ }
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_ad08936fc4a74080a43880e260408311e}{connectSSL}}(\textcolor{keywordtype}{bool}\ verify)}
+\DoxyCodeLine{00634\ \ \ \ \ \{}
+\DoxyCodeLine{00635\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \_tcp\_client-\/>setDebugLevel(2);}
+\DoxyCodeLine{00637\ }
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ \_tcp\_client-\/>connected();}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \ \ \ \ setVerify(verify);}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \ \ \ \ ret\ =\ \_tcp\_client-\/>connectSSL(\_host.c\_str(),\ \_port);}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_secured\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00647\ }
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ret)}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a52dd2c3431fe4a941b627c7bde398706}{stop}}();}
+\DoxyCodeLine{00650\ }
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00652\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00654\ \ \ \ \ \}}
+\DoxyCodeLine{00655\ }
+\DoxyCodeLine{00659\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a52dd2c3431fe4a941b627c7bde398706}{stop}}()}
+\DoxyCodeLine{00660\ \ \ \ \ \{}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_tcp\_client)}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \ \ \ \ \_tcp\_client-\/>stop();}
+\DoxyCodeLine{00663\ \ \ \ \ \}}
+\DoxyCodeLine{00664\ }
+\DoxyCodeLine{00669\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a34f09a1d5cee4a77a33f29a92bb06bf2}{connected}}()\ \{\ \textcolor{keywordflow}{return}\ \_tcp\_client\ \&\&\ \_tcp\_client-\/>connected();\ \};}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00677\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a82b84e4d2514d3029696f9a4d6109272}{write}}(uint8\_t\ *data,\ \textcolor{keywordtype}{int}\ len)}
+\DoxyCodeLine{00678\ \ \ \ \ \{}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_tcp\_client)}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TCP\_CLIENT\_ERROR\_NOT\_INITIALIZED;}
+\DoxyCodeLine{00681\ }
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!data)}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TCP\_CLIENT\_ERROR\_SEND\_DATA\_FAILED;}
+\DoxyCodeLine{00684\ }
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ ==\ 0)}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TCP\_CLIENT\_ERROR\_SEND\_DATA\_FAILED;}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_aeb6cf621bf8510eab20cf8ca222b09d7}{networkReady}}())}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TCP\_CLIENT\_ERROR\_NOT\_CONNECTED;}
+\DoxyCodeLine{00690\ }
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a9f306a0672c948b1f57a5ac57326d215}{connect}}(isSecure(),\ isVerify()))}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TCP\_CLIENT\_ERROR\_CONNECTION\_REFUSED;}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ toSend\ =\ \_chunkSize;}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sent\ =\ 0;}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (sent\ <\ len)}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sent\ +\ toSend\ >\ len)}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ toSend\ =\ len\ -\/\ sent;}
+\DoxyCodeLine{00700\ }
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\textcolor{keywordtype}{int})\_tcp\_client-\/>write(data\ +\ sent,\ toSend)\ !=\ toSend)}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TCP\_CLIENT\_ERROR\_SEND\_DATA\_FAILED;}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \ \ \ \ sent\ +=\ toSend;}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00706\ }
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ len;}
+\DoxyCodeLine{00708\ \ \ \ \ \}}
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00715\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a166e4aa4c61de694d50e751cd7edc20a}{send}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a82b84e4d2514d3029696f9a4d6109272}{write}}((uint8\_t\ *)data,\ strlen(data));\ \}}
+\DoxyCodeLine{00716\ }
+\DoxyCodeLine{00722\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a000038cf97bee622da1929dab14f4768}{print}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data)\ \{\ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a166e4aa4c61de694d50e751cd7edc20a}{send}}(data);\ \}}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00729\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a32eace71e5cc3751125a1f166404a3c9}{print}}(\textcolor{keywordtype}{int}\ data)}
+\DoxyCodeLine{00730\ \ \ \ \ \{}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buf[64];}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ memset(buf,\ 0,\ 64);}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ sprintf(buf,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)FPSTR(\textcolor{stringliteral}{"{}\%d"{}}),\ data);}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a166e4aa4c61de694d50e751cd7edc20a}{send}}(buf);}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00736\ \ \ \ \ \}}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00743\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a7e7f9e33b4ff5c1f1c3fbd7455e217cd}{println}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data)}
+\DoxyCodeLine{00744\ \ \ \ \ \{}
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ len\ =\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a166e4aa4c61de694d50e751cd7edc20a}{send}}(data);}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ <\ 0)}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ len;}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ sz\ =\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a166e4aa4c61de694d50e751cd7edc20a}{send}}((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)FPSTR(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}}));}
+\DoxyCodeLine{00749\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sz\ <\ 0)}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sz;}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ len\ +\ sz;}
+\DoxyCodeLine{00752\ \ \ \ \ \}}
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00759\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_acbe56495447578b1f0da093cd5a84ca5}{println}}(\textcolor{keywordtype}{int}\ data)}
+\DoxyCodeLine{00760\ \ \ \ \ \{}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buf[64];}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ memset(buf,\ 0,\ 64);}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ sprintf(buf,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)FPSTR(\textcolor{stringliteral}{"{}\%d\(\backslash\)r\(\backslash\)n"{}}),\ data);}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ret\ =\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a166e4aa4c61de694d50e751cd7edc20a}{send}}(buf);}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00766\ \ \ \ \ \}}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00772\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a754de3db9ea8a4e898eeada5ec0f8124}{available}}()}
+\DoxyCodeLine{00773\ \ \ \ \ \{}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_basic\_client)}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TCP\_CLIENT\_ERROR\_NOT\_INITIALIZED;}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_tcp\_client-\/>available();}
+\DoxyCodeLine{00778\ \ \ \ \ \}}
+\DoxyCodeLine{00779\ }
+\DoxyCodeLine{00784\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_ab63e1acbbb843eeda0e9ba924dfba590}{read}}()}
+\DoxyCodeLine{00785\ \ \ \ \ \{}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_basic\_client)}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TCP\_CLIENT\_ERROR\_NOT\_INITIALIZED;}
+\DoxyCodeLine{00788\ }
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_tcp\_client-\/>read();}
+\DoxyCodeLine{00790\ \ \ \ \ \}}
+\DoxyCodeLine{00791\ }
+\DoxyCodeLine{00798\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_aef72c4fbf2285be28d6555dced0ed204}{readBytes}}(uint8\_t\ *buf,\ \textcolor{keywordtype}{int}\ len)}
+\DoxyCodeLine{00799\ \ \ \ \ \{}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_basic\_client)}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ TCP\_CLIENT\_ERROR\_NOT\_INITIALIZED;}
+\DoxyCodeLine{00802\ }
+\DoxyCodeLine{00803\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_tcp\_client-\/>read(buf,\ len);}
+\DoxyCodeLine{00804\ \ \ \ \ \}}
+\DoxyCodeLine{00805\ }
+\DoxyCodeLine{00812\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a4ce3bf635dd18ac40368c5489f71e5ab}{readBytes}}(\textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{int}\ len)}
+\DoxyCodeLine{00813\ \ \ \ \ \{}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_aef72c4fbf2285be28d6555dced0ed204}{readBytes}}((uint8\_t\ *)buf,\ len);}
+\DoxyCodeLine{00815\ \ \ \ \ \}}
+\DoxyCodeLine{00816\ }
+\DoxyCodeLine{00820\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a1a51673dc152e0a7a59b69a1b53367f9}{flush}}()}
+\DoxyCodeLine{00821\ \ \ \ \ \{}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_tcp\_client)}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ \_tcp\_client-\/>flush();}
+\DoxyCodeLine{00824\ \ \ \ \ \}}
+\DoxyCodeLine{00825\ }
+\DoxyCodeLine{00830\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a66adb80f7315d33150706c1cf5910ff3}{networkConnectionRequestCallback}}(NetworkConnectionRequestCallback\ networkConnectionCB)}
+\DoxyCodeLine{00831\ \ \ \ \ \{}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \_network\_connection\_cb\ =\ networkConnectionCB;}
+\DoxyCodeLine{00833\ \ \ \ \ \}}
+\DoxyCodeLine{00834\ }
+\DoxyCodeLine{00839\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a56acf66f05ee90c95a1c7a654d1ee2e8}{networkStatusRequestCallback}}(NetworkStatusRequestCallback\ networkStatusCB)}
+\DoxyCodeLine{00840\ \ \ \ \ \{}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ \_network\_status\_cb\ =\ networkStatusCB;}
+\DoxyCodeLine{00842\ \ \ \ \ \}}
+\DoxyCodeLine{00843\ }
+\DoxyCodeLine{00848\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a25d544acc2db02bd96053bc6f54bb6a5}{setNetworkStatus}}(\textcolor{keywordtype}{bool}\ status)}
+\DoxyCodeLine{00849\ \ \ \ \ \{}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \_network\_status\ =\ status;}
+\DoxyCodeLine{00851\ \ \ \ \ \}}
+\DoxyCodeLine{00852\ }
+\DoxyCodeLine{00853\ \ \ \ \ \textcolor{keywordtype}{void}\ setMBFS(\mbox{\hyperlink{class_m_b___f_s}{MB\_FS}}\ *mbfs)\ \{\ \_mbfs\ =\ mbfs;\ \}}
+\DoxyCodeLine{00854\ }
+\DoxyCodeLine{00855\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)\ ||\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{00856\ \ \ \ \ \textcolor{keywordtype}{void}\ setSession(Session\_Config\ *session\_config)}
+\DoxyCodeLine{00857\ \ \ \ \ \{}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \_session\_config\ =\ session\_config;}
+\DoxyCodeLine{00859\ \ \ \ \ \}}
+\DoxyCodeLine{00860\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00861\ }
+\DoxyCodeLine{00862\ \ \ \ \ \textcolor{keywordtype}{void}\ setClockReady(\textcolor{keywordtype}{bool}\ rdy)}
+\DoxyCodeLine{00863\ \ \ \ \ \{}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \_clock\_ready\ =\ rdy;}
+\DoxyCodeLine{00865\ \ \ \ \ \}}
+\DoxyCodeLine{00866\ }
+\DoxyCodeLine{00867\ \ \ \ \ \textcolor{keywordtype}{void}\ setCertType(esp\_mail\_cert\_type\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a6796a0041580d1e649aa210c7780cd67}{type}})\ \{\ \_cert\_type\ =\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a6796a0041580d1e649aa210c7780cd67}{type}};\ \}}
+\DoxyCodeLine{00868\ }
+\DoxyCodeLine{00869\ \ \ \ \ esp\_mail\_cert\_type\ getCertType()\ \{\ \textcolor{keywordflow}{return}\ \_cert\_type;\ \}}
+\DoxyCodeLine{00870\ }
+\DoxyCodeLine{00871\ \ \ \ \ \textcolor{keywordtype}{void}\ setDebugLevel(\textcolor{keywordtype}{int}\ debug)\ \{\ \_debug\_level\ =\ debug;\ \}}
+\DoxyCodeLine{00872\ }
+\DoxyCodeLine{00873\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ tcpTimeout()}
+\DoxyCodeLine{00874\ \ \ \ \ \{}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_tcp\_client)}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1000\ *\ \_tcp\_client-\/>getTimeout();}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00878\ \ \ \ \ \}}
+\DoxyCodeLine{00879\ }
+\DoxyCodeLine{00880\ \ \ \ \ \textcolor{keywordtype}{void}\ disconnect()\{\};}
+\DoxyCodeLine{00881\ }
+\DoxyCodeLine{00882\ \ \ \ \ \textcolor{keywordtype}{void}\ keepAlive(\textcolor{keywordtype}{int}\ tcpKeepIdleSeconds,\ \textcolor{keywordtype}{int}\ tcpKeepIntervalSeconds,\ \textcolor{keywordtype}{int}\ tcpKeepCount)}
+\DoxyCodeLine{00883\ \ \ \ \ \{}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \_tcpKeepIdleSeconds\ =\ tcpKeepIdleSeconds;}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \_tcpKeepIntervalSeconds\ =\ tcpKeepIntervalSeconds;}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \_tcpKeepCount\ =\ tcpKeepCount;}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \_isKeepAlive\ =\ tcpKeepIdleSeconds\ >\ 0\ \&\&\ tcpKeepIntervalSeconds\ >\ 0\ \&\&\ tcpKeepCount\ >\ 0;}
+\DoxyCodeLine{00888\ \ \ \ \ \}}
+\DoxyCodeLine{00889\ }
+\DoxyCodeLine{00890\ \ \ \ \ \textcolor{keywordtype}{bool}\ isKeepAliveSet()\ \{\ \textcolor{keywordflow}{return}\ \_tcpKeepIdleSeconds\ >\ -\/1\ \&\&\ \_tcpKeepIntervalSeconds\ >\ -\/1\ \&\&\ \_tcpKeepCount\ >\ -\/1;\ \};}
+\DoxyCodeLine{00891\ }
+\DoxyCodeLine{00892\ \ \ \ \ \textcolor{keywordtype}{bool}\ isKeepAlive()\ \{\ \textcolor{keywordflow}{return}\ \_isKeepAlive;\ \};}
+\DoxyCodeLine{00893\ }
+\DoxyCodeLine{00894\ \ \ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00895\ \ \ \ \ \{}
+\DoxyCodeLine{00896\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_basic\_client\ \&\&\ \_client\_type\ ==\ esp\_mail\_client\_type\_internal\_basic\_client)}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00899\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ (BASE\_WIFICLIENT\ *)\_basic\_client;}
+\DoxyCodeLine{00901\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \_basic\_client;}
+\DoxyCodeLine{00903\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \ \ \ \ \_basic\_client\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00906\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ \_basic\_client\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00908\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00909\ \ \ \ \ \ \ \ \ \_client\_type\ =\ esp\_mail\_client\_type\_undefined;}
+\DoxyCodeLine{00910\ \ \ \ \ \}}
+\DoxyCodeLine{00911\ }
+\DoxyCodeLine{00912\ \ \ \ \ \textcolor{keywordtype}{void}\ setWiFi(esp\_mail\_wifi\_credentials\_t\ *wifi)\ \{\ \_wifi\_multi\ =\ wifi;\ \}}
+\DoxyCodeLine{00913\ }
+\DoxyCodeLine{00914\ \ \ \ \ \textcolor{keywordtype}{bool}\ gprsConnect()}
+\DoxyCodeLine{00915\ \ \ \ \ \{}
+\DoxyCodeLine{00916\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_GSM\_MODEM\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00917\ \ \ \ \ \ \ \ \ TinyGsm\ *gsmModem\ =\ (TinyGsm\ *)\_modem;}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (gsmModem)}
+\DoxyCodeLine{00919\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Unlock\ your\ SIM\ card\ with\ a\ PIN\ if\ needed}}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_pin.length()\ \&\&\ gsmModem-\/>getSimStatus()\ !=\ 3)}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gsmModem-\/>simUnlock(\_pin.c\_str());}
+\DoxyCodeLine{00923\ }
+\DoxyCodeLine{00924\ \textcolor{preprocessor}{\#if\ defined(TINY\_GSM\_MODEM\_XBEE)}}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ XBee\ must\ run\ the\ gprsConnect\ function\ BEFORE\ waiting\ for\ network!}}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \ \ \ \ gsmModem-\/>gprsConnect(\_apn.c\_str(),\ \_user.c\_str(),\ \_password.c\_str());}
+\DoxyCodeLine{00927\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00928\ }
+\DoxyCodeLine{00929\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)\ \&\&\ (defined(ENABLE\_IMAP)\ ||\ defined(ENABLE\_SMTP))}}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_debug\_level\ >\ 0\ \&\&\ \_last\_error\ ==\ 0)}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}Waiting\ for\ network..."{}}),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00932\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!gsmModem-\/>waitForNetwork())}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00935\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)\ \&\&\ (defined(ENABLE\_IMAP)\ ||\ defined(ENABLE\_SMTP))}}
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_debug\_level\ >\ 0\ \&\&\ \_last\_error\ ==\ 0)}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\ fail"{}}),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{true},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00938\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_last\_error\ =\ 1;}
+\DoxyCodeLine{00940\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_network\_status\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00942\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00943\ }
+\DoxyCodeLine{00944\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)\ \&\&\ (defined(ENABLE\_IMAP)\ ||\ defined(ENABLE\_SMTP))}}
+\DoxyCodeLine{00945\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_debug\_level\ >\ 0\ \&\&\ \_last\_error\ ==\ 0)}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\ success"{}}),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{true},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00947\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00948\ }
+\DoxyCodeLine{00949\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (gsmModem-\/>isNetworkConnected())}
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00951\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)\ \&\&\ (defined(ENABLE\_IMAP)\ ||\ defined(ENABLE\_SMTP))}}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_debug\_level\ >\ 0\ \&\&\ \_last\_error\ ==\ 0)}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}Connecting\ to\ "{}}),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag(\_apn.c\_str(),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{false},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00957\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_network\_status\ =\ gsmModem-\/>gprsConnect(\_apn.c\_str(),\ \_user.c\_str(),\ \_password.c\_str())\ \&\&}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gsmModem-\/>isGprsConnected();}
+\DoxyCodeLine{00960\ }
+\DoxyCodeLine{00961\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)\ \&\&\ (defined(ENABLE\_IMAP)\ ||\ defined(ENABLE\_SMTP))}}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_debug\_level\ >\ 0\ \&\&\ \_last\_error\ ==\ 0)}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_network\_status)}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\ success"{}}),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{true},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\ fail"{}}),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{true},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00969\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00971\ }
+\DoxyCodeLine{00972\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_network\_status)}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_last\_error\ =\ 1;}
+\DoxyCodeLine{00974\ }
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_network\_status;}
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00977\ }
+\DoxyCodeLine{00978\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00979\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00980\ \ \ \ \ \}}
+\DoxyCodeLine{00981\ }
+\DoxyCodeLine{00982\ \ \ \ \ \textcolor{keywordtype}{bool}\ gprsConnected()}
+\DoxyCodeLine{00983\ \ \ \ \ \{}
+\DoxyCodeLine{00984\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_GSM\_MODEM\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ TinyGsm\ *gsmModem\ =\ (TinyGsm\ *)\_modem;}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \_network\_status\ =\ gsmModem\ \&\&\ gsmModem-\/>isGprsConnected();}
+\DoxyCodeLine{00987\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_network\_status;}
+\DoxyCodeLine{00989\ \ \ \ \ \}}
+\DoxyCodeLine{00990\ }
+\DoxyCodeLine{00991\ \ \ \ \ \textcolor{keywordtype}{bool}\ gprsDisconnect()}
+\DoxyCodeLine{00992\ \ \ \ \ \{}
+\DoxyCodeLine{00993\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_GSM\_MODEM\_IS\_AVAILABLE)}}
+\DoxyCodeLine{00994\ \ \ \ \ \ \ \ \ TinyGsm\ *gsmModem\ =\ (TinyGsm\ *)\_modem;}
+\DoxyCodeLine{00995\ \ \ \ \ \ \ \ \ \_network\_status\ =\ gsmModem\ \&\&\ gsmModem-\/>gprsDisconnect();}
+\DoxyCodeLine{00996\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00997\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !\_network\_status;}
+\DoxyCodeLine{00998\ \ \ \ \ \}}
+\DoxyCodeLine{00999\ }
+\DoxyCodeLine{01000\ \ \ \ \ \textcolor{keywordtype}{bool}\ gprsGetTime(\textcolor{keywordtype}{int}\ \&year,\ \textcolor{keywordtype}{int}\ \&month,\ \textcolor{keywordtype}{int}\ \&day,\ \textcolor{keywordtype}{int}\ \&hour,\ \textcolor{keywordtype}{int}\ \&min,\ \textcolor{keywordtype}{int}\ \&sec,\ \textcolor{keywordtype}{float}\ \&timezone)}
+\DoxyCodeLine{01001\ \ \ \ \ \{}
+\DoxyCodeLine{01002\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_GSM\_MODEM\_IS\_AVAILABLE)\ \&\&\ defined(TINY\_GSM\_MODEM\_HAS\_TIME)}}
+\DoxyCodeLine{01003\ }
+\DoxyCodeLine{01004\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!gprsConnected())}
+\DoxyCodeLine{01005\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{01006\ }
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ TinyGsm\ *gsmModem\ =\ (TinyGsm\ *)\_modem;}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \ \ year\ =\ 0;}
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ month\ =\ 0;}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ day\ =\ 0;}
+\DoxyCodeLine{01011\ \ \ \ \ \ \ \ \ hour\ =\ 0;}
+\DoxyCodeLine{01012\ \ \ \ \ \ \ \ \ min\ =\ 0;}
+\DoxyCodeLine{01013\ \ \ \ \ \ \ \ \ sec\ =\ 0;}
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ timezone\ =\ 0;}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (int8\_t\ i\ =\ 5;\ i;\ i-\/-\/)}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (gsmModem-\/>getNetworkTime(\&year,\ \&month,\ \&day,\ \&hour,\ \&min,\ \&sec,\ \&timezone))}
+\DoxyCodeLine{01018\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01024\ \ \ \ \ \}}
+\DoxyCodeLine{01025\ }
+\DoxyCodeLine{01026\ \ \ \ \ \textcolor{keywordtype}{bool}\ ethernetConnect()}
+\DoxyCodeLine{01027\ \ \ \ \ \{}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ ret\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01029\ }
+\DoxyCodeLine{01030\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_ETHERNET\_MODULE\_IS\_AVAILABLE)}}
+\DoxyCodeLine{01031\ }
+\DoxyCodeLine{01032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_ethernet\_cs\_pin\ >\ -\/1)}
+\DoxyCodeLine{01033\ \ \ \ \ \ \ \ \ \ \ \ \ ETH\_MODULE\_CLASS.init(\_ethernet\_cs\_pin);}
+\DoxyCodeLine{01034\ }
+\DoxyCodeLine{01035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_ethernet\_reset\_pin\ >\ -\/1)}
+\DoxyCodeLine{01036\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01037\ }
+\DoxyCodeLine{01038\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)\ \&\&\ (defined(ENABLE\_IMAP)\ ||\ defined(ENABLE\_SMTP))}}
+\DoxyCodeLine{01039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_debug\_level\ >\ 0)}
+\DoxyCodeLine{01040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}Resetting\ Ethernet\ Board..."{}}),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01042\ }
+\DoxyCodeLine{01043\ \ \ \ \ \ \ \ \ \ \ \ \ pinMode(\_ethernet\_reset\_pin,\ OUTPUT);}
+\DoxyCodeLine{01044\ \ \ \ \ \ \ \ \ \ \ \ \ digitalWrite(\_ethernet\_reset\_pin,\ HIGH);}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \ \ \ \ delay(200);}
+\DoxyCodeLine{01046\ \ \ \ \ \ \ \ \ \ \ \ \ digitalWrite(\_ethernet\_reset\_pin,\ LOW);}
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \ \ \ \ delay(50);}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \ \ \ \ \ \ digitalWrite(\_ethernet\_reset\_pin,\ HIGH);}
+\DoxyCodeLine{01049\ \ \ \ \ \ \ \ \ \ \ \ \ delay(200);}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01051\ }
+\DoxyCodeLine{01052\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)\ \&\&\ (defined(ENABLE\_IMAP)\ ||\ defined(ENABLE\_SMTP))}}
+\DoxyCodeLine{01053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_debug\_level\ >\ 0)}
+\DoxyCodeLine{01054\ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}Starting\ Ethernet\ connection..."{}}),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_static\_ip)}
+\DoxyCodeLine{01057\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01058\ }
+\DoxyCodeLine{01059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_static\_ip-\/>optional\ ==\ \textcolor{keyword}{false})}
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ETH\_MODULE\_CLASS.begin(\_ethernet\_mac,\ \_static\_ip-\/>ipAddress,\ \_static\_ip-\/>dnsServer,\ \_static\_ip-\/>defaultGateway,\ \_static\_ip-\/>netMask);}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (!ETH\_MODULE\_CLASS.begin(\_ethernet\_mac))}
+\DoxyCodeLine{01062\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ETH\_MODULE\_CLASS.begin(\_ethernet\_mac,\ \_static\_ip-\/>ipAddress,\ \_static\_ip-\/>dnsServer,\ \_static\_ip-\/>defaultGateway,\ \_static\_ip-\/>netMask);}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01067\ \ \ \ \ \ \ \ \ \ \ \ \ ETH\_MODULE\_CLASS.begin(\_ethernet\_mac);}
+\DoxyCodeLine{01068\ }
+\DoxyCodeLine{01069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ to\ =\ millis();}
+\DoxyCodeLine{01070\ }
+\DoxyCodeLine{01071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (ETH\_MODULE\_CLASS.linkStatus()\ ==\ LinkOFF\ \&\&\ millis()\ -\/\ to\ <\ ESP\_MAIL\_ETHERNET\_MODULE\_TIMEOUT)}
+\DoxyCodeLine{01072\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ \ \ \ \ delay(100);}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01075\ }
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ ret\ =\ ethernetConnected();}
+\DoxyCodeLine{01077\ }
+\DoxyCodeLine{01078\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)\ \&\&\ (defined(ENABLE\_IMAP)\ ||\ defined(ENABLE\_SMTP))}}
+\DoxyCodeLine{01079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_debug\_level\ >\ 0)}
+\DoxyCodeLine{01080\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ret)}
+\DoxyCodeLine{01082\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}Connected\ with\ IP\ "{}}),\ esp\_mail\_debug\_tag\_type\_info,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ESP\_MAIL\_DEFAULT\_DEBUG\_PORT.println(ETH\_MODULE\_CLASS.localIP());}
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print\_tag((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}Can't\ connect"{}}),\ esp\_mail\_debug\_tag\_type\_error,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01089\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01090\ }
+\DoxyCodeLine{01091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01092\ }
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{01094\ \ \ \ \ \}}
+\DoxyCodeLine{01095\ }
+\DoxyCodeLine{01096\ \ \ \ \ \textcolor{keywordtype}{bool}\ ethernetConnected()}
+\DoxyCodeLine{01097\ \ \ \ \ \{}
+\DoxyCodeLine{01098\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_ETHERNET\_MODULE\_IS\_AVAILABLE)}}
+\DoxyCodeLine{01099\ \ \ \ \ \ \ \ \ \_network\_status\ =\ ETH\_MODULE\_CLASS.linkStatus()\ ==\ LinkON\ \&\&\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a4acbf93c2b0ae1cf6ca8385ce6573b78}{validIP}}(ETH\_MODULE\_CLASS.localIP());}
+\DoxyCodeLine{01100\ }
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_network\_status)}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ \ \ \ \ \ \ delay(ESP\_MAIL\_ETHERNET\_MODULE\_TIMEOUT);}
+\DoxyCodeLine{01104\ \ \ \ \ \ \ \ \ \ \ \ \ \_network\_status\ =\ ETH\_MODULE\_CLASS.linkStatus()\ ==\ LinkON\ \&\&\ \mbox{\hyperlink{class_e_s_p___mail___t_c_p_client_a4acbf93c2b0ae1cf6ca8385ce6573b78}{validIP}}(ETH\_MODULE\_CLASS.localIP());}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01106\ }
+\DoxyCodeLine{01107\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_network\_status;}
+\DoxyCodeLine{01109\ \ \ \ \ \}}
+\DoxyCodeLine{01110\ }
+\DoxyCodeLine{01111\ \ \ \ \ \textcolor{keywordtype}{int}\ setOption(\textcolor{keywordtype}{int}\ option,\ \textcolor{keywordtype}{int}\ *value)}
+\DoxyCodeLine{01112\ \ \ \ \ \{}
+\DoxyCodeLine{01113\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ \&\&\ defined(ESP\_MAIL\_WIFI\_IS\_AVAILABLE)}}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Actually\ we\ wish\ to\ use\ setSocketOption\ directly\ but\ it\ is\ ambiguous\ in\ old\ ESP32\ core\ v1.0.x.;}}
+\DoxyCodeLine{01115\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Use\ setOption\ instead\ for\ old\ core\ support.}}
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}BASE\_WIFICLIENT\ *\textcolor{keyword}{>}(\_basic\_client)-\/>setOption(option,\ value);}
+\DoxyCodeLine{01117\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{01119\ \ \ \ \ \}}
+\DoxyCodeLine{01120\ }
+\DoxyCodeLine{01121\ \ \ \ \ \textcolor{keywordtype}{void}\ setTA(\textcolor{keywordtype}{bool}\ hasTA)}
+\DoxyCodeLine{01122\ \ \ \ \ \{}
+\DoxyCodeLine{01123\ \ \ \ \ \ \ \ \ \_has\_ta\ =\ hasTA;}
+\DoxyCodeLine{01124\ \ \ \ \ \}}
+\DoxyCodeLine{01125\ }
+\DoxyCodeLine{01126\ \ \ \ \ \textcolor{keywordtype}{void}\ setSecure(\textcolor{keywordtype}{bool}\ secure)}
+\DoxyCodeLine{01127\ \ \ \ \ \{}
+\DoxyCodeLine{01128\ \ \ \ \ \ \ \ \ \_secured\ =\ secure;}
+\DoxyCodeLine{01129\ \ \ \ \ \}}
+\DoxyCodeLine{01130\ }
+\DoxyCodeLine{01131\ \ \ \ \ \textcolor{keywordtype}{void}\ setInSecure()}
+\DoxyCodeLine{01132\ \ \ \ \ \{}
+\DoxyCodeLine{01133\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{01134\ \ \ \ \ \ \ \ \ \_use\_insecure\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01135\ \ \ \ \ \ \ \ \ setTA(\textcolor{keyword}{false});}
+\DoxyCodeLine{01136\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01137\ \ \ \ \ \}}
+\DoxyCodeLine{01138\ }
+\DoxyCodeLine{01139\ \ \ \ \ \textcolor{keywordtype}{void}\ setVerify(\textcolor{keywordtype}{bool}\ verify)}
+\DoxyCodeLine{01140\ \ \ \ \ \{}
+\DoxyCodeLine{01141\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{01142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_has\_ta)}
+\DoxyCodeLine{01143\ \ \ \ \ \ \ \ \ \ \ \ \ \_use\_insecure\ =\ !verify;}
+\DoxyCodeLine{01144\ }
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_use\_insecure)}
+\DoxyCodeLine{01146\ \ \ \ \ \ \ \ \ \ \ \ \ \_tcp\_client-\/>setInsecure();}
+\DoxyCodeLine{01147\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01148\ \ \ \ \ \}}
+\DoxyCodeLine{01149\ }
+\DoxyCodeLine{01150\ \ \ \ \ \textcolor{keywordtype}{bool}\ isSecure()}
+\DoxyCodeLine{01151\ \ \ \ \ \{}
+\DoxyCodeLine{01152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_secured;}
+\DoxyCodeLine{01153\ \ \ \ \ \}}
+\DoxyCodeLine{01154\ }
+\DoxyCodeLine{01155\ \ \ \ \ \textcolor{keywordtype}{bool}\ isVerify()}
+\DoxyCodeLine{01156\ \ \ \ \ \{}
+\DoxyCodeLine{01157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !\_use\_insecure;}
+\DoxyCodeLine{01158\ \ \ \ \ \}}
+\DoxyCodeLine{01159\ }
+\DoxyCodeLine{01160\ \ \ \ \ \textcolor{keywordtype}{int}\ rxBufDivider\ =\ 16;}
+\DoxyCodeLine{01161\ \ \ \ \ \textcolor{keywordtype}{int}\ txBufDivider\ =\ 32;}
+\DoxyCodeLine{01162\ }
+\DoxyCodeLine{01163\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01164\ \ \ \ \ \textcolor{comment}{//\ lwIP\ TCP\ Keepalive\ idle\ in\ seconds.}}
+\DoxyCodeLine{01165\ \ \ \ \ \textcolor{keywordtype}{int}\ \_tcpKeepIdleSeconds\ =\ -\/1;}
+\DoxyCodeLine{01166\ \ \ \ \ \textcolor{comment}{//\ lwIP\ TCP\ Keepalive\ interval\ in\ seconds.}}
+\DoxyCodeLine{01167\ \ \ \ \ \textcolor{keywordtype}{int}\ \_tcpKeepIntervalSeconds\ =\ -\/1;}
+\DoxyCodeLine{01168\ \ \ \ \ \textcolor{comment}{//\ lwIP\ TCP\ Keepalive\ count.}}
+\DoxyCodeLine{01169\ \ \ \ \ \textcolor{keywordtype}{int}\ \_tcpKeepCount\ =\ -\/1;}
+\DoxyCodeLine{01170\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_isKeepAlive\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01171\ }
+\DoxyCodeLine{01172\ \ \ \ \ uint16\_t\ \_bsslRxSize\ =\ 1024;}
+\DoxyCodeLine{01173\ \ \ \ \ uint16\_t\ \_bsslTxSize\ =\ 1024;}
+\DoxyCodeLine{01174\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \_maxRXBufSize\ =\ 16384;\ \textcolor{comment}{//\ SSL\ full\ supported\ 16\ kB}}
+\DoxyCodeLine{01175\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \_maxTXBufSize\ =\ 16384;}
+\DoxyCodeLine{01176\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \_minRXTXBufSize\ =\ 512;}
+\DoxyCodeLine{01177\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_DISABLE\_SSL)}}
+\DoxyCodeLine{01178\ \ \ \ \ Client\ *\_tcp\_client\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01179\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01180\ \ \ \ \ ESP\_SSLClient\ *\_tcp\_client\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01181\ \ \ \ \ X509List\ *\_x509\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01182\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01183\ }
+\DoxyCodeLine{01184\ \ \ \ \ MB\_String\ \_host;}
+\DoxyCodeLine{01185\ \ \ \ \ uint16\_t\ \_port\ =\ 443;}
+\DoxyCodeLine{01186\ }
+\DoxyCodeLine{01187\ \ \ \ \ MB\_FS\ *\_mbfs\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01188\ \ \ \ \ Client\ *\_basic\_client\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01189\ \ \ \ \ esp\_mail\_wifi\_credentials\_t\ *\_wifi\_multi\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01190\ \ \ \ \ \textcolor{keywordtype}{int}\ \_ethernet\_reset\_pin\ =\ -\/1;}
+\DoxyCodeLine{01191\ \ \ \ \ \textcolor{keywordtype}{int}\ \_ethernet\_cs\_pin\ =\ -\/1;}
+\DoxyCodeLine{01192\ \ \ \ \ uint8\_t\ *\_ethernet\_mac\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01193\ \ \ \ \ ESP\_Mail\_StaticIP\ *\_static\_ip\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01194\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_SMTP)\ ||\ defined(ENABLE\_IMAP)}}
+\DoxyCodeLine{01195\ \ \ \ \ Session\_Config\ *\_session\_config\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01196\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01197\ \ \ \ \ NetworkConnectionRequestCallback\ \_network\_connection\_cb\ =\ NULL;}
+\DoxyCodeLine{01198\ \ \ \ \ NetworkStatusRequestCallback\ \_network\_status\_cb\ =\ NULL;}
+\DoxyCodeLine{01199\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_HAS\_WIFIMULTI)}}
+\DoxyCodeLine{01200\ \ \ \ \ WiFiMulti\ *\_multi\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01201\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01202\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_GSM\_MODEM\_IS\_AVAILABLE)}}
+\DoxyCodeLine{01203\ \ \ \ \ MB\_String\ \_pin,\ \_apn,\ \_user,\ \_password;}
+\DoxyCodeLine{01204\ \ \ \ \ \textcolor{keywordtype}{void}\ *\_modem\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{01205\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01206\ }
+\DoxyCodeLine{01207\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_has\_ta\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01208\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_secured\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01209\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_use\_insecure\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01210\ \ \ \ \ \textcolor{keywordtype}{int}\ \_debug\_level\ =\ 0;}
+\DoxyCodeLine{01211\ \ \ \ \ \textcolor{keywordtype}{int}\ \_chunkSize\ =\ 1024;}
+\DoxyCodeLine{01212\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_clock\_ready\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01213\ \ \ \ \ \textcolor{keywordtype}{int}\ \_last\_error\ =\ 0;}
+\DoxyCodeLine{01214\ \ \ \ \ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \_network\_status\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01215\ \ \ \ \ \textcolor{keywordtype}{int}\ \_rx\_size\ =\ -\/1,\ \_tx\_size\ =\ -\/1;}
+\DoxyCodeLine{01216\ }
+\DoxyCodeLine{01217\ \ \ \ \ esp\_mail\_cert\_type\ \_cert\_type\ =\ esp\_mail\_cert\_type\_undefined;}
+\DoxyCodeLine{01218\ \ \ \ \ esp\_mail\_client\_type\ \_client\_type\ =\ esp\_mail\_client\_type\_undefined;}
+\DoxyCodeLine{01219\ \};}
+\DoxyCodeLine{01220\ }
+\DoxyCodeLine{01221\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

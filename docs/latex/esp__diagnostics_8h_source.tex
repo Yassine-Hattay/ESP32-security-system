@@ -1,0 +1,186 @@
+\doxysection{esp\+\_\+diagnostics.\+h}
+\hypertarget{esp__diagnostics_8h_source}{}\label{esp__diagnostics_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_diagnostics/include/esp\_diagnostics.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_diagnostics/include/esp\_diagnostics.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <esp\_err.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <esp\_log.h>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ esp\_err\_t\ (*esp\_diag\_log\_write\_cb\_t)(\textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{void}\ *priv\_data);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00027\ \ \ \ \ esp\_diag\_log\_write\_cb\_t\ \mbox{\hyperlink{structesp__diag__log__config__t_a5f6336e8234071e7b526da2caf263ff0}{write\_cb}};\ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structesp__diag__log__config__t_a2cfdcc83b8f99ffd966b2666f0bde84a}{cb\_arg}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \}\ \mbox{\hyperlink{structesp__diag__log__config__t}{esp\_diag\_log\_config\_t}};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ ESP\_DIAG\_LOG\_TYPE\_ERROR\ \ \ =\ 1\ <<\ 0,\ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ ESP\_DIAG\_LOG\_TYPE\_WARNING\ =\ 1\ <<\ 1,\ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ ESP\_DIAG\_LOG\_TYPE\_EVENT\ \ \ =\ 1\ <<\ 2,\ \ \ }
+\DoxyCodeLine{00038\ \}\ esp\_diag\_log\_type\_t;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ ARG\_TYPE\_CHAR,\ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ ARG\_TYPE\_SHORT,\ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ ARG\_TYPE\_INT,\ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ ARG\_TYPE\_L,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ ARG\_TYPE\_LL,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ ARG\_TYPE\_INTMAX,\ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ ARG\_TYPE\_PTRDIFF,\ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ ARG\_TYPE\_UCHAR,\ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ ARG\_TYPE\_USHORT,\ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ ARG\_TYPE\_UINT,\ \ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ ARG\_TYPE\_UL,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ ARG\_TYPE\_ULL,\ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ ARG\_TYPE\_UINTMAX,\ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ ARG\_TYPE\_SIZE,\ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ ARG\_TYPE\_DOUBLE,\ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ ARG\_TYPE\_LDOUBLE,\ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ ARG\_TYPE\_STR,\ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ ARG\_TYPE\_INVALID,\ \ \ }
+\DoxyCodeLine{00062\ \}\ esp\_diag\_arg\_type\_t;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_aac7e6434a19fdaebfb41187d72fce6df}{c}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_ace7c4e2dd59b852be4a35fc64ef4ecf5}{s}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_a0c1bd351cca772b6e32f319fc3b400a0}{i}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_ae6d5778bd0f56ef48657ce2abaf4f34d}{l}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_a0907dbaa5f50e4a830182bf3e21f7b11}{ll}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ intmax\_t\ \mbox{\hyperlink{unionesp__diag__arg__value__t_ac21df2257b28b6d04844c8e25d2dc84d}{imx}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ ptrdiff\_t\ \mbox{\hyperlink{unionesp__diag__arg__value__t_aa098ea3623c5622ec78513c17a4d7fe3}{ptrdiff}};\ \ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_a59eaeefb7c6210455c02fe5f1ae66396}{uc}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_ab433b069da8ec6335791e59fa07e02ad}{us}};\ \ \ \ \ \ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_ab0b90860e4426401440becfdaef03838}{u}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_a3f55b296adaac6b5da112bd5a6ade698}{ul}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_ac197276de1f258c7639c867172315d79}{ull}};\ }
+\DoxyCodeLine{00080\ \ \ \ \ uintmax\_t\ \mbox{\hyperlink{unionesp__diag__arg__value__t_ae5a8832e1ce803722591ffaf2644963a}{umx}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_ae38a3b8ad14aac00c5c7fa72b6b25ce0}{sz}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_a1ac1f62ee9ed4afb05ab0de7b19948eb}{d}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{unionesp__diag__arg__value__t_a2ea2f4352052995414cc447c32bb89fa}{ld}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{unionesp__diag__arg__value__t_ab8da3edc4bfcbf4cbe350a8c38fe50fd}{str}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \}\ \mbox{\hyperlink{unionesp__diag__arg__value__t}{esp\_diag\_arg\_value\_t}};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ ESP\_DIAG\_DATA\_PT\_METRICS,\ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ ESP\_DIAG\_DATA\_PT\_VARIABLE,\ \ }
+\DoxyCodeLine{00093\ \}\ esp\_diag\_data\_pt\_type\_t;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ ESP\_DIAG\_DATA\_TYPE\_BOOL,\ \ \ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ ESP\_DIAG\_DATA\_TYPE\_INT,\ \ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ ESP\_DIAG\_DATA\_TYPE\_UINT,\ \ \ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ ESP\_DIAG\_DATA\_TYPE\_FLOAT,\ \ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ ESP\_DIAG\_DATA\_TYPE\_STR,\ \ \ \ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ ESP\_DIAG\_DATA\_TYPE\_IPv4,\ \ \ \ \ }
+\DoxyCodeLine{00105\ \ \ \ \ ESP\_DIAG\_DATA\_TYPE\_MAC,\ \ \ \ \ \ }
+\DoxyCodeLine{00106\ \}\ esp\_diag\_data\_type\_t;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00112\ \ \ \ \ esp\_diag\_log\_type\_t\ \mbox{\hyperlink{structesp__diag__log__data__t_a3678593d36ce595ca9ff0ea6a2efad35}{type}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__log__data__t_a74b15bd00b36e200e8dc0efaca107c01}{pc}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00114\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{structesp__diag__log__data__t_a359be569e8b8d21222c7b0e987aff2ea}{timestamp}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__diag__log__data__t_aed66d32a91cf366fbb89f109ef07c81e}{tag}}[16];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structesp__diag__log__data__t_a03fc881d9825b6ecacfa4a4214204d7f}{msg\_ptr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00118\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__diag__log__data__t_a94b29d91e9d92f8308e7cb01e3d438cf}{msg\_args}}[CONFIG\_DIAG\_LOG\_MSG\_ARG\_MAX\_SIZE];\ }
+\DoxyCodeLine{00119\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__diag__log__data__t_a1761aa6166e3489b1c975ba28b669cd9}{msg\_args\_len}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__diag__log__data__t_ae98fd07db884572d5cdd6d838215c7e3}{task\_name}}[CONFIG\_FREERTOS\_MAX\_TASK\_NAME\_LEN];\ \ }
+\DoxyCodeLine{00121\ \}\ \mbox{\hyperlink{structesp__diag__log__data__t}{esp\_diag\_log\_data\_t}};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00127\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__device__info__t_a9161833d59231d23fc6bad599e39497a}{chip\_model}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00128\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__device__info__t_af3488b0236b529930bd4b475ce2a0118}{chip\_rev}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00129\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__device__info__t_a9d83cfa3417f92e1bd90d7c4bb17f303}{reset\_reason}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__diag__device__info__t_aa493f39a0241dc324721568fa5568361}{app\_version}}[32];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__diag__device__info__t_a47edf9fe3a83c70c42350610b79072d7}{project\_name}}[32];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__diag__device__info__t_a7f1c802816f066edbb5ee9e8f3a331cf}{app\_elf\_sha256}}[CONFIG\_APP\_RETRIEVE\_LEN\_ELF\_SHA\ +\ 1];\ }
+\DoxyCodeLine{00133\ \}\ \mbox{\hyperlink{structesp__diag__device__info__t}{esp\_diag\_device\_info\_t}};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00138\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00139\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__task__bt__t_aa53005a26696103fcce1cc7fca075e41}{bt}}[16];\ \ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__task__bt__t_a4c028461a18512fad7a583fcb6a74ac0}{depth}};\ \ \ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structesp__diag__task__bt__t_a786d0cdc785c8b218d2e492e0222fe66}{corrupted}};\ \ \ \ \ }
+\DoxyCodeLine{00142\ \}\ \mbox{\hyperlink{structesp__diag__task__bt__t}{esp\_diag\_task\_bt\_t}};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00147\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__diag__task__info__t_a962cbd17c0a75b69c2d679c62f5bd193}{name}}[CONFIG\_FREERTOS\_MAX\_TASK\_NAME\_LEN];\ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__task__info__t_aa5549be6d1bdedf1230d4e48dede68b8}{state}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00150\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__task__info__t_ae7f75bb47dddbded36e342eb35a957b9}{high\_watermark}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_IDF\_TARGET\_ARCH\_RISCV}}
+\DoxyCodeLine{00152\ \ \ \ \ \mbox{\hyperlink{structesp__diag__task__bt__t}{esp\_diag\_task\_bt\_t}}\ \mbox{\hyperlink{structesp__diag__task__info__t_a33138d4f49cde32be9bc82b4c625a9bb}{bt\_info}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !CONFIG\_IDF\_TARGET\_ARCH\_RISCV\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00154\ \}\ \mbox{\hyperlink{structesp__diag__task__info__t}{esp\_diag\_task\_info\_t}};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00160\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__diag__data__pt__t_a5e76e467fab22882b53e38f624cbf5a2}{type}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00161\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__diag__data__pt__t_abcf08cb10c4e9ab4dd2679980388119f}{data\_type}};\ \ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__diag__data__pt__t_ab38689fce38b78d74508144e8efd37fd}{key}}[16];\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{structesp__diag__data__pt__t_ad9f1cdb2064d88dd30ee2a2076565762}{ts}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structesp__diag__data__pt__t_a6e664616484939e71cc8ca211218f59b}{b}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ int32\_t\ \mbox{\hyperlink{structesp__diag__data__pt__t_a8a6cea6c12886d3f51b771afb98973bb}{i}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__data__pt__t_aee2bf38e2cb9569444d9619ae8c4543b}{u}};\ \ \ \ \ \ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structesp__diag__data__pt__t_adf6b4d295944a7a6e67ae2bd983d3c20}{f}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__diag__data__pt__t_ad196366b6909618e2b0eaabeb34138cd}{ipv4}};\ \ \ }
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__diag__data__pt__t_a6252bda0b6f0e616a304e1aa17c21a2d}{mac}}[6];\ \ }
+\DoxyCodeLine{00171\ \ \ \ \ \}\ value;}
+\DoxyCodeLine{00172\ \}\ \mbox{\hyperlink{structesp__diag__data__pt__t}{esp\_diag\_data\_pt\_t}};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00177\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00178\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__diag__str__data__pt__t_a023762d4c388270cf2aa45b3cf20b689}{type}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00179\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__diag__str__data__pt__t_a0db9605825bb48a31c086326666399e0}{data\_type}};\ \ }
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__diag__str__data__pt__t_a0ea59d15b793dd8adc5f6ed4439e1170}{key}}[16];\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00181\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{structesp__diag__str__data__pt__t_a9ac3b84578ffe69b0000bcd21050bcf5}{ts}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structesp__diag__str__data__pt__t_ad11f2af45efe4812be4c6b4a4f136e55}{str}}[32];\ \ \ \ }
+\DoxyCodeLine{00184\ \ \ \ \ \}\ value;}
+\DoxyCodeLine{00185\ \}\ \mbox{\hyperlink{structesp__diag__str__data__pt__t}{esp\_diag\_str\_data\_pt\_t}};}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00194\ esp\_err\_t\ esp\_diag\_log\_hook\_init(\mbox{\hyperlink{structesp__diag__log__config__t}{esp\_diag\_log\_config\_t}}\ *config);}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00201\ \textcolor{keywordtype}{void}\ esp\_diag\_log\_hook\_enable(uint32\_t\ type);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00209\ \textcolor{keywordtype}{void}\ esp\_diag\_log\_hook\_disable(uint32\_t\ type);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00222\ esp\_err\_t\ esp\_diag\_log\_event(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)\ \_\_attribute\_\_\ ((format\ (printf,\ 2,\ 3)));}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ ESP\_DIAG\_EVENT(tag,\ format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\ \ \ \ esp\_diag\_log\_event(tag,\ "{}EV\ (\%"{}\ PRIu32\ "{})\ \%s:\ "{}\ format,\ esp\_log\_timestamp(),\ tag,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOGI(tag,\ format,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00245\ esp\_err\_t\ esp\_diag\_device\_info\_get(\mbox{\hyperlink{structesp__diag__device__info__t}{esp\_diag\_device\_info\_t}}\ *device\_info);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00255\ uint64\_t\ esp\_diag\_timestamp\_get(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00271\ uint32\_t\ esp\_diag\_task\_snapshot\_get(\mbox{\hyperlink{structesp__diag__task__info__t}{esp\_diag\_task\_info\_t}}\ *tasks,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00277\ \textcolor{keywordtype}{void}\ esp\_diag\_task\_snapshot\_dump(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00284\ uint32\_t\ esp\_diag\_meta\_crc\_get(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00291\ uint32\_t\ esp\_diag\_data\_size\_get\_crc(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00311\ \textcolor{keywordtype}{void}\ esp\_diag\_log\_writev(esp\_log\_level\_t\ level,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ va\_list\ v);}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00324\ \textcolor{keywordtype}{void}\ esp\_diag\_log\_write(esp\_log\_level\_t\ level,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ va\_list\ v);}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00327\ \}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

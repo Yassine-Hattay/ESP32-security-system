@@ -1,0 +1,37 @@
+\doxysection{Https\+OTAUpdate.\+h}
+\hypertarget{_https_o_t_a_update_8h_source}{}\label{_https_o_t_a_update_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Update/src/HttpsOTAUpdate.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Update/src/HttpsOTAUpdate.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ OTA\ task}}
+\DoxyCodeLine{00002\ \textcolor{comment}{}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ This\ example\ code\ is\ in\ the\ Public\ Domain\ (or\ CC0\ licensed,\ at\ your\ option.)}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ this}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ software\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,\ WITHOUT\ WARRANTIES\ OR}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ HTTPSOTAUPDATE\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ HTTPSOTAUPDATE\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}esp\_http\_client.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ HttpEvent\_t\ esp\_http\_client\_event\_t}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00015\ \ \ HTTPS\_OTA\_IDLE,}
+\DoxyCodeLine{00016\ \ \ HTTPS\_OTA\_UPDATING,}
+\DoxyCodeLine{00017\ \ \ HTTPS\_OTA\_SUCCESS,}
+\DoxyCodeLine{00018\ \ \ HTTPS\_OTA\_FAIL,}
+\DoxyCodeLine{00019\ \ \ HTTPS\_OTA\_ERR}
+\DoxyCodeLine{00020\ \}\ HttpsOTAStatus\_t;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_https_o_t_a_update_class}{HttpsOTAUpdateClass}}\ \{}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{void}\ begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *url,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cert\_pem,\ \textcolor{keywordtype}{bool}\ skip\_cert\_common\_name\_check\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{void}\ onHttpEvent(\textcolor{keywordtype}{void}\ (*http\_event\_cb\_t)(HttpEvent\_t\ *));}
+\DoxyCodeLine{00027\ \ \ HttpsOTAStatus\_t\ status();}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_https_o_t_a_update_class}{HttpsOTAUpdateClass}}\ HttpsOTA;}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

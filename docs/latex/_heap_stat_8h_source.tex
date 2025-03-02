@@ -1,0 +1,129 @@
+\doxysection{Heap\+Stat.\+h}
+\hypertarget{_heap_stat_8h_source}{}\label{_heap_stat_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/HeapStat.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/HeapStat.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifndef\ HEAP\_STAT\_H}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ HEAP\_STAT\_H}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#if\ defined(ESP8266)\ ||\ defined(ESP32)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifndef\ MB\_ARDUINO\_ESP}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ MB\_ARDUINO\_ESP}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#if\ defined(ARDUINO\_ARCH\_RP2040)}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#if\ defined(ARDUINO\_NANO\_RP2040\_CONNECT)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifndef\ MB\_ARDUINO\_NANO\_RP2040\_CONNECT}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ MB\_ARDUINO\_NANO\_RP2040\_CONNECT}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#ifndef\ MB\_ARDUINO\_PICO}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ MB\_ARDUINO\_PICO}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}ESP\_Mail\_Client.h"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{class\ }HeapStat}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ current\_heap\ =\ 0;}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ first\_round\_heap\ =\ 0;}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{int}\ min\_heap\ =\ 0;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_heap\ =\ 0;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ diff\_heap\_from\_first\_round\ =\ 0;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ diff\_heap\_from\_current\_round\ =\ 0;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{int}\ \_count\ =\ 0;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{int}\ getFreeHeap()}
+\DoxyCodeLine{00063\ \ \ \ \ \{}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#if\ defined(MB\_ARDUINO\_ESP)}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ESP.getFreeHeap();}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#elif\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rp2040.getFreeHeap();}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00074\ \ \ \ \ HeapStat()\ \{\}}
+\DoxyCodeLine{00075\ \ \ \ \ \string~HeapStat()\ \{\}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ reset()}
+\DoxyCodeLine{00078\ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ current\_heap\ =\ 0;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ first\_round\_heap\ =\ 0;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ min\_heap\ =\ 0;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ max\_heap\ =\ 0;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ diff\_heap\_from\_first\_round\ =\ 0;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ diff\_heap\_from\_current\_round\ =\ 0;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \_count\ =\ 0;}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ collect()}
+\DoxyCodeLine{00089\ \ \ \ \ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \_count++;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (max\_heap\ <\ getFreeHeap())}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ max\_heap\ =\ getFreeHeap();}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (min\_heap\ ==\ 0\ ||\ min\_heap\ >\ getFreeHeap())}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ min\_heap\ =\ getFreeHeap();}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (first\_round\_heap\ ==\ 0)}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ first\_round\_heap\ =\ getFreeHeap();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (current\_heap\ >\ 0)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ diff\_heap\_from\_first\_round\ =\ getFreeHeap()\ -\/\ first\_round\_heap;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ diff\_heap\_from\_current\_round\ =\ getFreeHeap()\ -\/\ current\_heap;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ current\_heap\ =\ getFreeHeap();}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{int}\ current()}
+\DoxyCodeLine{00111\ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ current\_heap;}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{int}\ min()}
+\DoxyCodeLine{00116\ \ \ \ \ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ min\_heap;}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{int}\ max()}
+\DoxyCodeLine{00121\ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ max\_heap;}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{int}\ diff1()}
+\DoxyCodeLine{00126\ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ diff\_heap\_from\_first\_round;}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{int}\ diffN()}
+\DoxyCodeLine{00131\ \ \ \ \ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ diff\_heap\_from\_current\_round;}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{int}\ count()}
+\DoxyCodeLine{00136\ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \_count;}
+\DoxyCodeLine{00138\ \ \ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{void}\ print()}
+\DoxyCodeLine{00141\ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ MailClient.printf(\textcolor{stringliteral}{"{}\#\#\#\#\ Heap\ Info\(\backslash\)n\#\#\#\#\ Current:\ \%d,\ Min:\ \%d,\ Max:\ \%d,\ Diff\_1:\ \%d,\ Diff\_\%d:\ \%d\(\backslash\)n"{}},\ current(),\ min(),\ max(),\ diff1(),\ count(),\ diffN());}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

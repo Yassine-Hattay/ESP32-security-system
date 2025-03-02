@@ -1,0 +1,62 @@
+\doxysection{crypto\+\_\+stream\+\_\+salsa208.\+h}
+\hypertarget{crypto__stream__salsa208_8h_source}{}\label{crypto__stream__salsa208_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_stream\_salsa208.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_stream\_salsa208.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ crypto\_stream\_salsa208\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ crypto\_stream\_salsa208\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ WARNING:\ This\ is\ just\ a\ stream\ cipher.\ It\ is\ NOT\ authenticated\ encryption.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ While\ it\ provides\ some\ protection\ against\ eavesdropping,\ it\ does\ NOT}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ \ provide\ any\ security\ against\ active\ attacks.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ \ Unless\ you\ know\ what\ you're\ doing,\ what\ you\ are\ looking\ for\ is\ probably}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ \ the\ crypto\_box\ functions.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}export.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#\ ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#\ \ pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wlong-\/long"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ crypto\_stream\_salsa208\_KEYBYTES\ 32U}}
+\DoxyCodeLine{00023\ SODIUM\_EXPORT}
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{size\_t}\ crypto\_stream\_salsa208\_keybytes(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((deprecated));}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ crypto\_stream\_salsa208\_NONCEBYTES\ 8U}}
+\DoxyCodeLine{00028\ SODIUM\_EXPORT}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{size\_t}\ crypto\_stream\_salsa208\_noncebytes(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((deprecated));}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ crypto\_stream\_salsa208\_MESSAGEBYTES\_MAX\ SODIUM\_SIZE\_MAX}}
+\DoxyCodeLine{00033\ \ \ \ \ SODIUM\_EXPORT}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{size\_t}\ crypto\_stream\_salsa208\_messagebytes\_max(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((deprecated));}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ SODIUM\_EXPORT}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{int}\ crypto\_stream\_salsa208(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ clen,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((deprecated))\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ SODIUM\_EXPORT}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{int}\ crypto\_stream\_salsa208\_xor(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *c,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((deprecated))\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ SODIUM\_EXPORT}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ crypto\_stream\_salsa208\_keygen(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ k[crypto\_stream\_salsa208\_KEYBYTES])}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((deprecated))\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

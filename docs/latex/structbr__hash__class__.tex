@@ -1,0 +1,152 @@
+\doxysection{br\+\_\+hash\+\_\+class\+\_\+ Struct Reference}
+\hypertarget{structbr__hash__class__}{}\label{structbr__hash__class__}\index{br\_hash\_class\_@{br\_hash\_class\_}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structbr__hash__class___a53b629c36645dd703da6ccefa245a78d}\label{structbr__hash__class___a53b629c36645dd703da6ccefa245a78d} 
+size\+\_\+t {\bfseries context\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Size (in bytes) of the context structure appropriate for computing this hash function. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{structbr__hash__class___a83ce0b40ed9d8de4cdfde6391c7d8728}{desc}}
+\begin{DoxyCompactList}\small\item\em Descriptor word that contains information about the hash function. \end{DoxyCompactList}\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__hash__class___a576d5f1abbd1bb61a8686e0ff0f0d2ff}{init}} )(const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx)
+\begin{DoxyCompactList}\small\item\em Initialisation method. \end{DoxyCompactList}\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__hash__class___a5f8725811995c5064c87939c1957547e}{update}} )(const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Data injection method. \end{DoxyCompactList}\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__hash__class___a8a200645aa525939cb33d6c448c24e65}{out}} )(const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}dst)
+\begin{DoxyCompactList}\small\item\em Produce hash output. \end{DoxyCompactList}\item 
+uint64\+\_\+t(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__hash__class___ad5feeec7686f6d9ea9c378353c308d10}{state}} )(const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}dst)
+\begin{DoxyCompactList}\small\item\em Get running state. \end{DoxyCompactList}\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__hash__class___a1b8f07b0f48736ed41b5a7900f9bf335}{set\+\_\+state}} )(const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}stb, uint64\+\_\+t count)
+\begin{DoxyCompactList}\small\item\em Set running state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structbr__hash__class___a83ce0b40ed9d8de4cdfde6391c7d8728}\index{br\_hash\_class\_@{br\_hash\_class\_}!desc@{desc}}
+\index{desc@{desc}!br\_hash\_class\_@{br\_hash\_class\_}}
+\doxysubsubsection{\texorpdfstring{desc}{desc}}
+{\footnotesize\ttfamily \label{structbr__hash__class___a83ce0b40ed9d8de4cdfde6391c7d8728} 
+uint32\+\_\+t br\+\_\+hash\+\_\+class\+\_\+\+::desc}
+
+
+
+Descriptor word that contains information about the hash function. 
+
+For each word {\ttfamily xxx} described below, use {\ttfamily BR\+\_\+\+HASHDESC\+\_\+xxx\+\_\+\+OFF} and {\ttfamily BR\+\_\+\+HASHDESC\+\_\+xxx\+\_\+\+MASK} to access the specific value, as follows\+: \begin{DoxyVerb}(hf->desc >> BR_HASHDESC_xxx_OFF) & BR_HASHDESC_xxx_MASK
+\end{DoxyVerb}
+
+
+The defined elements are\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily ID}\+: the symbolic identifier for the function, as defined in \href{https://tools.ietf.org/html/rfc5246\#section-7.4.1.4.1}{\texttt{ TLS}} (MD5 = 1, SHA-\/1 = 2,...).
+\item {\ttfamily OUT}\+: hash output size, in bytes.
+\item {\ttfamily STATE}\+: internal running state size, in bytes.
+\item {\ttfamily LBLEN}\+: base-\/2 logarithm for the internal block size, as defined for HMAC processing (this is 6 for MD5, SHA-\/1, SHA-\/224 and SHA-\/256, since these functions use 64-\/byte blocks; for SHA-\/384 and SHA-\/512, this is 7, corresponding to their 128-\/byte blocks).
+\end{DoxyItemize}
+
+The descriptor may contain a few other flags. \Hypertarget{structbr__hash__class___a576d5f1abbd1bb61a8686e0ff0f0d2ff}\index{br\_hash\_class\_@{br\_hash\_class\_}!init@{init}}
+\index{init@{init}!br\_hash\_class\_@{br\_hash\_class\_}}
+\doxysubsubsection{\texorpdfstring{init}{init}}
+{\footnotesize\ttfamily \label{structbr__hash__class___a576d5f1abbd1bb61a8686e0ff0f0d2ff} 
+void(\texorpdfstring{$\ast$}{*} br\+\_\+hash\+\_\+class\+\_\+\+::init) (const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx)}
+
+
+
+Initialisation method. 
+
+This method takes as parameter a pointer to a context area, that it initialises. The first field of the context is set to this vtable; other elements are initialised for a new hash computation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & pointer to (the first field of) the context. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structbr__hash__class___a8a200645aa525939cb33d6c448c24e65}\index{br\_hash\_class\_@{br\_hash\_class\_}!out@{out}}
+\index{out@{out}!br\_hash\_class\_@{br\_hash\_class\_}}
+\doxysubsubsection{\texorpdfstring{out}{out}}
+{\footnotesize\ttfamily \label{structbr__hash__class___a8a200645aa525939cb33d6c448c24e65} 
+void(\texorpdfstring{$\ast$}{*} br\+\_\+hash\+\_\+class\+\_\+\+::out) (const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}dst)}
+
+
+
+Produce hash output. 
+
+The hash output corresponding to all data bytes injected in the context since the last {\ttfamily \doxylink{structbr__hash__class___a576d5f1abbd1bb61a8686e0ff0f0d2ff}{init()}} call is computed, and written in the buffer pointed to by {\ttfamily dst}. The hash output size depends on the implemented hash function (e.\+g. 16 bytes for MD5). The context is {\itshape not} modified by this call, so further bytes may be afterwards injected to continue the current computation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & pointer to (the first field of) the context. \\
+\hline
+{\em dst} & destination buffer for the hash output. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structbr__hash__class___a1b8f07b0f48736ed41b5a7900f9bf335}\index{br\_hash\_class\_@{br\_hash\_class\_}!set\_state@{set\_state}}
+\index{set\_state@{set\_state}!br\_hash\_class\_@{br\_hash\_class\_}}
+\doxysubsubsection{\texorpdfstring{set\_state}{set\_state}}
+{\footnotesize\ttfamily \label{structbr__hash__class___a1b8f07b0f48736ed41b5a7900f9bf335} 
+void(\texorpdfstring{$\ast$}{*} br\+\_\+hash\+\_\+class\+\_\+\+::set\+\_\+state) (const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}stb, uint64\+\_\+t count)}
+
+
+
+Set running state. 
+
+This methods replaces the running state for the function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & pointer to (the first field of) the context. \\
+\hline
+{\em stb} & source buffer for the state. \\
+\hline
+{\em count} & injected total byte length. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structbr__hash__class___ad5feeec7686f6d9ea9c378353c308d10}\index{br\_hash\_class\_@{br\_hash\_class\_}!state@{state}}
+\index{state@{state}!br\_hash\_class\_@{br\_hash\_class\_}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily \label{structbr__hash__class___ad5feeec7686f6d9ea9c378353c308d10} 
+uint64\+\_\+t(\texorpdfstring{$\ast$}{*} br\+\_\+hash\+\_\+class\+\_\+\+::state) (const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}const \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}dst)}
+
+
+
+Get running state. 
+
+This method saves the current running state into the {\ttfamily dst} buffer. What constitutes the "{}running state"{} depends on the hash function; for Merkle-\/\+Damgård hash functions (like MD5 or SHA-\/1), this is the output obtained after processing each block. The number of bytes injected so far is returned. The context is not modified by this call.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & pointer to (the first field of) the context. \\
+\hline
+{\em dst} & destination buffer for the state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the injected total byte length. 
+\end{DoxyReturn}
+\Hypertarget{structbr__hash__class___a5f8725811995c5064c87939c1957547e}\index{br\_hash\_class\_@{br\_hash\_class\_}!update@{update}}
+\index{update@{update}!br\_hash\_class\_@{br\_hash\_class\_}}
+\doxysubsubsection{\texorpdfstring{update}{update}}
+{\footnotesize\ttfamily \label{structbr__hash__class___a5f8725811995c5064c87939c1957547e} 
+void(\texorpdfstring{$\ast$}{*} br\+\_\+hash\+\_\+class\+\_\+\+::update) (const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)}
+
+
+
+Data injection method. 
+
+The {\ttfamily len} bytes starting at address {\ttfamily data} are injected into the running hash computation incarnated by the specified context. The context is updated accordingly. It is allowed to have {\ttfamily len == 0}, in which case {\ttfamily data} is ignored (and could be {\ttfamily NULL}), and nothing happens. on the input data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & pointer to (the first field of) the context. \\
+\hline
+{\em data} & pointer to the first data byte to inject. \\
+\hline
+{\em len} & number of bytes to inject. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/\mbox{\hyperlink{bearssl__hash_8h}{bearssl\+\_\+hash.\+h}}\end{DoxyCompactItemize}

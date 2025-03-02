@@ -1,0 +1,213 @@
+\doxysection{u1.\+h}
+\hypertarget{salsa20_2xmm6int_2u1_8h_source}{}\label{salsa20_2xmm6int_2u1_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_stream/salsa20/xmm6int/u1.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_stream/salsa20/xmm6int/u1.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{keywordflow}{while}\ (bytes\ >=\ 64)\ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \_\_m128i\ diag0\ =\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i\ *)\ (x\ +\ 0));}
+\DoxyCodeLine{00003\ \ \ \ \ \_\_m128i\ diag1\ =\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i\ *)\ (x\ +\ 4));}
+\DoxyCodeLine{00004\ \ \ \ \ \_\_m128i\ diag2\ =\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i\ *)\ (x\ +\ 8));}
+\DoxyCodeLine{00005\ \ \ \ \ \_\_m128i\ diag3\ =\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i\ *)\ (x\ +\ 12));}
+\DoxyCodeLine{00006\ \ \ \ \ \_\_m128i\ a0,\ a1,\ a2,\ a3,\ a4,\ a5,\ a6,\ a7;}
+\DoxyCodeLine{00007\ \ \ \ \ \_\_m128i\ b0,\ b1,\ b2,\ b3,\ b4,\ b5,\ b6,\ b7;}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ uint32\_t\ in8;}
+\DoxyCodeLine{00010\ \ \ \ \ uint32\_t\ in9;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ i;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ a0\ =\ diag1;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ ROUNDS;\ i\ +=\ 4)\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ a0\ \ \ \ =\ \_mm\_add\_epi32(a0,\ diag0);}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ a1\ \ \ \ =\ diag0;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ b0\ \ \ \ =\ a0;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ a0\ \ \ \ =\ \_mm\_slli\_epi32(a0,\ 7);}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ b0\ \ \ \ =\ \_mm\_srli\_epi32(b0,\ 25);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_xor\_si128(diag3,\ a0);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_xor\_si128(diag3,\ b0);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ a1\ \ \ \ =\ \_mm\_add\_epi32(a1,\ diag3);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ a2\ \ \ \ =\ diag3;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ b1\ \ \ \ =\ a1;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ a1\ \ \ \ =\ \_mm\_slli\_epi32(a1,\ 9);}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ b1\ \ \ \ =\ \_mm\_srli\_epi32(b1,\ 23);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_xor\_si128(diag2,\ a1);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_shuffle\_epi32(diag3,\ 0x93);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_xor\_si128(diag2,\ b1);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ a2\ \ \ \ =\ \_mm\_add\_epi32(a2,\ diag2);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ a3\ \ \ \ =\ diag2;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ b2\ \ \ \ =\ a2;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ a2\ \ \ \ =\ \_mm\_slli\_epi32(a2,\ 13);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ b2\ \ \ \ =\ \_mm\_srli\_epi32(b2,\ 19);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_xor\_si128(diag1,\ a2);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_shuffle\_epi32(diag2,\ 0x4e);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_xor\_si128(diag1,\ b2);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ a3\ \ \ \ =\ \_mm\_add\_epi32(a3,\ diag1);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ a4\ \ \ \ =\ diag3;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ b3\ \ \ \ =\ a3;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ a3\ \ \ \ =\ \_mm\_slli\_epi32(a3,\ 18);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ b3\ \ \ \ =\ \_mm\_srli\_epi32(b3,\ 14);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ diag0\ =\ \_mm\_xor\_si128(diag0,\ a3);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_shuffle\_epi32(diag1,\ 0x39);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ diag0\ =\ \_mm\_xor\_si128(diag0,\ b3);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ a4\ \ \ \ =\ \_mm\_add\_epi32(a4,\ diag0);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ a5\ \ \ \ =\ diag0;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ b4\ \ \ \ =\ a4;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ a4\ \ \ \ =\ \_mm\_slli\_epi32(a4,\ 7);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ b4\ \ \ \ =\ \_mm\_srli\_epi32(b4,\ 25);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_xor\_si128(diag1,\ a4);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_xor\_si128(diag1,\ b4);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ a5\ \ \ \ =\ \_mm\_add\_epi32(a5,\ diag1);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ a6\ \ \ \ =\ diag1;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ b5\ \ \ \ =\ a5;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ a5\ \ \ \ =\ \_mm\_slli\_epi32(a5,\ 9);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ b5\ \ \ \ =\ \_mm\_srli\_epi32(b5,\ 23);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_xor\_si128(diag2,\ a5);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_shuffle\_epi32(diag1,\ 0x93);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_xor\_si128(diag2,\ b5);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ a6\ \ \ \ =\ \_mm\_add\_epi32(a6,\ diag2);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ a7\ \ \ \ =\ diag2;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ b6\ \ \ \ =\ a6;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ a6\ \ \ \ =\ \_mm\_slli\_epi32(a6,\ 13);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ b6\ \ \ \ =\ \_mm\_srli\_epi32(b6,\ 19);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_xor\_si128(diag3,\ a6);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_shuffle\_epi32(diag2,\ 0x4e);}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_xor\_si128(diag3,\ b6);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ a7\ \ \ \ =\ \_mm\_add\_epi32(a7,\ diag3);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ a0\ \ \ \ =\ diag1;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ b7\ \ \ \ =\ a7;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ a7\ \ \ \ =\ \_mm\_slli\_epi32(a7,\ 18);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ b7\ \ \ \ =\ \_mm\_srli\_epi32(b7,\ 14);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ diag0\ =\ \_mm\_xor\_si128(diag0,\ a7);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_shuffle\_epi32(diag3,\ 0x39);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ diag0\ =\ \_mm\_xor\_si128(diag0,\ b7);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ a0\ \ \ \ =\ \_mm\_add\_epi32(a0,\ diag0);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ a1\ \ \ \ =\ diag0;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ b0\ \ \ \ =\ a0;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ a0\ \ \ \ =\ \_mm\_slli\_epi32(a0,\ 7);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ b0\ \ \ \ =\ \_mm\_srli\_epi32(b0,\ 25);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_xor\_si128(diag3,\ a0);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_xor\_si128(diag3,\ b0);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ a1\ \ \ \ =\ \_mm\_add\_epi32(a1,\ diag3);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ a2\ \ \ \ =\ diag3;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ b1\ \ \ \ =\ a1;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ a1\ \ \ \ =\ \_mm\_slli\_epi32(a1,\ 9);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ b1\ \ \ \ =\ \_mm\_srli\_epi32(b1,\ 23);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_xor\_si128(diag2,\ a1);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_shuffle\_epi32(diag3,\ 0x93);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_xor\_si128(diag2,\ b1);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ a2\ \ \ \ =\ \_mm\_add\_epi32(a2,\ diag2);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ a3\ \ \ \ =\ diag2;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ b2\ \ \ \ =\ a2;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ a2\ \ \ \ =\ \_mm\_slli\_epi32(a2,\ 13);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ b2\ \ \ \ =\ \_mm\_srli\_epi32(b2,\ 19);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_xor\_si128(diag1,\ a2);}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_shuffle\_epi32(diag2,\ 0x4e);}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_xor\_si128(diag1,\ b2);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ a3\ \ \ \ =\ \_mm\_add\_epi32(a3,\ diag1);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ a4\ \ \ \ =\ diag3;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ b3\ \ \ \ =\ a3;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ a3\ \ \ \ =\ \_mm\_slli\_epi32(a3,\ 18);}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ b3\ \ \ \ =\ \_mm\_srli\_epi32(b3,\ 14);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ diag0\ =\ \_mm\_xor\_si128(diag0,\ a3);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_shuffle\_epi32(diag1,\ 0x39);}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ diag0\ =\ \_mm\_xor\_si128(diag0,\ b3);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ a4\ \ \ \ =\ \_mm\_add\_epi32(a4,\ diag0);}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ a5\ \ \ \ =\ diag0;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ b4\ \ \ \ =\ a4;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ a4\ \ \ \ =\ \_mm\_slli\_epi32(a4,\ 7);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ b4\ \ \ \ =\ \_mm\_srli\_epi32(b4,\ 25);}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_xor\_si128(diag1,\ a4);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_xor\_si128(diag1,\ b4);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ a5\ \ \ \ =\ \_mm\_add\_epi32(a5,\ diag1);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ a6\ \ \ \ =\ diag1;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ b5\ \ \ \ =\ a5;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ a5\ \ \ \ =\ \_mm\_slli\_epi32(a5,\ 9);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ b5\ \ \ \ =\ \_mm\_srli\_epi32(b5,\ 23);}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_xor\_si128(diag2,\ a5);}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ diag1\ =\ \_mm\_shuffle\_epi32(diag1,\ 0x93);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_xor\_si128(diag2,\ b5);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ a6\ \ \ \ =\ \_mm\_add\_epi32(a6,\ diag2);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ a7\ \ \ \ =\ diag2;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ b6\ \ \ \ =\ a6;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ a6\ \ \ \ =\ \_mm\_slli\_epi32(a6,\ 13);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ b6\ \ \ \ =\ \_mm\_srli\_epi32(b6,\ 19);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_xor\_si128(diag3,\ a6);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ diag2\ =\ \_mm\_shuffle\_epi32(diag2,\ 0x4e);}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_xor\_si128(diag3,\ b6);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ a7\ \ \ \ =\ \_mm\_add\_epi32(a7,\ diag3);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ a0\ \ \ \ =\ diag1;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ b7\ \ \ \ =\ a7;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ a7\ \ \ \ =\ \_mm\_slli\_epi32(a7,\ 18);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ b7\ \ \ \ =\ \_mm\_srli\_epi32(b7,\ 14);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ diag0\ =\ \_mm\_xor\_si128(diag0,\ a7);}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ diag3\ =\ \_mm\_shuffle\_epi32(diag3,\ 0x39);}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ diag0\ =\ \_mm\_xor\_si128(diag0,\ b7);}
+\DoxyCodeLine{00158\ \ \ \ \ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ diag0\ =\ \_mm\_add\_epi32(diag0,\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i\ *)\ (x\ +\ 0)));}
+\DoxyCodeLine{00161\ \ \ \ \ diag1\ =\ \_mm\_add\_epi32(diag1,\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i\ *)\ (x\ +\ 4)));}
+\DoxyCodeLine{00162\ \ \ \ \ diag2\ =\ \_mm\_add\_epi32(diag2,\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i\ *)\ (x\ +\ 8)));}
+\DoxyCodeLine{00163\ \ \ \ \ diag3\ =\ \_mm\_add\_epi32(diag3,\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i\ *)\ (x\ +\ 12)));}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ ONEQUAD\_SHUFFLE(A,\ B,\ C,\ D)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ uint32\_t\ in\#\#A\ =\ \_mm\_cvtsi128\_si32(diag0);\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ uint32\_t\ in\#\#B\ =\ \_mm\_cvtsi128\_si32(diag1);\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ uint32\_t\ in\#\#C\ =\ \_mm\_cvtsi128\_si32(diag2);\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ uint32\_t\ in\#\#D\ =\ \_mm\_cvtsi128\_si32(diag3);\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ diag0\ \ \ \ \ \ \ \ \ \ =\ \_mm\_shuffle\_epi32(diag0,\ 0x39);\ \(\backslash\)}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ diag1\ \ \ \ \ \ \ \ \ \ =\ \_mm\_shuffle\_epi32(diag1,\ 0x39);\ \(\backslash\)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ diag2\ \ \ \ \ \ \ \ \ \ =\ \_mm\_shuffle\_epi32(diag2,\ 0x39);\ \(\backslash\)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ diag3\ \ \ \ \ \ \ \ \ \ =\ \_mm\_shuffle\_epi32(diag3,\ 0x39);\ \(\backslash\)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ in\#\#A\ \string^=\ *(const\ uint32\_t\ *)\ (m\ +\ (A\ *\ 4));\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ in\#\#B\ \string^=\ *(const\ uint32\_t\ *)\ (m\ +\ (B\ *\ 4));\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ in\#\#C\ \string^=\ *(const\ uint32\_t\ *)\ (m\ +\ (C\ *\ 4));\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ in\#\#D\ \string^=\ *(const\ uint32\_t\ *)\ (m\ +\ (D\ *\ 4));\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ *(uint32\_t\ *)\ (c\ +\ (A\ *\ 4))\ =\ in\#\#A;\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ *(uint32\_t\ *)\ (c\ +\ (B\ *\ 4))\ =\ in\#\#B;\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ *(uint32\_t\ *)\ (c\ +\ (C\ *\ 4))\ =\ in\#\#C;\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ *(uint32\_t\ *)\ (c\ +\ (D\ *\ 4))\ =\ in\#\#D;\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ (0)}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ ONEQUAD(A,\ B,\ C,\ D)\ ONEQUAD\_SHUFFLE(A,\ B,\ C,\ D)}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ ONEQUAD(0,\ 12,\ 8,\ 4);}
+\DoxyCodeLine{00188\ \ \ \ \ ONEQUAD(5,\ 1,\ 13,\ 9);}
+\DoxyCodeLine{00189\ \ \ \ \ ONEQUAD(10,\ 6,\ 2,\ 14);}
+\DoxyCodeLine{00190\ \ \ \ \ ONEQUAD(15,\ 11,\ 7,\ 3);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#undef\ ONEQUAD}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#undef\ ONEQUAD\_SHUFFLE}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ in8\ =\ x[8];}
+\DoxyCodeLine{00196\ \ \ \ \ in9\ =\ x[13];}
+\DoxyCodeLine{00197\ \ \ \ \ in8++;}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordflow}{if}\ (in8\ ==\ 0)\ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ in9++;}
+\DoxyCodeLine{00200\ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ x[8]\ \ =\ in8;}
+\DoxyCodeLine{00202\ \ \ \ \ x[13]\ =\ in9;}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ c\ +=\ 64;}
+\DoxyCodeLine{00205\ \ \ \ \ m\ +=\ 64;}
+\DoxyCodeLine{00206\ \ \ \ \ bytes\ -\/=\ 64;}
+\DoxyCodeLine{00207\ \}}
+
+\end{DoxyCode}

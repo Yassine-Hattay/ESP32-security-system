@@ -1,0 +1,110 @@
+\doxysection{esp\+\_\+modem\+\_\+primitives.\+hpp}
+\hypertarget{esp__modem__primitives_8hpp_source}{}\label{esp__modem__primitives_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_primitives.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_primitives.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_event.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_modem\_exception.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_IDF\_TARGET\_LINUX)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <mutex>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <thread>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}freertos/event\_groups.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ forward\ declarations\ of\ FreeRTOS\ primitives}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{struct\ }QueueDefinition;}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }esp\_modem\ \{}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ Forward\ declaration\ for\ both\ linux/FreeRTOS\ targets}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{using\ }TaskFunction\_t\ =\ void\ (*)(\textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#if\ !defined(CONFIG\_IDF\_TARGET\_LINUX)}}
+\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }Lock\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keyword}{using\ }MutexT\ =\ QueueHandle\_t;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{explicit}\ Lock();}
+\DoxyCodeLine{00032\ \ \ \ \ \string~Lock();}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ lock();}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ unlock();}
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ MutexT\ m\{\};}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ \textcolor{keyword}{using\ }TaskT\ =\ TaskHandle\_t;}
+\DoxyCodeLine{00039\ \textcolor{keyword}{using\ }SignalT\ =\ EventGroupHandle\_t;}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{using\ }\mbox{\hyperlink{structesp__modem_1_1_lock}{Lock}}\ =\ std::recursive\_mutex;}
+\DoxyCodeLine{00042\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__modem_1_1_signal_group_internal}{SignalGroupInternal}};}
+\DoxyCodeLine{00043\ \textcolor{keyword}{using\ }SignalT\ =\ std::unique\_ptr<SignalGroupInternal>;}
+\DoxyCodeLine{00044\ \textcolor{keyword}{using\ }TaskT\ =\ std::thread;}
+\DoxyCodeLine{00045\ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ uint32\_t\ portMAX\_DELAY\ =\ UINT32\_MAX;}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }Scoped\ \{}
+\DoxyCodeLine{00050\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{explicit}\ Scoped(T\ \&l):\ lock(l)}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ lock.lock();}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \string~Scoped()}
+\DoxyCodeLine{00056\ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ lock.unlock();}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ T\ \&lock;}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{class\ }Task\ \{}
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{explicit}\ Task(\textcolor{keywordtype}{size\_t}\ stack\_size,\ \textcolor{keywordtype}{size\_t}\ priority,\ \textcolor{keywordtype}{void}\ *task\_param,\ TaskFunction\_t\ task\_function);}
+\DoxyCodeLine{00067\ \ \ \ \ \string~Task();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Delete();}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Relinquish();}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ Delay(uint32\_t\ delay);}
+\DoxyCodeLine{00072\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00073\ \ \ \ \ TaskT\ task\_handle;}
+\DoxyCodeLine{00074\ \};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{class\ }SignalGroup\ \{}
+\DoxyCodeLine{00078\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ bit0\ =\ 1\ <<\ 0;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ bit1\ =\ 1\ <<\ 1;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ bit2\ =\ 1\ <<\ 2;}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ bit3\ =\ 1\ <<\ 3;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keyword}{explicit}\ SignalGroup();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ set(uint32\_t\ bits);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ clear(uint32\_t\ bits);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ waiting\ for\ all\ and\ clearing\ if\ set}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{bool}\ wait(uint32\_t\ flags,\ uint32\_t\ time\_ms);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_any(uint32\_t\ flags);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//\ waiting\ for\ any\ bit,\ not\ clearing\ them}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{bool}\ wait\_any(uint32\_t\ flags,\ uint32\_t\ time\_ms);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \string~SignalGroup();}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00101\ \ \ \ \ SignalT\ event\_group;}
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \}\ \textcolor{comment}{//\ namespace\ esp\_modem}}
+
+\end{DoxyCode}

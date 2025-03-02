@@ -1,0 +1,113 @@
+\doxysection{json\+\_\+generator.\+h}
+\hypertarget{json__generator_8h_source}{}\label{json__generator_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_json\_generator/include/json\_generator.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_json\_generator/include/json\_generator.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ \ \ \ Copyright\ 2020\ Piyush\ Shah\ <shahpiyushv@gmail.com>}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ \ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ \ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ \ \ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ \ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ JSON\ String\ Generator}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ This\ module\ can\ be\ used\ to\ create\ JSON\ strings\ with\ a\ facility}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ to\ flush\ out\ data\ if\ the\ destination\ buffer\ is\ full.\ All\ commas}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ and\ colons\ as\ required\ are\ automatically\ added\ by\ the\ APIs}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ \_JSON\_GENERATOR\_H}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ \_JSON\_GENERATOR\_H}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00032\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifndef\ JSON\_FLOAT\_PRECISION}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ JSON\_FLOAT\_PRECISION\ 5}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{typedef}\ void\ (*json\_gen\_flush\_cb\_t)\ (\textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{void}\ *priv);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structjson__gen__str__t_a3e95f05e0f3186d648908843b82266e7}{buf}};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structjson__gen__str__t_a01a40e1fd3c7cb60fb6c16d998c738da}{buf\_size}};}
+\DoxyCodeLine{00064\ \ \ \ \ json\_gen\_flush\_cb\_t\ \mbox{\hyperlink{structjson__gen__str__t_a139ad2942b081370ea15976feefec7f0}{flush\_cb}};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{structjson__gen__str__t_a532c070257373a63220b223cba63c02a}{priv}};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structjson__gen__str__t_a53ba56c75dc301b66adac76797c55787}{comma\_req}};}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structjson__gen__str__t_a39cd683e5477203e0f6e5dd2a0e0ae74}{free\_ptr}};}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structjson__gen__str__t_afe3ca6cc1d9a422a5194520a147546ec}{total\_len}};}
+\DoxyCodeLine{00073\ \}\ \mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}\ json\_gen\_str\_start(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{int}\ buf\_size,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ json\_gen\_flush\_cb\_t\ flush\_cb,\ \textcolor{keywordtype}{void}\ *priv);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00106\ \textcolor{keywordtype}{int}\ json\_gen\_str\_end(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{int}\ json\_gen\_start\_object(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00134\ \textcolor{keywordtype}{int}\ json\_gen\_end\_object(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00148\ \textcolor{keywordtype}{int}\ json\_gen\_start\_array(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00162\ \textcolor{keywordtype}{int}\ json\_gen\_end\_array(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{int}\ json\_gen\_push\_object(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00192\ \textcolor{keywordtype}{int}\ json\_gen\_pop\_object(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00211\ \textcolor{keywordtype}{int}\ json\_gen\_push\_object\_str(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *object\_str);}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00226\ \textcolor{keywordtype}{int}\ json\_gen\_push\_array(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00241\ \textcolor{keywordtype}{int}\ json\_gen\_pop\_array(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr);}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00260\ \textcolor{keywordtype}{int}\ json\_gen\_push\_array\_str(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *array\_str);}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00279\ \textcolor{keywordtype}{int}\ json\_gen\_obj\_set\_bool(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00298\ \textcolor{keywordtype}{int}\ json\_gen\_obj\_set\_int(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00317\ \textcolor{keywordtype}{int}\ json\_gen\_obj\_set\_float(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{float}\ val);}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00336\ \textcolor{keywordtype}{int}\ json\_gen\_obj\_set\_string(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val);}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00354\ \textcolor{keywordtype}{int}\ json\_gen\_obj\_set\_null(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00370\ \textcolor{keywordtype}{int}\ json\_gen\_arr\_set\_bool(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00386\ \textcolor{keywordtype}{int}\ json\_gen\_arr\_set\_int(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00402\ \textcolor{keywordtype}{int}\ json\_gen\_arr\_set\_float(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keywordtype}{float}\ val);}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00418\ \textcolor{keywordtype}{int}\ json\_gen\_arr\_set\_string(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val);}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00433\ \textcolor{keywordtype}{int}\ json\_gen\_arr\_set\_null(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr);}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00455\ \textcolor{keywordtype}{int}\ json\_gen\_obj\_start\_long\_string(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val);}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00476\ \textcolor{keywordtype}{int}\ json\_gen\_arr\_start\_long\_string(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val);}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00492\ \textcolor{keywordtype}{int}\ json\_gen\_add\_to\_long\_string(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val);}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00507\ \textcolor{keywordtype}{int}\ json\_gen\_end\_long\_string(\mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jstr);}
+\DoxyCodeLine{00508\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00509\ \}}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00511\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

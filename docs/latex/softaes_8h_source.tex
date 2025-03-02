@@ -1,0 +1,62 @@
+\doxysection{softaes.\+h}
+\hypertarget{softaes_8h_source}{}\label{softaes_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/private/softaes.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/private/softaes.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ softaes\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ softaes\_H\ 1}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}private/common.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ uint32\_t\ w0;}
+\DoxyCodeLine{00010\ \ \ \ \ uint32\_t\ w1;}
+\DoxyCodeLine{00011\ \ \ \ \ uint32\_t\ w2;}
+\DoxyCodeLine{00012\ \ \ \ \ uint32\_t\ w3;}
+\DoxyCodeLine{00013\ \}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}};}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ softaes\_block\_encrypt(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ block,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ rk);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}}
+\DoxyCodeLine{00018\ softaes\_block\_load(\textcolor{keyword}{const}\ uint8\_t\ in[16])}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ out\ =\ \{\ LOAD32\_LE(in\ +\ 0),\ LOAD32\_LE(in\ +\ 4),\ LOAD32\_LE(in\ +\ 8),}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LOAD32\_LE(in\ +\ 12)\ \};}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00023\ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}}
+\DoxyCodeLine{00026\ softaes\_block\_load64x2(\textcolor{keyword}{const}\ uint64\_t\ a,\ \textcolor{keyword}{const}\ uint64\_t\ b)}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ out\ =\ \{\ (uint32\_t)\ b,\ (uint32\_t)\ (b\ >>\ 32),\ (uint32\_t)\ a,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (uint32\_t)\ (a\ >>\ 32)\ \};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00031\ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00034\ softaes\_block\_store(uint8\_t\ out[16],\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ in)}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ STORE32\_LE(out\ +\ 0,\ in.w0);}
+\DoxyCodeLine{00037\ \ \ \ \ STORE32\_LE(out\ +\ 4,\ in.w1);}
+\DoxyCodeLine{00038\ \ \ \ \ STORE32\_LE(out\ +\ 8,\ in.w2);}
+\DoxyCodeLine{00039\ \ \ \ \ STORE32\_LE(out\ +\ 12,\ in.w3);}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}}
+\DoxyCodeLine{00043\ softaes\_block\_xor(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ b)}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ out\ =\ \{\ a.w0\ \string^\ b.w0,\ a.w1\ \string^\ b.w1,\ a.w2\ \string^\ b.w2,\ a.w3\ \string^\ b.w3\ \};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}}
+\DoxyCodeLine{00050\ softaes\_block\_and(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ b)}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_soft_aes_block}{SoftAesBlock}}\ out\ =\ \{\ a.w0\ \&\ b.w0,\ a.w1\ \&\ b.w1,\ a.w2\ \&\ b.w2,\ a.w3\ \&\ b.w3\ \};}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00054\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

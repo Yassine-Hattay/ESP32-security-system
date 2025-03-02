@@ -1,0 +1,411 @@
+\doxysection{zb\+\_\+zcl\+\_\+basic.\+h}
+\hypertarget{zb__zcl__basic_8h_source}{}\label{zb__zcl__basic_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_basic.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_basic.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ ZCL\ Basic\ Cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_BASIC\_H}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_H\ 1}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_common.h"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_commands.h"{}}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{enum}\ zb\_zcl\_basic\_info\_attr\_e}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00065\ \ \ ZB\_ZCL\_ATTR\_BASIC\_ZCL\_VERSION\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0000,}
+\DoxyCodeLine{00067\ \ \ ZB\_ZCL\_ATTR\_BASIC\_APPLICATION\_VERSION\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0001,}
+\DoxyCodeLine{00069\ \ \ ZB\_ZCL\_ATTR\_BASIC\_STACK\_VERSION\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0002,}
+\DoxyCodeLine{00071\ \ \ ZB\_ZCL\_ATTR\_BASIC\_HW\_VERSION\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0003,}
+\DoxyCodeLine{00073\ \ \ ZB\_ZCL\_ATTR\_BASIC\_MANUFACTURER\_NAME\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0004,}
+\DoxyCodeLine{00075\ \ \ ZB\_ZCL\_ATTR\_BASIC\_MODEL\_IDENTIFIER\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0005,}
+\DoxyCodeLine{00077\ \ \ ZB\_ZCL\_ATTR\_BASIC\_DATE\_CODE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0006,}
+\DoxyCodeLine{00079\ \ \ ZB\_ZCL\_ATTR\_BASIC\_POWER\_SOURCE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0007,}
+\DoxyCodeLine{00082\ \ \ ZB\_ZCL\_ATTR\_BASIC\_GENERIC\_DEVICE\_CLASS\_ID\ \ \ \ \ \ \ \ \ =\ 0x0008,}
+\DoxyCodeLine{00085\ \ \ ZB\_ZCL\_ATTR\_BASIC\_GENERIC\_DEVICE\_TYPE\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0009,}
+\DoxyCodeLine{00088\ \ \ ZB\_ZCL\_ATTR\_BASIC\_PRODUCT\_CODE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x000a,}
+\DoxyCodeLine{00091\ \ \ ZB\_ZCL\_ATTR\_BASIC\_PRODUCT\_URL\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x000b,}
+\DoxyCodeLine{00094\ \ \ ZB\_ZCL\_ATTR\_BASIC\_MANUFACTURER\_VERSION\_DETAILS\_ID\ =\ 0x000c,}
+\DoxyCodeLine{00096\ \ \ ZB\_ZCL\_ATTR\_BASIC\_SERIAL\_NUMBER\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x000d,}
+\DoxyCodeLine{00098\ \ \ ZB\_ZCL\_ATTR\_BASIC\_PRODUCT\_LABEL\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x000e,}
+\DoxyCodeLine{00100\ \ \ ZB\_ZCL\_ATTR\_BASIC\_SW\_BUILD\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x4000,}
+\DoxyCodeLine{00101\ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{enum}\ zb\_zcl\_basic\_settings\_attr\_e}
+\DoxyCodeLine{00107\ \{}
+\DoxyCodeLine{00109\ \ \ ZB\_ZCL\_ATTR\_BASIC\_LOCATION\_DESCRIPTION\_ID\ =\ 0x0010,}
+\DoxyCodeLine{00111\ \ \ ZB\_ZCL\_ATTR\_BASIC\_PHYSICAL\_ENVIRONMENT\_ID\ =\ 0x0011,}
+\DoxyCodeLine{00113\ \ \ ZB\_ZCL\_ATTR\_BASIC\_DEVICE\_ENABLED\_ID\ \ \ \ \ \ \ =\ 0x0012,}
+\DoxyCodeLine{00115\ \ \ ZB\_ZCL\_ATTR\_BASIC\_ALARM\_MASK\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0013,}
+\DoxyCodeLine{00117\ \ \ ZB\_ZCL\_ATTR\_BASIC\_DISABLE\_LOCAL\_CONFIG\_ID\ =\ 0x0014}
+\DoxyCodeLine{00118\ \};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00124\ \textcolor{keyword}{enum}\ zb\_zcl\_basic\_power\_source\_e}
+\DoxyCodeLine{00125\ \{}
+\DoxyCodeLine{00126\ \ \ ZB\_ZCL\_BASIC\_POWER\_SOURCE\_UNKNOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ }
+\DoxyCodeLine{00127\ \ \ ZB\_ZCL\_BASIC\_POWER\_SOURCE\_MAINS\_SINGLE\_PHASE\ \ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{00128\ \ \ ZB\_ZCL\_BASIC\_POWER\_SOURCE\_MAINS\_THREE\_PHASE\ \ \ \ \ \ =\ 0x02,\ \ }
+\DoxyCodeLine{00129\ \ \ ZB\_ZCL\_BASIC\_POWER\_SOURCE\_BATTERY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03,\ \ }
+\DoxyCodeLine{00130\ \ \ ZB\_ZCL\_BASIC\_POWER\_SOURCE\_DC\_SOURCE\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x04,\ \ }
+\DoxyCodeLine{00131\ \ \ ZB\_ZCL\_BASIC\_POWER\_SOURCE\_EMERGENCY\_MAINS\_CONST\ \ =\ 0x05,\ \ }
+\DoxyCodeLine{00133\ \ \ ZB\_ZCL\_BASIC\_POWER\_SOURCE\_EMERGENCY\_MAINS\_TRANSF\ =\ 0x06\ \ \ }
+\DoxyCodeLine{00135\ \};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{enum}\ zb\_zcl\_basic\_physical\_env\_e}
+\DoxyCodeLine{00142\ \{}
+\DoxyCodeLine{00144\ \ \ ZB\_ZCL\_BASIC\_ENV\_UNSPECIFIED\ =\ 0,}
+\DoxyCodeLine{00146\ \ \ ZB\_ZCL\_BASIC\_ENV\_UNKNOWN\ \ \ \ \ =\ 0xff}
+\DoxyCodeLine{00147\ \};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00152\ \textcolor{keyword}{enum}\ zb\_zcl\_basic\_alarm\_mask\_e}
+\DoxyCodeLine{00153\ \{}
+\DoxyCodeLine{00155\ \ \ ZB\_ZCL\_BASIC\_ALARM\_MASK\_HW\_FAULT\ =\ 0,}
+\DoxyCodeLine{00157\ \ \ ZB\_ZCL\_BASIC\_ALARM\_MASK\_SW\_FAULT\ =\ 1}
+\DoxyCodeLine{00158\ \};}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zcl\_basic\_disable\_local\_conf\_s}
+\DoxyCodeLine{00164\ \{}
+\DoxyCodeLine{00166\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ reset\_disabled\ \ :\ 1;}
+\DoxyCodeLine{00168\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ config\_enabled\ \ :\ 1;}
+\DoxyCodeLine{00170\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ reserved\ \ \ \ \ \ \ \ :\ 6;}
+\DoxyCodeLine{00171\ \}\ zb\_zcl\_basic\_disable\_local\_conf\_t;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0003u)}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_ZCL\_VERSION\_DEFAULT\_VALUE\ ((zb\_uint8\_t)ZB\_ZCL\_VERSION)}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_APPLICATION\_VERSION\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x00)}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_STACK\_VERSION\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x00)}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_HW\_VERSION\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x00)}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_MANUFACTURER\_NAME\_DEFAULT\_VALUE\ \{0\}}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_MODEL\_IDENTIFIER\_DEFAULT\_VALUE\ \{0\}}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_DATE\_CODE\_DEFAULT\_VALUE\ \{0\}}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_POWER\_SOURCE\_DEFAULT\_VALUE\ (ZB\_ZCL\_BASIC\_POWER\_SOURCE\_UNKNOWN)}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_GENERIC\_DEVICE\_CLASS\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0xFF)}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_GENERIC\_DEVICE\_TYPE\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0xFF)}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_PRODUCT\_CODE\_DEFAULT\_VALUE\ \{0\}}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_PRODUCT\_URL\_DEFAULT\_VALUE\ \{0\}}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_MANUFACTURER\_VERSION\_DETAILS\_DEFAULT\_VALUE\ \{0\}}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_SERIAL\_NUMBER\_DEFAULT\_VALUE\ \{0\}}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_PRODUCT\_LABEL\_DEFAULT\_VALUE\ \{0\}}}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_LOCATION\_DESCRIPTION\_DEFAULT\_VALUE\ \{0\}}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_PHYSICAL\_ENVIRONMENT\_DEFAULT\_VALUE\ (ZB\_ZCL\_BASIC\_ENV\_UNSPECIFIED)}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_DEVICE\_ENABLED\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x01)}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_ALARM\_MASK\_DEFAULT\_VALUE\ (ZB\_ZCL\_BASIC\_ALARM\_MASK\_HW\_FAULT)}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_DISABLE\_LOCAL\_CONFIG\_DEFAULT\_VALUE\ ((zb\_zcl\_basic\_disable\_local\_conf\_t)\{0,0,0\})}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_SW\_BUILD\_ID\_DEFAULT\_VALUE\ \ \{0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0,\ 0\}}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_ZCL\_VERSION\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_ZCL\_VERSION\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_APPLICATION\_VERSION\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_APPLICATION\_VERSION\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_STACK\_VERSION\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_STACK\_VERSION\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_HW\_VERSION\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_HW\_VERSION\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_MANUFACTURER\_NAME\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_MANUFACTURER\_NAME\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_CHAR\_STRING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_MODEL\_IDENTIFIER\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_MODEL\_IDENTIFIER\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_CHAR\_STRING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_DATE\_CODE\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_DATE\_CODE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_CHAR\_STRING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_POWER\_SOURCE\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_POWER\_SOURCE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BIT\_ENUM,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_LOCATION\_DESCRIPTION\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_LOCATION\_DESCRIPTION\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_CHAR\_STRING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_PHYSICAL\_ENVIRONMENT\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_PHYSICAL\_ENVIRONMENT\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BIT\_ENUM,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_DEVICE\_ENABLED\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_DEVICE\_ENABLED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_BOOL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_BASIC\_SW\_BUILD\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_BASIC\_SW\_BUILD\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_CHAR\_STRING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_SCENES}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_BASIC\_SCENE\_FIELD\_SETS\_LENGTH\ 0}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined\ ZB\_ZCL\_SUPPORT\_CLUSTER\_SCENES\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00358\ \ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_BASIC\_ATTRIB\_LIST(attr\_list,\ zcl\_version,\ power\_source)\ \(\backslash\)}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_BASIC)\ \(\backslash\)}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_ZCL\_VERSION\_ID,\ (zcl\_version))\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_POWER\_SOURCE\_ID,\ (power\_source))\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_BASIC\_WITH\_DEVICE\_ENABLED\_ATTRIB\_LIST(attr\_list,\ zcl\_version,\ power\_source,\ device\_enabled)\ \(\backslash\)}}
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST(attr\_list)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_ZCL\_VERSION\_ID,\ (zcl\_version))\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_POWER\_SOURCE\_ID,\ (power\_source))\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_DEVICE\_ENABLED\_ID,\ (device\_enabled))\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00385\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_BASIC\_ATTRIB\_LIST\_EXT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\ \ attr\_list,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\ \ zcl\_version,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\ \ app\_version,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00406\ \textcolor{preprocessor}{\ \ stack\_version,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\ \ hardware\_version,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\ \ manufacturer\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00409\ \textcolor{preprocessor}{\ \ model\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\ \ date\_code,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00411\ \textcolor{preprocessor}{\ \ power\_source,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\ \ location\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00413\ \textcolor{preprocessor}{\ \ ph\_env,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\ \ sw\_build\_id)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00415\ \textcolor{preprocessor}{\ \ zb\_bool\_t\ device\_enable\_\#\#attr\_list\ =\ ZB\_TRUE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_BASIC)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_ZCL\_VERSION\_ID,\ (zcl\_version))\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_APPLICATION\_VERSION\_ID,\ (app\_version))\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_STACK\_VERSION\_ID,\ (stack\_version))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_HW\_VERSION\_ID,\ (hardware\_version))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_MANUFACTURER\_NAME\_ID,\ (manufacturer\_name))\(\backslash\)}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_MODEL\_IDENTIFIER\_ID,\ (model\_id))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_DATE\_CODE\_ID,\ (date\_code))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_POWER\_SOURCE\_ID,\ (power\_source))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_SW\_BUILD\_ID,\ (sw\_build\_id))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_DEVICE\_ENABLED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&(device\_enable\_\#\#attr\_list))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_LOCATION\_DESCRIPTION\_ID,\ (location\_id))\ \ \(\backslash\)}}
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_PHYSICAL\_ENVIRONMENT\_ID,\ (ph\_env))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00448\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_BASIC\_WITH\_DEVICE\_ENABLED\_ATTRIB\_LIST\_EXT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\ \ attr\_list,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00450\ \textcolor{preprocessor}{\ \ zcl\_version,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\ \ app\_version,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\ \ stack\_version,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\ \ hardware\_version,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\ \ manufacturer\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\ \ model\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\ \ date\_code,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\ \ power\_source,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00458\ \textcolor{preprocessor}{\ \ location\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\ \ ph\_env,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\ \ sw\_build\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\ \ device\_enabled)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00462\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST(attr\_list)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_ZCL\_VERSION\_ID,\ (zcl\_version))\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_APPLICATION\_VERSION\_ID,\ (app\_version))\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00465\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_STACK\_VERSION\_ID,\ (stack\_version))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_HW\_VERSION\_ID,\ (hardware\_version))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00467\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_MANUFACTURER\_NAME\_ID,\ (manufacturer\_name))\(\backslash\)}}
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_MODEL\_IDENTIFIER\_ID,\ (model\_id))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_DATE\_CODE\_ID,\ (date\_code))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00470\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_POWER\_SOURCE\_ID,\ (power\_source))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_SW\_BUILD\_ID,\ (sw\_build\_id))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_DEVICE\_ENABLED\_ID,\ (device\_enabled))\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_LOCATION\_DESCRIPTION\_ID,\ (location\_id))\ \ \(\backslash\)}}
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_BASIC\_PHYSICAL\_ENVIRONMENT\_ID,\ (ph\_env))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00478\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_BASIC\_MANUFACTURER\_NAME\_MAX\_LEN\ 32}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00481\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_BASIC\_MODEL\_IDENTIFIER\_MAX\_LEN\ \ 32}}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00486\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zcl\_basic\_attrs\_s}
+\DoxyCodeLine{00487\ \{}
+\DoxyCodeLine{00491\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zcl\_version;}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00496\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ power\_source;}
+\DoxyCodeLine{00497\ \}\ zb\_zcl\_basic\_attrs\_t;}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_BASIC\_ATTR\_LIST(attr\_list,\ attrs)\ \(\backslash\)}}
+\DoxyCodeLine{00505\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_DECLARE\_BASIC\_ATTRIB\_LIST(attr\_list,\ \&attrs.zcl\_version,\ \&attrs.power\_source)}}
+\DoxyCodeLine{00506\ \ \textcolor{comment}{/*\ Basic\ cluster\ attributes\ */}}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00516\ \textcolor{keyword}{enum}\ zb\_zcl\_basic\_cmd\_e}
+\DoxyCodeLine{00517\ \{}
+\DoxyCodeLine{00518\ \ \ ZB\_ZCL\_CMD\_BASIC\_RESET\_ID\ \ \ \ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00519\ \};}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00522\ \textcolor{comment}{/*\ Basic\ cluster\ commands\ lists\ :\ only\ for\ information\ -\/\ do\ not\ modify\ */}}
+\DoxyCodeLine{00523\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_BASIC\_SERVER\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CMD\_BASIC\_RESET\_ID}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_BASIC\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_BASIC\_SERVER\_ROLE\_RECEIVED\_CMD\_LIST}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ internals\_doc\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00541\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_BASIC\_SEND\_RESET\_REQ(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00542\ \textcolor{preprocessor}{\ \ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prof\_id,\ dis\_default\_resp,\ cb)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00543\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00544\ \textcolor{preprocessor}{\ \ zb\_uint8\_t*\ ptr\ =\ ZB\_ZCL\_START\_PACKET\_REQ(buffer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_REQ\_FRAME\_CONTROL(ptr,\ dis\_default\_resp)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00546\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER\_REQ(ptr,\ ZB\_ZCL\_GET\_SEQ\_NUM(),\ ZB\_ZCL\_CMD\_BASIC\_RESET\_ID);\ \ \(\backslash\)}}
+\DoxyCodeLine{00547\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET(buffer,\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00548\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00549\ \textcolor{preprocessor}{\ \ \ \ \ \ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prof\_id,\ ZB\_ZCL\_CLUSTER\_ID\_BASIC,\ cb);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00550\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00558\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_RESET\_TO\_FACTORY\_DEFAULTS\_USER\_APP(buffer,\ ep,\ result)\ \(\backslash\)}}
+\DoxyCodeLine{00559\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00560\ \textcolor{preprocessor}{\ \ TRACE\_MSG(TRACE\_ZCL1,\ "{}ZB\_ZCL\_RESET\_TO\_FACTORY\_DEFAULTS\_USER\_APP"{},\ (FMT\_\_0));\ \(\backslash\)}}
+\DoxyCodeLine{00561\ \textcolor{preprocessor}{\ \ if\ (ZCL\_CTX().device\_cb)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00562\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00563\ \textcolor{preprocessor}{\ \ \ \ zb\_zcl\_device\_callback\_param\_t\ *user\_app\_data\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_BUF\_GET\_PARAM(buffer,\ zb\_zcl\_device\_callback\_param\_t);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00565\ \textcolor{preprocessor}{\ \ \ \ user\_app\_data-\/>device\_cb\_id\ =\ ZB\_ZCL\_BASIC\_RESET\_CB\_ID;\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00566\ \textcolor{preprocessor}{\ \ \ \ user\_app\_data-\/>endpoint\ =\ (ep);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00567\ \textcolor{preprocessor}{\ \ \ \ user\_app\_data-\/>status\ =\ RET\_OK;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00568\ \textcolor{preprocessor}{\ \ \ \ (ZCL\_CTX().device\_cb)(param);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00569\ \textcolor{preprocessor}{\ \ \ \ result\ =\ user\_app\_data-\/>status;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00570\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00571\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00581\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_zcl\_check\_is\_device\_enabled(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ep\_id,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ cmd\_id,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cluster\_id,\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ is\_common\_command);}
+\DoxyCodeLine{00582\ \ \textcolor{comment}{/*\ Basic\ cluster\ commands\ */}}
+\DoxyCodeLine{00584\ \ \textcolor{comment}{/*\ ZCL\ Basic\ cluster\ definitions\ */}}
+\DoxyCodeLine{00586\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ */}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \textcolor{keywordtype}{void}\ zb\_zcl\_basic\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00590\ \textcolor{keywordtype}{void}\ zb\_zcl\_basic\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00591\ }
+\DoxyCodeLine{00592\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_BASIC\_SERVER\_ROLE\_INIT\ zb\_zcl\_basic\_init\_server}}
+\DoxyCodeLine{00593\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_BASIC\_CLIENT\_ROLE\_INIT\ zb\_zcl\_basic\_init\_client}}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_BASIC\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

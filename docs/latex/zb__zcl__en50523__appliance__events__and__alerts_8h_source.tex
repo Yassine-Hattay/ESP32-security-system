@@ -1,0 +1,318 @@
+\doxysection{zb\+\_\+zcl\+\_\+en50523\+\_\+appliance\+\_\+events\+\_\+and\+\_\+alerts.\+h}
+\hypertarget{zb__zcl__en50523__appliance__events__and__alerts_8h_source}{}\label{zb__zcl__en50523__appliance__events__and__alerts_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_en50523\_appliance\_events\_and\_alerts.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_en50523\_appliance\_events\_and\_alerts.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ EN50523\ Appliance\ events\ and\ alerts\ cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{enum}\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_recv\_cmd\_e}
+\DoxyCodeLine{00057\ \{}
+\DoxyCodeLine{00058\ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_ID\ =\ 0x00,\ }
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{enum}\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_send\_cmd\_e}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00068\ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_RESP\_ID\ \ \ \ \ =\ 0x00,}
+\DoxyCodeLine{00070\ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_NOTIFICATION\_ID\ =\ 0x01,}
+\DoxyCodeLine{00072\ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_EVENT\_NOTIFICATION\_ID\ \ =\ 0x02,}
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0001u)}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_EN50523\_APPL\_EV\_AND\_ALERTS\_ATTR\_LIST(attr\_list)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS)\ \(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{/*\ en50523\ cluster\ commands\ list\ :\ only\ for\ information\ -\/\ do\ not\ modify\ */}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_APPL\_EV\_AND\_ALERTS\_SERVER\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_ID}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_APPL\_EV\_AND\_ALERTS\_SERVER\_ROLE\_GENERATED\_CMD\_LIST\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_RESP\_ID,\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_NOTIFICATION\_ID,\ \(\backslash\)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_EVENT\_NOTIFICATION\_ID}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_APPL\_EV\_AND\_ALERTS\_CLIENT\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_APPL\_EV\_AND\_ALERTS\_SERVER\_ROLE\_GENERATED\_CMD\_LIST}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_APPL\_EV\_AND\_ALERTS\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_APPL\_EV\_AND\_ALERTS\_SERVER\_ROLE\_RECEIVED\_CMD\_LIST}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ internals\_doc\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{/*******************************\ Get\ Alerts\ Command\ ******************************/}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_SEND\_GET\_ALERTS\_REQ(\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\ \ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prfl\_id,\ def\_resp,\ cb)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ zb\_uint8\_t*\ ptr\ =\ ZB\_ZCL\_START\_PACKET\_REQ(buffer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_REQ\_FRAME\_CONTROL(ptr,\ (def\_resp))\ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER\_REQ(ptr,\ ZB\_ZCL\_GET\_SEQ\_NUM(),\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_ID);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((buffer),\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\ \ \ \ \ \ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prfl\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_APPLIANCE\_EVENTS\_AND\_ALERTS,\ cb);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{/*******************************\ Get\ Alerts\ Response\ Command\ ******************************/}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_MAX\_ALERTS\_NUM\ \ 15}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00132\ \textcolor{keyword}{enum}\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alerts\_type\_e}
+\DoxyCodeLine{00133\ \{}
+\DoxyCodeLine{00134\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_TYPE\_UNSTRUCTURED\ =\ 0x00,}
+\DoxyCodeLine{00135\ \};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00138\ \textcolor{keyword}{enum}\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_category\_e}
+\DoxyCodeLine{00139\ \{}
+\DoxyCodeLine{00140\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_CATEGORY\_WARNING\ =\ 0x01,}
+\DoxyCodeLine{00141\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_CATEGORY\_DANGER\ \ =\ 0x02,}
+\DoxyCodeLine{00142\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_CATEGORY\_FAILURE\ =\ 0x03,}
+\DoxyCodeLine{00143\ \};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{enum}\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_presence\_e}
+\DoxyCodeLine{00147\ \{}
+\DoxyCodeLine{00148\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_RECOVERY\ =\ 0x00,}
+\DoxyCodeLine{00149\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_PRESENCE\ =\ 0x01,}
+\DoxyCodeLine{00150\ \};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_COUNT\_GET\_NUM(\_alerts\_count)\ \ \ ((\_alerts\_count)\ \&\ 0x0F)}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_COUNT\_SET\_NUM(\_alerts\_count,\ num)\ \ \ ((\_alerts\_count)\ |=\ (num\ \&\ 0x0F))}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_COUNT\_GET\_TYPE(\_alerts\_count)\ (((\_alerts\_count)\ \&\ 0xF0)\ >>\ 4)}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_COUNT\_SET\_TYPE(\_alerts\_count,\ type)\ ((\_alerts\_count)\ |=\ ((type\ \&\ 0x0F)\ <<\ 4))}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_STRUCT\_GET\_ID(\_alert\_struct)\ \ \ ((\_alert\_struct).alert[2]\ \&\ 0xFF)}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_STRUCT\_SET\_ID(\_alert\_struct,\ id)\ \ \ ((\_alert\_struct).alert[2]\ =\ (id\ \&\ 0xFF))}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_STRUCT\_GET\_CATEGORY(\_alert\_struct)\ ((\_alert\_struct).alert[1]\ \&\ 0x0F)}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_STRUCT\_SET\_CATEGORY(\_alert\_struct,\ cat)\ ((\_alert\_struct).alert[1]\ |=\ \ (cat\ \&\ 0x0F))}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_STRUCT\_GET\_PRESENCE(\_alert\_struct)\ (((\_alert\_struct).alert[1]\ \&\ 0xF0)\ >>\ 4)}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_STRUCT\_SET\_PRESENCE(\_alert\_struct,\ pres)\ ((\_alert\_struct).alert[1]\ |=\ (pres\ \&\ 0x0F)\ <<\ 4)}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_STRUCT\_GET\_MANUF\_SPEC(\_alert\_struct)\ ((\_alert\_struct).alert[0]\ \&\ 0xFF)}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERT\_STRUCT\_SET\_MANUF\_SPEC(\_alert\_struct,\ val)\ ((\_alert\_struct).alert[0]\ =\ (val\ \&\ 0xFF))}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00189\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_struct\_s}
+\DoxyCodeLine{00190\ \{}
+\DoxyCodeLine{00192\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ alert[3];}
+\DoxyCodeLine{00193\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_struct\_t;}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00196\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_get\_alerts\_resp\_s}
+\DoxyCodeLine{00197\ \{}
+\DoxyCodeLine{00199\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ alerts\_count;}
+\DoxyCodeLine{00201\ \ \ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_struct\_t\ alert\_struct[ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_MAX\_ALERTS\_NUM];}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_get\_alerts\_resp\_t;}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_RESP\_PAYLOAD\_SIZE(ptr)\ (sizeof(((zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_get\_alerts\_resp\_t\ *)(ptr))-\/>alerts\_count)\ +\ \(\backslash\)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_COUNT\_GET\_NUM(((zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_get\_alerts\_resp\_t\ *)(ptr))-\/>alerts\_count)*\ \(\backslash\)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeof(zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_struct\_t)))}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_SEND\_GET\_ALERTS\_RESP\_START(\ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ buffer,\ seq,\ alerts\_count,\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ (ptr)\ =\ ZB\_ZCL\_START\_PACKET(buffer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_RES\_FRAME\_CONTROL(ptr);\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER(ptr,\ seq,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_RESP\_ID);\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8((ptr),\ (alerts\_count));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_SEND\_GET\_ALERTS\_RESP\_ADD(ptr,\ alert\_struct)\ \(\backslash\)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA24(ptr,\ (alert\_struct));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_SEND\_GET\_ALERTS\_RESP\_END(\ \(\backslash\)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\ \ ptr,\ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prfl\_id)\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((buffer),\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ \ \ \ \ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prfl\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_APPLIANCE\_EVENTS\_AND\_ALERTS,\ NULL);\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_GET\_ALERTS\_RESP(data\_ptr,\ buffer,\ status)\ \(\backslash\)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *data\ =\ zb\_buf\_begin(buffer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\ \ if\ (zb\_buf\_len((buffer))\ <\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_RESP\_PAYLOAD\_SIZE(data))\ \(\backslash\)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ \ \ (status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_PACKET\_GET\_DATA8(\&(data\_ptr)-\/>alerts\_count,\ data);\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_PACKET\_GET\_DATA\_N((data\_ptr)-\/>alert\_struct,\ data,\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_COUNT\_GET\_NUM((data\_ptr)-\/>alerts\_count)*sizeof(zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_struct\_t));\ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\ \ \ \ (status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \textcolor{comment}{/*******************************\ Alerts\ Notification\ Command\ ******************************/}}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00281\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alerts\_notif\_s}
+\DoxyCodeLine{00282\ \{}
+\DoxyCodeLine{00284\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ alerts\_count;}
+\DoxyCodeLine{00286\ \ \ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_struct\_t\ alert\_struct[ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_MAX\_ALERTS\_NUM];}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alerts\_notif\_t;}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_NOTIF\_PAYLOAD\_SIZE(ptr)\ (sizeof(((zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alerts\_notif\_t\ *)(ptr))-\/>alerts\_count)\ +\ \(\backslash\)}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_COUNT\_GET\_NUM(((zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alerts\_notif\_t\ *)(ptr))-\/>alerts\_count)*\ \(\backslash\)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sizeof(zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_struct\_t)))}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_SEND\_ALERTS\_NOTIF\_START(\ \ \(\backslash\)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\ \ \ \ buffer,\ def\_resp,\ alerts\_count,\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\ \ (ptr)\ =\ zb\_zcl\_start\_command\_header(buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_FRAME\_CONTROL(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_FRAME\_TYPE\_CLUSTER\_SPECIFIC,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_NOT\_MANUFACTURER\_SPECIFIC,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_FRAME\_DIRECTION\_TO\_CLI,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\ \ \ \ \ \ (def\_resp)),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\ \ \ \ \ \ 0,\ }\textcolor{comment}{/*\ No\ manuf\_code\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_NOTIFICATION\_ID,\ \(\backslash\)}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\ \ \ \ \ \ NULL);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8((ptr),\ (alerts\_count));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_SEND\_ALERTS\_NOTIF\_ADD(ptr,\ alert\_struct)\ \(\backslash\)}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA24(ptr,\ (alert\_struct));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_SEND\_ALERTS\_NOTIF\_END(\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\ \ ptr,\ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prfl\_id,\ cb)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((buffer),\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\ \ \ \ \ \ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prfl\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_APPLIANCE\_EVENTS\_AND\_ALERTS,\ cb);\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_ALERTS\_NOTIF(data\_ptr,\ buffer,\ status)\ \(\backslash\)}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *data\ =\ zb\_buf\_begin(buffer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\ \ if\ (zb\_buf\_len((buffer))\ <\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_NOTIF\_PAYLOAD\_SIZE(data))\ \(\backslash\)}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\ \ \ \ (status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_PACKET\_GET\_DATA8(\&(data\_ptr)-\/>alerts\_count,\ data);\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_PACKET\_GET\_DATA\_N((data\_ptr)-\/>alert\_struct,\ data,\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_ALERTS\_COUNT\_GET\_NUM((data\_ptr)-\/>alerts\_count)*sizeof(zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_alert\_struct\_t));\ \(\backslash\)}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\ \ \ \ (status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{comment}{/*******************************\ Event\ Notification\ Command\ ******************************/}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00372\ \textcolor{keyword}{enum}\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_event\_identification\_e}
+\DoxyCodeLine{00373\ \{}
+\DoxyCodeLine{00374\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_EVENT\_ID\_END\_OF\_CYCLE\ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00375\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_EVENT\_ID\_TEMP\_REACHED\ \ \ \ =\ 0x04,}
+\DoxyCodeLine{00376\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_EVENT\_ID\_END\_OF\_COOKING\ \ =\ 0x05,}
+\DoxyCodeLine{00377\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_EVENT\_ID\_SWITCHING\_OFF\ \ \ =\ 0x06,}
+\DoxyCodeLine{00378\ \ \ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_EVENT\_ID\_WRONG\_DATA\ \ \ \ \ \ =\ 0xf7,}
+\DoxyCodeLine{00379\ \};}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00385\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_event\_notif\_s}
+\DoxyCodeLine{00386\ \{}
+\DoxyCodeLine{00387\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ event\_header;}
+\DoxyCodeLine{00388\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ event\_identification;}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_event\_notif\_t;}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_SEND\_EVENT\_NOTIF(\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\ \ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prfl\_id,\ def\_resp,\ cb,\ \ \(\backslash\)}}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\ \ event\_identification)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00406\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\ \ zb\_uint8\_t*\ ptr\ =\ zb\_zcl\_start\_command\_header(buffer,\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_FRAME\_CONTROL(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00409\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_FRAME\_TYPE\_CLUSTER\_SPECIFIC,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_NOT\_MANUFACTURER\_SPECIFIC,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00411\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_FRAME\_DIRECTION\_TO\_CLI,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\ \ \ \ \ \ (def\_resp)),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00413\ \textcolor{preprocessor}{\ \ \ \ \ \ 0,\ }\textcolor{comment}{/*\ No\ manuf\_code\ */}\textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CMD\_EN50523\_APPL\_EV\_AND\_ALERTS\_EVENT\_NOTIFICATION\_ID,\ \(\backslash\)}}
+\DoxyCodeLine{00415\ \textcolor{preprocessor}{\ \ \ \ \ \ NULL);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(ptr,\ 0);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\ \ ZB\_ZCL1\_PACKET\_PUT\_DATA8(ptr,\ (event\_identification));\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((buffer),\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\ \ \ \ \ \ buffer,\ addr,\ dst\_addr\_mode,\ dst\_ep,\ ep,\ prfl\_id,\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_APPLIANCE\_EVENTS\_AND\_ALERTS,\ cb);\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_GET\_EVENT\_NOTIF(data\_ptr,\ buffer,\ status)\ \(\backslash\)}}
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00432\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *data\ =\ zb\_buf\_begin(buffer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\ \ if\ (zb\_buf\_len((buffer))\ <\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00434\ \textcolor{preprocessor}{\ \ \ \ \ \ sizeof(zb\_zcl\_en50523\_appl\_ev\_and\_alerts\_event\_notif\_t))\ \(\backslash\)}}
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\ \ \ \ (status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_PACKET\_GET\_DATA8(\&(data\_ptr)-\/>event\_header,\ data);\ \ \(\backslash\)}}
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_PACKET\_GET\_DATA8(\&(data\_ptr)-\/>event\_identification,\ data);\ \(\backslash\)}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\ \ \ \ (status)\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\}}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ Appliance\ events\ and\ alerts\ cluster\ commands\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{\ }\textcolor{comment}{/*ZB\_ZCL\_EN50523\_APP\_EVENTS\_ALERTS\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \textcolor{keywordtype}{void}\ zb\_zcl\_en50523\_appliance\_events\_and\_alerts\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00450\ \textcolor{keywordtype}{void}\ zb\_zcl\_en50523\_appliance\_events\_and\_alerts\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_APPLIANCE\_EVENTS\_AND\_ALERTS\_SERVER\_ROLE\_INIT\ zb\_zcl\_en50523\_appliance\_events\_and\_alerts\_init\_server}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_APPLIANCE\_EVENTS\_AND\_ALERTS\_CLIENT\_ROLE\_INIT\ zb\_zcl\_en50523\_appliance\_events\_and\_alerts\_init\_client}}
+\DoxyCodeLine{00453\ }
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_ZCL\_EN50523\_APPL\_EV\_AND\_ALERTS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

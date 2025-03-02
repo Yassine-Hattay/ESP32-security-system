@@ -1,0 +1,81 @@
+\doxysection{crypto\+\_\+kdf\+\_\+hkdf\+\_\+sha512.\+h}
+\hypertarget{crypto__kdf__hkdf__sha512_8h_source}{}\label{crypto__kdf__hkdf__sha512_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_kdf\_hkdf\_sha512.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_kdf\_hkdf\_sha512.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ crypto\_kdf\_hkdf\_sha512\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ crypto\_kdf\_hkdf\_sha512\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}crypto\_kdf.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}crypto\_auth\_hmacsha512.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}export.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#\ ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#\ \ pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wlong-\/long"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ crypto\_kdf\_hkdf\_sha512\_KEYBYTES\ crypto\_auth\_hmacsha512\_BYTES}}
+\DoxyCodeLine{00020\ SODIUM\_EXPORT}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{size\_t}\ crypto\_kdf\_hkdf\_sha512\_keybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ crypto\_kdf\_hkdf\_sha512\_BYTES\_MIN\ 0U}}
+\DoxyCodeLine{00024\ SODIUM\_EXPORT}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{size\_t}\ crypto\_kdf\_hkdf\_sha512\_bytes\_min(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ crypto\_kdf\_hkdf\_sha512\_BYTES\_MAX\ (0xff\ *\ crypto\_auth\_hmacsha512\_BYTES)}}
+\DoxyCodeLine{00028\ SODIUM\_EXPORT}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{size\_t}\ crypto\_kdf\_hkdf\_sha512\_bytes\_max(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ SODIUM\_EXPORT}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{int}\ crypto\_kdf\_hkdf\_sha512\_extract(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ prk[crypto\_kdf\_hkdf\_sha512\_KEYBYTES],}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *salt,\ \textcolor{keywordtype}{size\_t}\ salt\_len,}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ikm,\ \textcolor{keywordtype}{size\_t}\ ikm\_len)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ SODIUM\_EXPORT}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ crypto\_kdf\_hkdf\_sha512\_keygen(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ prk[crypto\_kdf\_hkdf\_sha512\_KEYBYTES])}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ SODIUM\_EXPORT}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ crypto\_kdf\_hkdf\_sha512\_expand(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *out,\ \textcolor{keywordtype}{size\_t}\ out\_len,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ctx,\ \textcolor{keywordtype}{size\_t}\ ctx\_len,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ prk[crypto\_kdf\_hkdf\_sha512\_KEYBYTES])}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcrypto__kdf__hkdf__sha512__state}{crypto\_kdf\_hkdf\_sha512\_state}}\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{structcrypto__auth__hmacsha512__state}{crypto\_auth\_hmacsha512\_state}}\ st;}
+\DoxyCodeLine{00051\ \}\ \mbox{\hyperlink{structcrypto__kdf__hkdf__sha512__state}{crypto\_kdf\_hkdf\_sha512\_state}};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ SODIUM\_EXPORT}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{size\_t}\ crypto\_kdf\_hkdf\_sha512\_statebytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ SODIUM\_EXPORT}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{int}\ crypto\_kdf\_hkdf\_sha512\_extract\_init(\mbox{\hyperlink{structcrypto__kdf__hkdf__sha512__state}{crypto\_kdf\_hkdf\_sha512\_state}}\ *state,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *salt,\ \textcolor{keywordtype}{size\_t}\ salt\_len)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ SODIUM\_EXPORT}
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{int}\ crypto\_kdf\_hkdf\_sha512\_extract\_update(\mbox{\hyperlink{structcrypto__kdf__hkdf__sha512__state}{crypto\_kdf\_hkdf\_sha512\_state}}\ *state,}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ikm,\ \textcolor{keywordtype}{size\_t}\ ikm\_len)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ SODIUM\_EXPORT}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{int}\ crypto\_kdf\_hkdf\_sha512\_extract\_final(\mbox{\hyperlink{structcrypto__kdf__hkdf__sha512__state}{crypto\_kdf\_hkdf\_sha512\_state}}\ *state,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ prk[crypto\_kdf\_hkdf\_sha512\_KEYBYTES])}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

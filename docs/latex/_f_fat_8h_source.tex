@@ -1,0 +1,50 @@
+\doxysection{FFat.\+h}
+\hypertarget{_f_fat_8h_source}{}\label{_f_fat_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/FFat/src/FFat.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/FFat/src/FFat.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2016\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ \_FFAT\_H\_}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ \_FFAT\_H\_}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}FS.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}wear\_levelling.h"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ FFAT\_WIPE\_QUICK\ \ \ \ \ \ 0}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ FFAT\_WIPE\_FULL\ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ FFAT\_PARTITION\_LABEL\ "{}ffat"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }fs\ \{}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }F\_Fat\ :\ \textcolor{keyword}{public}\ FS\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ F\_Fat(FSImplPtr\ impl);}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{bool}\ begin(\textcolor{keywordtype}{bool}\ formatOnFail\ =\ \textcolor{keyword}{false},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *basePath\ =\ \textcolor{stringliteral}{"{}/ffat"{}},\ uint8\_t\ maxOpenFiles\ =\ 10,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *partitionLabel\ =\ (\textcolor{keywordtype}{char}\ *)FFAT\_PARTITION\_LABEL);}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{bool}\ format(\textcolor{keywordtype}{bool}\ full\_wipe\ =\ FFAT\_WIPE\_QUICK,\ \textcolor{keywordtype}{char}\ *partitionLabel\ =\ (\textcolor{keywordtype}{char}\ *)FFAT\_PARTITION\_LABEL);}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{size\_t}\ totalBytes();}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{size\_t}\ usedBytes();}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{size\_t}\ freeBytes();}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ wl\_handle\_t\ \_wl\_handle\ =\ WL\_INVALID\_HANDLE;}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \}\ \ \textcolor{comment}{//\ namespace\ fs}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{classfs_1_1_f___fat}{fs::F\_Fat}}\ FFat;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_FFAT\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

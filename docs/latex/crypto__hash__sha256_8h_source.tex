@@ -1,0 +1,66 @@
+\doxysection{crypto\+\_\+hash\+\_\+sha256.\+h}
+\hypertarget{crypto__hash__sha256_8h_source}{}\label{crypto__hash__sha256_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_hash\_sha256.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_hash\_sha256.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ crypto\_hash\_sha256\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ crypto\_hash\_sha256\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ WARNING:\ Unless\ you\ absolutely\ need\ to\ use\ SHA256\ for\ interoperability,}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ purposes,\ you\ might\ want\ to\ consider\ crypto\_generichash()\ instead.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Unlike\ SHA256,\ crypto\_generichash()\ is\ not\ vulnerable\ to\ length}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ extension\ attacks.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}export.h"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#\ ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#\ \ pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wlong-\/long"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcrypto__hash__sha256__state}{crypto\_hash\_sha256\_state}}\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ uint32\_t\ state[8];}
+\DoxyCodeLine{00026\ \ \ \ \ uint64\_t\ count;}
+\DoxyCodeLine{00027\ \ \ \ \ uint8\_t\ \ buf[64];}
+\DoxyCodeLine{00028\ \}\ \mbox{\hyperlink{structcrypto__hash__sha256__state}{crypto\_hash\_sha256\_state}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ SODIUM\_EXPORT}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{size\_t}\ crypto\_hash\_sha256\_statebytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ crypto\_hash\_sha256\_BYTES\ 32U}}
+\DoxyCodeLine{00034\ SODIUM\_EXPORT}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{size\_t}\ crypto\_hash\_sha256\_bytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ SODIUM\_EXPORT}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{int}\ crypto\_hash\_sha256(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *out,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ inlen)\ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ SODIUM\_EXPORT}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ crypto\_hash\_sha256\_init(\mbox{\hyperlink{structcrypto__hash__sha256__state}{crypto\_hash\_sha256\_state}}\ *state)}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ SODIUM\_EXPORT}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{int}\ crypto\_hash\_sha256\_update(\mbox{\hyperlink{structcrypto__hash__sha256__state}{crypto\_hash\_sha256\_state}}\ *state,}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ inlen)}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ SODIUM\_EXPORT}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{int}\ crypto\_hash\_sha256\_final(\mbox{\hyperlink{structcrypto__hash__sha256__state}{crypto\_hash\_sha256\_state}}\ *state,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *out)}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00057\ \}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

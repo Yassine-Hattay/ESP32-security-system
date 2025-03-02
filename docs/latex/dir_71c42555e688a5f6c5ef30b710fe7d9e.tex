@@ -1,0 +1,78 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/dsp/examples/lyrat\+\_\+board\+\_\+app Directory Reference}
+\hypertarget{dir_71c42555e688a5f6c5ef30b710fe7d9e}{}\label{dir_71c42555e688a5f6c5ef30b710fe7d9e}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/examples/lyrat\_board\_app Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/examples/lyrat\_board\_app Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_e1f7e9068a5ab92bd8437ce5c18e935e}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The demo applications are developed for the ESP32-\/\+LyraT development board and demonstrate the usage of IIR filters from the ESP-\/\+DSP library. This example showcases how to use IIR filter functionality to process audio stream data. To hear the audio please connect headphones or speakers to the ESP32-\/\+LyraT audio output. The example performs the following steps\+:
+
+
+\begin{DoxyEnumerate}
+\item Read samples from a file
+\begin{DoxyItemize}
+\item read samples from file
+\item write audio samples to the triple buffer
+\end{DoxyItemize}
+\item Process audio samples
+\begin{DoxyItemize}
+\item process volume/bass/treble
+\item apply digital limiter to the audio data
+\item control audio buffer overflow
+\end{DoxyItemize}
+\item Pass samples to the audio codec
+\end{DoxyEnumerate}
+
+To control the volume/bass/treble, please select the value by press \textquotesingle{}Set\textquotesingle{} button and adjust the value by \textquotesingle{}+/-\/\textquotesingle{} buttons.\hypertarget{README.md_autotoc_md1026}{}\doxysubsection{\texorpdfstring{The Triple Audio Buffer}{The Triple Audio Buffer}}\label{README.md_autotoc_md1026}
+In audion processing, it\textquotesingle{}s possible to have situation when one task write data to the processing buffer (processing task), and another task read data from the same buffer, and still in reading process. Triple buffering is a technique used in audio processing to minimize latency and ensure smooth playback. It involves using three buffers to store audio data. Here\textquotesingle{}s a description of how it works\+:
+
+
+\begin{DoxyItemize}
+\item \doxylink{struct_buffer}{Buffer} A\+: This buffer holds the audio data that is currently being processed by the audio system. It is typically filled with samples from the audio source and processed in real-\/time.
+\item \doxylink{struct_buffer}{Buffer} B\+: When \doxylink{struct_buffer}{Buffer} A is full, the audio system begins reading from \doxylink{struct_buffer}{Buffer} A and starts processing the data. At the same time, \doxylink{struct_buffer}{Buffer} B is filled with new audio samples from the source.
+\item \doxylink{struct_buffer}{Buffer} C\+: Once \doxylink{struct_buffer}{Buffer} B is full, the audio system switches its attention to \doxylink{struct_buffer}{Buffer} B and continues processing data. \doxylink{struct_buffer}{Buffer} C is then filled with the latest audio samples.
+\end{DoxyItemize}
+
+The cycle continues, with the audio system always processing the data from a buffer while the other two buffers are being filled. This approach helps ensure a continuous and uninterrupted audio playback, as there is always a buffer ready to be processed. It reduces the chances of audio glitches or dropouts caused by delays in reading or processing the audio data.
+
+Triple buffering is particularly useful when working with real-\/time audio processing applications, where low latency and uninterrupted playback are crucial.\hypertarget{README.md_autotoc_md1027}{}\doxysubsection{\texorpdfstring{Audio Processing Flow}{Audio Processing Flow}}\label{README.md_autotoc_md1027}
+The audio processing flow contains next blocks\+:
+\begin{DoxyEnumerate}
+\item Audio processing task
+\begin{DoxyItemize}
+\item Read data from file and store to the triple buffer
+\item Read from triple buffer and concert data from int16\+\_\+t to float
+\item Process bass
+\item Process treble
+\item Process volume
+\item Apply digital limiter
+\item Convert data from float to int16\+\_\+t and store to the triple buffer
+\end{DoxyItemize}
+\item Audio output task
+\begin{DoxyItemize}
+\item Write data from triple buffer to audio codec
+\end{DoxyItemize}
+\item Buttons control task
+\begin{DoxyItemize}
+\item React on buttons and adjust the control values
+\item Calculates IIR filter coefficients
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{README.md_autotoc_md1028}{}\doxysubsection{\texorpdfstring{How to use the example}{How to use the example}}\label{README.md_autotoc_md1028}
+\hypertarget{README.md_autotoc_md1029}{}\doxysubsubsection{\texorpdfstring{Hardware required}{Hardware required}}\label{README.md_autotoc_md1029}
+This example require LyraT development board.\hypertarget{README.md_autotoc_md1030}{}\doxysubsubsection{\texorpdfstring{Configure the project}{Configure the project}}\label{README.md_autotoc_md1030}
+Under Component Config -\/-\/-\/\texorpdfstring{$>$}{>} DSP Library -\/-\/-\/\texorpdfstring{$>$}{>} DSP Optimization, it\textquotesingle{}s possible to choose either the optimized or ANSI implementation, to compare them.\hypertarget{README.md_autotoc_md1031}{}\doxysubsubsection{\texorpdfstring{Build and flash}{Build and flash}}\label{README.md_autotoc_md1031}
+Build the project and flash it to the board, then run monitor tool to view serial output (replace PORT with serial port name)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+(To exit the serial monitor, type {\ttfamily Ctrl-\/\mbox{]}}.)
+
+See the Getting Started Guide for full steps to configure and use ESP-\/\+IDF to build projects. 

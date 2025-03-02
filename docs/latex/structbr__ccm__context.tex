@@ -1,0 +1,56 @@
+\doxysection{br\+\_\+ccm\+\_\+context Struct Reference}
+\hypertarget{structbr__ccm__context}{}\label{structbr__ccm__context}\index{br\_ccm\_context@{br\_ccm\_context}}
+
+
+Context structure for CCM.  
+
+
+
+
+{\ttfamily \#include $<$bearssl\+\_\+aead.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structbr__ccm__context_a5f8e241f3181707e64d41d0c039cbb79}\label{structbr__ccm__context_a5f8e241f3181707e64d41d0c039cbb79} 
+const \mbox{\hyperlink{bearssl__block_8h_acc35dad952fda67b68df0b107fe26f0b}{br\+\_\+block\+\_\+ctrcbc\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} {\bfseries bctx}
+\item 
+\Hypertarget{structbr__ccm__context_abd5ebe05a82eab8dae035355f8b3a856}\label{structbr__ccm__context_abd5ebe05a82eab8dae035355f8b3a856} 
+unsigned char {\bfseries ctr} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__ccm__context_a86163538680ac6812a9e0c33794b1058}\label{structbr__ccm__context_a86163538680ac6812a9e0c33794b1058} 
+unsigned char {\bfseries cbcmac} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__ccm__context_a4353327412d7fdcea2cf90aa3b2df81e}\label{structbr__ccm__context_a4353327412d7fdcea2cf90aa3b2df81e} 
+unsigned char {\bfseries tagmask} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__ccm__context_a6a1043bdcae6e6575f0148a3df28e7d2}\label{structbr__ccm__context_a6a1043bdcae6e6575f0148a3df28e7d2} 
+unsigned char {\bfseries buf} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__ccm__context_a4db203043e3ebaf51898633a569d7af2}\label{structbr__ccm__context_a4db203043e3ebaf51898633a569d7af2} 
+size\+\_\+t {\bfseries ptr}
+\item 
+\Hypertarget{structbr__ccm__context_aa72c25df6bdc8843251089a809fc876b}\label{structbr__ccm__context_aa72c25df6bdc8843251089a809fc876b} 
+size\+\_\+t {\bfseries tag\+\_\+len}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Context structure for CCM. 
+
+CCM is an AEAD mode that combines a block cipher in CTR mode with CBC-\/\+MAC using the same block cipher and the same key, to provide authenticated encryption\+:
+
+
+\begin{DoxyItemize}
+\item Any block cipher with 16-\/byte blocks can be used with CCM (technically, other block sizes are defined as well, but this is not implemented by these functions; shorter blocks also imply numerous security issues).
+\item The authentication tag length, and plaintext length, MUST be known when starting processing data. Plaintext and ciphertext can still be provided by chunks, but the total size must match the value provided upon initialisation.
+\item The nonce length is constrained between 7 and 13 bytes (inclusive). Furthermore, the plaintext length, when encoded, must fit over 15-\/nonce\+Len bytes; thus, if the nonce has length 13 bytes, then the plaintext length cannot exceed 65535 bytes.
+\item Additional authenticated data length is practically unlimited (formal limit is at 2\texorpdfstring{$^\wedge$}{\string^}64 bytes).
+\item The authentication tag has length 4 to 16 bytes (even values only).
+\end{DoxyItemize}
+
+The CCM initialisation function receives as parameter an {\itshape initialised} block cipher implementation context, with the secret key already set. A pointer to that context will be kept within the CCM context structure. It is up to the caller to allocate and initialise that block cipher context. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/\mbox{\hyperlink{bearssl__aead_8h}{bearssl\+\_\+aead.\+h}}\end{DoxyCompactItemize}

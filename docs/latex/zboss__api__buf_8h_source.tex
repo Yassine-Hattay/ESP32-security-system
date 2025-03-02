@@ -1,0 +1,334 @@
+\doxysection{zboss\+\_\+api\+\_\+buf.\+h}
+\hypertarget{zboss__api__buf_8h_source}{}\label{zboss__api__buf_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_buf.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_buf.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ \ PURPOSE:\ Public\ buffer\ pool\ API\ (new\ version)}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifndef\ ZBOSS\_API\_BUF\_H}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ZBOSS\_API\_BUF\_H\ 1}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}zboss\_api\_core.h"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ \ Moved\ here\ buffer\ structure\ to\ implement\ configurable\ mem\ without\ enabling\ legacy\ buffers}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ ZB\_RESERVED\_BUF\_TO\_ALIGN\_HDR\_SIZE\ \ \ \ 1u}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzb__buf__hdr__s}{zb\_buf\_hdr\_s}}}
+\DoxyCodeLine{00058\ \{}
+\DoxyCodeLine{00059\ \ \ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_a11e0f92c9d17058278a0aa19a219a79a}{status}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_ae0b2d7badf268f9a8f687fe944aaf758}{len}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_ad6a8c37774664d130eb1256599acfb91}{data\_offset}};\ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \mbox{\hyperlink{structzb__buf__hdr__s_a5ab219d16573e642007ccc232e5e8d83}{multiplicity}};\ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_a95d370f99ca8377fe2dc4ccb2919c447}{handle}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_ae7018431afad3858a3b669e6ed10ae6d}{is\_in\_buf}}:1;\ \ \ \ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_ac65d2c94f77be6bf3caee9839df25fd6}{encrypt\_type}}:3;\ }
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_aa405131660889fe0dfebf5c9944ab3c0}{use\_same\_key}}:1;\ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_a6827b2c035bf806ef1fce11c8ef4ed18}{zdo\_cmd\_no\_resp}}:1;\ }
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_ad9899382917dca17d351d081908298cc}{is\_rx\_buf}}:1;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_a74ca533f99737524120e9c3f3e974a49}{has\_aps\_payload}}:1;\ \ }
+\DoxyCodeLine{00082\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_a235fe480698115831e03d309fddff880}{has\_aps\_user\_payload}}:1;\ \ \ }
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ \mbox{\hyperlink{structzb__buf__hdr__s_a3c022ca31c7abe0adfa2dd95d39fedec}{tail\_len}}:7;\ \ \ \ }
+\DoxyCodeLine{00085\ \}\ ZB\_PACKED\_STRUCT\ zb\_buf\_hdr\_t;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{comment}{/*\ if\ there\ is\ a\ platform\ with\ failed\ assertion,\ ZB\_RESERVED\_BUF\_TO\_ALIGN\_HDR\_SIZE}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ should\ be\ changed\ to\ appropriate\ value*/}}
+\DoxyCodeLine{00089\ \mbox{\hyperlink{group___z_b___a_s_s_e_r_t___s_t_a_t_i_c_ga45f8bfa5f2656a4e1c96257eb787ef3d}{ZB\_ASSERT\_COMPILE\_DECL}}((\textcolor{keyword}{sizeof}(zb\_buf\_hdr\_t)\ \%\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}))\ ==\ 0);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#ifdef\ ZB\_DEBUG\_BUFFERS\_EXT}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ ZB\_LINE\_IS\_UNDEF\ 0xFFFFU}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_buf\_usage\_s}
+\DoxyCodeLine{00099\ \{}
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{/*\ In\ most\ cases\ zb\_time\_t\ is\ zb\_uint32\_t.}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ \ \ *\ To\ save\ memory\ we\ we\ use\ zb\_uint16\_t\ so\ store\ time.\ */}}
+\DoxyCodeLine{00102\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ time;}
+\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ file;}
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ line;}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ zb\_buf\_usage\_t;}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzb__mult__buf__s}{zb\_mult\_buf\_s}}}
+\DoxyCodeLine{00114\ \{}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#ifdef\ ZB\_BUF\_SHIELD}}
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ hdr\_signature;}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00118\ \textcolor{comment}{/*\ 07/12/2019\ EE\ CR:MINOR\ Lagecy\ code\ will\ access\ u.hdr,\ so\ need\ to\ keep\ u\ as\ union\ or\ structure}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ AN:\ Legacy\ code\ inside\ ZBOSS\ will\ use\ zb\_leg\_buf\_t\ instead\ of\ zb\_mult\_buf\_t.}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ EE:\ I\ mean\ legacy\ API\ for\ the\ new\ bufs\ implementation.}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00122\ \ \ zb\_buf\_hdr\_t\ \mbox{\hyperlink{structzb__mult__buf__s_a67a863a1bd00036aba48abdcb870655e}{hdr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00123\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \mbox{\hyperlink{structzb__mult__buf__s_aa56ce3d47a6acf541313805e7eadd1c3}{buf}}[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga23371ec09086992950c4b6d7a678d3de}{ZB\_IO\_BUF\_SIZE}}];\ \ \ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#ifdef\ ZB\_DEBUG\_BUFFERS\_EXT}}
+\DoxyCodeLine{00125\ \ \ zb\_buf\_usage\_t\ buf\_allocation;}
+\DoxyCodeLine{00126\ \ \ zb\_buf\_usage\_t\ buf\_usages[ZB\_DEBUG\_BUFFERS\_EXT\_USAGES\_COUNT];}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#ifdef\ ZB\_BUF\_SHIELD}}
+\DoxyCodeLine{00129\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ tail\_signature;}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00131\ \}\ \mbox{\hyperlink{group__buf_ga276d630a0f90931f8110e7b8e7a45df7}{zb\_mult\_buf\_t}};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzb__leg__buf__s}{zb\_leg\_buf\_s}}}
+\DoxyCodeLine{00137\ \{}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#ifdef\ ZB\_BUF\_SHIELD}}
+\DoxyCodeLine{00139\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ hdr\_signature;}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00141\ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00142\ \ \ \{}
+\DoxyCodeLine{00143\ \ \ \ \ zb\_buf\_hdr\_t\ \mbox{\hyperlink{structzb__leg__buf__s_af5536fbbbb9c1090aaf6ecd1c565fa5f}{hdr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#ifndef\ ZB\_USE\_STD\_MALLOC}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keyword}{struct\ }zb\_buf\_s\ *\mbox{\hyperlink{structzb__leg__buf__s_affe691d1aeef0d75ddb7d1a7e44ca9f3}{next}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00147\ \ \ \}\ \mbox{\hyperlink{structzb__leg__buf__s_a1e83d99b1f91c17fba3e6a8e03cb0f1e}{u}};\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#if\ defined\ ZB\_USE\_STD\_MALLOC\ \&\&\ defined\ ZB\_USE\_ALLOC\_FOR\_PAYLOAD\_DATA}}
+\DoxyCodeLine{00149\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ *buf;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00151\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \mbox{\hyperlink{structzb__leg__buf__s_ac14655a744671fa6a47f2769da85cc18}{buf}}[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga23371ec09086992950c4b6d7a678d3de}{ZB\_IO\_BUF\_SIZE}}];\ \ \ \ \ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#ifdef\ ZB\_DEBUG\_BUFFERS\_EXT}}
+\DoxyCodeLine{00154\ \ \ zb\_buf\_usage\_t\ buf\_allocation;}
+\DoxyCodeLine{00155\ \ \ zb\_buf\_usage\_t\ buf\_usages[ZB\_DEBUG\_BUFFERS\_EXT\_USAGES\_COUNT];}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#ifdef\ ZB\_BUF\_SHIELD}}
+\DoxyCodeLine{00158\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ tail\_signature;}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00160\ \}\ \mbox{\hyperlink{group__buf_gaed7bf548ce24f125321f00242d98d7fa}{zb\_leg\_buf\_t}};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#ifdef\ ZB\_LEGACY\_BUFS}}
+\DoxyCodeLine{00163\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__buf_gaed7bf548ce24f125321f00242d98d7fa}{zb\_leg\_buf\_t}}\ zb\_buf\_ent\_t;}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00165\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__buf_ga276d630a0f90931f8110e7b8e7a45df7}{zb\_mult\_buf\_t}}\ zb\_buf\_ent\_t;}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ ZB\_OUT\_BUFFER\ 0U\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ ZB\_IN\_BUFFER\ \ 1U\ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{group__buf_ga4388a287d60e2916569ebe70c16a6ddf}{zb\_buffer\_types\_t}};}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00189\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}};}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_INVALID\ 0U}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ ZB\_UNDEFINED\_BUFFER\ 0U}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#ifdef\ ZB\_DEBUG\_BUFFERS}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ TRACE\_PROTO\_VOID\ zb\_uint16\_t\ from\_file,\ zb\_uint16\_t\ from\_line}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ TRACE\_PROTO\ TRACE\_PROTO\_VOID\ ,}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ TRACE\_CALL\_VOID\ \ ZB\_TRACE\_FILE\_ID,\ \_\_LINE\_\_}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ TRACE\_CALL\ \ TRACE\_CALL\_VOID\ ,}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ TRACE\_PROTO\_VOID\ void}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ TRACE\_PROTO}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ TRACE\_CALL\_VOID}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ TRACE\_CALL}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_DEBUG\_BUFFERS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#ifdef\ ZB\_DEBUG\_BUFFERS\_EXT}}
+\DoxyCodeLine{00207\ \ \ \textcolor{keywordtype}{void}\ zb\_trace\_bufs\_usage(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \#define\ ZB\_TRACE\_BUFS\_USAGE()\ zb\_trace\_bufs\_usage()}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\ \ \#define\ ZB\_TRACE\_BUFS\_USAGE()}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00214\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ zb\_buf\_get\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ is\_in,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ max\_size);}
+\DoxyCodeLine{00215\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ zb\_buf\_get\_out\_func(TRACE\_PROTO\_VOID);}
+\DoxyCodeLine{00216\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ zb\_buf\_get\_any\_func(TRACE\_PROTO\_VOID);}
+\DoxyCodeLine{00217\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ zb\_buf\_get\_hipri\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ is\_in);}
+\DoxyCodeLine{00218\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ zb\_buf\_get\_max\_size\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00219\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_buf\_get\_out\_delayed\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ callback);}
+\DoxyCodeLine{00220\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_buf\_get\_in\_delayed\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ callback);}
+\DoxyCodeLine{00221\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_buf\_get\_out\_delayed\_ext\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__sched_ga26d2980d5bf1973f9cd1a42d727a8427}{zb\_callback2\_t}}\ callback,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ arg,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ max\_size);}
+\DoxyCodeLine{00222\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_buf\_get\_in\_delayed\_ext\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__sched_ga26d2980d5bf1973f9cd1a42d727a8427}{zb\_callback2\_t}}\ callback,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ arg,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ max\_size);}
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{void}\ zb\_buf\_free\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00224\ \textcolor{keywordtype}{void}*\ zb\_buf\_begin\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00225\ \textcolor{keywordtype}{void}*\ zb\_buf\_end\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00226\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ zb\_buf\_len\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00227\ \textcolor{keywordtype}{void}\ zb\_buf\_copy\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ dst\_buf,\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ src\_buf);}
+\DoxyCodeLine{00228\ \textcolor{keywordtype}{void}\ *zb\_buf\_initial\_alloc\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ size);}
+\DoxyCodeLine{00229\ \textcolor{keywordtype}{void}\ *zb\_buf\_reuse\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00230\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ zb\_buf\_get\_ptr\_off\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *ptr);}
+\DoxyCodeLine{00231\ \textcolor{keywordtype}{void}\ *zb\_buf\_alloc\_tail\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ size);}
+\DoxyCodeLine{00232\ \textcolor{keywordtype}{void}\ *zb\_buf\_get\_tail\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ size);}
+\DoxyCodeLine{00233\ \textcolor{keywordtype}{void}\ zb\_buf\_cut\_right\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ size);}
+\DoxyCodeLine{00234\ \textcolor{keywordtype}{void}\ *zb\_buf\_cut\_left\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ size);}
+\DoxyCodeLine{00235\ \textcolor{keywordtype}{void}\ *zb\_buf\_alloc\_right\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ size);}
+\DoxyCodeLine{00236\ \textcolor{keywordtype}{void}\ *zb\_buf\_alloc\_left\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ size);\ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ zb\_buf\_get(is\_in,max\_size)\ zb\_buf\_get\_func(TRACE\_CALL\ (is\_in),\ (max\_size))}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_out()\ zb\_buf\_get\_out\_func(TRACE\_CALL\_VOID)}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_any()\ zb\_buf\_get\_any\_func(TRACE\_CALL\_VOID)}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_hipri(a)\ zb\_buf\_get\_hipri\_func(TRACE\_CALL\ (a))}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_max\_size(a)\ zb\_buf\_get\_max\_size\_func(TRACE\_CALL\ (a))}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#ifndef\ zb\_buf\_get\_out\_delayed}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_out\_delayed(callback)\ zb\_buf\_get\_out\_delayed\_func(TRACE\_CALL\ (callback))}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ zb\_buf\_get\_out\_delayed\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#ifndef\ zb\_buf\_get\_in\_delayed}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_in\_delayed(callback)\ zb\_buf\_get\_in\_delayed\_func(TRACE\_CALL\ (callback))}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ zb\_buf\_get\_in\_delayed\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#ifndef\ zb\_buf\_get\_out\_delayed\_ext}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_out\_delayed\_ext(callback,arg,max\_size)\ zb\_buf\_get\_out\_delayed\_ext\_func(TRACE\_CALL\ (callback),(arg),(max\_size))}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ zb\_buf\_get\_out\_delayed\_ext\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#ifndef\ zb\_buf\_get\_in\_delayed\_ext}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_in\_delayed\_ext(callback,arg,max\_size)\ zb\_buf\_get\_in\_delayed\_ext\_func(TRACE\_CALL\ (callback),(arg),(max\_size))}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ zb\_buf\_get\_in\_delayed\_ext\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#define\ zb\_buf\_free(buf)\ zb\_buf\_free\_func(TRACE\_CALL\ (buf))}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#define\ zb\_buf\_begin(buf)\ zb\_buf\_begin\_func(TRACE\_CALL\ (buf))}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#define\ zb\_buf\_end(buf)\ zb\_buf\_end\_func(TRACE\_CALL\ (buf))}}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#define\ zb\_buf\_len(buf)\ zb\_buf\_len\_func(TRACE\_CALL\ (buf))}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#define\ zb\_buf\_copy(dst\_buf,src\_buf)\ zb\_buf\_copy\_func(TRACE\_CALL\ (dst\_buf),(src\_buf))}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#define\ zb\_buf\_initial\_alloc(buf,size)\ zb\_buf\_initial\_alloc\_func(TRACE\_CALL\ (buf),(size))}}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00413\ \textcolor{preprocessor}{\#define\ zb\_buf\_reuse(buf)\ zb\_buf\_reuse\_func(TRACE\_CALL\ (buf))}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_ptr\_off(buf,ptr)\ zb\_buf\_get\_ptr\_off\_func(TRACE\_CALL\ (buf),(ptr))}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ internals\_doc\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#define\ zb\_buf\_alloc\_tail(buf,size)\ zb\_buf\_alloc\_tail\_func(TRACE\_CALL\ (buf),(size))}}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_tail(buf,size)\ zb\_buf\_get\_tail\_func(TRACE\_CALL\ (buf),(size))}}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00464\ \textcolor{comment}{/*\ Note:\ MISRA\ C-\/STAT\ analysis\ gives\ false\ positive\ for\ rule\ 20.7\ violation\ on\ ZB\_BUF\_GET\_PARAM()}}
+\DoxyCodeLine{00465\ \textcolor{comment}{\ *\ due\ to\ missing\ parenthesis\ around\ "{}type"{}\ on\ pointer\ type\ cast.\ This\ is\ a\ misinterpretation}}
+\DoxyCodeLine{00466\ \textcolor{comment}{\ *\ of\ the\ rule\ by\ C-\/STAT\ tool,\ since\ this\ rule\ refers\ only\ to\ expressions,\ and\ not\ data\ type\ casts}}
+\DoxyCodeLine{00467\ \textcolor{comment}{\ *\ like\ it\ is\ used\ here.\ */}}
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_GET\_PARAM(buf,\ type)\ ((type\ *)zb\_buf\_get\_tail\_func(TRACE\_CALL\ (buf),\ sizeof(type)))}}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00476\ \textcolor{preprocessor}{\#define\ zb\_buf\_cut\_right(buf,size)\ zb\_buf\_cut\_right\_func(TRACE\_CALL\ (buf),(size))}}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00485\ \textcolor{preprocessor}{\#define\ zb\_buf\_cut\_left(buf,size)\ zb\_buf\_cut\_left\_func(TRACE\_CALL\ (buf),(size))}}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\#define\ zb\_buf\_alloc\_right(buf,size)\ zb\_buf\_alloc\_right\_func(TRACE\_CALL\ (buf),(size))}}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00503\ \textcolor{preprocessor}{\#define\ zb\_buf\_alloc\_left(buf,size)\ zb\_buf\_alloc\_left\_func(TRACE\_CALL\ (buf),(size))}}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_SECUR\_NO\_ENCR\ \ \ \ 0U\ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00511\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_IS\_IN\ \ \ \ \ \ \ \ \ \ \ \ (1U\ <<\ 0)}}
+\DoxyCodeLine{00512\ \textcolor{comment}{/*\ Encrypt\ flags.\ That\ enum\ is\ actually\ bitmask.\ */}}
+\DoxyCodeLine{00513\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_SECUR\_NWK\_ENCR\ \ \ (1U\ <<\ 1)\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00514\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_SECUR\_APS\_ENCR\ \ \ (1U\ <<\ 2)\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00515\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_SECUR\_MAC\_ENCR\ \ \ (1U\ <<\ 3)\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_SECUR\_ALL\_ENCR\ \ \ (ZB\_BUF\_SECUR\_NWK\_ENCR\ |\ ZB\_BUF\_SECUR\_APS\_ENCR\ |\ ZB\_BUF\_SECUR\_MAC\_ENCR)}}
+\DoxyCodeLine{00517\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_USE\_SAME\_KEY\ \ \ \ \ (1U\ <<\ 4)}}
+\DoxyCodeLine{00518\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_ZDO\_CMD\_NO\_RESP\ \ (1U\ <<\ 5)}}
+\DoxyCodeLine{00519\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_HAS\_APS\_PAYLOAD\ \ (1U\ <<\ 6)\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_HAS\_APS\_USER\_PAYLOAD\ \ (1U\ <<\ 7)\ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00529\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{group__buf_gab4590df4d3fd9b8f78d33ad87279b8d8}{zb\_buf\_flags\_bm\_t}};}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00532\ \textcolor{keywordtype}{void}\ zb\_buf\_flags\_or\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ val);}
+\DoxyCodeLine{00533\ \textcolor{keywordtype}{void}\ zb\_buf\_flags\_clr\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ mask);}
+\DoxyCodeLine{00534\ \textcolor{keywordtype}{void}\ zb\_buf\_flags\_clr\_encr\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00535\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ zb\_buf\_flags\_get\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00544\ \textcolor{preprocessor}{\#define\ zb\_buf\_flags\_or(buf,val)\ zb\_buf\_flags\_or\_func(TRACE\_CALL\ (buf),(val))}}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00552\ \textcolor{preprocessor}{\#define\ zb\_buf\_flags\_clr(buf,mask)\ zb\_buf\_flags\_clr\_func(TRACE\_CALL\ (buf),(mask))}}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00561\ \textcolor{preprocessor}{\#define\ zb\_buf\_flags\_clr\_encr(buf)\ zb\_buf\_flags\_clr\_encr\_func(TRACE\_CALL\ (buf))}}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00569\ \textcolor{preprocessor}{\#define\ zb\_buf\_flags\_get(buf)\ zb\_buf\_flags\_get\_func(TRACE\_CALL\ (buf))}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00576\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ \mbox{\hyperlink{group__buf_gad7855cad80be48f2feac0f61eb53cf27}{zb\_buf\_is\_oom\_state}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \textcolor{preprocessor}{\#ifdef\ ZB\_TRACE\_LEVEL}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00582\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__buf_ga390b0c8500e8d2ac8885ffdfe97493d6}{zb\_buf\_oom\_trace}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00583\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_TRACE\_LEVEL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \textcolor{preprocessor}{\#ifdef\ ZB\_REDUCE\_NWK\_LOAD\_ON\_LOW\_MEMORY}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00591\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_buf\_memory\_close\_to\_low(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00592\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_REDUCE\_NWK\_LOAD\_ON\_LOW\_MEMORY\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00593\ }
+\DoxyCodeLine{00599\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ \mbox{\hyperlink{group__buf_ga9e8ad9f761a1eccf00ab3eb761a55c7e}{zb\_buf\_memory\_low}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00602\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_buf\_get\_status\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00603\ \textcolor{keywordtype}{void}\ zb\_buf\_set\_status\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ status);}
+\DoxyCodeLine{00604\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_buf\_get\_handle\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf);}
+\DoxyCodeLine{00605\ \textcolor{keywordtype}{void}\ zb\_buf\_set\_handle\_func(TRACE\_PROTO\ \mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ handle);}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00614\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_status(buf)\ zb\_buf\_get\_status\_func(TRACE\_CALL\ (buf))}}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00622\ \textcolor{preprocessor}{\#define\ zb\_buf\_set\_status(buf,status)\ zb\_buf\_set\_status\_func(TRACE\_CALL\ (buf),\ (zb\_ret\_t)(status))}}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00630\ \textcolor{preprocessor}{\#define\ zb\_buf\_get\_handle(buf)\ zb\_buf\_get\_handle\_func(TRACE\_CALL\ (buf))}}
+\DoxyCodeLine{00631\ }
+\DoxyCodeLine{00638\ \textcolor{preprocessor}{\#define\ zb\_buf\_set\_handle(buf,handle)\ zb\_buf\_set\_handle\_func(TRACE\_CALL\ (buf),(handle))}}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00647\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__buf_ga98f8ca54988786ec13015435abae6f9e}{zb\_buf\_set\_mac\_rx\_need}}(\mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ needs);}
+\DoxyCodeLine{00648\ }
+\DoxyCodeLine{00656\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ \mbox{\hyperlink{group__buf_gae9221bc9089fcd4be96a28944d0e82d2}{zb\_buf\_get\_mac\_rx\_need}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00658\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_buf\_have\_rx\_bufs(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00660\ \textcolor{preprocessor}{\#define\ ZB\_BUF\_COPY\_FLAG\_APS\_PAYLOAD(dst,\ src)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00661\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00662\ \textcolor{preprocessor}{\ \ \ \ if\ ((zb\_buf\_flags\_get((src))\ \&\ ZB\_BUF\_HAS\_APS\_PAYLOAD)\ !=\ 0U)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00663\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00664\ \textcolor{preprocessor}{\ \ \ \ \ \ zb\_buf\_flags\_or((dst),\ ZB\_BUF\_HAS\_APS\_PAYLOAD);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00665\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00666\ \textcolor{preprocessor}{\ \ \ \ \ \ if\ ((zb\_buf\_flags\_get((src))\ \&\ ZB\_BUF\_HAS\_APS\_USER\_PAYLOAD)\ !=\ 0U)\(\backslash\)}}
+\DoxyCodeLine{00667\ \textcolor{preprocessor}{\ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00668\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ zb\_buf\_flags\_or((dst),\ ZB\_BUF\_HAS\_APS\_USER\_PAYLOAD);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00669\ \textcolor{preprocessor}{\ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00670\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00671\ \textcolor{preprocessor}{\ \ \}\ while(0)}}
+\DoxyCodeLine{00672\ }
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00675\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZBOSS\_API\_BUF\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

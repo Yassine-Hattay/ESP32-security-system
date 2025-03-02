@@ -1,0 +1,94 @@
+\doxysection{Preferences.\+h}
+\hypertarget{_preferences_8h_source}{}\label{_preferences_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Preferences/src/Preferences.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Preferences/src/Preferences.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2016\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ \_PREFERENCES\_H\_}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ \_PREFERENCES\_H\_}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00020\ \ \ PT\_I8,}
+\DoxyCodeLine{00021\ \ \ PT\_U8,}
+\DoxyCodeLine{00022\ \ \ PT\_I16,}
+\DoxyCodeLine{00023\ \ \ PT\_U16,}
+\DoxyCodeLine{00024\ \ \ PT\_I32,}
+\DoxyCodeLine{00025\ \ \ PT\_U32,}
+\DoxyCodeLine{00026\ \ \ PT\_I64,}
+\DoxyCodeLine{00027\ \ \ PT\_U64,}
+\DoxyCodeLine{00028\ \ \ PT\_STR,}
+\DoxyCodeLine{00029\ \ \ PT\_BLOB,}
+\DoxyCodeLine{00030\ \ \ PT\_INVALID}
+\DoxyCodeLine{00031\ \}\ PreferenceType;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{class\ }Preferences\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00035\ \ \ uint32\_t\ \_handle;}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{bool}\ \_started;}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{bool}\ \_readOnly;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ Preferences();}
+\DoxyCodeLine{00041\ \ \ \string~Preferences();}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{bool}\ begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keywordtype}{bool}\ readOnly\ =\ \textcolor{keyword}{false},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *partition\_label\ =\ NULL);}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{bool}\ clear();}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{bool}\ remove(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{size\_t}\ putChar(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int8\_t\ value);}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{size\_t}\ putUChar(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint8\_t\ value);}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{size\_t}\ putShort(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int16\_t\ value);}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{size\_t}\ putUShort(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint16\_t\ value);}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{size\_t}\ putInt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int32\_t\ value);}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{size\_t}\ putUInt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint32\_t\ value);}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{size\_t}\ putLong(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int32\_t\ value);}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{size\_t}\ putULong(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint32\_t\ value);}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{size\_t}\ putLong64(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int64\_t\ value);}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{size\_t}\ putULong64(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint64\_t\ value);}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{size\_t}\ putFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ float\_t\ value);}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{size\_t}\ putDouble(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ double\_t\ value);}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{size\_t}\ putBool(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{size\_t}\ putString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value);}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{size\_t}\ putString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ String\ value);}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{size\_t}\ putBytes(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *value,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{bool}\ isKey(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{00067\ \ \ PreferenceType\ getType(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{00068\ \ \ int8\_t\ getChar(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int8\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00069\ \ \ uint8\_t\ getUChar(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint8\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00070\ \ \ int16\_t\ getShort(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int16\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00071\ \ \ uint16\_t\ getUShort(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint16\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00072\ \ \ int32\_t\ getInt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int32\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00073\ \ \ uint32\_t\ getUInt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint32\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00074\ \ \ int32\_t\ getLong(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int32\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00075\ \ \ uint32\_t\ getULong(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint32\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00076\ \ \ int64\_t\ getLong64(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int64\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00077\ \ \ uint64\_t\ getULong64(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint64\_t\ defaultValue\ =\ 0);}
+\DoxyCodeLine{00078\ \ \ float\_t\ getFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ float\_t\ defaultValue\ =\ NAN);}
+\DoxyCodeLine{00079\ \ \ double\_t\ getDouble(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ double\_t\ defaultValue\ =\ NAN);}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{bool}\ getBool(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{bool}\ defaultValue\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{size\_t}\ getString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{char}\ *value,\ \textcolor{keywordtype}{size\_t}\ maxLen);}
+\DoxyCodeLine{00082\ \ \ String\ getString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ String\ defaultValue\ =\ String());}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{size\_t}\ getBytesLength(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{size\_t}\ getBytes(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{void}\ *buf,\ \textcolor{keywordtype}{size\_t}\ maxLen);}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{size\_t}\ freeEntries();}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

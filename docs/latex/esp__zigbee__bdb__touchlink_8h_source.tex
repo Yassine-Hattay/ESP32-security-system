@@ -1,0 +1,63 @@
+\doxysection{esp\+\_\+zigbee\+\_\+bdb\+\_\+touchlink.\+h}
+\hypertarget{esp__zigbee__bdb__touchlink_8h_source}{}\label{esp__zigbee__bdb__touchlink_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/bdb/esp\_zigbee\_bdb\_touchlink.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/bdb/esp\_zigbee\_bdb\_touchlink.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022-\/2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_type.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zb\_bdb\_commissioning\_mode\_mask\_s\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ ESP\_ZB\_BDB\_TOUCHLINK\_COMMISSIONING\ =\ 0x01,\ \ }
+\DoxyCodeLine{00022\ \ \ \ \ ESP\_ZB\_BDB\_NETWORK\_STEERING\ \ \ \ \ \ \ \ =\ 0x02,\ \ }
+\DoxyCodeLine{00023\ \ \ \ \ ESP\_ZB\_BDB\_NETWORK\_FORMATION\ \ \ \ \ \ \ =\ 0x04,\ \ }
+\DoxyCodeLine{00024\ \ \ \ \ ESP\_ZB\_BDB\_FINDING\_N\_BINDING\ \ \ \ \ \ \ =\ 0x08,\ \ }
+\DoxyCodeLine{00025\ \ \ \ \ ESP\_ZB\_BDB\_TOUCHLINK\_TARGET\ \ \ \ \ \ \ \ =\ 0x40,\ \ }
+\DoxyCodeLine{00026\ \}\ esp\_zb\_bdb\_commissioning\_mode\_mask\_t;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zb\_touchlink\_action\_s\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ ESP\_ZB\_TOUCHLINK\_ACTION\_START\_NEW\_NETWORK,}
+\DoxyCodeLine{00033\ \ \ \ \ ESP\_ZB\_TOUCHLINK\_ACTION\_JOIN\_ROUTER,}
+\DoxyCodeLine{00034\ \ \ \ \ ESP\_ZB\_TOUCHLINK\_ACTION\_JOIN\_ED}
+\DoxyCodeLine{00035\ \}\ esp\_zb\_touchlink\_action\_t;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ bool\ (*esp\_zb\_touchlink\_action\_allowed\_callback\_t)(uint8\_t\ action);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{typedef}\ void\ (*esp\_zb\_zll\_identify\_req\_callback\_t)(\textcolor{keywordtype}{bool}\ identify\_on);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00063\ esp\_err\_t\ esp\_zb\_touchlink\_action\_check\_register(esp\_zb\_touchlink\_action\_allowed\_callback\_t\ callback);}
+\DoxyCodeLine{00068\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__bdb__signal__touchlink__nwk__params__s}{esp\_zb\_bdb\_signal\_touchlink\_nwk\_params\_s}}\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ esp\_zb\_ieee\_addr\_t\ \mbox{\hyperlink{structesp__zb__bdb__signal__touchlink__nwk__params__s_a493a7b12dda4f07343d9c3c45078d247}{device\_ieee\_addr}};\ }
+\DoxyCodeLine{00070\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__bdb__signal__touchlink__nwk__params__s_a576aa1a457323cabb3bf39a9b6a374a9}{endpoint}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__zb__bdb__signal__touchlink__nwk__params__s_a705caca5fc9bdd3e07e9b2e46adf7fc8}{profile\_id}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \}\ esp\_zb\_bdb\_signal\_touchlink\_nwk\_params\_t;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ esp\_zb\_touchlink\_clear\_factory\_new(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{void}\ esp\_zb\_zdo\_touchlink\_target\_set\_timeout(uint32\_t\ timeout);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{void}\ esp\_zb\_zdo\_touchlink\_set\_master\_key(uint8\_t\ *key);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00104\ \textcolor{keywordtype}{void}\ esp\_zb\_zdo\_touchlink\_set\_rssi\_threshold(int8\_t\ rssi\_threshold);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00112\ int8\_t\ esp\_zb\_zdo\_touchlink\_get\_rssi\_threshold(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00121\ esp\_err\_t\ esp\_zb\_bdb\_cancel\_touchlink\_target(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{void}\ esp\_zb\_zll\_identify\_req\_handler\_register(esp\_zb\_zll\_identify\_req\_callback\_t\ cb);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

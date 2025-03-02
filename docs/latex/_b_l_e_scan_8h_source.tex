@@ -1,0 +1,115 @@
+\doxysection{BLEScan.\+h}
+\hypertarget{_b_l_e_scan_8h_source}{}\label{_b_l_e_scan_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/BLEScan.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/BLEScan.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ BLEScan.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Jul\ 1,\ 2017}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ kolban}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ COMPONENTS\_CPP\_UTILS\_BLESCAN\_H\_}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ COMPONENTS\_CPP\_UTILS\_BLESCAN\_H\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#if\ SOC\_BLE\_SUPPORTED}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_BLUEDROID\_ENABLED)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <esp\_gap\_ble\_api.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \#include\ <vector>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}BLEAdvertisedDevice.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}BLEClient.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}RTOS.h"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }BLEAdvertisedDevice;}
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }BLEAdvertisedDeviceCallbacks;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }BLEExtAdvertisingCallbacks;}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }BLEClient;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }BLEScan;}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }BLEPeriodicScanCallbacks;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }esp\_ble\_periodic\_adv\_sync\_estab\_param\_t\ \{}
+\DoxyCodeLine{00031\ \ \ uint8\_t\ status;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ uint16\_t\ sync\_handle;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ uint8\_t\ sid;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ esp\_ble\_addr\_type\_t\ adv\_addr\_type;\ }
+\DoxyCodeLine{00035\ \ \ esp\_bd\_addr\_t\ adv\_addr;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ esp\_ble\_gap\_phy\_t\ adv\_phy;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ uint16\_t\ period\_adv\_interval;\ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ uint8\_t\ adv\_clk\_accuracy;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }BLEScanResults\ \{}
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{void}\ dump();}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{int}\ getCount();}
+\DoxyCodeLine{00052\ \ \ BLEAdvertisedDevice\ getDevice(uint32\_t\ i);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00055\ \ \ \textcolor{keyword}{friend}\ BLEScan;}
+\DoxyCodeLine{00056\ \ \ std::map<std::string,\ BLEAdvertisedDevice\ *>\ m\_vectorAdvertisedDevices;}
+\DoxyCodeLine{00057\ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{class\ }BLEScan\ \{}
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{void}\ setActiveScan(\textcolor{keywordtype}{bool}\ active);}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ setAdvertisedDeviceCallbacks(BLEAdvertisedDeviceCallbacks\ *pAdvertisedDeviceCallbacks,\ \textcolor{keywordtype}{bool}\ wantDuplicates\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ shouldParse\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{void}\ setInterval(uint16\_t\ intervalMSecs);}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{void}\ setWindow(uint16\_t\ windowMSecs);}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ start(uint32\_t\ duration,\ \textcolor{keywordtype}{void}\ (*scanCompleteCB)(BLEScanResults),\ \textcolor{keywordtype}{bool}\ is\_continue\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00071\ \ \ BLEScanResults\ *start(uint32\_t\ duration,\ \textcolor{keywordtype}{bool}\ is\_continue\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ stop();}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{void}\ erase(BLEAddress\ address);}
+\DoxyCodeLine{00074\ \ \ BLEScanResults\ *getResults();}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}\ clearResults();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#ifdef\ SOC\_BLE\_50\_SUPPORTED}}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ setExtendedScanCallback(BLEExtAdvertisingCallbacks\ *cb);}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{void}\ setPeriodicScanCallback(BLEPeriodicScanCallbacks\ *cb);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ esp\_err\_t\ stopExtScan();}
+\DoxyCodeLine{00082\ \ \ esp\_err\_t\ setExtScanParams();}
+\DoxyCodeLine{00083\ \ \ esp\_err\_t\ setExtScanParams(esp\_ble\_ext\_scan\_params\_t\ *ext\_scan\_params);}
+\DoxyCodeLine{00084\ \ \ esp\_err\_t\ startExtScan(uint32\_t\ duration,\ uint16\_t\ period);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00087\ \ \ BLEExtAdvertisingCallbacks\ *m\_pExtendedScanCb\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00088\ \ \ BLEPeriodicScanCallbacks\ *m\_pPeriodicScanCb\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ SOC\_BLE\_50\_SUPPORTED}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00092\ \ \ BLEScan();\ \ \textcolor{comment}{//\ One\ doesn't\ create\ a\ new\ instance\ instead\ one\ asks\ the\ BLEDevice\ for\ the\ singleton.}}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }BLEDevice;}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{void}\ handleGAPEvent(esp\_gap\_ble\_cb\_event\_t\ event,\ esp\_ble\_gap\_cb\_param\_t\ *param);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ esp\_ble\_scan\_params\_t\ m\_scan\_params;}
+\DoxyCodeLine{00097\ \ \ BLEAdvertisedDeviceCallbacks\ *m\_pAdvertisedDeviceCallbacks\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{bool}\ m\_stopped\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{bool}\ m\_shouldParse\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00100\ \ \ FreeRTOS::Semaphore\ m\_semaphoreScanEnd\ =\ FreeRTOS::Semaphore(\textcolor{stringliteral}{"{}ScanEnd"{}});}
+\DoxyCodeLine{00101\ \ \ BLEScanResults\ m\_scanResults;}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{bool}\ m\_wantDuplicates;}
+\DoxyCodeLine{00103\ \ \ void\ (*m\_scanCompleteCB)(BLEScanResults\ scanResults);}
+\DoxyCodeLine{00104\ \};\ \ \textcolor{comment}{//\ BLEScan}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{class\ }BLEPeriodicScanCallbacks\ \{}
+\DoxyCodeLine{00107\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{virtual}\ \string~BLEPeriodicScanCallbacks()\ \{\}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onCreateSync(esp\_bt\_status\_t\ status)\ \{\}}
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onCancelSync(esp\_bt\_status\_t\ status)\ \{\}}
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onTerminateSync(esp\_bt\_status\_t\ status)\ \{\}}
+\DoxyCodeLine{00113\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onLostSync(uint16\_t\ sync\_handle)\ \{\}}
+\DoxyCodeLine{00114\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onSync(esp\_ble\_periodic\_adv\_sync\_estab\_param\_t)\ \{\}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onReport(esp\_ble\_gap\_periodic\_adv\_report\_t\ params)\ \{\}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onStop(esp\_bt\_status\_t\ status)\ \{\}}
+\DoxyCodeLine{00117\ \};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_BLUEDROID\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_BLE\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ COMPONENTS\_CPP\_UTILS\_BLESCAN\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

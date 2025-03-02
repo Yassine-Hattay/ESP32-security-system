@@ -1,0 +1,88 @@
+\chapter{Contributing}
+\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7}{}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7}\index{Contributing@{Contributing}}
+\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md911}%
+\Hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md911}%
+
+
+Contributions to ESP-\/\+DSP project in the form of pull requests, bug reports, and feature requests are welcome!
+
+This document covers various topics related to contributions to the ESP-\/\+DSP projects. Please read it if you plan to submit a PR!\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md912}{}\doxysection{\texorpdfstring{CLA}{CLA}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md912}
+We require accepting the contributor\textquotesingle{}s license agreement for all pull requests. When opening a pull request the first time you will be prompted to sign the CLA by the \href{https://cla-assistant.io/}{\texttt{ CLA Assistant}} service.\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md913}{}\doxysection{\texorpdfstring{Large-\/scale Changes}{Large-\/scale Changes}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md913}
+If you\textquotesingle{}d like to propose a change to the existing APIs or a large-\/scale refactoring of the implementation, we recommend opening an issue first to discuss this.\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md914}{}\doxysection{\texorpdfstring{Pre-\/commit hooks}{Pre-\/commit hooks}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md914}
+ESP-\/\+DSP project uses \href{https://pre-commit.com/}{\texttt{ pre-\/commit hooks}} to perform code formatting and other checks when you run {\ttfamily git commit}.
+
+To install pre-\/commit hooks, run {\ttfamily pip install pre-\/commit \&\& pre-\/commit install}.\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md915}{}\doxysection{\texorpdfstring{Updating the Benchmarks Table}{Updating the Benchmarks Table}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md915}
+The benchmarks table \href{docs/esp-dsp-benchmarks.rst}{\texttt{ esp-\/dsp-\/benchmarks.\+rst}} contains benchmarks for ESP32 and ESP32-\/\+S3 CPUs. The benchmarks are collected with compiler optimizations for speed (-\/Os) and for size (-\/O2). This table may need to be updated if you have changed the implementations of some of the functions.
+
+To build this table\+:
+
+
+\begin{DoxyItemize}
+\item Build the test application in the {\ttfamily test\+\_\+app} directory.
+\item Run "{}\+DSP Benchmarks data"{} test and copy the output into the CSV file \href{docs/esp_bm_results.csv}{\texttt{ docs/esp\+\_\+bm\+\_\+results.\+csv}}.
+\item Run the \href{docs/build_bm_table.py}{\texttt{ docs/build\+\_\+bm\+\_\+table.\+py}} script to update the benchmarks table \href{docs/esp-dsp-benchmarks.rst}{\texttt{ esp-\/dsp-\/benchmarks.\+rst}}.
+\end{DoxyItemize}
+
+If you have added new functions, modify the \href{test/test_dsp.c}{\texttt{ benchmarks test}} to call these new functions.\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md916}{}\doxysection{\texorpdfstring{Supported IDF Versions}{Supported IDF Versions}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md916}
+The component is expected to be usable with multiple supported IDF versions. You can find the list in the \href{.gitlab-ci.yml}{\texttt{ CI workflow file}}.
+
+Note that for compatibility reasons, the component has to support the legacy GNU Make build system which was present up until ESP-\/\+IDF v5.\+0. Remember to add or update {\ttfamily component.\+mk} and {\ttfamily Makefile} files when adding or changing examples. GNU Make support can be removed from ESP-\/\+DSP when IDF v4.\+4 maintenance period expires.\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md917}{}\doxysection{\texorpdfstring{Releasing a new version}{Releasing a new version}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-3c1597c63edb66f2a84695c5aa0eb2a7_autotoc_md917}
+Maintainers should follow the steps below to release a new version of ESP-\/\+DSP component. Assuming the new version is {\ttfamily v\+X.\+Y.\+Z}\+:
+
+
+\begin{DoxyEnumerate}
+\item Ensure you are on the latest {\ttfamily master} branch, then create a new branch\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ checkout\ master}
+\DoxyCodeLine{git\ pull\ -\/-\/ff-\/only\ origin\ master}
+\DoxyCodeLine{git\ checkout\ -\/b\ update\_version\_vX.Y.Z}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Update the version in \href{idf_component.yml}{\texttt{ idf\+\_\+component.\+yml}}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{version:\ "{}X.Y.Z"{}}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Commit the changes\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ add\ idf\_component.yml}
+\DoxyCodeLine{git\ commit\ -\/s\ -\/m\ "{}version:\ update\ to\ vX.Y.Z"{}}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Create the new tag\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ tag\ -\/s\ -\/a\ -\/m\ "{}vX.Y.Z"{}\ vX.Y.Z}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Push the tag and the branch to the internal repository\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ push\ origin\ update\_version\_vX.Y.Z}
+\DoxyCodeLine{git\ push\ origin\ vX.Y.Z}
+
+\end{DoxyCode}
+
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Create the merge request, get it reviewed and merged.
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item CI will automatically push the tag to Github and will upload the new version to the IDF Component Registry.
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Go to \href{https://github.com/espressif/esp-dsp/releases}{\texttt{ https\+://github.\+com/espressif/esp-\/dsp/releases}} and create a release from the tag v\+X.\+Y.\+Z.
+\end{DoxyEnumerate}
+\begin{DoxyEnumerate}
+\item Write the release notes and publish the release. 
+\end{DoxyEnumerate}

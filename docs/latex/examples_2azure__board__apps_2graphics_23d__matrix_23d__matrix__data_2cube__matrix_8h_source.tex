@@ -1,0 +1,57 @@
+\doxysection{cube\+\_\+matrix.\+h}
+\hypertarget{examples_2azure__board__apps_2graphics_23d__matrix_23d__matrix__data_2cube__matrix_8h_source}{}\label{examples_2azure__board__apps_2graphics_23d__matrix_23d__matrix__data_2cube__matrix_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/examples/azure\_board\_apps/graphics/3d\_matrix/3d\_matrix\_data/cube\_matrix.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/examples/azure\_board\_apps/graphics/3d\_matrix/3d\_matrix\_data/cube\_matrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}graphics\_support.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ CUBE\_POINTS\ 8}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ CUBE\_EDGES\ 12}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ CUBE\_SIDE\ (SSD1606\_Y\_CENTER\ /\ 2)}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ X\ Y\ Z\ coordinates\ of\ the\ cube\ centered\ to\ (0,\ 0,\ 0)}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ cube\_vectors\_3d[CUBE\_POINTS][MATRIX\_SIZE]\ =}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ X\ \ \ \ \ \ \ \ \ \ \ Y\ \ \ \ \ \ \ \ \ \ \ Z\ \ \ \ \ \ W}}
+\DoxyCodeLine{00025\ \{\ \ \ \{-\/CUBE\_SIDE,\ -\/CUBE\_SIDE,\ -\/CUBE\_SIDE,\ 1\},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/1,\ -\/1,\ -\/1}}
+\DoxyCodeLine{00026\ \ \ \ \ \{-\/CUBE\_SIDE,\ -\/CUBE\_SIDE,\ \ CUBE\_SIDE,\ 1\},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/1,\ -\/1,\ \ 1}}
+\DoxyCodeLine{00027\ \ \ \ \ \{-\/CUBE\_SIDE,\ \ CUBE\_SIDE,\ -\/CUBE\_SIDE,\ 1\},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/1,\ \ 1,\ -\/1}}
+\DoxyCodeLine{00028\ \ \ \ \ \{-\/CUBE\_SIDE,\ \ CUBE\_SIDE,\ \ CUBE\_SIDE,\ 1\},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/1,\ \ 1,\ \ 1}}
+\DoxyCodeLine{00029\ \ \ \ \ \{\ CUBE\_SIDE,\ -\/CUBE\_SIDE,\ -\/CUBE\_SIDE,\ 1\},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ 1,\ -\/1,\ -\/1}}
+\DoxyCodeLine{00030\ \ \ \ \ \{\ CUBE\_SIDE,\ -\/CUBE\_SIDE,\ \ CUBE\_SIDE,\ 1\},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ 1,\ -\/1,\ \ 1}}
+\DoxyCodeLine{00031\ \ \ \ \ \{\ CUBE\_SIDE,\ \ CUBE\_SIDE,\ -\/CUBE\_SIDE,\ 1\},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ 1,\ \ 1,\ -\/1}}
+\DoxyCodeLine{00032\ \ \ \ \ \{\ CUBE\_SIDE,\ \ CUBE\_SIDE,\ \ CUBE\_SIDE,\ 1\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ 1,\ \ 1,\ \ 1}}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ Dictionary\ for\ 3d\ cube\ edges\ displaying}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ Cube\ edges\ \ \ cube\_vectors\_3d[3]\ <-\/>\ cube\_vectors\_3d[1]}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cube\_vectors\_3d[3]\ <-\/>\ cube\_vectors\_3d[7]}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cube\_vectors\_3d[5]\ <-\/>\ cube\_vectors\_3d[7]}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cube\_vectors\_3d[5]\ <-\/>\ cube\_vectors\_3d[1]....}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{const}\ uint8\_t\ cube\_dict\_line\_begin[CUBE\_EDGES]\ =\ \{3,\ 3,\ 5,\ 5,\ 2,\ 2,\ 4,\ 4,\ 3,\ 7,\ 1,\ 5\};}
+\DoxyCodeLine{00041\ \textcolor{keyword}{const}\ uint8\_t\ cube\_dict\_line\_end[CUBE\_EDGES]\ \ \ =\ \{1,\ 7,\ 7,\ 1,\ 0,\ 6,\ 6,\ 0,\ 2,\ 6,\ 0,\ 4\};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_3D\_OBJECT\_CUBE}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ OBJECT\_3D\_CUBE\ 1}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ OBJECT\_3D\_CUBE\ 0}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

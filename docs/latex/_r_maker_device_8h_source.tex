@@ -1,0 +1,176 @@
+\doxysection{RMaker\+Device.\+h}
+\hypertarget{_r_maker_device_8h_source}{}\label{_r_maker_device_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/RainMaker/src/RMakerDevice.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/RainMaker/src/RMakerDevice.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2020\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ESP\_RMAKER\_WORK\_QUEUE\_TASK\_STACK}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}esp\_system.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}RMakerParam.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <esp\_rmaker\_standard\_devices.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <esp\_rmaker\_standard\_params.h>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }Device\ \{}
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{typedef}\ void\ (*deviceWriteCb)(Device\ *,\ Param\ *,\ \textcolor{keyword}{const}\ param\_val\_t\ val,\ \textcolor{keywordtype}{void}\ *priv\_data,\ write\_ctx\_t\ *ctx);}
+\DoxyCodeLine{00025\ \ \ \textcolor{keyword}{typedef}\ void\ (*deviceReadCb)(Device\ *,\ Param\ *,\ \textcolor{keywordtype}{void}\ *priv\_data,\ read\_ctx\_t\ *ctx);}
+\DoxyCodeLine{00026\ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ *priv\_data;}
+\DoxyCodeLine{00028\ \ \ \ \ deviceWriteCb\ write\_cb;}
+\DoxyCodeLine{00029\ \ \ \ \ deviceReadCb\ read\_cb;}
+\DoxyCodeLine{00030\ \ \ \}\ RMakerDevicePrivT;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \textcolor{keyword}{const}\ device\_handle\_t\ *device\_handle;}
+\DoxyCodeLine{00034\ \ \ RMakerDevicePrivT\ private\_data;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ setPrivateData(\textcolor{keywordtype}{void}\ *priv\_data)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ this-\/>private\_data.priv\_data\ =\ priv\_data;}
+\DoxyCodeLine{00039\ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \textcolor{keyword}{const}\ RMakerDevicePrivT\ *getDevicePrivateData()\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ \&this-\/>private\_data;}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ Device()\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ device\_handle\ =\ NULL;}
+\DoxyCodeLine{00048\ \ \ \ \ this-\/>private\_data.priv\_data\ =\ NULL;}
+\DoxyCodeLine{00049\ \ \ \ \ this-\/>private\_data.write\_cb\ =\ NULL;}
+\DoxyCodeLine{00050\ \ \ \ \ this-\/>private\_data.read\_cb\ =\ NULL;}
+\DoxyCodeLine{00051\ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ Device(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_type\ =\ NULL,\ \textcolor{keywordtype}{void}\ *priv\_data\ =\ NULL)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ this-\/>private\_data.priv\_data\ =\ priv\_data;}
+\DoxyCodeLine{00055\ \ \ \ \ this-\/>private\_data.write\_cb\ =\ NULL;}
+\DoxyCodeLine{00056\ \ \ \ \ this-\/>private\_data.read\_cb\ =\ NULL;}
+\DoxyCodeLine{00057\ \ \ \ \ device\_handle\ =\ esp\_rmaker\_device\_create(dev\_name,\ dev\_type,\ \&this-\/>private\_data);}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{if}\ (device\_handle\ ==\ NULL)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ log\_e(\textcolor{stringliteral}{"{}Device\ create\ error"{}});}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ setDeviceHandle(\textcolor{keyword}{const}\ esp\_rmaker\_device\_t\ *device\_handle)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ this-\/>device\_handle\ =\ device\_handle;}
+\DoxyCodeLine{00064\ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *getDeviceName()\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ esp\_rmaker\_device\_get\_name(device\_handle);}
+\DoxyCodeLine{00067\ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{const}\ esp\_rmaker\_device\_t\ *getDeviceHandle()\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{return}\ device\_handle;}
+\DoxyCodeLine{00070\ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ esp\_err\_t\ deleteDevice();}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{void}\ addCb(deviceWriteCb\ write\_cb,\ deviceReadCb\ read\_cb\ =\ NULL);}
+\DoxyCodeLine{00074\ \ \ esp\_err\_t\ addDeviceAttr(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *attr\_name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val);}
+\DoxyCodeLine{00075\ \ \ param\_handle\_t\ *getParamByName(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name);}
+\DoxyCodeLine{00076\ \ \ esp\_err\_t\ assignPrimaryParam(param\_handle\_t\ *param);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{comment}{//Generic\ Device\ Parameter}}
+\DoxyCodeLine{00079\ \ \ esp\_err\_t\ addParam(Param\ parameter);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{comment}{//Standard\ Device\ Parameter}}
+\DoxyCodeLine{00082\ \ \ esp\_err\_t\ addNameParam(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_NAME\_PARAM);}
+\DoxyCodeLine{00083\ \ \ esp\_err\_t\ addPowerParam(\textcolor{keywordtype}{bool}\ val,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_POWER\_NAME);}
+\DoxyCodeLine{00084\ \ \ esp\_err\_t\ addBrightnessParam(\textcolor{keywordtype}{int}\ val,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_BRIGHTNESS\_NAME);}
+\DoxyCodeLine{00085\ \ \ esp\_err\_t\ addHueParam(\textcolor{keywordtype}{int}\ val,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_HUE\_NAME);}
+\DoxyCodeLine{00086\ \ \ esp\_err\_t\ addSaturationParam(\textcolor{keywordtype}{int}\ val,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_SATURATION\_NAME);}
+\DoxyCodeLine{00087\ \ \ esp\_err\_t\ addIntensityParam(\textcolor{keywordtype}{int}\ val,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_INTENSITY\_NAME);}
+\DoxyCodeLine{00088\ \ \ esp\_err\_t\ addCCTParam(\textcolor{keywordtype}{int}\ val,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_CCT\_NAME);}
+\DoxyCodeLine{00089\ \ \ esp\_err\_t\ addDirectionParam(\textcolor{keywordtype}{int}\ val,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_DIRECTION\_NAME);}
+\DoxyCodeLine{00090\ \ \ esp\_err\_t\ addSpeedParam(\textcolor{keywordtype}{int}\ val,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_SPEED\_NAME);}
+\DoxyCodeLine{00091\ \ \ esp\_err\_t\ addTemperatureParam(\textcolor{keywordtype}{float}\ val,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name\ =\ ESP\_RMAKER\_DEF\_TEMPERATURE\_NAME);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{comment}{//Update\ Parameter}}
+\DoxyCodeLine{00094\ \ \ esp\_err\_t\ updateAndReportParam(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name,\ \textcolor{keywordtype}{bool}\ val);}
+\DoxyCodeLine{00095\ \ \ esp\_err\_t\ updateAndReportParam(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name,\ \textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00096\ \ \ esp\_err\_t\ updateAndReportParam(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name,\ \textcolor{keywordtype}{float}\ val);}
+\DoxyCodeLine{00097\ \ \ esp\_err\_t\ updateAndReportParam(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *param\_name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *val);}
+\DoxyCodeLine{00098\ \};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{class\ }Switch\ :\ \textcolor{keyword}{public}\ Device\ \{}
+\DoxyCodeLine{00101\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00102\ \ \ Switch()\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ standardSwitchDevice(\textcolor{stringliteral}{"{}Switch"{}},\ NULL,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00104\ \ \ \}}
+\DoxyCodeLine{00105\ \ \ Switch(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_name,\ \textcolor{keywordtype}{void}\ *priv\_data\ =\ NULL,\ \textcolor{keywordtype}{bool}\ power\ =\ \textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ standardSwitchDevice(dev\_name,\ priv\_data,\ power);}
+\DoxyCodeLine{00107\ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{void}\ standardSwitchDevice(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_name,\ \textcolor{keywordtype}{void}\ *priv\_data,\ \textcolor{keywordtype}{bool}\ power)\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ this-\/>setPrivateData(priv\_data);}
+\DoxyCodeLine{00110\ \ \ \ \ esp\_rmaker\_device\_t\ *dev\_handle\ =\ esp\_rmaker\_switch\_device\_create(dev\_name,\ (\textcolor{keywordtype}{void}\ *)this-\/>getDevicePrivateData(),\ power);}
+\DoxyCodeLine{00111\ \ \ \ \ setDeviceHandle(dev\_handle);}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{if}\ (dev\_handle\ ==\ NULL)\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ log\_e(\textcolor{stringliteral}{"{}Switch\ device\ not\ created"{}});}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \}}
+\DoxyCodeLine{00116\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{class\ }LightBulb\ :\ \textcolor{keyword}{public}\ Device\ \{}
+\DoxyCodeLine{00119\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00120\ \ \ LightBulb()\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ standardLightBulbDevice(\textcolor{stringliteral}{"{}Light"{}},\ NULL,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ \ \ LightBulb(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_name,\ \textcolor{keywordtype}{void}\ *priv\_data\ =\ NULL,\ \textcolor{keywordtype}{bool}\ power\ =\ \textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ standardLightBulbDevice(dev\_name,\ priv\_data,\ power);}
+\DoxyCodeLine{00125\ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{void}\ standardLightBulbDevice(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_name,\ \textcolor{keywordtype}{void}\ *priv\_data,\ \textcolor{keywordtype}{bool}\ power)\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ this-\/>setPrivateData(priv\_data);}
+\DoxyCodeLine{00128\ \ \ \ \ esp\_rmaker\_device\_t\ *dev\_handle\ =\ esp\_rmaker\_lightbulb\_device\_create(dev\_name,\ (\textcolor{keywordtype}{void}\ *)this-\/>getDevicePrivateData(),\ power);}
+\DoxyCodeLine{00129\ \ \ \ \ setDeviceHandle(dev\_handle);}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{if}\ (dev\_handle\ ==\ NULL)\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ log\_e(\textcolor{stringliteral}{"{}Light\ device\ not\ created"{}});}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \}}
+\DoxyCodeLine{00134\ \};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{class\ }Fan\ :\ \textcolor{keyword}{public}\ Device\ \{}
+\DoxyCodeLine{00137\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00138\ \ \ Fan()\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ standardFanDevice(\textcolor{stringliteral}{"{}Fan"{}},\ NULL,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00140\ \ \ \}}
+\DoxyCodeLine{00141\ \ \ Fan(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_name,\ \textcolor{keywordtype}{void}\ *priv\_data\ =\ NULL,\ \textcolor{keywordtype}{bool}\ power\ =\ \textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ standardFanDevice(dev\_name,\ priv\_data,\ power);}
+\DoxyCodeLine{00143\ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \textcolor{keywordtype}{void}\ standardFanDevice(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_name,\ \textcolor{keywordtype}{void}\ *priv\_data,\ \textcolor{keywordtype}{bool}\ power)\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ esp\_rmaker\_device\_t\ *dev\_handle\ =\ esp\_rmaker\_fan\_device\_create(dev\_name,\ priv\_data,\ power);}
+\DoxyCodeLine{00146\ \ \ \ \ setDeviceHandle(dev\_handle);}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{if}\ (dev\_handle\ ==\ NULL)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ log\_e(\textcolor{stringliteral}{"{}Fan\ device\ not\ created"{}});}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \}}
+\DoxyCodeLine{00151\ \};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{keyword}{class\ }TemperatureSensor\ :\ \textcolor{keyword}{public}\ Device\ \{}
+\DoxyCodeLine{00154\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00155\ \ \ TemperatureSensor()\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ standardTemperatureSensorDevice(\textcolor{stringliteral}{"{}Temperature-\/Sensor"{}},\ NULL,\ 25.0);}
+\DoxyCodeLine{00157\ \ \ \}}
+\DoxyCodeLine{00158\ \ \ TemperatureSensor(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_name,\ \textcolor{keywordtype}{void}\ *priv\_data\ =\ NULL,\ \textcolor{keywordtype}{float}\ temp\ =\ 25.0)\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ standardTemperatureSensorDevice(dev\_name,\ priv\_data,\ temp);}
+\DoxyCodeLine{00160\ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{void}\ standardTemperatureSensorDevice(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dev\_name,\ \textcolor{keywordtype}{void}\ *priv\_data,\ \textcolor{keywordtype}{float}\ temp)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ this-\/>setPrivateData(priv\_data);}
+\DoxyCodeLine{00163\ \ \ \ \ esp\_rmaker\_device\_t\ *dev\_handle\ =\ esp\_rmaker\_temp\_sensor\_device\_create(dev\_name,\ (\textcolor{keywordtype}{void}\ *)this-\/>getDevicePrivateData(),\ temp);}
+\DoxyCodeLine{00164\ \ \ \ \ setDeviceHandle(dev\_handle);}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{if}\ (dev\_handle\ ==\ NULL)\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ log\_e(\textcolor{stringliteral}{"{}Temperature\ Sensor\ device\ not\ created"{}});}
+\DoxyCodeLine{00167\ \ \ \ \ \}}
+\DoxyCodeLine{00168\ \ \ \}}
+\DoxyCodeLine{00169\ \};}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

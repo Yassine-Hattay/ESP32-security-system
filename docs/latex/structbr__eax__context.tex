@@ -1,0 +1,65 @@
+\doxysection{br\+\_\+eax\+\_\+context Struct Reference}
+\hypertarget{structbr__eax__context}{}\label{structbr__eax__context}\index{br\_eax\_context@{br\_eax\_context}}
+
+
+Context structure for EAX.  
+
+
+
+
+{\ttfamily \#include $<$bearssl\+\_\+aead.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structbr__eax__context_ac2ea0e1698f57841669a1a65b5ab1c6a}\label{structbr__eax__context_ac2ea0e1698f57841669a1a65b5ab1c6a} 
+const \mbox{\hyperlink{bearssl__aead_8h_a80c48efdbcc8ea8fe621dae2423b10e3}{br\+\_\+aead\+\_\+class}} \texorpdfstring{$\ast$}{*} {\bfseries vtable}
+\begin{DoxyCompactList}\small\item\em Pointer to vtable for this context. \end{DoxyCompactList}\item 
+\Hypertarget{structbr__eax__context_a7e36a95848677977bdc64449140c091c}\label{structbr__eax__context_a7e36a95848677977bdc64449140c091c} 
+const \mbox{\hyperlink{bearssl__block_8h_acc35dad952fda67b68df0b107fe26f0b}{br\+\_\+block\+\_\+ctrcbc\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} {\bfseries bctx}
+\item 
+\Hypertarget{structbr__eax__context_aa933c1bdf80598842e1dab5810c5b358}\label{structbr__eax__context_aa933c1bdf80598842e1dab5810c5b358} 
+unsigned char {\bfseries L2} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__eax__context_a130fa9fbe05fe3d363451db5ec60c9c0}\label{structbr__eax__context_a130fa9fbe05fe3d363451db5ec60c9c0} 
+unsigned char {\bfseries L4} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__eax__context_ab71dceb976b9daa9ce88795da4eb28da}\label{structbr__eax__context_ab71dceb976b9daa9ce88795da4eb28da} 
+unsigned char {\bfseries nonce} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__eax__context_ae756f09dbd7e558c84554d07c8e64d80}\label{structbr__eax__context_ae756f09dbd7e558c84554d07c8e64d80} 
+unsigned char {\bfseries head} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__eax__context_ae108985fd7b1cdd4a12ebdeee14e4182}\label{structbr__eax__context_ae108985fd7b1cdd4a12ebdeee14e4182} 
+unsigned char {\bfseries ctr} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__eax__context_a320bff762cdd1f47e12941e7e99a0bf8}\label{structbr__eax__context_a320bff762cdd1f47e12941e7e99a0bf8} 
+unsigned char {\bfseries cbcmac} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__eax__context_a9b6049feff5ffd68cb7b57ddc6ffc31a}\label{structbr__eax__context_a9b6049feff5ffd68cb7b57ddc6ffc31a} 
+unsigned char {\bfseries buf} \mbox{[}16\mbox{]}
+\item 
+\Hypertarget{structbr__eax__context_a49f07c3cde321520e6a58b3d683e66df}\label{structbr__eax__context_a49f07c3cde321520e6a58b3d683e66df} 
+size\+\_\+t {\bfseries ptr}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Context structure for EAX. 
+
+EAX is an AEAD mode that combines a block cipher in CTR mode with CBC-\/\+MAC using the same block cipher and the same key, to provide authenticated encryption\+:
+
+
+\begin{DoxyItemize}
+\item Any block cipher with 16-\/byte blocks can be used with EAX (technically, other block sizes are defined as well, but this is not implemented by these functions; shorter blocks also imply numerous security issues).
+\item The nonce can have any length, as long as nonce values are not reused (thus, if nonces are randomly selected, the nonce size should be such that reuse probability is negligible).
+\item Additional authenticated data length is unlimited.
+\item Message length is unlimited.
+\item The authentication tag has length 16 bytes.
+\end{DoxyItemize}
+
+The EAX initialisation function receives as parameter an {\itshape initialised} block cipher implementation context, with the secret key already set. A pointer to that context will be kept within the EAX context structure. It is up to the caller to allocate and initialise that block cipher context. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/\mbox{\hyperlink{bearssl__aead_8h}{bearssl\+\_\+aead.\+h}}\end{DoxyCompactItemize}

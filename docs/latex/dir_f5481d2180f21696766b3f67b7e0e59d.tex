@@ -1,0 +1,152 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Wi\+Fi/examples/\+Wi\+Fi\+Client Directory Reference}
+\hypertarget{dir_f5481d2180f21696766b3f67b7e0e59d}{}\label{dir_f5481d2180f21696766b3f67b7e0e59d}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFi/examples/WiFiClient Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFi/examples/WiFiClient Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+This example demonstrates reading and writing data from and to a web service which can be used for logging data, creating insights and taking actions based on those data.\hypertarget{README.md_autotoc_md641}{}\doxysubsection{\texorpdfstring{Supported Targets}{Supported Targets}}\label{README.md_autotoc_md641}
+Currently, this example supports all SoC with Wi-\/\+Fi.
+
+\texorpdfstring{$\vert$}{|} Supported Targets \texorpdfstring{$\vert$}{|} ESP32 \texorpdfstring{$\vert$}{|} ESP32-\/\+S2 \texorpdfstring{$\vert$}{|} ESP32-\/\+C3 \texorpdfstring{$\vert$}{|} ESP32-\/\+S3 \texorpdfstring{$\vert$}{|}\hypertarget{README.md_autotoc_md642}{}\doxysubsubsection{\texorpdfstring{How to Use Example}{How to Use Example}}\label{README.md_autotoc_md642}
+Flash this example and observe the serial output. You can also take a look at the values at \href{https://thingspeak.com/channels/2005329}{\texttt{ https\+://thingspeak.\+com/channels/2005329}}
+
+Please note that this public channel can be accessed by anyone and it is possible that more people will write their values.\hypertarget{README.md_autotoc_md643}{}\doxysubsubsubsection{\texorpdfstring{Configure the Project}{Configure the Project}}\label{README.md_autotoc_md643}
+Change {\ttfamily SSID} and {\ttfamily password} to connect to your Wi-\/\+Fi. Default values will allow you to use this example without any changes. If you want to use your own channel and you don\textquotesingle{}t have one already follow these steps\+:
+
+
+\begin{DoxyItemize}
+\item Create an account on \href{https://www.thingspeak.com}{\texttt{ thingspeak.\+com}}.
+\item After logging in, click on the "{}\+New Channel"{} button to create a new channel for your data. This is where your data will be stored and displayed.
+\item Fill in the Name, Description, and other fields for your channel as desired, then click the "{}\+Save Channel"{} button.
+\item Take note of the "{}\+Write API Key"{} located in the "{}\+API keys"{} tab, this is the key you will use to send data to your channel.
+\item Replace the channel\+ID from tab "{}\+Channel Settings"{} and private\+Key with "{}\+Read API Keys"{} from "{}\+API Keys"{} tab.
+\item Replace the host variable with the thingspeak server hostname "{}api.\+thingspeak.\+com"{}
+\item Upload the sketch to your ESP32 board and make sure that the board is connected to the internet. The ESP32 should now send data to your Thingspeak channel at the intervals specified by the loop function.
+\item Go to the channel view page on thingspeak and check the "{}\+Field1"{} for the new incoming data.
+\item You can use the data visualization and analysis tools provided by Thingspeak to display and process your data in various ways.
+\item Please note, that Thingspeak accepts only integer values.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md644}{}\doxysubsubsubsubsection{\texorpdfstring{Config example\+:}{Config example\+:}}\label{README.md_autotoc_md644}
+You can find the data to be changed at the top of the file\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ ssid\ \ \ \ \ =\ \textcolor{stringliteral}{"{}your-\/ssid"{}};\ \textcolor{comment}{//\ Change\ this\ to\ your\ WiFi\ SSID}}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ password\ =\ \textcolor{stringliteral}{"{}your-\/password"{}};\ \textcolor{comment}{//\ Change\ this\ to\ your\ WiFi\ password}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ host\ =\ \textcolor{stringliteral}{"{}api.thingspeak.com"{}};\ \textcolor{comment}{//\ This\ should\ not\ be\ changed}}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ httpPort\ =\ 80;\ \textcolor{comment}{//\ This\ should\ not\ be\ changed}}
+\DoxyCodeLine{\textcolor{keyword}{const}\ String\ channelID\ \ \ =\ \textcolor{stringliteral}{"{}2005329"{}};\ \textcolor{comment}{//\ Change\ this\ to\ your\ channel\ ID}}
+\DoxyCodeLine{\textcolor{keyword}{const}\ String\ writeApiKey\ =\ \textcolor{stringliteral}{"{}V6YOTILH9I7D51F9"{}};\ \textcolor{comment}{//\ Change\ this\ to\ your\ Write\ API\ key}}
+\DoxyCodeLine{\textcolor{keyword}{const}\ String\ readApiKey\ =\ \textcolor{stringliteral}{"{}34W6LGLIFXD56MPM"{}};\ \textcolor{comment}{//\ Change\ this\ to\ your\ Read\ API\ key}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ The\ default\ example\ accepts\ one\ data\ filed\ named\ "{}field1"{}}}
+\DoxyCodeLine{\textcolor{comment}{//\ For\ your\ own\ server\ you\ can\ ofcourse\ create\ more\ of\ them.}}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ field1\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ numberOfResults\ =\ 3;\ \textcolor{comment}{//\ Number\ of\ results\ to\ be\ read}}
+\DoxyCodeLine{\textcolor{keywordtype}{int}\ fieldNumber\ =\ 1;\ \textcolor{comment}{//\ Field\ number\ which\ will\ be\ read\ out}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md645}{}\doxysubsubsubsubsection{\texorpdfstring{Using Arduino IDE}{Using Arduino IDE}}\label{README.md_autotoc_md645}
+To get more information about the Espressif boards see \href{https://www.espressif.com/en/products/devkits}{\texttt{ Espressif Development Kits}}.
+
+
+\begin{DoxyItemize}
+\item Before Compile/\+Verify, select the correct board\+: {\ttfamily Tools -\/\texorpdfstring{$>$}{>} Board}.
+\item Select the COM port\+: {\ttfamily Tools -\/\texorpdfstring{$>$}{>} Port\+: xxx} where the {\ttfamily xxx} is the detected COM port.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md646}{}\doxysubsubsection{\texorpdfstring{Example Log Output}{Example Log Output}}\label{README.md_autotoc_md646}
+The initial output which is common for all examples can be ignored\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{SP-\/ROM:esp32c3-\/api1-\/20210207}
+\DoxyCodeLine{Build:Feb\ \ 7\ 2021}
+\DoxyCodeLine{rst:0x1\ (POWERON),boot:0xc\ (SPI\_FAST\_FLASH\_BOOT)}
+\DoxyCodeLine{SPIWP:0xee}
+\DoxyCodeLine{mode:DIO,\ clock\ div:1}
+\DoxyCodeLine{load:0x3fcd5810,len:0x438}
+\DoxyCodeLine{load:0x403cc710,len:0x918}
+\DoxyCodeLine{load:0x403ce710,len:0x24e4}
+\DoxyCodeLine{entry\ 0x403cc710}
+
+\end{DoxyCode}
+ Follows the setup output where connection to your Wi-\/\+Fi happens\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{******************************************************}
+\DoxyCodeLine{Connecting\ to\ your-\/ssid}
+\DoxyCodeLine{.}
+\DoxyCodeLine{WiFi\ connected}
+\DoxyCodeLine{IP\ address:}
+\DoxyCodeLine{192.168.1.2}
+
+\end{DoxyCode}
+ Then you can see the write log\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{HTTP/1.1\ 200\ OK}
+\DoxyCodeLine{Date:\ Fri,\ 13\ Jan\ 2023\ 13:12:31\ GMT}
+\DoxyCodeLine{Content-\/Type:\ text/plain;\ charset=utf-\/8}
+\DoxyCodeLine{Content-\/Length:\ 1}
+\DoxyCodeLine{Connection:\ close}
+\DoxyCodeLine{Status:\ 200\ OK}
+\DoxyCodeLine{Cache-\/Control:\ max-\/age=0,\ private,\ must-\/revalidate}
+\DoxyCodeLine{Access-\/Control-\/Allow-\/Origin:\ *}
+\DoxyCodeLine{Access-\/Control-\/Max-\/Age:\ 1800}
+\DoxyCodeLine{X-\/Request-\/Id:\ 188e3464-\/f155-\/44b0-\/96f6-\/0f3614170bb0}
+\DoxyCodeLine{Access-\/Control-\/Allow-\/Headers:\ origin,\ content-\/type,\ X-\/Requested-\/With}
+\DoxyCodeLine{Access-\/Control-\/Allow-\/Methods:\ GET,\ POST,\ PUT,\ OPTIONS,\ DELETE,\ PATCH}
+\DoxyCodeLine{ETag:\ W/"{}5feceb66ffc86f38d952786c6d696c79"{}}
+\DoxyCodeLine{X-\/Frame-\/Options:\ SAMEORIGIN}
+\DoxyCodeLine{}
+\DoxyCodeLine{0}
+\DoxyCodeLine{Closing\ connection}
+
+\end{DoxyCode}
+ Last portion is the read log\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{HTTP/1.1\ 200\ OK}
+\DoxyCodeLine{Date:\ Fri,\ 13\ Jan\ 2023\ 13:12:32\ GMT}
+\DoxyCodeLine{Content-\/Type:\ application/json;\ charset=utf-\/8}
+\DoxyCodeLine{Transfer-\/Encoding:\ chunked}
+\DoxyCodeLine{Connection:\ close}
+\DoxyCodeLine{Status:\ 200\ OK}
+\DoxyCodeLine{Cache-\/Control:\ max-\/age=7,\ private}
+\DoxyCodeLine{Access-\/Control-\/Allow-\/Origin:\ *}
+\DoxyCodeLine{Access-\/Control-\/Max-\/Age:\ 1800}
+\DoxyCodeLine{X-\/Request-\/Id:\ 91b97016-\/7625-\/44f6-\/9797-\/1b2973aa57b7}
+\DoxyCodeLine{Access-\/Control-\/Allow-\/Headers:\ origin,\ content-\/type,\ X-\/Requested-\/With}
+\DoxyCodeLine{Access-\/Control-\/Allow-\/Methods:\ GET,\ POST,\ PUT,\ OPTIONS,\ DELETE,\ PATCH}
+\DoxyCodeLine{ETag:\ W/"{}8e9c308fe2c50309f991586be1aff28d"{}}
+\DoxyCodeLine{X-\/Frame-\/Options:\ SAMEORIGIN}
+\DoxyCodeLine{}
+\DoxyCodeLine{1e3}
+\DoxyCodeLine{\{"{}channel"{}:\{"{}id"{}:2005329,"{}name"{}:"{}WiFiCLient\ example"{},"{}description"{}:"{}Default\ setup\ for\ Arduino\ ESP32\ NetworkClient\ example"{},"{}latitude"{}:"{}0.0"{},"{}longitude"{}:"{}0.0"{},"{}field1"{}:"{}data0"{},"{}created\_at"{}:"{}2023-\/01-\/11T15:56:08Z"{},"{}updated\_at"{}:"{}2023-\/01-\/13T08:13:58Z"{},"{}last\_entry\_id"{}:2871\},"{}feeds"{}:[\{"{}created\_at"{}:"{}2023-\/01-\/13T13:11:30Z"{},"{}entry\_id"{}:2869,"{}field1"{}:"{}359"{}\},\{"{}created\_at"{}:"{}2023-\/01-\/13T13:11:57Z"{},"{}entry\_id"{}:2870,"{}field1"{}:"{}361"{}\},\{"{}created\_at"{}:"{}2023-\/01-\/13T13:12:23Z"{},"{}entry\_id"{}:2871,"{}field1"{}:"{}363"{}\}]\}}
+\DoxyCodeLine{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{Closing\ connection}
+
+\end{DoxyCode}
+ After this the write+read log repeat every 10 seconds.\hypertarget{README.md_autotoc_md647}{}\doxysubsubsection{\texorpdfstring{Troubleshooting}{Troubleshooting}}\label{README.md_autotoc_md647}
+{\itshape {\bfseries{Important\+: Make sure you are using a good quality USB cable and that you have a reliable power source}}}
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Wi-\/\+Fi not connected\+:}} Check the SSID and password and also that the signal has sufficient strength.
+\item {\bfseries{400 Bad Request\+:}} Check the write\+Api\+Key.
+\item {\bfseries{404 Not Found\+:}} Check the channel ID.
+\item {\bfseries{No data on chart / reading NULL\+:}} Data must be sent as an integer, without commas.
+\end{DoxyItemize}
+
+If the error persists, you can ask for help at the official \href{https://esp32.com}{\texttt{ ESP32 forum}} or see Contribute.\hypertarget{README.md_autotoc_md648}{}\doxysubsubsection{\texorpdfstring{Contribute}{Contribute}}\label{README.md_autotoc_md648}
+To know how to contribute to this project, see \href{https://github.com/espressif/arduino-esp32/blob/master/CONTRIBUTING.rst}{\texttt{ How to contribute.}}
+
+If you have any {\bfseries{feedback}} or {\bfseries{issue}} to report on this example/library, please open an issue or fix it by creating a new PR. Contributions are more than welcome!
+
+Before creating a new issue, be sure to try the Troubleshooting and to check if the same issue was already created by someone else.\hypertarget{README.md_autotoc_md649}{}\doxysubsubsection{\texorpdfstring{Resources}{Resources}}\label{README.md_autotoc_md649}
+
+\begin{DoxyItemize}
+\item Official ESP32 Forum\+: \href{https://esp32.com}{\texttt{ Link}}
+\item Arduino-\/\+ESP32 Official Repository\+: \href{https://github.com/espressif/arduino-esp32}{\texttt{ espressif/arduino-\/esp32}}
+\item ESP32 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item ESP32-\/\+S2 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item ESP32-\/\+C3 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item ESP32-\/\+S3 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item Official ESP-\/\+IDF documentation\+: \href{https://idf.espressif.com}{\texttt{ ESP-\/\+IDF}} 
+\end{DoxyItemize}

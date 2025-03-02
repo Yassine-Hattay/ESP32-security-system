@@ -1,0 +1,157 @@
+\doxysection{zb\+\_\+osif\+\_\+platform.\+h}
+\hypertarget{zb__osif__platform_8h_source}{}\label{zb__osif__platform_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_osif\_platform.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_osif\_platform.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Header\ to\ combine\ osif\ dependent\ files\ with\ stack}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <sys/select.h>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}freertos/portmacro.h"{}}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}zb\_config.h"{}}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}zb\_types.h"{}}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}zb\_errors.h"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#if\ CONFIG\_PM\_ENABLE\ \&\&\ CONFIG\_FREERTOS\_USE\_TICKLESS\_IDLE}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}zb\_esp\_sleep.h"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_PM\_ENABLE\ \&\&\ CONFIG\_FREERTOS\_USE\_TICKLESS\_IDLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*\ At\ ARM\ all\ types\ from\ 1\ to\ 4\ bytes\ are\ passed\ to\ vararg\ with\ casting\ to\ 4\ bytes\ */}}
+\DoxyCodeLine{00059\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_minimal\_vararg\_t;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{/*\ use\ macros\ to\ be\ able\ to\ redefine\ */}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ZB\_VOLATILE}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ZB\_SDCC\_XDATA}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ZB\_CALLBACK}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ ZB\_SDCC\_BANKED}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ZB\_KEIL\_REENTRANT}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ZB\_MEMCPY\ \ \ memcpy}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ZB\_MEMMOVE\ \ memmove}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ZB\_MEMSET\ \ \ memset}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ZB\_MEMCMP\ \ \ memcmp}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ZB\_BZERO(s,l)\ ZB\_MEMSET((char*)(s),\ 0,\ (l))}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ZB\_BZERO2(s)\ ZB\_BZERO(s,\ 2)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ ZB\_ABORT\ abort}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ZB\_GO\_IDLE()}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ ZVUNUSED(v)\ (void)v}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ Initialize\ platform\ */}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ ZB\_PLATFORM\_INIT()\ zb\_esp\_init()}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{/*\ Random\ */}}
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ random\_init(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ seed);}
+\DoxyCodeLine{00082\ uint32\_t\ random\_rand(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ZB\_RANDOM\_INIT()}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ ZB\_RANDOM\_RAND()\ random\_rand()}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/*\ Timer\ */}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ ZB\_CHECK\_TIMER\_IS\_ON()\ 1}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ ZB\_START\_HW\_TIMER()}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ ZB\_STOP\_HW\_TIMER()}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{/*\ Iteration\ */}}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{void}\ zb\_osif\_iteration(\textcolor{keywordtype}{bool}\ block);}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#if\ CONFIG\_PM\_ENABLE\ \&\&\ CONFIG\_FREERTOS\_USE\_TICKLESS\_IDLE}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ ZB\_TRANSPORT\_BLOCK()\ zb\_osif\_iteration(!zb\_esp\_sleep\_enable\_get())}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ ZB\_TRANSPORT\_BLOCK()\ zb\_osif\_iteration(true)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ ZB\_TRANSPORT\_NONBLOCK\_ITERATION()\ zb\_osif\_iteration(false)}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{/*\ Scheduler\ */}}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ zb\_osif\_scheduler\_event(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_SCHEDULER\_EVENT()\ zb\_osif\_scheduler\_event()}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{/*\ Interrupts\ */}}
+\DoxyCodeLine{00106\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_osif\_is\_inside\_isr(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00107\ \textcolor{keywordtype}{void}\ zb\_osif\_enable\_all\_interrupts(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{void}\ zb\_osif\_disable\_all\_interrupts(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ ZB\_ENABLE\_ALL\_INTER()\ \ zb\_osif\_enable\_all\_interrupts()}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ ZB\_DISABLE\_ALL\_INTER()\ zb\_osif\_disable\_all\_interrupts()}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_GLOBAL\_LOCK()\ \ \ \ \ \ ZB\_DISABLE\_ALL\_INTER()}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_GLOBAL\_UNLOCK()\ \ \ \ ZB\_ENABLE\_ALL\_INTER()}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{comment}{/*\ Userial\ */}}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{void}\ zb\_osif\_userial\_poll(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{comment}{/*\ Product\ configurations\ */}}
+\DoxyCodeLine{00118\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_osif\_prod\_cfg\_check\_presence(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00119\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_prod\_cfg\_read\_header(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *prod\_cfg\_hdr,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ hdr\_len);}
+\DoxyCodeLine{00120\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_prod\_cfg\_read(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buffer,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ len,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ offset);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{comment}{/*\ Zboss\ stack\ lock\ */}}
+\DoxyCodeLine{00123\ esp\_err\_t\ zb\_esp\_osif\_lock\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{bool}\ zb\_esp\_osif\_lock\_acquire(TickType\_t\ block\_ticks);}
+\DoxyCodeLine{00125\ \textcolor{keywordtype}{void}\ zb\_esp\_osif\_lock\_release(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00132\ \ \ \ \ fd\_set\ \ \ \ \ \ \ \ \ read\_fds;\ \ \ \ \textcolor{comment}{/*\ The\ read\ file\ descriptors.*/}}
+\DoxyCodeLine{00133\ \ \ \ \ fd\_set\ \ \ \ \ \ \ \ \ write\_fds;\ \ \ \textcolor{comment}{/*\ The\ write\ file\ descriptors.*/}}
+\DoxyCodeLine{00134\ \ \ \ \ fd\_set\ \ \ \ \ \ \ \ \ error\_fds;\ \ \ \textcolor{comment}{/*\ The\ error\ file\ descriptors.*/}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ max\_fd;\ \ \ \ \ \ \textcolor{comment}{/*\ The\ max\ file\ descriptor.*/}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{struct\ }timeval\ timeout;\ \ \ \ \ \textcolor{comment}{/*\ The\ timeout.*/}}
+\DoxyCodeLine{00137\ \}\ \mbox{\hyperlink{structzb__osif__iteration__context__t}{zb\_osif\_iteration\_context\_t}};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keywordtype}{void}\ zb\_esp\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00140\ \textcolor{keywordtype}{void}\ zb\_esp\_abort(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00141\ \textcolor{keywordtype}{void}\ zb\_esp\_set\_event(\textcolor{keywordtype}{int}\ event);}
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{void}\ zb\_esp\_clr\_event(\textcolor{keywordtype}{int}\ event);}
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{void}\ zb\_esp\_console\_update(\mbox{\hyperlink{structzb__osif__iteration__context__t}{zb\_osif\_iteration\_context\_t}}\ *iteration);}
+\DoxyCodeLine{00144\ \textcolor{keywordtype}{void}\ zb\_esp\_radio\_update(\mbox{\hyperlink{structzb__osif__iteration__context__t}{zb\_osif\_iteration\_context\_t}}\ *iteration);}
+\DoxyCodeLine{00145\ \textcolor{keywordtype}{void}\ zb\_esp\_console\_process(\mbox{\hyperlink{structzb__osif__iteration__context__t}{zb\_osif\_iteration\_context\_t}}\ *iteration);}
+\DoxyCodeLine{00146\ \textcolor{keywordtype}{void}\ zb\_esp\_radio\_process(\mbox{\hyperlink{structzb__osif__iteration__context__t}{zb\_osif\_iteration\_context\_t}}\ *iteration);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#ifdef\ ZB\_SERIAL\_FOR\_TRACE}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_SERIAL\_FLUSH()\ zb\_esp\_console\_process(NULL)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{keywordtype}{void}\ zb\_esp\_trace\_config(uint32\_t\ trace\_level,\ uint32\_t\ trace\_mask);}
+\DoxyCodeLine{00153\ \textcolor{keyword}{typedef}\ uint32\_t\ (*get\_utc\_time\_callback\_t)(void);}
+\DoxyCodeLine{00154\ \textcolor{keywordtype}{void}\ esp\_zb\_get\_utc\_time\_callback\_register(get\_utc\_time\_callback\_t\ cb);}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ uint8\_t\ esp\_zb\_rssi\_to\_lqi(int8\_t\ rssi);}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#define\ is\_ack\_required(frame)\ (frame[1]\ \&\ BIT(5))}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ is\_ack\_pending(frame)\ (frame[1]\ \&\ BIT(4))}}
+
+\end{DoxyCode}

@@ -1,0 +1,92 @@
+\doxysection{u0.\+h}
+\hypertarget{chacha20_2dolbeau_2u0_8h_source}{}\label{chacha20_2dolbeau_2u0_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_stream/chacha20/dolbeau/u0.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_stream/chacha20/dolbeau/u0.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{keywordflow}{if}\ (bytes\ >\ 0)\ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \_\_m128i\ \ \ \ \ \ \ x\_0,\ x\_1,\ x\_2,\ x\_3;}
+\DoxyCodeLine{00003\ \ \ \ \ \_\_m128i\ \ \ \ \ \ \ t\_1;}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{keyword}{const}\ \_\_m128i\ rot16\ =}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \_mm\_set\_epi8(13,\ 12,\ 15,\ 14,\ 9,\ 8,\ 11,\ 10,\ 5,\ 4,\ 7,\ 6,\ 1,\ 0,\ 3,\ 2);}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keyword}{const}\ \_\_m128i\ rot8\ =}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \_mm\_set\_epi8(14,\ 13,\ 12,\ 15,\ 10,\ 9,\ 8,\ 11,\ 6,\ 5,\ 4,\ 7,\ 2,\ 1,\ 0,\ 3);}
+\DoxyCodeLine{00008\ \ \ \ \ uint8\_t\ partialblock[64];}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ x\_0\ =\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i*)\ (x\ +\ 0));}
+\DoxyCodeLine{00013\ \ \ \ \ x\_1\ =\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i*)\ (x\ +\ 4));}
+\DoxyCodeLine{00014\ \ \ \ \ x\_2\ =\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i*)\ (x\ +\ 8));}
+\DoxyCodeLine{00015\ \ \ \ \ x\_3\ =\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i*)\ (x\ +\ 12));}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ ROUNDS;\ i\ +=\ 2)\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ x\_0\ =\ \_mm\_add\_epi32(x\_0,\ x\_1);}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_xor\_si128(x\_3,\ x\_0);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_shuffle\_epi8(x\_3,\ rot16);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ x\_2\ =\ \_mm\_add\_epi32(x\_2,\ x\_3);}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_xor\_si128(x\_1,\ x\_2);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ t\_1\ =\ x\_1;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_slli\_epi32(x\_1,\ 12);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ t\_1\ =\ \_mm\_srli\_epi32(t\_1,\ 20);}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_xor\_si128(x\_1,\ t\_1);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ x\_0\ =\ \_mm\_add\_epi32(x\_0,\ x\_1);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_xor\_si128(x\_3,\ x\_0);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ x\_0\ =\ \_mm\_shuffle\_epi32(x\_0,\ 0x93);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_shuffle\_epi8(x\_3,\ rot8);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ x\_2\ =\ \_mm\_add\_epi32(x\_2,\ x\_3);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_shuffle\_epi32(x\_3,\ 0x4e);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_xor\_si128(x\_1,\ x\_2);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ x\_2\ =\ \_mm\_shuffle\_epi32(x\_2,\ 0x39);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ t\_1\ =\ x\_1;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_slli\_epi32(x\_1,\ 7);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ t\_1\ =\ \_mm\_srli\_epi32(t\_1,\ 25);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_xor\_si128(x\_1,\ t\_1);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ x\_0\ =\ \_mm\_add\_epi32(x\_0,\ x\_1);}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_xor\_si128(x\_3,\ x\_0);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_shuffle\_epi8(x\_3,\ rot16);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ x\_2\ =\ \_mm\_add\_epi32(x\_2,\ x\_3);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_xor\_si128(x\_1,\ x\_2);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ t\_1\ =\ x\_1;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_slli\_epi32(x\_1,\ 12);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ t\_1\ =\ \_mm\_srli\_epi32(t\_1,\ 20);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_xor\_si128(x\_1,\ t\_1);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ x\_0\ =\ \_mm\_add\_epi32(x\_0,\ x\_1);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_xor\_si128(x\_3,\ x\_0);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ x\_0\ =\ \_mm\_shuffle\_epi32(x\_0,\ 0x39);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_shuffle\_epi8(x\_3,\ rot8);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ x\_2\ =\ \_mm\_add\_epi32(x\_2,\ x\_3);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ x\_3\ =\ \_mm\_shuffle\_epi32(x\_3,\ 0x4e);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_xor\_si128(x\_1,\ x\_2);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ x\_2\ =\ \_mm\_shuffle\_epi32(x\_2,\ 0x93);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ t\_1\ =\ x\_1;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_slli\_epi32(x\_1,\ 7);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ t\_1\ =\ \_mm\_srli\_epi32(t\_1,\ 25);}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ x\_1\ =\ \_mm\_xor\_si128(x\_1,\ t\_1);}
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ x\_0\ =\ \_mm\_add\_epi32(x\_0,\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i*)\ (x\ +\ 0)));}
+\DoxyCodeLine{00073\ \ \ \ \ x\_1\ =\ \_mm\_add\_epi32(x\_1,\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i*)\ (x\ +\ 4)));}
+\DoxyCodeLine{00074\ \ \ \ \ x\_2\ =\ \_mm\_add\_epi32(x\_2,\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i*)\ (x\ +\ 8)));}
+\DoxyCodeLine{00075\ \ \ \ \ x\_3\ =\ \_mm\_add\_epi32(x\_3,\ \_mm\_loadu\_si128((\textcolor{keyword}{const}\ \_\_m128i*)\ (x\ +\ 12)));}
+\DoxyCodeLine{00076\ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (partialblock\ +\ 0),\ x\_0);}
+\DoxyCodeLine{00077\ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (partialblock\ +\ 16),\ x\_1);}
+\DoxyCodeLine{00078\ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (partialblock\ +\ 32),\ x\_2);}
+\DoxyCodeLine{00079\ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (partialblock\ +\ 48),\ x\_3);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ bytes;\ i++)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ c[i]\ =\ m[i]\ \string^\ partialblock[i];}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ sodium\_memzero(partialblock,\ \textcolor{keyword}{sizeof}\ partialblock);}
+\DoxyCodeLine{00086\ \}}
+
+\end{DoxyCode}

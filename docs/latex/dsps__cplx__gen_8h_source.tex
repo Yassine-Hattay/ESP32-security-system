@@ -1,0 +1,77 @@
+\doxysection{dsps\+\_\+cplx\+\_\+gen.\+h}
+\hypertarget{dsps__cplx__gen_8h_source}{}\label{dsps__cplx__gen_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/support/include/dsps\_cplx\_gen.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/support/include/dsps\_cplx\_gen.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ \_dsps\_cplx\_gen\_H\_}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ \_dsps\_cplx\_gen\_H\_}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}dsp\_err.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}dsps\_cplx\_gen\_platform.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ output\_data\_type\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ S16\_FIXED\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ F32\_FLOAT\ =\ 1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \}\ out\_d\_type;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcplx__sig__s}{cplx\_sig\_s}}\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ *\mbox{\hyperlink{structcplx__sig__s_ac62c7a4fb85aa5bdd9486df8dc1c9f9c}{lut}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ int32\_t\ \ \ \ \ \mbox{\hyperlink{structcplx__sig__s_a23f3b80b794e6aed6554503dee9bc8a8}{lut\_len}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \mbox{\hyperlink{structcplx__sig__s_aa5f806d2fa48a01e0e10cc827de94370}{freq}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \mbox{\hyperlink{structcplx__sig__s_a77297e894ca3d84636ec5a00e1596592}{phase}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ out\_d\_type\ \ \mbox{\hyperlink{structcplx__sig__s_a7ecd3e10e5ca22259670659c2e5fe002}{d\_type}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ int16\_t\ \ \ \ \ \mbox{\hyperlink{structcplx__sig__s_a9c2a27bf138438e7b77b2d4ef494ad6d}{free\_status}};\ \ \ \ }
+\DoxyCodeLine{00043\ \}\ cplx\_sig\_t;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00066\ esp\_err\_t\ dsps\_cplx\_gen\_init(cplx\_sig\_t\ *cplx\_gen,\ out\_d\_type\ d\_type,\ \textcolor{keywordtype}{void}\ *lut,\ int32\_t\ lut\_len,\ \textcolor{keywordtype}{float}\ freq,\ \textcolor{keywordtype}{float}\ initial\_phase);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00081\ esp\_err\_t\ dsps\_cplx\_gen\_freq\_set(cplx\_sig\_t\ *cplx\_gen,\ \textcolor{keywordtype}{float}\ freq);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{float}\ dsps\_cplx\_gen\_freq\_get(cplx\_sig\_t\ *cplx\_gen);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00108\ esp\_err\_t\ dsps\_cplx\_gen\_phase\_set(cplx\_sig\_t\ *cplx\_gen,\ \textcolor{keywordtype}{float}\ phase);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{float}\ dsps\_cplx\_gen\_phase\_get(cplx\_sig\_t\ *cplx\_gen);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00137\ esp\_err\_t\ dsps\_cplx\_gen\_set(cplx\_sig\_t\ *cplx\_gen,\ \textcolor{keywordtype}{float}\ freq,\ \textcolor{keywordtype}{float}\ phase);}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00148\ \textcolor{keywordtype}{void}\ cplx\_gen\_free(cplx\_sig\_t\ *cplx\_gen);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00172\ esp\_err\_t\ dsps\_cplx\_gen\_ansi(cplx\_sig\_t\ *cplx\_gen,\ \textcolor{keywordtype}{void}\ *output,\ int32\_t\ len);}
+\DoxyCodeLine{00173\ esp\_err\_t\ dsps\_cplx\_gen\_ae32(cplx\_sig\_t\ *cplx\_gen,\ \textcolor{keywordtype}{void}\ *output,\ int32\_t\ len);}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00177\ \}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#if\ (dsps\_cplx\_gen\_ae32\_enbled\ ||\ dsps\_cplx\_gen\_aes3\_enbled)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ dsps\_cplx\_gen\ dsps\_cplx\_gen\_ae32}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//\ CONFIG\_DSP\_OPTIMIZED}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ dsps\_cplx\_gen\ dsps\_cplx\_gen\_ansi}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONFIG\_DSP\_OPTIMIZED}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_dsps\_cplx\_gen\_H\_}}
+
+\end{DoxyCode}

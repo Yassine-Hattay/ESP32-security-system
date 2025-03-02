@@ -1,0 +1,177 @@
+\doxysection{HTTPUpdate\+Server.\+h}
+\hypertarget{_h_t_t_p_update_server_8h_source}{}\label{_h_t_t_p_update_server_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/HTTPUpdateServer/src/HTTPUpdateServer.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/HTTPUpdateServer/src/HTTPUpdateServer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_HTTP\_UPDATE\_SERVER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_HTTP\_UPDATE\_SERVER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <SPIFFS.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <StreamString.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <Update.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <WebServer.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ serverIndex[]\ PROGMEM\ =}
+\DoxyCodeLine{00010\ \ \ R\textcolor{stringliteral}{"{}(<!DOCTYPE\ html>}}
+\DoxyCodeLine{00011\ \textcolor{stringliteral}{\ \ \ \ \ <html\ lang='en'>}}
+\DoxyCodeLine{00012\ \textcolor{stringliteral}{\ \ \ \ \ <head>}}
+\DoxyCodeLine{00013\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ <meta\ charset='utf-\/8'>}}
+\DoxyCodeLine{00014\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ <meta\ name='viewport'\ content='width=device-\/width,initial-\/scale=1'/>}}
+\DoxyCodeLine{00015\ \textcolor{stringliteral}{\ \ \ \ \ </head>}}
+\DoxyCodeLine{00016\ \textcolor{stringliteral}{\ \ \ \ \ <body>}}
+\DoxyCodeLine{00017\ \textcolor{stringliteral}{\ \ \ \ \ <form\ method='POST'\ action=''\ enctype='multipart/form-\/data'>}}
+\DoxyCodeLine{00018\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ Firmware:<br>}}
+\DoxyCodeLine{00019\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ <input\ type='file'\ accept='.bin,.bin.gz'\ name='firmware'>}}
+\DoxyCodeLine{00020\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ <input\ type='submit'\ value='Update\ Firmware'>}}
+\DoxyCodeLine{00021\ \textcolor{stringliteral}{\ \ \ \ \ </form>}}
+\DoxyCodeLine{00022\ \textcolor{stringliteral}{\ \ \ \ \ <form\ method='POST'\ action=''\ enctype='multipart/form-\/data'>}}
+\DoxyCodeLine{00023\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ FileSystem:<br>}}
+\DoxyCodeLine{00024\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ <input\ type='file'\ accept='.bin,.bin.gz,.image'\ name='filesystem'>}}
+\DoxyCodeLine{00025\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ <input\ type='submit'\ value='Update\ FileSystem'>}}
+\DoxyCodeLine{00026\ \textcolor{stringliteral}{\ \ \ \ \ </form>}}
+\DoxyCodeLine{00027\ \textcolor{stringliteral}{\ \ \ \ \ </body>}}
+\DoxyCodeLine{00028\ \textcolor{stringliteral}{\ \ \ \ \ </html>)"{};}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{}\textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ successResponse[]\ PROGMEM\ =\ \textcolor{stringliteral}{"{}<META\ http-\/equiv=\(\backslash\)"{}refresh\(\backslash\)"{}\ content=\(\backslash\)"{}15;URL=/\(\backslash\)"{}>Update\ Success!\ Rebooting..."{}};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }HTTPUpdateServer\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ HTTPUpdateServer(\textcolor{keywordtype}{bool}\ serial\_debug\ =\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \_serial\_output\ =\ serial\_debug;}
+\DoxyCodeLine{00035\ \ \ \ \ \_server\ =\ NULL;}
+\DoxyCodeLine{00036\ \ \ \ \ \_username\ =\ emptyString;}
+\DoxyCodeLine{00037\ \ \ \ \ \_password\ =\ emptyString;}
+\DoxyCodeLine{00038\ \ \ \ \ \_authenticated\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00039\ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{void}\ setup(\mbox{\hyperlink{class_web_server}{WebServer}}\ *server)\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ setup(server,\ emptyString,\ emptyString);}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{void}\ setup(\mbox{\hyperlink{class_web_server}{WebServer}}\ *server,\ \textcolor{keyword}{const}\ String\ \&path)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ setup(server,\ path,\ emptyString,\ emptyString);}
+\DoxyCodeLine{00047\ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{void}\ setup(\mbox{\hyperlink{class_web_server}{WebServer}}\ *server,\ \textcolor{keyword}{const}\ String\ \&username,\ \textcolor{keyword}{const}\ String\ \&password)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ setup(server,\ \textcolor{stringliteral}{"{}/update"{}},\ username,\ password);}
+\DoxyCodeLine{00051\ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{void}\ setup(\mbox{\hyperlink{class_web_server}{WebServer}}\ *server,\ \textcolor{keyword}{const}\ String\ \&path,\ \textcolor{keyword}{const}\ String\ \&username,\ \textcolor{keyword}{const}\ String\ \&password)\ \{}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \_server\ =\ server;}
+\DoxyCodeLine{00056\ \ \ \ \ \_username\ =\ username;}
+\DoxyCodeLine{00057\ \ \ \ \ \_password\ =\ password;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{comment}{//\ handler\ for\ the\ /update\ form\ page}}
+\DoxyCodeLine{00060\ \ \ \ \ \_server-\/>on(path.c\_str(),\ HTTP\_GET,\ [\&]()\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ if\ (\_username\ !=\ emptyString\ \&\&\ \_password\ !=\ emptyString\ \&\&\ !\_server-\/>authenticate(\_username.c\_str(),\ \_password.c\_str()))\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ return\ \_server-\/>requestAuthentication();}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \_server-\/>send\_P(200,\ PSTR(\textcolor{stringliteral}{"{}text/html"{}}),\ serverIndex);}
+\DoxyCodeLine{00065\ \ \ \ \ \});}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ handler\ for\ the\ /update\ form\ POST\ (once\ file\ upload\ finishes)}}
+\DoxyCodeLine{00068\ \ \ \ \ \_server-\/>on(}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ path.c\_str(),\ HTTP\_POST,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ [\&]()\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ if\ (!\_authenticated)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ return\ \_server-\/>requestAuthentication();}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ if\ (Update.hasError())\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \_server-\/>send(200,\ F(\textcolor{stringliteral}{"{}text/html"{}}),\ String(F(\textcolor{stringliteral}{"{}Update\ error:\ "{}}))\ +\ \_updaterError);}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \_server-\/>client().setNoDelay(true);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \_server-\/>send\_P(200,\ PSTR(\textcolor{stringliteral}{"{}text/html"{}}),\ successResponse);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ delay(100);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \_server-\/>client().stop();}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ ESP.restart();}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \},}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ [\&]()\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ handler\ for\ the\ file\ upload,\ gets\ the\ sketch\ bytes,\ and\ writes}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ them\ through\ the\ Update\ object}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_h_t_t_p_upload}{HTTPUpload}}\ \&upload\ =\ \_server-\/>upload();}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (upload.status\ ==\ UPLOAD\_FILE\_START)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \_updaterError.clear();}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_serial\_output)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.setDebugOutput(\textcolor{keyword}{true});}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \_authenticated\ =\ (\_username\ ==\ emptyString\ ||\ \_password\ ==\ emptyString\ ||\ \_server-\/>authenticate(\_username.c\_str(),\ \_password.c\_str()));}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_authenticated)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_serial\_output)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Unauthenticated\ Update\(\backslash\)n"{}});}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_serial\_output)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Update:\ \%s\(\backslash\)n"{}},\ upload.filename.c\_str());}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (upload.name\ ==\ \textcolor{stringliteral}{"{}filesystem"{}})\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!Update.begin(SPIFFS.totalBytes(),\ U\_SPIFFS))\ \{\ \ \textcolor{comment}{//start\ with\ max\ available\ size}}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_serial\_output)\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Update.printError(Serial);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ maxSketchSpace\ =\ (ESP.getFreeSketchSpace()\ -\/\ 0x1000)\ \&\ 0xFFFFF000;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!Update.begin(maxSketchSpace,\ U\_FLASH))\ \{\ \ \textcolor{comment}{//start\ with\ max\ available\ size}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_setUpdaterError();}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_authenticated\ \&\&\ upload.status\ ==\ UPLOAD\_FILE\_WRITE\ \&\&\ !\_updaterError.length())\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_serial\_output)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Update.write(upload.buf,\ upload.currentSize)\ !=\ upload.currentSize)\ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \_setUpdaterError();}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_authenticated\ \&\&\ upload.status\ ==\ UPLOAD\_FILE\_END\ \&\&\ !\_updaterError.length())\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Update.end(\textcolor{keyword}{true}))\ \{\ \ \textcolor{comment}{//true\ to\ set\ the\ size\ to\ the\ current\ progress}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_serial\_output)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Serial.printf(\textcolor{stringliteral}{"{}Update\ Success:\ \%u\(\backslash\)nRebooting...\(\backslash\)n"{}},\ upload.totalSize);}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \_setUpdaterError();}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_serial\_output)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.setDebugOutput(\textcolor{keyword}{false});}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_authenticated\ \&\&\ upload.status\ ==\ UPLOAD\_FILE\_ABORTED)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ Update.end();}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_serial\_output)\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Update\ was\ aborted"{}});}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ delay(0);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ );}
+\DoxyCodeLine{00145\ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{void}\ updateCredentials(\textcolor{keyword}{const}\ String\ \&username,\ \textcolor{keyword}{const}\ String\ \&password)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \_username\ =\ username;}
+\DoxyCodeLine{00149\ \ \ \ \ \_password\ =\ password;}
+\DoxyCodeLine{00150\ \ \ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{void}\ \_setUpdaterError()\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_serial\_output)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ Update.printError(Serial);}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ \ \ \ \ \mbox{\hyperlink{class_stream_string}{StreamString}}\ str;}
+\DoxyCodeLine{00158\ \ \ \ \ Update.printError(str);}
+\DoxyCodeLine{00159\ \ \ \ \ \_updaterError\ =\ str.c\_str();}
+\DoxyCodeLine{00160\ \ \ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{bool}\ \_serial\_output;}
+\DoxyCodeLine{00164\ \ \ \mbox{\hyperlink{class_web_server}{WebServer}}\ *\_server;}
+\DoxyCodeLine{00165\ \ \ String\ \_username;}
+\DoxyCodeLine{00166\ \ \ String\ \_password;}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{bool}\ \_authenticated;}
+\DoxyCodeLine{00168\ \ \ String\ \_updaterError;}
+\DoxyCodeLine{00169\ \};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

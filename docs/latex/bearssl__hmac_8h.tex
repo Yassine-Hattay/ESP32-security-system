@@ -1,0 +1,163 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/bearssl\+\_\+hmac.h File Reference}
+\hypertarget{bearssl__hmac_8h}{}\label{bearssl__hmac_8h}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_hmac.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_hmac.h}}
+{\ttfamily \#include "{}../\+ESP\+\_\+\+SSLClient\+\_\+\+FS.\+h"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}bearssl\+\_\+hash.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structbr__hmac__key__context}{br\+\_\+hmac\+\_\+key\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em HMAC key context. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__hmac__context}{br\+\_\+hmac\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em HMAC computation context. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bearssl__hmac_8h_a6cd83b9d6010a8d3513792dcd40f3fb6}{br\+\_\+hmac\+\_\+key\+\_\+init}} (\mbox{\hyperlink{structbr__hmac__key__context}{br\+\_\+hmac\+\_\+key\+\_\+context}} \texorpdfstring{$\ast$}{*}kc, const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}digest\+\_\+vtable, const void \texorpdfstring{$\ast$}{*}key, size\+\_\+t key\+\_\+len)
+\begin{DoxyCompactList}\small\item\em HMAC key context initialisation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__hmac_8h_a7c9bcdd5eb984bc330e715f29581bd12}{br\+\_\+hmac\+\_\+init}} (\mbox{\hyperlink{structbr__hmac__context}{br\+\_\+hmac\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const \mbox{\hyperlink{structbr__hmac__key__context}{br\+\_\+hmac\+\_\+key\+\_\+context}} \texorpdfstring{$\ast$}{*}kc, size\+\_\+t out\+\_\+len)
+\begin{DoxyCompactList}\small\item\em HMAC computation initialisation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__hmac_8h_a54b50c0ec9fe535c7ff60c6995e39e76}{br\+\_\+hmac\+\_\+update}} (\mbox{\hyperlink{structbr__hmac__context}{br\+\_\+hmac\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Inject some bytes in HMAC. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{bearssl__hmac_8h_a574191199224cf2f51ce05c920563108}{br\+\_\+hmac\+\_\+out}} (const \mbox{\hyperlink{structbr__hmac__context}{br\+\_\+hmac\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, void \texorpdfstring{$\ast$}{*}out)
+\begin{DoxyCompactList}\small\item\em Compute the HMAC output. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{bearssl__hmac_8h_abd3f0d4045d5b0a883173a59df211c1a}{br\+\_\+hmac\+\_\+out\+CT}} (const \mbox{\hyperlink{structbr__hmac__context}{br\+\_\+hmac\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len, size\+\_\+t min\+\_\+len, size\+\_\+t max\+\_\+len, void \texorpdfstring{$\ast$}{*}out)
+\begin{DoxyCompactList}\small\item\em Constant-\/time HMAC computation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{bearssl__hmac_8h_autotoc_md93}{}\doxysubsection{\texorpdfstring{HMAC}{HMAC}}\label{bearssl__hmac_8h_autotoc_md93}
+HMAC is initialized with a key and an underlying hash function; it then fills a "{}key context"{}. That context contains the processed key.
+
+With the key context, a HMAC context can be initialized to process the input bytes and obtain the MAC output. The key context is not modified during that process, and can be reused.
+
+IMPORTANT\+: HMAC shall be used only with functions that have the following properties\+:
+
+
+\begin{DoxyItemize}
+\item hash output size does not exceed 64 bytes;
+\item hash internal state size does not exceed 64 bytes;
+\item internal block length is a power of 2 between 16 and 256 bytes. 
+\end{DoxyItemize}
+
+\doxysubsection{Function Documentation}
+\Hypertarget{bearssl__hmac_8h_a7c9bcdd5eb984bc330e715f29581bd12}\index{bearssl\_hmac.h@{bearssl\_hmac.h}!br\_hmac\_init@{br\_hmac\_init}}
+\index{br\_hmac\_init@{br\_hmac\_init}!bearssl\_hmac.h@{bearssl\_hmac.h}}
+\doxysubsubsection{\texorpdfstring{br\_hmac\_init()}{br\_hmac\_init()}}
+{\footnotesize\ttfamily \label{bearssl__hmac_8h_a7c9bcdd5eb984bc330e715f29581bd12} 
+void br\+\_\+hmac\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__hmac__context}{br\+\_\+hmac\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const \mbox{\hyperlink{structbr__hmac__key__context}{br\+\_\+hmac\+\_\+key\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{kc}{, }\item[{size\+\_\+t}]{out\+\_\+len}{}\end{DoxyParamCaption})}
+
+
+
+HMAC computation initialisation. 
+
+Initialise a HMAC context with a key context. The key context is unmodified. Relevant data from the key context is immediately copied; the key context can thus be independently reused, modified or released without impacting this HMAC computation.
+
+An explicit output length can be specified; the actual output length will be the minimum of that value and the natural HMAC output length. If {\ttfamily out\+\_\+len} is 0, then the natural HMAC output length is selected. The "{}natural output length"{} is the output length of the underlying hash function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & HMAC context to initialise. \\
+\hline
+{\em kc} & HMAC key context (already initialised with the key). \\
+\hline
+{\em out\+\_\+len} & HMAC output length (0 to select "{}natural length"{}). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__hmac_8h_a6cd83b9d6010a8d3513792dcd40f3fb6}\index{bearssl\_hmac.h@{bearssl\_hmac.h}!br\_hmac\_key\_init@{br\_hmac\_key\_init}}
+\index{br\_hmac\_key\_init@{br\_hmac\_key\_init}!bearssl\_hmac.h@{bearssl\_hmac.h}}
+\doxysubsubsection{\texorpdfstring{br\_hmac\_key\_init()}{br\_hmac\_key\_init()}}
+{\footnotesize\ttfamily \label{bearssl__hmac_8h_a6cd83b9d6010a8d3513792dcd40f3fb6} 
+void br\+\_\+hmac\+\_\+key\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__hmac__key__context}{br\+\_\+hmac\+\_\+key\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{kc}{, }\item[{const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}}]{digest\+\_\+vtable}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{size\+\_\+t}]{key\+\_\+len}{}\end{DoxyParamCaption})}
+
+
+
+HMAC key context initialisation. 
+
+Initialise the key context with the provided key, using the hash function identified by {\ttfamily digest\+\_\+vtable}. This supports arbitrary key lengths.
+
+
+\begin{DoxyParams}{Parameters}
+{\em kc} & HMAC key context to initialise. \\
+\hline
+{\em digest\+\_\+vtable} & pointer to the hash function implementation vtable. \\
+\hline
+{\em key} & pointer to the HMAC secret key. \\
+\hline
+{\em key\+\_\+len} & HMAC secret key length (in bytes). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__hmac_8h_a574191199224cf2f51ce05c920563108}\index{bearssl\_hmac.h@{bearssl\_hmac.h}!br\_hmac\_out@{br\_hmac\_out}}
+\index{br\_hmac\_out@{br\_hmac\_out}!bearssl\_hmac.h@{bearssl\_hmac.h}}
+\doxysubsubsection{\texorpdfstring{br\_hmac\_out()}{br\_hmac\_out()}}
+{\footnotesize\ttfamily \label{bearssl__hmac_8h_a574191199224cf2f51ce05c920563108} 
+size\+\_\+t br\+\_\+hmac\+\_\+out (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structbr__hmac__context}{br\+\_\+hmac\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Compute the HMAC output. 
+
+The destination buffer MUST be large enough to accommodate the result; its length is at most the "{}natural length"{} of HMAC (i.\+e. the output length of the underlying hash function). The context is NOT modified; further bytes may be processed. Thus, "{}partial HMAC"{} values can be efficiently obtained.
+
+Returned value is the output length (in bytes).
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & HMAC computation context. \\
+\hline
+{\em out} & destination buffer for the HMAC output. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the produced value length (in bytes). 
+\end{DoxyReturn}
+\Hypertarget{bearssl__hmac_8h_abd3f0d4045d5b0a883173a59df211c1a}\index{bearssl\_hmac.h@{bearssl\_hmac.h}!br\_hmac\_outCT@{br\_hmac\_outCT}}
+\index{br\_hmac\_outCT@{br\_hmac\_outCT}!bearssl\_hmac.h@{bearssl\_hmac.h}}
+\doxysubsubsection{\texorpdfstring{br\_hmac\_outCT()}{br\_hmac\_outCT()}}
+{\footnotesize\ttfamily \label{bearssl__hmac_8h_abd3f0d4045d5b0a883173a59df211c1a} 
+size\+\_\+t br\+\_\+hmac\+\_\+out\+CT (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structbr__hmac__context}{br\+\_\+hmac\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{, }\item[{size\+\_\+t}]{min\+\_\+len}{, }\item[{size\+\_\+t}]{max\+\_\+len}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{out}{}\end{DoxyParamCaption})}
+
+
+
+Constant-\/time HMAC computation. 
+
+This function compute the HMAC output in constant time. Some extra input bytes are processed, then the output is computed. The extra input consists in the {\ttfamily len} bytes pointed to by {\ttfamily data}. The {\ttfamily len} parameter must lie between {\ttfamily min\+\_\+len} and {\ttfamily max\+\_\+len} (inclusive); {\ttfamily max\+\_\+len} bytes are actually read from {\ttfamily data}. Computing time (and memory access pattern) will not depend upon the data byte contents or the value of {\ttfamily len}.
+
+The output is written in the {\ttfamily out} buffer, that MUST be large enough to receive it.
+
+The difference {\ttfamily max\+\_\+len -\/ min\+\_\+len} MUST be less than 2\textsuperscript{30} (i.\+e. about one gigabyte).
+
+This function computes the output properly only if the underlying hash function uses MD padding (i.\+e. MD5, SHA-\/1, SHA-\/224, SHA-\/256, SHA-\/384 or SHA-\/512).
+
+The provided context is NOT modified.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & the (already initialised) HMAC computation context. \\
+\hline
+{\em data} & the extra input bytes. \\
+\hline
+{\em len} & the extra input length (in bytes). \\
+\hline
+{\em min\+\_\+len} & minimum extra input length (in bytes). \\
+\hline
+{\em max\+\_\+len} & maximum extra input length (in bytes). \\
+\hline
+{\em out} & destination buffer for the HMAC output. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the produced value length (in bytes). 
+\end{DoxyReturn}
+\Hypertarget{bearssl__hmac_8h_a54b50c0ec9fe535c7ff60c6995e39e76}\index{bearssl\_hmac.h@{bearssl\_hmac.h}!br\_hmac\_update@{br\_hmac\_update}}
+\index{br\_hmac\_update@{br\_hmac\_update}!bearssl\_hmac.h@{bearssl\_hmac.h}}
+\doxysubsubsection{\texorpdfstring{br\_hmac\_update()}{br\_hmac\_update()}}
+{\footnotesize\ttfamily \label{bearssl__hmac_8h_a54b50c0ec9fe535c7ff60c6995e39e76} 
+void br\+\_\+hmac\+\_\+update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__hmac__context}{br\+\_\+hmac\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Inject some bytes in HMAC. 
+
+The provided {\ttfamily len} bytes are injected as extra input in the HMAC computation incarnated by the {\ttfamily ctx} HMAC context. It is acceptable that {\ttfamily len} is zero, in which case {\ttfamily data} is ignored (and may be {\ttfamily NULL}) and this function does nothing. 

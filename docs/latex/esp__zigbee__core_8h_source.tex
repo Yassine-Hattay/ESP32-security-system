@@ -1,0 +1,334 @@
+\doxysection{esp\+\_\+zigbee\+\_\+core.\+h}
+\hypertarget{esp__zigbee__core_8h_source}{}\label{esp__zigbee__core_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/esp\_zigbee\_core.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/esp\_zigbee\_core.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022-\/2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}zb\_vendor.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}zb\_config\_platform.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_version.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_trace.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_type.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_attribute.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_cluster.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_endpoint.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}nwk/esp\_zigbee\_nwk.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}zcl/esp\_zigbee\_zcl\_command.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}zdo/esp\_zigbee\_zdo\_command.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}bdb/esp\_zigbee\_bdb\_touchlink.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}bdb/esp\_zigbee\_bdb\_commissioning.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_secur.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_ota.h"{}}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_TRANSCEIVER\_ALL\_CHANNELS\_MASK\ 0x07FFF800U\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ZB\_ZED}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_SLEEP\_MAXIMUM\_THRESHOLD\_MS\ 86400000U\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ZB\_GP\_ENABLED}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ ESP\_ZGP\_GPPB\_DEFAULT\_FUNCTIONALITY\ 0x9ac2f\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ ESP\_ZGP\_GPS\_DEFAULT\_FUNCTIONALITY\ 0x9ac2f\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_ZB\_GP\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_10SEC\ \ \ \ =\ 0U,\ }
+\DoxyCodeLine{00045\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_2MIN\ \ \ \ \ =\ 1U,\ }
+\DoxyCodeLine{00046\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_4MIN\ \ \ \ \ =\ 2U,\ }
+\DoxyCodeLine{00047\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_8MIN\ \ \ \ \ =\ 3U,\ }
+\DoxyCodeLine{00048\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_16MIN\ \ \ \ =\ 4U,\ }
+\DoxyCodeLine{00049\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_32MIN\ \ \ \ =\ 5U,\ }
+\DoxyCodeLine{00050\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_64MIN\ \ \ \ =\ 6U,\ }
+\DoxyCodeLine{00051\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_128MIN\ \ \ =\ 7U,\ }
+\DoxyCodeLine{00052\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_256MIN\ \ \ =\ 8U,\ }
+\DoxyCodeLine{00053\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_512MIN\ \ \ =\ 9U,\ }
+\DoxyCodeLine{00054\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_1024MIN\ \ =\ 10U,\ }
+\DoxyCodeLine{00055\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_2048MIN\ \ =\ 11U,\ }
+\DoxyCodeLine{00056\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_4096MIN\ \ =\ 12U,\ }
+\DoxyCodeLine{00057\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_8192MIN\ \ =\ 13U,\ }
+\DoxyCodeLine{00058\ \ \ \ \ ESP\_ZB\_ED\_AGING\_TIMEOUT\_16384MIN\ =\ 14U,\ }
+\DoxyCodeLine{00059\ \}\ esp\_zb\_aging\_timeout\_t;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zb\_core\_action\_callback\_id\_s\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ ESP\_ZB\_CORE\_SET\_ATTR\_VALUE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0000,\ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ ESP\_ZB\_CORE\_SCENES\_STORE\_SCENE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0001,\ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ ESP\_ZB\_CORE\_SCENES\_RECALL\_SCENE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0002,\ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ZONE\_ENROLL\_RESPONSE\_VALUE\_CB\_ID\ \ \ \ =\ 0x0003,\ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ ESP\_ZB\_CORE\_OTA\_UPGRADE\_VALUE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0004,\ \ \ }
+\DoxyCodeLine{00090\ \ \ \ \ ESP\_ZB\_CORE\_OTA\_UPGRADE\_SRV\_STATUS\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0005,\ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ ESP\_ZB\_CORE\_OTA\_UPGRADE\_SRV\_QUERY\_IMAGE\_CB\_ID\ \ \ \ \ \ \ =\ 0x0006,\ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ ESP\_ZB\_CORE\_THERMOSTAT\_VALUE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0007,\ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ ESP\_ZB\_CORE\_METERING\_GET\_PROFILE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0008,\ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ ESP\_ZB\_CORE\_METERING\_GET\_PROFILE\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ =\ 0x0009,\ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ ESP\_ZB\_CORE\_METERING\_REQ\_FAST\_POLL\_MODE\_CB\_ID\ \ \ \ \ \ \ =\ 0x000a,\ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ ESP\_ZB\_CORE\_METERING\_REQ\_FAST\_POLL\_MODE\_RESP\_CB\_ID\ \ =\ 0x000b,\ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ ESP\_ZB\_CORE\_METERING\_GET\_SNAPSHOT\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x000c,\ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ ESP\_ZB\_CORE\_METERING\_PUBLISH\_SNAPSHOT\_CB\_ID\ \ \ \ \ \ \ \ \ =\ 0x000d,\ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ ESP\_ZB\_CORE\_METERING\_GET\_SAMPLED\_DATA\_CB\_ID\ \ \ \ \ \ \ \ \ =\ 0x000e,\ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ ESP\_ZB\_CORE\_METERING\_GET\_SAMPLED\_DATA\_RESP\_CB\_ID\ \ \ \ =\ 0x000f,\ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ ESP\_ZB\_CORE\_DOOR\_LOCK\_LOCK\_DOOR\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0010,\ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ ESP\_ZB\_CORE\_DOOR\_LOCK\_LOCK\_DOOR\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0011,\ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ ESP\_ZB\_CORE\_IDENTIFY\_EFFECT\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0012,\ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ ESP\_ZB\_CORE\_BASIC\_RESET\_TO\_FACTORY\_RESET\_CB\_ID\ \ \ \ \ \ =\ 0x0013,\ \ \ }
+\DoxyCodeLine{00105\ \ \ \ \ ESP\_ZB\_CORE\_PRICE\_GET\_CURRENT\_PRICE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0014,\ \ \ }
+\DoxyCodeLine{00106\ \ \ \ \ ESP\_ZB\_CORE\_PRICE\_GET\_SCHEDULED\_PRICES\_CB\_ID\ \ \ \ \ \ \ \ =\ 0x0015,\ \ \ }
+\DoxyCodeLine{00107\ \ \ \ \ ESP\_ZB\_CORE\_PRICE\_GET\_TIER\_LABELS\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0016,\ \ \ }
+\DoxyCodeLine{00108\ \ \ \ \ ESP\_ZB\_CORE\_PRICE\_PUBLISH\_PRICE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0017,\ \ \ }
+\DoxyCodeLine{00109\ \ \ \ \ ESP\_ZB\_CORE\_PRICE\_PUBLISH\_TIER\_LABELS\_CB\_ID\ \ \ \ \ \ \ \ \ =\ 0x0018,\ \ \ }
+\DoxyCodeLine{00110\ \ \ \ \ ESP\_ZB\_CORE\_PRICE\_PRICE\_ACK\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0019,\ \ \ }
+\DoxyCodeLine{00111\ \ \ \ \ ESP\_ZB\_CORE\_COMM\_RESTART\_DEVICE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x001a,\ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ ESP\_ZB\_CORE\_COMM\_OPERATE\_STARTUP\_PARAMS\_CB\_ID\ \ \ \ \ \ \ =\ 0x001b,\ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ ESP\_ZB\_CORE\_COMM\_COMMAND\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x001c,\ \ \ }
+\DoxyCodeLine{00114\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_WD\_START\_WARNING\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x001d,\ \ \ }
+\DoxyCodeLine{00115\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_WD\_SQUAWK\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x001e,\ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_ARM\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x001f,\ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_BYPASS\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0020,\ \ \ }
+\DoxyCodeLine{00118\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_EMERGENCY\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0021,\ \ \ }
+\DoxyCodeLine{00119\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_FIRE\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0022,\ \ \ }
+\DoxyCodeLine{00120\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_PANIC\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0023,\ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_GET\_PANEL\_STATUS\_CB\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0024,\ \ \ }
+\DoxyCodeLine{00122\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_GET\_BYPASSED\_ZONE\_LIST\_CB\_ID\ \ \ \ =\ 0x0025,\ \ \ }
+\DoxyCodeLine{00123\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_GET\_ZONE\_STATUS\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0026,\ \ \ }
+\DoxyCodeLine{00124\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_ARM\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0027,\ \ \ }
+\DoxyCodeLine{00125\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_GET\_ZONE\_ID\_MAP\_RESP\_CB\_ID\ \ \ \ \ \ =\ 0x0028,\ \ \ }
+\DoxyCodeLine{00126\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_GET\_ZONE\_INFO\_RESP\_CB\_ID\ \ \ \ \ \ \ \ =\ 0x0029,\ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_ZONE\_STATUS\_CHANGED\_CB\_ID\ \ \ \ \ \ \ =\ 0x002a,\ \ \ }
+\DoxyCodeLine{00128\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_PANEL\_STATUS\_CHANGED\_CB\_ID\ \ \ \ \ \ =\ 0x002b,\ \ \ }
+\DoxyCodeLine{00129\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_GET\_PANEL\_STATUS\_RESP\_CB\_ID\ \ \ \ \ =\ 0x002c,\ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_SET\_BYPASSED\_ZONE\_LIST\_CB\_ID\ \ \ \ =\ 0x002d,\ \ \ }
+\DoxyCodeLine{00131\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_BYPASS\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x002e,\ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ ESP\_ZB\_CORE\_IAS\_ACE\_GET\_ZONE\_STATUS\_RESP\_CB\_ID\ \ \ \ \ \ =\ 0x002f,\ \ \ }
+\DoxyCodeLine{00133\ \ \ \ \ ESP\_ZB\_CORE\_WINDOW\_COVERING\_MOVEMENT\_CB\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0030,\ \ \ }
+\DoxyCodeLine{00134\ \ \ \ \ ESP\_ZB\_CORE\_OTA\_UPGRADE\_QUERY\_IMAGE\_RESP\_CB\_ID\ \ \ \ \ \ =\ 0x0031,\ \ \ }
+\DoxyCodeLine{00135\ \ \ \ \ ESP\_ZB\_CORE\_THERMOSTAT\_WEEKLY\_SCHEDULE\_SET\_CB\_ID\ \ \ \ =\ 0x0032,\ \ \ }
+\DoxyCodeLine{00136\ \ \ \ \ ESP\_ZB\_CORE\_DRLC\_LOAD\_CONTORL\_EVENT\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0040,\ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ ESP\_ZB\_CORE\_DRLC\_CANCEL\_LOAD\_CONTROL\_EVENT\_CB\_ID\ \ \ \ =\ 0x0041,\ \ \ }
+\DoxyCodeLine{00138\ \ \ \ \ ESP\_ZB\_CORE\_DRLC\_CANCEL\_ALL\_LOAD\_CONTROL\_EVENTS\_CB\_ID\ =\ 0x0042,\ }
+\DoxyCodeLine{00139\ \ \ \ \ ESP\_ZB\_CORE\_DRLC\_REPORT\_EVENT\_STATUS\_CB\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0043,\ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ ESP\_ZB\_CORE\_DRLC\_GET\_SCHEDULED\_EVENTS\_CB\_ID\ \ \ \ \ \ \ \ \ =\ 0x0044,\ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_READ\_ATTR\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1000,\ \ \ }
+\DoxyCodeLine{00142\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_WRITE\_ATTR\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1001,\ \ \ }
+\DoxyCodeLine{00143\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_REPORT\_CONFIG\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1002,\ \ \ }
+\DoxyCodeLine{00144\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_READ\_REPORT\_CFG\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x1003,\ \ \ }
+\DoxyCodeLine{00145\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_DISC\_ATTR\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1004,\ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_DEFAULT\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1005,\ \ \ }
+\DoxyCodeLine{00147\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_OPERATE\_GROUP\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1010,\ \ \ }
+\DoxyCodeLine{00148\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_VIEW\_GROUP\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1011,\ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_GET\_GROUP\_MEMBERSHIP\_RESP\_CB\_ID\ \ \ \ \ =\ 0x1012,\ \ \ }
+\DoxyCodeLine{00150\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_OPERATE\_SCENE\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1020,\ \ \ }
+\DoxyCodeLine{00151\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_VIEW\_SCENE\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1021,\ \ \ }
+\DoxyCodeLine{00152\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_GET\_SCENE\_MEMBERSHIP\_RESP\_CB\_ID\ \ \ \ \ =\ 0x1022,\ \ \ }
+\DoxyCodeLine{00153\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_IAS\_ZONE\_ZONE\_ENROLL\_REQUEST\_ID\ \ \ \ \ =\ 0x1030,\ \ \ }
+\DoxyCodeLine{00154\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_IAS\_ZONE\_ZONE\_STATUS\_CHANGE\_NOT\_ID\ \ =\ 0x1031,\ \ \ }
+\DoxyCodeLine{00155\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_CUSTOM\_CLUSTER\_REQ\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1040,\ \ \ }
+\DoxyCodeLine{00156\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_CUSTOM\_CLUSTER\_RESP\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x1041,\ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_PRIVILEGE\_COMMAND\_REQ\_CB\_ID\ \ \ \ \ \ \ \ \ =\ 0x1050,\ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_PRIVILEGE\_COMMAND\_RESP\_CB\_ID\ \ \ \ \ \ \ \ =\ 0x1051,\ \ \ }
+\DoxyCodeLine{00159\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_TOUCHLINK\_GET\_GROUP\_ID\_RESP\_CB\_ID\ \ \ =\ 0x1060,\ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_TOUCHLINK\_GET\_ENDPOINT\_LIST\_RESP\_CB\_ID\ =\ 0x1061,\ \ \ }
+\DoxyCodeLine{00161\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_THERMOSTAT\_GET\_WEEKLY\_SCHEDULE\_RESP\_CB\_ID\ =\ 0x1070,\ }
+\DoxyCodeLine{00162\ \ \ \ \ ESP\_ZB\_CORE\_CMD\_GREEN\_POWER\_RECV\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1F00,\ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ ESP\_ZB\_CORE\_REPORT\_ATTR\_CB\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x2000,\ \ \ }
+\DoxyCodeLine{00164\ \}\ esp\_zb\_core\_action\_callback\_id\_t;}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00170\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00171\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zczr__cfg__t_a62d89131b344f20f252391224869ea76}{max\_children}};\ }
+\DoxyCodeLine{00172\ \}\ \mbox{\hyperlink{structesp__zb__zczr__cfg__t}{esp\_zb\_zczr\_cfg\_t}};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00178\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00179\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zed__cfg__t_a4a443e4b0b077b6bb8919e8f06eb4846}{ed\_timeout}};\ }
+\DoxyCodeLine{00180\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structesp__zb__zed__cfg__t_abe40e6b17a901848d9812c2eed75c683}{keep\_alive}};\ }
+\DoxyCodeLine{00181\ \}\ \mbox{\hyperlink{structesp__zb__zed__cfg__t}{esp\_zb\_zed\_cfg\_t}};}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00187\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__cfg__s}{esp\_zb\_cfg\_s}}\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ esp\_zb\_nwk\_device\_type\_t\ \mbox{\hyperlink{structesp__zb__cfg__s_acf16dd05f342bf5742b565737ecd5226}{esp\_zb\_role}};\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structesp__zb__cfg__s_a8f46ce3791d4f8f432b1604310a3d707}{install\_code\_policy}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structesp__zb__zczr__cfg__t}{esp\_zb\_zczr\_cfg\_t}}\ \mbox{\hyperlink{structesp__zb__cfg__s_aeed40808264cc53aefccbea13bd5b206}{zczr\_cfg}};\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structesp__zb__zed__cfg__t}{esp\_zb\_zed\_cfg\_t}}\ \mbox{\hyperlink{structesp__zb__cfg__s_a2b1792561d8287e30dc75475511e54cd}{zed\_cfg}};\ \ \ }
+\DoxyCodeLine{00193\ \ \ \ \ \}\ \mbox{\hyperlink{structesp__zb__cfg__s_a6a927e0aa67b29ad3608c6e21362cce5}{nwk\_cfg}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00194\ \}\ esp\_zb\_cfg\_t;}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00200\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__app__signal__s}{esp\_zb\_app\_signal\_s}}\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ uint32\_t\ *\mbox{\hyperlink{structesp__zb__app__signal__s_a7117a22c4729cdebad9851f4a4b60f47}{p\_app\_signal}};\ \ \ }
+\DoxyCodeLine{00202\ \ \ \ \ esp\_err\_t\ \mbox{\hyperlink{structesp__zb__app__signal__s_a4dcd864c8dde86ea458fc50dafb61430}{esp\_err\_status}};\ }
+\DoxyCodeLine{00203\ \}\ esp\_zb\_app\_signal\_t;}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00214\ \textcolor{keyword}{typedef}\ esp\_err\_t\ (*esp\_zb\_core\_action\_callback\_t)(esp\_zb\_core\_action\_callback\_id\_t\ callback\_id,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *message);}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00223\ \textcolor{keyword}{typedef}\ bool\ (*esp\_zb\_zcl\_device\_cb\_id\_callback\_t)(uint8\_t\ bufid);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00234\ \textcolor{keyword}{typedef}\ bool\ (*esp\_zb\_zcl\_raw\_command\_callback\_t)(uint8\_t\ bufid);}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00241\ \textcolor{keyword}{typedef}\ uint8\_t\ (*esp\_zb\_cli\_resp\_callback\_t)(uint8\_t\ bufid);}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00248\ \textcolor{keyword}{typedef}\ void\ (*esp\_zb\_identify\_notify\_callback\_t)(uint8\_t\ identify\_on);}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00259\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *(*esp\_zb\_zcl\_reset\_default\_attr\_callback\_t)(uint8\_t\ endpoint,\ uint16\_t\ cluster\_id,\ esp\_zb\_zcl\_attribute\_t\ curr\_attr);}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00267\ \textcolor{keywordtype}{void}\ esp\_zb\_core\_action\_handler\_register(esp\_zb\_core\_action\_callback\_t\ cb);}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00275\ \textcolor{keywordtype}{void}\ esp\_zb\_device\_cb\_id\_handler\_register(esp\_zb\_zcl\_device\_cb\_id\_callback\_t\ cb);}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00283\ \textcolor{keywordtype}{void}\ esp\_zb\_raw\_command\_handler\_register(esp\_zb\_zcl\_raw\_command\_callback\_t\ cb);}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00292\ \textcolor{keywordtype}{void}\ esp\_zb\_cli\_resp\_handler\_register(esp\_zb\_cli\_resp\_callback\_t\ cb);}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00299\ \textcolor{keywordtype}{void}\ esp\_zb\_zcl\_command\_send\_status\_handler\_register(esp\_zb\_zcl\_command\_send\_status\_callback\_t\ cb);}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00310\ \textcolor{keywordtype}{void}\ esp\_zb\_identify\_notify\_handler\_register(uint8\_t\ endpoint,\ esp\_zb\_identify\_notify\_callback\_t\ cb);}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00325\ esp\_err\_t\ esp\_zb\_zcl\_add\_privilege\_command(uint8\_t\ endpoint,\ uint16\_t\ cluster,\ uint16\_t\ command);}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00337\ \textcolor{keywordtype}{bool}\ esp\_zb\_zcl\_delete\_privilege\_command(uint8\_t\ endpoint,\ uint16\_t\ cluster,\ uint16\_t\ command);}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00351\ esp\_err\_t\ esp\_zb\_zcl\_scenes\_table\_store(uint8\_t\ endpoint,\ uint16\_t\ group\_id,\ uint8\_t\ scene\_id,\ uint16\_t\ transition\_time,\ esp\_zb\_zcl\_scenes\_extension\_field\_t\ *field);}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00358\ \textcolor{keywordtype}{void}\ esp\_zb\_zcl\_scenes\_table\_show(uint8\_t\ endpoint);}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00369\ esp\_err\_t\ esp\_zb\_zcl\_scenes\_table\_clear\_by\_index(uint16\_t\ index);}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00381\ esp\_err\_t\ esp\_zb\_overall\_network\_size\_set(uint16\_t\ size);}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00392\ esp\_err\_t\ esp\_zb\_io\_buffer\_size\_set(uint16\_t\ size);}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00403\ esp\_err\_t\ esp\_zb\_scheduler\_queue\_size\_set(uint16\_t\ size);}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00414\ esp\_err\_t\ esp\_zb\_aps\_src\_binding\_table\_size\_set(uint16\_t\ size);}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00425\ esp\_err\_t\ esp\_zb\_aps\_dst\_binding\_table\_size\_set(uint16\_t\ size);}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00437\ \textcolor{keywordtype}{void}\ esp\_zb\_init(esp\_zb\_cfg\_t\ *nwk\_cfg);}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00450\ esp\_err\_t\ esp\_zb\_set\_primary\_network\_channel\_set(uint32\_t\ channel\_mask);}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00457\ uint32\_t\ esp\_zb\_get\_primary\_network\_channel\_set(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00468\ esp\_err\_t\ esp\_zb\_set\_secondary\_network\_channel\_set(uint32\_t\ channel\_mask);}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00475\ uint32\_t\ esp\_zb\_get\_secondary\_network\_channel\_set(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00484\ esp\_err\_t\ esp\_zb\_set\_channel\_mask(uint32\_t\ channel\_mask);}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00491\ uint32\_t\ esp\_zb\_get\_channel\_mask(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00499\ \textcolor{keywordtype}{bool}\ esp\_zb\_bdb\_is\_factory\_new(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00506\ uint8\_t\ esp\_zb\_bdb\_get\_scan\_duration(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00513\ \textcolor{keywordtype}{void}\ esp\_zb\_bdb\_set\_scan\_duration(uint8\_t\ duration);}
+\DoxyCodeLine{00514\ }
+\DoxyCodeLine{00524\ esp\_err\_t\ esp\_zb\_bdb\_open\_network(uint8\_t\ permit\_duration);}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00533\ esp\_err\_t\ esp\_zb\_bdb\_close\_network(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00542\ \textcolor{keywordtype}{bool}\ esp\_zb\_bdb\_dev\_joined(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00550\ \textcolor{keywordtype}{void}\ esp\_zb\_zdo\_touchlink\_set\_nwk\_channel(uint8\_t\ channel);}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00556\ \textcolor{keywordtype}{void}\ esp\_zb\_set\_tx\_power(int8\_t\ power);}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00562\ \textcolor{keywordtype}{void}\ esp\_zb\_get\_tx\_power(int8\_t\ *power);}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00572\ esp\_err\_t\ esp\_zb\_bdb\_start\_top\_level\_commissioning(uint8\_t\ mode\_mask);}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00581\ \textcolor{keywordtype}{void}\ esp\_zb\_bdb\_reset\_via\_local\_action(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00582\ }
+\DoxyCodeLine{00587\ \textcolor{keywordtype}{void}\ esp\_zb\_factory\_reset(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00600\ esp\_err\_t\ esp\_zb\_zcl\_reset\_all\_endpoints\_to\_factory\_default(\textcolor{keywordtype}{bool}\ reset\_report,\ esp\_zb\_zcl\_reset\_default\_attr\_callback\_t\ cb);}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00614\ esp\_err\_t\ esp\_zb\_zcl\_reset\_endpoint\_to\_factory\_default(uint8\_t\ endpoint,\ \textcolor{keywordtype}{bool}\ reset\_report,\ esp\_zb\_zcl\_reset\_default\_attr\_callback\_t\ cb);}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00620\ \textcolor{keywordtype}{void}\ esp\_zb\_zcl\_reset\_nvram\_to\_factory\_default(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00621\ }
+\DoxyCodeLine{00656\ esp\_err\_t\ esp\_zb\_start(\textcolor{keywordtype}{bool}\ autostart);}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00664\ \textcolor{keywordtype}{bool}\ esp\_zb\_is\_started(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00674\ \textcolor{keywordtype}{bool}\ esp\_zb\_lock\_acquire(TickType\_t\ block\_ticks);}
+\DoxyCodeLine{00675\ }
+\DoxyCodeLine{00680\ \textcolor{keywordtype}{void}\ esp\_zb\_lock\_release(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00681\ }
+\DoxyCodeLine{00690\ ESP\_ZB\_DEPRECATED}
+\DoxyCodeLine{00691\ \textcolor{keywordtype}{void}\ esp\_zb\_main\_loop\_iteration(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00698\ \textcolor{keywordtype}{void}\ esp\_zb\_stack\_main\_loop\_iteration(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00705\ \textcolor{keywordtype}{void}\ esp\_zb\_stack\_main\_loop(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00706\ }
+\DoxyCodeLine{00713\ \textcolor{keywordtype}{void}\ esp\_zb\_cli\_main\_loop\_iteration(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00714\ }
+\DoxyCodeLine{00722\ \textcolor{keywordtype}{void}\ esp\_zb\_nvram\_erase\_at\_start(\textcolor{keywordtype}{bool}\ erase);}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00733\ \textcolor{keywordtype}{void}\ esp\_zb\_app\_signal\_handler(esp\_zb\_app\_signal\_t\ *signal\_s);}
+\DoxyCodeLine{00734\ }
+\DoxyCodeLine{00741\ \textcolor{keywordtype}{void}\ *esp\_zb\_app\_signal\_get\_params(uint32\_t\ *signal\_p);}
+\DoxyCodeLine{00742\ }
+\DoxyCodeLine{00752\ \textcolor{keywordtype}{void}\ esp\_zb\_scheduler\_alarm(esp\_zb\_callback\_t\ cb,\ uint8\_t\ param,\ uint32\_t\ time);}
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00762\ \textcolor{keywordtype}{void}\ esp\_zb\_scheduler\_alarm\_cancel(esp\_zb\_callback\_t\ cb,\ uint8\_t\ param);}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00776\ esp\_zb\_user\_cb\_handle\_t\ esp\_zb\_scheduler\_user\_alarm(esp\_zb\_user\_callback\_t\ cb,\ \textcolor{keywordtype}{void}\ *param,\ uint32\_t\ time);}
+\DoxyCodeLine{00777\ }
+\DoxyCodeLine{00789\ esp\_err\_t\ esp\_zb\_scheduler\_user\_alarm\_cancel(esp\_zb\_user\_cb\_handle\_t\ handle);}
+\DoxyCodeLine{00790\ }
+\DoxyCodeLine{00797\ \textcolor{keywordtype}{void}\ esp\_zb\_set\_bdb\_commissioning\_mode(esp\_zb\_bdb\_commissioning\_mode\_mask\_t\ commissioning\_mode);}
+\DoxyCodeLine{00798\ }
+\DoxyCodeLine{00804\ esp\_zb\_bdb\_commissioning\_mode\_mask\_t\ esp\_zb\_get\_bdb\_commissioning\_mode(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00805\ }
+\DoxyCodeLine{00814\ esp\_err\_t\ esp\_zb\_bdb\_cancel\_steering(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00824\ esp\_err\_t\ esp\_zb\_bdb\_cancel\_formation(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00825\ }
+\DoxyCodeLine{00826\ \textcolor{comment}{/*\ ZCL\ attribute,\ cluster,\ endpoint,\ device\ related\ */}}
+\DoxyCodeLine{00827\ }
+\DoxyCodeLine{00845\ esp\_err\_t\ esp\_zb\_device\_register(esp\_zb\_ep\_list\_t\ *ep\_list);}
+\DoxyCodeLine{00846\ }
+\DoxyCodeLine{00847\ \textcolor{preprocessor}{\#ifdef\ ZB\_DISTRIBUTED\_SECURITY\_ON}}
+\DoxyCodeLine{00848\ }
+\DoxyCodeLine{00854\ \textcolor{keywordtype}{void}\ esp\_zb\_tc\_policy\_set\_distributed\_security(\textcolor{keywordtype}{bool}\ enabled);}
+\DoxyCodeLine{00855\ }
+\DoxyCodeLine{00863\ \textcolor{keywordtype}{bool}\ esp\_zb\_tc\_policy\_get\_distributed\_security();}
+\DoxyCodeLine{00864\ }
+\DoxyCodeLine{00870\ \textcolor{keywordtype}{void}\ esp\_zb\_enable\_distributed\_network(\textcolor{keywordtype}{bool}\ enabled);}
+\DoxyCodeLine{00871\ }
+\DoxyCodeLine{00876\ \textcolor{keywordtype}{void}\ esp\_zb\_zdo\_setup\_network\_as\_distributed(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00877\ }
+\DoxyCodeLine{00883\ \textcolor{keywordtype}{bool}\ esp\_zb\_network\_is\_distributed(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00884\ }
+\DoxyCodeLine{00892\ \textcolor{keywordtype}{void}\ esp\_zb\_enable\_joining\_to\_distributed(\textcolor{keywordtype}{bool}\ enabled);}
+\DoxyCodeLine{00893\ }
+\DoxyCodeLine{00899\ \textcolor{keywordtype}{bool}\ esp\_zb\_joining\_to\_distributed\_network\_enabled(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00900\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00913\ esp\_err\_t\ esp\_zb\_sleep\_set\_threshold(uint32\_t\ threshold\_ms);}
+\DoxyCodeLine{00914\ }
+\DoxyCodeLine{00918\ \textcolor{keywordtype}{void}\ esp\_zb\_sleep\_now(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00926\ \textcolor{keywordtype}{void}\ esp\_zb\_sleep\_enable(\textcolor{keywordtype}{bool}\ enable);}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00935\ \textcolor{keywordtype}{bool}\ esp\_zb\_sleep\_is\_enable(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00936\ }
+\DoxyCodeLine{00943\ \textcolor{preprocessor}{\#ifndef\ ZB\_MACSPLIT\_DEVICE}}
+\DoxyCodeLine{00944\ esp\_zb\_bdb\_commissioning\_status\_t\ esp\_zb\_get\_bdb\_commissioning\_status(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00945\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00946\ }
+\DoxyCodeLine{00954\ \textcolor{keywordtype}{void}\ esp\_zb\_set\_node\_descriptor\_manufacturer\_code(uint16\_t\ manufacturer\_code);}
+\DoxyCodeLine{00955\ }
+\DoxyCodeLine{00961\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *esp\_zb\_get\_version\_string(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00962\ }
+\DoxyCodeLine{00963\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00964\ \}}
+\DoxyCodeLine{00965\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

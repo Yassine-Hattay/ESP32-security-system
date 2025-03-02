@@ -1,0 +1,169 @@
+\doxysection{Async\+UDP.\+h}
+\hypertarget{_async_u_d_p_8h_source}{}\label{_async_u_d_p_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/AsyncUDP/src/AsyncUDP.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/AsyncUDP/src/AsyncUDP.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ESPASYNCUDP\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ESPASYNCUDP\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}IPAddress.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Print.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Stream.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_netif.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}lwip/ip\_addr.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}freertos/queue.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}freertos/semphr.h"{}}}
+\DoxyCodeLine{00013\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ This\ enum\ and\ it's\ uses\ are\ copied\ and\ adapted\ for\ compatibility\ from\ ESP-\/IDF\ 4-\/}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00017\ \ \ TCPIP\_ADAPTER\_IF\_STA\ =\ 0,\ }
+\DoxyCodeLine{00018\ \ \ TCPIP\_ADAPTER\_IF\_AP,\ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ TCPIP\_ADAPTER\_IF\_ETH,\ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ TCPIP\_ADAPTER\_IF\_PPP,\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ TCPIP\_ADAPTER\_IF\_MAX}
+\DoxyCodeLine{00022\ \}\ tcpip\_adapter\_if\_t;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_async_u_d_p}{AsyncUDP}};}
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_async_u_d_p_packet}{AsyncUDPPacket}};}
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_async_u_d_p_message}{AsyncUDPMessage}};}
+\DoxyCodeLine{00027\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structudp__pcb}{udp\_pcb}};}
+\DoxyCodeLine{00028\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpbuf}{pbuf}};}
+\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }netif;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ std::function<void(\mbox{\hyperlink{class_async_u_d_p_packet}{AsyncUDPPacket}}\ \&packet)>\ AuPacketHandlerFunction;}
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ std::function<void(\textcolor{keywordtype}{void}\ *arg,\ \mbox{\hyperlink{class_async_u_d_p_packet}{AsyncUDPPacket}}\ \&packet)>\ AuPacketHandlerFunctionWithArg;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }AsyncUDPMessage\ :\ \textcolor{keyword}{public}\ Print\ \{}
+\DoxyCodeLine{00035\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00036\ \ \ uint8\_t\ *\_buffer;}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{size\_t}\ \_index;}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{size\_t}\ \_size;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ AsyncUDPMessage(\textcolor{keywordtype}{size\_t}\ size\ =\ CONFIG\_TCP\_MSS);}
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{virtual}\ \string~AsyncUDPMessage();}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t\ data);}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{size\_t}\ space();}
+\DoxyCodeLine{00046\ \ \ uint8\_t\ *data();}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{size\_t}\ length();}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ flush();}
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{operator}\ bool()\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ \_buffer\ !=\ NULL;}
+\DoxyCodeLine{00051\ \ \ \}}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }AsyncUDPPacket\ :\ \textcolor{keyword}{public}\ Stream\ \{}
+\DoxyCodeLine{00055\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00056\ \ \ \mbox{\hyperlink{class_async_u_d_p}{AsyncUDP}}\ *\_udp;}
+\DoxyCodeLine{00057\ \ \ \mbox{\hyperlink{structpbuf}{pbuf}}\ *\_pb;}
+\DoxyCodeLine{00058\ \ \ tcpip\_adapter\_if\_t\ \_if;}
+\DoxyCodeLine{00059\ \ \ ip\_addr\_t\ \_localIp;}
+\DoxyCodeLine{00060\ \ \ uint16\_t\ \_localPort;}
+\DoxyCodeLine{00061\ \ \ ip\_addr\_t\ \_remoteIp;}
+\DoxyCodeLine{00062\ \ \ uint16\_t\ \_remotePort;}
+\DoxyCodeLine{00063\ \ \ uint8\_t\ \_remoteMac[6];}
+\DoxyCodeLine{00064\ \ \ uint8\_t\ *\_data;}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{size\_t}\ \_len;}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{size\_t}\ \_index;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00069\ \ \ AsyncUDPPacket(AsyncUDPPacket\ \&packet);}
+\DoxyCodeLine{00070\ \ \ AsyncUDPPacket(\mbox{\hyperlink{class_async_u_d_p}{AsyncUDP}}\ *udp,\ \mbox{\hyperlink{structpbuf}{pbuf}}\ *pb,\ \textcolor{keyword}{const}\ ip\_addr\_t\ *addr,\ uint16\_t\ port,\ \textcolor{keyword}{struct}\ netif\ *netif);}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{virtual}\ \string~AsyncUDPPacket();}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ uint8\_t\ *data();}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{size\_t}\ length();}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{bool}\ isBroadcast();}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{bool}\ isMulticast();}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{bool}\ isIPv6();}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ tcpip\_adapter\_if\_t\ interface();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ localIP();}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#if\ CONFIG\_LWIP\_IPV6}}
+\DoxyCodeLine{00083\ \ \ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ localIPv6();}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00085\ \ \ uint16\_t\ localPort();}
+\DoxyCodeLine{00086\ \ \ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ remoteIP();}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#if\ CONFIG\_LWIP\_IPV6}}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ remoteIPv6();}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00090\ \ \ uint16\_t\ remotePort();}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ remoteMac(uint8\_t\ *mac);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{size\_t}\ send(\mbox{\hyperlink{class_async_u_d_p_message}{AsyncUDPMessage}}\ \&message);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{int}\ available();}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{size\_t}\ read(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{int}\ read();}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{int}\ peek();}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{void}\ flush();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t\ data);}
+\DoxyCodeLine{00103\ \};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{class\ }AsyncUDP\ :\ \textcolor{keyword}{public}\ Print\ \{}
+\DoxyCodeLine{00106\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00107\ \ \ \mbox{\hyperlink{structudp__pcb}{udp\_pcb}}\ *\_pcb;}
+\DoxyCodeLine{00108\ \ \ \textcolor{comment}{//SemaphoreHandle\_t\ \_lock;}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{bool}\ \_connected;}
+\DoxyCodeLine{00110\ \ \ esp\_err\_t\ \_lastErr;}
+\DoxyCodeLine{00111\ \ \ AuPacketHandlerFunction\ \_handler;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{bool}\ \_init();}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{void}\ \_recv(\mbox{\hyperlink{structudp__pcb}{udp\_pcb}}\ *upcb,\ \mbox{\hyperlink{structpbuf}{pbuf}}\ *pb,\ \textcolor{keyword}{const}\ ip\_addr\_t\ *addr,\ uint16\_t\ port,\ \textcolor{keyword}{struct}\ netif\ *netif);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00117\ \ \ AsyncUDP();}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{virtual}\ \string~AsyncUDP();}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{void}\ onPacket(AuPacketHandlerFunctionWithArg\ cb,\ \textcolor{keywordtype}{void}\ *arg\ =\ NULL);}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{void}\ onPacket(AuPacketHandlerFunction\ cb);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{bool}\ listen(\textcolor{keyword}{const}\ ip\_addr\_t\ *addr,\ uint16\_t\ port);}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{bool}\ listen(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ addr,\ uint16\_t\ port);}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{bool}\ listen(uint16\_t\ port);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{bool}\ listenMulticast(\textcolor{keyword}{const}\ ip\_addr\_t\ *addr,\ uint16\_t\ port,\ uint8\_t\ ttl\ =\ 1,\ tcpip\_adapter\_if\_t\ tcpip\_if\ =\ TCPIP\_ADAPTER\_IF\_MAX);}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{bool}\ listenMulticast(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ addr,\ uint16\_t\ port,\ uint8\_t\ ttl\ =\ 1,\ tcpip\_adapter\_if\_t\ tcpip\_if\ =\ TCPIP\_ADAPTER\_IF\_MAX);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{bool}\ connect(\textcolor{keyword}{const}\ ip\_addr\_t\ *addr,\ uint16\_t\ port);}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{bool}\ connect(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ addr,\ uint16\_t\ port);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{void}\ close();}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordtype}{size\_t}\ writeTo(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keyword}{const}\ ip\_addr\_t\ *addr,\ uint16\_t\ port,\ tcpip\_adapter\_if\_t\ tcpip\_if\ =\ TCPIP\_ADAPTER\_IF\_MAX);}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{size\_t}\ writeTo(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ addr,\ uint16\_t\ port,\ tcpip\_adapter\_if\_t\ tcpip\_if\ =\ TCPIP\_ADAPTER\_IF\_MAX);}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t\ data);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \textcolor{keywordtype}{size\_t}\ broadcastTo(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len,\ uint16\_t\ port,\ tcpip\_adapter\_if\_t\ tcpip\_if\ =\ TCPIP\_ADAPTER\_IF\_MAX);}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{size\_t}\ broadcastTo(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data,\ uint16\_t\ port,\ tcpip\_adapter\_if\_t\ tcpip\_if\ =\ TCPIP\_ADAPTER\_IF\_MAX);}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{size\_t}\ broadcast(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{size\_t}\ broadcast(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{size\_t}\ sendTo(\mbox{\hyperlink{class_async_u_d_p_message}{AsyncUDPMessage}}\ \&message,\ \textcolor{keyword}{const}\ ip\_addr\_t\ *addr,\ uint16\_t\ port,\ tcpip\_adapter\_if\_t\ tcpip\_if\ =\ TCPIP\_ADAPTER\_IF\_MAX);}
+\DoxyCodeLine{00146\ \ \ \textcolor{keywordtype}{size\_t}\ sendTo(\mbox{\hyperlink{class_async_u_d_p_message}{AsyncUDPMessage}}\ \&message,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ addr,\ uint16\_t\ port,\ tcpip\_adapter\_if\_t\ tcpip\_if\ =\ TCPIP\_ADAPTER\_IF\_MAX);}
+\DoxyCodeLine{00147\ \ \ \textcolor{keywordtype}{size\_t}\ send(\mbox{\hyperlink{class_async_u_d_p_message}{AsyncUDPMessage}}\ \&message);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \textcolor{keywordtype}{size\_t}\ broadcastTo(\mbox{\hyperlink{class_async_u_d_p_message}{AsyncUDPMessage}}\ \&message,\ uint16\_t\ port,\ tcpip\_adapter\_if\_t\ tcpip\_if\ =\ TCPIP\_ADAPTER\_IF\_MAX);}
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{size\_t}\ broadcast(\mbox{\hyperlink{class_async_u_d_p_message}{AsyncUDPMessage}}\ \&message);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ listenIP();}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#if\ CONFIG\_LWIP\_IPV6}}
+\DoxyCodeLine{00154\ \ \ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ listenIPv6();}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{bool}\ connected();}
+\DoxyCodeLine{00157\ \ \ esp\_err\_t\ lastErr();}
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{operator}\ bool();}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_s\_recv(\textcolor{keywordtype}{void}\ *arg,\ \mbox{\hyperlink{structudp__pcb}{udp\_pcb}}\ *upcb,\ \mbox{\hyperlink{structpbuf}{pbuf}}\ *p,\ \textcolor{keyword}{const}\ ip\_addr\_t\ *addr,\ uint16\_t\ port,\ \textcolor{keyword}{struct}\ netif\ *netif);}
+\DoxyCodeLine{00161\ \};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

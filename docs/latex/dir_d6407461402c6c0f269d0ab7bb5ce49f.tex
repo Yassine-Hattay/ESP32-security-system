@@ -1,0 +1,52 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Insights/examples/\+Diagnostics\+Smoke\+Test Directory Reference}
+\hypertarget{dir_d6407461402c6c0f269d0ab7bb5ce49f}{}\label{dir_d6407461402c6c0f269d0ab7bb5ce49f}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Insights/examples/DiagnosticsSmokeTest Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Insights/examples/DiagnosticsSmokeTest Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{README.md_autotoc_md442}{}\doxysubsection{\texorpdfstring{What to expect in this example?}{What to expect in this example?}}\label{README.md_autotoc_md442}
+
+\begin{DoxyItemize}
+\item This example is expected to exercise the various features of the ESP Insights framework
+\item As a smoke test, this allows you to validate, by a quick perusal of the ESP Insights dashboard, the functioning of all the high-\/level features
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md443}{}\doxysubsection{\texorpdfstring{End-\/to-\/\+End Tests}{End-\/to-\/\+End Tests}}\label{README.md_autotoc_md443}
+\hypertarget{README.md_autotoc_md444}{}\doxysubsubsection{\texorpdfstring{Lifecycle of the test (Hard reset resets the cycle)}{Lifecycle of the test (Hard reset resets the cycle)}}\label{README.md_autotoc_md444}
+
+\begin{DoxyItemize}
+\item Device boots up and logs errors/warnings/events in random order every 10 seconds
+\item Every error/warning/event log with "{}diag\+\_\+smoke"{} tag is associated with an incremental counter
+\item There\textquotesingle{}s a 30/500 probability that device will crash, this is done for verification of crash
+\item Device will crash only five times and hard reset will reset the counter to 1
+\item On sixth boot onwards device will not crash and logs errors/warnings/events and adds heap metrics
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md445}{}\doxysubsubsection{\texorpdfstring{Facilitate the Auth Key}{Facilitate the Auth Key}}\label{README.md_autotoc_md445}
+In this example we will be using the auth key that we downloaded while \href{https://github.com/espressif/esp-insights/tree/main/examples\#set-up-esp-insights-account}{\texttt{ setting up ESP Insights account}}.
+
+Copy Auth Key to the example 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ char\ insights\_auth\_key[]\ =\ "{}<ENTER\ YOUR\ AUTH\ KEY>"{};}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md446}{}\doxysubsubsection{\texorpdfstring{Enter Wi-\/\+Fi Credentials}{Enter Wi-\/\+Fi Credentials}}\label{README.md_autotoc_md446}
+Inside the example sketch, enter your Wi-\/\+Fi credentials in {\ttfamily WIFI\+\_\+\+SSID} and {\ttfamily WIFI\+\_\+\+PASSPHRASE} macros.\hypertarget{README.md_autotoc_md447}{}\doxysubsubsection{\texorpdfstring{Setup}{Setup}}\label{README.md_autotoc_md447}
+
+\begin{DoxyItemize}
+\item Build and flash the sketch and monitor the console
+\item Device will eventually crash after some time
+\item Before every crash you will see below log print 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{E\ (75826)\ diag\_smoke:\ [count][7]\ [crash\_count][1]\ [excvaddr][0x0f]\ Crashing...}
+\DoxyCodeLine{//\ [count][7]:\ count\ associated\ with\ the\ log}
+\DoxyCodeLine{//\ [crash\_count][1]:\ This\ is\ the\ first\ crash\ since\ device\ boot\ up,\ this\ number\ will\ increment\ as\ the\ crash\ count\ increases}
+\DoxyCodeLine{//\ [excvaddr][0x0f]:\ Exception\ vaddr,\ will\ see\ this\ in\ crash\ verification\ part\ below}
+
+\end{DoxyCode}
+
+\item You\textquotesingle{}ll see five crashes(\mbox{[}crash\+\_\+count\mbox{]}\mbox{[}5\mbox{]}) and after that device will not crash and will keep on logging and adding metrics
+\item Onwards this point keep device running for more than 30 minutes
+\item Now we are all set to visit the \href{https://dashboard.insights.espressif.com}{\texttt{ dashboard}}
+\item Select the node-\/id printed on the console, look for the below log. It is printed early when device boots up 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ESP\ Insights\ enabled\ for\ Node\ ID\ -\/-\/-\/-\/-\/\ wx3vEoGgJPk7Rn5JvRUFs9}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}

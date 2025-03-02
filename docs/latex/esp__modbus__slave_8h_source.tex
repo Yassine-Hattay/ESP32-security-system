@@ -1,0 +1,71 @@
+\doxysection{esp\+\_\+modbus\+\_\+slave.\+h}
+\hypertarget{esp__modbus__slave_8h_source}{}\label{esp__modbus__slave_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/common/include/esp\_modbus\_slave.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/common/include/esp\_modbus\_slave.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2016-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ \_ESP\_MB\_SLAVE\_INTERFACE\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ \_ESP\_MB\_SLAVE\_INTERFACE\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ Public\ interface\ header\ for\ slave}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stdint.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ standard\ int\ types\ definition}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <stddef.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ NULL\ and\ std\ defines}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}soc/soc.h"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ BITN\ definitions}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}\ \ \ \ \ \ \textcolor{comment}{//\ for\ task\ creation\ and\ queues\ access}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}freertos/event\_groups.h"{}}\ \ \textcolor{comment}{//\ for\ event\ groups}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}esp\_modbus\_common.h"{}}\ \ \ \ \ \ \textcolor{comment}{//\ for\ common\ types}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MB\_SLAVE\_CHECK(a,\ err\_code,\ format,\ ...)\ MB\_RETURN\_ON\_FALSE(a,\ err\_code,\ TAG,\ format\ \_\_VA\_OPT\_\_(,)\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ MB\_SLAVE\_ASSERT(con)\ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (!(con))\ \{\ ESP\_LOGE(TAG,\ "{}assert\ errno:\%u,\ errno\_str:\ !(\%s)"{},\ (unsigned)errno,\ strerror(errno));\ assert(0\ \&\&\ \#con);\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ (0)}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00032\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structmb__param__info__t_a3030c0fbbd22077bd6f9774e2f020d64}{time\_stamp}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structmb__param__info__t_ac86bcaa0c9dd4bb960f74f471f52b09a}{mb\_offset}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ mb\_event\_group\_t\ \mbox{\hyperlink{structmb__param__info__t_ae41762ec434f58e1ad04d91fc8540878}{type}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ uint8\_t*\ \mbox{\hyperlink{structmb__param__info__t_a5bfcb7684471bdda2e109ae169466e6e}{address}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structmb__param__info__t_a5435357f7110a7b391edbeabd06e9b8b}{size}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \}\ \mbox{\hyperlink{structmb__param__info__t}{mb\_param\_info\_t}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structmb__register__area__descriptor__t_a13ff99638ec700477b7593ff16cf3c6c}{start\_offset}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ mb\_param\_type\_t\ \mbox{\hyperlink{structmb__register__area__descriptor__t_ac1930022864e5a21fd4712271d10aaec}{type}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{structmb__register__area__descriptor__t_a3d9aac85c56ab45a9c700967151ac099}{address}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structmb__register__area__descriptor__t_a41166f68be1576b23d4619de81da1a9d}{size}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \}\ \mbox{\hyperlink{structmb__register__area__descriptor__t}{mb\_register\_area\_descriptor\_t}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00059\ esp\_err\_t\ mbc\_slave\_init\_tcp(\textcolor{keywordtype}{void}**\ handler);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00072\ esp\_err\_t\ mbc\_slave\_init(mb\_port\_type\_t\ port\_type,\ \textcolor{keywordtype}{void}**\ handler);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ mbc\_slave\_init\_iface(\textcolor{keywordtype}{void}*\ handler);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00088\ esp\_err\_t\ mbc\_slave\_destroy(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00097\ esp\_err\_t\ mbc\_slave\_start(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00108\ esp\_err\_t\ mbc\_slave\_setup(\textcolor{keywordtype}{void}*\ comm\_info);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00118\ mb\_event\_group\_t\ mbc\_slave\_check\_event(mb\_event\_group\_t\ group);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00131\ esp\_err\_t\ mbc\_slave\_get\_param\_info(\mbox{\hyperlink{structmb__param__info__t}{mb\_param\_info\_t}}*\ reg\_info,\ uint32\_t\ timeout);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00142\ esp\_err\_t\ mbc\_slave\_set\_descriptor(\mbox{\hyperlink{structmb__register__area__descriptor__t}{mb\_register\_area\_descriptor\_t}}\ descr\_data);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00145\ \}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

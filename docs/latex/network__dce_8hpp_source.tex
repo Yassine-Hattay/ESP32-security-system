@@ -1,0 +1,55 @@
+\doxysection{network\+\_\+dce.\+hpp}
+\hypertarget{network__dce_8hpp_source}{}\label{network__dce_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/test/target\_ota/main/network\_dce.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/test/target\_ota/main/network\_dce.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Unlicense\ OR\ CC0-\/1.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_dte.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_modem\_config.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_api.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_dce\_factory.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_net_module}{NetModule}};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_net_d_c_e___factory}{NetDCE\_Factory}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classesp__modem_1_1dce__factory_1_1_factory}{esp\_modem::dce\_factory::Factory}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ ...Args>}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{auto}\ create(\textcolor{keyword}{const}\ esp\_modem::dce\_factory::config\ *cfg,\ Args\ \&\&...\ args)\ -\/>\ std::shared\_ptr<esp\_modem::DCE\_T<T>>}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ build\_generic\_DCE<T,\ esp\_modem::DCE\_T<T>,\ std::shared\_ptr<esp\_modem::DCE\_T<T>>>(cfg,\ std::forward<Args>(args)...);}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_net_module}{NetModule}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classesp__modem_1_1_module_if}{esp\_modem::ModuleIf}}\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{explicit}\ NetModule(std::shared\_ptr<esp\_modem::DTE>\ dte,\ \textcolor{keyword}{const}\ esp\_modem\_dce\_config\ *cfg):}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ dte(std::move(dte))\ \{\}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_net_module_ace856407a3340083786845f9677c8bc6}{setup\_data\_mode}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_net_module_a17713cf7b6c7f8344de83c50b7b6b5f0}{set\_mode}}(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{esp\_modem::modem\_mode}}\ mode)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00042\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00047\ \ \ \ \ std::shared\_ptr<esp\_modem::DTE>\ dte;}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ std::shared\_ptr<esp\_modem::DCE\_T<NetModule>>\ create(std::shared\_ptr<esp\_modem::DTE>\ dte,\ esp\_netif\_t\ *netif)}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{const}\ esp\_modem::dce\_config\ config\ =\ \{\};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{return}\ NetDCE\_Factory::create<NetModule>(\&config,\ dte,\ netif);}
+\DoxyCodeLine{00055\ \}}
+
+\end{DoxyCode}

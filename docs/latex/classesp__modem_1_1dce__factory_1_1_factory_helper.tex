@@ -1,0 +1,35 @@
+\doxysection{esp\+\_\+modem\+::dce\+\_\+factory\+::Factory\+Helper Class Reference}
+\hypertarget{classesp__modem_1_1dce__factory_1_1_factory_helper}{}\label{classesp__modem_1_1dce__factory_1_1_factory_helper}\index{esp\_modem::dce\_factory::FactoryHelper@{esp\_modem::dce\_factory::FactoryHelper}}
+
+
+Helper class for creating a user define pointer in a specific way, either as a plain pointer, shared\+\_\+ptr or unique\+\_\+ptr.  
+
+
+
+
+{\ttfamily \#include $<$esp\+\_\+modem\+\_\+dce\+\_\+factory.\+hpp$>$}
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classesp__modem_1_1dce__factory_1_1_factory_helper_ab75e895cc5b537a2259c53833b77ef5c}\label{classesp__modem_1_1dce__factory_1_1_factory_helper_ab75e895cc5b537a2259c53833b77ef5c} 
+static std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structesp__modem_1_1_pdp_context}{Pdp\+Context}} $>$ {\bfseries create\+\_\+pdp\+\_\+context} (std\+::string \&apn)
+\item 
+\Hypertarget{classesp__modem_1_1dce__factory_1_1_factory_helper_a45345925df5eae798caae1dd4712938a}\label{classesp__modem_1_1dce__factory_1_1_factory_helper_a45345925df5eae798caae1dd4712938a} 
+{\footnotesize template$<$typename T, typename T\+\_\+\+Ptr, typename ... Args$>$ }\\static auto {\bfseries make} (Args \&\&... args) -\/$>$ typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ T\+\_\+\+Ptr, T \texorpdfstring{$\ast$}{*} $>$\+::value, T \texorpdfstring{$\ast$}{*} $>$\+::type
+\item 
+\Hypertarget{classesp__modem_1_1dce__factory_1_1_factory_helper_a4b3b16986e7f16dde668cdac0774a4a1}\label{classesp__modem_1_1dce__factory_1_1_factory_helper_a4b3b16986e7f16dde668cdac0774a4a1} 
+{\footnotesize template$<$typename T, typename T\+\_\+\+Ptr, typename ... Args$>$ }\\static auto {\bfseries make} (Args \&\&... args) -\/$>$ typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ T\+\_\+\+Ptr, std\+::shared\+\_\+ptr$<$ T $>$ $>$\+::value, std\+::shared\+\_\+ptr$<$ T $>$ $>$\+::type
+\item 
+\Hypertarget{classesp__modem_1_1dce__factory_1_1_factory_helper_af60fe8f8d8a12d9e2b7315ea56aeeba6}\label{classesp__modem_1_1dce__factory_1_1_factory_helper_af60fe8f8d8a12d9e2b7315ea56aeeba6} 
+{\footnotesize template$<$typename T, typename T\+\_\+\+Ptr = std\+::unique\+\_\+ptr$<$\+T$>$, typename ... Args$>$ }\\static auto {\bfseries make} (Args \&\&... args) -\/$>$ typename std\+::enable\+\_\+if$<$ std\+::is\+\_\+same$<$ T\+\_\+\+Ptr, std\+::unique\+\_\+ptr$<$ T $>$ $>$\+::value, std\+::unique\+\_\+ptr$<$ T $>$ $>$\+::type
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Helper class for creating a user define pointer in a specific way, either as a plain pointer, shared\+\_\+ptr or unique\+\_\+ptr. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/include/cxx\+\_\+include/esp\+\_\+modem\+\_\+dce\+\_\+factory.\+hpp\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/src/esp\+\_\+modem\+\_\+factory.\+cpp\end{DoxyCompactItemize}

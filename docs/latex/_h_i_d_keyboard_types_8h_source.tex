@@ -1,0 +1,413 @@
+\doxysection{HIDKeyboard\+Types.\+h}
+\hypertarget{_h_i_d_keyboard_types_8h_source}{}\label{_h_i_d_keyboard_types_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/HIDKeyboardTypes.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/HIDKeyboardTypes.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2015\ mbed.org,\ MIT\ License}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy\ of\ this\ software}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ restriction,\ including\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all\ copies\ or}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ IMPLIED,\ INCLUDING}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ Note:\ this\ file\ was\ pulled\ from\ different\ parts\ of\ the\ USBHID\ library,\ in\ mbed\ SDK}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifndef\ KEYBOARD\_DEFS\_H}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ KEYBOARD\_DEFS\_H}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ REPORT\_ID\_KEYBOARD\ 1}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ REPORT\_ID\_VOLUME\ \ \ 3}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ Modifiers\ */}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{enum}\ MODIFIER\_KEY\ \{}
+\DoxyCodeLine{00029\ \ \ KEY\_CTRL\ =\ 1,}
+\DoxyCodeLine{00030\ \ \ KEY\_SHIFT\ =\ 2,}
+\DoxyCodeLine{00031\ \ \ KEY\_ALT\ =\ 4,}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{enum}\ MEDIA\_KEY\ \{}
+\DoxyCodeLine{00035\ \ \ KEY\_NEXT\_TRACK,\ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ KEY\_PREVIOUS\_TRACK,\ }
+\DoxyCodeLine{00037\ \ \ KEY\_STOP,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ KEY\_PLAY\_PAUSE,\ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ KEY\_MUTE,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ KEY\_VOLUME\_UP,\ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ KEY\_VOLUME\_DOWN,\ \ \ \ }
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{enum}\ FUNCTION\_KEY\ \{}
+\DoxyCodeLine{00045\ \ \ KEY\_F1\ =\ 128,\ \textcolor{comment}{/*\ F1\ key\ */}}
+\DoxyCodeLine{00046\ \ \ KEY\_F2,\ \ \ \ \ \ \ \textcolor{comment}{/*\ F2\ key\ */}}
+\DoxyCodeLine{00047\ \ \ KEY\_F3,\ \ \ \ \ \ \ \textcolor{comment}{/*\ F3\ key\ */}}
+\DoxyCodeLine{00048\ \ \ KEY\_F4,\ \ \ \ \ \ \ \textcolor{comment}{/*\ F4\ key\ */}}
+\DoxyCodeLine{00049\ \ \ KEY\_F5,\ \ \ \ \ \ \ \textcolor{comment}{/*\ F5\ key\ */}}
+\DoxyCodeLine{00050\ \ \ KEY\_F6,\ \ \ \ \ \ \ \textcolor{comment}{/*\ F6\ key\ */}}
+\DoxyCodeLine{00051\ \ \ KEY\_F7,\ \ \ \ \ \ \ \textcolor{comment}{/*\ F7\ key\ */}}
+\DoxyCodeLine{00052\ \ \ KEY\_F8,\ \ \ \ \ \ \ \textcolor{comment}{/*\ F8\ key\ */}}
+\DoxyCodeLine{00053\ \ \ KEY\_F9,\ \ \ \ \ \ \ \textcolor{comment}{/*\ F9\ key\ */}}
+\DoxyCodeLine{00054\ \ \ KEY\_F10,\ \ \ \ \ \ \textcolor{comment}{/*\ F10\ key\ */}}
+\DoxyCodeLine{00055\ \ \ KEY\_F11,\ \ \ \ \ \ \textcolor{comment}{/*\ F11\ key\ */}}
+\DoxyCodeLine{00056\ \ \ KEY\_F12,\ \ \ \ \ \ \textcolor{comment}{/*\ F12\ key\ */}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ KEY\_PRINT\_SCREEN,\ \textcolor{comment}{/*\ Print\ Screen\ key\ */}}
+\DoxyCodeLine{00059\ \ \ KEY\_SCROLL\_LOCK,\ \ \textcolor{comment}{/*\ Scroll\ lock\ */}}
+\DoxyCodeLine{00060\ \ \ KEY\_CAPS\_LOCK,\ \ \ \ \textcolor{comment}{/*\ caps\ lock\ */}}
+\DoxyCodeLine{00061\ \ \ KEY\_NUM\_LOCK,\ \ \ \ \ \textcolor{comment}{/*\ num\ lock\ */}}
+\DoxyCodeLine{00062\ \ \ KEY\_INSERT,\ \ \ \ \ \ \ \textcolor{comment}{/*\ Insert\ key\ */}}
+\DoxyCodeLine{00063\ \ \ KEY\_HOME,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Home\ key\ */}}
+\DoxyCodeLine{00064\ \ \ KEY\_PAGE\_UP,\ \ \ \ \ \ \textcolor{comment}{/*\ Page\ Up\ key\ */}}
+\DoxyCodeLine{00065\ \ \ KEY\_PAGE\_DOWN,\ \ \ \ \textcolor{comment}{/*\ Page\ Down\ key\ */}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ RIGHT\_ARROW,\ \textcolor{comment}{/*\ Right\ arrow\ */}}
+\DoxyCodeLine{00068\ \ \ LEFT\_ARROW,\ \ \textcolor{comment}{/*\ Left\ arrow\ */}}
+\DoxyCodeLine{00069\ \ \ DOWN\_ARROW,\ \ \textcolor{comment}{/*\ Down\ arrow\ */}}
+\DoxyCodeLine{00070\ \ \ UP\_ARROW,\ \ \ \ \textcolor{comment}{/*\ Up\ arrow\ */}}
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ usage;}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ modifier;}
+\DoxyCodeLine{00076\ \}\ \mbox{\hyperlink{struct_k_e_y_m_a_p}{KEYMAP}};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#ifdef\ US\_KEYBOARD}}
+\DoxyCodeLine{00079\ \textcolor{comment}{/*\ US\ keyboard\ (as\ HID\ standard)\ */}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ KEYMAP\_SIZE\ (152)}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_k_e_y_m_a_p}{KEYMAP}}\ keymap[KEYMAP\_SIZE]\ =\ \{}
+\DoxyCodeLine{00082\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ NUL\ */}}
+\DoxyCodeLine{00083\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ SOH\ */}}
+\DoxyCodeLine{00084\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ STX\ */}}
+\DoxyCodeLine{00085\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ ETX\ */}}
+\DoxyCodeLine{00086\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ EOT\ */}}
+\DoxyCodeLine{00087\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ ENQ\ */}}
+\DoxyCodeLine{00088\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ ACK\ */}}
+\DoxyCodeLine{00089\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ BEL\ */}}
+\DoxyCodeLine{00090\ \ \ \{0x2a,\ 0\},}
+\DoxyCodeLine{00091\ \ \ \textcolor{comment}{/*\ BS\ \ */}\ \textcolor{comment}{/*\ Keyboard\ Delete\ (Backspace)\ */}}
+\DoxyCodeLine{00092\ \ \ \{0x2b,\ 0\},}
+\DoxyCodeLine{00093\ \ \ \textcolor{comment}{/*\ TAB\ */}\ \textcolor{comment}{/*\ Keyboard\ Tab\ */}}
+\DoxyCodeLine{00094\ \ \ \{0x28,\ 0\},}
+\DoxyCodeLine{00095\ \ \ \textcolor{comment}{/*\ LF\ \ */}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Keyboard\ Return\ (Enter)\ */}}
+\DoxyCodeLine{00096\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ VT\ \ */}}
+\DoxyCodeLine{00097\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FF\ \ */}}
+\DoxyCodeLine{00098\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CR\ \ */}}
+\DoxyCodeLine{00099\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SO\ \ */}}
+\DoxyCodeLine{00100\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SI\ \ */}}
+\DoxyCodeLine{00101\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DEL\ */}}
+\DoxyCodeLine{00102\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DC1\ */}}
+\DoxyCodeLine{00103\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DC2\ */}}
+\DoxyCodeLine{00104\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DC3\ */}}
+\DoxyCodeLine{00105\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DC4\ */}}
+\DoxyCodeLine{00106\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ NAK\ */}}
+\DoxyCodeLine{00107\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SYN\ */}}
+\DoxyCodeLine{00108\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ETB\ */}}
+\DoxyCodeLine{00109\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CAN\ */}}
+\DoxyCodeLine{00110\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EM\ \ */}}
+\DoxyCodeLine{00111\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SUB\ */}}
+\DoxyCodeLine{00112\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ESC\ */}}
+\DoxyCodeLine{00113\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FS\ \ */}}
+\DoxyCodeLine{00114\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ GS\ \ */}}
+\DoxyCodeLine{00115\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ RS\ \ */}}
+\DoxyCodeLine{00116\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ US\ \ */}}
+\DoxyCodeLine{00117\ \ \ \{0x2c,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \ \ */}}
+\DoxyCodeLine{00118\ \ \ \{0x1e,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ !\ */}}
+\DoxyCodeLine{00119\ \ \ \{0x34,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ "{}\ */}}
+\DoxyCodeLine{00120\ \ \ \{0x20,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \#\ */}}
+\DoxyCodeLine{00121\ \ \ \{0x21,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \$\ */}}
+\DoxyCodeLine{00122\ \ \ \{0x22,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \%\ */}}
+\DoxyCodeLine{00123\ \ \ \{0x24,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \&\ */}}
+\DoxyCodeLine{00124\ \ \ \{0x34,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ '\ */}}
+\DoxyCodeLine{00125\ \ \ \{0x26,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ (\ */}}
+\DoxyCodeLine{00126\ \ \ \{0x27,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ )\ */}}
+\DoxyCodeLine{00127\ \ \ \{0x25,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ *\ */}}
+\DoxyCodeLine{00128\ \ \ \{0x2e,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ +\ */}}
+\DoxyCodeLine{00129\ \ \ \{0x36,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ,\ */}}
+\DoxyCodeLine{00130\ \ \ \{0x2d,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/\ */}}
+\DoxyCodeLine{00131\ \ \ \{0x37,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ .\ */}}
+\DoxyCodeLine{00132\ \ \ \{0x38,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ /\ */}}
+\DoxyCodeLine{00133\ \ \ \{0x27,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 0\ */}}
+\DoxyCodeLine{00134\ \ \ \{0x1e,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 1\ */}}
+\DoxyCodeLine{00135\ \ \ \{0x1f,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 2\ */}}
+\DoxyCodeLine{00136\ \ \ \{0x20,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 3\ */}}
+\DoxyCodeLine{00137\ \ \ \{0x21,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 4\ */}}
+\DoxyCodeLine{00138\ \ \ \{0x22,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 5\ */}}
+\DoxyCodeLine{00139\ \ \ \{0x23,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 6\ */}}
+\DoxyCodeLine{00140\ \ \ \{0x24,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 7\ */}}
+\DoxyCodeLine{00141\ \ \ \{0x25,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 8\ */}}
+\DoxyCodeLine{00142\ \ \ \{0x26,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 9\ */}}
+\DoxyCodeLine{00143\ \ \ \{0x33,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ :\ */}}
+\DoxyCodeLine{00144\ \ \ \{0x33,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ;\ */}}
+\DoxyCodeLine{00145\ \ \ \{0x36,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ <\ */}}
+\DoxyCodeLine{00146\ \ \ \{0x2e,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ =\ */}}
+\DoxyCodeLine{00147\ \ \ \{0x37,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ >\ */}}
+\DoxyCodeLine{00148\ \ \ \{0x38,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ ?\ */}}
+\DoxyCodeLine{00149\ \ \ \{0x1f,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ @\ */}}
+\DoxyCodeLine{00150\ \ \ \{0x04,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ A\ */}}
+\DoxyCodeLine{00151\ \ \ \{0x05,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ B\ */}}
+\DoxyCodeLine{00152\ \ \ \{0x06,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ C\ */}}
+\DoxyCodeLine{00153\ \ \ \{0x07,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ D\ */}}
+\DoxyCodeLine{00154\ \ \ \{0x08,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ E\ */}}
+\DoxyCodeLine{00155\ \ \ \{0x09,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ F\ */}}
+\DoxyCodeLine{00156\ \ \ \{0x0a,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ G\ */}}
+\DoxyCodeLine{00157\ \ \ \{0x0b,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ H\ */}}
+\DoxyCodeLine{00158\ \ \ \{0x0c,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ I\ */}}
+\DoxyCodeLine{00159\ \ \ \{0x0d,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ J\ */}}
+\DoxyCodeLine{00160\ \ \ \{0x0e,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ K\ */}}
+\DoxyCodeLine{00161\ \ \ \{0x0f,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ L\ */}}
+\DoxyCodeLine{00162\ \ \ \{0x10,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ M\ */}}
+\DoxyCodeLine{00163\ \ \ \{0x11,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ N\ */}}
+\DoxyCodeLine{00164\ \ \ \{0x12,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ O\ */}}
+\DoxyCodeLine{00165\ \ \ \{0x13,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ P\ */}}
+\DoxyCodeLine{00166\ \ \ \{0x14,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ Q\ */}}
+\DoxyCodeLine{00167\ \ \ \{0x15,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ R\ */}}
+\DoxyCodeLine{00168\ \ \ \{0x16,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ S\ */}}
+\DoxyCodeLine{00169\ \ \ \{0x17,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ T\ */}}
+\DoxyCodeLine{00170\ \ \ \{0x18,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ U\ */}}
+\DoxyCodeLine{00171\ \ \ \{0x19,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ V\ */}}
+\DoxyCodeLine{00172\ \ \ \{0x1a,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ W\ */}}
+\DoxyCodeLine{00173\ \ \ \{0x1b,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ X\ */}}
+\DoxyCodeLine{00174\ \ \ \{0x1c,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ Y\ */}}
+\DoxyCodeLine{00175\ \ \ \{0x1d,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ Z\ */}}
+\DoxyCodeLine{00176\ \ \ \{0x2f,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ [\ */}}
+\DoxyCodeLine{00177\ \ \ \{0x31,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \(\backslash\)\ */}}
+\DoxyCodeLine{00178\ \ \ \{0x30,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ]\ */}}
+\DoxyCodeLine{00179\ \ \ \{0x23,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \string^\ */}}
+\DoxyCodeLine{00180\ \ \ \{0x2d,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \_\ */}}
+\DoxyCodeLine{00181\ \ \ \{0x35,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \`{}\ */}}
+\DoxyCodeLine{00182\ \ \ \{0x04,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ a\ */}}
+\DoxyCodeLine{00183\ \ \ \{0x05,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ b\ */}}
+\DoxyCodeLine{00184\ \ \ \{0x06,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\ */}}
+\DoxyCodeLine{00185\ \ \ \{0x07,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ d\ */}}
+\DoxyCodeLine{00186\ \ \ \{0x08,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ e\ */}}
+\DoxyCodeLine{00187\ \ \ \{0x09,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ f\ */}}
+\DoxyCodeLine{00188\ \ \ \{0x0a,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ g\ */}}
+\DoxyCodeLine{00189\ \ \ \{0x0b,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ h\ */}}
+\DoxyCodeLine{00190\ \ \ \{0x0c,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ i\ */}}
+\DoxyCodeLine{00191\ \ \ \{0x0d,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ j\ */}}
+\DoxyCodeLine{00192\ \ \ \{0x0e,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ k\ */}}
+\DoxyCodeLine{00193\ \ \ \{0x0f,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ l\ */}}
+\DoxyCodeLine{00194\ \ \ \{0x10,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ m\ */}}
+\DoxyCodeLine{00195\ \ \ \{0x11,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ n\ */}}
+\DoxyCodeLine{00196\ \ \ \{0x12,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ o\ */}}
+\DoxyCodeLine{00197\ \ \ \{0x13,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\ */}}
+\DoxyCodeLine{00198\ \ \ \{0x14,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ q\ */}}
+\DoxyCodeLine{00199\ \ \ \{0x15,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ r\ */}}
+\DoxyCodeLine{00200\ \ \ \{0x16,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ s\ */}}
+\DoxyCodeLine{00201\ \ \ \{0x17,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ t\ */}}
+\DoxyCodeLine{00202\ \ \ \{0x18,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ u\ */}}
+\DoxyCodeLine{00203\ \ \ \{0x19,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ v\ */}}
+\DoxyCodeLine{00204\ \ \ \{0x1a,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ w\ */}}
+\DoxyCodeLine{00205\ \ \ \{0x1b,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ x\ */}}
+\DoxyCodeLine{00206\ \ \ \{0x1c,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ y\ */}}
+\DoxyCodeLine{00207\ \ \ \{0x1d,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ z\ */}}
+\DoxyCodeLine{00208\ \ \ \{0x2f,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \{\ */}}
+\DoxyCodeLine{00209\ \ \ \{0x31,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ |\ */}}
+\DoxyCodeLine{00210\ \ \ \{0x30,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \}\ */}}
+\DoxyCodeLine{00211\ \ \ \{0x35,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \string~\ */}}
+\DoxyCodeLine{00212\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DEL\ */}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \{0x3a,\ 0\},\ \textcolor{comment}{/*\ F1\ */}}
+\DoxyCodeLine{00215\ \ \ \{0x3b,\ 0\},\ \textcolor{comment}{/*\ F2\ */}}
+\DoxyCodeLine{00216\ \ \ \{0x3c,\ 0\},\ \textcolor{comment}{/*\ F3\ */}}
+\DoxyCodeLine{00217\ \ \ \{0x3d,\ 0\},\ \textcolor{comment}{/*\ F4\ */}}
+\DoxyCodeLine{00218\ \ \ \{0x3e,\ 0\},\ \textcolor{comment}{/*\ F5\ */}}
+\DoxyCodeLine{00219\ \ \ \{0x3f,\ 0\},\ \textcolor{comment}{/*\ F6\ */}}
+\DoxyCodeLine{00220\ \ \ \{0x40,\ 0\},\ \textcolor{comment}{/*\ F7\ */}}
+\DoxyCodeLine{00221\ \ \ \{0x41,\ 0\},\ \textcolor{comment}{/*\ F8\ */}}
+\DoxyCodeLine{00222\ \ \ \{0x42,\ 0\},\ \textcolor{comment}{/*\ F9\ */}}
+\DoxyCodeLine{00223\ \ \ \{0x43,\ 0\},\ \textcolor{comment}{/*\ F10\ */}}
+\DoxyCodeLine{00224\ \ \ \{0x44,\ 0\},\ \textcolor{comment}{/*\ F11\ */}}
+\DoxyCodeLine{00225\ \ \ \{0x45,\ 0\},\ \textcolor{comment}{/*\ F12\ */}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \{0x46,\ 0\},\ \textcolor{comment}{/*\ PRINT\_SCREEN\ */}}
+\DoxyCodeLine{00228\ \ \ \{0x47,\ 0\},\ \textcolor{comment}{/*\ SCROLL\_LOCK\ */}}
+\DoxyCodeLine{00229\ \ \ \{0x39,\ 0\},\ \textcolor{comment}{/*\ CAPS\_LOCK\ */}}
+\DoxyCodeLine{00230\ \ \ \{0x53,\ 0\},\ \textcolor{comment}{/*\ NUM\_LOCK\ */}}
+\DoxyCodeLine{00231\ \ \ \{0x49,\ 0\},\ \textcolor{comment}{/*\ INSERT\ */}}
+\DoxyCodeLine{00232\ \ \ \{0x4a,\ 0\},\ \textcolor{comment}{/*\ HOME\ */}}
+\DoxyCodeLine{00233\ \ \ \{0x4b,\ 0\},\ \textcolor{comment}{/*\ PAGE\_UP\ */}}
+\DoxyCodeLine{00234\ \ \ \{0x4e,\ 0\},\ \textcolor{comment}{/*\ PAGE\_DOWN\ */}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \{0x4f,\ 0\},\ \textcolor{comment}{/*\ RIGHT\_ARROW\ */}}
+\DoxyCodeLine{00237\ \ \ \{0x50,\ 0\},\ \textcolor{comment}{/*\ LEFT\_ARROW\ */}}
+\DoxyCodeLine{00238\ \ \ \{0x51,\ 0\},\ \textcolor{comment}{/*\ DOWN\_ARROW\ */}}
+\DoxyCodeLine{00239\ \ \ \{0x52,\ 0\},\ \textcolor{comment}{/*\ UP\_ARROW\ */}}
+\DoxyCodeLine{00240\ \};}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00243\ \textcolor{comment}{/*\ UK\ keyboard\ */}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ KEYMAP\_SIZE\ (152)}}
+\DoxyCodeLine{00245\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_k_e_y_m_a_p}{KEYMAP}}\ keymap[KEYMAP\_SIZE]\ =\ \{}
+\DoxyCodeLine{00246\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ NUL\ */}}
+\DoxyCodeLine{00247\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ SOH\ */}}
+\DoxyCodeLine{00248\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ STX\ */}}
+\DoxyCodeLine{00249\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ ETX\ */}}
+\DoxyCodeLine{00250\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ EOT\ */}}
+\DoxyCodeLine{00251\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ ENQ\ */}}
+\DoxyCodeLine{00252\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ ACK\ */}}
+\DoxyCodeLine{00253\ \ \ \{0,\ 0\},\ \textcolor{comment}{/*\ BEL\ */}}
+\DoxyCodeLine{00254\ \ \ \{0x2a,\ 0\},}
+\DoxyCodeLine{00255\ \ \ \textcolor{comment}{/*\ BS\ \ */}\ \textcolor{comment}{/*\ Keyboard\ Delete\ (Backspace)\ */}}
+\DoxyCodeLine{00256\ \ \ \{0x2b,\ 0\},}
+\DoxyCodeLine{00257\ \ \ \textcolor{comment}{/*\ TAB\ */}\ \textcolor{comment}{/*\ Keyboard\ Tab\ */}}
+\DoxyCodeLine{00258\ \ \ \{0x28,\ 0\},}
+\DoxyCodeLine{00259\ \ \ \textcolor{comment}{/*\ LF\ \ */}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Keyboard\ Return\ (Enter)\ */}}
+\DoxyCodeLine{00260\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ VT\ \ */}}
+\DoxyCodeLine{00261\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FF\ \ */}}
+\DoxyCodeLine{00262\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CR\ \ */}}
+\DoxyCodeLine{00263\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SO\ \ */}}
+\DoxyCodeLine{00264\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SI\ \ */}}
+\DoxyCodeLine{00265\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DEL\ */}}
+\DoxyCodeLine{00266\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DC1\ */}}
+\DoxyCodeLine{00267\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DC2\ */}}
+\DoxyCodeLine{00268\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DC3\ */}}
+\DoxyCodeLine{00269\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DC4\ */}}
+\DoxyCodeLine{00270\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ NAK\ */}}
+\DoxyCodeLine{00271\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SYN\ */}}
+\DoxyCodeLine{00272\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ETB\ */}}
+\DoxyCodeLine{00273\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CAN\ */}}
+\DoxyCodeLine{00274\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EM\ \ */}}
+\DoxyCodeLine{00275\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SUB\ */}}
+\DoxyCodeLine{00276\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ESC\ */}}
+\DoxyCodeLine{00277\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FS\ \ */}}
+\DoxyCodeLine{00278\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ GS\ \ */}}
+\DoxyCodeLine{00279\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ RS\ \ */}}
+\DoxyCodeLine{00280\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ US\ \ */}}
+\DoxyCodeLine{00281\ \ \ \{0x2c,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \ \ */}}
+\DoxyCodeLine{00282\ \ \ \{0x1e,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ !\ */}}
+\DoxyCodeLine{00283\ \ \ \{0x1f,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ "{}\ */}}
+\DoxyCodeLine{00284\ \ \ \{0x32,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \#\ */}}
+\DoxyCodeLine{00285\ \ \ \{0x21,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \$\ */}}
+\DoxyCodeLine{00286\ \ \ \{0x22,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \%\ */}}
+\DoxyCodeLine{00287\ \ \ \{0x24,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \&\ */}}
+\DoxyCodeLine{00288\ \ \ \{0x34,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ '\ */}}
+\DoxyCodeLine{00289\ \ \ \{0x26,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ (\ */}}
+\DoxyCodeLine{00290\ \ \ \{0x27,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ )\ */}}
+\DoxyCodeLine{00291\ \ \ \{0x25,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ *\ */}}
+\DoxyCodeLine{00292\ \ \ \{0x2e,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ +\ */}}
+\DoxyCodeLine{00293\ \ \ \{0x36,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ,\ */}}
+\DoxyCodeLine{00294\ \ \ \{0x2d,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ -\/\ */}}
+\DoxyCodeLine{00295\ \ \ \{0x37,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ .\ */}}
+\DoxyCodeLine{00296\ \ \ \{0x38,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ /\ */}}
+\DoxyCodeLine{00297\ \ \ \{0x27,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 0\ */}}
+\DoxyCodeLine{00298\ \ \ \{0x1e,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 1\ */}}
+\DoxyCodeLine{00299\ \ \ \{0x1f,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 2\ */}}
+\DoxyCodeLine{00300\ \ \ \{0x20,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 3\ */}}
+\DoxyCodeLine{00301\ \ \ \{0x21,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 4\ */}}
+\DoxyCodeLine{00302\ \ \ \{0x22,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 5\ */}}
+\DoxyCodeLine{00303\ \ \ \{0x23,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 6\ */}}
+\DoxyCodeLine{00304\ \ \ \{0x24,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 7\ */}}
+\DoxyCodeLine{00305\ \ \ \{0x25,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 8\ */}}
+\DoxyCodeLine{00306\ \ \ \{0x26,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ 9\ */}}
+\DoxyCodeLine{00307\ \ \ \{0x33,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ :\ */}}
+\DoxyCodeLine{00308\ \ \ \{0x33,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ;\ */}}
+\DoxyCodeLine{00309\ \ \ \{0x36,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ <\ */}}
+\DoxyCodeLine{00310\ \ \ \{0x2e,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ =\ */}}
+\DoxyCodeLine{00311\ \ \ \{0x37,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ >\ */}}
+\DoxyCodeLine{00312\ \ \ \{0x38,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ ?\ */}}
+\DoxyCodeLine{00313\ \ \ \{0x34,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ @\ */}}
+\DoxyCodeLine{00314\ \ \ \{0x04,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ A\ */}}
+\DoxyCodeLine{00315\ \ \ \{0x05,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ B\ */}}
+\DoxyCodeLine{00316\ \ \ \{0x06,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ C\ */}}
+\DoxyCodeLine{00317\ \ \ \{0x07,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ D\ */}}
+\DoxyCodeLine{00318\ \ \ \{0x08,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ E\ */}}
+\DoxyCodeLine{00319\ \ \ \{0x09,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ F\ */}}
+\DoxyCodeLine{00320\ \ \ \{0x0a,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ G\ */}}
+\DoxyCodeLine{00321\ \ \ \{0x0b,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ H\ */}}
+\DoxyCodeLine{00322\ \ \ \{0x0c,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ I\ */}}
+\DoxyCodeLine{00323\ \ \ \{0x0d,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ J\ */}}
+\DoxyCodeLine{00324\ \ \ \{0x0e,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ K\ */}}
+\DoxyCodeLine{00325\ \ \ \{0x0f,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ L\ */}}
+\DoxyCodeLine{00326\ \ \ \{0x10,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ M\ */}}
+\DoxyCodeLine{00327\ \ \ \{0x11,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ N\ */}}
+\DoxyCodeLine{00328\ \ \ \{0x12,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ O\ */}}
+\DoxyCodeLine{00329\ \ \ \{0x13,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ P\ */}}
+\DoxyCodeLine{00330\ \ \ \{0x14,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ Q\ */}}
+\DoxyCodeLine{00331\ \ \ \{0x15,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ R\ */}}
+\DoxyCodeLine{00332\ \ \ \{0x16,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ S\ */}}
+\DoxyCodeLine{00333\ \ \ \{0x17,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ T\ */}}
+\DoxyCodeLine{00334\ \ \ \{0x18,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ U\ */}}
+\DoxyCodeLine{00335\ \ \ \{0x19,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ V\ */}}
+\DoxyCodeLine{00336\ \ \ \{0x1a,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ W\ */}}
+\DoxyCodeLine{00337\ \ \ \{0x1b,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ X\ */}}
+\DoxyCodeLine{00338\ \ \ \{0x1c,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ Y\ */}}
+\DoxyCodeLine{00339\ \ \ \{0x1d,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ Z\ */}}
+\DoxyCodeLine{00340\ \ \ \{0x2f,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ [\ */}}
+\DoxyCodeLine{00341\ \ \ \{0x64,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \(\backslash\)\ */}}
+\DoxyCodeLine{00342\ \ \ \{0x30,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ]\ */}}
+\DoxyCodeLine{00343\ \ \ \{0x23,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \string^\ */}}
+\DoxyCodeLine{00344\ \ \ \{0x2d,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \_\ */}}
+\DoxyCodeLine{00345\ \ \ \{0x35,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \`{}\ */}}
+\DoxyCodeLine{00346\ \ \ \{0x04,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ a\ */}}
+\DoxyCodeLine{00347\ \ \ \{0x05,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ b\ */}}
+\DoxyCodeLine{00348\ \ \ \{0x06,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ c\ */}}
+\DoxyCodeLine{00349\ \ \ \{0x07,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ d\ */}}
+\DoxyCodeLine{00350\ \ \ \{0x08,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ e\ */}}
+\DoxyCodeLine{00351\ \ \ \{0x09,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ f\ */}}
+\DoxyCodeLine{00352\ \ \ \{0x0a,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ g\ */}}
+\DoxyCodeLine{00353\ \ \ \{0x0b,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ h\ */}}
+\DoxyCodeLine{00354\ \ \ \{0x0c,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ i\ */}}
+\DoxyCodeLine{00355\ \ \ \{0x0d,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ j\ */}}
+\DoxyCodeLine{00356\ \ \ \{0x0e,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ k\ */}}
+\DoxyCodeLine{00357\ \ \ \{0x0f,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ l\ */}}
+\DoxyCodeLine{00358\ \ \ \{0x10,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ m\ */}}
+\DoxyCodeLine{00359\ \ \ \{0x11,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ n\ */}}
+\DoxyCodeLine{00360\ \ \ \{0x12,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ o\ */}}
+\DoxyCodeLine{00361\ \ \ \{0x13,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ p\ */}}
+\DoxyCodeLine{00362\ \ \ \{0x14,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ q\ */}}
+\DoxyCodeLine{00363\ \ \ \{0x15,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ r\ */}}
+\DoxyCodeLine{00364\ \ \ \{0x16,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ s\ */}}
+\DoxyCodeLine{00365\ \ \ \{0x17,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ t\ */}}
+\DoxyCodeLine{00366\ \ \ \{0x18,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ u\ */}}
+\DoxyCodeLine{00367\ \ \ \{0x19,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ v\ */}}
+\DoxyCodeLine{00368\ \ \ \{0x1a,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ w\ */}}
+\DoxyCodeLine{00369\ \ \ \{0x1b,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ x\ */}}
+\DoxyCodeLine{00370\ \ \ \{0x1c,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ y\ */}}
+\DoxyCodeLine{00371\ \ \ \{0x1d,\ 0\},\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ z\ */}}
+\DoxyCodeLine{00372\ \ \ \{0x2f,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \{\ */}}
+\DoxyCodeLine{00373\ \ \ \{0x64,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ |\ */}}
+\DoxyCodeLine{00374\ \ \ \{0x30,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \}\ */}}
+\DoxyCodeLine{00375\ \ \ \{0x32,\ KEY\_SHIFT\},\ \textcolor{comment}{/*\ \string~\ */}}
+\DoxyCodeLine{00376\ \ \ \{0,\ 0\},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DEL\ */}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \{0x3a,\ 0\},\ \textcolor{comment}{/*\ F1\ */}}
+\DoxyCodeLine{00379\ \ \ \{0x3b,\ 0\},\ \textcolor{comment}{/*\ F2\ */}}
+\DoxyCodeLine{00380\ \ \ \{0x3c,\ 0\},\ \textcolor{comment}{/*\ F3\ */}}
+\DoxyCodeLine{00381\ \ \ \{0x3d,\ 0\},\ \textcolor{comment}{/*\ F4\ */}}
+\DoxyCodeLine{00382\ \ \ \{0x3e,\ 0\},\ \textcolor{comment}{/*\ F5\ */}}
+\DoxyCodeLine{00383\ \ \ \{0x3f,\ 0\},\ \textcolor{comment}{/*\ F6\ */}}
+\DoxyCodeLine{00384\ \ \ \{0x40,\ 0\},\ \textcolor{comment}{/*\ F7\ */}}
+\DoxyCodeLine{00385\ \ \ \{0x41,\ 0\},\ \textcolor{comment}{/*\ F8\ */}}
+\DoxyCodeLine{00386\ \ \ \{0x42,\ 0\},\ \textcolor{comment}{/*\ F9\ */}}
+\DoxyCodeLine{00387\ \ \ \{0x43,\ 0\},\ \textcolor{comment}{/*\ F10\ */}}
+\DoxyCodeLine{00388\ \ \ \{0x44,\ 0\},\ \textcolor{comment}{/*\ F11\ */}}
+\DoxyCodeLine{00389\ \ \ \{0x45,\ 0\},\ \textcolor{comment}{/*\ F12\ */}}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \{0x46,\ 0\},\ \textcolor{comment}{/*\ PRINT\_SCREEN\ */}}
+\DoxyCodeLine{00392\ \ \ \{0x47,\ 0\},\ \textcolor{comment}{/*\ SCROLL\_LOCK\ */}}
+\DoxyCodeLine{00393\ \ \ \{0x39,\ 0\},\ \textcolor{comment}{/*\ CAPS\_LOCK\ */}}
+\DoxyCodeLine{00394\ \ \ \{0x53,\ 0\},\ \textcolor{comment}{/*\ NUM\_LOCK\ */}}
+\DoxyCodeLine{00395\ \ \ \{0x49,\ 0\},\ \textcolor{comment}{/*\ INSERT\ */}}
+\DoxyCodeLine{00396\ \ \ \{0x4a,\ 0\},\ \textcolor{comment}{/*\ HOME\ */}}
+\DoxyCodeLine{00397\ \ \ \{0x4b,\ 0\},\ \textcolor{comment}{/*\ PAGE\_UP\ */}}
+\DoxyCodeLine{00398\ \ \ \{0x4e,\ 0\},\ \textcolor{comment}{/*\ PAGE\_DOWN\ */}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \{0x4f,\ 0\},\ \textcolor{comment}{/*\ RIGHT\_ARROW\ */}}
+\DoxyCodeLine{00401\ \ \ \{0x50,\ 0\},\ \textcolor{comment}{/*\ LEFT\_ARROW\ */}}
+\DoxyCodeLine{00402\ \ \ \{0x51,\ 0\},\ \textcolor{comment}{/*\ DOWN\_ARROW\ */}}
+\DoxyCodeLine{00403\ \ \ \{0x52,\ 0\},\ \textcolor{comment}{/*\ UP\_ARROW\ */}}
+\DoxyCodeLine{00404\ \};}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

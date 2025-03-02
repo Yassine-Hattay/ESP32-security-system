@@ -1,0 +1,170 @@
+\doxysection{blake2b-\/load-\/sse2.h}
+\hypertarget{blake2b-load-sse2_8h_source}{}\label{blake2b-load-sse2_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_generichash/blake2b/ref/blake2b-\/load-\/sse2.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_generichash/blake2b/ref/blake2b-\/load-\/sse2.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ BLAKE2\ reference\ source\ code\ package\ -\/\ optimized\ C\ implementations}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ \ Written\ in\ 2012\ by\ Samuel\ Neves\ <sneves@dei.uc.pt>}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ To\ the\ extent\ possible\ under\ law,\ the\ author(s)\ have\ dedicated\ all\ copyright}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ and\ related\ and\ neighboring\ rights\ to\ this\ software\ to\ the\ public\ domain}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ worldwide.\ This\ software\ is\ distributed\ without\ any\ warranty.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ CC0\ Public\ Domain\ Dedication\ along}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ with}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ this\ software.\ If\ not,\ see}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ <http://creativecommons.org/publicdomain/zero/1.0/>.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ blake2b\_load\_sse2\_H}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ blake2b\_load\_sse2\_H}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_0\_1(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m2,\ m0);\ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m6,\ m4)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_0\_2(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m3,\ m1);\ \(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m7,\ m5)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_0\_3(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m10,\ m8);\ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m14,\ m12)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_0\_4(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m11,\ m9);\ \(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m15,\ m13)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_1\_1(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m4,\ m14);\ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m13,\ m9)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_1\_2(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m8,\ m10);\ \(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m6,\ m15)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_1\_3(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m0,\ m1);\ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m5,\ m11)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_1\_4(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m2,\ m12);\ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m3,\ m7)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_2\_1(b0,\ b1)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m12,\ m11);\ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m15,\ m5)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_2\_2(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m0,\ m8);\ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m13,\ m2)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_2\_3(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m3,\ m10);\ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m9,\ m7)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_2\_4(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m6,\ m14);\ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m4,\ m1)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_3\_1(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m3,\ m7);\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m11,\ m13)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_3\_2(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m1,\ m9);\ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m14,\ m12)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_3\_3(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m5,\ m2);\ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m15,\ m4)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_3\_4(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m10,\ m6);\ \(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m8,\ m0)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_4\_1(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m5,\ m9);\ \(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m10,\ m2)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_4\_2(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m7,\ m0);\ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m15,\ m4)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_4\_3(b0,\ b1)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m11,\ m14);\ \(\backslash\)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m3,\ m6)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_4\_4(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m12,\ m1);\ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m13,\ m8)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_5\_1(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m6,\ m2);\ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m8,\ m0)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_5\_2(b0,\ b1)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m10,\ m12);\ \(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m3,\ m11)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_5\_3(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m7,\ m4);\ \(\backslash\)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m1,\ m15)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_5\_4(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m5,\ m13);\ \(\backslash\)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m9,\ m14)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_6\_1(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m1,\ m12);\ \(\backslash\)}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m4,\ m14)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_6\_2(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m15,\ m5);\ \(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m10,\ m13)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_6\_3(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m6,\ m0);\ \(\backslash\)}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m8,\ m9)}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_6\_4(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m3,\ m7);\ \(\backslash\)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m11,\ m2)}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_7\_1(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m7,\ m13);\ \(\backslash\)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m3,\ m12)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_7\_2(b0,\ b1)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m14,\ m11);\ \(\backslash\)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m9,\ m1)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_7\_3(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m15,\ m5);\ \(\backslash\)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m2,\ m8)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_7\_4(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m4,\ m0);\ \(\backslash\)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m10,\ m6)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_8\_1(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m14,\ m6);\ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m0,\ m11)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_8\_2(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m9,\ m15);\ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m8,\ m3)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_8\_3(b0,\ b1)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m13,\ m12);\ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m10,\ m1)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_8\_4(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m7,\ m2);\ \(\backslash\)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m5,\ m4)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_9\_1(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m8,\ m10);\ \(\backslash\)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m1,\ m7)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_9\_2(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m4,\ m2);\ \(\backslash\)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m5,\ m6)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_9\_3(b0,\ b1)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m9,\ m15);\ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m13,\ m3)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_9\_4(b0,\ b1)\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m14,\ m11);\ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m0,\ m12)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_10\_1(b0,\ b1)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m2,\ m0);\ \(\backslash\)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m6,\ m4)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_10\_2(b0,\ b1)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m3,\ m1);\ \(\backslash\)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m7,\ m5)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_10\_3(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m10,\ m8);\ \(\backslash\)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m14,\ m12)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_10\_4(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m11,\ m9);\ \(\backslash\)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m15,\ m13)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_11\_1(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m4,\ m14);\ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m13,\ m9)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_11\_2(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m8,\ m10);\ \(\backslash\)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m6,\ m15)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_11\_3(b0,\ b1)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m0,\ m1);\ \(\backslash\)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m5,\ m11)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ LOAD\_MSG\_11\_4(b0,\ b1)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ \ \ b0\ =\ \_mm\_set\_epi64x(m2,\ m12);\ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ \ \ b1\ =\ \_mm\_set\_epi64x(m3,\ m7)}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

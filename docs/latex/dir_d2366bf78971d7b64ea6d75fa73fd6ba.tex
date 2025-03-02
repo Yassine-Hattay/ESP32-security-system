@@ -1,0 +1,22 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/examples/modem\+\_\+tcp\+\_\+client Directory Reference}
+\hypertarget{dir_d2366bf78971d7b64ea6d75fa73fd6ba}{}\label{dir_d2366bf78971d7b64ea6d75fa73fd6ba}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/examples/modem\_tcp\_client Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/examples/modem\_tcp\_client Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_e340ad87c91055ad9c1b1c6d1de09530}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+(See the README.\+md file in the upper level \textquotesingle{}examples\textquotesingle{} directory for more information about examples.)\hypertarget{README.md_autotoc_md1224}{}\doxysubsection{\texorpdfstring{Overview}{Overview}}\label{README.md_autotoc_md1224}
+This example demonstrates how to act as a MQTT client using modem\textquotesingle{}s TCP commands (provided, the device supports "{}socket"{} related commands)
+
+This example could be used in two different configurations\+: 1) Custom TCP transport\+: Implements a TCP transport in form of AT commands and uses it as custom transport for mqtt client. 2) Localhost listener\+: Uses standard transports to connect and forwards socket layer data from the client to the modem using AT commands.\hypertarget{README.md_autotoc_md1225}{}\doxysubsubsection{\texorpdfstring{Custom TCP transport}{Custom TCP transport}}\label{README.md_autotoc_md1225}
+This configuration expects that the network library, that is used to communicate with the endpoint uses {\ttfamily tcp\+\_\+transport} component. In this example, we use {\ttfamily esp-\/mqtt} which supports custom transports so that we can implement a transport layer that communicate on TCP layer using AT commands. If we want to use TLS, we could add an SSL layer on top of this TCP layer.
+
+To enable this mode, please set {\ttfamily EXAMPLE\+\_\+\+CUSTOM\+\_\+\+TCP\+\_\+\+TRANSPORT=y}
+
+\hypertarget{README.md_autotoc_md1226}{}\doxysubsubsection{\texorpdfstring{Localhost listener}{Localhost listener}}\label{README.md_autotoc_md1226}
+This configuration could be used with any network library, which is connecting to a localhost endpoint instead of remote one. This example creates a localhost listener which basically mimics the remote endpoint by forwarding the traffic between the library and the TCP/socket layer of the modem (which is already secure if the TLS is used in the network library)
+
+ 

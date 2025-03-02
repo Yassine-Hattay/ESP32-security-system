@@ -1,0 +1,126 @@
+\doxysection{BLEServer.\+h}
+\hypertarget{_b_l_e_server_8h_source}{}\label{_b_l_e_server_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/BLEServer.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/BLEServer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ BLEServer.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Apr\ 16,\ 2017}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ kolban}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ COMPONENTS\_CPP\_UTILS\_BLESERVER\_H\_}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ COMPONENTS\_CPP\_UTILS\_BLESERVER\_H\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#if\ SOC\_BLE\_SUPPORTED}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_BLUEDROID\_ENABLED)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <esp\_gatts\_api.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \#include\ "{}BLEDevice.h"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}BLEUUID.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}BLEAdvertising.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}BLECharacteristic.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}BLEService.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}BLESecurity.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}RTOS.h"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}BLEAddress.h"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }BLEServerCallbacks;}
+\DoxyCodeLine{00030\ \textcolor{comment}{/*\ TODO\ possibly\ refactor\ this\ struct\ */}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{void}\ *peer\_device;\ \ \textcolor{comment}{//\ peer\ device\ BLEClient\ or\ BLEServer\ -\/\ maybe\ its\ better\ to\ have\ 2\ structures\ or\ union\ here}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{bool}\ connected;\ \ \ \ \ \textcolor{comment}{//\ do\ we\ need\ it?}}
+\DoxyCodeLine{00034\ \ \ uint16\_t\ mtu;\ \ \ \ \ \ \ \textcolor{comment}{//\ every\ peer\ device\ negotiate\ own\ mtu}}
+\DoxyCodeLine{00035\ \}\ conn\_status\_t;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }BLEServiceMap\ \{}
+\DoxyCodeLine{00041\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ \ \ BLEService\ *getByHandle(uint16\_t\ handle);}
+\DoxyCodeLine{00043\ \ \ BLEService\ *getByUUID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *uuid);}
+\DoxyCodeLine{00044\ \ \ BLEService\ *getByUUID(BLEUUID\ uuid,\ uint8\_t\ inst\_id\ =\ 0);}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{void}\ handleGATTServerEvent(esp\_gatts\_cb\_event\_t\ event,\ esp\_gatt\_if\_t\ gatts\_if,\ esp\_ble\_gatts\_cb\_param\_t\ *param);}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{void}\ setByHandle(uint16\_t\ handle,\ BLEService\ *service);}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{void}\ setByUUID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *uuid,\ BLEService\ *service);}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ setByUUID(BLEUUID\ uuid,\ BLEService\ *service);}
+\DoxyCodeLine{00049\ \ \ String\ toString();}
+\DoxyCodeLine{00050\ \ \ BLEService\ *getFirst();}
+\DoxyCodeLine{00051\ \ \ BLEService\ *getNext();}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{void}\ removeService(BLEService\ *service);}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{int}\ getRegisteredServiceCount();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00056\ \ \ std::map<uint16\_t,\ BLEService\ *>\ m\_handleMap;}
+\DoxyCodeLine{00057\ \ \ std::map<BLEService\ *,\ String>\ m\_uuidMap;}
+\DoxyCodeLine{00058\ \ \ std::map<BLEService\ *,\ String>::iterator\ m\_iterator;}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{class\ }BLEServer\ \{}
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ uint32\_t\ getConnectedCount();}
+\DoxyCodeLine{00067\ \ \ BLEService\ *createService(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *uuid);}
+\DoxyCodeLine{00068\ \ \ BLEService\ *createService(BLEUUID\ uuid,\ uint32\_t\ numHandles\ =\ 15,\ uint8\_t\ inst\_id\ =\ 0);}
+\DoxyCodeLine{00069\ \ \ BLEAdvertising\ *getAdvertising();}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{void}\ setCallbacks(BLEServerCallbacks\ *pCallbacks);}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{void}\ startAdvertising();}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ removeService(BLEService\ *service);}
+\DoxyCodeLine{00073\ \ \ BLEService\ *getServiceByUUID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *uuid);}
+\DoxyCodeLine{00074\ \ \ BLEService\ *getServiceByUUID(BLEUUID\ uuid);}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{bool}\ connect(BLEAddress\ address);}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{void}\ disconnect(uint16\_t\ connId);}
+\DoxyCodeLine{00077\ \ \ uint16\_t\ m\_appId;}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ updateConnParams(esp\_bd\_addr\_t\ remote\_bda,\ uint16\_t\ minInterval,\ uint16\_t\ maxInterval,\ uint16\_t\ latency,\ uint16\_t\ timeout);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{/*\ multi\ connection\ support\ */}}
+\DoxyCodeLine{00081\ \ \ std::map<uint16\_t,\ conn\_status\_t>\ getPeerDevices(\textcolor{keywordtype}{bool}\ client);}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{void}\ addPeerDevice(\textcolor{keywordtype}{void}\ *peer,\ \textcolor{keywordtype}{bool}\ is\_client,\ uint16\_t\ conn\_id);}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{bool}\ removePeerDevice(uint16\_t\ conn\_id,\ \textcolor{keywordtype}{bool}\ client);}
+\DoxyCodeLine{00084\ \ \ BLEServer\ *getServerByConnId(uint16\_t\ conn\_id);}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{void}\ updatePeerMTU(uint16\_t\ connId,\ uint16\_t\ mtu);}
+\DoxyCodeLine{00086\ \ \ uint16\_t\ getPeerMTU(uint16\_t\ conn\_id);}
+\DoxyCodeLine{00087\ \ \ uint16\_t\ getConnId();}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00090\ \ \ BLEServer();}
+\DoxyCodeLine{00091\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }BLEService;}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }BLECharacteristic;}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }BLEDevice;}
+\DoxyCodeLine{00094\ \ \ esp\_ble\_adv\_data\_t\ m\_adv\_data;}
+\DoxyCodeLine{00095\ \ \ \textcolor{comment}{//\ BLEAdvertising\ \ \ \ \ \ m\_bleAdvertising;}}
+\DoxyCodeLine{00096\ \ \ uint16\_t\ m\_connId;}
+\DoxyCodeLine{00097\ \ \ uint32\_t\ m\_connectedCount;}
+\DoxyCodeLine{00098\ \ \ uint16\_t\ m\_gatts\_if;}
+\DoxyCodeLine{00099\ \ \ std::map<uint16\_t,\ conn\_status\_t>\ m\_connectedServersMap;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ FreeRTOS::Semaphore\ m\_semaphoreRegisterAppEvt\ =\ FreeRTOS::Semaphore(\textcolor{stringliteral}{"{}RegisterAppEvt"{}});}
+\DoxyCodeLine{00102\ \ \ FreeRTOS::Semaphore\ m\_semaphoreCreateEvt\ =\ FreeRTOS::Semaphore(\textcolor{stringliteral}{"{}CreateEvt"{}});}
+\DoxyCodeLine{00103\ \ \ FreeRTOS::Semaphore\ m\_semaphoreOpenEvt\ =\ FreeRTOS::Semaphore(\textcolor{stringliteral}{"{}OpenEvt"{}});}
+\DoxyCodeLine{00104\ \ \ BLEServiceMap\ m\_serviceMap;}
+\DoxyCodeLine{00105\ \ \ BLEServerCallbacks\ *m\_pServerCallbacks\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{void}\ createApp(uint16\_t\ appId);}
+\DoxyCodeLine{00108\ \ \ uint16\_t\ getGattsIf();}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{void}\ handleGATTServerEvent(esp\_gatts\_cb\_event\_t\ event,\ esp\_gatt\_if\_t\ gatts\_if,\ esp\_ble\_gatts\_cb\_param\_t\ *param);}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{void}\ registerApp(uint16\_t);}
+\DoxyCodeLine{00111\ \};\ \ \textcolor{comment}{//\ BLEServer}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{class\ }BLEServerCallbacks\ \{}
+\DoxyCodeLine{00117\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00118\ \ \ \textcolor{keyword}{virtual}\ \string~BLEServerCallbacks()\{\};}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onConnect(BLEServer\ *pServer);}
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onConnect(BLEServer\ *pServer,\ esp\_ble\_gatts\_cb\_param\_t\ *param);}
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onDisconnect(BLEServer\ *pServer);}
+\DoxyCodeLine{00136\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onDisconnect(BLEServer\ *pServer,\ esp\_ble\_gatts\_cb\_param\_t\ *param);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onMtuChanged(BLEServer\ *pServer,\ esp\_ble\_gatts\_cb\_param\_t\ *param);}
+\DoxyCodeLine{00147\ \};\ \ \textcolor{comment}{//\ BLEServerCallbacks}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_BLUEDROID\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_BLE\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ COMPONENTS\_CPP\_UTILS\_BLESERVER\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

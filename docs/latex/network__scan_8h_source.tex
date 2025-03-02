@@ -1,0 +1,97 @@
+\doxysection{network\+\_\+scan.\+h}
+\hypertarget{network__scan_8h_source}{}\label{network__scan_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_network\_provisioning/include/network\_provisioning/network\_scan.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_network\_provisioning/include/network\_provisioning/network\_scan.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2019-\/2024\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ \_PROV\_NETWORK\_SCAN\_H\_}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ \_PROV\_NETWORK\_SCAN\_H\_}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <sdkconfig.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_WIFI}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <esp\_wifi.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ WIFI\_SSID\_LEN\ \ sizeof(((wifi\_ap\_record\_t\ *)0)-\/>ssid)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ WIFI\_BSSID\_LEN\ sizeof(((wifi\_ap\_record\_t\ *)0)-\/>bssid)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_WIFI}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_THREAD}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <openthread/dataset.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <openthread/platform/radio.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_THREAD}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }network\_prov\_scan\_ctx\ network\_prov\_scan\_ctx\_t;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_WIFI}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{char}\ ssid[WIFI\_SSID\_LEN];}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordtype}{char}\ bssid[WIFI\_BSSID\_LEN];}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ \ \ \ \ uint8\_t\ channel;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ rssi;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ \ \ \ \ uint8\_t\ auth;}
+\DoxyCodeLine{00064\ \}\ network\_prov\_scan\_wifi\_result\_t;}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_WIFI}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_THREAD}}
+\DoxyCodeLine{00068\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00069\ \ \ \ \ uint16\_t\ pan\_id;}
+\DoxyCodeLine{00070\ \ \ \ \ uint8\_t\ ext\_pan\_id[OT\_EXT\_ADDRESS\_SIZE];}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{char}\ network\_name[OT\_NETWORK\_NAME\_MAX\_SIZE\ +\ 1];}
+\DoxyCodeLine{00072\ \ \ \ \ uint16\_t\ channel;}
+\DoxyCodeLine{00073\ \ \ \ \ uint8\_t\ ext\_addr[OT\_EXT\_ADDRESS\_SIZE];}
+\DoxyCodeLine{00074\ \ \ \ \ int8\_t\ rssi;}
+\DoxyCodeLine{00075\ \ \ \ \ uint8\_t\ lqi;}
+\DoxyCodeLine{00076\ \}\ network\_prov\_scan\_thread\_result\_t;}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_THREAD}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structnetwork__prov__scan__handlers}{network\_prov\_scan\_handlers}}\ \{}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_WIFI}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00125\ \ \ \ \ esp\_err\_t\ (*wifi\_scan\_start)(\textcolor{keywordtype}{bool}\ blocking,\ \textcolor{keywordtype}{bool}\ passive,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ group\_channels,\ uint32\_t\ period\_ms,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_prov\_scan\_ctx\_t\ **\mbox{\hyperlink{structnetwork__prov__scan__handlers_ab3ec4cadfa0714141d848d5f8fa79326}{ctx}});}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00139\ \ \ \ \ esp\_err\_t\ (*wifi\_scan\_status)(\textcolor{keywordtype}{bool}\ *scan\_finished,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ *result\_count,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_prov\_scan\_ctx\_t\ **\mbox{\hyperlink{structnetwork__prov__scan__handlers_ab3ec4cadfa0714141d848d5f8fa79326}{ctx}});}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00157\ \ \ \ \ esp\_err\_t\ (*wifi\_scan\_result)(uint16\_t\ result\_index,}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_prov\_scan\_wifi\_result\_t\ *result,}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_prov\_scan\_ctx\_t\ **\mbox{\hyperlink{structnetwork__prov__scan__handlers_ab3ec4cadfa0714141d848d5f8fa79326}{ctx}});}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_WIFI}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_THREAD}}
+\DoxyCodeLine{00163\ \ \ \ \ esp\_err\_t\ (*thread\_scan\_start)(\textcolor{keywordtype}{bool}\ blocking,\ uint32\_t\ channel\_mask,\ network\_prov\_scan\_ctx\_t\ **\mbox{\hyperlink{structnetwork__prov__scan__handlers_ab3ec4cadfa0714141d848d5f8fa79326}{ctx}});}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ esp\_err\_t\ (*thread\_scan\_status)(\textcolor{keywordtype}{bool}\ *scan\_finished,}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ *result\_count,}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_prov\_scan\_ctx\_t\ **\mbox{\hyperlink{structnetwork__prov__scan__handlers_ab3ec4cadfa0714141d848d5f8fa79326}{ctx}});}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ esp\_err\_t\ (*thread\_scan\_result)(uint16\_t\ result\_index,}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_prov\_scan\_thread\_result\_t\ *result,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ network\_prov\_scan\_ctx\_t\ **\mbox{\hyperlink{structnetwork__prov__scan__handlers_ab3ec4cadfa0714141d848d5f8fa79326}{ctx}});}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_THREAD}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00177\ \ \ \ \ network\_prov\_scan\_ctx\_t\ *\mbox{\hyperlink{structnetwork__prov__scan__handlers_ab3ec4cadfa0714141d848d5f8fa79326}{ctx}};}
+\DoxyCodeLine{00178\ \}\ network\_prov\_scan\_handlers\_t;}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00186\ esp\_err\_t\ network\_prov\_scan\_handler(uint32\_t\ session\_id,\ \textcolor{keyword}{const}\ uint8\_t\ *inbuf,\ ssize\_t\ inlen,}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ **outbuf,\ ssize\_t\ *outlen,\ \textcolor{keywordtype}{void}\ *priv\_data);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00190\ \}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,128 @@
+\doxysection{USB.\+h}
+\hypertarget{_u_s_b_8h_source}{}\label{_u_s_b_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/USB.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/USB.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2020\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#if\ SOC\_USB\_OTG\_SUPPORTED}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ CONFIG\_TINYUSB\_ENABLED}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}esp\_event.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}USBCDC.h"{}}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ ARDUINO\_USB\_ON\_BOOT\ (ARDUINO\_USB\_CDC\_ON\_BOOT\ |\ ARDUINO\_USB\_MSC\_ON\_BOOT\ |\ ARDUINO\_USB\_DFU\_ON\_BOOT)}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ ESP\_EVENT\_DECLARE\_BASE(ARDUINO\_USB\_EVENTS);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00030\ \ \ ARDUINO\_USB\_ANY\_EVENT\ =\ ESP\_EVENT\_ANY\_ID,}
+\DoxyCodeLine{00031\ \ \ ARDUINO\_USB\_STARTED\_EVENT\ =\ 0,}
+\DoxyCodeLine{00032\ \ \ ARDUINO\_USB\_STOPPED\_EVENT,}
+\DoxyCodeLine{00033\ \ \ ARDUINO\_USB\_SUSPEND\_EVENT,}
+\DoxyCodeLine{00034\ \ \ ARDUINO\_USB\_RESUME\_EVENT,}
+\DoxyCodeLine{00035\ \ \ ARDUINO\_USB\_MAX\_EVENT,}
+\DoxyCodeLine{00036\ \}\ arduino\_usb\_event\_t;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ remote\_wakeup\_en;}
+\DoxyCodeLine{00041\ \ \ \}\ suspend;}
+\DoxyCodeLine{00042\ \}\ arduino\_usb\_event\_data\_t;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }ESPUSB\ \{}
+\DoxyCodeLine{00045\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ ESPUSB(\textcolor{keywordtype}{size\_t}\ event\_task\_stack\_size\ =\ 2048,\ uint8\_t\ event\_task\_priority\ =\ 5);}
+\DoxyCodeLine{00047\ \ \ \string~ESPUSB();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{void}\ onEvent(esp\_event\_handler\_t\ callback);}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{void}\ onEvent(arduino\_usb\_event\_t\ event,\ esp\_event\_handler\_t\ callback);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{bool}\ VID(uint16\_t\ v);}
+\DoxyCodeLine{00053\ \ \ uint16\_t\ VID(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{bool}\ PID(uint16\_t\ p);}
+\DoxyCodeLine{00056\ \ \ uint16\_t\ PID(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{bool}\ firmwareVersion(uint16\_t\ version);}
+\DoxyCodeLine{00059\ \ \ uint16\_t\ firmwareVersion(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{bool}\ usbVersion(uint16\_t\ version);}
+\DoxyCodeLine{00062\ \ \ uint16\_t\ usbVersion(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{bool}\ usbPower(uint16\_t\ mA);}
+\DoxyCodeLine{00065\ \ \ uint16\_t\ usbPower(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{bool}\ usbClass(uint8\_t\ \_class);}
+\DoxyCodeLine{00068\ \ \ uint8\_t\ usbClass(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ usbSubClass(uint8\_t\ subClass);}
+\DoxyCodeLine{00071\ \ \ uint8\_t\ usbSubClass(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{bool}\ usbProtocol(uint8\_t\ protocol);}
+\DoxyCodeLine{00074\ \ \ uint8\_t\ usbProtocol(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{bool}\ usbAttributes(uint8\_t\ attr);}
+\DoxyCodeLine{00077\ \ \ uint8\_t\ usbAttributes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{bool}\ webUSB(\textcolor{keywordtype}{bool}\ enabled);}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{bool}\ webUSB(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{bool}\ productName(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *productName(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{bool}\ manufacturerName(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *manufacturerName(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{bool}\ serialNumber(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *serialNumber(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{bool}\ webUSBURL(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *webUSBURL(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ enableDFU();}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{bool}\ begin();}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{operator}\ bool()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00099\ \ \ uint16\_t\ vid;}
+\DoxyCodeLine{00100\ \ \ uint16\_t\ pid;}
+\DoxyCodeLine{00101\ \ \ String\ product\_name;}
+\DoxyCodeLine{00102\ \ \ String\ manufacturer\_name;}
+\DoxyCodeLine{00103\ \ \ String\ serial\_number;}
+\DoxyCodeLine{00104\ \ \ uint16\_t\ fw\_version;}
+\DoxyCodeLine{00105\ \ \ uint16\_t\ usb\_version;}
+\DoxyCodeLine{00106\ \ \ uint8\_t\ usb\_class;}
+\DoxyCodeLine{00107\ \ \ uint8\_t\ usb\_subclass;}
+\DoxyCodeLine{00108\ \ \ uint8\_t\ usb\_protocol;}
+\DoxyCodeLine{00109\ \ \ uint8\_t\ usb\_attributes;}
+\DoxyCodeLine{00110\ \ \ uint16\_t\ usb\_power\_ma;}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{bool}\ webusb\_enabled;}
+\DoxyCodeLine{00112\ \ \ String\ webusb\_url;}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{bool}\ \_started;}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{size\_t}\ \_task\_stack\_size;}
+\DoxyCodeLine{00116\ \ \ uint8\_t\ \_event\_task\_priority;}
+\DoxyCodeLine{00117\ \};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{extern}\ ESPUSB\ USB;}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_TINYUSB\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_USB\_OTG\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

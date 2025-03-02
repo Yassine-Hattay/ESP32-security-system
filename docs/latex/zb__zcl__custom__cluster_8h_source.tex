@@ -1,0 +1,438 @@
+\doxysection{zb\+\_\+zcl\+\_\+custom\+\_\+cluster.\+h}
+\hypertarget{zb__zcl__custom__cluster_8h_source}{}\label{zb__zcl__custom__cluster_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_custom\_cluster.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_custom\_cluster.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Time\ cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_CUSTOM\_ATTR\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_ATTR\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_common.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_commands.h"{}}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_CUSTOM\ 0x1A0A}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ZB\_CUSTOM\_DEVICE\_ID\ 0x29A}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ZB\_CUSTOM\_DEVICE\_VERSION\ 6}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{enum}\ zb\_zcl\_custom\_cluster\_attr\_e}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00067\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_U8\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0001,}
+\DoxyCodeLine{00068\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_S16\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0002,}
+\DoxyCodeLine{00069\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_24BIT\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0003,}
+\DoxyCodeLine{00070\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_32BITMAP\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0004,}
+\DoxyCodeLine{00071\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_IEEE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0005,}
+\DoxyCodeLine{00072\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_CHAR\_STRING\_ID\ \ \ \ \ \ \ =\ 0x0006,}
+\DoxyCodeLine{00073\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_UTC\_TIME\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0007,}
+\DoxyCodeLine{00074\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_OCTET\_STRING\_ID\ \ \ \ \ \ =\ 0x0008,}
+\DoxyCodeLine{00075\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_BOOL\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0009,}
+\DoxyCodeLine{00076\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_128\_BIT\_KEY\_ID\ \ \ \ \ \ \ =\ 0x000a,}
+\DoxyCodeLine{00077\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_U16\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x000b,}
+\DoxyCodeLine{00078\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_U32\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x000c,}
+\DoxyCodeLine{00079\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_LONG\_OCTET\_STRING\_ID\ =\ 0x000d}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_U8\_DEFAULT\_VALUE\ 0}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_S16\_DEFAULT\_VALUE\ 0}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_24BIT\_DEFAULT\_VALUE\ \{\ 0\ \}}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_32BITMAP\_DEFAULT\_VALUE\ 0}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_IEEE\_DEFAULT\_VALUE\ \{\ 0\ \}}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_CHAR\_STRING\_DEFAULT\_VALUE\ \{\ 0\ \}}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_UTC\_TIME\_DEFAULT\_VALUE\ 0}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_BYTE\_ARRAY\_DEFAULT\_VALUE\ \{\ 0\ \}}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_BOOL\_DEFAULT\_VALUE\ ZB\_FALSE}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_128\_BIT\_KEY\_DEFAULT\_VALUE\ \{\ 0\ \}}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0001u)}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_CHAR\_STRING\_MAX\_SIZE\ 11}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_BYTE\_ARRAY\_MAX\_SIZE\ 66}}
+\DoxyCodeLine{00101\ \ \textcolor{comment}{/*\ Custom\ Attributes\ cluster\ attributes\ */}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{enum}\ zb\_zcl\_custom\_cluster\_cmd\_e}
+\DoxyCodeLine{00110\ \{}
+\DoxyCodeLine{00111\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD1\_ID\ =\ 0x21,}
+\DoxyCodeLine{00112\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD2\_ID\ =\ 0x22,}
+\DoxyCodeLine{00113\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD3\_ID\ =\ 0x23}
+\DoxyCodeLine{00114\ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{enum}\ zb\_zcl\_custom\_cluster\_resp\_e}
+\DoxyCodeLine{00118\ \{}
+\DoxyCodeLine{00119\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD1\_RESP\_ID\ =\ 0xF1,}
+\DoxyCodeLine{00120\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD2\_RESP\_ID\ =\ 0xF2}
+\DoxyCodeLine{00121\ \};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{/********\ Custom\ cluster\ command\ 1\ ********/}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{enum}\ zb\_zcl\_custom\_cluster\_cmd1\_mode\_e}
+\DoxyCodeLine{00126\ \{}
+\DoxyCodeLine{00127\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD1\_MODE1\ =\ 0x01,}
+\DoxyCodeLine{00128\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD1\_MODE2\ =\ 0x02}
+\DoxyCodeLine{00129\ \};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_custom\_cluster\_cmd1\_req\_s}
+\DoxyCodeLine{00132\ \{}
+\DoxyCodeLine{00133\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ mode;}
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ value;}
+\DoxyCodeLine{00135\ \}}
+\DoxyCodeLine{00136\ ZB\_PACKED\_STRUCT\ zb\_zcl\_custom\_cluster\_cmd1\_req\_t;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_GET\_CMD1\_REQ(buf,\ req,\ parse\_status)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ zb\_zcl\_custom\_cluster\_cmd1\_req\_t\ *req\_ptr\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ \ \ zb\_buf\_len(buf)\ >=\ sizeof(zb\_zcl\_custom\_cluster\_cmd1\_req\_t)\ ?\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\ \ \ \ (zb\_zcl\_custom\_cluster\_cmd1\_req\_t*)zb\_buf\_begin(buf)\ :\ NULL;\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ parse\_status\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ if\ (req\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ \ \ \ ZB\_MEMCPY(\&(req),\ req\_ptr,\ sizeof(zb\_zcl\_custom\_cluster\_cmd1\_req\_t));\ \ \(\backslash\)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\ \ \ \ parse\_status\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_SEND\_CMD1\_REQ(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\ \ buffer,\ dst\_addr,\ dst\_addr\_mode,\ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\ \ src\_ep,\ def\_resp,\ cb,\ mode,\ value)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *ptr\ =\ ZB\_ZCL\_START\_PACKET\_REQ(buffer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_REQ\_FRAME\_CONTROL(ptr,\ (def\_resp))\ \ \(\backslash\)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER\_REQ(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ \ \ ptr,\ ZB\_ZCL\_GET\_SEQ\_NUM(),\ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD1\_ID);\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(ptr,\ (mode));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(ptr,\ (value));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((buffer),\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\ \ \ \ (buffer),\ (dst\_addr),\ (dst\_addr\_mode),\ (dst\_ep),\ (src\_ep),\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ \ \ ZB\_AF\_HA\_PROFILE\_ID,\ ZB\_ZCL\_CLUSTER\_ID\_CUSTOM,\ (cb));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{comment}{/********\ Custom\ cluster\ Response\ to\ command\ 1\ ********/}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_custom\_cluster\_cmd1\_resp\_s}
+\DoxyCodeLine{00182\ \{}
+\DoxyCodeLine{00183\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ status;}
+\DoxyCodeLine{00184\ \}}
+\DoxyCodeLine{00185\ ZB\_PACKED\_STRUCT\ zb\_zcl\_custom\_cluster\_cmd1\_resp\_t;}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_GET\_CMD1\_RESP(buf,\ resp,\ parse\_status)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ zb\_zcl\_custom\_cluster\_cmd1\_resp\_t\ *resp\_ptr\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ \ \ zb\_buf\_len(buf)\ >=\ sizeof(zb\_zcl\_custom\_cluster\_cmd1\_resp\_t)\ ?\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ (zb\_zcl\_custom\_cluster\_cmd1\_resp\_t*)zb\_buf\_begin(buf)\ :\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\ \ parse\_status\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ if\ (resp\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \ \ ZB\_MEMCPY(\&(resp),\ resp\_ptr,\ sizeof(zb\_zcl\_custom\_cluster\_cmd1\_resp\_t));\ \ \(\backslash\)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ \ \ parse\_status\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_SEND\_CMD1\_RESP(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\ \ buffer,\ seq,\ dst\_addr,\ dst\_addr\_mode,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\ \ dst\_ep,\ src\_ep,\ cb,\ status)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *cmd\_ptr\ =\ ZB\_ZCL\_START\_PACKET(buffer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_RES\_FRAME\_CONTROL(cmd\_ptr);\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ cmd\_ptr,\ (seq),\ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD1\_RESP\_ID);\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(cmd\_ptr,\ (status));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((buffer),\ cmd\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ \ \ (buffer),\ (dst\_addr),\ (dst\_addr\_mode),\ (dst\_ep),\ (src\_ep),\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\ \ \ \ ZB\_AF\_HA\_PROFILE\_ID,\ ZB\_ZCL\_CLUSTER\_ID\_CUSTOM,\ (cb));\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{comment}{/********\ Custom\ cluster\ command\ 2\ ********/}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{keyword}{enum}\ zb\_zcl\_custom\_cluster\_cmd2\_param\_e}
+\DoxyCodeLine{00229\ \{}
+\DoxyCodeLine{00230\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD2\_PARAM1\ =\ 0x01,}
+\DoxyCodeLine{00231\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD2\_PARAM2\ =\ 0x02,}
+\DoxyCodeLine{00232\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD2\_PARAM3\ =\ 0x03,}
+\DoxyCodeLine{00233\ \ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD2\_PARAM4\ =\ 0x04}
+\DoxyCodeLine{00234\ \};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_custom\_cluster\_cmd2\_req\_s}
+\DoxyCodeLine{00237\ \{}
+\DoxyCodeLine{00238\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param;}
+\DoxyCodeLine{00239\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ value;}
+\DoxyCodeLine{00240\ \}}
+\DoxyCodeLine{00241\ ZB\_PACKED\_STRUCT\ zb\_zcl\_custom\_cluster\_cmd2\_req\_t;}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_GET\_CMD2\_REQ(buf,\ req,\ parse\_status)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\ \ zb\_zcl\_custom\_cluster\_cmd2\_req\_t\ *req\_ptr\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\ \ \ \ zb\_buf\_len(buf)\ >=\ sizeof(zb\_zcl\_custom\_cluster\_cmd2\_req\_t)\ ?\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\ \ \ \ (zb\_zcl\_custom\_cluster\_cmd2\_req\_t*)zb\_buf\_begin(buf)\ :\ NULL;\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ parse\_status\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ if\ (req\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ \ \ ZB\_MEMCPY(\&(req),\ req\_ptr,\ sizeof(zb\_zcl\_custom\_cluster\_cmd2\_req\_t));\ \ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ \ \ if\ (req\_ptr-\/>value\ <\ 0xFFFF)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \ \ \ \ parse\_status\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_SEND\_CMD2\_REQ(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ buffer,\ dst\_addr,\ dst\_addr\_mode,\ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\ \ src\_ep,\ def\_resp,\ cb,\ param,\ value)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *ptr\ =\ ZB\_ZCL\_START\_PACKET\_REQ(buffer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_REQ\_FRAME\_CONTROL(ptr,\ (def\_resp))\ \ \(\backslash\)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER\_REQ(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\ \ \ \ ptr,\ ZB\_ZCL\_GET\_SEQ\_NUM(),\ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD2\_ID);\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(ptr,\ (param));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA16\_VAL(ptr,\ (value));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((buffer),\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\ \ \ \ (buffer),\ (dst\_addr),\ (dst\_addr\_mode),\ (dst\_ep),\ (src\_ep),\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\ \ \ \ ZB\_AF\_HA\_PROFILE\_ID,\ ZB\_ZCL\_CLUSTER\_ID\_CUSTOM,\ (cb));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \textcolor{comment}{/********\ Custom\ cluster\ Response\ to\ command\ 2\ ********/}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_custom\_cluster\_cmd2\_resp\_s}
+\DoxyCodeLine{00290\ \{}
+\DoxyCodeLine{00291\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ status;}
+\DoxyCodeLine{00292\ \}}
+\DoxyCodeLine{00293\ ZB\_PACKED\_STRUCT\ zb\_zcl\_custom\_cluster\_cmd2\_resp\_t;}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_GET\_CMD2\_RESP(buf,\ resp,\ status)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\ \ zb\_zcl\_custom\_cluster\_cmd2\_resp\_t\ *resp\_ptr\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\ \ \ \ zb\_buf\_len(buf)\ >=\ sizeof(zb\_zcl\_custom\_cluster\_cmd2\_resp\_t)\ ?\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\ \ \ \ (zb\_zcl\_custom\_cluster\_cmd2\_resp\_t*)zb\_buf\_begin(buf)\ :\ NULL;\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\ \ status\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\ \ if\ (resp\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\ \ \ \ ZB\_MEMCPY(\&(resp),\ resp\_ptr,\ sizeof(zb\_zcl\_custom\_cluster\_cmd2\_resp\_t));\ \ \(\backslash\)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\ \ \ \ status\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_SEND\_CMD2\_RESP(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\ \ buffer,\ seq,\ dst\_addr,\ dst\_addr\_mode,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\ \ dst\_ep,\ src\_ep,\ cb,\ status)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *cmd\_ptr\ =\ ZB\_ZCL\_START\_PACKET(buffer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_RES\_FRAME\_CONTROL(cmd\_ptr);\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\ \ \ \ cmd\_ptr,\ seq,\ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD2\_RESP\_ID);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(cmd\_ptr,\ (status));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((buffer),\ cmd\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\ \ \ \ (buffer),\ (dst\_addr),\ (dst\_addr\_mode),\ (dst\_ep),\ (src\_ep),\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\ \ \ \ ZB\_AF\_HA\_PROFILE\_ID,\ ZB\_ZCL\_CLUSTER\_ID\_CUSTOM,\ (cb));\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \textcolor{comment}{/********\ Custom\ cluster\ command\ 3\ ********/}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_custom\_cluster\_cmd3\_req\_s}
+\DoxyCodeLine{00337\ \{}
+\DoxyCodeLine{00338\ \ \ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ zcl\_str[ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_CHAR\_STRING\_MAX\_SIZE];}
+\DoxyCodeLine{00339\ \}}
+\DoxyCodeLine{00340\ ZB\_PACKED\_STRUCT\ zb\_zcl\_custom\_cluster\_cmd3\_req\_t;}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_GET\_CMD3\_REQ(buf,\ req,\ parse\_status)\ \ \(\backslash\)}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ zcl\_str\_len\ =\ *((zb\_uint8\_t*)zb\_buf\_begin(buf));\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\ \ parse\_status\ =\ ZB\_ZCL\_PARSE\_STATUS\_FAILURE;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\ \ if\ (((zb\_uint\_t)(zcl\_str\_len\ +\ 1))\ ==\ \ zb\_buf\_len(buf))\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00348\ \textcolor{preprocessor}{\ \ \ \ ZB\_MEMCPY(\&(req),\ zb\_buf\_begin(buf),\ zcl\_str\_len\ +\ 1);\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\ \ \ \ parse\_status\ =\ ZB\_ZCL\_PARSE\_STATUS\_SUCCESS;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_CLUSTER\_SEND\_CMD3\_REQ(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\ \ buffer,\ dst\_addr,\ dst\_addr\_mode,\ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\ \ src\_ep,\ def\_resp,\ cb,\ zcl\_str\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\ \ zb\_uint8\_t\ *ptr\ =\ ZB\_ZCL\_START\_PACKET\_REQ(buffer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_REQ\_FRAME\_CONTROL(ptr,\ (def\_resp))\ \ \(\backslash\)}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER\_REQ(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\ \ \ \ ptr,\ ZB\_ZCL\_GET\_SEQ\_NUM(),\ ZB\_ZCL\_CUSTOM\_CLUSTER\_CMD3\_ID);\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_STRING(ptr,\ (zcl\_str\_ptr));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_PACKET((buffer),\ ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_COMMAND\_SHORT(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\ \ \ \ (buffer),\ (dst\_addr),\ (dst\_addr\_mode),\ (dst\_ep),\ (src\_ep),\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\ \ \ \ ZB\_AF\_HA\_PROFILE\_ID,\ ZB\_ZCL\_CLUSTER\_ID\_CUSTOM,\ (cb));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00377\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00378\ \ \textcolor{comment}{/*\ Custom\ Attributes\ commands\ */}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_U8\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00387\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00388\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_U8\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00389\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00390\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00392\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00393\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_S16\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00397\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_S16\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_S16,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_WRITE\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00401\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_24BIT\_ID(data\_ptr)\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00406\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_24BIT\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_24BIT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00409\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00411\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_32BITMAP\_ID(data\_ptr)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00415\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_32BITMAP\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_32BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_WRITE\_OPTIONAL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_IEEE\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_IEEE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_IEEE\_ADDR,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_WRITE\_OPTIONAL\ |\ ZB\_ZCL\_ATTR\_ACCESS\_WRITE\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00427\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_CHAR\_STRING\_ID(data\_ptr)\ \ \(\backslash\)}}
+\DoxyCodeLine{00432\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_CHAR\_STRING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00434\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_CHAR\_STRING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00435\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_INTERNAL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00438\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_UTC\_TIME\_ID(data\_ptr)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_UTC\_TIME\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_UTC\_TIME,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00444\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY\ |\ ZB\_ZCL\_ATTR\_ACCESS\_REPORTING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_OCTET\_STRING\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00450\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_OCTET\_STRING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_OCTET\_STRING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_WRITE\_ONLY\ |\ ZB\_ZCL\_ATTR\_ACCESS\_REPORTING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_BOOL\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_BOOL\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_BOOL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00462\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE\ |\ ZB\_ZCL\_ATTR\_ACCESS\_SCENE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00464\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00465\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_128\_BIT\_KEY\_ID(data\_ptr)\ \ \(\backslash\)}}
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_128\_BIT\_KEY\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00470\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_128\_BIT\_KEY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_MANUF\_SPEC,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_LONG\_OCTET\_STRING\_ID(data\_ptr)\ \ \(\backslash\)}}
+\DoxyCodeLine{00477\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00478\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_LONG\_OCTET\_STRING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_LONG\_OCTET\_STRING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00480\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00481\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00482\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00483\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_CUSTOM\_ATTR\_CLUSTER\_ATTRIB\_LIST(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\ \ attr\_list,\ u8\_attr,\ s16\_attr,\ \_24bit\_attr,\ \_32bitmap\_attr,\ ieee\_attr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00490\ \textcolor{preprocessor}{\ \ char\_string\_attr,\ utc\_time\_attr,\ octet\_string\_attr,\ bool\_attr,\ \_128\_bit\_key\_attr,\ long\_octet\_string\_attr)\ \(\backslash\)}}
+\DoxyCodeLine{00491\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_CUSTOM)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00492\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_U8\_ID,\ (u8\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00493\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_S16\_ID,\ (s16\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_24BIT\_ID,\ (\_24bit\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00495\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_32BITMAP\_ID,\ (\_32bitmap\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00496\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_IEEE\_ID,\ (ieee\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00497\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_CHAR\_STRING\_ID,\ (char\_string\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00498\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_UTC\_TIME\_ID,\ (utc\_time\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00499\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_OCTET\_STRING\_ID,\ (octet\_string\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00500\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_BOOL\_ID,\ (bool\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00501\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_128\_BIT\_KEY\_ID,\ (\_128\_bit\_key\_attr))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00502\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_CUSTOM\_CLUSTER\_ATTR\_LONG\_OCTET\_STRING\_ID,\ (long\_octet\_string\_attr))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00503\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00506\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CUSTOM\_ATTR\_REPORT\_ATTR\_COUNT\ 8}}
+\DoxyCodeLine{00507\ \ \textcolor{comment}{/*\ Custom\ Attributes\ cluster\ internals\ */}}
+\DoxyCodeLine{00509\ \ \textcolor{comment}{/*\ ZCL\ Custom\ Attributes\ cluster\ definitions\ */}}
+\DoxyCodeLine{00511\ \ \textcolor{comment}{/*\ (DOXYGEN\_ZCL\_SECTION\ \&\&\ internals\_doc)\ */}}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ \textcolor{keywordtype}{void}\ zb\_zcl\_custom\_attr\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00515\ \textcolor{keywordtype}{void}\ zb\_zcl\_custom\_attr\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_CUSTOM\_SERVER\_ROLE\_INIT\ zb\_zcl\_custom\_attr\_init\_server}}
+\DoxyCodeLine{00517\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_CUSTOM\_CLIENT\_ROLE\_INIT\ zb\_zcl\_custom\_attr\_init\_client}}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00519\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_CUSTOM\_ATTR\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

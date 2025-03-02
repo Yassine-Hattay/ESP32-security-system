@@ -1,0 +1,92 @@
+\doxysection{ESP32\+\_\+\+NOW.\+h}
+\hypertarget{_e_s_p32___n_o_w_8h_source}{}\label{_e_s_p32___n_o_w_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP\_NOW/src/ESP32\_NOW.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP\_NOW/src/ESP32\_NOW.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#if\ CONFIG\_ESP\_WIFI\_REMOTE\_ENABLED}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#warning\ "{}ESP-\/NOW\ is\ only\ supported\ in\ SoCs\ with\ native\ Wi-\/Fi\ support"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_wifi\_types.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Print.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_now.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/log.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}esp\_mac.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_e_s_p___n_o_w___peer}{ESP\_NOW\_Peer}};\ \ \textcolor{comment}{//forward\ declaration\ for\ friend\ function}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }ESP\_NOW\_Class\ :\ \textcolor{keyword}{public}\ Print\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ \textcolor{keyword}{const}\ uint8\_t\ BROADCAST\_ADDR[6]\ =\ \{0xFF,\ 0xFF,\ 0xFF,\ 0xFF,\ 0xFF,\ 0xFF\};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ ESP\_NOW\_Class();}
+\DoxyCodeLine{00021\ \ \ \string~ESP\_NOW\_Class();}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \textcolor{keywordtype}{bool}\ begin(\textcolor{keyword}{const}\ uint8\_t\ *pmk\ =\ NULL\ \textcolor{comment}{/*\ 16\ bytes\ */});}
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{bool}\ end();}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{int}\ getTotalPeerCount();}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{int}\ getEncryptedPeerCount();}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{int}\ availableForWrite();}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t\ data)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{return}\ write(\&data,\ 1);}
+\DoxyCodeLine{00033\ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{void}\ onNewPeer(\textcolor{keywordtype}{void}\ (*cb)(\textcolor{keyword}{const}\ esp\_now\_recv\_info\_t\ *info,\ \textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{int}\ len,\ \textcolor{keywordtype}{void}\ *arg),\ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{bool}\ removePeer(\mbox{\hyperlink{class_e_s_p___n_o_w___peer}{ESP\_NOW\_Peer}}\ \&peer);}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }ESP\_NOW\_Peer\ \{}
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ uint8\_t\ mac[6];}
+\DoxyCodeLine{00042\ \ \ uint8\_t\ chan;}
+\DoxyCodeLine{00043\ \ \ wifi\_interface\_t\ ifc;}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{bool}\ encrypt;}
+\DoxyCodeLine{00045\ \ \ uint8\_t\ key[16];}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{bool}\ added;}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{bool}\ add();}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{bool}\ remove();}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{size\_t}\ send(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{int}\ len);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ ESP\_NOW\_Peer(\textcolor{keyword}{const}\ uint8\_t\ *mac\_addr,\ uint8\_t\ channel\ =\ 0,\ wifi\_interface\_t\ iface\ =\ WIFI\_IF\_AP,\ \textcolor{keyword}{const}\ uint8\_t\ *lmk\ =\ NULL);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ \textcolor{keyword}{virtual}\ \string~ESP\_NOW\_Peer()\ \{\}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *addr()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{bool}\ addr(\textcolor{keyword}{const}\ uint8\_t\ *mac\_addr);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ uint8\_t\ getChannel()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{bool}\ setChannel(uint8\_t\ channel);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ wifi\_interface\_t\ getInterface()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{bool}\ setInterface(wifi\_interface\_t\ iface);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{bool}\ isEncrypted()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{bool}\ setKey(\textcolor{keyword}{const}\ uint8\_t\ *lmk);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{operator}\ bool()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \textcolor{comment}{//optional\ callbacks\ to\ be\ implemented\ by\ the\ upper\ class}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onReceive(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{bool}\ broadcast)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ log\_i(\textcolor{stringliteral}{"{}Received\ \%d\ bytes\ from\ "{}}\ MACSTR\ \textcolor{stringliteral}{"{}\ \%s"{}},\ len,\ MAC2STR(mac),\ broadcast\ ?\ \textcolor{stringliteral}{"{}(broadcast)"{}}\ :\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00075\ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onSent(\textcolor{keywordtype}{bool}\ success)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ log\_i(\textcolor{stringliteral}{"{}Message\ transmission\ to\ peer\ "{}}\ MACSTR\ \textcolor{stringliteral}{"{}\ \%s"{}},\ MAC2STR(mac),\ success\ ?\ \textcolor{stringliteral}{"{}successful"{}}\ :\ \textcolor{stringliteral}{"{}failed"{}});}
+\DoxyCodeLine{00079\ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{friend}\ \textcolor{keywordtype}{bool}\ ESP\_NOW\_Class::removePeer(ESP\_NOW\_Peer\ \&);}
+\DoxyCodeLine{00082\ \};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_e_s_p___n_o_w___class}{ESP\_NOW\_Class}}\ ESP\_NOW;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

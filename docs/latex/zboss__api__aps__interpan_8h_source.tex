@@ -1,0 +1,107 @@
+\doxysection{zboss\+\_\+api\+\_\+aps\+\_\+interpan.\+h}
+\hypertarget{zboss__api__aps__interpan_8h_source}{}\label{zboss__api__aps__interpan_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_aps\_interpan.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_aps\_interpan.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Public\ APS\ Inter-\/Pan\ API}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZBOSS\_API\_APS\_INTERPAN\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZBOSS\_API\_APS\_INTERPAN\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_INTER\_PAN\_EXCHANGE\ ||\ defined\ DOXYGEN}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_intrp\_data\_req\_s}
+\DoxyCodeLine{00056\ \{}
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_addr\_mode;}
+\DoxyCodeLine{00068\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ dst\_pan\_id;}
+\DoxyCodeLine{00070\ \ \ zb\_addr\_u\ dst\_addr;}
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ profile\_id;}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cluster\_id;}
+\DoxyCodeLine{00078\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ asdu\_handle;}
+\DoxyCodeLine{00079\ \}\ ZB\_PACKED\_STRUCT\ zb\_intrp\_data\_req\_t;}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined\ ZB\_ENABLE\_INTER\_PAN\_EXCHANGE\ ||\ defined\ DOXYGEN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__aps__api_ga4f522334b46c8f9485599c61464b4a36}{zb\_intrp\_addr\_mode\_e}}}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{group__aps__api_gga4f522334b46c8f9485599c61464b4a36ae2aec2d0721e7a3cf28aaa50a84be524}{ZB\_INTRP\_ADDR\_GROUP}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00090\ \ \ \mbox{\hyperlink{group__aps__api_gga4f522334b46c8f9485599c61464b4a36a3d909b57f175822c446869f48bb7cfda}{ZB\_INTRP\_ADDR\_NETWORK}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,}
+\DoxyCodeLine{00092\ \ \ \mbox{\hyperlink{group__aps__api_gga4f522334b46c8f9485599c61464b4a36ae2efbfe377a167559180f9d31d32d999}{ZB\_INTRP\_ADDR\_IEEE}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03}
+\DoxyCodeLine{00093\ \};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ ZB\_INTRP\_BROADCAST\_SHORT\_ADDR\ 0xffffU}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00101\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzb__intrp__data__ind__s}{zb\_intrp\_data\_ind\_s}}}
+\DoxyCodeLine{00102\ \{}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{structzb__intrp__data__ind__s_a10c36dad319a5b6df778aa118dd8bba8}{dst\_addr\_mode}};}
+\DoxyCodeLine{00110\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \mbox{\hyperlink{structzb__intrp__data__ind__s_ad6aee23cb48c67c9b220e0f095b7da4d}{dst\_pan\_id}};}
+\DoxyCodeLine{00112\ \ \ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ \mbox{\hyperlink{structzb__intrp__data__ind__s_a119cc45b75e87b4c8474ee2edba0578d}{dst\_addr}};}
+\DoxyCodeLine{00116\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \mbox{\hyperlink{structzb__intrp__data__ind__s_a07c8fd1312fe309d42fb44ce7b79f2cd}{src\_pan\_id}};}
+\DoxyCodeLine{00118\ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ \mbox{\hyperlink{structzb__intrp__data__ind__s_a5c6a33406a9470fa3619fe27ae1d4ed3}{src\_addr}};}
+\DoxyCodeLine{00120\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \mbox{\hyperlink{structzb__intrp__data__ind__s_a8e5d758b617703baa2d3b3cf35e28e4d}{profile\_id}};}
+\DoxyCodeLine{00122\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \mbox{\hyperlink{structzb__intrp__data__ind__s_ad395a26440078fb23531395276b145cf}{cluster\_id}};}
+\DoxyCodeLine{00124\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{structzb__intrp__data__ind__s_a8029ff6ff6c1b604aed58c02d57623cf}{link\_quality}};}
+\DoxyCodeLine{00125\ \ \ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ rssi;}
+\DoxyCodeLine{00126\ \}\ ZB\_PACKED\_STRUCT\ zb\_intrp\_data\_ind\_t;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_INTER\_PAN\_NON\_DEFAULT\_CHANNEL\ ||\ defined\ DOXYGEN}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00132\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_mchan\_intrp\_data\_confirm\_s}
+\DoxyCodeLine{00133\ \{}
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{group__channel__page_ga787acef58d574917be52dba259b16a11}{zb\_channel\_page\_t}}\ channel\_status\_page\_mask;\ \ }
+\DoxyCodeLine{00137\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ asdu\_handle;\ \ }
+\DoxyCodeLine{00138\ \}\ zb\_mchan\_intrp\_data\_confirm\_t;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ (*zb\_af\_inter\_pan\_handler\_t)(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ current\_page,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ current\_channel);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00153\ \textcolor{keywordtype}{void}\ zboss\_enable\_interpan\_with\_chan\_change(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00175\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_intrp\_data\_request\_with\_chan\_change(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buffer,\ \mbox{\hyperlink{group__channel__page_ga787acef58d574917be52dba259b16a11}{zb\_channel\_page\_t}}\ channel\_page\_mask,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ chan\_wait\_ms,\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00186\ \textcolor{keywordtype}{void}\ zb\_af\_interpan\_set\_data\_indication(zb\_af\_inter\_pan\_handler\_t\ cb);}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined\ ZB\_ENABLE\_INTER\_PAN\_NON\_DEFAULT\_CHANNEL\ ||\ defined\ DOXYGEN\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ DOXYGEN\_APS\_INTER\_PAN\_NON\_DEFAULT\_CHANNEL\_FEATURE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_INTER\_PAN\_EXCHANGE\ ||\ defined\ DOXYGEN}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00198\ \textcolor{keywordtype}{void}\ zb\_intrp\_data\_request(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined\ ZB\_ENABLE\_INTER\_PAN\_EXCHANGE\ ||\ defined\ DOXYGEN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZBOSS\_API\_APS\_INTERPAN\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

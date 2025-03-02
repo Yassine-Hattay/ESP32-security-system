@@ -1,0 +1,90 @@
+\doxysection{esp\+\_\+littlefs.\+h}
+\hypertarget{esp__littlefs_8h_source}{}\label{esp__littlefs_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/include/esp\_littlefs.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/include/esp\_littlefs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ESP\_LITTLEFS\_H\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ESP\_LITTLEFS\_H\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}esp\_idf\_version.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}esp\_partition.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_LITTLEFS\_SDMMC\_SUPPORT}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <sdmmc\_cmd.h>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ ESP\_LITTLEFS\_VERSION\_NUMBER\ "{}1.16.4"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ ESP\_LITTLEFS\_VERSION\_MAJOR\ 1}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ ESP\_LITTLEFS\_VERSION\_MINOR\ 16}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ ESP\_LITTLEFS\_VERSION\_PATCH\ 4}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifdef\ ESP8266}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ ESP8266\ RTOS\ SDK\ default\ enables\ VFS\ DIR\ support}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ CONFIG\_VFS\_SUPPORT\_DIR\ 1}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#if\ ESP\_IDF\_VERSION\ >=\ ESP\_IDF\_VERSION\_VAL(4,\ 4,\ 2)\ \&\&\ CONFIG\_VFS\_SUPPORT\_DIR}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ ESP\_LITTLEFS\_ENABLE\_FTRUNCATE}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ESP\_IDF\_VERSION\ >=\ ESP\_IDF\_VERSION\_VAL(4,\ 4,\ 2)}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structesp__vfs__littlefs__conf__t_a64c5bbe1ff85cfbe956c73bac3daf217}{base\_path}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structesp__vfs__littlefs__conf__t_a763d5b020d757c3da6d8b4013fe2f10b}{partition\_label}};\ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{const}\ esp\_partition\_t*\ \mbox{\hyperlink{structesp__vfs__littlefs__conf__t_a9007dee9f35f56f6a387a81ce53d404b}{partition}};\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_LITTLEFS\_SDMMC\_SUPPORT}}
+\DoxyCodeLine{00040\ \ \ \ \ sdmmc\_card\_t\ *sdcard;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__vfs__littlefs__conf__t_a242cdf28db5ff7b24a6b0462ffb7e667}{format\_if\_mount\_failed}}:1;\ }
+\DoxyCodeLine{00044\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__vfs__littlefs__conf__t_a633d7c52a6a589109c5d3c57bafa6e40}{read\_only}}\ :\ 1;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__vfs__littlefs__conf__t_ae33e00495c5a9fb32f2bd1ad8ddf5df7}{dont\_mount}}:1;\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__vfs__littlefs__conf__t_a15a59be325ec9b60cb4c2279f8c80e32}{grow\_on\_mount}}:1;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \}\ \mbox{\hyperlink{structesp__vfs__littlefs__conf__t}{esp\_vfs\_littlefs\_conf\_t}};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00061\ esp\_err\_t\ esp\_vfs\_littlefs\_register(\textcolor{keyword}{const}\ \mbox{\hyperlink{structesp__vfs__littlefs__conf__t}{esp\_vfs\_littlefs\_conf\_t}}\ *\ conf);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00072\ esp\_err\_t\ esp\_vfs\_littlefs\_unregister(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ partition\_label);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_LITTLEFS\_SDMMC\_SUPPORT}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00084\ esp\_err\_t\ esp\_vfs\_littlefs\_unregister\_sdmmc(sdmmc\_card\_t\ *sdcard);}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00096\ esp\_err\_t\ esp\_vfs\_littlefs\_unregister\_partition(\textcolor{keyword}{const}\ esp\_partition\_t*\ partition);}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00107\ \textcolor{keywordtype}{bool}\ esp\_littlefs\_mounted(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ partition\_label);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00118\ \textcolor{keywordtype}{bool}\ esp\_littlefs\_partition\_mounted(\textcolor{keyword}{const}\ esp\_partition\_t*\ partition);}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_LITTLEFS\_SDMMC\_SUPPORT}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00130\ \textcolor{keywordtype}{bool}\ esp\_littlefs\_sdmmc\_mounted(sdmmc\_card\_t\ *sdcard);}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00141\ esp\_err\_t\ esp\_littlefs\_format(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ partition\_label);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00151\ esp\_err\_t\ esp\_littlefs\_format\_partition(\textcolor{keyword}{const}\ esp\_partition\_t*\ partition);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_LITTLEFS\_SDMMC\_SUPPORT}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00162\ esp\_err\_t\ esp\_littlefs\_format\_sdmmc(sdmmc\_card\_t\ *sdcard);}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00176\ esp\_err\_t\ esp\_littlefs\_info(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ partition\_label,\ \textcolor{keywordtype}{size\_t}*\ total\_bytes,\ \textcolor{keywordtype}{size\_t}*\ used\_bytes);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00189\ esp\_err\_t\ esp\_littlefs\_partition\_info(\textcolor{keyword}{const}\ esp\_partition\_t*\ partition,\ \textcolor{keywordtype}{size\_t}\ *total\_bytes,\ \textcolor{keywordtype}{size\_t}\ *used\_bytes);}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_LITTLEFS\_SDMMC\_SUPPORT}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00203\ esp\_err\_t\ esp\_littlefs\_sdmmc\_info(sdmmc\_card\_t\ *sdcard,\ \textcolor{keywordtype}{size\_t}\ *total\_bytes,\ \textcolor{keywordtype}{size\_t}\ *used\_bytes);}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00207\ \}\ \textcolor{comment}{//\ extern\ "{}C"{}}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

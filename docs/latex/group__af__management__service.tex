@@ -1,0 +1,641 @@
+\doxysubsection{AF management service}
+\hypertarget{group__af__management__service}{}\label{group__af__management__service}\index{AF management service@{AF management service}}
+\doxysubsubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_gabb0030c68fe86f4768bf6d812c0857be}{ZB\+\_\+\+AF\+\_\+\+IS\+\_\+\+EP\+\_\+\+REGISTERED}}(\+\_\+ep)
+\begin{DoxyCompactList}\small\item\em Check endpoint registration in ZCL. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__af__management__service_gabe9fc95bc0e680b2af4fad999320393d}{ZB\+\_\+\+AF\+\_\+\+START\+\_\+\+DECLARE\+\_\+\+ENDPOINT\+\_\+\+LIST}}(ep\+\_\+list\+\_\+name)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_gaf9c9c7852e40d7139579c74aed41a1a7}{ZB\+\_\+\+AF\+\_\+\+DECLARE\+\_\+\+ENDPOINT\+\_\+\+DESC}}( ep\+\_\+name,  ep\+\_\+id,  profile\+\_\+id,  reserved\+\_\+length,  reserved\+\_\+ptr,  cluster\+\_\+number,  cluster\+\_\+list,  simple\+\_\+desc,  rep\+\_\+count,  rep\+\_\+ctx,  lev\+\_\+ctrl\+\_\+count,  lev\+\_\+ctrl\+\_\+ctx)
+\begin{DoxyCompactList}\small\item\em Initialize endpoint descriptor. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__af__management__service_ga3ada82a1d4115b7eb833e4922351524f}{ZB\+\_\+\+AF\+\_\+\+FINISH\+\_\+\+DECLARE\+\_\+\+ENDPOINT\+\_\+\+LIST}}~\}
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_ga549b0a17bcf5d9788c23882d68298142}{ZB\+\_\+\+AF\+\_\+\+SET\+\_\+\+ENDPOINT\+\_\+\+HANDLER}}(endpoint,  handler)
+\begin{DoxyCompactList}\small\item\em Allows application to register cluster commands handler for a specific endpoint. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__af__management__service_ga2844aaa015e066e9a4fcf6242f6fbf2f}{ZB\+\_\+\+AF\+\_\+\+SET\+\_\+\+IDENTIFY\+\_\+\+NOTIFICATION\+\_\+\+HANDLER}}(endpoint,  handler)
+\begin{DoxyCompactList}\small\item\em Sets identify notification handler for endpoint. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__af__management__service_ga0075414e59706aeaed42864da6fba9f6}{ZB\+\_\+\+ZCL\+\_\+\+CLUSTER\+\_\+\+DESC}}(cluster\+\_\+id,  attr\+\_\+count,  attr\+\_\+desc\+\_\+list,  cluster\+\_\+role\+\_\+mask,  manuf\+\_\+code)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_gacbee25165d37425b813a79e78141cfaf}{ZB\+\_\+\+AF\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX}}(device\+\_\+ctx\+\_\+name,  ep\+\_\+list\+\_\+name,  ep\+\_\+count,  reporting\+\_\+attr\+\_\+count)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_ga9cc25b4ace700e96c2aefbbc4c3a9f8a}{ZB\+\_\+\+AF\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+\+NO\+\_\+\+REP}}(device\+\_\+ctx\+\_\+name,  ep\+\_\+list\+\_\+name,  ep\+\_\+count)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_gac6013d8f9989270486e38b4c0beb1daa}{ZBOSS\+\_\+\+DEVICE\+\_\+\+DECLARE\+\_\+\+REPORTING\+\_\+\+CTX}}(rep\+\_\+ctx,  rep\+\_\+count)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_ga19cf0f339cd763a74d77a25984104b7f}{ZBOSS\+\_\+\+DEVICE\+\_\+\+DECLARE\+\_\+\+LEVEL\+\_\+\+CONTROL\+\_\+\+CTX}}(lev\+\_\+ctrl\+\_\+ctx,  lev\+\_\+ctrl\+\_\+count)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_gacf2a43cfa94132ee153022c1195d1ff0}{ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX}}(device\+\_\+ctx\+\_\+name,  ep\+\_\+list\+\_\+name,  ep\+\_\+count)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_gaab7adde4a9c39072e37631629788776d}{ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+1\+\_\+\+EP}}(device\+\_\+ctx\+\_\+name,  ep\+\_\+name)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_ga07eb277f632dff91c8cd5226d5bd9d45}{ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+2\+\_\+\+EP}}(device\+\_\+ctx\+\_\+name,  ep1\+\_\+name,  ep2\+\_\+name)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_gab5d7bc9c56f835b915a8075168083fbb}{ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+3\+\_\+\+EP}}(device\+\_\+ctx\+\_\+name,  ep1\+\_\+name,  ep2\+\_\+name,  ep3\+\_\+name)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_ga3d8345835674be21c1b22c5e19aae8c2}{ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+4\+\_\+\+EP}}(device\+\_\+ctx\+\_\+name,  ep1\+\_\+name,  ep2\+\_\+name,  ep3\+\_\+name,  ep4\+\_\+name)
+\item 
+\#define \mbox{\hyperlink{group__af__management__service_ga9df506ef2a06d883d7d39f545b55da8d}{ZB\+\_\+\+ZCL\+\_\+\+REGISTER\+\_\+\+DEVICE\+\_\+\+CB}}(func\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Set Device user application callback. The macro sets a callback being called upon to need inform User App about change device attribute or need to execute H/W command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}}(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__af__management__service_ga4d58cf3d0e6c159c9c63bc2e9d88887c}{zb\+\_\+device\+\_\+handler\+\_\+t}}) (\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}} param)
+\item 
+typedef void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__af__management__service_gae3b8b2d2063e983d595030a0979f36ab}{zb\+\_\+af\+\_\+transmission\+\_\+res\+\_\+cb\+\_\+t}}) (\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}} status)
+\end{DoxyCompactItemize}
+\doxysubsubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{group__af__management__service_gadcda39637103ae12037614ec42d8ca2c}{ZB\+\_\+\+DECLARE\+\_\+\+SIMPLE\+\_\+\+DESC}} (1, 1)
+\item 
+\mbox{\hyperlink{group__af__management__service_ga4f48ff1fc90e1d576d72f2ea27d9efc9}{ZB\+\_\+\+DECLARE\+\_\+\+SIMPLE\+\_\+\+DESC}} (8, 9)
+\item 
+zb\+\_\+af\+\_\+endpoint\+\_\+desc\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__af__management__service_ga83e45fff0810b99132a834b0c9841cec}{zb\+\_\+af\+\_\+get\+\_\+endpoint\+\_\+desc}} (\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}} ep\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Search for endpoint (device) descriptor by endpoint ID. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__af__management__service_gad66af2e3890b5291a4181de11c6743e6}{zb\+\_\+apsde\+\_\+data\+\_\+indication\+\_\+cont}} (\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}} param)
+\item 
+void \mbox{\hyperlink{group__af__management__service_ga318b4a6d90d299884187d2080c65cd2f}{zb\+\_\+af\+\_\+set\+\_\+data\+\_\+indication}} (\mbox{\hyperlink{group__af__management__service_ga4d58cf3d0e6c159c9c63bc2e9d88887c}{zb\+\_\+device\+\_\+handler\+\_\+t}} cb)
+\begin{DoxyCompactList}\small\item\em Set up application callback to be called for APS data packets. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__af__management__service_ga7c7c6a7b96b210641a8d9632e27ff4c8}{zb\+\_\+bdb\+\_\+reset\+\_\+via\+\_\+local\+\_\+action}} (\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}} param)
+\begin{DoxyCompactList}\small\item\em Perform "{}\+Reset with a Local Action"{} procedure (as described in BDB spec, chapter 9.\+5). The device will perform the NLME leave and clean all Zigbee persistent data except the outgoing NWK frame counter and application datasets (if any). The reset can be performed at any time once the device is started (see zboss\+\_\+start). After the reset, the application will receive the \doxylink{group__zb__comm__signals_ga7942f336484c4fbb85626951480b2bba}{ZB\+\_\+\+ZDO\+\_\+\+SIGNAL\+\_\+\+LEAVE} signal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsection{Detailed Description}
+
+
+\doxysubsubsection{Macro Definition Documentation}
+\Hypertarget{group__af__management__service_gacbee25165d37425b813a79e78141cfaf}\index{AF management service@{AF management service}!ZB\_AF\_DECLARE\_DEVICE\_CTX@{ZB\_AF\_DECLARE\_DEVICE\_CTX}}
+\index{ZB\_AF\_DECLARE\_DEVICE\_CTX@{ZB\_AF\_DECLARE\_DEVICE\_CTX}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_AF\_DECLARE\_DEVICE\_CTX}{ZB\_AF\_DECLARE\_DEVICE\_CTX}}
+{\footnotesize\ttfamily \label{group__af__management__service_gacbee25165d37425b813a79e78141cfaf} 
+\#define ZB\+\_\+\+AF\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX(\begin{DoxyParamCaption}\item[{}]{device\+\_\+ctx\+\_\+name}{, }\item[{}]{ep\+\_\+list\+\_\+name}{, }\item[{}]{ep\+\_\+count}{, }\item[{}]{reporting\+\_\+attr\+\_\+count}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ zb\_zcl\_reporting\_info\_t\ reporting\_info\#\#\ device\_ctx\_name[reporting\_attr\_count];\ \(\backslash\)}
+\DoxyCodeLine{\ \ zb\_af\_device\_ctx\_t\ device\_ctx\_name\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ep\_count,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ep\_list\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ reporting\_attr\_count,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ reporting\_info\#\#\ device\_ctx\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ NULL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+WARNING\+: This API is deprecated, use ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX instead. \Hypertarget{group__af__management__service_ga9cc25b4ace700e96c2aefbbc4c3a9f8a}\index{AF management service@{AF management service}!ZB\_AF\_DECLARE\_DEVICE\_CTX\_NO\_REP@{ZB\_AF\_DECLARE\_DEVICE\_CTX\_NO\_REP}}
+\index{ZB\_AF\_DECLARE\_DEVICE\_CTX\_NO\_REP@{ZB\_AF\_DECLARE\_DEVICE\_CTX\_NO\_REP}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_AF\_DECLARE\_DEVICE\_CTX\_NO\_REP}{ZB\_AF\_DECLARE\_DEVICE\_CTX\_NO\_REP}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga9cc25b4ace700e96c2aefbbc4c3a9f8a} 
+\#define ZB\+\_\+\+AF\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+\+NO\+\_\+\+REP(\begin{DoxyParamCaption}\item[{}]{device\+\_\+ctx\+\_\+name}{, }\item[{}]{ep\+\_\+list\+\_\+name}{, }\item[{}]{ep\+\_\+count}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ zb\_af\_device\_ctx\_t\ device\_ctx\_name\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ep\_count,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ep\_list\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ NULL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ NULL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+WARNING\+: This API is deprecated, use ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX instead. \Hypertarget{group__af__management__service_gaf9c9c7852e40d7139579c74aed41a1a7}\index{AF management service@{AF management service}!ZB\_AF\_DECLARE\_ENDPOINT\_DESC@{ZB\_AF\_DECLARE\_ENDPOINT\_DESC}}
+\index{ZB\_AF\_DECLARE\_ENDPOINT\_DESC@{ZB\_AF\_DECLARE\_ENDPOINT\_DESC}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_AF\_DECLARE\_ENDPOINT\_DESC}{ZB\_AF\_DECLARE\_ENDPOINT\_DESC}}
+{\footnotesize\ttfamily \label{group__af__management__service_gaf9c9c7852e40d7139579c74aed41a1a7} 
+\#define ZB\+\_\+\+AF\+\_\+\+DECLARE\+\_\+\+ENDPOINT\+\_\+\+DESC(\begin{DoxyParamCaption}\item[{}]{ep\+\_\+name}{, }\item[{}]{ep\+\_\+id}{, }\item[{}]{profile\+\_\+id}{, }\item[{}]{reserved\+\_\+length}{, }\item[{}]{reserved\+\_\+ptr}{, }\item[{}]{cluster\+\_\+number}{, }\item[{}]{cluster\+\_\+list}{, }\item[{}]{simple\+\_\+desc}{, }\item[{}]{rep\+\_\+count}{, }\item[{}]{rep\+\_\+ctx}{, }\item[{}]{lev\+\_\+ctrl\+\_\+count}{, }\item[{}]{lev\+\_\+ctrl\+\_\+ctx}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ zb\_af\_endpoint\_desc\_t\ ep\_name\ =\ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ep\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ profile\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ NULL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ NULL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ reserved\_length,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\textcolor{keywordtype}{void}*)reserved\_ptr,\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ cluster\_number,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ cluster\_list,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ simple\_desc,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ rep\_count,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ rep\_ctx,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ lev\_ctrl\_count,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ lev\_ctrl\_ctx\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+
+
+Initialize endpoint descriptor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ep\+\_\+name} & -\/ endpoint name \\
+\hline
+{\em ep\+\_\+id} & -\/ endpoint ID \\
+\hline
+{\em profile\+\_\+id} & -\/ ID of profile deployed on this endpoint \\
+\hline
+{\em reserved\+\_\+length} & -\/ unused parameter \\
+\hline
+{\em reserved\+\_\+ptr} & -\/ unused parameter \\
+\hline
+{\em cluster\+\_\+number} & -\/ number of clusters deployed on endpoint \\
+\hline
+{\em cluster\+\_\+list} & -\/ pointer to cluster list \\
+\hline
+{\em simple\+\_\+desc} & -\/ pointer to simple descriptor \\
+\hline
+{\em rep\+\_\+count} & -\/ maximum number of attributes that are being reported on a device \\
+\hline
+{\em rep\+\_\+ctx} & -\/ reporting context variable name (NULL if no reporting context) \\
+\hline
+{\em lev\+\_\+ctrl\+\_\+count} & -\/ number of level control attributes \\
+\hline
+{\em lev\+\_\+ctrl\+\_\+ctx} & -\/ level control context variable name (NULL if no level control context) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_ga3ada82a1d4115b7eb833e4922351524f}\index{AF management service@{AF management service}!ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST@{ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST}}
+\index{ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST@{ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST}{ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga3ada82a1d4115b7eb833e4922351524f} 
+\#define ZB\+\_\+\+AF\+\_\+\+FINISH\+\_\+\+DECLARE\+\_\+\+ENDPOINT\+\_\+\+LIST~\}}
+
+Finishes endpoint list declaration \Hypertarget{group__af__management__service_gabb0030c68fe86f4768bf6d812c0857be}\index{AF management service@{AF management service}!ZB\_AF\_IS\_EP\_REGISTERED@{ZB\_AF\_IS\_EP\_REGISTERED}}
+\index{ZB\_AF\_IS\_EP\_REGISTERED@{ZB\_AF\_IS\_EP\_REGISTERED}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_AF\_IS\_EP\_REGISTERED}{ZB\_AF\_IS\_EP\_REGISTERED}}
+{\footnotesize\ttfamily \label{group__af__management__service_gabb0030c68fe86f4768bf6d812c0857be} 
+\#define ZB\+\_\+\+AF\+\_\+\+IS\+\_\+\+EP\+\_\+\+REGISTERED(\begin{DoxyParamCaption}\item[{}]{\+\_\+ep}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((\mbox{\hyperlink{group__af__management__service_ga83e45fff0810b99132a834b0c9841cec}{zb\_af\_get\_endpoint\_desc}}(\ \_ep\ )\ !=\ NULL)?(\mbox{\hyperlink{group__base__types_ga31ddce10b950c4f30d546945beabdcbc}{ZB\_TRUE}}):(\mbox{\hyperlink{group__base__types_gae0f2d2d69ee138eedec4460449f84431}{ZB\_FALSE}}))}
+
+\end{DoxyCode}
+
+
+Check endpoint registration in ZCL. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+ep} & -\/ identifier of the endpoint under consideration. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+ZB\+\_\+\+TRUE if endpoint is registered, ZB\+\_\+\+FALSE otherwise. 
+\end{DoxyReturn}
+\Hypertarget{group__af__management__service_ga549b0a17bcf5d9788c23882d68298142}\index{AF management service@{AF management service}!ZB\_AF\_SET\_ENDPOINT\_HANDLER@{ZB\_AF\_SET\_ENDPOINT\_HANDLER}}
+\index{ZB\_AF\_SET\_ENDPOINT\_HANDLER@{ZB\_AF\_SET\_ENDPOINT\_HANDLER}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_AF\_SET\_ENDPOINT\_HANDLER}{ZB\_AF\_SET\_ENDPOINT\_HANDLER}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga549b0a17bcf5d9788c23882d68298142} 
+\#define ZB\+\_\+\+AF\+\_\+\+SET\+\_\+\+ENDPOINT\+\_\+\+HANDLER(\begin{DoxyParamCaption}\item[{}]{endpoint}{, }\item[{}]{handler}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (\mbox{\hyperlink{group__af__management__service_ga83e45fff0810b99132a834b0c9841cec}{zb\_af\_get\_endpoint\_desc}}((endpoint))-\/>device\_handler\ =\ (handler))}
+
+\end{DoxyCode}
+
+
+Allows application to register cluster commands handler for a specific endpoint. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em endpoint} & -\/ Endpoint number \\
+\hline
+{\em handler} & -\/ Pointer to a function, function type \doxylink{group__af__management__service_ga4d58cf3d0e6c159c9c63bc2e9d88887c}{zb\+\_\+device\+\_\+handler\+\_\+t} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAttention}{Attention}
+Endpoint should be registered. \doxylink{group__af__management__service_ga549b0a17bcf5d9788c23882d68298142}{ZB\+\_\+\+AF\+\_\+\+SET\+\_\+\+ENDPOINT\+\_\+\+HANDLER()} should be called after device context is registered, using call to ZB\+\_\+\+AF\+\_\+\+REGISTER\+\_\+\+DEVICE\+\_\+\+CTX() 
+\end{DoxyAttention}
+\Hypertarget{group__af__management__service_ga2844aaa015e066e9a4fcf6242f6fbf2f}\index{AF management service@{AF management service}!ZB\_AF\_SET\_IDENTIFY\_NOTIFICATION\_HANDLER@{ZB\_AF\_SET\_IDENTIFY\_NOTIFICATION\_HANDLER}}
+\index{ZB\_AF\_SET\_IDENTIFY\_NOTIFICATION\_HANDLER@{ZB\_AF\_SET\_IDENTIFY\_NOTIFICATION\_HANDLER}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_AF\_SET\_IDENTIFY\_NOTIFICATION\_HANDLER}{ZB\_AF\_SET\_IDENTIFY\_NOTIFICATION\_HANDLER}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga2844aaa015e066e9a4fcf6242f6fbf2f} 
+\#define ZB\+\_\+\+AF\+\_\+\+SET\+\_\+\+IDENTIFY\+\_\+\+NOTIFICATION\+\_\+\+HANDLER(\begin{DoxyParamCaption}\item[{}]{endpoint}{, }\item[{}]{handler}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ (\mbox{\hyperlink{group__af__management__service_ga83e45fff0810b99132a834b0c9841cec}{zb\_af\_get\_endpoint\_desc}}((endpoint))-\/>identify\_handler\ =\ (handler))}
+
+\end{DoxyCode}
+
+
+Sets identify notification handler for endpoint. 
+
+Utilized by ZCL Identify cluster 
+\begin{DoxyParams}{Parameters}
+{\em endpoint} & number \\
+\hline
+{\em handler} & to set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAttention}{Attention}
+Assumes that endpoint already registered 
+\end{DoxyAttention}
+\Hypertarget{group__af__management__service_gabe9fc95bc0e680b2af4fad999320393d}\index{AF management service@{AF management service}!ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST@{ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST}}
+\index{ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST@{ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST}{ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST}}
+{\footnotesize\ttfamily \label{group__af__management__service_gabe9fc95bc0e680b2af4fad999320393d} 
+\#define ZB\+\_\+\+AF\+\_\+\+START\+\_\+\+DECLARE\+\_\+\+ENDPOINT\+\_\+\+LIST(\begin{DoxyParamCaption}\item[{}]{ep\+\_\+list\+\_\+name}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ zb\_af\_endpoint\_desc\_t\ *ep\_list\_name[]\ =\ \{}
+
+\end{DoxyCode}
+General macro to declare endpoint description list 
+\begin{DoxyParams}{Parameters}
+{\em ep\+\_\+list\+\_\+name} & -\/ name of ep list structure \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_ga0075414e59706aeaed42864da6fba9f6}\index{AF management service@{AF management service}!ZB\_ZCL\_CLUSTER\_DESC@{ZB\_ZCL\_CLUSTER\_DESC}}
+\index{ZB\_ZCL\_CLUSTER\_DESC@{ZB\_ZCL\_CLUSTER\_DESC}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_ZCL\_CLUSTER\_DESC}{ZB\_ZCL\_CLUSTER\_DESC}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga0075414e59706aeaed42864da6fba9f6} 
+\#define ZB\+\_\+\+ZCL\+\_\+\+CLUSTER\+\_\+\+DESC(\begin{DoxyParamCaption}\item[{}]{cluster\+\_\+id}{, }\item[{}]{attr\+\_\+count}{, }\item[{}]{attr\+\_\+desc\+\_\+list}{, }\item[{}]{cluster\+\_\+role\+\_\+mask}{, }\item[{}]{manuf\+\_\+code}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (cluster\_id),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (attr\_count),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (attr\_desc\_list),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (cluster\_role\_mask),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (manuf\_code),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ (((cluster\_role\_mask)\ ==\ ZB\_ZCL\_CLUSTER\_SERVER\_ROLE)\ ?\ cluster\_id\#\#\_SERVER\_ROLE\_INIT\ :\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ (((cluster\_role\_mask)\ ==\ ZB\_ZCL\_CLUSTER\_CLIENT\_ROLE)\ ?\ cluster\_id\#\#\_CLIENT\_ROLE\_INIT\ :\ NULL))\ \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\Hypertarget{group__af__management__service_ga9df506ef2a06d883d7d39f545b55da8d}\index{AF management service@{AF management service}!ZB\_ZCL\_REGISTER\_DEVICE\_CB@{ZB\_ZCL\_REGISTER\_DEVICE\_CB}}
+\index{ZB\_ZCL\_REGISTER\_DEVICE\_CB@{ZB\_ZCL\_REGISTER\_DEVICE\_CB}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_ZCL\_REGISTER\_DEVICE\_CB}{ZB\_ZCL\_REGISTER\_DEVICE\_CB}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga9df506ef2a06d883d7d39f545b55da8d} 
+\#define ZB\+\_\+\+ZCL\+\_\+\+REGISTER\+\_\+\+DEVICE\+\_\+\+CB(\begin{DoxyParamCaption}\item[{}]{func\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+
+
+Set Device user application callback. The macro sets a callback being called upon to need inform User App about change device attribute or need to execute H/W command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em func\+\_\+ptr} & -\/ a callback to set (of type \doxylink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\+\_\+callback\+\_\+t}).\\
+\hline
+\end{DoxyParams}
+{\bfseries{Example\+:}} 
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ \begin{DoxyParagraph}{Register callback\+:}
+
+\begin{DoxyCodeInclude}{0}
+
+\end{DoxyCodeInclude}
+ 
+\end{DoxyParagraph}
+\Hypertarget{group__af__management__service_gacf2a43cfa94132ee153022c1195d1ff0}\index{AF management service@{AF management service}!ZBOSS\_DECLARE\_DEVICE\_CTX@{ZBOSS\_DECLARE\_DEVICE\_CTX}}
+\index{ZBOSS\_DECLARE\_DEVICE\_CTX@{ZBOSS\_DECLARE\_DEVICE\_CTX}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZBOSS\_DECLARE\_DEVICE\_CTX}{ZBOSS\_DECLARE\_DEVICE\_CTX}}
+{\footnotesize\ttfamily \label{group__af__management__service_gacf2a43cfa94132ee153022c1195d1ff0} 
+\#define ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX(\begin{DoxyParamCaption}\item[{}]{device\+\_\+ctx\+\_\+name}{, }\item[{}]{ep\+\_\+list\+\_\+name}{, }\item[{}]{ep\+\_\+count}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ zb\_af\_device\_ctx\_t\ device\_ctx\_name\ =\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ep\_count,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ep\_list\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+Declare application\textquotesingle{}s device context 
+\begin{DoxyParams}{Parameters}
+{\em device\+\_\+ctx\+\_\+name} & -\/ device context variable name \\
+\hline
+{\em ep\+\_\+list\+\_\+name} & -\/ name of endpoint list \\
+\hline
+{\em ep\+\_\+count} & -\/ number of supported endpoints \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_gaab7adde4a9c39072e37631629788776d}\index{AF management service@{AF management service}!ZBOSS\_DECLARE\_DEVICE\_CTX\_1\_EP@{ZBOSS\_DECLARE\_DEVICE\_CTX\_1\_EP}}
+\index{ZBOSS\_DECLARE\_DEVICE\_CTX\_1\_EP@{ZBOSS\_DECLARE\_DEVICE\_CTX\_1\_EP}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZBOSS\_DECLARE\_DEVICE\_CTX\_1\_EP}{ZBOSS\_DECLARE\_DEVICE\_CTX\_1\_EP}}
+{\footnotesize\ttfamily \label{group__af__management__service_gaab7adde4a9c39072e37631629788776d} 
+\#define ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+1\+\_\+\+EP(\begin{DoxyParamCaption}\item[{}]{device\+\_\+ctx\+\_\+name}{, }\item[{}]{ep\+\_\+name}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__af__management__service_gabe9fc95bc0e680b2af4fad999320393d}{ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST}}(ep\_list\_\#\#device\_ctx\_name)\ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__af__management__service_ga3ada82a1d4115b7eb833e4922351524f}{ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ ZBOSS\_DECLARE\_DEVICE\_CTX(device\_ctx\_name,\ ep\_list\_\#\#device\_ctx\_name,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ZB\_ZCL\_ARRAY\_SIZE(ep\_list\_\#\#device\_ctx\_name,\ zb\_af\_endpoint\_desc\_t*)))}
+
+\end{DoxyCode}
+Declare application\textquotesingle{}s device context for single-\/endpoint device
+
+\begin{DoxyNote}{Note}
+Device has an additional Green Power endpoint if it is ZC or ZR and GPPB feature is enabled (Mandatory for Zigbee 3.\+0 ZC/\+ZR).
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em device\+\_\+ctx\+\_\+name} & -\/ device context variable name \\
+\hline
+{\em ep\+\_\+name} & -\/ variable holding endpoint context \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_ga07eb277f632dff91c8cd5226d5bd9d45}\index{AF management service@{AF management service}!ZBOSS\_DECLARE\_DEVICE\_CTX\_2\_EP@{ZBOSS\_DECLARE\_DEVICE\_CTX\_2\_EP}}
+\index{ZBOSS\_DECLARE\_DEVICE\_CTX\_2\_EP@{ZBOSS\_DECLARE\_DEVICE\_CTX\_2\_EP}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZBOSS\_DECLARE\_DEVICE\_CTX\_2\_EP}{ZBOSS\_DECLARE\_DEVICE\_CTX\_2\_EP}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga07eb277f632dff91c8cd5226d5bd9d45} 
+\#define ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+2\+\_\+\+EP(\begin{DoxyParamCaption}\item[{}]{device\+\_\+ctx\+\_\+name}{, }\item[{}]{ep1\+\_\+name}{, }\item[{}]{ep2\+\_\+name}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__af__management__service_gabe9fc95bc0e680b2af4fad999320393d}{ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST}}(ep\_list\_\#\#device\_ctx\_name)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep1\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep2\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__af__management__service_ga3ada82a1d4115b7eb833e4922351524f}{ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ ZBOSS\_DECLARE\_DEVICE\_CTX(device\_ctx\_name,\ ep\_list\_\#\#device\_ctx\_name,\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ZB\_ZCL\_ARRAY\_SIZE(ep\_list\_\#\#device\_ctx\_name,\ zb\_af\_endpoint\_desc\_t*)))}
+
+\end{DoxyCode}
+Declare application\textquotesingle{}s device context for two-\/endpoint device
+
+\begin{DoxyNote}{Note}
+Device has an additional Green Power endpoint if it is ZC or ZR and GPPB feature (Mandatory for Zigbee 3.\+0 ZC/\+ZR) is enabled.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em device\+\_\+ctx\+\_\+name} & -\/ device context variable name \\
+\hline
+{\em ep1\+\_\+name} & -\/ variable holding context for endpoint 1 \\
+\hline
+{\em ep2\+\_\+name} & -\/ variable holding context for endpoint 2 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_gab5d7bc9c56f835b915a8075168083fbb}\index{AF management service@{AF management service}!ZBOSS\_DECLARE\_DEVICE\_CTX\_3\_EP@{ZBOSS\_DECLARE\_DEVICE\_CTX\_3\_EP}}
+\index{ZBOSS\_DECLARE\_DEVICE\_CTX\_3\_EP@{ZBOSS\_DECLARE\_DEVICE\_CTX\_3\_EP}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZBOSS\_DECLARE\_DEVICE\_CTX\_3\_EP}{ZBOSS\_DECLARE\_DEVICE\_CTX\_3\_EP}}
+{\footnotesize\ttfamily \label{group__af__management__service_gab5d7bc9c56f835b915a8075168083fbb} 
+\#define ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+3\+\_\+\+EP(\begin{DoxyParamCaption}\item[{}]{device\+\_\+ctx\+\_\+name}{, }\item[{}]{ep1\+\_\+name}{, }\item[{}]{ep2\+\_\+name}{, }\item[{}]{ep3\+\_\+name}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__af__management__service_gabe9fc95bc0e680b2af4fad999320393d}{ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST}}(ep\_list\_\#\#device\_ctx\_name)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep1\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep2\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep3\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__af__management__service_ga3ada82a1d4115b7eb833e4922351524f}{ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ ZBOSS\_DECLARE\_DEVICE\_CTX(device\_ctx\_name,\ ep\_list\_\#\#device\_ctx\_name,\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ZB\_ZCL\_ARRAY\_SIZE(ep\_list\_\#\#device\_ctx\_name,\ zb\_af\_endpoint\_desc\_t*)))}
+
+\end{DoxyCode}
+Declare application\textquotesingle{}s device context for three-\/endpoint device
+
+\begin{DoxyNote}{Note}
+Device has an additional Green Power endpoint if it is ZC or ZR and GPPB feature (Mandatory for Zigbee 3.\+0 ZC/\+ZR) is enabled.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em device\+\_\+ctx\+\_\+name} & -\/ device context variable name \\
+\hline
+{\em ep1\+\_\+name} & -\/ variable holding context for endpoint 1 \\
+\hline
+{\em ep2\+\_\+name} & -\/ variable holding context for endpoint 2 \\
+\hline
+{\em ep3\+\_\+name} & -\/ variable holding context for endpoint 3 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_ga3d8345835674be21c1b22c5e19aae8c2}\index{AF management service@{AF management service}!ZBOSS\_DECLARE\_DEVICE\_CTX\_4\_EP@{ZBOSS\_DECLARE\_DEVICE\_CTX\_4\_EP}}
+\index{ZBOSS\_DECLARE\_DEVICE\_CTX\_4\_EP@{ZBOSS\_DECLARE\_DEVICE\_CTX\_4\_EP}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZBOSS\_DECLARE\_DEVICE\_CTX\_4\_EP}{ZBOSS\_DECLARE\_DEVICE\_CTX\_4\_EP}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga3d8345835674be21c1b22c5e19aae8c2} 
+\#define ZBOSS\+\_\+\+DECLARE\+\_\+\+DEVICE\+\_\+\+CTX\+\_\+4\+\_\+\+EP(\begin{DoxyParamCaption}\item[{}]{device\+\_\+ctx\+\_\+name}{, }\item[{}]{ep1\+\_\+name}{, }\item[{}]{ep2\+\_\+name}{, }\item[{}]{ep3\+\_\+name}{, }\item[{}]{ep4\+\_\+name}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__af__management__service_gabe9fc95bc0e680b2af4fad999320393d}{ZB\_AF\_START\_DECLARE\_ENDPOINT\_LIST}}(ep\_list\_\#\#device\_ctx\_name)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep1\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep2\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep3\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \&ep4\_name,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__af__management__service_ga3ada82a1d4115b7eb833e4922351524f}{ZB\_AF\_FINISH\_DECLARE\_ENDPOINT\_LIST}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ ZBOSS\_DECLARE\_DEVICE\_CTX(device\_ctx\_name,\ ep\_list\_\#\#device\_ctx\_name,\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ZB\_ZCL\_ARRAY\_SIZE(ep\_list\_\#\#device\_ctx\_name,\ zb\_af\_endpoint\_desc\_t*)))}
+
+\end{DoxyCode}
+Declare application\textquotesingle{}s device context for for-\/endpoint device
+
+\begin{DoxyNote}{Note}
+Device has an additional Green Power endpoint if it is ZC or ZR and GPPB feature (Mandatory for Zigbee 3.\+0 ZC/\+ZR) is enabled.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em device\+\_\+ctx\+\_\+name} & -\/ device context variable name \\
+\hline
+{\em ep1\+\_\+name} & -\/ variable holding context for endpoint 1 \\
+\hline
+{\em ep2\+\_\+name} & -\/ variable holding context for endpoint 2 \\
+\hline
+{\em ep3\+\_\+name} & -\/ variable holding context for endpoint 3 \\
+\hline
+{\em ep4\+\_\+name} & -\/ variable holding context for endpoint 4 \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_ga19cf0f339cd763a74d77a25984104b7f}\index{AF management service@{AF management service}!ZBOSS\_DEVICE\_DECLARE\_LEVEL\_CONTROL\_CTX@{ZBOSS\_DEVICE\_DECLARE\_LEVEL\_CONTROL\_CTX}}
+\index{ZBOSS\_DEVICE\_DECLARE\_LEVEL\_CONTROL\_CTX@{ZBOSS\_DEVICE\_DECLARE\_LEVEL\_CONTROL\_CTX}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZBOSS\_DEVICE\_DECLARE\_LEVEL\_CONTROL\_CTX}{ZBOSS\_DEVICE\_DECLARE\_LEVEL\_CONTROL\_CTX}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga19cf0f339cd763a74d77a25984104b7f} 
+\#define ZBOSS\+\_\+\+DEVICE\+\_\+\+DECLARE\+\_\+\+LEVEL\+\_\+\+CONTROL\+\_\+\+CTX(\begin{DoxyParamCaption}\item[{}]{lev\+\_\+ctrl\+\_\+ctx}{, }\item[{}]{lev\+\_\+ctrl\+\_\+count}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ zb\_zcl\_cvc\_alarm\_variables\_t\ lev\_ctrl\_ctx[lev\_ctrl\_count]}
+
+\end{DoxyCode}
+Declare device level control context 
+\begin{DoxyParams}{Parameters}
+{\em lev\+\_\+ctrl\+\_\+ctx} & -\/ level control context variable name \\
+\hline
+{\em lev\+\_\+ctrl\+\_\+count} & -\/ number of level control attributes \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_gac6013d8f9989270486e38b4c0beb1daa}\index{AF management service@{AF management service}!ZBOSS\_DEVICE\_DECLARE\_REPORTING\_CTX@{ZBOSS\_DEVICE\_DECLARE\_REPORTING\_CTX}}
+\index{ZBOSS\_DEVICE\_DECLARE\_REPORTING\_CTX@{ZBOSS\_DEVICE\_DECLARE\_REPORTING\_CTX}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZBOSS\_DEVICE\_DECLARE\_REPORTING\_CTX}{ZBOSS\_DEVICE\_DECLARE\_REPORTING\_CTX}}
+{\footnotesize\ttfamily \label{group__af__management__service_gac6013d8f9989270486e38b4c0beb1daa} 
+\#define ZBOSS\+\_\+\+DEVICE\+\_\+\+DECLARE\+\_\+\+REPORTING\+\_\+\+CTX(\begin{DoxyParamCaption}\item[{}]{rep\+\_\+ctx}{, }\item[{}]{rep\+\_\+count}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ zb\_zcl\_reporting\_info\_t\ rep\_ctx[rep\_count]}
+
+\end{DoxyCode}
+Declare device reporting context 
+\begin{DoxyParams}{Parameters}
+{\em rep\+\_\+ctx} & -\/ reporting context variable name \\
+\hline
+{\em rep\+\_\+count} & -\/ number of reporting attributes \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsubsection{Typedef Documentation}
+\Hypertarget{group__af__management__service_gae3b8b2d2063e983d595030a0979f36ab}\index{AF management service@{AF management service}!zb\_af\_transmission\_res\_cb\_t@{zb\_af\_transmission\_res\_cb\_t}}
+\index{zb\_af\_transmission\_res\_cb\_t@{zb\_af\_transmission\_res\_cb\_t}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{zb\_af\_transmission\_res\_cb\_t}{zb\_af\_transmission\_res\_cb\_t}}
+{\footnotesize\ttfamily \label{group__af__management__service_gae3b8b2d2063e983d595030a0979f36ab} 
+typedef void(\texorpdfstring{$\ast$}{*} zb\+\_\+af\+\_\+transmission\+\_\+res\+\_\+cb\+\_\+t) (\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}} status)}
+
+Callback for notifying user about status of ZCL/\+ZDO command transmission \Hypertarget{group__af__management__service_ga4d58cf3d0e6c159c9c63bc2e9d88887c}\index{AF management service@{AF management service}!zb\_device\_handler\_t@{zb\_device\_handler\_t}}
+\index{zb\_device\_handler\_t@{zb\_device\_handler\_t}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{zb\_device\_handler\_t}{zb\_device\_handler\_t}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga4d58cf3d0e6c159c9c63bc2e9d88887c} 
+typedef \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}}(\texorpdfstring{$\ast$}{*} zb\+\_\+device\+\_\+handler\+\_\+t) (\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}} param)}
+
+Device command handler
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & -\/ index of buffer with ZCL command \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+status (see \doxylink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\+\_\+bool\+\_\+t}) 
+\end{DoxyReturn}
+
+
+\doxysubsubsection{Function Documentation}
+\Hypertarget{group__af__management__service_ga83e45fff0810b99132a834b0c9841cec}\index{AF management service@{AF management service}!zb\_af\_get\_endpoint\_desc@{zb\_af\_get\_endpoint\_desc}}
+\index{zb\_af\_get\_endpoint\_desc@{zb\_af\_get\_endpoint\_desc}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{zb\_af\_get\_endpoint\_desc()}{zb\_af\_get\_endpoint\_desc()}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga83e45fff0810b99132a834b0c9841cec} 
+zb\+\_\+af\+\_\+endpoint\+\_\+desc\+\_\+t \texorpdfstring{$\ast$}{*} zb\+\_\+af\+\_\+get\+\_\+endpoint\+\_\+desc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}}}]{ep\+\_\+id}{}\end{DoxyParamCaption})}
+
+
+
+Search for endpoint (device) descriptor by endpoint ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ep\+\_\+id} & -\/ identifier of the endpoint. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+NULL if no endpoint found, or pointer to the endpoint descriptor. 
+\end{DoxyReturn}
+\Hypertarget{group__af__management__service_ga318b4a6d90d299884187d2080c65cd2f}\index{AF management service@{AF management service}!zb\_af\_set\_data\_indication@{zb\_af\_set\_data\_indication}}
+\index{zb\_af\_set\_data\_indication@{zb\_af\_set\_data\_indication}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{zb\_af\_set\_data\_indication()}{zb\_af\_set\_data\_indication()}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga318b4a6d90d299884187d2080c65cd2f} 
+void zb\+\_\+af\+\_\+set\+\_\+data\+\_\+indication (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__af__management__service_ga4d58cf3d0e6c159c9c63bc2e9d88887c}{zb\+\_\+device\+\_\+handler\+\_\+t}}}]{cb}{}\end{DoxyParamCaption})}
+
+
+
+Set up application callback to be called for APS data packets. 
+
+That API call may be useful for tests which uses custom profile id or which needs to send raw data over APS. \begin{DoxyAttention}{Attention}
+Function is called on receive of APS data frame BEFORE internal processing. Please make sure that this callback does not handle packets on standard ZB profiles -\/ this should be done by the stack.
+\end{DoxyAttention}
+
+\begin{DoxyParams}{Parameters}
+{\em cb} & -\/ callback to call when AF got APS packet. \doxylink{group__aps__data__service_gae7d163835b1b3f01ae363730000f1990}{zb\+\_\+apsde\+\_\+data\+\_\+indication\+\_\+t}\\
+\hline
+\end{DoxyParams}
+{\bfseries{Example\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ zboss\_signal\_handler(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__zb__comm__signals_ga39260b983d0f1c9e49e3f81229f89843}{zb\_zdo\_app\_signal\_hdr\_t}}\ *sg\_p\ =\ NULL;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__zb__comm__signals_ga0780642679d1de1797c0091d5a500026}{zb\_zdo\_app\_signal\_type\_t}}\ sig\ =\ \mbox{\hyperlink{group__zb__comm__signals_ga03ab4c87fbcc7cf8e12bbfa9cb8a3be6}{zb\_get\_app\_signal}}(param,\ \&sg\_p);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group__zb__comm__signals_ga92b8d5cdf1c243e1c47e72fbd0e14083}{ZB\_GET\_APP\_SIGNAL\_STATUS}}(param)\ ==\ 0)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{switch}(sig)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group__zb__comm__signals_ga8de605f3e2666ce3d6ea3b5419f73dc9}{ZB\_ZDO\_SIGNAL\_DEFAULT\_START}}:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ TRACE\_MSG(TRACE\_APS1,\ \textcolor{stringliteral}{"{}Device\ STARTED\ OK"{}},\ (FMT\_\_0));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{group__af__management__service_ga318b4a6d90d299884187d2080c65cd2f}{zb\_af\_set\_data\_indication}}(data\_indication);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ TRACE\_MSG(TRACE\_APP1,\ \textcolor{stringliteral}{"{}Unknown\ signal"{}},\ (FMT\_\_0));}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__buf_ga788a473df6d535c19f5da0d142d4fa01}{zb\_buf\_free}}(buf);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ data\_indication(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ param)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ i;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *ptr;}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{group__aps__data__service_gae7d163835b1b3f01ae363730000f1990}{zb\_apsde\_data\_indication\_t}}\ *ind\ =\ ZB\_GET\_BUF\_PARAM(param,\ \mbox{\hyperlink{group__aps__data__service_gae7d163835b1b3f01ae363730000f1990}{zb\_apsde\_data\_indication\_t}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (ind-\/>profileid\ ==\ TEST\_CUSTOM\_PROFILE\_ID)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ ptr\ =\ ZB\_APS\_HDR\_CUT(param);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ TRACE\_MSG(TRACE\_APS3,\ \textcolor{stringliteral}{"{}apsde\_data\_indication:\ packet\ \%p\ len\ \%hd\ status\ 0x\%hx\ from\ \%d"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ (FMT\_\_P\_D\_D\_D,\ param,\ \mbox{\hyperlink{group__buf_ga4c187cf4fb6d5edbbb400bff57f6073e}{zb\_buf\_len}}(param),\ \mbox{\hyperlink{group__buf_ga17d85461a3ccc58a225d62a0b80affab}{zb\_buf\_get\_status}}(param),\ ind-\/>src\_addr));}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0\ ;\ i\ <\ \mbox{\hyperlink{group__buf_ga4c187cf4fb6d5edbbb400bff57f6073e}{zb\_buf\_len}}(param)\ ;\ ++i)}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ TRACE\_MSG(TRACE\_APS3,\ \textcolor{stringliteral}{"{}\%x\ \%c"{}},\ (FMT\_\_D\_C,\ (\textcolor{keywordtype}{int})ptr[i],\ ptr[i]));}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{group__buf_ga788a473df6d535c19f5da0d142d4fa01}{zb\_buf\_free}}(param);}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__base__types_ga31ddce10b950c4f30d546945beabdcbc}{ZB\_TRUE}};}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group__base__types_gae0f2d2d69ee138eedec4460449f84431}{ZB\_FALSE}};}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \Hypertarget{group__af__management__service_gad66af2e3890b5291a4181de11c6743e6}\index{AF management service@{AF management service}!zb\_apsde\_data\_indication\_cont@{zb\_apsde\_data\_indication\_cont}}
+\index{zb\_apsde\_data\_indication\_cont@{zb\_apsde\_data\_indication\_cont}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{zb\_apsde\_data\_indication\_cont()}{zb\_apsde\_data\_indication\_cont()}}
+{\footnotesize\ttfamily \label{group__af__management__service_gad66af2e3890b5291a4181de11c6743e6} 
+void zb\+\_\+apsde\+\_\+data\+\_\+indication\+\_\+cont (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}}}]{param}{}\end{DoxyParamCaption})}
+
+Continue inconimg packet proicessing after ZG-\/\texorpdfstring{$>$}{>}zdo.\+af\+\_\+data\+\_\+cb returned TRUE
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & -\/ incoming packet. Be sure it was initially passed to ZG-\/\texorpdfstring{$>$}{>}zdo.\+af\+\_\+data\+\_\+cb. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_ga7c7c6a7b96b210641a8d9632e27ff4c8}\index{AF management service@{AF management service}!zb\_bdb\_reset\_via\_local\_action@{zb\_bdb\_reset\_via\_local\_action}}
+\index{zb\_bdb\_reset\_via\_local\_action@{zb\_bdb\_reset\_via\_local\_action}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{zb\_bdb\_reset\_via\_local\_action()}{zb\_bdb\_reset\_via\_local\_action()}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga7c7c6a7b96b210641a8d9632e27ff4c8} 
+void zb\+\_\+bdb\+\_\+reset\+\_\+via\+\_\+local\+\_\+action (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\+\_\+uint8\+\_\+t}}}]{param}{}\end{DoxyParamCaption})}
+
+
+
+Perform "{}\+Reset with a Local Action"{} procedure (as described in BDB spec, chapter 9.\+5). The device will perform the NLME leave and clean all Zigbee persistent data except the outgoing NWK frame counter and application datasets (if any). The reset can be performed at any time once the device is started (see zboss\+\_\+start). After the reset, the application will receive the \doxylink{group__zb__comm__signals_ga7942f336484c4fbb85626951480b2bba}{ZB\+\_\+\+ZDO\+\_\+\+SIGNAL\+\_\+\+LEAVE} signal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em param} & -\/ buffer reference (if 0, buffer will be allocated automatically) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{group__af__management__service_gadcda39637103ae12037614ec42d8ca2c}\index{AF management service@{AF management service}!ZB\_DECLARE\_SIMPLE\_DESC@{ZB\_DECLARE\_SIMPLE\_DESC}}
+\index{ZB\_DECLARE\_SIMPLE\_DESC@{ZB\_DECLARE\_SIMPLE\_DESC}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_DECLARE\_SIMPLE\_DESC()}{ZB\_DECLARE\_SIMPLE\_DESC()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{group__af__management__service_gadcda39637103ae12037614ec42d8ca2c} 
+ZB\+\_\+\+DECLARE\+\_\+\+SIMPLE\+\_\+\+DESC (\begin{DoxyParamCaption}\item[{1}]{}{, }\item[{1}]{}{}\end{DoxyParamCaption})}
+
+General descriptor type \Hypertarget{group__af__management__service_ga4f48ff1fc90e1d576d72f2ea27d9efc9}\index{AF management service@{AF management service}!ZB\_DECLARE\_SIMPLE\_DESC@{ZB\_DECLARE\_SIMPLE\_DESC}}
+\index{ZB\_DECLARE\_SIMPLE\_DESC@{ZB\_DECLARE\_SIMPLE\_DESC}!AF management service@{AF management service}}
+\doxysubsubsubsection{\texorpdfstring{ZB\_DECLARE\_SIMPLE\_DESC()}{ZB\_DECLARE\_SIMPLE\_DESC()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{group__af__management__service_ga4f48ff1fc90e1d576d72f2ea27d9efc9} 
+ZB\+\_\+\+DECLARE\+\_\+\+SIMPLE\+\_\+\+DESC (\begin{DoxyParamCaption}\item[{8}]{}{, }\item[{9}]{}{}\end{DoxyParamCaption})}
+
+ZDO descriptor type 

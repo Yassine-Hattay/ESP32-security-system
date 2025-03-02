@@ -1,0 +1,118 @@
+\doxysection{esp\+\_\+modem\+\_\+cmux.\+hpp}
+\hypertarget{esp__modem__cmux_8hpp_source}{}\label{esp__modem__cmux_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_cmux.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_cmux.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2021-\/2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_modem\_terminal.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_buffer.hpp"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{namespace\ }esp\_modem\ \{}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{size\_t}\ MAX\_TERMINALS\_NUM\ =\ 2;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___c_m_u_x_gaed095049f722d0a7b9bcc1e545279627}{cmux\_state}}\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ INIT,}
+\DoxyCodeLine{00028\ \ \ \ \ HEADER,}
+\DoxyCodeLine{00029\ \ \ \ \ PAYLOAD,}
+\DoxyCodeLine{00030\ \ \ \ \ FOOTER,}
+\DoxyCodeLine{00031\ \ \ \ \ RECOVER,}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{class\ }CMuxInstance;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }CMux\ \{}
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{explicit}\ CMux(std::shared\_ptr<Terminal>\ t,\ \mbox{\hyperlink{structesp__modem_1_1unique__buffer}{unique\_buffer}}\ \&\&b):}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ term(std::move(t)),\ payload\_start(\textcolor{keyword}{nullptr}),\ total\_payload\_size(0),\ buffer(std::move(b))\ \ \{\}}
+\DoxyCodeLine{00052\ \ \ \ \ \string~CMux()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classesp__modem_1_1_c_mux_ab305c3da95f19aaf12f09b6c3326a627}{init}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00064\ \ \ \ \ [[nodiscard]]\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classesp__modem_1_1_c_mux_af2651332c7afab5bddc432e5cfbe003a}{deinit}}();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \ \ \ \ std::pair<std::shared\_ptr<Terminal>,\ \mbox{\hyperlink{structesp__modem_1_1unique__buffer}{unique\_buffer}}>\ \mbox{\hyperlink{classesp__modem_1_1_c_mux_ad0c88ebfe57e20bd736078e2339fe445}{detach}}();}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classesp__modem_1_1_c_mux_affb8c7da0b2aba9841860eee680bcd16}{set\_read\_cb}}(\textcolor{keywordtype}{int}\ inst,\ std::function<\textcolor{keywordtype}{bool}(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len)>\ f);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classesp__modem_1_1_c_mux_a9c73976dad0a97396d8ee386dd51e7bc}{write}}(\textcolor{keywordtype}{int}\ i,\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classesp__modem_1_1_c_mux_a40b4da2bb868f439bbc153a1d3eee7f5}{recover}}();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{enum\ class}\ protocol\_mismatch\_reason\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ MISSED\_LEAD\_SOF,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ MISSED\_TRAIL\_SOF,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ WRONG\_CRC,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ UNEXPECTED\_HEADER,}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ UNEXPECTED\_DATA,}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ READ\_BEHIND\_BUFFER,}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ UNKNOWN}
+\DoxyCodeLine{00109\ \ \ \ \ \};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{static}\ uint8\_t\ fcs\_crc(\textcolor{keyword}{const}\ uint8\_t\ frame[6]);\ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{bool}\ data\_available(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);\ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ send\_sabm(\textcolor{keywordtype}{size\_t}\ i);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ send\_disconnect(\textcolor{keywordtype}{size\_t}\ i);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{bool}\ on\_cmux\_data(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);\ \ \ \ \ \ \ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_c_mux_1_1_c_mux_frame}{CMuxFrame}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{bool}\ on\_recovery(\mbox{\hyperlink{struct_c_mux_1_1_c_mux_frame}{CMuxFrame}}\ \&frame);}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordtype}{bool}\ on\_init(\mbox{\hyperlink{struct_c_mux_1_1_c_mux_frame}{CMuxFrame}}\ \&frame);}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{bool}\ on\_header(\mbox{\hyperlink{struct_c_mux_1_1_c_mux_frame}{CMuxFrame}}\ \&frame);}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{bool}\ on\_payload(\mbox{\hyperlink{struct_c_mux_1_1_c_mux_frame}{CMuxFrame}}\ \&frame);}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{bool}\ on\_footer(\mbox{\hyperlink{struct_c_mux_1_1_c_mux_frame}{CMuxFrame}}\ \&frame);}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ recover\_protocol(protocol\_mismatch\_reason\ reason);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ std::function<bool(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len)>\ read\_cb[MAX\_TERMINALS\_NUM];\ \ }
+\DoxyCodeLine{00132\ \ \ \ \ std::shared\_ptr<Terminal>\ term;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00133\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___c_m_u_x_gaed095049f722d0a7b9bcc1e545279627}{cmux\_state}}\ state;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00138\ \ \ \ \ uint8\_t\ dlci;}
+\DoxyCodeLine{00139\ \ \ \ \ uint8\_t\ type;}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ payload\_len;}
+\DoxyCodeLine{00141\ \ \ \ \ uint8\_t\ frame\_header[6];}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ frame\_header\_offset;}
+\DoxyCodeLine{00143\ \ \ \ \ uint8\_t\ *payload\_start;}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ total\_payload\_size;}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{int}\ sabm\_ack;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00150\ \ \ \ \ \mbox{\hyperlink{structesp__modem_1_1unique__buffer}{unique\_buffer}}\ buffer;}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \mbox{\hyperlink{structesp__modem_1_1_lock}{Lock}}\ lock;}
+\DoxyCodeLine{00153\ \};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{class\ }CMuxInstance:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}}\ \{}
+\DoxyCodeLine{00160\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keyword}{explicit}\ CMuxInstance(std::shared\_ptr<CMux>\ parent,\ \textcolor{keywordtype}{int}\ i):\ cmux(std::move(parent)),\ instance(i)\ \{\}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classesp__modem_1_1_c_mux_instance_a439640b744fbc33d6ae559c3b8dc2cf6}{write}}(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00164\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cmux-\/>write(instance,\ data,\ len);}
+\DoxyCodeLine{00166\ \ \ \ \ \}}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_read\_cb(std::function<\textcolor{keywordtype}{bool}(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len)>\ f)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00168\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cmux-\/>set\_read\_cb(instance,\ std::move(f));}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classesp__modem_1_1_c_mux_instance_ae460145a1298c8afeee0583cdc765bb7}{read}}(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00172\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \ 0;}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{void}\ start()\textcolor{keyword}{\ override\ }\{\ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{void}\ stop()\textcolor{keyword}{\ override\ }\{\ \}}
+\DoxyCodeLine{00177\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00178\ \ \ \ \ std::shared\_ptr<CMux>\ cmux;}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ instance;}
+\DoxyCodeLine{00180\ \};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \}\ \textcolor{comment}{//\ namespace\ esp\_modem}}
+
+\end{DoxyCode}

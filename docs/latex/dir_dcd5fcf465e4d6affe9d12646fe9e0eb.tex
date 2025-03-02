@@ -1,0 +1,146 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Time Directory Reference}
+\hypertarget{dir_dcd5fcf465e4d6affe9d12646fe9e0eb}{}\label{dir_dcd5fcf465e4d6affe9d12646fe9e0eb}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Time Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Time Directory Reference}}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bfseries Time\+Lib.\+h}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Time is a library that provides timekeeping functionality for Arduino.
+
+Using the Arduino Library Manager, install "{}\texorpdfstring{$\ast$}{*}\+Time\texorpdfstring{$\ast$}{*} by \texorpdfstring{$\ast$}{*}\+Michael Margolis\texorpdfstring{$\ast$}{*}"{}.
+
+The code is derived from the Playground Date\+Time library but is updated to provide an API that is more flexible and easier to use.
+
+A primary goal was to enable date and time functionality that can be used with a variety of external time sources with minimum differences required in sketch logic.
+
+Example sketches illustrate how similar sketch code can be used with\+: a Real Time Clock, internet NTP time service, GPS time data, and Serial time messages from a computer for time synchronization.\hypertarget{Readme.md_autotoc_md585}{}\doxysubsection{\texorpdfstring{Functionality}{Functionality}}\label{Readme.md_autotoc_md585}
+To use the Time library in an Arduino sketch, include \doxylink{_time_lib_8h_source}{Time\+Lib.\+h}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <TimeLib.h>}}
+
+\end{DoxyCode}
+
+
+The functions available in the library include
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{hour();\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ hour\ now\ \ (0-\/23)}}
+\DoxyCodeLine{minute();\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ minute\ now\ (0-\/59)}}
+\DoxyCodeLine{second();\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ second\ now\ (0-\/59)}}
+\DoxyCodeLine{day();\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ day\ now\ (1-\/31)}}
+\DoxyCodeLine{weekday();\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ day\ of\ the\ week\ (1-\/7),\ Sunday\ is\ day\ 1}}
+\DoxyCodeLine{month();\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ month\ now\ (1-\/12)}}
+\DoxyCodeLine{year();\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ full\ four\ digit\ year:\ (2009,\ 2010\ etc)}}
+
+\end{DoxyCode}
+
+
+there are also functions to return the hour in 12-\/hour format
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{hourFormat12();\ \ \ \ \textcolor{comment}{//\ the\ hour\ now\ in\ 12\ hour\ format}}
+\DoxyCodeLine{isAM();\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ true\ if\ time\ now\ is\ AM}}
+\DoxyCodeLine{isPM();\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ true\ if\ time\ now\ is\ PM}}
+\DoxyCodeLine{}
+\DoxyCodeLine{now();\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ the\ current\ time\ as\ seconds\ since\ Jan\ 1\ 1970}}
+
+\end{DoxyCode}
+
+
+The time and date functions can take an optional parameter for the time. This prevents errors if the time rolls over between elements. For example, if a new minute begins between getting the minute and second, the values will be inconsistent. Using the following functions eliminates this problem
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{time\_t\ t\ =\ now();\ \textcolor{comment}{//\ store\ the\ current\ time\ in\ time\ variable\ t}}
+\DoxyCodeLine{hour(t);\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ the\ hour\ for\ the\ given\ time\ t}}
+\DoxyCodeLine{minute(t);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ the\ minute\ for\ the\ given\ time\ t}}
+\DoxyCodeLine{second(t);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ the\ second\ for\ the\ given\ time\ t}}
+\DoxyCodeLine{day(t);\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ day\ for\ the\ given\ time\ t}}
+\DoxyCodeLine{weekday(t);\ \ \ \ \ \ \ \textcolor{comment}{//\ day\ of\ the\ week\ for\ the\ given\ time\ t}}
+\DoxyCodeLine{month(t);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ month\ for\ the\ given\ time\ t}}
+\DoxyCodeLine{year(t);\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ year\ for\ the\ given\ time\ t}}
+
+\end{DoxyCode}
+
+
+Functions for managing the timer services are\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{setTime(t);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ the\ system\ time\ to\ the\ give\ time\ t}}
+\DoxyCodeLine{setTime(hr,min,sec,day,mnth,yr);\ \textcolor{comment}{//\ alternative\ to\ above,\ yr\ is\ 2\ or\ 4\ digit\ yr}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (2010\ or\ 10\ sets\ year\ to\ 2010)}}
+\DoxyCodeLine{adjustTime(adjustment);\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ adjust\ system\ time\ by\ adding\ the\ adjustment\ value}}
+\DoxyCodeLine{timeStatus();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ indicates\ if\ time\ has\ been\ set\ and\ recently\ synchronized}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ one\ of\ the\ following\ enumerations:}}
+\DoxyCodeLine{timeNotSet\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ time\ has\ never\ been\ set,\ the\ clock\ started\ on\ Jan\ 1,\ 1970}}
+\DoxyCodeLine{timeNeedsSync\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ time\ had\ been\ set\ but\ a\ sync\ attempt\ did\ not\ succeed}}
+\DoxyCodeLine{timeSet\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ time\ is\ set\ and\ is\ synced}}
+
+\end{DoxyCode}
+
+
+Time and Date values are not valid if the status is {\ttfamily time\+Not\+Set}. Otherwise, values can be used but the returned time may have drifted if the status is {\ttfamily time\+Needs\+Sync}. ~\newline
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{setSyncProvider(getTimeFunction);\ \ \textcolor{comment}{//\ set\ the\ external\ time\ provider}}
+\DoxyCodeLine{setSyncInterval(interval);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ the\ number\ of\ seconds\ between\ re-\/sync}}
+
+\end{DoxyCode}
+
+
+There are many convenience macros in the {\ttfamily time.\+h} file for time constants and conversion of time units.
+
+To use the library, copy the download to the Library directory.\hypertarget{Readme.md_autotoc_md586}{}\doxysubsection{\texorpdfstring{Examples}{Examples}}\label{Readme.md_autotoc_md586}
+The Time directory contains the Time library and some example sketches illustrating how the library can be used with various time sources\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily Time\+Serial.\+pde} shows Arduino as a clock without external hardware. It is synchronized by time messages sent over the serial port. A companion Processing sketch will automatically provide these messages if it is running and connected to the Arduino serial port.
+\item {\ttfamily Time\+Serial\+Date\+Strings.\+pde} adds day and month name strings to the sketch above. Short (3 characters) and long strings are available to print the days of the week and names of the months.
+\item {\ttfamily Time\+RTC} uses a DS1307 real-\/time clock to provide time synchronization. The basic \href{https://github.com/PaulStoffregen/DS1307RTC>}{\texttt{ DS1307\+RTC library}} must be downloaded and installed, in order to run this sketch.
+\item {\ttfamily Time\+RTCSet} is similar to the above and adds the ability to set the Real Time Clock.
+\item {\ttfamily Time\+RTCLog} demonstrates how to calculate the difference between times. It is a very simple logger application that monitors events on digital pins and prints (to the serial port) the time of an event and the time period since the previous event.
+\item {\ttfamily Time\+NTP} uses the Arduino Ethernet shield to access time using the internet NTP time service. The NTP protocol uses \doxylink{class_u_d_p}{UDP} and the Udp\+Bytewise library is required, see\+: \href{http://bitbucket.org/bjoern/arduino_osc/src/14667490521f/libraries/Ethernet/}{\texttt{ http\+://bitbucket.\+org/bjoern/arduino\+\_\+osc/src/14667490521f/libraries/\+Ethernet/}}
+\item {\ttfamily Time\+GPS} gets time from a GPS. This requires the Tiny\+GPS library from Mikal Hart\+: \href{http://arduiniana.org/libraries/TinyGPS}{\texttt{ http\+://arduiniana.\+org/libraries/\+Tiny\+GPS}}
+\end{DoxyItemize}\hypertarget{Readme.md_autotoc_md587}{}\doxysubsection{\texorpdfstring{Differences}{Differences}}\label{Readme.md_autotoc_md587}
+Differences between this code and the playground Date\+Time library although the Time library is based on the Date\+Time codebase, the API has changed. Changes in the Time library API\+:
+
+
+\begin{DoxyItemize}
+\item time elements are functions returning {\ttfamily int} (they are variables in Date\+Time)
+\item Years start from 1970
+\item days of the week and months start from 1 (they start from 0 in Date\+Time)
+\item Date\+Strings do not require a separate library
+\item time elements can be accessed non-\/atomically (in Date\+Time they are always atomic)
+\item function added to automatically sync time with external source
+\item {\ttfamily local\+Time} and {\ttfamily maketime} parameters changed, {\ttfamily local\+Time} renamed to {\ttfamily break\+Time}
+\end{DoxyItemize}\hypertarget{Readme.md_autotoc_md588}{}\doxysubsection{\texorpdfstring{Technical Notes}{Technical Notes}}\label{Readme.md_autotoc_md588}
+Internal system time is based on the standard Unix {\ttfamily time\+\_\+t}. The value is the number of seconds since Jan 1, 1970. System time begins at zero when the sketch starts.
+
+The internal time can be automatically synchronized at regular intervals to an external time source. This is enabled by calling the {\ttfamily set\+Sync\+Provider(provider)} function -\/ the provider argument is the address of a function that returns the current time as a {\ttfamily time\+\_\+t}. See the sketches in the examples directory for usage.
+
+The default interval for re-\/syncing the time is 5 minutes but can be changed by calling the {\ttfamily set\+Sync\+Interval(interval)} method to set the number of seconds between re-\/sync attempts.
+
+The Time library defines a structure for holding time elements that is a compact version of the C {\ttfamily tm} structure. All the members of the Arduino {\ttfamily tm} structure are bytes and the year is offset from 1970. Convenience macros provide conversion to and from the Arduino format.
+
+Low-\/level functions to convert between system time and individual time elements are provided\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{breakTime(time,\ \&tm);\ \ \textcolor{comment}{//\ break\ time\_t\ into\ elements\ stored\ in\ tm\ struct}}
+\DoxyCodeLine{makeTime(\&tm);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ return\ time\_t\ from\ elements\ stored\ in\ tm\ struct}}
+
+\end{DoxyCode}
+
+
+This \href{https://github.com/PaulStoffregen/DS1307RTC>}{\texttt{ DS1307\+RTC library}} provides an example of how a time provider can use the low-\/level functions to interface with the Time library. 

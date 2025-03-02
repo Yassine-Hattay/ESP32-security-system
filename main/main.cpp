@@ -1,24 +1,45 @@
+/**
+ * @file main.cpp
+ * @author Yassine Hattay (hattayyassine519@gmail.com)
+ * @brief 
+ * @version 0.1
+ * @date 2025-03-02
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
 #include "global_header.h"
 #include "email_module.h"
 #include "camera_var.h"
 #include "server_v.h"
 #include "tasks_v.h"
 
+/** @brief Acces point name*/
 const char *ssid = "Orange-066C";
+
+/** @brief Acces point password*/
 const char *password = "GMA6ABLMG87";
+
+/** @brief slave mac address*/
 
 uint8_t mac[6] = {0xCC, 0x50, 0xE3, 0x42, 0x2A, 0x61};
 
 WebServer server(80);
 
+/** @brief check every (us) to see if internet is back*/
 unsigned long checkInterval = 1800000; 
+/** @brief esp now packet time out*/
 unsigned long timeout_F = 20000;
 
 WiFiUDP udp;
+
 NTPClient timeClient(udp, "pool.ntp.org", 3600, 3600000);
 
+/** @brief wait time before taking a picture */
 int adjustment_time = 1 * 1000;
 int jpeg_quality_v = 10;
+/** @brief number of photos skiped */
 int frames_skipped = 10;
 int xclk_s = 20000000;
 int fb_count_v = 1;

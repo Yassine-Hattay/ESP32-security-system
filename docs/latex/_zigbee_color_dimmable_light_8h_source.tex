@@ -1,0 +1,70 @@
+\doxysection{Zigbee\+Color\+Dimmable\+Light.\+h}
+\hypertarget{_zigbee_color_dimmable_light_8h_source}{}\label{_zigbee_color_dimmable_light_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Zigbee/src/ep/ZigbeeColorDimmableLight.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Zigbee/src/ep/ZigbeeColorDimmableLight.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Class\ of\ Zigbee\ On/Off\ Light\ endpoint\ inherited\ from\ common\ EP\ class\ */}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#if\ SOC\_IEEE802154\_SUPPORTED\ \&\&\ CONFIG\_ZB\_ENABLED}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}ZigbeeEP.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}ha/esp\_zigbee\_ha\_standard.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }ZigbeeColorDimmableLight\ :\ \textcolor{keyword}{public}\ ZigbeeEP\ \{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ ZigbeeColorDimmableLight(uint8\_t\ endpoint);}
+\DoxyCodeLine{00015\ \ \ \string~ZigbeeColorDimmableLight();}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \textcolor{keywordtype}{void}\ onLightChange(\textcolor{keywordtype}{void}\ (*callback)(\textcolor{keywordtype}{bool},\ uint8\_t,\ uint8\_t,\ uint8\_t,\ uint8\_t))\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \_on\_light\_change\ =\ callback;}
+\DoxyCodeLine{00019\ \ \ \}}
+\DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{void}\ restoreLight()\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ lightChanged();}
+\DoxyCodeLine{00022\ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{void}\ setLightState(\textcolor{keywordtype}{bool}\ state);}
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{void}\ setLightLevel(uint8\_t\ level);}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{void}\ setLightColor(uint8\_t\ red,\ uint8\_t\ green,\ uint8\_t\ blue);}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{void}\ setLight(\textcolor{keywordtype}{bool}\ state,\ uint8\_t\ level,\ uint8\_t\ red,\ uint8\_t\ green,\ uint8\_t\ blue);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{bool}\ getLightState()\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{return}\ \_current\_state;}
+\DoxyCodeLine{00031\ \ \ \}}
+\DoxyCodeLine{00032\ \ \ uint8\_t\ getLightLevel()\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{return}\ \_current\_level;}
+\DoxyCodeLine{00034\ \ \ \}}
+\DoxyCodeLine{00035\ \ \ uint8\_t\ getLightRed()\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordflow}{return}\ \_current\_red;}
+\DoxyCodeLine{00037\ \ \ \}}
+\DoxyCodeLine{00038\ \ \ uint8\_t\ getLightGreen()\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{return}\ \_current\_green;}
+\DoxyCodeLine{00040\ \ \ \}}
+\DoxyCodeLine{00041\ \ \ uint8\_t\ getLightBlue()\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ \_current\_blue;}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{void}\ zbAttributeSet(\textcolor{keyword}{const}\ esp\_zb\_zcl\_set\_attr\_value\_message\_t\ *message)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{void}\ calculateRGB(uint16\_t\ x,\ uint16\_t\ y,\ uint8\_t\ \&red,\ uint8\_t\ \&green,\ uint8\_t\ \&blue);}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{void}\ calculateXY(uint8\_t\ red,\ uint8\_t\ green,\ uint8\_t\ blue,\ uint16\_t\ \&x,\ uint16\_t\ \&y);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ uint16\_t\ getCurrentColorX();}
+\DoxyCodeLine{00051\ \ \ uint16\_t\ getCurrentColorY();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{void}\ lightChanged();}
+\DoxyCodeLine{00054\ \ \ \textcolor{comment}{//callback\ function\ to\ be\ called\ on\ light\ change\ (State,\ R,\ G,\ B,\ Level)}}
+\DoxyCodeLine{00055\ \ \ void\ (*\_on\_light\_change)(bool,\ uint8\_t,\ uint8\_t,\ uint8\_t,\ uint8\_t);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{bool}\ \_current\_state;}
+\DoxyCodeLine{00058\ \ \ uint8\_t\ \_current\_level;}
+\DoxyCodeLine{00059\ \ \ uint16\_t\ \_current\_red;}
+\DoxyCodeLine{00060\ \ \ uint16\_t\ \_current\_green;}
+\DoxyCodeLine{00061\ \ \ uint16\_t\ \_current\_blue;}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//SOC\_IEEE802154\_SUPPORTED\ \&\&\ CONFIG\_ZB\_ENABLED}}
+
+\end{DoxyCode}

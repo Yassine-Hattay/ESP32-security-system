@@ -1,0 +1,65 @@
+\doxysection{graphics\+\_\+support.\+h}
+\hypertarget{applications_2azure__board__apps_2graphics_23d__matrix_23d__matrix__src_2graphics__support_8h_source}{}\label{applications_2azure__board__apps_2graphics_23d__matrix_23d__matrix__src_2graphics__support_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/applications/azure\_board\_apps/graphics/3d\_matrix/3d\_matrix\_src/graphics\_support.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/applications/azure\_board\_apps/graphics/3d\_matrix/3d\_matrix\_src/graphics\_support.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_dsp.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}ekf\_imu13states.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ DEG\_TO\_RAD\ 0.01745329252f\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Degrees\ to\ radians\ conversion}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ RAD\_TO\_DEG\ 57.29577951f\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Radians\ to\ degrees\ conversion}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MATRIX\_SIZE\ 4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ 4x4\ matrices\ are\ used}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ SSD1306\_WIDTH\ 128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Display\ widh\ in\ pixels}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ SSD1306\_HEIGHT\ 64\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ DIsplay\ height}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ SSD1606\_X\_CENTER\ (SSD1306\_WIDTH\ /\ 2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Width\ center\ point}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ SSD1606\_Y\_CENTER\ (SSD1306\_HEIGHT\ /\ 2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Height\ center\ point}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structimage__3d__matrix__s}{image\_3d\_matrix\_s}}\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{const}\ float\ (*\mbox{\hyperlink{structimage__3d__matrix__s_ab7510c4e64d4c263cf7008cc621d7aad}{matrix}})[MATRIX\_SIZE];\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structimage__3d__matrix__s_a3eae053c3780283bdc6f3395d09968b1}{matrix\_len}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \}\ image\_3d\_matrix\_t;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structimage__3d__matrix__kalman__s}{image\_3d\_matrix\_kalman\_s}}\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{const}\ float\ (*\mbox{\hyperlink{structimage__3d__matrix__kalman__s_a6e1bb950a1fab4dc85c1c662cf9f9835}{matrix}})[MATRIX\_SIZE];\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structimage__3d__matrix__kalman__s_ad47dfa6b430bf7a903303e72c19956af}{matrix\_len}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{classekf__imu13states}{ekf\_imu13states}}\ *\mbox{\hyperlink{structimage__3d__matrix__kalman__s_aaa930f60309cd57e066645ad92cab644}{ekf13}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \}\ image\_3d\_matrix\_kalman\_t;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ init\_perspective\_matrix(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&P\_m);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}\ update\_scaling\_matrix(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&T\_m,\ \textcolor{keywordtype}{bool}\ keep\_diagonal,\ \textcolor{keywordtype}{float}\ scale\_x,\ \textcolor{keywordtype}{float}\ scale\_y,\ \textcolor{keywordtype}{float}\ scale\_z);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00090\ \textcolor{keywordtype}{void}\ update\_translation\_matrix(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&T\_m,\ \textcolor{keywordtype}{bool}\ row,\ \textcolor{keywordtype}{float}\ move\_x,\ \textcolor{keywordtype}{float}\ move\_y,\ \textcolor{keywordtype}{float}\ move\_z);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00103\ \textcolor{keywordtype}{void}\ update\_rotation\_matrix(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&T\_m,\ \textcolor{keywordtype}{float}\ rot\_x,\ \textcolor{keywordtype}{float}\ rot\_y,\ \textcolor{keywordtype}{float}\ rot\_z);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{void}\ update\_perspective\_matrix(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&P\_m,\ \textcolor{keywordtype}{float}\ fov);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{void}\ print\_matrix(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ matrix);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00127\ \}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

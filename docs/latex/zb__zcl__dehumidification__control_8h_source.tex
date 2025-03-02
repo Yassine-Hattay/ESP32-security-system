@@ -1,0 +1,157 @@
+\doxysection{zb\+\_\+zcl\+\_\+dehumidification\+\_\+control.\+h}
+\hypertarget{zb__zcl__dehumidification__control_8h_source}{}\label{zb__zcl__dehumidification__control_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_dehumidification\_control.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_dehumidification\_control.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Dehumidification\ Control\ cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_common.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_commands.h"{}}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ Cluster\ ZB\_ZCL\_CLUSTER\_ID\_DEHUMIDIFICATION\_CONTROL\ */}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{enum}\ zb\_zcl\_dehumidification\_control\_attr\_e}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00068\ \ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_RELATIVE\_HUMIDITY\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0000,}
+\DoxyCodeLine{00070\ \ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_COOLING\_ID\ \ \ \ =\ 0x0001,}
+\DoxyCodeLine{00072\ \ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_RHDEHUMIDIFICATION\_SETPOINT\_ID\ =\ 0x0010,}
+\DoxyCodeLine{00075\ \ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_RELATIVE\_HUMIDITY\_MODE\_ID\ \ \ \ \ \ =\ 0x0011,}
+\DoxyCodeLine{00078\ \ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_LOCKOUT\_ID\ \ \ \ =\ 0x0012,}
+\DoxyCodeLine{00080\ \ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_HYSTERESIS\_ID\ =\ 0x0013,}
+\DoxyCodeLine{00082\ \ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_MAX\_COOL\_ID\ \ \ =\ 0x0014,}
+\DoxyCodeLine{00085\ \ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_RELATIVE\_HUMIDITY\_DISPLAY\_ID\ \ \ =\ 0x0015,}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0001u)}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_RHDEHUMIDIFICATION\_SETPOINT\_MIN\_VALUE\ 0x1e}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_RHDEHUMIDIFICATION\_SETPOINT\_MAX\_VALUE\ 0x64}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_RHDEHUMIDIFICATION\_SETPOINT\_DEFAULT\_VALUE\ 0x32}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_RELATIVE\_HUMIDITY\_MODE\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x00)}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_LOCKOUT\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x01)}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_HYSTERESIS\_MIN\_VALUE\ 0x02}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_HYSTERESIS\_MAX\_VALUE\ 0x14}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_HYSTERESIS\_DEFAULT\_VALUE\ 0x02}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_MAX\_COOL\_MIN\_VALUE\ 0x14}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_MAX\_COOL\_MAX\_VALUE\ 0x64}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_MAX\_COOL\_DEFAULT\_VALUE\ 0x14}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_RELATIVE\_HUMIDITY\_DISPLAY\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x00)}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_DEHUMIDIFICATION\_CONTROL\_ATTRIB\_LIST(attr\_list,\ dehumid\_cooling,\ dehumid\_setpoint,\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dehumid\_hysteresis,\ dehumid\_max\_cool)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_COOLING\_ID,\ (dehumid\_cooling))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_RHDEHUMIDIFICATION\_SETPOINT\_ID,\ (dehumid\_setpoint))\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_HYSTERESIS\_ID,\ (dehumid\_hysteresis))\ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_MAX\_COOL\_ID,\ (dehumid\_max\_cool))\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00142\ \ \textcolor{comment}{/*\ Dehumidification\ Control\ cluster\ attributes\ */}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00148\ \ \textcolor{comment}{/*\ Dehumidification\ Control\ cluster\ commands\ */}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_COOLING\_ID(data\_ptr)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_COOLING\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY\ |\ ZB\_ZCL\_ATTR\_ACCESS\_REPORTING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_RHDEHUMIDIFICATION\_SETPOINT\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_RHDEHUMIDIFICATION\_SETPOINT\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_HYSTERESIS\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_HYSTERESIS\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_MAX\_COOL\_ID(data\_ptr)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_DEHUMIDIFICATION\_CONTROL\_DEHUMIDIFICATION\_MAX\_COOL\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DEHUMIDIFICATION\_CONTROL\_REPORT\_ATTR\_COUNT\ 1}}
+\DoxyCodeLine{00195\ \ \textcolor{comment}{/*\ Dehumidification\ Control\ cluster\ internals\ */}\ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{00199\ \ \textcolor{comment}{/*\ ZCL\ HA\ Dehumidification\ Control\ cluster\ definitions\ */}}
+\DoxyCodeLine{00201\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ */}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{keywordtype}{void}\ zb\_zcl\_dehumidification\_control\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00205\ \textcolor{keywordtype}{void}\ zb\_zcl\_dehumidification\_control\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_DEHUMID\_CONTROL\_SERVER\_ROLE\_INIT\ zb\_zcl\_dehumidification\_control\_init\_server}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_DEHUMID\_CONTROL\_CLIENT\_ROLE\_INIT\ zb\_zcl\_dehumidification\_control\_init\_client}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_DEHUMID\_CONTROL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

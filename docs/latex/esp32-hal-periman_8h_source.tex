@@ -1,0 +1,154 @@
+\doxysection{esp32-\/hal-\/periman.h}
+\hypertarget{esp32-hal-periman_8h_source}{}\label{esp32-hal-periman_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/periman.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/periman.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2019-\/2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ perimanClearPinBus(p)\ perimanSetPinBus(p,\ ESP32\_BUS\_TYPE\_INIT,\ NULL,\ -\/1,\ -\/1)}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00021\ \ \ ESP32\_BUS\_TYPE\_INIT,\ \ \ \ \ \ \textcolor{comment}{//\ IO\ has\ not\ been\ attached\ to\ a\ bus\ yet}}
+\DoxyCodeLine{00022\ \ \ ESP32\_BUS\_TYPE\_GPIO,\ \ \ \ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ GPIO}}
+\DoxyCodeLine{00023\ \ \ ESP32\_BUS\_TYPE\_UART\_RX,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ UART\ RX\ pin}}
+\DoxyCodeLine{00024\ \ \ ESP32\_BUS\_TYPE\_UART\_TX,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ UART\ TX\ pin}}
+\DoxyCodeLine{00025\ \ \ ESP32\_BUS\_TYPE\_UART\_CTS,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ UART\ CTS\ pin}}
+\DoxyCodeLine{00026\ \ \ ESP32\_BUS\_TYPE\_UART\_RTS,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ UART\ RTS\ pin}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#if\ SOC\_SDM\_SUPPORTED}}
+\DoxyCodeLine{00028\ \ \ ESP32\_BUS\_TYPE\_SIGMADELTA,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SigmeDelta\ output}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#if\ SOC\_ADC\_SUPPORTED}}
+\DoxyCodeLine{00031\ \ \ ESP32\_BUS\_TYPE\_ADC\_ONESHOT,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ ADC\ OneShot\ input}}
+\DoxyCodeLine{00032\ \ \ ESP32\_BUS\_TYPE\_ADC\_CONT,\ \ \ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ ADC\ continuous\ input}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#if\ SOC\_DAC\_SUPPORTED}}
+\DoxyCodeLine{00035\ \ \ ESP32\_BUS\_TYPE\_DAC\_ONESHOT,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ DAC\ OneShot\ output}}
+\DoxyCodeLine{00036\ \ \ ESP32\_BUS\_TYPE\_DAC\_CONT,\ \ \ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ DAC\ continuous\ output}}
+\DoxyCodeLine{00037\ \ \ ESP32\_BUS\_TYPE\_DAC\_COSINE,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ DAC\ cosine\ output}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#if\ SOC\_LEDC\_SUPPORTED}}
+\DoxyCodeLine{00040\ \ \ ESP32\_BUS\_TYPE\_LEDC,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ LEDC\ output}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#if\ SOC\_RMT\_SUPPORTED}}
+\DoxyCodeLine{00043\ \ \ ESP32\_BUS\_TYPE\_RMT\_TX,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ RMT\ output}}
+\DoxyCodeLine{00044\ \ \ ESP32\_BUS\_TYPE\_RMT\_RX,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ RMT\ input}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTED}}
+\DoxyCodeLine{00047\ \ \ ESP32\_BUS\_TYPE\_I2S\_STD\_MCLK,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ STD\ MCLK\ pin}}
+\DoxyCodeLine{00048\ \ \ ESP32\_BUS\_TYPE\_I2S\_STD\_BCLK,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ STD\ BCLK\ pin}}
+\DoxyCodeLine{00049\ \ \ ESP32\_BUS\_TYPE\_I2S\_STD\_WS,\ \ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ STD\ WS\ pin}}
+\DoxyCodeLine{00050\ \ \ ESP32\_BUS\_TYPE\_I2S\_STD\_DOUT,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ STD\ DOUT\ pin}}
+\DoxyCodeLine{00051\ \ \ ESP32\_BUS\_TYPE\_I2S\_STD\_DIN,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ STD\ DIN\ pin}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ ESP32\_BUS\_TYPE\_I2S\_TDM\_MCLK,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ TDM\ MCLK\ pin}}
+\DoxyCodeLine{00054\ \ \ ESP32\_BUS\_TYPE\_I2S\_TDM\_BCLK,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ TDM\ BCLK\ pin}}
+\DoxyCodeLine{00055\ \ \ ESP32\_BUS\_TYPE\_I2S\_TDM\_WS,\ \ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ TDM\ WS\ pin}}
+\DoxyCodeLine{00056\ \ \ ESP32\_BUS\_TYPE\_I2S\_TDM\_DOUT,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ TDM\ DOUT\ pin}}
+\DoxyCodeLine{00057\ \ \ ESP32\_BUS\_TYPE\_I2S\_TDM\_DIN,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ TDM\ DIN\ pin}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ ESP32\_BUS\_TYPE\_I2S\_PDM\_TX\_CLK,\ \ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ PDM\ CLK\ pin}}
+\DoxyCodeLine{00060\ \ \ ESP32\_BUS\_TYPE\_I2S\_PDM\_TX\_DOUT0,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ PDM\ DOUT0\ pin}}
+\DoxyCodeLine{00061\ \ \ ESP32\_BUS\_TYPE\_I2S\_PDM\_TX\_DOUT1,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ PDM\ DOUT1\ pin}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ ESP32\_BUS\_TYPE\_I2S\_PDM\_RX\_CLK,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ PDM\ CLK\ pin}}
+\DoxyCodeLine{00064\ \ \ ESP32\_BUS\_TYPE\_I2S\_PDM\_RX\_DIN0,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ PDM\ DIN0\ pin}}
+\DoxyCodeLine{00065\ \ \ ESP32\_BUS\_TYPE\_I2S\_PDM\_RX\_DIN1,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ PDM\ DIN1\ pin}}
+\DoxyCodeLine{00066\ \ \ ESP32\_BUS\_TYPE\_I2S\_PDM\_RX\_DIN2,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ PDM\ DIN2\ pin}}
+\DoxyCodeLine{00067\ \ \ ESP32\_BUS\_TYPE\_I2S\_PDM\_RX\_DIN3,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2S\ PDM\ DIN3\ pin}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#if\ SOC\_I2C\_SUPPORTED}}
+\DoxyCodeLine{00070\ \ \ ESP32\_BUS\_TYPE\_I2C\_MASTER\_SDA,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2C\ master\ SDA\ pin}}
+\DoxyCodeLine{00071\ \ \ ESP32\_BUS\_TYPE\_I2C\_MASTER\_SCL,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2C\ master\ SCL\ pin}}
+\DoxyCodeLine{00072\ \ \ ESP32\_BUS\_TYPE\_I2C\_SLAVE\_SDA,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2C\ slave\ SDA\ pin}}
+\DoxyCodeLine{00073\ \ \ ESP32\_BUS\_TYPE\_I2C\_SLAVE\_SCL,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ I2C\ slave\ SCL\ pin}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#if\ SOC\_GPSPI\_SUPPORTED}}
+\DoxyCodeLine{00076\ \ \ ESP32\_BUS\_TYPE\_SPI\_MASTER\_SCK,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SPI\ master\ SCK\ pin}}
+\DoxyCodeLine{00077\ \ \ ESP32\_BUS\_TYPE\_SPI\_MASTER\_MISO,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SPI\ master\ MISO\ pin}}
+\DoxyCodeLine{00078\ \ \ ESP32\_BUS\_TYPE\_SPI\_MASTER\_MOSI,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SPI\ master\ MOSI\ pin}}
+\DoxyCodeLine{00079\ \ \ ESP32\_BUS\_TYPE\_SPI\_MASTER\_SS,\ \ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SPI\ master\ SS\ pin}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#if\ SOC\_SDMMC\_HOST\_SUPPORTED}}
+\DoxyCodeLine{00082\ \ \ ESP32\_BUS\_TYPE\_SDMMC\_CLK,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SDMMC\ CLK\ pin}}
+\DoxyCodeLine{00083\ \ \ ESP32\_BUS\_TYPE\_SDMMC\_CMD,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SDMMC\ CMD\ pin}}
+\DoxyCodeLine{00084\ \ \ ESP32\_BUS\_TYPE\_SDMMC\_D0,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SDMMC\ D0\ pin}}
+\DoxyCodeLine{00085\ \ \ ESP32\_BUS\_TYPE\_SDMMC\_D1,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SDMMC\ D1\ pin}}
+\DoxyCodeLine{00086\ \ \ ESP32\_BUS\_TYPE\_SDMMC\_D2,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SDMMC\ D2\ pin}}
+\DoxyCodeLine{00087\ \ \ ESP32\_BUS\_TYPE\_SDMMC\_D3,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ SDMMC\ D3\ pin}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#if\ SOC\_TOUCH\_SENSOR\_SUPPORTED}}
+\DoxyCodeLine{00090\ \ \ ESP32\_BUS\_TYPE\_TOUCH,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ TOUCH\ pin}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#if\ SOC\_USB\_SERIAL\_JTAG\_SUPPORTED\ ||\ SOC\_USB\_OTG\_SUPPORTED}}
+\DoxyCodeLine{00093\ \ \ ESP32\_BUS\_TYPE\_USB\_DM,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ USB\ DM\ (+)\ pin}}
+\DoxyCodeLine{00094\ \ \ ESP32\_BUS\_TYPE\_USB\_DP,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ USB\ DP\ (-\/)\ pin}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#if\ SOC\_GPSPI\_SUPPORTED}}
+\DoxyCodeLine{00097\ \ \ ESP32\_BUS\_TYPE\_ETHERNET\_SPI,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ ETHERNET\ SPI\ pin}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#if\ CONFIG\_ETH\_USE\_ESP32\_EMAC}}
+\DoxyCodeLine{00100\ \ \ ESP32\_BUS\_TYPE\_ETHERNET\_RMII,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ ETHERNET\ RMII\ pin}}
+\DoxyCodeLine{00101\ \ \ ESP32\_BUS\_TYPE\_ETHERNET\_CLK,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ ETHERNET\ CLK\ pin}}
+\DoxyCodeLine{00102\ \ \ ESP32\_BUS\_TYPE\_ETHERNET\_MCD,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ ETHERNET\ MCD\ pin}}
+\DoxyCodeLine{00103\ \ \ ESP32\_BUS\_TYPE\_ETHERNET\_MDIO,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ ETHERNET\ MDIO\ pin}}
+\DoxyCodeLine{00104\ \ \ ESP32\_BUS\_TYPE\_ETHERNET\_PWR,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ ETHERNET\ PWR\ pin}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#if\ CONFIG\_LWIP\_PPP\_SUPPORT}}
+\DoxyCodeLine{00107\ \ \ ESP32\_BUS\_TYPE\_PPP\_TX,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ PPP\ Modem\ TX\ pin}}
+\DoxyCodeLine{00108\ \ \ ESP32\_BUS\_TYPE\_PPP\_RX,\ \ \ \textcolor{comment}{//\ IO\ is\ used\ as\ PPP\ Modem\ RX\ pin}}
+\DoxyCodeLine{00109\ \ \ ESP32\_BUS\_TYPE\_PPP\_RTS,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ PPP\ Modem\ RTS\ pin}}
+\DoxyCodeLine{00110\ \ \ ESP32\_BUS\_TYPE\_PPP\_CTS,\ \ \textcolor{comment}{//\ IO\ is\ used\ as\ PPP\ Modem\ CTS\ pin}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00112\ \ \ ESP32\_BUS\_TYPE\_MAX}
+\DoxyCodeLine{00113\ \}\ peripheral\_bus\_type\_t;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{typedef}\ bool\ (*peripheral\_bus\_deinit\_cb\_t)(\textcolor{keywordtype}{void}\ *bus);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *perimanGetTypeName(peripheral\_bus\_type\_t\ type);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ Sets\ the\ bus\ type,\ bus\ handle,\ bus\ number\ and\ bus\ channel\ for\ given\ pin.}}
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{bool}\ perimanSetPinBus(uint8\_t\ pin,\ peripheral\_bus\_type\_t\ type,\ \textcolor{keywordtype}{void}\ *bus,\ int8\_t\ bus\_num,\ int8\_t\ bus\_channel);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ Returns\ handle\ of\ the\ bus\ for\ the\ given\ pin\ if\ type\ of\ bus\ matches.\ NULL\ otherwise}}
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{void}\ *perimanGetPinBus(uint8\_t\ pin,\ peripheral\_bus\_type\_t\ type);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ Returns\ the\ type\ of\ the\ bus\ for\ the\ given\ pin\ if\ attached.\ ESP32\_BUS\_TYPE\_MAX\ otherwise}}
+\DoxyCodeLine{00126\ peripheral\_bus\_type\_t\ perimanGetPinBusType(uint8\_t\ pin);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ Returns\ the\ bus\ number\ or\ unit\ of\ the\ bus\ for\ the\ given\ pin\ if\ set.\ -\/1\ otherwise}}
+\DoxyCodeLine{00129\ int8\_t\ perimanGetPinBusNum(uint8\_t\ pin);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ Returns\ the\ bus\ channel\ of\ the\ bus\ for\ the\ given\ pin\ if\ set.\ -\/1\ otherwise}}
+\DoxyCodeLine{00132\ int8\_t\ perimanGetPinBusChannel(uint8\_t\ pin);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ Sets\ the\ peripheral\ destructor\ callback.\ Used\ to\ destroy\ bus\ when\ pin\ is\ assigned\ another\ function}}
+\DoxyCodeLine{00135\ \textcolor{keywordtype}{bool}\ perimanSetBusDeinit(peripheral\_bus\_type\_t\ type,\ peripheral\_bus\_deinit\_cb\_t\ cb);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ Check\ if\ given\ pin\ is\ a\ valid\ GPIO\ number}}
+\DoxyCodeLine{00138\ \textcolor{keywordtype}{bool}\ perimanPinIsValid(uint8\_t\ pin);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{comment}{//\ Sets\ the\ extra\ type\ for\ non\ Init\ bus.\ Used\ to\ customize\ pin\ bus\ name\ which\ can\ be\ printed\ by\ printPerimanInfo().}}
+\DoxyCodeLine{00141\ \textcolor{keywordtype}{bool}\ perimanSetPinBusExtraType(uint8\_t\ pin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *extra\_type);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{comment}{//\ Returns\ the\ extra\ type\ of\ the\ bus\ for\ given\ pin\ if\ set.\ NULL\ otherwise}}
+\DoxyCodeLine{00144\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *perimanGetPinBusExtraType(uint8\_t\ pin);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00147\ \}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

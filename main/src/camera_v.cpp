@@ -1,9 +1,35 @@
+/**
+ * @file camera_v.cpp
+ * @author Yassine Hattay (hattayyassine519@gmail.com)
+ * @brief camera related code
+ * @version 0.1
+ * @date 2025-03-02
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
+
+
 #include "camera_var.h"
 #include "global_header.h"
 #include "email_module.h"
 
+/**  @brief this sets the photo resolution  \n
+    FRAMESIZE_HVGA = 480x320 \n
+    FRAMESIZE_VGA = 640x480 \n 
+    FRAMESIZE_SVGA = 800x600 \n
+    FRAMESIZE_XGA =  1024x768 \n
+    FRAMESIZE_HD =  1280x720 \n
+    FRAMESIZE_SXGA =  1280x1024 \n
+    FRAMESIZE_UXGA =  1600x1200 */
 
 framesize_t framesize = framesize_t::FRAMESIZE_SXGA;
+
+/**
+ * @brief this initializes the camera
+ *
+ * @param parameter
+ */
 
 void initCamera()
 {
@@ -66,6 +92,11 @@ void initCamera()
   s->set_colorbar(s, 0);
 }
  
+/**
+ * @brief this takes a photo and saves it to little fs
+ *
+ * @param parameter
+ */
 
 void capturePhotoSaveLittleFS(void)
 {

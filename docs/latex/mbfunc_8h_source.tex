@@ -1,0 +1,93 @@
+\doxysection{mbfunc.\+h}
+\hypertarget{mbfunc_8h_source}{}\label{mbfunc_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/modbus/include/mbfunc.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/modbus/include/mbfunc.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2006\ Christian\ Walter}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ SPDX-\/FileContributor:\ 2016-\/2021\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ FreeModbus\ Libary:\ A\ portable\ Modbus\ implementation\ for\ Modbus\ ASCII/RTU.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2006\ Christian\ Walter\ <wolti@sil.at>}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ are\ met:}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ 3.\ The\ name\ of\ the\ author\ may\ not\ be\ used\ to\ endorse\ or\ promote\ products}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ \ \ \ derived\ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ AUTHOR\ \`{}\`{}AS\ IS''\ AND\ ANY\ EXPRESS\ OR}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHOR\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ File:\ \$Id:\ mbfunc.h,v\ 1.12\ 2006/12/07\ 22:10:34\ wolti\ Exp\ \$}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifndef\ \_MB\_FUNC\_H}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ \_MB\_FUNC\_H}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00042\ PR\_BEGIN\_EXTERN\_C}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_OTHER\_REP\_SLAVEID\_BUF\ >\ 0}}
+\DoxyCodeLine{00045\ \ \ \ \ eMBException\ eMBFuncReportSlaveID(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_READ\_INPUT\_ENABLED\ >\ 0}}
+\DoxyCodeLine{00049\ eMBException\ \ \ \ eMBFuncReadInputRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_READ\_HOLDING\_ENABLED\ >\ 0}}
+\DoxyCodeLine{00053\ eMBException\ \ \ \ eMBFuncReadHoldingRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_WRITE\_HOLDING\_ENABLED\ >\ 0}}
+\DoxyCodeLine{00057\ eMBException\ \ \ \ eMBFuncWriteHoldingRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_WRITE\_MULTIPLE\_HOLDING\_ENABLED\ >\ 0}}
+\DoxyCodeLine{00061\ eMBException\ \ \ \ eMBFuncWriteMultipleHoldingRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_READ\_COILS\_ENABLED\ >\ 0}}
+\DoxyCodeLine{00065\ eMBException\ \ \ \ eMBFuncReadCoils(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_WRITE\_COIL\_ENABLED\ >\ 0}}
+\DoxyCodeLine{00069\ eMBException\ \ \ \ eMBFuncWriteCoil(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_WRITE\_MULTIPLE\_COILS\_ENABLED\ >\ 0}}
+\DoxyCodeLine{00073\ eMBException\ \ \ \ eMBFuncWriteMultipleCoils(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_READ\_DISCRETE\_INPUTS\_ENABLED\ >\ 0}}
+\DoxyCodeLine{00077\ eMBException\ \ \ \ eMBFuncReadDiscreteInputs(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#if\ MB\_FUNC\_READWRITE\_HOLDING\_ENABLED\ >\ 0}}
+\DoxyCodeLine{00081\ eMBException\ \ \ \ eMBFuncReadWriteMultipleHoldingRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00085\ PR\_END\_EXTERN\_C}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

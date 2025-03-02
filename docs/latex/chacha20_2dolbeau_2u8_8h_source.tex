@@ -1,0 +1,332 @@
+\doxysection{u8.\+h}
+\hypertarget{chacha20_2dolbeau_2u8_8h_source}{}\label{chacha20_2dolbeau_2u8_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_stream/chacha20/dolbeau/u8.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_stream/chacha20/dolbeau/u8.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ VEC8\_ROT(A,\ IMM)\ \(\backslash\)}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\ \ \ \ \_mm256\_or\_si256(\_mm256\_slli\_epi32(A,\ IMM),\ \_mm256\_srli\_epi32(A,\ (32\ -\/\ IMM)))}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{/*\ same,\ but\ replace\ 2\ of\ the\ shift/shift/or\ "{}rotation"{}\ by\ byte\ shuffles\ (8\ \&}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ 16)\ (better)\ */}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ VEC8\_QUARTERROUND\_SHUFFLE(A,\ B,\ C,\ D)\ \ \(\backslash\)}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#A\ =\ \_mm256\_add\_epi32(x\_\#\#A,\ x\_\#\#B);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ t\_\#\#A\ =\ \_mm256\_xor\_si256(x\_\#\#D,\ x\_\#\#A);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#D\ =\ \_mm256\_shuffle\_epi8(t\_\#\#A,\ rot16);\ \(\backslash\)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#C\ =\ \_mm256\_add\_epi32(x\_\#\#C,\ x\_\#\#D);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ t\_\#\#C\ =\ \_mm256\_xor\_si256(x\_\#\#B,\ x\_\#\#C);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#B\ =\ VEC8\_ROT(t\_\#\#C,\ 12);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#A\ =\ \_mm256\_add\_epi32(x\_\#\#A,\ x\_\#\#B);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \ \ \ t\_\#\#A\ =\ \_mm256\_xor\_si256(x\_\#\#D,\ x\_\#\#A);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#D\ =\ \_mm256\_shuffle\_epi8(t\_\#\#A,\ rot8);\ \ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#C\ =\ \_mm256\_add\_epi32(x\_\#\#C,\ x\_\#\#D);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ t\_\#\#C\ =\ \_mm256\_xor\_si256(x\_\#\#B,\ x\_\#\#C);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#B\ =\ VEC8\_ROT(t\_\#\#C,\ 7)}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ VEC8\_QUARTERROUND(A,\ B,\ C,\ D)\ VEC8\_QUARTERROUND\_SHUFFLE(A,\ B,\ C,\ D)}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ VEC8\_LINE1(A,\ B,\ C,\ D)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#A\ =\ \_mm256\_add\_epi32(x\_\#\#A,\ x\_\#\#B);\ \(\backslash\)}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#D\ =\ \_mm256\_shuffle\_epi8(\_mm256\_xor\_si256(x\_\#\#D,\ x\_\#\#A),\ rot16)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ VEC8\_LINE2(A,\ B,\ C,\ D)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#C\ =\ \_mm256\_add\_epi32(x\_\#\#C,\ x\_\#\#D);\ \(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#B\ =\ VEC8\_ROT(\_mm256\_xor\_si256(x\_\#\#B,\ x\_\#\#C),\ 12)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ VEC8\_LINE3(A,\ B,\ C,\ D)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#A\ =\ \_mm256\_add\_epi32(x\_\#\#A,\ x\_\#\#B);\ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#D\ =\ \_mm256\_shuffle\_epi8(\_mm256\_xor\_si256(x\_\#\#D,\ x\_\#\#A),\ rot8)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ VEC8\_LINE4(A,\ B,\ C,\ D)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#C\ =\ \_mm256\_add\_epi32(x\_\#\#C,\ x\_\#\#D);\ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ x\_\#\#B\ =\ VEC8\_ROT(\_mm256\_xor\_si256(x\_\#\#B,\ x\_\#\#C),\ 7)}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ VEC8\_ROUND\_SEQ(A1,\ B1,\ C1,\ D1,\ A2,\ B2,\ C2,\ D2,\ A3,\ B3,\ C3,\ D3,\ A4,\ B4,\ \(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ C4,\ D4)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A4,\ B4,\ C4,\ D4);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A4,\ B4,\ C4,\ D4);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A4,\ B4,\ C4,\ D4);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A4,\ B4,\ C4,\ D4)}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ VEC8\_ROUND\_HALF(A1,\ B1,\ C1,\ D1,\ A2,\ B2,\ C2,\ D2,\ A3,\ B3,\ C3,\ D3,\ A4,\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ B4,\ C4,\ D4)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A4,\ B4,\ C4,\ D4);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A4,\ B4,\ C4,\ D4);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A4,\ B4,\ C4,\ D4);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A4,\ B4,\ C4,\ D4)}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ VEC8\_ROUND\_HALFANDHALF(A1,\ B1,\ C1,\ D1,\ A2,\ B2,\ C2,\ D2,\ A3,\ B3,\ C3,\ D3,\ \(\backslash\)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ A4,\ B4,\ C4,\ D4)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE1(A4,\ B4,\ C4,\ D4);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE2(A4,\ B4,\ C4,\ D4);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A1,\ B1,\ C1,\ D1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE3(A4,\ B4,\ C4,\ D4);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A3,\ B3,\ C3,\ D3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\ \ \ \ VEC8\_LINE4(A4,\ B4,\ C4,\ D4)}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ VEC8\_ROUND(A1,\ B1,\ C1,\ D1,\ A2,\ B2,\ C2,\ D2,\ A3,\ B3,\ C3,\ D3,\ A4,\ B4,\ C4,\ \(\backslash\)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D4)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\ \ \ \ VEC8\_ROUND\_SEQ(A1,\ B1,\ C1,\ D1,\ A2,\ B2,\ C2,\ D2,\ A3,\ B3,\ C3,\ D3,\ A4,\ B4,\ C4,\ \(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D4)}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keywordflow}{if}\ (bytes\ >=\ 512)\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{comment}{/*\ constant\ for\ shuffling\ bytes\ (replacing\ multiple-\/of-\/8\ rotates)\ */}}
+\DoxyCodeLine{00100\ \ \ \ \ \_\_m256i\ rot16\ =}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \_mm256\_set\_epi8(13,\ 12,\ 15,\ 14,\ 9,\ 8,\ 11,\ 10,\ 5,\ 4,\ 7,\ 6,\ 1,\ 0,\ 3,\ 2,}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 13,\ 12,\ 15,\ 14,\ 9,\ 8,\ 11,\ 10,\ 5,\ 4,\ 7,\ 6,\ 1,\ 0,\ 3,\ 2);}
+\DoxyCodeLine{00103\ \ \ \ \ \_\_m256i\ rot8\ =}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \_mm256\_set\_epi8(14,\ 13,\ 12,\ 15,\ 10,\ 9,\ 8,\ 11,\ 6,\ 5,\ 4,\ 7,\ 2,\ 1,\ 0,\ 3,}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 14,\ 13,\ 12,\ 15,\ 10,\ 9,\ 8,\ 11,\ 6,\ 5,\ 4,\ 7,\ 2,\ 1,\ 0,\ 3);}
+\DoxyCodeLine{00106\ \ \ \ \ uint32\_t\ in12,\ in13;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{comment}{/*\ the\ naive\ way\ seems\ as\ fast\ (if\ not\ a\ bit\ faster)\ than\ the\ vector\ way\ */}}
+\DoxyCodeLine{00109\ \ \ \ \ \_\_m256i\ x\_0\ \ =\ \_mm256\_set1\_epi32(x[0]);}
+\DoxyCodeLine{00110\ \ \ \ \ \_\_m256i\ x\_1\ \ =\ \_mm256\_set1\_epi32(x[1]);}
+\DoxyCodeLine{00111\ \ \ \ \ \_\_m256i\ x\_2\ \ =\ \_mm256\_set1\_epi32(x[2]);}
+\DoxyCodeLine{00112\ \ \ \ \ \_\_m256i\ x\_3\ \ =\ \_mm256\_set1\_epi32(x[3]);}
+\DoxyCodeLine{00113\ \ \ \ \ \_\_m256i\ x\_4\ \ =\ \_mm256\_set1\_epi32(x[4]);}
+\DoxyCodeLine{00114\ \ \ \ \ \_\_m256i\ x\_5\ \ =\ \_mm256\_set1\_epi32(x[5]);}
+\DoxyCodeLine{00115\ \ \ \ \ \_\_m256i\ x\_6\ \ =\ \_mm256\_set1\_epi32(x[6]);}
+\DoxyCodeLine{00116\ \ \ \ \ \_\_m256i\ x\_7\ \ =\ \_mm256\_set1\_epi32(x[7]);}
+\DoxyCodeLine{00117\ \ \ \ \ \_\_m256i\ x\_8\ \ =\ \_mm256\_set1\_epi32(x[8]);}
+\DoxyCodeLine{00118\ \ \ \ \ \_\_m256i\ x\_9\ \ =\ \_mm256\_set1\_epi32(x[9]);}
+\DoxyCodeLine{00119\ \ \ \ \ \_\_m256i\ x\_10\ =\ \_mm256\_set1\_epi32(x[10]);}
+\DoxyCodeLine{00120\ \ \ \ \ \_\_m256i\ x\_11\ =\ \_mm256\_set1\_epi32(x[11]);}
+\DoxyCodeLine{00121\ \ \ \ \ \_\_m256i\ x\_12;}
+\DoxyCodeLine{00122\ \ \ \ \ \_\_m256i\ x\_13;}
+\DoxyCodeLine{00123\ \ \ \ \ \_\_m256i\ x\_14\ =\ \_mm256\_set1\_epi32(x[14]);}
+\DoxyCodeLine{00124\ \ \ \ \ \_\_m256i\ x\_15\ =\ \_mm256\_set1\_epi32(x[15]);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \_\_m256i\ orig0\ \ =\ x\_0;}
+\DoxyCodeLine{00127\ \ \ \ \ \_\_m256i\ orig1\ \ =\ x\_1;}
+\DoxyCodeLine{00128\ \ \ \ \ \_\_m256i\ orig2\ \ =\ x\_2;}
+\DoxyCodeLine{00129\ \ \ \ \ \_\_m256i\ orig3\ \ =\ x\_3;}
+\DoxyCodeLine{00130\ \ \ \ \ \_\_m256i\ orig4\ \ =\ x\_4;}
+\DoxyCodeLine{00131\ \ \ \ \ \_\_m256i\ orig5\ \ =\ x\_5;}
+\DoxyCodeLine{00132\ \ \ \ \ \_\_m256i\ orig6\ \ =\ x\_6;}
+\DoxyCodeLine{00133\ \ \ \ \ \_\_m256i\ orig7\ \ =\ x\_7;}
+\DoxyCodeLine{00134\ \ \ \ \ \_\_m256i\ orig8\ \ =\ x\_8;}
+\DoxyCodeLine{00135\ \ \ \ \ \_\_m256i\ orig9\ \ =\ x\_9;}
+\DoxyCodeLine{00136\ \ \ \ \ \_\_m256i\ orig10\ =\ x\_10;}
+\DoxyCodeLine{00137\ \ \ \ \ \_\_m256i\ orig11\ =\ x\_11;}
+\DoxyCodeLine{00138\ \ \ \ \ \_\_m256i\ orig12;}
+\DoxyCodeLine{00139\ \ \ \ \ \_\_m256i\ orig13;}
+\DoxyCodeLine{00140\ \ \ \ \ \_\_m256i\ orig14\ =\ x\_14;}
+\DoxyCodeLine{00141\ \ \ \ \ \_\_m256i\ orig15\ =\ x\_15;}
+\DoxyCodeLine{00142\ \ \ \ \ \_\_m256i\ t\_0,\ t\_1,\ t\_2,\ t\_3,\ t\_4,\ t\_5,\ t\_6,\ t\_7,\ t\_8,\ t\_9,\ t\_10,\ t\_11,\ t\_12,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ t\_13,\ t\_14,\ t\_15;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{while}\ (bytes\ >=\ 512)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \_\_m256i\ addv12\ \ =\ \_mm256\_set\_epi64x(3,\ 2,\ 1,\ 0);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \_\_m256i\ addv13\ \ =\ \_mm256\_set\_epi64x(7,\ 6,\ 5,\ 4);}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \_\_m256i\ permute\ =\ \_mm256\_set\_epi32(7,\ 6,\ 3,\ 2,\ 5,\ 4,\ 1,\ 0);}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \_\_m256i\ \ \ \ \ \ \ t12,\ t13;}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ uint64\_t\ in1213;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ i;}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ x\_0\ \ =\ orig0;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ x\_1\ \ =\ orig1;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ x\_2\ \ =\ orig2;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ x\_3\ \ =\ orig3;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ x\_4\ \ =\ orig4;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ x\_5\ \ =\ orig5;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ x\_6\ \ =\ orig6;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ x\_7\ \ =\ orig7;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ x\_8\ \ =\ orig8;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ x\_9\ \ =\ orig9;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ x\_10\ =\ orig10;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ x\_11\ =\ orig11;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ x\_14\ =\ orig14;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ x\_15\ =\ orig15;}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ in12\ \ \ =\ x[12];}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ in13\ \ \ =\ x[13];}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ in1213\ =\ ((uint64\_t)\ in12)\ |\ (((uint64\_t)\ in13)\ <<\ 32);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ x\_12\ =\ x\_13\ =\ \_mm256\_broadcastq\_epi64(\_mm\_cvtsi64\_si128(in1213));}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ t12\ =\ \_mm256\_add\_epi64(addv12,\ x\_12);}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ t13\ =\ \_mm256\_add\_epi64(addv13,\ x\_13);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ x\_12\ =\ \_mm256\_unpacklo\_epi32(t12,\ t13);}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ x\_13\ =\ \_mm256\_unpackhi\_epi32(t12,\ t13);}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ t12\ =\ \_mm256\_unpacklo\_epi32(x\_12,\ x\_13);}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ t13\ =\ \_mm256\_unpackhi\_epi32(x\_12,\ x\_13);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ required\ because\ unpack*\ are\ intra-\/lane\ */}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ x\_12\ =\ \_mm256\_permutevar8x32\_epi32(t12,\ permute);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ x\_13\ =\ \_mm256\_permutevar8x32\_epi32(t13,\ permute);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ orig12\ =\ x\_12;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ orig13\ =\ x\_13;}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ in1213\ +=\ 8;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ x[12]\ =\ in1213\ \&\ 0xFFFFFFFF;}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ x[13]\ =\ (in1213\ >>\ 32)\ \&\ 0xFFFFFFFF;}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ ROUNDS;\ i\ +=\ 2)\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ VEC8\_ROUND(0,\ 4,\ 8,\ 12,\ 1,\ 5,\ 9,\ 13,\ 2,\ 6,\ 10,\ 14,\ 3,\ 7,\ 11,\ 15);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ VEC8\_ROUND(0,\ 5,\ 10,\ 15,\ 1,\ 6,\ 11,\ 12,\ 2,\ 7,\ 8,\ 13,\ 3,\ 4,\ 9,\ 14);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ ONEQUAD\_TRANSPOSE(A,\ B,\ C,\ D)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_\_m128i\ t0,\ t1,\ t2,\ t3;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#A\ =\ \_mm256\_add\_epi32(x\_\#\#A,\ orig\#\#A);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#B\ =\ \_mm256\_add\_epi32(x\_\#\#B,\ orig\#\#B);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#C\ =\ \_mm256\_add\_epi32(x\_\#\#C,\ orig\#\#C);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#D\ =\ \_mm256\_add\_epi32(x\_\#\#D,\ orig\#\#D);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#A\ =\ \_mm256\_unpacklo\_epi32(x\_\#\#A,\ x\_\#\#B);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#B\ =\ \_mm256\_unpacklo\_epi32(x\_\#\#C,\ x\_\#\#D);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#C\ =\ \_mm256\_unpackhi\_epi32(x\_\#\#A,\ x\_\#\#B);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#D\ =\ \_mm256\_unpackhi\_epi32(x\_\#\#C,\ x\_\#\#D);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#A\ =\ \_mm256\_unpacklo\_epi64(t\_\#\#A,\ t\_\#\#B);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#B\ =\ \_mm256\_unpackhi\_epi64(t\_\#\#A,\ t\_\#\#B);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#C\ =\ \_mm256\_unpacklo\_epi64(t\_\#\#C,\ t\_\#\#D);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#D\ =\ \_mm256\_unpackhi\_epi64(t\_\#\#C,\ t\_\#\#D);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t0\ \ \ \ =\ \_mm\_xor\_si128(\_mm256\_extracti128\_si256(x\_\#\#A,\ 0),\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mm\_loadu\_si128((const\ \_\_m128i*)\ (m\ +\ 0)));\ \(\backslash\)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (c\ +\ 0),\ t0);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t1\ =\ \_mm\_xor\_si128(\_mm256\_extracti128\_si256(x\_\#\#B,\ 0),\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mm\_loadu\_si128((const\ \_\_m128i*)\ (m\ +\ 64)));\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (c\ +\ 64),\ t1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t2\ =\ \_mm\_xor\_si128(\_mm256\_extracti128\_si256(x\_\#\#C,\ 0),\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mm\_loadu\_si128((const\ \_\_m128i*)\ (m\ +\ 128)));\ \ \(\backslash\)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (c\ +\ 128),\ t2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t3\ =\ \_mm\_xor\_si128(\_mm256\_extracti128\_si256(x\_\#\#D,\ 0),\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mm\_loadu\_si128((const\ \_\_m128i*)\ (m\ +\ 192)));\ \ \(\backslash\)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (c\ +\ 192),\ t3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t0\ =\ \_mm\_xor\_si128(\_mm256\_extracti128\_si256(x\_\#\#A,\ 1),\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mm\_loadu\_si128((const\ \_\_m128i*)\ (m\ +\ 256)));\ \ \(\backslash\)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (c\ +\ 256),\ t0);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t1\ =\ \_mm\_xor\_si128(\_mm256\_extracti128\_si256(x\_\#\#B,\ 1),\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mm\_loadu\_si128((const\ \_\_m128i*)\ (m\ +\ 320)));\ \ \(\backslash\)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (c\ +\ 320),\ t1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t2\ =\ \_mm\_xor\_si128(\_mm256\_extracti128\_si256(x\_\#\#C,\ 1),\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mm\_loadu\_si128((const\ \_\_m128i*)\ (m\ +\ 384)));\ \ \(\backslash\)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (c\ +\ 384),\ t2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t3\ =\ \_mm\_xor\_si128(\_mm256\_extracti128\_si256(x\_\#\#D,\ 1),\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_mm\_loadu\_si128((const\ \_\_m128i*)\ (m\ +\ 448)));\ \ \(\backslash\)}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm\_storeu\_si128((\_\_m128i*)\ (c\ +\ 448),\ t3);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#define\ ONEQUAD(A,\ B,\ C,\ D)\ ONEQUAD\_TRANSPOSE(A,\ B,\ C,\ D)}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#define\ ONEQUAD\_UNPCK(A,\ B,\ C,\ D)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#A\ =\ \_mm256\_add\_epi32(x\_\#\#A,\ orig\#\#A);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#B\ =\ \_mm256\_add\_epi32(x\_\#\#B,\ orig\#\#B);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#C\ =\ \_mm256\_add\_epi32(x\_\#\#C,\ orig\#\#C);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#D\ =\ \_mm256\_add\_epi32(x\_\#\#D,\ orig\#\#D);\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#A\ =\ \_mm256\_unpacklo\_epi32(x\_\#\#A,\ x\_\#\#B);\ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#B\ =\ \_mm256\_unpacklo\_epi32(x\_\#\#C,\ x\_\#\#D);\ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#C\ =\ \_mm256\_unpackhi\_epi32(x\_\#\#A,\ x\_\#\#B);\ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#D\ =\ \_mm256\_unpackhi\_epi32(x\_\#\#C,\ x\_\#\#D);\ \(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#A\ =\ \_mm256\_unpacklo\_epi64(t\_\#\#A,\ t\_\#\#B);\ \(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#B\ =\ \_mm256\_unpackhi\_epi64(t\_\#\#A,\ t\_\#\#B);\ \(\backslash\)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#C\ =\ \_mm256\_unpacklo\_epi64(t\_\#\#C,\ t\_\#\#D);\ \(\backslash\)}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ x\_\#\#D\ =\ \_mm256\_unpackhi\_epi64(t\_\#\#C,\ t\_\#\#D);\ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#define\ ONEOCTO(A,\ B,\ C,\ D,\ A2,\ B2,\ C2,\ D2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ ONEQUAD\_UNPCK(A,\ B,\ C,\ D);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ ONEQUAD\_UNPCK(A2,\ B2,\ C2,\ D2);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#A\ \ =\ \_mm256\_permute2x128\_si256(x\_\#\#A,\ x\_\#\#A2,\ 0x20);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#A2\ =\ \_mm256\_permute2x128\_si256(x\_\#\#A,\ x\_\#\#A2,\ 0x31);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#B\ \ =\ \_mm256\_permute2x128\_si256(x\_\#\#B,\ x\_\#\#B2,\ 0x20);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#B2\ =\ \_mm256\_permute2x128\_si256(x\_\#\#B,\ x\_\#\#B2,\ 0x31);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#C\ \ =\ \_mm256\_permute2x128\_si256(x\_\#\#C,\ x\_\#\#C2,\ 0x20);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#C2\ =\ \_mm256\_permute2x128\_si256(x\_\#\#C,\ x\_\#\#C2,\ 0x31);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#D\ \ =\ \_mm256\_permute2x128\_si256(x\_\#\#D,\ x\_\#\#D2,\ 0x20);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#D2\ =\ \_mm256\_permute2x128\_si256(x\_\#\#D,\ x\_\#\#D2,\ 0x31);\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#A\ \ =\ \_mm256\_xor\_si256(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ t\_\#\#A,\ \_mm256\_loadu\_si256((const\ \_\_m256i*)\ (m\ +\ 0)));\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#B\ =\ \_mm256\_xor\_si256(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ t\_\#\#B,\ \_mm256\_loadu\_si256((const\ \_\_m256i*)\ (m\ +\ 64)));\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#C\ =\ \_mm256\_xor\_si256(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ t\_\#\#C,\ \_mm256\_loadu\_si256((const\ \_\_m256i*)\ (m\ +\ 128)));\ \ \(\backslash\)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#D\ =\ \_mm256\_xor\_si256(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ t\_\#\#D,\ \_mm256\_loadu\_si256((const\ \_\_m256i*)\ (m\ +\ 192)));\ \ \(\backslash\)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#A2\ =\ \_mm256\_xor\_si256(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ t\_\#\#A2,\ \_mm256\_loadu\_si256((const\ \_\_m256i*)\ (m\ +\ 256)));\ \(\backslash\)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#B2\ =\ \_mm256\_xor\_si256(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ t\_\#\#B2,\ \_mm256\_loadu\_si256((const\ \_\_m256i*)\ (m\ +\ 320)));\ \(\backslash\)}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#C2\ =\ \_mm256\_xor\_si256(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ t\_\#\#C2,\ \_mm256\_loadu\_si256((const\ \_\_m256i*)\ (m\ +\ 384)));\ \(\backslash\)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ t\_\#\#D2\ =\ \_mm256\_xor\_si256(\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ t\_\#\#D2,\ \_mm256\_loadu\_si256((const\ \_\_m256i*)\ (m\ +\ 448)));\ \(\backslash\)}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm256\_storeu\_si256((\_\_m256i*)\ (c\ +\ 0),\ t\_\#\#A);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm256\_storeu\_si256((\_\_m256i*)\ (c\ +\ 64),\ t\_\#\#B);\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm256\_storeu\_si256((\_\_m256i*)\ (c\ +\ 128),\ t\_\#\#C);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm256\_storeu\_si256((\_\_m256i*)\ (c\ +\ 192),\ t\_\#\#D);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm256\_storeu\_si256((\_\_m256i*)\ (c\ +\ 256),\ t\_\#\#A2);\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm256\_storeu\_si256((\_\_m256i*)\ (c\ +\ 320),\ t\_\#\#B2);\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm256\_storeu\_si256((\_\_m256i*)\ (c\ +\ 384),\ t\_\#\#C2);\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \_mm256\_storeu\_si256((\_\_m256i*)\ (c\ +\ 448),\ t\_\#\#D2);\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ ONEOCTO(0,\ 1,\ 2,\ 3,\ 4,\ 5,\ 6,\ 7);}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ m\ +=\ 32;}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ c\ +=\ 32;}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ ONEOCTO(8,\ 9,\ 10,\ 11,\ 12,\ 13,\ 14,\ 15);}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ m\ -\/=\ 32;}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ c\ -\/=\ 32;}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#undef\ ONEQUAD}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#undef\ ONEQUAD\_TRANSPOSE}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#undef\ ONEQUAD\_UNPCK}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#undef\ ONEOCTO}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ bytes\ -\/=\ 512;}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ c\ +=\ 512;}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ m\ +=\ 512;}
+\DoxyCodeLine{00312\ \ \ \ \ \}}
+\DoxyCodeLine{00313\ \}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#undef\ VEC8\_ROT}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#undef\ VEC8\_QUARTERROUND}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#undef\ VEC8\_QUARTERROUND\_NAIVE}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#undef\ VEC8\_QUARTERROUND\_SHUFFLE}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#undef\ VEC8\_QUARTERROUND\_SHUFFLE2}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#undef\ VEC8\_LINE1}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#undef\ VEC8\_LINE2}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#undef\ VEC8\_LINE3}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#undef\ VEC8\_LINE4}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#undef\ VEC8\_ROUND}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#undef\ VEC8\_ROUND\_SEQ}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#undef\ VEC8\_ROUND\_HALF}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#undef\ VEC8\_ROUND\_HALFANDHALF}}
+
+\end{DoxyCode}

@@ -1,0 +1,50 @@
+\doxysection{matter\+\_\+accessory\+\_\+driver.\+h}
+\hypertarget{matter__accessory__driver_8h_source}{}\label{matter__accessory__driver_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/examples/esp\_matter\_light/main/matter\_accessory\_driver.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/examples/esp\_matter\_light/main/matter\_accessory\_driver.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <esp\_err.h>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <sdkconfig.h>}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ set\ your\ board\ WS2812b\ pin\ here\ (e.g.\ 48\ is\ the\ default\ pin\ for\ the\ ESP32-\/S3\ devkit)}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_WS2812\_PIN}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ WS2812\_PIN\ 48\ \ }\textcolor{comment}{//\ ESP32-\/S3\ DevKitC\ built-\/in\ LED}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ WS2812\_PIN\ CONFIG\_WS2812\_PIN\ \ }\textcolor{comment}{//\ From\ sdkconfig.defaults.<soc>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ RGB\_BUILTIN}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ RGB\_BUILTIN\ WS2812\_PIN}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ Set\ your\ board\ button\ pin\ here\ (e.g.\ 0\ is\ the\ default\ pin\ for\ the\ ESP32-\/S3\ devkit)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_BUTTON\_PIN}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ BUTTON\_PIN\ 0\ \ }\textcolor{comment}{//\ ESP32-\/S3\ DevKitC\ built-\/in\ button}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ BUTTON\_PIN\ CONFIG\_BUTTON\_PIN\ \ }\textcolor{comment}{//\ From\ sdkconfig.defaults.<soc>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ STANDARD\_BRIGHTNESS\ \ \ \ \ \ \ \ \ 255}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ STANDARD\_HUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 360}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ STANDARD\_SATURATION\ \ \ \ \ \ \ \ \ 255}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ STANDARD\_TEMPERATURE\_FACTOR\ 1000000}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ MATTER\_BRIGHTNESS\ \ \ \ \ \ \ \ \ 254}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ MATTER\_HUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 254}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ MATTER\_SATURATION\ \ \ \ \ \ \ \ \ 254}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ MATTER\_TEMPERATURE\_FACTOR\ 1000000}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ DEFAULT\_POWER\ \ \ \ \ \ true}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ DEFAULT\_BRIGHTNESS\ 64}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ DEFAULT\_HUE\ \ \ \ \ \ \ \ 128}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ DEFAULT\_SATURATION\ 254}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}\ *app\_driver\_handle\_t;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ esp\_err\_t\ light\_accessory\_set\_power(\textcolor{keywordtype}{void}\ *led,\ uint8\_t\ val);}
+\DoxyCodeLine{00043\ esp\_err\_t\ light\_accessory\_set\_brightness(\textcolor{keywordtype}{void}\ *led,\ uint8\_t\ val);}
+\DoxyCodeLine{00044\ esp\_err\_t\ light\_accessory\_set\_hue(\textcolor{keywordtype}{void}\ *led,\ uint8\_t\ val);}
+\DoxyCodeLine{00045\ esp\_err\_t\ light\_accessory\_set\_saturation(\textcolor{keywordtype}{void}\ *led,\ uint8\_t\ val);}
+\DoxyCodeLine{00046\ esp\_err\_t\ light\_accessory\_set\_temperature(\textcolor{keywordtype}{void}\ *led,\ uint16\_t\ val);}
+\DoxyCodeLine{00047\ app\_driver\_handle\_t\ light\_accessory\_init();}
+
+\end{DoxyCode}

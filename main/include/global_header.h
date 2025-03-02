@@ -1,3 +1,14 @@
+/**
+ * @file global_header.h
+ * @author Yassine Hattay (hattayyassine519@gmail.com)
+ * @brief 
+ * @version 0.1
+ * @date 2025-03-02
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
+
 #ifndef GLOBAL_VAR_H
 #define GLOBAL_VAR_H
 
@@ -14,6 +25,7 @@
 #include <WiFiUdp.h>
 #include "esp_http_server.h"
 
+/// @brief gpio number for the motion sensor data pin
 #define GPIO_2 2
 
 #define FILE_PHOTO "photo.jpg"
@@ -25,8 +37,12 @@
 #define _STREAM_BOUNDARY "\r\n--" PART_BOUNDARY "\r\n"
 #define _STREAM_PART "Content-Type: image/jpeg\r\nContent-Length: %u\r\n\r\n"
 
+/// @brief esp now packet size in bytes (max 250)
+
 #define fileDatainMessage 240.0
 #define DELETEBEFOREPAIR 1
+/// @brief esp now wifi channel
+
 #define ESP_CHANNEL 13
 
 extern WebServer server;

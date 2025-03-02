@@ -1,8 +1,25 @@
+/**
+ * @file email_module.cpp
+ * @author Yassine Hattay (hattayyassine519@gmail.com)
+ * @brief email related code for when there is internet
+ * @version 0.1
+ * @date 2025-03-02
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
+
 #include "email_module.h"
 #include "global_header.h"
 
 SMTPSession smtp;
- 
+
+ /**
+ * @brief this prints the result of the mail send
+ *
+ * @param parameter
+ */
+
 void smtpCallback(SMTP_Status status)
 {
   Serial.println(status.info());
@@ -33,6 +50,11 @@ void smtpCallback(SMTP_Status status)
   }
 }
 
+/**
+ * @brief this sends the photo throug mail
+ *
+ * @param parameter
+ */
 
 void sendPhoto(void)
 {
@@ -91,6 +113,13 @@ void sendPhoto(void)
     connected_internet = false;
   } //  mdse
 }
+
+/**
+ * @brief this checks if there is internet connexion
+ *
+ * @param parameter
+ */
+
 
 bool checkSMTPService(const char *server, uint16_t port, const char *email, const char *password)
 {

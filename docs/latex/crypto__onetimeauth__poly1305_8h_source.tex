@@ -1,0 +1,78 @@
+\doxysection{crypto\+\_\+onetimeauth\+\_\+poly1305.\+h}
+\hypertarget{crypto__onetimeauth__poly1305_8h_source}{}\label{crypto__onetimeauth__poly1305_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_onetimeauth\_poly1305.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_onetimeauth\_poly1305.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ crypto\_onetimeauth\_poly1305\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ crypto\_onetimeauth\_poly1305\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#\ ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#\ \ pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wlong-\/long"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <sys/types.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}export.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }CRYPTO\_ALIGN(16)\ crypto\_onetimeauth\_poly1305\_state\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ opaque[256];}
+\DoxyCodeLine{00021\ \}\ crypto\_onetimeauth\_poly1305\_state;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ SODIUM\_EXPORT}
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{size\_t}\ crypto\_onetimeauth\_poly1305\_statebytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ crypto\_onetimeauth\_poly1305\_BYTES\ 16U}}
+\DoxyCodeLine{00027\ SODIUM\_EXPORT}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{size\_t}\ crypto\_onetimeauth\_poly1305\_bytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ crypto\_onetimeauth\_poly1305\_KEYBYTES\ 32U}}
+\DoxyCodeLine{00031\ SODIUM\_EXPORT}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{size\_t}\ crypto\_onetimeauth\_poly1305\_keybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ SODIUM\_EXPORT}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{int}\ crypto\_onetimeauth\_poly1305(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *out,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ inlen,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1,\ 4)));}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ SODIUM\_EXPORT}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ crypto\_onetimeauth\_poly1305\_verify(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *h,}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ inlen,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(1,\ 4)));}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ SODIUM\_EXPORT}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ crypto\_onetimeauth\_poly1305\_init(crypto\_onetimeauth\_poly1305\_state\ *state,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key)}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ SODIUM\_EXPORT}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{int}\ crypto\_onetimeauth\_poly1305\_update(crypto\_onetimeauth\_poly1305\_state\ *state,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ inlen)}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ SODIUM\_EXPORT}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{int}\ crypto\_onetimeauth\_poly1305\_final(crypto\_onetimeauth\_poly1305\_state\ *state,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *out)}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ SODIUM\_EXPORT}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ crypto\_onetimeauth\_poly1305\_keygen(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ k[crypto\_onetimeauth\_poly1305\_KEYBYTES])}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00069\ \}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,118 @@
+\doxysection{bearssl\+\_\+hmac.\+h}
+\hypertarget{bearssl__hmac_8h_source}{}\label{bearssl__hmac_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_hmac.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_hmac.h}}
+\mbox{\hyperlink{bearssl__hmac_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Thomas\ Pornin\ <pornin@bolet.org>}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ }}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ }}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ }}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ SOFTWARE.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}../ESP\_SSLClient\_FS.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(USE\_LIB\_SSL\_ENGINE)}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifndef\ BR\_BEARSSL\_HMAC\_H\_\_}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ BR\_BEARSSL\_HMAC\_H\_\_}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl__hash_8h}{bearssl\_hash.h}}"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00037\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig\_vtable;}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ ksi[64],\ kso[64];}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ \}\ \mbox{\hyperlink{structbr__hmac__key__context}{br\_hmac\_key\_context}};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__hmac_8h_a6cd83b9d6010a8d3513792dcd40f3fb6}{br\_hmac\_key\_init}}(\mbox{\hyperlink{structbr__hmac__key__context}{br\_hmac\_key\_context}}\ *kc,}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *digest\_vtable,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keywordtype}{size\_t}\ key\_len);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ \(\backslash\)brief\ Get\ the\ underlying\ hash\ function.}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ This\ function\ returns\ a\ pointer\ to\ the\ implementation\ vtable\ of\ the}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ hash\ function\ used\ for\ this\ HMAC\ key\ context.}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ \(\backslash\)param\ kc\ \ \ HMAC\ key\ context.}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *\ \(\backslash\)return\ \ the\ hash\ function\ implementation.}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00099\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *br\_hmac\_key\_get\_digest(}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__hmac__key__context}{br\_hmac\_key\_context}}\ *kc)}
+\DoxyCodeLine{00101\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ kc-\/>dig\_vtable;}
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{unionbr__hash__compat__context}{br\_hash\_compat\_context}}\ dig;}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ kso[64];}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ out\_len;}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00119\ \}\ \mbox{\hyperlink{structbr__hmac__context}{br\_hmac\_context}};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00139\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__hmac_8h_a7c9bcdd5eb984bc330e715f29581bd12}{br\_hmac\_init}}(\mbox{\hyperlink{structbr__hmac__context}{br\_hmac\_context}}\ *ctx,}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__hmac__key__context}{br\_hmac\_key\_context}}\ *kc,\ \textcolor{keywordtype}{size\_t}\ out\_len);}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}}
+\DoxyCodeLine{00158\ br\_hmac\_size(\mbox{\hyperlink{structbr__hmac__context}{br\_hmac\_context}}\ *ctx)}
+\DoxyCodeLine{00159\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{return}\ ctx-\/>out\_len;}
+\DoxyCodeLine{00161\ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ *\ \(\backslash\)brief\ Get\ the\ underlying\ hash\ function.}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ *\ This\ function\ returns\ a\ pointer\ to\ the\ implementation\ vtable\ of\ the}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ *\ hash\ function\ used\ for\ this\ HMAC\ context.}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ *\ \(\backslash\)param\ hc\ \ \ HMAC\ context.}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ *\ \(\backslash\)return\ \ the\ hash\ function\ implementation.}}
+\DoxyCodeLine{00171\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00172\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *br\_hmac\_get\_digest(}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__hmac__context}{br\_hmac\_context}}\ *hc)}
+\DoxyCodeLine{00174\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{return}\ hc-\/>dig.vtable;}
+\DoxyCodeLine{00176\ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00186\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__hmac_8h_a54b50c0ec9fe535c7ff60c6995e39e76}{br\_hmac\_update}}(\mbox{\hyperlink{structbr__hmac__context}{br\_hmac\_context}}\ *ctx,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00203\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__hmac_8h_a574191199224cf2f51ce05c920563108}{br\_hmac\_out}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__hmac__context}{br\_hmac\_context}}\ *ctx,\ \textcolor{keywordtype}{void}\ *out);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00236\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__hmac_8h_abd3f0d4045d5b0a883173a59df211c1a}{br\_hmac\_outCT}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__hmac__context}{br\_hmac\_context}}\ *ctx,}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{size\_t}\ min\_len,\ \textcolor{keywordtype}{size\_t}\ max\_len,}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordtype}{void}\ *out);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00241\ \}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

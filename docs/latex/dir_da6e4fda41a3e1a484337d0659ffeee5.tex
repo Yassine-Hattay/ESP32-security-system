@@ -1,0 +1,163 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+network\+\_\+provisioning/tool/esp\+\_\+prov Directory Reference}
+\hypertarget{dir_da6e4fda41a3e1a484337d0659ffeee5}{}\label{dir_da6e4fda41a3e1a484337d0659ffeee5}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_network\_provisioning/tool/esp\_prov Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_network\_provisioning/tool/esp\_prov Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_2409d1ff3c06800aaa80f64b5f5498d4}{proto}}
+\item 
+directory \mbox{\hyperlink{dir_80304941177aff64a74b184419708f3e}{prov}}
+\item 
+directory \mbox{\hyperlink{dir_7e4ef11107d2c28889873c9a28dd9841}{security}}
+\item 
+directory \mbox{\hyperlink{dir_63fad167e4d3c3c571c3433e1e5e4e49}{transport}}
+\item 
+directory \mbox{\hyperlink{dir_f307c73e5dd357f24968b7f080edff18}{utils}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{README.md_autotoc_md1469}{}\doxysubsection{\texorpdfstring{Description}{Description}}\label{README.md_autotoc_md1469}
+{\ttfamily esp\+\_\+prov} -\/ A python-\/based utility for testing the provisioning examples over a host machine.
+
+Usage of {\ttfamily esp-\/prov} assumes that the provisioning app has specific protocomm endpoints active. These endpoints are active in the provisioning examples and accept specific protobuf data structure\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Endpoint Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ URI (HTTP server on ip\+:port)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Endpoint Name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ URI (HTTP server on ip\+:port)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-3}
+\endhead
+prov-\/session   &\href{http://ip:port/prov-session}{\texttt{ http\+://ip\+:port/prov-\/session}}   &Security endpoint used for session establishment    \\\cline{1-3}
+prov-\/config   &\href{http://ip:port/prov-config}{\texttt{ http\+://ip\+:port/prov-\/config}}   &Endpoint used for configuring Wi-\/\+Fi credentials or Thread dataset on device    \\\cline{1-3}
+proto-\/ver   &\href{http://ip:port/proto-ver}{\texttt{ http\+://ip\+:port/proto-\/ver}}   &Version endpoint for checking protocol compatibility    \\\cline{1-3}
+prov-\/scan   &\href{http://ip:port/prov-scan}{\texttt{ http\+://ip\+:port/prov-\/scan}}   &Endpoint used for scanning Wi-\/\+Fi APs or Thread network    \\\cline{1-3}
+prov-\/ctrl   &\href{http://ip:port/prov-ctrl}{\texttt{ http\+://ip\+:port/prov-\/ctrl}}   &Endpoint used for controlling Wi-\/\+Fi / Thread provisioning state    \\\cline{1-3}
+custom-\/data   &\href{http://ip:port/custom-data}{\texttt{ http\+://ip\+:port/custom-\/data}}   &Optional endpoint for sending custom data (refer {\ttfamily wifi\+\_\+prov} or {\ttfamily thread\+\_\+prov} example)   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{README.md_autotoc_md1470}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{README.md_autotoc_md1470}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{python\ esp\_prov.py\ -\/-\/transport\ <\ mode\ of\ provisioning\ :\ softap\ \(\backslash\)\ ble\ \(\backslash\)\ console\ >\ [\ Optional\ parameters...\ ]}
+
+\end{DoxyCode}
+ \hypertarget{README.md_autotoc_md1471}{}\doxysubsubsection{\texorpdfstring{Parameters}{Parameters}}\label{README.md_autotoc_md1471}
+
+\begin{DoxyItemize}
+\item {\ttfamily -\/-\/help} \doxylink{class_print}{Print} the list of options along with brief descriptions
+\item {\ttfamily -\/-\/verbose}, {\ttfamily -\/v} Sets the verbosity level of output log
+\item {\ttfamily -\/-\/transport \texorpdfstring{$<$}{<}mode\texorpdfstring{$>$}{>}}
+\begin{DoxyItemize}
+\item Three options are available\+:
+\begin{DoxyItemize}
+\item {\ttfamily softap} -\/ for Soft\+AP + HTTPD based provisioning
+\begin{DoxyItemize}
+\item Requires the device to be running in Wi-\/\+Fi Soft\+AP mode and hosting an HTTP server supporting specific endpoint URIs
+\item The client needs to be connected to the device soft\+AP network before running the {\ttfamily esp\+\_\+prov} tool.
+\end{DoxyItemize}
+\item {\ttfamily ble} -\/ for Bluetooth LE based provisioning
+\begin{DoxyItemize}
+\item Supports Linux, Windows and mac\+OS; redirected to console if dependencies are not met
+\item Assumes that the provisioning endpoints are active on the device with specific Bluetooth LE service UUIDs
+\end{DoxyItemize}
+\item {\ttfamily console} -\/ for debugging via console-\/based provisioning
+\begin{DoxyItemize}
+\item The client-\/\texorpdfstring{$>$}{>}device commands are printed to STDOUT and device-\/\texorpdfstring{$>$}{>}client messages are accepted via STDIN.
+\item This is to be used when the device is accepting provisioning commands on UART console.
+\end{DoxyItemize}
+\item {\ttfamily httpd} -\/ the script works the same as for {\ttfamily softap}. This could be used on any other network interface than Wi\+Fi soft AP, e.\+g. Ethernet or USB.
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/service\+\_\+name \texorpdfstring{$<$}{<}name\texorpdfstring{$>$}{>}} (Optional)
+\begin{DoxyItemize}
+\item When transport mode is {\ttfamily ble}, this specifies the Bluetooth LE device name to which connection is to be established for provisioned. If not provided, Bluetooth LE scanning is initiated and a list of nearby devices, as seen by the host, is displayed, of which the target device can be chosen.
+\item When transport mode is {\ttfamily softap} or {\ttfamily httpd}, this specifies the HTTP server hostname / IP which is running the provisioning service, on the Soft\+AP network (or any other interface for {\ttfamily httpd} mode) of the device which is to be provisioned. This defaults to {\ttfamily 192.\+168.\+4.\+1\+:80} if not specified
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/ssid \texorpdfstring{$<$}{<}AP SSID\texorpdfstring{$>$}{>}} (Optional)
+\begin{DoxyItemize}
+\item For specifying the SSID of the Wi-\/\+Fi AP to which the device is to connect after provisioning.
+\item If not provided, scanning is initiated and scan results, as seen by the device, are displayed, of which an SSID can be picked and the corresponding password specified.
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/passphrase \texorpdfstring{$<$}{<}AP Password\texorpdfstring{$>$}{>}} (Optional)
+\begin{DoxyItemize}
+\item For specifying the password of the Wi-\/\+Fi AP to which the device is to connect after provisioning.
+\item Only used when corresponding SSID is provided using the {\ttfamily -\/-\/ssid} option
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/dataset\+\_\+tlvs \texorpdfstring{$<$}{<}Thread Dataset Tlvs\texorpdfstring{$>$}{>}} (Optional)
+\begin{DoxyItemize}
+\item For specifying the Dataset Tlvs of the Thread network to which the device is to connect after provisioning.
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/sec\+\_\+ver \texorpdfstring{$<$}{<}Security version number\texorpdfstring{$>$}{>}}
+\begin{DoxyItemize}
+\item For specifying the version of protocomm endpoint security to use. Following 3 versions are supported\+:
+\begin{DoxyItemize}
+\item {\ttfamily 0} for {\ttfamily protocomm\+\_\+security0} -\/ No security
+\item {\ttfamily 1} for {\ttfamily protocomm\+\_\+security1} -\/ X25519 key exchange + Authentication using Proof of Possession (PoP) + AES-\/\+CTR encryption
+\item {\ttfamily 2} for {\ttfamily protocomm\+\_\+security2} -\/ Secure Remote Password protocol (SRP6a) + AES-\/\+GCM encryption
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/pop \texorpdfstring{$<$}{<}Proof of possession string\texorpdfstring{$>$}{>}} (Optional)
+\begin{DoxyItemize}
+\item For specifying optional Proof of Possession string to use for protocomm endpoint security version 1
+\item Ignored when other security versions are used
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/sec2\+\_\+username \texorpdfstring{$<$}{<}SRP6a Username\texorpdfstring{$>$}{>}} (Optional)
+\begin{DoxyItemize}
+\item For specifying optional username to use for protocomm endpoint security version 2
+\item Ignored when other security versions are used
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/sec2\+\_\+pwd \texorpdfstring{$<$}{<}SRP6a Password\texorpdfstring{$>$}{>}} (Optional)
+\begin{DoxyItemize}
+\item For specifying optional password to use for protocomm endpoint security version 2
+\item Ignored when other security versions are used
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/sec2\+\_\+gen\+\_\+cred} (Optional)
+\begin{DoxyItemize}
+\item For generating the {\ttfamily SRP6a} credentials (salt and verifier) from the provided username and password for protocomm endpoint security version 2
+\item Ignored when other security versions are used
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/sec2\+\_\+salt\+\_\+len \texorpdfstring{$<$}{<}SRP6a Salt Length\texorpdfstring{$>$}{>}} (Optional)
+\begin{DoxyItemize}
+\item For specifying the optional {\ttfamily SRP6a} salt length to be used for generating protocomm endpoint security version 2 credentials
+\item Ignored when other security versions are used and the {\ttfamily -\/-\/sec2\+\_\+gen\+\_\+cred} option is not set
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/reset} (Optional)
+\begin{DoxyItemize}
+\item Resets internal state machine of the device and clears provisioned credentials; to be used only in case of provisioning failures
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/reprov} (Optional)
+\begin{DoxyItemize}
+\item Resets internal state machine of the device and clears provisioned credentials; to be used only in case the device is to be provisioned again for new credentials after a previous successful provisioning
+\end{DoxyItemize}
+\item {\ttfamily -\/-\/custom\+\_\+data \texorpdfstring{$<$}{<}some string\texorpdfstring{$>$}{>}} (Optional) An information string can be sent to the {\ttfamily custom-\/data} endpoint during provisioning using this argument. (Assumes the provisioning app has an endpoint called {\ttfamily custom-\/data} -\/ see \href{../../examples/wifi_prov/}{\texttt{ wifi\+\_\+prov}} example for implementation details).
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1472}{}\doxysubsubsection{\texorpdfstring{Example Usage}{Example Usage}}\label{README.md_autotoc_md1472}
+Please refer to the {\ttfamily README.\+md} file with the {\ttfamily wifi\+\_\+prov} or {\ttfamily thread\+\_\+prov} example present under {\ttfamily \{path-\/to-\/network\+\_\+provisioning-\/component\}/examples}.
+
+This example uses specific options of the {\ttfamily esp\+\_\+prov} tool and gives an overview of simple as well as advanced usage scenarios.\hypertarget{README.md_autotoc_md1473}{}\doxysubsection{\texorpdfstring{Dependencies}{Dependencies}}\label{README.md_autotoc_md1473}
+This requires the following python libraries to run\+:
+\begin{DoxyItemize}
+\item {\ttfamily bleak}
+\item {\ttfamily protobuf}
+\item {\ttfamily cryptography}
+\end{DoxyItemize}
+
+To install the dependency packages needed, please run the following command in {\ttfamily \$IDF\+\_\+\+PATH} directory\+:
+
+For ESP-\/\+IDF v5.\+1\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{bash\ install.sh\ -\/-\/enable-\/ttfw}
+
+\end{DoxyCode}
+
+
+For ESP-\/\+IDF v5.\+2 or later\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{bash\ install.sh\ -\/-\/enable-\/pytest}
+
+\end{DoxyCode}
+
+
+{\bfseries{Note\+:}} For troubleshooting errors with Bluetooth LE transport, please refer this \href{https://bleak.readthedocs.io/en/latest/troubleshooting.html}{\texttt{ link}}. 

@@ -1,0 +1,76 @@
+\doxysection{esp\+\_\+zigbee\+\_\+zcl\+\_\+green\+\_\+power.\+h}
+\hypertarget{esp__zigbee__zcl__green__power_8h_source}{}\label{esp__zigbee__zcl__green__power_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_green\_power.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_green\_power.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022-\/2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_type.h"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}zgp/esp\_zigbee\_zgp.h"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00013\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zgp\_gp\_attr\_e\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPS\_MAX\_SINK\_TABLE\_ENTRIES\_ID\ \ \ \ \ \ \ =\ 0x0000,\ }
+\DoxyCodeLine{00022\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPS\_SINK\_TABLE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0001,\ }
+\DoxyCodeLine{00023\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPS\_COMMUNICATION\_MODE\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0002,\ }
+\DoxyCodeLine{00024\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPS\_COMMISSIONING\_EXIT\_MODE\_ID\ \ \ \ \ \ =\ 0x0003,\ }
+\DoxyCodeLine{00025\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPS\_COMMISSIONING\_WINDOW\_ID\ \ \ \ \ \ \ \ \ =\ 0x0004,\ }
+\DoxyCodeLine{00026\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPS\_SECURITY\_LEVEL\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0005,\ }
+\DoxyCodeLine{00027\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPS\_FUNCTIONALITY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0006,\ }
+\DoxyCodeLine{00028\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPS\_ACTIVE\_FUNCTIONALITY\_ID\ \ \ \ \ \ \ \ \ =\ 0x0007,\ }
+\DoxyCodeLine{00029\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPP\_MAX\_PROXY\_TABLE\_ENTRIES\_ID\ \ \ \ \ \ =\ 0x0010,\ }
+\DoxyCodeLine{00030\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPP\_PROXY\_TABLE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0011,\ }
+\DoxyCodeLine{00031\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPP\_NOTIFICATION\_RETRY\_NUMBER\_ID\ \ \ \ =\ 0x0012,\ }
+\DoxyCodeLine{00032\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPP\_NOTIFICATION\_RETRY\_TIMER\_ID\ \ \ \ \ =\ 0x0013,\ }
+\DoxyCodeLine{00033\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPP\_MAX\_SEARCH\_COUNTER\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0014,\ }
+\DoxyCodeLine{00034\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPP\_BLOCKED\_GPDID\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0015,\ }
+\DoxyCodeLine{00035\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPP\_FUNCTIONALITY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0016,\ }
+\DoxyCodeLine{00036\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GPP\_ACTIVE\_FUNCTIONALITY\_ID\ \ \ \ \ \ \ \ \ =\ 0x0017,\ }
+\DoxyCodeLine{00037\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GP\_SHARED\_SECURITY\_KEY\_TYPE\_ID\ \ \ \ \ \ =\ 0x0020,\ }
+\DoxyCodeLine{00038\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GP\_SHARED\_SECURITY\_KEY\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0021,\ }
+\DoxyCodeLine{00039\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_GP\_LINK\_KEY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0022\ \ }
+\DoxyCodeLine{00040\ \}\ esp\_zgp\_gp\_attr\_t;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zgp\_server\_commands\_e\ \{}
+\DoxyCodeLine{00047\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_NOTIFICATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,}
+\DoxyCodeLine{00048\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_PAIRING\_SEARCH\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00049\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_TUNNELING\_STOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03,}
+\DoxyCodeLine{00050\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_COMMISSIONING\_NOTIFICATION\ \ \ \ \ \ \ \ \ \ =\ 0x04,}
+\DoxyCodeLine{00051\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_SINK\_COMMISSIONING\_MODE\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x05,}
+\DoxyCodeLine{00052\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_TRANSLATION\_TABLE\_UPDATE\_COMMAND\ \ \ \ =\ 0x07,}
+\DoxyCodeLine{00053\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_TRANSLATION\_TABLE\_REQUEST\ \ \ \ \ \ \ \ \ \ \ =\ 0x08,}
+\DoxyCodeLine{00054\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_PAIRING\_CONFIGURATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x09,}
+\DoxyCodeLine{00055\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_SINK\_TABLE\_REQUEST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0a,}
+\DoxyCodeLine{00056\ \ \ ESP\_ZGP\_SERVER\_CMD\_GP\_PROXY\_TABLE\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0b}
+\DoxyCodeLine{00057\ \}\ esp\_zgp\_server\_commands\_t;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zgp\_client\_commands\_e\ \{}
+\DoxyCodeLine{00064\ \ \ ESP\_ZGP\_CLIENT\_CMD\_GP\_NOTIFICATION\_RESPONSE\ \ \ \ \ =\ 0x00,}
+\DoxyCodeLine{00065\ \ \ ESP\_ZGP\_CLIENT\_CMD\_GP\_PAIRING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00066\ \ \ ESP\_ZGP\_CLIENT\_CMD\_GP\_PROXY\_COMMISSIONING\_MODE\ \ =\ 0x02,}
+\DoxyCodeLine{00067\ \ \ ESP\_ZGP\_CLIENT\_CMD\_GP\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x06,}
+\DoxyCodeLine{00068\ \ \ ESP\_ZGP\_CLIENT\_CMD\_GP\_SINK\_TABLE\_RESPONSE\ \ \ \ \ \ \ =\ 0x0a,}
+\DoxyCodeLine{00069\ \ \ ESP\_ZGP\_CLIENT\_CMD\_GP\_PROXY\_TABLE\_REQUEST\ \ \ \ \ \ \ =\ 0x0b}
+\DoxyCodeLine{00070\ \}\ esp\_zgp\_client\_commands\_t;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zgp\_pairing\_config\_action\_e\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ ESP\_ZGP\_PAIRING\_CONFIG\_NO\_ACTION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xb000,\ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ ESP\_ZGP\_PAIRING\_CONFIG\_EXTEND\_SINK\_TABLE\_ENTRY\ \ =\ 0xb001,\ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ ESP\_ZGP\_PAIRING\_CONFIG\_REPLACE\_SINK\_TABLE\_ENTRY\ =\ 0xb010,\ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ ESP\_ZGP\_PAIRING\_CONFIG\_REMOVE\_A\_PAIRING\ \ \ \ \ \ \ \ \ =\ 0xb011,\ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ ESP\_ZGP\_PAIRING\_CONFIG\_REMOVE\_GPD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xb100,\ \ \ }
+\DoxyCodeLine{00082\ \}\ esp\_zgp\_pairing\_config\_action\_t;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00085\ \}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

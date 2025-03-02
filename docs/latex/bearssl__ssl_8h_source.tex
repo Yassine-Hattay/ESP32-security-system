@@ -1,0 +1,1833 @@
+\doxysection{bearssl\+\_\+ssl.\+h}
+\hypertarget{bearssl__ssl_8h_source}{}\label{bearssl__ssl_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_ssl.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_ssl.h}}
+\mbox{\hyperlink{bearssl__ssl_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Thomas\ Pornin\ <pornin@bolet.org>}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ }}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ }}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ }}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ SOFTWARE.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}../ESP\_SSLClient\_FS.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(USE\_LIB\_SSL\_ENGINE)}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifndef\ BR\_BEARSSL\_SSL\_H\_\_}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ BR\_BEARSSL\_SSL\_H\_\_}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl__block_8h}{bearssl\_block.h}}"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl__hash_8h}{bearssl\_hash.h}}"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl__hmac_8h}{bearssl\_hmac.h}}"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl__prf_8h}{bearssl\_prf.h}}"{}}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl__rand_8h}{bearssl\_rand.h}}"{}}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl__x509_8h}{bearssl\_x509.h}}"{}}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00042\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ BR\_SSL\_BUFSIZE\_INPUT\ \ \ \ (16384\ +\ 325)}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ BR\_SSL\_BUFSIZE\_OUTPUT\ \ \ (16384\ +\ 85)}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ BR\_SSL\_BUFSIZE\_MONO\ \ \ \ \ BR\_SSL\_BUFSIZE\_INPUT}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ BR\_SSL\_BUFSIZE\_BIDI\ \ \ \ \ (BR\_SSL\_BUFSIZE\_INPUT\ +\ BR\_SSL\_BUFSIZE\_OUTPUT)}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ Constants\ for\ known\ SSL/TLS\ protocol\ versions\ (SSL\ 3.0,\ TLS\ 1.0,\ TLS\ 1.1}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ and\ TLS\ 1.2).\ Note\ that\ though\ there\ is\ a\ constant\ for\ SSL\ 3.0,\ that}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *\ protocol\ version\ is\ not\ actually\ supported.}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ BR\_SSL30\ \ \ 0x0300}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ BR\_TLS10\ \ \ 0x0301}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ BR\_TLS11\ \ \ 0x0302}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ BR\_TLS12\ \ \ 0x0303}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ Error\ constants.\ They\ are\ used\ to\ report\ the\ reason\ why\ a\ context\ has}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ been\ marked\ as\ failed.}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ Implementation\ note:\ SSL-\/level\ error\ codes\ should\ be\ in\ the\ 1..31}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *\ range.\ The\ 32..63\ range\ is\ for\ certificate\ decoding\ and\ validation}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ *\ errors.\ Received\ fatal\ alerts\ imply\ an\ error\ code\ in\ the\ 256..511\ range.}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ BR\_ERR\_OK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_PARAM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_STATE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ BR\_ERR\_UNSUPPORTED\_VERSION\ \ \ \ \ 3}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_VERSION\ \ \ \ \ \ \ \ \ \ \ \ \ 4}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_LENGTH\ \ \ \ \ \ \ \ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ BR\_ERR\_TOO\_LARGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 6}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_MAC\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 7}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ BR\_ERR\_NO\_RANDOM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 8}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ BR\_ERR\_UNKNOWN\_TYPE\ \ \ \ \ \ \ \ \ \ \ \ 9}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ BR\_ERR\_UNEXPECTED\ \ \ \ \ \ \ \ \ \ \ \ \ 10}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_CCS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 12}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_ALERT\ \ \ \ \ \ \ \ \ \ \ \ \ \ 13}}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_HANDSHAKE\ \ \ \ \ \ \ \ \ \ 14}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#define\ BR\_ERR\_OVERSIZED\_ID\ \ \ \ \ \ \ \ \ \ \ 15}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_CIPHER\_SUITE\ \ \ \ \ \ \ 16}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_COMPRESSION\ \ \ \ \ \ \ \ 17}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_FRAGLEN\ \ \ \ \ \ \ \ \ \ \ \ 18}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_SECRENEG\ \ \ \ \ \ \ \ \ \ \ 19}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#define\ BR\_ERR\_EXTRA\_EXTENSION\ \ \ \ \ \ \ \ 20}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_SNI\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 21}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_HELLO\_DONE\ \ \ \ \ \ \ \ \ 22}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ BR\_ERR\_LIMIT\_EXCEEDED\ \ \ \ \ \ \ \ \ 23}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_FINISHED\ \ \ \ \ \ \ \ \ \ \ 24}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ BR\_ERR\_RESUME\_MISMATCH\ \ \ \ \ \ \ \ 25}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ BR\_ERR\_INVALID\_ALGORITHM\ \ \ \ \ \ 26}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ BR\_ERR\_BAD\_SIGNATURE\ \ \ \ \ \ \ \ \ \ 27}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ BR\_ERR\_WRONG\_KEY\_USAGE\ \ \ \ \ \ \ \ 28}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ BR\_ERR\_NO\_CLIENT\_AUTH\ \ \ \ \ \ \ \ \ 29}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ BR\_ERR\_IO\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 31}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ BR\_ERR\_RECV\_FATAL\_ALERT\ \ \ \ \ \ 256}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ BR\_ERR\_SEND\_FATAL\_ALERT\ \ \ \ \ \ 512}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{comment}{/*\ =====================================================================\ */}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00242\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__class__}{br\_sslrec\_in\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a672dfe35f869559e5c06789cff8fb308}{br\_sslrec\_in\_class}};}
+\DoxyCodeLine{00243\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__class__}{br\_sslrec\_in\_class\_}}\ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__sslrec__in__class___aa3a7eb594c58d47d20496e3e8d3c7bf9}{context\_size}};}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00259\ \ \ \ \ int\ (*\mbox{\hyperlink{structbr__sslrec__in__class___afdec2ccf5032e90a6abab8f115487ac0}{check\_length}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a672dfe35f869559e5c06789cff8fb308}{br\_sslrec\_in\_class}}\ *\textcolor{keyword}{const}\ *ctx,}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ record\_len);}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *(*decrypt)(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a672dfe35f869559e5c06789cff8fb308}{br\_sslrec\_in\_class}}\ **ctx,}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ record\_type,\ \textcolor{keywordtype}{unsigned}\ version,}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *payload,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{00284\ \};}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00296\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__class__}{br\_sslrec\_out\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}};}
+\DoxyCodeLine{00297\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__class__}{br\_sslrec\_out\_class\_}}\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__sslrec__out__class___a7d7a554e4e64be045946f5866332e735}{context\_size}};}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00320\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__sslrec__out__class___ad51570d6d9cc017374dc750b7641976e}{max\_plaintext}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}}\ *\textcolor{keyword}{const}\ *ctx,}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ *start,\ \textcolor{keywordtype}{size\_t}\ *end);}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *(*encrypt)(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}}\ **ctx,}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ record\_type,\ \textcolor{keywordtype}{unsigned}\ version,}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *plaintext,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{00343\ \};}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00351\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}}\ *\mbox{\hyperlink{structbr__sslrec__out__clear__context_ae88b7f659df82f96cc7b3fd7097da1cc}{vtable}};}
+\DoxyCodeLine{00354\ \}\ \mbox{\hyperlink{structbr__sslrec__out__clear__context}{br\_sslrec\_out\_clear\_context}};}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00357\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}}\ \mbox{\hyperlink{bearssl__ssl_8h_a896e0d1f7d3890d9db987a475a1cffeb}{br\_sslrec\_out\_clear\_vtable}};}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \textcolor{comment}{/*\ =====================================================================\ */}}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00370\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__cbc__class__}{br\_sslrec\_in\_cbc\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a4ac82ef002d22a4e778855e6941355ef}{br\_sslrec\_in\_cbc\_class}};}
+\DoxyCodeLine{00371\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__cbc__class__}{br\_sslrec\_in\_cbc\_class\_}}\ \{}
+\DoxyCodeLine{00375\ \ \ \ \ \mbox{\hyperlink{bearssl__ssl_8h_a672dfe35f869559e5c06789cff8fb308}{br\_sslrec\_in\_class}}\ \mbox{\hyperlink{structbr__sslrec__in__cbc__class___a9321ce5d08d4c040ebf95f3c0aa44eb7}{inner}};}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00392\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__sslrec__in__cbc__class___a91a939191606458c03668b9139eee6e1}{init}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a4ac82ef002d22a4e778855e6941355ef}{br\_sslrec\_in\_cbc\_class}}\ **ctx,}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\_block\_cbcdec\_class}}\ *bc\_impl,}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *bc\_key,\ \textcolor{keywordtype}{size\_t}\ bc\_key\_len,}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig\_impl,}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *mac\_key,\ \textcolor{keywordtype}{size\_t}\ mac\_key\_len,\ \textcolor{keywordtype}{size\_t}\ mac\_out\_len,}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *iv);}
+\DoxyCodeLine{00398\ \};}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00409\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__cbc__class__}{br\_sslrec\_out\_cbc\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_aac159c19da5bddae5593f322d61f9bb5}{br\_sslrec\_out\_cbc\_class}};}
+\DoxyCodeLine{00410\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__cbc__class__}{br\_sslrec\_out\_cbc\_class\_}}\ \{}
+\DoxyCodeLine{00414\ \ \ \ \ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}}\ \mbox{\hyperlink{structbr__sslrec__out__cbc__class___a72db400e336818743c8e8eea52f0c07f}{inner}};}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00431\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__sslrec__out__cbc__class___afaf353fc5461555909a986c26b2c1e7a}{init}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aac159c19da5bddae5593f322d61f9bb5}{br\_sslrec\_out\_cbc\_class}}\ **ctx,}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_ad0ecff523e21a74dc1143dcfa52aa251}{br\_block\_cbcenc\_class}}\ *bc\_impl,}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *bc\_key,\ \textcolor{keywordtype}{size\_t}\ bc\_key\_len,}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig\_impl,}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *mac\_key,\ \textcolor{keywordtype}{size\_t}\ mac\_key\_len,\ \textcolor{keywordtype}{size\_t}\ mac\_out\_len,}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *iv);}
+\DoxyCodeLine{00437\ \};}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00446\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00448\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a4ac82ef002d22a4e778855e6941355ef}{br\_sslrec\_in\_cbc\_class}}\ *\mbox{\hyperlink{structbr__sslrec__in__cbc__context_ad14ff1a1913bccffec98be1e3a7aebd1}{vtable}};}
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00450\ \ \ \ \ uint64\_t\ seq;}
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\_block\_cbcdec\_class}}\ *\mbox{\hyperlink{structbr__sslrec__in__cbc__context_ad14ff1a1913bccffec98be1e3a7aebd1}{vtable}};}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{unionbr__aes__gen__cbcdec__keys}{br\_aes\_gen\_cbcdec\_keys}}\ aes;}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{unionbr__des__gen__cbcdec__keys}{br\_des\_gen\_cbcdec\_keys}}\ des;}
+\DoxyCodeLine{00455\ \ \ \ \ \}\ bc;}
+\DoxyCodeLine{00456\ \ \ \ \ \mbox{\hyperlink{structbr__hmac__key__context}{br\_hmac\_key\_context}}\ mac;}
+\DoxyCodeLine{00457\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ mac\_len;}
+\DoxyCodeLine{00458\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iv[16];}
+\DoxyCodeLine{00459\ \ \ \ \ \textcolor{keywordtype}{int}\ explicit\_IV;}
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00461\ \}\ \mbox{\hyperlink{structbr__sslrec__in__cbc__context}{br\_sslrec\_in\_cbc\_context}};}
+\DoxyCodeLine{00462\ }
+\DoxyCodeLine{00466\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a4ac82ef002d22a4e778855e6941355ef}{br\_sslrec\_in\_cbc\_class}}\ \mbox{\hyperlink{bearssl__ssl_8h_ac117309b1c5b02da58d1beb0f4ea28e6}{br\_sslrec\_in\_cbc\_vtable}};}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00475\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aac159c19da5bddae5593f322d61f9bb5}{br\_sslrec\_out\_cbc\_class}}\ *\mbox{\hyperlink{structbr__sslrec__out__cbc__context_a45b56034d0eccd2d776e813ae205cf78}{vtable}};}
+\DoxyCodeLine{00478\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00479\ \ \ \ \ uint64\_t\ seq;}
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_ad0ecff523e21a74dc1143dcfa52aa251}{br\_block\_cbcenc\_class}}\ *\mbox{\hyperlink{structbr__sslrec__out__cbc__context_a45b56034d0eccd2d776e813ae205cf78}{vtable}};}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{unionbr__aes__gen__cbcenc__keys}{br\_aes\_gen\_cbcenc\_keys}}\ aes;}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{unionbr__des__gen__cbcenc__keys}{br\_des\_gen\_cbcenc\_keys}}\ des;}
+\DoxyCodeLine{00484\ \ \ \ \ \}\ bc;}
+\DoxyCodeLine{00485\ \ \ \ \ \mbox{\hyperlink{structbr__hmac__key__context}{br\_hmac\_key\_context}}\ mac;}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ mac\_len;}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iv[16];}
+\DoxyCodeLine{00488\ \ \ \ \ \textcolor{keywordtype}{int}\ explicit\_IV;}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00490\ \}\ \mbox{\hyperlink{structbr__sslrec__out__cbc__context}{br\_sslrec\_out\_cbc\_context}};}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00495\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aac159c19da5bddae5593f322d61f9bb5}{br\_sslrec\_out\_cbc\_class}}\ \mbox{\hyperlink{bearssl__ssl_8h_a18eef04979d2caa6cd11bab6397685d1}{br\_sslrec\_out\_cbc\_vtable}};}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \textcolor{comment}{/*\ =====================================================================\ */}}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00507\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__gcm__class__}{br\_sslrec\_in\_gcm\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_aeac0994f21682dff2a404eeeb0bf679f}{br\_sslrec\_in\_gcm\_class}};}
+\DoxyCodeLine{00508\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__gcm__class__}{br\_sslrec\_in\_gcm\_class\_}}\ \{}
+\DoxyCodeLine{00512\ \ \ \ \ \mbox{\hyperlink{bearssl__ssl_8h_a672dfe35f869559e5c06789cff8fb308}{br\_sslrec\_in\_class}}\ \mbox{\hyperlink{structbr__sslrec__in__gcm__class___ae9941c722cfb89bd16073fb87b72e415}{inner}};}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00526\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__sslrec__in__gcm__class___adca4f8f70945cf66e4b2e38d065213a9}{init}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aeac0994f21682dff2a404eeeb0bf679f}{br\_sslrec\_in\_gcm\_class}}\ **ctx,}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a8934ac58af503220bfb6e6cbc2cfb209}{br\_block\_ctr\_class}}\ *bc\_impl,}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keywordtype}{size\_t}\ key\_len,}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{bearssl__hash_8h_a06b9d6420d8038e78efbb53fb4a26eae}{br\_ghash}}\ gh\_impl,}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *iv);}
+\DoxyCodeLine{00531\ \};}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00541\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__gcm__class__}{br\_sslrec\_out\_gcm\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_afa27ee8dbde5994bb1d0cf203f34389f}{br\_sslrec\_out\_gcm\_class}};}
+\DoxyCodeLine{00542\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__gcm__class__}{br\_sslrec\_out\_gcm\_class\_}}\ \{}
+\DoxyCodeLine{00546\ \ \ \ \ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}}\ \mbox{\hyperlink{structbr__sslrec__out__gcm__class___acb5b87860b8d693f3f816e87037eb83e}{inner}};}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00560\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__sslrec__out__gcm__class___a5a9a14b5367105242bbf937851856d47}{init}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_afa27ee8dbde5994bb1d0cf203f34389f}{br\_sslrec\_out\_gcm\_class}}\ **ctx,}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a8934ac58af503220bfb6e6cbc2cfb209}{br\_block\_ctr\_class}}\ *bc\_impl,}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keywordtype}{size\_t}\ key\_len,}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{bearssl__hash_8h_a06b9d6420d8038e78efbb53fb4a26eae}{br\_ghash}}\ gh\_impl,}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *iv);}
+\DoxyCodeLine{00565\ \};}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00575\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00577\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *gen;}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aeac0994f21682dff2a404eeeb0bf679f}{br\_sslrec\_in\_gcm\_class}}\ *in;}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_afa27ee8dbde5994bb1d0cf203f34389f}{br\_sslrec\_out\_gcm\_class}}\ *out;}
+\DoxyCodeLine{00581\ \ \ \ \ \}\ vtable;}
+\DoxyCodeLine{00582\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00583\ \ \ \ \ uint64\_t\ seq;}
+\DoxyCodeLine{00584\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a8934ac58af503220bfb6e6cbc2cfb209}{br\_block\_ctr\_class}}\ *vtable;}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{unionbr__aes__gen__ctr__keys}{br\_aes\_gen\_ctr\_keys}}\ aes;}
+\DoxyCodeLine{00587\ \ \ \ \ \}\ bc;}
+\DoxyCodeLine{00588\ \ \ \ \ \mbox{\hyperlink{bearssl__hash_8h_a06b9d6420d8038e78efbb53fb4a26eae}{br\_ghash}}\ gh;}
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iv[4];}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ h[16];}
+\DoxyCodeLine{00591\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00592\ \}\ \mbox{\hyperlink{structbr__sslrec__gcm__context}{br\_sslrec\_gcm\_context}};}
+\DoxyCodeLine{00593\ }
+\DoxyCodeLine{00597\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aeac0994f21682dff2a404eeeb0bf679f}{br\_sslrec\_in\_gcm\_class}}\ \mbox{\hyperlink{bearssl__ssl_8h_ac3ef2c3116845288266f808431a4c074}{br\_sslrec\_in\_gcm\_vtable}};}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00602\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_afa27ee8dbde5994bb1d0cf203f34389f}{br\_sslrec\_out\_gcm\_class}}\ \mbox{\hyperlink{bearssl__ssl_8h_a93a59058d3993ecf35379cbe6de36d66}{br\_sslrec\_out\_gcm\_vtable}};}
+\DoxyCodeLine{00603\ }
+\DoxyCodeLine{00604\ \textcolor{comment}{/*\ =====================================================================\ */}}
+\DoxyCodeLine{00605\ }
+\DoxyCodeLine{00614\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__chapol__class__}{br\_sslrec\_in\_chapol\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a845e3d5ada2f8814fc09bb41b2d33f7d}{br\_sslrec\_in\_chapol\_class}};}
+\DoxyCodeLine{00615\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__chapol__class__}{br\_sslrec\_in\_chapol\_class\_}}\ \{}
+\DoxyCodeLine{00619\ \ \ \ \ \mbox{\hyperlink{bearssl__ssl_8h_a672dfe35f869559e5c06789cff8fb308}{br\_sslrec\_in\_class}}\ \mbox{\hyperlink{structbr__sslrec__in__chapol__class___ad2ca3e8f8b3e71833c3a3de414a371d6}{inner}};}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00632\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__sslrec__in__chapol__class___aee65f9817f5cbefff947922b6e1ffed2}{init}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a845e3d5ada2f8814fc09bb41b2d33f7d}{br\_sslrec\_in\_chapol\_class}}\ **ctx,}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a274de0985f8bb5b252a37526a9591826}{br\_chacha20\_run}}\ ichacha,}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a657418e5ad2f2667390885239ba0524d}{br\_poly1305\_run}}\ ipoly,}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *iv);}
+\DoxyCodeLine{00636\ \};}
+\DoxyCodeLine{00637\ }
+\DoxyCodeLine{00646\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__chapol__class__}{br\_sslrec\_out\_chapol\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a3bb807c41e964dd6fc5d92f32a937af5}{br\_sslrec\_out\_chapol\_class}};}
+\DoxyCodeLine{00647\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__chapol__class__}{br\_sslrec\_out\_chapol\_class\_}}\ \{}
+\DoxyCodeLine{00651\ \ \ \ \ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}}\ \mbox{\hyperlink{structbr__sslrec__out__chapol__class___ac367f9abd73f90714d958b406f001b38}{inner}};}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00664\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__sslrec__out__chapol__class___ae2a750962e61fbf35729ed96e966511c}{init}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a3bb807c41e964dd6fc5d92f32a937af5}{br\_sslrec\_out\_chapol\_class}}\ **ctx,}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a274de0985f8bb5b252a37526a9591826}{br\_chacha20\_run}}\ ichacha,}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a657418e5ad2f2667390885239ba0524d}{br\_poly1305\_run}}\ ipoly,}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *iv);}
+\DoxyCodeLine{00668\ \};}
+\DoxyCodeLine{00669\ }
+\DoxyCodeLine{00678\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00680\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *gen;}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a845e3d5ada2f8814fc09bb41b2d33f7d}{br\_sslrec\_in\_chapol\_class}}\ *in;}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a3bb807c41e964dd6fc5d92f32a937af5}{br\_sslrec\_out\_chapol\_class}}\ *out;}
+\DoxyCodeLine{00684\ \ \ \ \ \}\ vtable;}
+\DoxyCodeLine{00685\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00686\ \ \ \ \ uint64\_t\ seq;}
+\DoxyCodeLine{00687\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ key[32];}
+\DoxyCodeLine{00688\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iv[12];}
+\DoxyCodeLine{00689\ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a274de0985f8bb5b252a37526a9591826}{br\_chacha20\_run}}\ ichacha;}
+\DoxyCodeLine{00690\ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a657418e5ad2f2667390885239ba0524d}{br\_poly1305\_run}}\ ipoly;}
+\DoxyCodeLine{00691\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00692\ \}\ \mbox{\hyperlink{structbr__sslrec__chapol__context}{br\_sslrec\_chapol\_context}};}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00697\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a845e3d5ada2f8814fc09bb41b2d33f7d}{br\_sslrec\_in\_chapol\_class}}\ \mbox{\hyperlink{bearssl__ssl_8h_a7cd99229816a11954d9bad04c8d4a30b}{br\_sslrec\_in\_chapol\_vtable}};}
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00702\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a3bb807c41e964dd6fc5d92f32a937af5}{br\_sslrec\_out\_chapol\_class}}\ \mbox{\hyperlink{bearssl__ssl_8h_ac88efa2bd05d71183cc90aeff0c52f07}{br\_sslrec\_out\_chapol\_vtable}};}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00704\ \textcolor{comment}{/*\ =====================================================================\ */}}
+\DoxyCodeLine{00705\ }
+\DoxyCodeLine{00714\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__ccm__class__}{br\_sslrec\_in\_ccm\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a207ae462255707b25b7c09ab17e97ab7}{br\_sslrec\_in\_ccm\_class}};}
+\DoxyCodeLine{00715\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__in__ccm__class__}{br\_sslrec\_in\_ccm\_class\_}}\ \{}
+\DoxyCodeLine{00719\ \ \ \ \ \mbox{\hyperlink{bearssl__ssl_8h_a672dfe35f869559e5c06789cff8fb308}{br\_sslrec\_in\_class}}\ \mbox{\hyperlink{structbr__sslrec__in__ccm__class___a9a289e8dea76a44fe7d2ac8fee9c6213}{inner}};}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00733\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__sslrec__in__ccm__class___aa6a966aaa2053f00f705b9e428dd4fda}{init}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a207ae462255707b25b7c09ab17e97ab7}{br\_sslrec\_in\_ccm\_class}}\ **ctx,}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_acc35dad952fda67b68df0b107fe26f0b}{br\_block\_ctrcbc\_class}}\ *bc\_impl,}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keywordtype}{size\_t}\ key\_len,}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *iv,\ \textcolor{keywordtype}{size\_t}\ tag\_len);}
+\DoxyCodeLine{00737\ \};}
+\DoxyCodeLine{00738\ }
+\DoxyCodeLine{00747\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__ccm__class__}{br\_sslrec\_out\_ccm\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a8647d04c77b9c50266cf481e5b9af788}{br\_sslrec\_out\_ccm\_class}};}
+\DoxyCodeLine{00748\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__sslrec__out__ccm__class__}{br\_sslrec\_out\_ccm\_class\_}}\ \{}
+\DoxyCodeLine{00752\ \ \ \ \ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}}\ \mbox{\hyperlink{structbr__sslrec__out__ccm__class___aef7be126630b8f726e2bdf415f03b9a7}{inner}};}
+\DoxyCodeLine{00753\ }
+\DoxyCodeLine{00766\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__sslrec__out__ccm__class___a1ddabd11f6d959e8e5d3b9318fc38fe8}{init}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a8647d04c77b9c50266cf481e5b9af788}{br\_sslrec\_out\_ccm\_class}}\ **ctx,}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_acc35dad952fda67b68df0b107fe26f0b}{br\_block\_ctrcbc\_class}}\ *bc\_impl,}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *key,\ \textcolor{keywordtype}{size\_t}\ key\_len,}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *iv,\ \textcolor{keywordtype}{size\_t}\ tag\_len);}
+\DoxyCodeLine{00770\ \};}
+\DoxyCodeLine{00771\ }
+\DoxyCodeLine{00780\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00782\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *gen;}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a207ae462255707b25b7c09ab17e97ab7}{br\_sslrec\_in\_ccm\_class}}\ *in;}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a8647d04c77b9c50266cf481e5b9af788}{br\_sslrec\_out\_ccm\_class}}\ *out;}
+\DoxyCodeLine{00786\ \ \ \ \ \}\ vtable;}
+\DoxyCodeLine{00787\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00788\ \ \ \ \ uint64\_t\ seq;}
+\DoxyCodeLine{00789\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_acc35dad952fda67b68df0b107fe26f0b}{br\_block\_ctrcbc\_class}}\ *vtable;}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{unionbr__aes__gen__ctrcbc__keys}{br\_aes\_gen\_ctrcbc\_keys}}\ aes;}
+\DoxyCodeLine{00792\ \ \ \ \ \}\ bc;}
+\DoxyCodeLine{00793\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iv[4];}
+\DoxyCodeLine{00794\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ tag\_len;}
+\DoxyCodeLine{00795\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00796\ \}\ \mbox{\hyperlink{structbr__sslrec__ccm__context}{br\_sslrec\_ccm\_context}};}
+\DoxyCodeLine{00797\ }
+\DoxyCodeLine{00801\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a207ae462255707b25b7c09ab17e97ab7}{br\_sslrec\_in\_ccm\_class}}\ \mbox{\hyperlink{bearssl__ssl_8h_a1e154f8bdbcbc3e29318c0bea4ed87e1}{br\_sslrec\_in\_ccm\_vtable}};}
+\DoxyCodeLine{00802\ }
+\DoxyCodeLine{00806\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a8647d04c77b9c50266cf481e5b9af788}{br\_sslrec\_out\_ccm\_class}}\ \mbox{\hyperlink{bearssl__ssl_8h_af1bf10f98cbf9f5c7526a0d4d3c089dc}{br\_sslrec\_out\_ccm\_vtable}};}
+\DoxyCodeLine{00807\ }
+\DoxyCodeLine{00808\ \textcolor{comment}{/*\ =====================================================================\ */}}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00813\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00815\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structbr__ssl__session__parameters_aeb9650d57d438927ed9729d4808c6ea7}{session\_id}}[32];}
+\DoxyCodeLine{00817\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structbr__ssl__session__parameters_a02c6bb83be4cf64491665db02c0c1533}{session\_id\_len}};}
+\DoxyCodeLine{00819\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbr__ssl__session__parameters_a7871a7332427d1d67d97cde2dd6b4bdb}{version}};}
+\DoxyCodeLine{00821\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbr__ssl__session__parameters_ac97b4f0144e7252dfd00fc875246bb6f}{cipher\_suite}};}
+\DoxyCodeLine{00823\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structbr__ssl__session__parameters_af0cd59794f4c79bf6497914ca442e8e0}{master\_secret}}[48];}
+\DoxyCodeLine{00824\ \}\ \mbox{\hyperlink{structbr__ssl__session__parameters}{br\_ssl\_session\_parameters}};}
+\DoxyCodeLine{00825\ }
+\DoxyCodeLine{00826\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00827\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00828\ \textcolor{comment}{\ *\ Maximum\ number\ of\ cipher\ suites\ supported\ by\ a\ client\ or\ server.}}
+\DoxyCodeLine{00829\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00830\ \textcolor{preprocessor}{\#define\ BR\_MAX\_CIPHER\_SUITES\ \ \ 48}}
+\DoxyCodeLine{00831\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00832\ }
+\DoxyCodeLine{00848\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00849\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{00850\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00851\ \textcolor{comment}{\ \ \ \ \ *\ The\ error\ code.\ When\ non-\/zero,\ then\ the\ state\ is\ "{}failed"{}\ and}}
+\DoxyCodeLine{00852\ \textcolor{comment}{\ \ \ \ \ *\ no\ I/O\ may\ occur\ until\ reset.}}
+\DoxyCodeLine{00853\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00854\ \ \ \ \ \textcolor{keywordtype}{int}\ err;}
+\DoxyCodeLine{00855\ }
+\DoxyCodeLine{00856\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00857\ \textcolor{comment}{\ \ \ \ \ *\ Configured\ I/O\ buffers.\ They\ are\ either\ disjoint,\ or\ identical.}}
+\DoxyCodeLine{00858\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00859\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ibuf,\ *obuf;}
+\DoxyCodeLine{00860\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ibuf\_len,\ obuf\_len;}
+\DoxyCodeLine{00861\ }
+\DoxyCodeLine{00862\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00863\ \textcolor{comment}{\ \ \ \ \ *\ Maximum\ fragment\ length\ applies\ to\ outgoing\ records;\ incoming}}
+\DoxyCodeLine{00864\ \textcolor{comment}{\ \ \ \ \ *\ records\ can\ be\ processed\ as\ long\ as\ they\ fit\ in\ the\ input}}
+\DoxyCodeLine{00865\ \textcolor{comment}{\ \ \ \ \ *\ buffer.\ It\ is\ guaranteed\ that\ incoming\ records\ at\ least\ as\ big}}
+\DoxyCodeLine{00866\ \textcolor{comment}{\ \ \ \ \ *\ as\ max\_frag\_len\ can\ be\ processed.}}
+\DoxyCodeLine{00867\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00868\ \ \ \ \ uint16\_t\ max\_frag\_len;}
+\DoxyCodeLine{00869\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ log\_max\_frag\_len;}
+\DoxyCodeLine{00870\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ max\_frag\_len\_negotiated;}
+\DoxyCodeLine{00871\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ peer\_log\_max\_frag\_len;}
+\DoxyCodeLine{00872\ }
+\DoxyCodeLine{00873\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00874\ \textcolor{comment}{\ \ \ \ \ *\ Buffering\ management\ registers.}}
+\DoxyCodeLine{00875\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00876\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ixa,\ ixb,\ ixc;}
+\DoxyCodeLine{00877\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ oxa,\ oxb,\ oxc;}
+\DoxyCodeLine{00878\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ iomode;}
+\DoxyCodeLine{00879\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ incrypt;}
+\DoxyCodeLine{00880\ }
+\DoxyCodeLine{00881\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00882\ \textcolor{comment}{\ \ \ \ \ *\ Shutdown\ flag:\ when\ set\ to\ non-\/zero,\ incoming\ record\ bytes}}
+\DoxyCodeLine{00883\ \textcolor{comment}{\ \ \ \ \ *\ will\ not\ be\ accepted\ anymore.\ This\ is\ used\ after\ a\ close\_notify}}
+\DoxyCodeLine{00884\ \textcolor{comment}{\ \ \ \ \ *\ has\ been\ received:\ afterwards,\ the\ engine\ no\ longer\ claims\ that}}
+\DoxyCodeLine{00885\ \textcolor{comment}{\ \ \ \ \ *\ it\ could\ receive\ bytes\ from\ the\ transport\ medium.}}
+\DoxyCodeLine{00886\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00887\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ shutdown\_recv;}
+\DoxyCodeLine{00888\ }
+\DoxyCodeLine{00889\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00890\ \textcolor{comment}{\ \ \ \ \ *\ 'record\_type\_in'\ is\ set\ to\ the\ incoming\ record\ type\ when\ the}}
+\DoxyCodeLine{00891\ \textcolor{comment}{\ \ \ \ \ *\ record\ header\ has\ been\ received.}}
+\DoxyCodeLine{00892\ \textcolor{comment}{\ \ \ \ \ *\ 'record\_type\_out'\ is\ used\ to\ make\ the\ next\ outgoing\ record}}
+\DoxyCodeLine{00893\ \textcolor{comment}{\ \ \ \ \ *\ header\ when\ it\ is\ ready\ to\ go.}}
+\DoxyCodeLine{00894\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00895\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ record\_type\_in,\ record\_type\_out;}
+\DoxyCodeLine{00896\ }
+\DoxyCodeLine{00897\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00898\ \textcolor{comment}{\ \ \ \ \ *\ When\ a\ record\ is\ received,\ its\ version\ is\ extracted:}}
+\DoxyCodeLine{00899\ \textcolor{comment}{\ \ \ \ \ *\ -\/-\/\ if\ 'version\_in'\ is\ 0,\ then\ it\ is\ set\ to\ the\ received\ version;}}
+\DoxyCodeLine{00900\ \textcolor{comment}{\ \ \ \ \ *\ -\/-\/\ otherwise,\ if\ the\ received\ version\ is\ not\ identical\ to}}
+\DoxyCodeLine{00901\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ the\ 'version\_in'\ contents,\ then\ a\ failure\ is\ reported.}}
+\DoxyCodeLine{00902\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00903\ \textcolor{comment}{\ \ \ \ \ *\ This\ implements\ the\ SSL\ requirement\ that\ all\ records\ shall}}
+\DoxyCodeLine{00904\ \textcolor{comment}{\ \ \ \ \ *\ use\ the\ negotiated\ protocol\ version,\ once\ decided\ (in\ the}}
+\DoxyCodeLine{00905\ \textcolor{comment}{\ \ \ \ \ *\ ServerHello).\ It\ is\ up\ to\ the\ handshake\ handler\ to\ adjust\ this}}
+\DoxyCodeLine{00906\ \textcolor{comment}{\ \ \ \ \ *\ field\ when\ necessary.}}
+\DoxyCodeLine{00907\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00908\ \ \ \ \ uint16\_t\ version\_in;}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00910\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00911\ \textcolor{comment}{\ \ \ \ \ *\ 'version\_out'\ is\ used\ when\ the\ next\ outgoing\ record\ is\ ready}}
+\DoxyCodeLine{00912\ \textcolor{comment}{\ \ \ \ \ *\ to\ go.}}
+\DoxyCodeLine{00913\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00914\ \ \ \ \ uint16\_t\ version\_out;}
+\DoxyCodeLine{00915\ }
+\DoxyCodeLine{00916\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00917\ \textcolor{comment}{\ \ \ \ \ *\ Record\ handler\ contexts.}}
+\DoxyCodeLine{00918\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00919\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a672dfe35f869559e5c06789cff8fb308}{br\_sslrec\_in\_class}}\ *vtable;}
+\DoxyCodeLine{00921\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__sslrec__in__cbc__context}{br\_sslrec\_in\_cbc\_context}}\ cbc;}
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__sslrec__gcm__context}{br\_sslrec\_gcm\_context}}\ gcm;}
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__sslrec__chapol__context}{br\_sslrec\_chapol\_context}}\ chapol;}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__sslrec__ccm__context}{br\_sslrec\_ccm\_context}}\ ccm;}
+\DoxyCodeLine{00925\ \ \ \ \ \}\ in;}
+\DoxyCodeLine{00926\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a87fe5d044de5557f73a2112ed04b6fcb}{br\_sslrec\_out\_class}}\ *vtable;}
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__sslrec__out__clear__context}{br\_sslrec\_out\_clear\_context}}\ clear;}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__sslrec__out__cbc__context}{br\_sslrec\_out\_cbc\_context}}\ cbc;}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__sslrec__gcm__context}{br\_sslrec\_gcm\_context}}\ gcm;}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__sslrec__chapol__context}{br\_sslrec\_chapol\_context}}\ chapol;}
+\DoxyCodeLine{00932\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__sslrec__ccm__context}{br\_sslrec\_ccm\_context}}\ ccm;}
+\DoxyCodeLine{00933\ \ \ \ \ \}\ out;}
+\DoxyCodeLine{00934\ }
+\DoxyCodeLine{00935\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00936\ \textcolor{comment}{\ \ \ \ \ *\ The\ "{}application\ data"{}\ flag.\ Value:}}
+\DoxyCodeLine{00937\ \textcolor{comment}{\ \ \ \ \ *\ \ \ 0\ \ \ handshake\ is\ in\ process,\ no\ application\ data\ acceptable}}
+\DoxyCodeLine{00938\ \textcolor{comment}{\ \ \ \ \ *\ \ \ 1\ \ \ application\ data\ can\ be\ sent\ and\ received}}
+\DoxyCodeLine{00939\ \textcolor{comment}{\ \ \ \ \ *\ \ \ 2\ \ \ closing,\ no\ application\ data\ can\ be\ sent,\ but\ some}}
+\DoxyCodeLine{00940\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ \ \ can\ still\ be\ received\ (and\ discarded)}}
+\DoxyCodeLine{00941\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00942\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ application\_data;}
+\DoxyCodeLine{00943\ }
+\DoxyCodeLine{00944\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00945\ \textcolor{comment}{\ \ \ \ \ *\ Context\ RNG.}}
+\DoxyCodeLine{00946\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00947\ \textcolor{comment}{\ \ \ \ \ *\ \ \ rng\_init\_done\ is\ initially\ 0.\ It\ is\ set\ to\ 1\ when\ the}}
+\DoxyCodeLine{00948\ \textcolor{comment}{\ \ \ \ \ *\ \ \ basic\ structure\ of\ the\ RNG\ is\ set,\ and\ 2\ when\ some}}
+\DoxyCodeLine{00949\ \textcolor{comment}{\ \ \ \ \ *\ \ \ entropy\ has\ been\ pushed\ in.\ The\ value\ 2\ marks\ the\ RNG}}
+\DoxyCodeLine{00950\ \textcolor{comment}{\ \ \ \ \ *\ \ \ as\ "{}properly\ seeded"{}.}}
+\DoxyCodeLine{00951\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00952\ \textcolor{comment}{\ \ \ \ \ *\ \ \ rng\_os\_rand\_done\ is\ initially\ 0.\ It\ is\ set\ to\ 1\ when}}
+\DoxyCodeLine{00953\ \textcolor{comment}{\ \ \ \ \ *\ \ \ some\ seeding\ from\ the\ OS\ or\ hardware\ has\ been\ attempted.}}
+\DoxyCodeLine{00954\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00955\ \ \ \ \ \mbox{\hyperlink{structbr__hmac__drbg__context}{br\_hmac\_drbg\_context}}\ rng;}
+\DoxyCodeLine{00956\ \ \ \ \ \textcolor{keywordtype}{int}\ rng\_init\_done;}
+\DoxyCodeLine{00957\ \ \ \ \ \textcolor{keywordtype}{int}\ rng\_os\_rand\_done;}
+\DoxyCodeLine{00958\ }
+\DoxyCodeLine{00959\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00960\ \textcolor{comment}{\ \ \ \ \ *\ Supported\ minimum\ and\ maximum\ versions,\ and\ cipher\ suites.}}
+\DoxyCodeLine{00961\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00962\ \ \ \ \ uint16\_t\ version\_min;}
+\DoxyCodeLine{00963\ \ \ \ \ uint16\_t\ version\_max;}
+\DoxyCodeLine{00964\ \ \ \ \ uint16\_t\ suites\_buf[BR\_MAX\_CIPHER\_SUITES];}
+\DoxyCodeLine{00965\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ suites\_num;}
+\DoxyCodeLine{00966\ }
+\DoxyCodeLine{00967\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00968\ \textcolor{comment}{\ \ \ \ \ *\ For\ clients,\ the\ server\ name\ to\ send\ as\ a\ SNI\ extension.\ For}}
+\DoxyCodeLine{00969\ \textcolor{comment}{\ \ \ \ \ *\ servers,\ the\ name\ received\ in\ the\ SNI\ extension\ (if\ any).}}
+\DoxyCodeLine{00970\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00971\ \ \ \ \ \textcolor{keywordtype}{char}\ server\_name[256];}
+\DoxyCodeLine{00972\ }
+\DoxyCodeLine{00973\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00974\ \textcolor{comment}{\ \ \ \ \ *\ "{}Security\ parameters"{}.\ These\ are\ filled\ by\ the\ handshake}}
+\DoxyCodeLine{00975\ \textcolor{comment}{\ \ \ \ \ *\ handler,\ and\ used\ when\ switching\ encryption\ state.}}
+\DoxyCodeLine{00976\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00977\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ client\_random[32];}
+\DoxyCodeLine{00978\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ server\_random[32];}
+\DoxyCodeLine{00979\ \ \ \ \ \mbox{\hyperlink{structbr__ssl__session__parameters}{br\_ssl\_session\_parameters}}\ session;}
+\DoxyCodeLine{00980\ }
+\DoxyCodeLine{00981\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00982\ \textcolor{comment}{\ \ \ \ \ *\ ECDHE\ elements:\ curve\ and\ point\ from\ the\ peer.\ The\ server\ also}}
+\DoxyCodeLine{00983\ \textcolor{comment}{\ \ \ \ \ *\ uses\ that\ buffer\ for\ the\ point\ to\ send\ to\ the\ client.}}
+\DoxyCodeLine{00984\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00985\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ ecdhe\_curve;}
+\DoxyCodeLine{00986\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ ecdhe\_point[133];}
+\DoxyCodeLine{00987\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ ecdhe\_point\_len;}
+\DoxyCodeLine{00988\ }
+\DoxyCodeLine{00989\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00990\ \textcolor{comment}{\ \ \ \ \ *\ Secure\ renegotiation\ (RFC\ 5746):\ 'reneg'\ can\ be:}}
+\DoxyCodeLine{00991\ \textcolor{comment}{\ \ \ \ \ *\ \ \ 0\ \ \ first\ handshake\ (server\ support\ is\ not\ known)}}
+\DoxyCodeLine{00992\ \textcolor{comment}{\ \ \ \ \ *\ \ \ 1\ \ \ peer\ does\ not\ support\ secure\ renegotiation}}
+\DoxyCodeLine{00993\ \textcolor{comment}{\ \ \ \ \ *\ \ \ 2\ \ \ peer\ supports\ secure\ renegotiation}}
+\DoxyCodeLine{00994\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00995\ \textcolor{comment}{\ \ \ \ \ *\ The\ saved\_finished\ buffer\ contains\ the\ client\ and\ the}}
+\DoxyCodeLine{00996\ \textcolor{comment}{\ \ \ \ \ *\ server\ "{}Finished"{}\ values\ from\ the\ last\ handshake,\ in}}
+\DoxyCodeLine{00997\ \textcolor{comment}{\ \ \ \ \ *\ that\ order\ (12\ bytes\ each).}}
+\DoxyCodeLine{00998\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00999\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ reneg;}
+\DoxyCodeLine{01000\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ saved\_finished[24];}
+\DoxyCodeLine{01001\ }
+\DoxyCodeLine{01002\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01003\ \textcolor{comment}{\ \ \ \ \ *\ Behavioural\ flags.}}
+\DoxyCodeLine{01004\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01005\ \ \ \ \ uint32\_t\ flags;}
+\DoxyCodeLine{01006\ }
+\DoxyCodeLine{01007\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01008\ \textcolor{comment}{\ \ \ \ \ *\ Context\ variables\ for\ the\ handshake\ processor.\ The\ 'pad'\ must}}
+\DoxyCodeLine{01009\ \textcolor{comment}{\ \ \ \ \ *\ be\ large\ enough\ to\ accommodate\ an\ RSA-\/encrypted\ pre-\/master}}
+\DoxyCodeLine{01010\ \textcolor{comment}{\ \ \ \ \ *\ secret,\ or\ an\ RSA\ signature;\ since\ we\ want\ to\ support\ up\ to}}
+\DoxyCodeLine{01011\ \textcolor{comment}{\ \ \ \ \ *\ RSA-\/4096,\ this\ means\ at\ least\ 512\ bytes.\ (Other\ pad\ usages}}
+\DoxyCodeLine{01012\ \textcolor{comment}{\ \ \ \ \ *\ require\ its\ length\ to\ be\ at\ least\ 256.)}}
+\DoxyCodeLine{01013\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01014\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ uint32\_t\ *dp;}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ uint32\_t\ *rp;}
+\DoxyCodeLine{01017\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ip;}
+\DoxyCodeLine{01018\ \ \ \ \ \}\ cpu;}
+\DoxyCodeLine{01019\ \ \ \ \ uint32\_t\ dp\_stack[32];}
+\DoxyCodeLine{01020\ \ \ \ \ uint32\_t\ rp\_stack[32];}
+\DoxyCodeLine{01021\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ pad[512];}
+\DoxyCodeLine{01022\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hbuf\_in,\ *hbuf\_out,\ *saved\_hbuf\_out;}
+\DoxyCodeLine{01023\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ hlen\_in,\ hlen\_out;}
+\DoxyCodeLine{01024\ \ \ \ \ void\ (*hsrun)(\textcolor{keywordtype}{void}\ *ctx);}
+\DoxyCodeLine{01025\ }
+\DoxyCodeLine{01026\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01027\ \textcolor{comment}{\ \ \ \ \ *\ The\ 'action'\ value\ communicates\ OOB\ information\ between\ the}}
+\DoxyCodeLine{01028\ \textcolor{comment}{\ \ \ \ \ *\ engine\ and\ the\ handshake\ processor.}}
+\DoxyCodeLine{01029\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{01030\ \textcolor{comment}{\ \ \ \ \ *\ From\ the\ engine:}}
+\DoxyCodeLine{01031\ \textcolor{comment}{\ \ \ \ \ *\ \ \ 0\ \ invocation\ triggered\ by\ I/O}}
+\DoxyCodeLine{01032\ \textcolor{comment}{\ \ \ \ \ *\ \ \ 1\ \ invocation\ triggered\ by\ explicit\ close}}
+\DoxyCodeLine{01033\ \textcolor{comment}{\ \ \ \ \ *\ \ \ 2\ \ invocation\ triggered\ by\ explicit\ renegotiation}}
+\DoxyCodeLine{01034\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01035\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ action;}
+\DoxyCodeLine{01036\ }
+\DoxyCodeLine{01037\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01038\ \textcolor{comment}{\ \ \ \ \ *\ State\ for\ alert\ messages.\ Value\ is\ either\ 0,\ or\ the\ value\ of}}
+\DoxyCodeLine{01039\ \textcolor{comment}{\ \ \ \ \ *\ the\ alert\ level\ byte\ (level\ is\ either\ 1\ for\ warning,\ or\ 2\ for}}
+\DoxyCodeLine{01040\ \textcolor{comment}{\ \ \ \ \ *\ fatal;\ we\ convert\ all\ other\ values\ to\ 'fatal').}}
+\DoxyCodeLine{01041\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01042\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ alert;}
+\DoxyCodeLine{01043\ }
+\DoxyCodeLine{01044\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01045\ \textcolor{comment}{\ \ \ \ \ *\ Closure\ flags.\ This\ flag\ is\ set\ when\ a\ close\_notify\ has\ been}}
+\DoxyCodeLine{01046\ \textcolor{comment}{\ \ \ \ \ *\ received\ from\ the\ peer.}}
+\DoxyCodeLine{01047\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01048\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ close\_received;}
+\DoxyCodeLine{01049\ }
+\DoxyCodeLine{01050\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01051\ \textcolor{comment}{\ \ \ \ \ *\ Multi-\/hasher\ for\ the\ handshake\ messages.\ The\ handshake\ handler}}
+\DoxyCodeLine{01052\ \textcolor{comment}{\ \ \ \ \ *\ is\ responsible\ for\ resetting\ it\ when\ appropriate.}}
+\DoxyCodeLine{01053\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01054\ \ \ \ \ \mbox{\hyperlink{structbr__multihash__context}{br\_multihash\_context}}\ mhash;}
+\DoxyCodeLine{01055\ }
+\DoxyCodeLine{01056\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01057\ \textcolor{comment}{\ \ \ \ \ *\ Pointer\ to\ the\ X.509\ engine.\ The\ engine\ is\ supposed\ to\ be}}
+\DoxyCodeLine{01058\ \textcolor{comment}{\ \ \ \ \ *\ already\ initialized.\ It\ is\ used\ to\ validate\ the\ peer's}}
+\DoxyCodeLine{01059\ \textcolor{comment}{\ \ \ \ \ *\ certificate.}}
+\DoxyCodeLine{01060\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01061\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__x509_8h_acf3af5c1ad4007b178e4c6d68ce5bb0d}{br\_x509\_class}}\ **x509ctx;}
+\DoxyCodeLine{01062\ }
+\DoxyCodeLine{01063\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01064\ \textcolor{comment}{\ \ \ \ \ *\ Certificate\ chain\ to\ send.\ This\ is\ used\ by\ both\ client\ and}}
+\DoxyCodeLine{01065\ \textcolor{comment}{\ \ \ \ \ *\ server,\ when\ they\ send\ their\ respective\ Certificate\ messages.}}
+\DoxyCodeLine{01066\ \textcolor{comment}{\ \ \ \ \ *\ If\ chain\_len\ is\ 0,\ then\ chain\ may\ be\ NULL.}}
+\DoxyCodeLine{01067\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01068\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain;}
+\DoxyCodeLine{01069\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ chain\_len;}
+\DoxyCodeLine{01070\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *cert\_cur;}
+\DoxyCodeLine{01071\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ cert\_len;}
+\DoxyCodeLine{01072\ }
+\DoxyCodeLine{01073\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01074\ \textcolor{comment}{\ \ \ \ \ *\ List\ of\ supported\ protocol\ names\ (ALPN\ extension).\ If\ unset,}}
+\DoxyCodeLine{01075\ \textcolor{comment}{\ \ \ \ \ *\ (number\ of\ names\ is\ 0),\ then:}}
+\DoxyCodeLine{01076\ \textcolor{comment}{\ \ \ \ \ *\ \ -\/\ the\ client\ sends\ no\ ALPN\ extension;}}
+\DoxyCodeLine{01077\ \textcolor{comment}{\ \ \ \ \ *\ \ -\/\ the\ server\ ignores\ any\ incoming\ ALPN\ extension.}}
+\DoxyCodeLine{01078\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{01079\ \textcolor{comment}{\ \ \ \ \ *\ Otherwise:}}
+\DoxyCodeLine{01080\ \textcolor{comment}{\ \ \ \ \ *\ \ -\/\ the\ client\ sends\ an\ ALPN\ extension\ with\ all\ the\ names;}}
+\DoxyCodeLine{01081\ \textcolor{comment}{\ \ \ \ \ *\ \ -\/\ the\ server\ selects\ the\ first\ protocol\ in\ its\ list\ that}}
+\DoxyCodeLine{01082\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ the\ client\ also\ supports,\ or\ fails\ (fatal\ alert\ 120)}}
+\DoxyCodeLine{01083\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ if\ the\ client\ sends\ an\ ALPN\ extension\ and\ there\ is\ no}}
+\DoxyCodeLine{01084\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ match.}}
+\DoxyCodeLine{01085\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{01086\ \textcolor{comment}{\ \ \ \ \ *\ The\ 'selected\_protocol'\ field\ contains\ 1+n\ if\ the\ matching}}
+\DoxyCodeLine{01087\ \textcolor{comment}{\ \ \ \ \ *\ name\ has\ index\ n\ in\ the\ list\ (the\ value\ is\ 0\ if\ no\ match\ was}}
+\DoxyCodeLine{01088\ \textcolor{comment}{\ \ \ \ \ *\ performed,\ e.g.\ the\ peer\ did\ not\ send\ an\ ALPN\ extension).}}
+\DoxyCodeLine{01089\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01090\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **protocol\_names;}
+\DoxyCodeLine{01091\ \ \ \ \ uint16\_t\ protocol\_names\_num;}
+\DoxyCodeLine{01092\ \ \ \ \ uint16\_t\ selected\_protocol;}
+\DoxyCodeLine{01093\ }
+\DoxyCodeLine{01094\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{01095\ \textcolor{comment}{\ \ \ \ \ *\ Pointers\ to\ implementations;\ left\ to\ NULL\ for\ unsupported}}
+\DoxyCodeLine{01096\ \textcolor{comment}{\ \ \ \ \ *\ functions.\ For\ the\ raw\ hash\ functions,\ implementations\ are}}
+\DoxyCodeLine{01097\ \textcolor{comment}{\ \ \ \ \ *\ referenced\ from\ the\ multihasher\ (mhash\ field).}}
+\DoxyCodeLine{01098\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{01099\ \ \ \ \ \mbox{\hyperlink{bearssl__prf_8h_aea8bf4972377c119a4b76068b43a43f1}{br\_tls\_prf\_impl}}\ prf10;}
+\DoxyCodeLine{01100\ \ \ \ \ \mbox{\hyperlink{bearssl__prf_8h_aea8bf4972377c119a4b76068b43a43f1}{br\_tls\_prf\_impl}}\ prf\_sha256;}
+\DoxyCodeLine{01101\ \ \ \ \ \mbox{\hyperlink{bearssl__prf_8h_aea8bf4972377c119a4b76068b43a43f1}{br\_tls\_prf\_impl}}\ prf\_sha384;}
+\DoxyCodeLine{01102\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_ad0ecff523e21a74dc1143dcfa52aa251}{br\_block\_cbcenc\_class}}\ *iaes\_cbcenc;}
+\DoxyCodeLine{01103\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\_block\_cbcdec\_class}}\ *iaes\_cbcdec;}
+\DoxyCodeLine{01104\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a8934ac58af503220bfb6e6cbc2cfb209}{br\_block\_ctr\_class}}\ *iaes\_ctr;}
+\DoxyCodeLine{01105\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_acc35dad952fda67b68df0b107fe26f0b}{br\_block\_ctrcbc\_class}}\ *iaes\_ctrcbc;}
+\DoxyCodeLine{01106\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_ad0ecff523e21a74dc1143dcfa52aa251}{br\_block\_cbcenc\_class}}\ *ides\_cbcenc;}
+\DoxyCodeLine{01107\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\_block\_cbcdec\_class}}\ *ides\_cbcdec;}
+\DoxyCodeLine{01108\ \ \ \ \ \mbox{\hyperlink{bearssl__hash_8h_a06b9d6420d8038e78efbb53fb4a26eae}{br\_ghash}}\ ighash;}
+\DoxyCodeLine{01109\ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a274de0985f8bb5b252a37526a9591826}{br\_chacha20\_run}}\ ichacha;}
+\DoxyCodeLine{01110\ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a657418e5ad2f2667390885239ba0524d}{br\_poly1305\_run}}\ ipoly;}
+\DoxyCodeLine{01111\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a4ac82ef002d22a4e778855e6941355ef}{br\_sslrec\_in\_cbc\_class}}\ *icbc\_in;}
+\DoxyCodeLine{01112\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aac159c19da5bddae5593f322d61f9bb5}{br\_sslrec\_out\_cbc\_class}}\ *icbc\_out;}
+\DoxyCodeLine{01113\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aeac0994f21682dff2a404eeeb0bf679f}{br\_sslrec\_in\_gcm\_class}}\ *igcm\_in;}
+\DoxyCodeLine{01114\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_afa27ee8dbde5994bb1d0cf203f34389f}{br\_sslrec\_out\_gcm\_class}}\ *igcm\_out;}
+\DoxyCodeLine{01115\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a845e3d5ada2f8814fc09bb41b2d33f7d}{br\_sslrec\_in\_chapol\_class}}\ *ichapol\_in;}
+\DoxyCodeLine{01116\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a3bb807c41e964dd6fc5d92f32a937af5}{br\_sslrec\_out\_chapol\_class}}\ *ichapol\_out;}
+\DoxyCodeLine{01117\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a207ae462255707b25b7c09ab17e97ab7}{br\_sslrec\_in\_ccm\_class}}\ *iccm\_in;}
+\DoxyCodeLine{01118\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a8647d04c77b9c50266cf481e5b9af788}{br\_sslrec\_out\_ccm\_class}}\ *iccm\_out;}
+\DoxyCodeLine{01119\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__impl}{br\_ec\_impl}}\ *iec;}
+\DoxyCodeLine{01120\ \ \ \ \ \mbox{\hyperlink{bearssl__rsa_8h_a9ee06c1a4ae5af9e900d877a87ec8b17}{br\_rsa\_pkcs1\_vrfy}}\ irsavrfy;}
+\DoxyCodeLine{01121\ \ \ \ \ \mbox{\hyperlink{bearssl__ec_8h_abaff5c9daad6e7dc61e4a1004ef1c8c8}{br\_ecdsa\_vrfy}}\ iecdsa;}
+\DoxyCodeLine{01122\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01123\ \}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}};}
+\DoxyCodeLine{01124\ }
+\DoxyCodeLine{01131\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t}
+\DoxyCodeLine{01132\ br\_ssl\_engine\_get\_flags(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc)}
+\DoxyCodeLine{01133\ \{}
+\DoxyCodeLine{01134\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>flags;}
+\DoxyCodeLine{01135\ \}}
+\DoxyCodeLine{01136\ }
+\DoxyCodeLine{01143\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01144\ br\_ssl\_engine\_set\_all\_flags(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ uint32\_t\ flags)}
+\DoxyCodeLine{01145\ \{}
+\DoxyCodeLine{01146\ \ \ \ \ cc-\/>flags\ =\ flags;}
+\DoxyCodeLine{01147\ \}}
+\DoxyCodeLine{01148\ }
+\DoxyCodeLine{01158\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01159\ br\_ssl\_engine\_add\_flags(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ uint32\_t\ flags)}
+\DoxyCodeLine{01160\ \{}
+\DoxyCodeLine{01161\ \ \ \ \ cc-\/>flags\ |=\ flags;}
+\DoxyCodeLine{01162\ \}}
+\DoxyCodeLine{01163\ }
+\DoxyCodeLine{01173\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01174\ br\_ssl\_engine\_remove\_flags(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ uint32\_t\ flags)}
+\DoxyCodeLine{01175\ \{}
+\DoxyCodeLine{01176\ \ \ \ \ cc-\/>flags\ \&=\ \string~flags;}
+\DoxyCodeLine{01177\ \}}
+\DoxyCodeLine{01178\ }
+\DoxyCodeLine{01185\ \textcolor{preprocessor}{\#define\ BR\_OPT\_ENFORCE\_SERVER\_PREFERENCES\ \ \ \ \ \ ((uint32\_t)1\ <<\ 0)}}
+\DoxyCodeLine{01186\ }
+\DoxyCodeLine{01194\ \textcolor{preprocessor}{\#define\ BR\_OPT\_NO\_RENEGOTIATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((uint32\_t)1\ <<\ 1)}}
+\DoxyCodeLine{01195\ }
+\DoxyCodeLine{01214\ \textcolor{preprocessor}{\#define\ BR\_OPT\_TOLERATE\_NO\_CLIENT\_AUTH\ \ \ \ \ \ \ \ \ ((uint32\_t)1\ <<\ 2)}}
+\DoxyCodeLine{01215\ }
+\DoxyCodeLine{01240\ \textcolor{preprocessor}{\#define\ BR\_OPT\_FAIL\_ON\_ALPN\_MISMATCH\ \ \ \ \ \ \ \ \ \ \ ((uint32\_t)1\ <<\ 3)}}
+\DoxyCodeLine{01241\ }
+\DoxyCodeLine{01253\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01254\ br\_ssl\_engine\_set\_versions(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01255\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ version\_min,\ \textcolor{keywordtype}{unsigned}\ version\_max)}
+\DoxyCodeLine{01256\ \{}
+\DoxyCodeLine{01257\ \ \ \ \ cc-\/>version\_min\ =\ (uint16\_t)version\_min;}
+\DoxyCodeLine{01258\ \ \ \ \ cc-\/>version\_max\ =\ (uint16\_t)version\_max;}
+\DoxyCodeLine{01259\ \}}
+\DoxyCodeLine{01260\ }
+\DoxyCodeLine{01280\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a8dd7c9e9d3491d42908d97e3bf2b04de}{br\_ssl\_engine\_set\_suites}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01281\ \ \ \ \ \textcolor{keyword}{const}\ uint16\_t\ *suites,\ \textcolor{keywordtype}{size\_t}\ suites\_num);}
+\DoxyCodeLine{01282\ }
+\DoxyCodeLine{01291\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01292\ br\_ssl\_engine\_set\_x509(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__x509_8h_acf3af5c1ad4007b178e4c6d68ce5bb0d}{br\_x509\_class}}\ **x509ctx)}
+\DoxyCodeLine{01293\ \{}
+\DoxyCodeLine{01294\ \ \ \ \ cc-\/>x509ctx\ =\ x509ctx;}
+\DoxyCodeLine{01295\ \}}
+\DoxyCodeLine{01296\ }
+\DoxyCodeLine{01326\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01327\ br\_ssl\_engine\_set\_protocol\_names(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *ctx,}
+\DoxyCodeLine{01328\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **names,\ \textcolor{keywordtype}{size\_t}\ num)}
+\DoxyCodeLine{01329\ \{}
+\DoxyCodeLine{01330\ \ \ \ \ ctx-\/>protocol\_names\ =\ names;}
+\DoxyCodeLine{01331\ \ \ \ \ ctx-\/>protocol\_names\_num\ =\ (uint16\_t)num;}
+\DoxyCodeLine{01332\ \}}
+\DoxyCodeLine{01333\ }
+\DoxyCodeLine{01347\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{01348\ br\_ssl\_engine\_get\_selected\_protocol(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *ctx)}
+\DoxyCodeLine{01349\ \{}
+\DoxyCodeLine{01350\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ k;}
+\DoxyCodeLine{01351\ }
+\DoxyCodeLine{01352\ \ \ \ \ k\ =\ ctx-\/>selected\_protocol;}
+\DoxyCodeLine{01353\ \ \ \ \ \textcolor{keywordflow}{return}\ (k\ ==\ 0\ ||\ k\ ==\ 0xFFFF)\ ?\ NULL\ :\ ctx-\/>protocol\_names[k\ -\/\ 1];}
+\DoxyCodeLine{01354\ \}}
+\DoxyCodeLine{01355\ }
+\DoxyCodeLine{01368\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01369\ br\_ssl\_engine\_set\_hash(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *ctx,}
+\DoxyCodeLine{01370\ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *impl)}
+\DoxyCodeLine{01371\ \{}
+\DoxyCodeLine{01372\ \ \ \ \ br\_multihash\_setimpl(\&ctx-\/>mhash,\ \textcolor{keywordtype}{id},\ impl);}
+\DoxyCodeLine{01373\ \}}
+\DoxyCodeLine{01374\ }
+\DoxyCodeLine{01385\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *}
+\DoxyCodeLine{01386\ br\_ssl\_engine\_get\_hash(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *ctx,\ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})}
+\DoxyCodeLine{01387\ \{}
+\DoxyCodeLine{01388\ \ \ \ \ \textcolor{keywordflow}{return}\ br\_multihash\_getimpl(\&ctx-\/>mhash,\ \textcolor{keywordtype}{id});}
+\DoxyCodeLine{01389\ \}}
+\DoxyCodeLine{01390\ }
+\DoxyCodeLine{01400\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01401\ br\_ssl\_engine\_set\_prf10(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \mbox{\hyperlink{bearssl__prf_8h_aea8bf4972377c119a4b76068b43a43f1}{br\_tls\_prf\_impl}}\ impl)}
+\DoxyCodeLine{01402\ \{}
+\DoxyCodeLine{01403\ \ \ \ \ cc-\/>prf10\ =\ impl;}
+\DoxyCodeLine{01404\ \}}
+\DoxyCodeLine{01405\ }
+\DoxyCodeLine{01415\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01416\ br\_ssl\_engine\_set\_prf\_sha256(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \mbox{\hyperlink{bearssl__prf_8h_aea8bf4972377c119a4b76068b43a43f1}{br\_tls\_prf\_impl}}\ impl)}
+\DoxyCodeLine{01417\ \{}
+\DoxyCodeLine{01418\ \ \ \ \ cc-\/>prf\_sha256\ =\ impl;}
+\DoxyCodeLine{01419\ \}}
+\DoxyCodeLine{01420\ }
+\DoxyCodeLine{01430\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01431\ br\_ssl\_engine\_set\_prf\_sha384(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \mbox{\hyperlink{bearssl__prf_8h_aea8bf4972377c119a4b76068b43a43f1}{br\_tls\_prf\_impl}}\ impl)}
+\DoxyCodeLine{01432\ \{}
+\DoxyCodeLine{01433\ \ \ \ \ cc-\/>prf\_sha384\ =\ impl;}
+\DoxyCodeLine{01434\ \}}
+\DoxyCodeLine{01435\ }
+\DoxyCodeLine{01443\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01444\ br\_ssl\_engine\_set\_aes\_cbc(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01445\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_ad0ecff523e21a74dc1143dcfa52aa251}{br\_block\_cbcenc\_class}}\ *impl\_enc,}
+\DoxyCodeLine{01446\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\_block\_cbcdec\_class}}\ *impl\_dec)}
+\DoxyCodeLine{01447\ \{}
+\DoxyCodeLine{01448\ \ \ \ \ cc-\/>iaes\_cbcenc\ =\ impl\_enc;}
+\DoxyCodeLine{01449\ \ \ \ \ cc-\/>iaes\_cbcdec\ =\ impl\_dec;}
+\DoxyCodeLine{01450\ \}}
+\DoxyCodeLine{01451\ }
+\DoxyCodeLine{01462\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_ac907f998e966938138d7f2fc2ce2bec9}{br\_ssl\_engine\_set\_default\_aes\_cbc}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{01463\ }
+\DoxyCodeLine{01470\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01471\ br\_ssl\_engine\_set\_aes\_ctr(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01472\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a8934ac58af503220bfb6e6cbc2cfb209}{br\_block\_ctr\_class}}\ *impl)}
+\DoxyCodeLine{01473\ \{}
+\DoxyCodeLine{01474\ \ \ \ \ cc-\/>iaes\_ctr\ =\ impl;}
+\DoxyCodeLine{01475\ \}}
+\DoxyCodeLine{01476\ }
+\DoxyCodeLine{01487\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_ab487d827712ff98df7af286cbca574ba}{br\_ssl\_engine\_set\_default\_aes\_gcm}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{01488\ }
+\DoxyCodeLine{01496\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01497\ br\_ssl\_engine\_set\_des\_cbc(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01498\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_ad0ecff523e21a74dc1143dcfa52aa251}{br\_block\_cbcenc\_class}}\ *impl\_enc,}
+\DoxyCodeLine{01499\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_a5542970c820eeee2e62766368be8fb7f}{br\_block\_cbcdec\_class}}\ *impl\_dec)}
+\DoxyCodeLine{01500\ \{}
+\DoxyCodeLine{01501\ \ \ \ \ cc-\/>ides\_cbcenc\ =\ impl\_enc;}
+\DoxyCodeLine{01502\ \ \ \ \ cc-\/>ides\_cbcdec\ =\ impl\_dec;}
+\DoxyCodeLine{01503\ \}}
+\DoxyCodeLine{01504\ }
+\DoxyCodeLine{01515\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_ab7cd27ea689e19e865ed5d544e185eb4}{br\_ssl\_engine\_set\_default\_des\_cbc}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{01516\ }
+\DoxyCodeLine{01523\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01524\ br\_ssl\_engine\_set\_ghash(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \mbox{\hyperlink{bearssl__hash_8h_a06b9d6420d8038e78efbb53fb4a26eae}{br\_ghash}}\ impl)}
+\DoxyCodeLine{01525\ \{}
+\DoxyCodeLine{01526\ \ \ \ \ cc-\/>ighash\ =\ impl;}
+\DoxyCodeLine{01527\ \}}
+\DoxyCodeLine{01528\ }
+\DoxyCodeLine{01535\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01536\ br\_ssl\_engine\_set\_chacha20(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01537\ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a274de0985f8bb5b252a37526a9591826}{br\_chacha20\_run}}\ ichacha)}
+\DoxyCodeLine{01538\ \{}
+\DoxyCodeLine{01539\ \ \ \ \ cc-\/>ichacha\ =\ ichacha;}
+\DoxyCodeLine{01540\ \}}
+\DoxyCodeLine{01541\ }
+\DoxyCodeLine{01548\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01549\ br\_ssl\_engine\_set\_poly1305(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01550\ \ \ \ \ \mbox{\hyperlink{bearssl__block_8h_a657418e5ad2f2667390885239ba0524d}{br\_poly1305\_run}}\ ipoly)}
+\DoxyCodeLine{01551\ \{}
+\DoxyCodeLine{01552\ \ \ \ \ cc-\/>ipoly\ =\ ipoly;}
+\DoxyCodeLine{01553\ \}}
+\DoxyCodeLine{01554\ }
+\DoxyCodeLine{01565\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_aebd9def30eb58ffe6f8c808f644abcfc}{br\_ssl\_engine\_set\_default\_chapol}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{01566\ }
+\DoxyCodeLine{01573\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01574\ br\_ssl\_engine\_set\_aes\_ctrcbc(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01575\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__block_8h_acc35dad952fda67b68df0b107fe26f0b}{br\_block\_ctrcbc\_class}}\ *impl)}
+\DoxyCodeLine{01576\ \{}
+\DoxyCodeLine{01577\ \ \ \ \ cc-\/>iaes\_ctrcbc\ =\ impl;}
+\DoxyCodeLine{01578\ \}}
+\DoxyCodeLine{01579\ }
+\DoxyCodeLine{01590\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a27fecb1468535cad45ac1398a4eaa822}{br\_ssl\_engine\_set\_default\_aes\_ccm}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{01591\ }
+\DoxyCodeLine{01599\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01600\ br\_ssl\_engine\_set\_cbc(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01601\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a4ac82ef002d22a4e778855e6941355ef}{br\_sslrec\_in\_cbc\_class}}\ *impl\_in,}
+\DoxyCodeLine{01602\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aac159c19da5bddae5593f322d61f9bb5}{br\_sslrec\_out\_cbc\_class}}\ *impl\_out)}
+\DoxyCodeLine{01603\ \{}
+\DoxyCodeLine{01604\ \ \ \ \ cc-\/>icbc\_in\ =\ impl\_in;}
+\DoxyCodeLine{01605\ \ \ \ \ cc-\/>icbc\_out\ =\ impl\_out;}
+\DoxyCodeLine{01606\ \}}
+\DoxyCodeLine{01607\ }
+\DoxyCodeLine{01615\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01616\ br\_ssl\_engine\_set\_gcm(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01617\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_aeac0994f21682dff2a404eeeb0bf679f}{br\_sslrec\_in\_gcm\_class}}\ *impl\_in,}
+\DoxyCodeLine{01618\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_afa27ee8dbde5994bb1d0cf203f34389f}{br\_sslrec\_out\_gcm\_class}}\ *impl\_out)}
+\DoxyCodeLine{01619\ \{}
+\DoxyCodeLine{01620\ \ \ \ \ cc-\/>igcm\_in\ =\ impl\_in;}
+\DoxyCodeLine{01621\ \ \ \ \ cc-\/>igcm\_out\ =\ impl\_out;}
+\DoxyCodeLine{01622\ \}}
+\DoxyCodeLine{01623\ }
+\DoxyCodeLine{01631\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01632\ br\_ssl\_engine\_set\_ccm(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01633\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a207ae462255707b25b7c09ab17e97ab7}{br\_sslrec\_in\_ccm\_class}}\ *impl\_in,}
+\DoxyCodeLine{01634\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a8647d04c77b9c50266cf481e5b9af788}{br\_sslrec\_out\_ccm\_class}}\ *impl\_out)}
+\DoxyCodeLine{01635\ \{}
+\DoxyCodeLine{01636\ \ \ \ \ cc-\/>iccm\_in\ =\ impl\_in;}
+\DoxyCodeLine{01637\ \ \ \ \ cc-\/>iccm\_out\ =\ impl\_out;}
+\DoxyCodeLine{01638\ \}}
+\DoxyCodeLine{01639\ }
+\DoxyCodeLine{01648\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01649\ br\_ssl\_engine\_set\_chapol(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01650\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a845e3d5ada2f8814fc09bb41b2d33f7d}{br\_sslrec\_in\_chapol\_class}}\ *impl\_in,}
+\DoxyCodeLine{01651\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a3bb807c41e964dd6fc5d92f32a937af5}{br\_sslrec\_out\_chapol\_class}}\ *impl\_out)}
+\DoxyCodeLine{01652\ \{}
+\DoxyCodeLine{01653\ \ \ \ \ cc-\/>ichapol\_in\ =\ impl\_in;}
+\DoxyCodeLine{01654\ \ \ \ \ cc-\/>ichapol\_out\ =\ impl\_out;}
+\DoxyCodeLine{01655\ \}}
+\DoxyCodeLine{01656\ }
+\DoxyCodeLine{01666\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01667\ br\_ssl\_engine\_set\_ec(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__impl}{br\_ec\_impl}}\ *iec)}
+\DoxyCodeLine{01668\ \{}
+\DoxyCodeLine{01669\ \ \ \ \ cc-\/>iec\ =\ iec;}
+\DoxyCodeLine{01670\ \}}
+\DoxyCodeLine{01671\ }
+\DoxyCodeLine{01681\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_aedc8238904ffdf571db347b4e7d8319b}{br\_ssl\_engine\_set\_default\_ec}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{01682\ }
+\DoxyCodeLine{01689\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__impl}{br\_ec\_impl}}\ *}
+\DoxyCodeLine{01690\ br\_ssl\_engine\_get\_ec(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc)}
+\DoxyCodeLine{01691\ \{}
+\DoxyCodeLine{01692\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>iec;}
+\DoxyCodeLine{01693\ \}}
+\DoxyCodeLine{01694\ }
+\DoxyCodeLine{01706\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01707\ br\_ssl\_engine\_set\_rsavrfy(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \mbox{\hyperlink{bearssl__rsa_8h_a9ee06c1a4ae5af9e900d877a87ec8b17}{br\_rsa\_pkcs1\_vrfy}}\ irsavrfy)}
+\DoxyCodeLine{01708\ \{}
+\DoxyCodeLine{01709\ \ \ \ \ cc-\/>irsavrfy\ =\ irsavrfy;}
+\DoxyCodeLine{01710\ \}}
+\DoxyCodeLine{01711\ }
+\DoxyCodeLine{01720\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a7b274e2eeeb3ad5df85a0ef01f972a50}{br\_ssl\_engine\_set\_default\_rsavrfy}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{01721\ }
+\DoxyCodeLine{01729\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{bearssl__rsa_8h_a9ee06c1a4ae5af9e900d877a87ec8b17}{br\_rsa\_pkcs1\_vrfy}}}
+\DoxyCodeLine{01730\ br\_ssl\_engine\_get\_rsavrfy(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc)}
+\DoxyCodeLine{01731\ \{}
+\DoxyCodeLine{01732\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>irsavrfy;}
+\DoxyCodeLine{01733\ \}}
+\DoxyCodeLine{01734\ }
+\DoxyCodeLine{01735\ \textcolor{comment}{/*}}
+\DoxyCodeLine{01736\ \textcolor{comment}{\ *\ \(\backslash\)brief\ Set\ the\ ECDSA\ implementation\ (signature\ verification).}}
+\DoxyCodeLine{01737\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{01738\ \textcolor{comment}{\ *\ On\ the\ client,\ this\ is\ used\ to\ verify\ the\ server's\ signature\ on\ its}}
+\DoxyCodeLine{01739\ \textcolor{comment}{\ *\ ServerKeyExchange\ message\ (for\ ECDHE\_ECDSA\ cipher\ suites).\ On\ the\ server,}}
+\DoxyCodeLine{01740\ \textcolor{comment}{\ *\ this\ is\ used\ to\ verify\ the\ client's\ CertificateVerify\ message\ (if\ a}}
+\DoxyCodeLine{01741\ \textcolor{comment}{\ *\ client\ certificate\ is\ requested,\ that\ certificate\ contains\ an\ EC\ key,}}
+\DoxyCodeLine{01742\ \textcolor{comment}{\ *\ and\ full-\/static\ ECDH\ is\ not\ used).}}
+\DoxyCodeLine{01743\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{01744\ \textcolor{comment}{\ *\ The\ ECDSA\ implementation\ will\ use\ the\ EC\ core\ implementation\ configured}}
+\DoxyCodeLine{01745\ \textcolor{comment}{\ *\ in\ the\ engine\ context.}}
+\DoxyCodeLine{01746\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{01747\ \textcolor{comment}{\ *\ \(\backslash\)param\ cc\ \ \ \ \ \ \ client\ context.}}
+\DoxyCodeLine{01748\ \textcolor{comment}{\ *\ \(\backslash\)param\ iecdsa\ \ \ ECDSA\ verification\ implementation.}}
+\DoxyCodeLine{01749\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{01750\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01751\ br\_ssl\_engine\_set\_ecdsa(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \mbox{\hyperlink{bearssl__ec_8h_abaff5c9daad6e7dc61e4a1004ef1c8c8}{br\_ecdsa\_vrfy}}\ iecdsa)}
+\DoxyCodeLine{01752\ \{}
+\DoxyCodeLine{01753\ \ \ \ \ cc-\/>iecdsa\ =\ iecdsa;}
+\DoxyCodeLine{01754\ \}}
+\DoxyCodeLine{01755\ }
+\DoxyCodeLine{01766\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a7897784496cde7d32face37c8e0441ca}{br\_ssl\_engine\_set\_default\_ecdsa}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{01767\ }
+\DoxyCodeLine{01775\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{bearssl__ec_8h_abaff5c9daad6e7dc61e4a1004ef1c8c8}{br\_ecdsa\_vrfy}}}
+\DoxyCodeLine{01776\ br\_ssl\_engine\_get\_ecdsa(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc)}
+\DoxyCodeLine{01777\ \{}
+\DoxyCodeLine{01778\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>iecdsa;}
+\DoxyCodeLine{01779\ \}}
+\DoxyCodeLine{01780\ }
+\DoxyCodeLine{01811\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_ac9ef7c8bcba219d2cdad456ef0417296}{br\_ssl\_engine\_set\_buffer}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01812\ \ \ \ \ \textcolor{keywordtype}{void}\ *iobuf,\ \textcolor{keywordtype}{size\_t}\ iobuf\_len,\ \textcolor{keywordtype}{int}\ bidi);}
+\DoxyCodeLine{01813\ }
+\DoxyCodeLine{01834\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_aed7dbf271af4d17b96c0c1d255686227}{br\_ssl\_engine\_set\_buffers\_bidi}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01835\ \ \ \ \ \textcolor{keywordtype}{void}\ *ibuf,\ \textcolor{keywordtype}{size\_t}\ ibuf\_len,\ \textcolor{keywordtype}{void}\ *obuf,\ \textcolor{keywordtype}{size\_t}\ obuf\_len);}
+\DoxyCodeLine{01836\ }
+\DoxyCodeLine{01842\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint8\_t}
+\DoxyCodeLine{01843\ br\_ssl\_engine\_get\_mfln\_negotiated(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc)}
+\DoxyCodeLine{01844\ \{}
+\DoxyCodeLine{01845\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>max\_frag\_len\_negotiated;}
+\DoxyCodeLine{01846\ \}}
+\DoxyCodeLine{01847\ }
+\DoxyCodeLine{01879\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a7d8e8de2afd49d6794eae02f56f81152}{br\_ssl\_engine\_inject\_entropy}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01880\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{01881\ }
+\DoxyCodeLine{01898\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *}
+\DoxyCodeLine{01899\ br\_ssl\_engine\_get\_server\_name(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc)}
+\DoxyCodeLine{01900\ \{}
+\DoxyCodeLine{01901\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>server\_name;}
+\DoxyCodeLine{01902\ \}}
+\DoxyCodeLine{01903\ }
+\DoxyCodeLine{01914\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}}
+\DoxyCodeLine{01915\ br\_ssl\_engine\_get\_version(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc)}
+\DoxyCodeLine{01916\ \{}
+\DoxyCodeLine{01917\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>session.\mbox{\hyperlink{structbr__ssl__session__parameters_a7871a7332427d1d67d97cde2dd6b4bdb}{version}};}
+\DoxyCodeLine{01918\ \}}
+\DoxyCodeLine{01919\ }
+\DoxyCodeLine{01935\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01936\ br\_ssl\_engine\_get\_session\_parameters(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01937\ \ \ \ \ \mbox{\hyperlink{structbr__ssl__session__parameters}{br\_ssl\_session\_parameters}}\ *pp)}
+\DoxyCodeLine{01938\ \{}
+\DoxyCodeLine{01939\ \ \ \ \ memcpy(pp,\ \&cc-\/>session,\ \textcolor{keyword}{sizeof}\ *pp);}
+\DoxyCodeLine{01940\ \}}
+\DoxyCodeLine{01941\ }
+\DoxyCodeLine{01952\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{01953\ br\_ssl\_engine\_set\_session\_parameters(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{01954\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__session__parameters}{br\_ssl\_session\_parameters}}\ *pp)}
+\DoxyCodeLine{01955\ \{}
+\DoxyCodeLine{01956\ \ \ \ \ memcpy(\&cc-\/>session,\ pp,\ \textcolor{keyword}{sizeof}\ *pp);}
+\DoxyCodeLine{01957\ \}}
+\DoxyCodeLine{01958\ }
+\DoxyCodeLine{01972\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{01973\ br\_ssl\_engine\_get\_ecdhe\_curve(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc)}
+\DoxyCodeLine{01974\ \{}
+\DoxyCodeLine{01975\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>ecdhe\_curve;}
+\DoxyCodeLine{01976\ \}}
+\DoxyCodeLine{01977\ }
+\DoxyCodeLine{02021\ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{bearssl__ssl_8h_ab6732c86dddef4211eebc56e19eb6322}{br\_ssl\_engine\_current\_state}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{02022\ }
+\DoxyCodeLine{02024\ \textcolor{preprocessor}{\#define\ BR\_SSL\_CLOSED\ \ \ \ 0x0001}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02026\ \textcolor{preprocessor}{\#define\ BR\_SSL\_SENDREC\ \ \ 0x0002}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02028\ \textcolor{preprocessor}{\#define\ BR\_SSL\_RECVREC\ \ \ 0x0004}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02030\ \textcolor{preprocessor}{\#define\ BR\_SSL\_SENDAPP\ \ \ 0x0008}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02032\ \textcolor{preprocessor}{\#define\ BR\_SSL\_RECVAPP\ \ \ 0x0010}}
+\DoxyCodeLine{02033\ }
+\DoxyCodeLine{02046\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{02047\ br\_ssl\_engine\_last\_error(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc)}
+\DoxyCodeLine{02048\ \{}
+\DoxyCodeLine{02049\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>err;}
+\DoxyCodeLine{02050\ \}}
+\DoxyCodeLine{02051\ }
+\DoxyCodeLine{02052\ \textcolor{comment}{/*}}
+\DoxyCodeLine{02053\ \textcolor{comment}{\ *\ There\ are\ four\ I/O\ operations,\ each\ identified\ by\ a\ symbolic\ name:}}
+\DoxyCodeLine{02054\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02055\ \textcolor{comment}{\ *\ \ \ sendapp\ \ \ inject\ application\ data\ in\ the\ engine}}
+\DoxyCodeLine{02056\ \textcolor{comment}{\ *\ \ \ recvapp\ \ \ retrieving\ application\ data\ from\ the\ engine}}
+\DoxyCodeLine{02057\ \textcolor{comment}{\ *\ \ \ sendrec\ \ \ sending\ records\ on\ the\ transport\ medium}}
+\DoxyCodeLine{02058\ \textcolor{comment}{\ *\ \ \ recvrec\ \ \ receiving\ records\ from\ the\ transport\ medium}}
+\DoxyCodeLine{02059\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02060\ \textcolor{comment}{\ *\ Terminology\ works\ thus:\ in\ a\ layered\ model\ where\ the\ SSL\ engine\ sits}}
+\DoxyCodeLine{02061\ \textcolor{comment}{\ *\ between\ the\ application\ and\ the\ network,\ "{}send"{}\ designates\ operations}}
+\DoxyCodeLine{02062\ \textcolor{comment}{\ *\ where\ bytes\ flow\ from\ application\ to\ network,\ and\ "{}recv"{}\ for\ the}}
+\DoxyCodeLine{02063\ \textcolor{comment}{\ *\ reverse\ operation.\ Application\ data\ (the\ plaintext\ that\ is\ to\ be}}
+\DoxyCodeLine{02064\ \textcolor{comment}{\ *\ conveyed\ through\ SSL)\ is\ "{}app"{},\ while\ encrypted\ records\ are\ "{}rec"{}.}}
+\DoxyCodeLine{02065\ \textcolor{comment}{\ *\ Note\ that\ from\ the\ SSL\ engine\ point\ of\ view,\ "{}sendapp"{}\ and\ "{}recvrec"{}}}
+\DoxyCodeLine{02066\ \textcolor{comment}{\ *\ designate\ bytes\ that\ enter\ the\ engine\ ("{}inject"{}\ operation),\ while}}
+\DoxyCodeLine{02067\ \textcolor{comment}{\ *\ "{}recvapp"{}\ and\ "{}sendrec"{}\ designate\ bytes\ that\ exit\ the\ engine}}
+\DoxyCodeLine{02068\ \textcolor{comment}{\ *\ ("{}extract"{}\ operation).}}
+\DoxyCodeLine{02069\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02070\ \textcolor{comment}{\ *\ For\ the\ operation\ 'xxx',\ two\ functions\ are\ defined:}}
+\DoxyCodeLine{02071\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02072\ \textcolor{comment}{\ *\ \ \ br\_ssl\_engine\_xxx\_buf}}
+\DoxyCodeLine{02073\ \textcolor{comment}{\ *\ \ \ \ \ \ Returns\ a\ pointer\ and\ length\ to\ the\ buffer\ to\ use\ for\ that}}
+\DoxyCodeLine{02074\ \textcolor{comment}{\ *\ \ \ \ \ \ operation.\ '*len'\ is\ set\ to\ the\ number\ of\ bytes\ that\ may\ be\ read}}
+\DoxyCodeLine{02075\ \textcolor{comment}{\ *\ \ \ \ \ \ from\ the\ buffer\ (extract\ operation)\ or\ written\ to\ the\ buffer}}
+\DoxyCodeLine{02076\ \textcolor{comment}{\ *\ \ \ \ \ \ (inject\ operation).\ If\ no\ byte\ may\ be\ exchanged\ for\ that\ operation}}
+\DoxyCodeLine{02077\ \textcolor{comment}{\ *\ \ \ \ \ \ at\ that\ point,\ then\ '*len'\ is\ set\ to\ zero,\ and\ NULL\ is\ returned.}}
+\DoxyCodeLine{02078\ \textcolor{comment}{\ *\ \ \ \ \ \ The\ engine\ state\ is\ unmodified\ by\ this\ call.}}
+\DoxyCodeLine{02079\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02080\ \textcolor{comment}{\ *\ \ \ br\_ssl\_engine\_xxx\_ack}}
+\DoxyCodeLine{02081\ \textcolor{comment}{\ *\ \ \ \ \ \ Informs\ the\ engine\ that\ 'len'\ bytes\ have\ been\ read\ from\ the\ buffer}}
+\DoxyCodeLine{02082\ \textcolor{comment}{\ *\ \ \ \ \ \ (extract\ operation)\ or\ written\ to\ the\ buffer\ (inject\ operation).}}
+\DoxyCodeLine{02083\ \textcolor{comment}{\ *\ \ \ \ \ \ The\ 'len'\ value\ MUST\ NOT\ be\ zero.\ The\ 'len'\ value\ MUST\ NOT\ exceed}}
+\DoxyCodeLine{02084\ \textcolor{comment}{\ *\ \ \ \ \ \ that\ which\ was\ obtained\ from\ a\ preceding\ br\_ssl\_engine\_xxx\_buf()}}
+\DoxyCodeLine{02085\ \textcolor{comment}{\ *\ \ \ \ \ \ call.}}
+\DoxyCodeLine{02086\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{02087\ }
+\DoxyCodeLine{02100\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{bearssl__ssl_8h_a2caede989da9ef3abbbecc8e21650674}{br\_ssl\_engine\_sendapp\_buf}}(}
+\DoxyCodeLine{02101\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{02102\ }
+\DoxyCodeLine{02115\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_ab1c37f0db70815dea6d87a774b466778}{br\_ssl\_engine\_sendapp\_ack}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{02116\ }
+\DoxyCodeLine{02129\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{bearssl__ssl_8h_a5976884d1b1e1347147db120461bea78}{br\_ssl\_engine\_recvapp\_buf}}(}
+\DoxyCodeLine{02130\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{02131\ }
+\DoxyCodeLine{02144\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a6190341839d3b5e960657bebe788242d}{br\_ssl\_engine\_recvapp\_ack}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{02145\ }
+\DoxyCodeLine{02158\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{bearssl__ssl_8h_a8fb1b193174ffa327461eba99f01843e}{br\_ssl\_engine\_sendrec\_buf}}(}
+\DoxyCodeLine{02159\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{02160\ }
+\DoxyCodeLine{02173\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a740725e8232173d0347b449e06d3816d}{br\_ssl\_engine\_sendrec\_ack}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{02174\ }
+\DoxyCodeLine{02187\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{bearssl__ssl_8h_aeefcee00d52af87b95a4ebc32348e425}{br\_ssl\_engine\_recvrec\_buf}}(}
+\DoxyCodeLine{02188\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{02189\ }
+\DoxyCodeLine{02202\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_ad303973a2b51dce3b06fe5bb90f929de}{br\_ssl\_engine\_recvrec\_ack}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{02203\ }
+\DoxyCodeLine{02221\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a8fbc6abeb576682f63d038d158c559b1}{br\_ssl\_engine\_flush}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,\ \textcolor{keywordtype}{int}\ force);}
+\DoxyCodeLine{02222\ }
+\DoxyCodeLine{02232\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a0a73658ebf9dad1fb194e78e23c25b42}{br\_ssl\_engine\_close}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{02233\ }
+\DoxyCodeLine{02250\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_a3e9b6b6b399944273157a5ca7a2a068c}{br\_ssl\_engine\_renegotiate}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc);}
+\DoxyCodeLine{02251\ }
+\DoxyCodeLine{02283\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_a22e7520c1416905f74f7156c1d0b4c4a}{br\_ssl\_key\_export}}(\mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *cc,}
+\DoxyCodeLine{02284\ \ \ \ \ \textcolor{keywordtype}{void}\ *dst,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,}
+\DoxyCodeLine{02285\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *context,\ \textcolor{keywordtype}{size\_t}\ context\_len);}
+\DoxyCodeLine{02286\ }
+\DoxyCodeLine{02287\ \textcolor{comment}{/*}}
+\DoxyCodeLine{02288\ \textcolor{comment}{\ *\ Pre-\/declaration\ for\ the\ SSL\ client\ context.}}
+\DoxyCodeLine{02289\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{02290\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__client__context__}{br\_ssl\_client\_context\_}}\ br\_ssl\_client\_context;}
+\DoxyCodeLine{02291\ }
+\DoxyCodeLine{02295\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{02302\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structbr__ssl__client__certificate_aca7cbae4e1a1de15fc9261e224058bd6}{auth\_type}};}
+\DoxyCodeLine{02303\ }
+\DoxyCodeLine{02318\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structbr__ssl__client__certificate_ae5fe91bc07c061684b7e8ac77f24b117}{hash\_id}};}
+\DoxyCodeLine{02319\ }
+\DoxyCodeLine{02329\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *\mbox{\hyperlink{structbr__ssl__client__certificate_a2f06229d01c1f23e03678cd491966220}{chain}};}
+\DoxyCodeLine{02330\ }
+\DoxyCodeLine{02337\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__ssl__client__certificate_a3e66b97e087583ee4431ab28ef316032}{chain\_len}};}
+\DoxyCodeLine{02338\ }
+\DoxyCodeLine{02339\ \}\ \mbox{\hyperlink{structbr__ssl__client__certificate}{br\_ssl\_client\_certificate}};}
+\DoxyCodeLine{02340\ }
+\DoxyCodeLine{02341\ \textcolor{comment}{/*}}
+\DoxyCodeLine{02342\ \textcolor{comment}{\ *\ Note:\ the\ constants\ below\ for\ signatures\ match\ the\ TLS\ constants.}}
+\DoxyCodeLine{02343\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{02344\ }
+\DoxyCodeLine{02346\ \textcolor{preprocessor}{\#define\ BR\_AUTH\_ECDH\ \ \ \ 0}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02348\ \textcolor{preprocessor}{\#define\ BR\_AUTH\_RSA\ \ \ \ \ 1}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02350\ \textcolor{preprocessor}{\#define\ BR\_AUTH\_ECDSA\ \ \ 3}}
+\DoxyCodeLine{02351\ }
+\DoxyCodeLine{02368\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__client__certificate__class__}{br\_ssl\_client\_certificate\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}};}
+\DoxyCodeLine{02369\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__client__certificate__class__}{br\_ssl\_client\_certificate\_class\_}}\ \{}
+\DoxyCodeLine{02373\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__ssl__client__certificate__class___a113386e6d248a6b46eaf21ed6f61e523}{context\_size}};}
+\DoxyCodeLine{02374\ }
+\DoxyCodeLine{02381\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__ssl__client__certificate__class___a9e92220a4fade3a43cab891d86753dce}{start\_name\_list}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **pctx);}
+\DoxyCodeLine{02382\ }
+\DoxyCodeLine{02392\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__ssl__client__certificate__class___a4e1f77556a74c8296777757da50ae4b8}{start\_name}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **pctx,}
+\DoxyCodeLine{02393\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{02394\ }
+\DoxyCodeLine{02406\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__ssl__client__certificate__class___ad6fbae331791081fdb8cfea91cdbf74c}{append\_name}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **pctx,}
+\DoxyCodeLine{02407\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{02408\ }
+\DoxyCodeLine{02417\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__ssl__client__certificate__class___a8149fa30289efc3edd2c147b1d9e97fb}{end\_name}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **pctx);}
+\DoxyCodeLine{02418\ }
+\DoxyCodeLine{02427\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__ssl__client__certificate__class___ae63cd66e5a0a106cf8e6e009068a964b}{end\_name\_list}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **pctx);}
+\DoxyCodeLine{02428\ }
+\DoxyCodeLine{02473\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__ssl__client__certificate__class___af22686c6576f9e2d84101181abb79dd2}{choose}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **pctx,}
+\DoxyCodeLine{02474\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ br\_ssl\_client\_context\ *cc,\ uint32\_t\ auth\_types,}
+\DoxyCodeLine{02475\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__ssl__client__certificate}{br\_ssl\_client\_certificate}}\ *choices);}
+\DoxyCodeLine{02476\ }
+\DoxyCodeLine{02519\ \ \ \ \ uint32\_t\ (*\mbox{\hyperlink{structbr__ssl__client__certificate__class___ada8d30e3490cff66a857a5e4cf5b7bb2}{do\_keyx}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **pctx,}
+\DoxyCodeLine{02520\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{02521\ }
+\DoxyCodeLine{02557\ \ \ \ \ size\_t\ (*\mbox{\hyperlink{structbr__ssl__client__certificate__class___a602cedb3e143dbcc293f291d1c853bad}{do\_sign}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **pctx,}
+\DoxyCodeLine{02558\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hash\_id,\ \textcolor{keywordtype}{size\_t}\ hv\_len,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{02559\ \};}
+\DoxyCodeLine{02560\ }
+\DoxyCodeLine{02570\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{02572\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ *\mbox{\hyperlink{structbr__ssl__client__certificate__rsa__context_a013ebc423ce446ef492a818d7c3f5a5d}{vtable}};}
+\DoxyCodeLine{02573\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{02574\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain;}
+\DoxyCodeLine{02575\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ chain\_len;}
+\DoxyCodeLine{02576\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk;}
+\DoxyCodeLine{02577\ \ \ \ \ \mbox{\hyperlink{bearssl__rsa_8h_a24180c531a5c88c08cf7e32e96aa2eca}{br\_rsa\_pkcs1\_sign}}\ irsasign;}
+\DoxyCodeLine{02578\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02579\ \}\ \mbox{\hyperlink{structbr__ssl__client__certificate__rsa__context}{br\_ssl\_client\_certificate\_rsa\_context}};}
+\DoxyCodeLine{02580\ }
+\DoxyCodeLine{02593\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{02595\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ *\mbox{\hyperlink{structbr__ssl__client__certificate__ec__context_a40577c3ac0eba08d8fdcda8d0aab48e1}{vtable}};}
+\DoxyCodeLine{02596\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{02597\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain;}
+\DoxyCodeLine{02598\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ chain\_len;}
+\DoxyCodeLine{02599\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__private__key}{br\_ec\_private\_key}}\ *sk;}
+\DoxyCodeLine{02600\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ allowed\_usages;}
+\DoxyCodeLine{02601\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ issuer\_key\_type;}
+\DoxyCodeLine{02602\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__multihash__context}{br\_multihash\_context}}\ *mhash;}
+\DoxyCodeLine{02603\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__impl}{br\_ec\_impl}}\ *iec;}
+\DoxyCodeLine{02604\ \ \ \ \ \mbox{\hyperlink{bearssl__ec_8h_ab7154b0c899ceb3af062c69016258667}{br\_ecdsa\_sign}}\ iecdsa;}
+\DoxyCodeLine{02605\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02606\ \}\ \mbox{\hyperlink{structbr__ssl__client__certificate__ec__context}{br\_ssl\_client\_certificate\_ec\_context}};}
+\DoxyCodeLine{02607\ }
+\DoxyCodeLine{02616\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__client__context__}{br\_ssl\_client\_context\_}}\ \{}
+\DoxyCodeLine{02620\ \ \ \ \ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ \mbox{\hyperlink{structbr__ssl__client__context___a2a0ee53bd78e6c0650da59723b4a13aa}{eng}};}
+\DoxyCodeLine{02621\ }
+\DoxyCodeLine{02622\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{02623\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{02624\ \textcolor{comment}{\ \ \ \ \ *\ Minimum\ ClientHello\ length;\ padding\ with\ an\ extension\ (RFC}}
+\DoxyCodeLine{02625\ \textcolor{comment}{\ \ \ \ \ *\ 7685)\ is\ added\ if\ necessary\ to\ match\ at\ least\ that\ length.}}
+\DoxyCodeLine{02626\ \textcolor{comment}{\ \ \ \ \ *\ Such\ padding\ is\ nominally\ unnecessary,\ but\ it\ has\ been\ used}}
+\DoxyCodeLine{02627\ \textcolor{comment}{\ \ \ \ \ *\ to\ work\ around\ some\ server\ implementation\ bugs.}}
+\DoxyCodeLine{02628\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{02629\ \ \ \ \ uint16\_t\ min\_clienthello\_len;}
+\DoxyCodeLine{02630\ }
+\DoxyCodeLine{02631\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{02632\ \textcolor{comment}{\ \ \ \ \ *\ Bit\ field\ for\ algoithms\ (hash\ +\ signature)\ supported\ by\ the}}
+\DoxyCodeLine{02633\ \textcolor{comment}{\ \ \ \ \ *\ server\ when\ requesting\ a\ client\ certificate.}}
+\DoxyCodeLine{02634\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{02635\ \ \ \ \ uint32\_t\ hashes;}
+\DoxyCodeLine{02636\ }
+\DoxyCodeLine{02637\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{02638\ \textcolor{comment}{\ \ \ \ \ *\ Server's\ public\ key\ curve.}}
+\DoxyCodeLine{02639\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{02640\ \ \ \ \ \textcolor{keywordtype}{int}\ server\_curve;}
+\DoxyCodeLine{02641\ }
+\DoxyCodeLine{02642\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{02643\ \textcolor{comment}{\ \ \ \ \ *\ Context\ for\ certificate\ handler.}}
+\DoxyCodeLine{02644\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{02645\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **client\_auth\_vtable;}
+\DoxyCodeLine{02646\ }
+\DoxyCodeLine{02647\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{02648\ \textcolor{comment}{\ \ \ \ \ *\ Client\ authentication\ type.}}
+\DoxyCodeLine{02649\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{02650\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ auth\_type;}
+\DoxyCodeLine{02651\ }
+\DoxyCodeLine{02652\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{02653\ \textcolor{comment}{\ \ \ \ \ *\ Hash\ function\ to\ use\ for\ the\ client\ signature.\ This\ is\ 0xFF}}
+\DoxyCodeLine{02654\ \textcolor{comment}{\ \ \ \ \ *\ if\ static\ ECDH\ is\ used.}}
+\DoxyCodeLine{02655\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{02656\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ hash\_id;}
+\DoxyCodeLine{02657\ }
+\DoxyCodeLine{02658\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{02659\ \textcolor{comment}{\ \ \ \ \ *\ For\ the\ core\ certificate\ handlers,\ thus\ avoiding\ (in\ most}}
+\DoxyCodeLine{02660\ \textcolor{comment}{\ \ \ \ \ *\ cases)\ the\ need\ for\ an\ externally\ provided\ policy\ context.}}
+\DoxyCodeLine{02661\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{02662\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{02663\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ *vtable;}
+\DoxyCodeLine{02664\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__ssl__client__certificate__rsa__context}{br\_ssl\_client\_certificate\_rsa\_context}}\ single\_rsa;}
+\DoxyCodeLine{02665\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__ssl__client__certificate__ec__context}{br\_ssl\_client\_certificate\_ec\_context}}\ single\_ec;}
+\DoxyCodeLine{02666\ \ \ \ \ \}\ client\_auth;}
+\DoxyCodeLine{02667\ }
+\DoxyCodeLine{02668\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{02669\ \textcolor{comment}{\ \ \ \ \ *\ Implementations.}}
+\DoxyCodeLine{02670\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{02671\ \ \ \ \ \mbox{\hyperlink{bearssl__rsa_8h_a016776655703f032ef525cf4ff42397c}{br\_rsa\_public}}\ irsapub;}
+\DoxyCodeLine{02672\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02673\ \};}
+\DoxyCodeLine{02674\ }
+\DoxyCodeLine{02705\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t}
+\DoxyCodeLine{02706\ br\_ssl\_client\_get\_server\_hashes(\textcolor{keyword}{const}\ br\_ssl\_client\_context\ *cc)}
+\DoxyCodeLine{02707\ \{}
+\DoxyCodeLine{02708\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>hashes;}
+\DoxyCodeLine{02709\ \}}
+\DoxyCodeLine{02710\ }
+\DoxyCodeLine{02720\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{02721\ br\_ssl\_client\_get\_server\_curve(\textcolor{keyword}{const}\ br\_ssl\_client\_context\ *cc)}
+\DoxyCodeLine{02722\ \{}
+\DoxyCodeLine{02723\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>server\_curve;}
+\DoxyCodeLine{02724\ \}}
+\DoxyCodeLine{02725\ }
+\DoxyCodeLine{02726\ \textcolor{comment}{/*}}
+\DoxyCodeLine{02727\ \textcolor{comment}{\ *\ Each\ br\_ssl\_client\_init\_xxx()\ function\ sets\ the\ list\ of\ supported}}
+\DoxyCodeLine{02728\ \textcolor{comment}{\ *\ cipher\ suites\ and\ used\ implementations,\ as\ specified\ by\ the\ profile}}
+\DoxyCodeLine{02729\ \textcolor{comment}{\ *\ name\ 'xxx'.\ Defined\ profile\ names\ are:}}
+\DoxyCodeLine{02730\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02731\ \textcolor{comment}{\ *\ \ \ \ full\ \ \ \ all\ supported\ versions\ and\ suites;\ constant-\/time\ implementations}}
+\DoxyCodeLine{02732\ \textcolor{comment}{\ *\ \ \ \ TODO:\ add\ other\ profiles}}
+\DoxyCodeLine{02733\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{02734\ }
+\DoxyCodeLine{02749\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_aa386dd0b03a0123760bf63df5a41c1e0}{br\_ssl\_client\_init\_full}}(br\_ssl\_client\_context\ *cc,}
+\DoxyCodeLine{02750\ \ \ \ \ \mbox{\hyperlink{structbr__x509__minimal__context}{br\_x509\_minimal\_context}}\ *xc,}
+\DoxyCodeLine{02751\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__trust__anchor}{br\_x509\_trust\_anchor}}\ *trust\_anchors,\ \textcolor{keywordtype}{size\_t}\ trust\_anchors\_num);}
+\DoxyCodeLine{02752\ }
+\DoxyCodeLine{02767\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a32c8112a1c37ba21a05952eeefc435f3}{br\_client\_init\_TLS12\_only}}(br\_ssl\_client\_context\ *cc,}
+\DoxyCodeLine{02768\ \ \ \ \ \mbox{\hyperlink{structbr__x509__minimal__context}{br\_x509\_minimal\_context}}\ *xc,}
+\DoxyCodeLine{02769\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__trust__anchor}{br\_x509\_trust\_anchor}}\ *trust\_anchors,\ \textcolor{keywordtype}{size\_t}\ trust\_anchors\_num);}
+\DoxyCodeLine{02770\ }
+\DoxyCodeLine{02780\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a954bd61f89ce31de675b5f4b57d4af48}{br\_ssl\_client\_zero}}(br\_ssl\_client\_context\ *cc);}
+\DoxyCodeLine{02781\ }
+\DoxyCodeLine{02791\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02792\ br\_ssl\_client\_set\_client\_certificate(br\_ssl\_client\_context\ *cc,}
+\DoxyCodeLine{02793\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a1cb679fb9a60e2a0ee0a9e4922939ede}{br\_ssl\_client\_certificate\_class}}\ **pctx)}
+\DoxyCodeLine{02794\ \{}
+\DoxyCodeLine{02795\ \ \ \ \ cc-\/>client\_auth\_vtable\ =\ pctx;}
+\DoxyCodeLine{02796\ \}}
+\DoxyCodeLine{02797\ }
+\DoxyCodeLine{02807\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02808\ br\_ssl\_client\_set\_rsapub(br\_ssl\_client\_context\ *cc,\ \mbox{\hyperlink{bearssl__rsa_8h_a016776655703f032ef525cf4ff42397c}{br\_rsa\_public}}\ irsapub)}
+\DoxyCodeLine{02809\ \{}
+\DoxyCodeLine{02810\ \ \ \ \ cc-\/>irsapub\ =\ irsapub;}
+\DoxyCodeLine{02811\ \}}
+\DoxyCodeLine{02812\ }
+\DoxyCodeLine{02822\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a348cfa7d003eb76b09d3b67a21f1ebf7}{br\_ssl\_client\_set\_default\_rsapub}}(br\_ssl\_client\_context\ *cc);}
+\DoxyCodeLine{02823\ }
+\DoxyCodeLine{02841\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02842\ br\_ssl\_client\_set\_min\_clienthello\_len(br\_ssl\_client\_context\ *cc,\ uint16\_t\ len)}
+\DoxyCodeLine{02843\ \{}
+\DoxyCodeLine{02844\ \ \ \ \ cc-\/>min\_clienthello\_len\ =\ len;}
+\DoxyCodeLine{02845\ \}}
+\DoxyCodeLine{02846\ }
+\DoxyCodeLine{02877\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_a847209e73dae3ec3a730041337c785b5}{br\_ssl\_client\_reset}}(br\_ssl\_client\_context\ *cc,}
+\DoxyCodeLine{02878\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *server\_name,\ \textcolor{keywordtype}{int}\ resume\_session);}
+\DoxyCodeLine{02879\ }
+\DoxyCodeLine{02889\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{02890\ br\_ssl\_client\_forget\_session(br\_ssl\_client\_context\ *cc)}
+\DoxyCodeLine{02891\ \{}
+\DoxyCodeLine{02892\ \ \ \ \ cc-\/>\mbox{\hyperlink{structbr__ssl__client__context___a2a0ee53bd78e6c0650da59723b4a13aa}{eng}}.session.\mbox{\hyperlink{structbr__ssl__session__parameters_a02c6bb83be4cf64491665db02c0c1533}{session\_id\_len}}\ =\ 0;}
+\DoxyCodeLine{02893\ \}}
+\DoxyCodeLine{02894\ }
+\DoxyCodeLine{02915\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a353ccb07d198dc9e581ff4d7f1e46825}{br\_ssl\_client\_set\_single\_rsa}}(br\_ssl\_client\_context\ *cc,}
+\DoxyCodeLine{02916\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{02917\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \mbox{\hyperlink{bearssl__rsa_8h_a24180c531a5c88c08cf7e32e96aa2eca}{br\_rsa\_pkcs1\_sign}}\ irsasign);}
+\DoxyCodeLine{02918\ }
+\DoxyCodeLine{02919\ \textcolor{comment}{/*}}
+\DoxyCodeLine{02920\ \textcolor{comment}{\ *\ \(\backslash\)brief\ Set\ the\ client\ certificate\ chain\ and\ key\ (single\ EC\ case).}}
+\DoxyCodeLine{02921\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02922\ \textcolor{comment}{\ *\ This\ function\ sets\ a\ client\ certificate\ chain,\ that\ the\ client\ will}}
+\DoxyCodeLine{02923\ \textcolor{comment}{\ *\ send\ to\ the\ server\ whenever\ a\ client\ certificate\ is\ requested.\ This}}
+\DoxyCodeLine{02924\ \textcolor{comment}{\ *\ certificate\ uses\ an\ EC\ public\ key;\ the\ corresponding\ private\ key\ is}}
+\DoxyCodeLine{02925\ \textcolor{comment}{\ *\ invoked\ for\ authentication.\ Trust\ anchor\ names\ sent\ by\ the\ server\ are}}
+\DoxyCodeLine{02926\ \textcolor{comment}{\ *\ ignored.}}
+\DoxyCodeLine{02927\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02928\ \textcolor{comment}{\ *\ The\ provided\ chain\ and\ private\ key\ are\ linked\ in\ the\ client\ context;}}
+\DoxyCodeLine{02929\ \textcolor{comment}{\ *\ they\ must\ remain\ valid\ as\ long\ as\ they\ may\ be\ used,\ i.e.\ normally}}
+\DoxyCodeLine{02930\ \textcolor{comment}{\ *\ for\ the\ duration\ of\ the\ connection,\ since\ they\ might\ be\ invoked}}
+\DoxyCodeLine{02931\ \textcolor{comment}{\ *\ again\ upon\ renegotiations.}}
+\DoxyCodeLine{02932\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02933\ \textcolor{comment}{\ *\ The\ \`{}allowed\_usages`\ is\ a\ combination\ of\ usages,\ namely}}
+\DoxyCodeLine{02934\ \textcolor{comment}{\ *\ \`{}BR\_KEYTYPE\_KEYX`\ and/or\ \`{}BR\_KEYTYPE\_SIGN`.\ The\ \`{}BR\_KEYTYPE\_KEYX`}}
+\DoxyCodeLine{02935\ \textcolor{comment}{\ *\ value\ allows\ full\ static\ ECDH,\ while\ the\ \`{}BR\_KEYTYPE\_SIGN`\ value}}
+\DoxyCodeLine{02936\ \textcolor{comment}{\ *\ allows\ ECDSA\ signatures.\ If\ ECDSA\ signatures\ are\ used,\ then\ an\ ECDSA}}
+\DoxyCodeLine{02937\ \textcolor{comment}{\ *\ signature\ implementation\ must\ be\ provided;\ otherwise,\ the\ \`{}iecdsa`}}
+\DoxyCodeLine{02938\ \textcolor{comment}{\ *\ parameter\ may\ be\ 0.}}
+\DoxyCodeLine{02939\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02940\ \textcolor{comment}{\ *\ The\ \`{}cert\_issuer\_key\_type`\ value\ is\ either\ \`{}BR\_KEYTYPE\_RSA`\ or}}
+\DoxyCodeLine{02941\ \textcolor{comment}{\ *\ \`{}BR\_KEYTYPE\_EC`;\ it\ is\ the\ type\ of\ the\ public\ key\ used\ the\ the\ CA}}
+\DoxyCodeLine{02942\ \textcolor{comment}{\ *\ that\ issued\ (signed)\ the\ client\ certificate.\ That\ value\ is\ used\ with}}
+\DoxyCodeLine{02943\ \textcolor{comment}{\ *\ full\ static\ ECDH:\ support\ of\ the\ certificate\ by\ the\ server\ depends}}
+\DoxyCodeLine{02944\ \textcolor{comment}{\ *\ on\ how\ the\ certificate\ was\ signed.\ (Note:\ when\ using\ TLS\ 1.2,\ this}}
+\DoxyCodeLine{02945\ \textcolor{comment}{\ *\ parameter\ is\ ignored;\ but\ its\ value\ matters\ for\ TLS\ 1.0\ and\ 1.1.)}}
+\DoxyCodeLine{02946\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{02947\ \textcolor{comment}{\ *\ \(\backslash\)param\ cc\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ server\ context.}}
+\DoxyCodeLine{02948\ \textcolor{comment}{\ *\ \(\backslash\)param\ chain\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ server\ certificate\ chain\ to\ send.}}
+\DoxyCodeLine{02949\ \textcolor{comment}{\ *\ \(\backslash\)param\ chain\_len\ \ \ \ \ \ \ \ \ \ \ \ \ \ chain\ length\ (number\ of\ certificates).}}
+\DoxyCodeLine{02950\ \textcolor{comment}{\ *\ \(\backslash\)param\ sk\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ server\ private\ key\ (EC).}}
+\DoxyCodeLine{02951\ \textcolor{comment}{\ *\ \(\backslash\)param\ allowed\_usages\ \ \ \ \ \ \ \ \ allowed\ private\ key\ usages.}}
+\DoxyCodeLine{02952\ \textcolor{comment}{\ *\ \(\backslash\)param\ cert\_issuer\_key\_type\ \ \ issuing\ CA's\ key\ type.}}
+\DoxyCodeLine{02953\ \textcolor{comment}{\ *\ \(\backslash\)param\ iec\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ EC\ core\ implementation.}}
+\DoxyCodeLine{02954\ \textcolor{comment}{\ *\ \(\backslash\)param\ iecdsa\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ECDSA\ signature\ implementation\ ("{}asn1"{}\ format).}}
+\DoxyCodeLine{02955\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{02956\ \textcolor{keywordtype}{void}\ br\_ssl\_client\_set\_single\_ec(br\_ssl\_client\_context\ *cc,}
+\DoxyCodeLine{02957\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{02958\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__private__key}{br\_ec\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ allowed\_usages,}
+\DoxyCodeLine{02959\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cert\_issuer\_key\_type,}
+\DoxyCodeLine{02960\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__impl}{br\_ec\_impl}}\ *iec,\ \mbox{\hyperlink{bearssl__ec_8h_ab7154b0c899ceb3af062c69016258667}{br\_ecdsa\_sign}}\ iecdsa);}
+\DoxyCodeLine{02961\ }
+\DoxyCodeLine{03013\ \textcolor{keyword}{typedef}\ uint16\_t\ \mbox{\hyperlink{bearssl__ssl_8h_a67ca54c2771bc77684be772428c231ea}{br\_suite\_translated}}[2];}
+\DoxyCodeLine{03014\ }
+\DoxyCodeLine{03015\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{03016\ \textcolor{comment}{/*}}
+\DoxyCodeLine{03017\ \textcolor{comment}{\ *\ Constants\ are\ already\ documented\ in\ the\ br\_suite\_translated\ type.}}
+\DoxyCodeLine{03018\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{03019\ }
+\DoxyCodeLine{03020\ \textcolor{preprocessor}{\#define\ BR\_SSLKEYX\_RSA\ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{03021\ \textcolor{preprocessor}{\#define\ BR\_SSLKEYX\_ECDHE\_RSA\ \ \ \ \ 1}}
+\DoxyCodeLine{03022\ \textcolor{preprocessor}{\#define\ BR\_SSLKEYX\_ECDHE\_ECDSA\ \ \ 2}}
+\DoxyCodeLine{03023\ \textcolor{preprocessor}{\#define\ BR\_SSLKEYX\_ECDH\_RSA\ \ \ \ \ \ 3}}
+\DoxyCodeLine{03024\ \textcolor{preprocessor}{\#define\ BR\_SSLKEYX\_ECDH\_ECDSA\ \ \ \ 4}}
+\DoxyCodeLine{03025\ }
+\DoxyCodeLine{03026\ \textcolor{preprocessor}{\#define\ BR\_SSLENC\_3DES\_CBC\ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{03027\ \textcolor{preprocessor}{\#define\ BR\_SSLENC\_AES128\_CBC\ \ \ \ \ 1}}
+\DoxyCodeLine{03028\ \textcolor{preprocessor}{\#define\ BR\_SSLENC\_AES256\_CBC\ \ \ \ \ 2}}
+\DoxyCodeLine{03029\ \textcolor{preprocessor}{\#define\ BR\_SSLENC\_AES128\_GCM\ \ \ \ \ 3}}
+\DoxyCodeLine{03030\ \textcolor{preprocessor}{\#define\ BR\_SSLENC\_AES256\_GCM\ \ \ \ \ 4}}
+\DoxyCodeLine{03031\ \textcolor{preprocessor}{\#define\ BR\_SSLENC\_CHACHA20\ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{03032\ }
+\DoxyCodeLine{03033\ \textcolor{preprocessor}{\#define\ BR\_SSLMAC\_AEAD\ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{03034\ \textcolor{preprocessor}{\#define\ BR\_SSLMAC\_SHA1\ \ \ \ \ \ \ \ \ \ \ br\_sha1\_ID}}
+\DoxyCodeLine{03035\ \textcolor{preprocessor}{\#define\ BR\_SSLMAC\_SHA256\ \ \ \ \ \ \ \ \ br\_sha256\_ID}}
+\DoxyCodeLine{03036\ \textcolor{preprocessor}{\#define\ BR\_SSLMAC\_SHA384\ \ \ \ \ \ \ \ \ br\_sha384\_ID}}
+\DoxyCodeLine{03037\ }
+\DoxyCodeLine{03038\ \textcolor{preprocessor}{\#define\ BR\_SSLPRF\_SHA256\ \ \ \ \ \ \ \ \ br\_sha256\_ID}}
+\DoxyCodeLine{03039\ \textcolor{preprocessor}{\#define\ BR\_SSLPRF\_SHA384\ \ \ \ \ \ \ \ \ br\_sha384\_ID}}
+\DoxyCodeLine{03040\ }
+\DoxyCodeLine{03041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03042\ }
+\DoxyCodeLine{03043\ \textcolor{comment}{/*}}
+\DoxyCodeLine{03044\ \textcolor{comment}{\ *\ Pre-\/declaration\ for\ the\ SSL\ server\ context.}}
+\DoxyCodeLine{03045\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{03046\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__server__context__}{br\_ssl\_server\_context\_}}\ br\_ssl\_server\_context;}
+\DoxyCodeLine{03047\ }
+\DoxyCodeLine{03052\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{03056\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbr__ssl__server__choices_a1e5c4903ceddd1045fa8cf6146804b10}{cipher\_suite}};}
+\DoxyCodeLine{03057\ }
+\DoxyCodeLine{03099\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{structbr__ssl__server__choices_ab765c34178819bc7b9d12314cfa2462c}{algo\_id}};}
+\DoxyCodeLine{03100\ }
+\DoxyCodeLine{03108\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *\mbox{\hyperlink{structbr__ssl__server__choices_af5e959f897bd948236647995a262ac34}{chain}};}
+\DoxyCodeLine{03109\ }
+\DoxyCodeLine{03113\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__ssl__server__choices_ac2e609d390866b229c5574e513643bf8}{chain\_len}};}
+\DoxyCodeLine{03114\ }
+\DoxyCodeLine{03115\ \}\ \mbox{\hyperlink{structbr__ssl__server__choices}{br\_ssl\_server\_choices}};}
+\DoxyCodeLine{03116\ }
+\DoxyCodeLine{03129\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__server__policy__class__}{br\_ssl\_server\_policy\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\_ssl\_server\_policy\_class}};}
+\DoxyCodeLine{03130\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__server__policy__class__}{br\_ssl\_server\_policy\_class\_}}\ \{}
+\DoxyCodeLine{03134\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__ssl__server__policy__class___a18c30e437ebf8997032487383e6bbbcf}{context\_size}};}
+\DoxyCodeLine{03135\ }
+\DoxyCodeLine{03167\ \ \ \ \ int\ (*\mbox{\hyperlink{structbr__ssl__server__policy__class___abe8a7678839aa9ac7f905e2b404f7b88}{choose}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\_ssl\_server\_policy\_class}}\ **pctx,}
+\DoxyCodeLine{03168\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03169\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__ssl__server__choices}{br\_ssl\_server\_choices}}\ *choices);}
+\DoxyCodeLine{03170\ }
+\DoxyCodeLine{03222\ \ \ \ \ uint32\_t\ (*\mbox{\hyperlink{structbr__ssl__server__policy__class___ab44be849fc46841e1aed12fff58860f4}{do\_keyx}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\_ssl\_server\_policy\_class}}\ **pctx,}
+\DoxyCodeLine{03223\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{03224\ }
+\DoxyCodeLine{03264\ \ \ \ \ size\_t\ (*\mbox{\hyperlink{structbr__ssl__server__policy__class___a3491b6ba9ea1d304043edb5d3b30bcb8}{do\_sign}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\_ssl\_server\_policy\_class}}\ **pctx,}
+\DoxyCodeLine{03265\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ algo\_id,}
+\DoxyCodeLine{03266\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ hv\_len,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{03267\ \};}
+\DoxyCodeLine{03268\ }
+\DoxyCodeLine{03279\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{03281\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\_ssl\_server\_policy\_class}}\ *\mbox{\hyperlink{structbr__ssl__server__policy__rsa__context_aa239d903bf48acfca78281f86074d2f5}{vtable}};}
+\DoxyCodeLine{03282\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{03283\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain;}
+\DoxyCodeLine{03284\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ chain\_len;}
+\DoxyCodeLine{03285\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk;}
+\DoxyCodeLine{03286\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ allowed\_usages;}
+\DoxyCodeLine{03287\ \ \ \ \ \mbox{\hyperlink{bearssl__rsa_8h_a77085d6f13d25d5e211e6954ff30ff6a}{br\_rsa\_private}}\ irsacore;}
+\DoxyCodeLine{03288\ \ \ \ \ \mbox{\hyperlink{bearssl__rsa_8h_a24180c531a5c88c08cf7e32e96aa2eca}{br\_rsa\_pkcs1\_sign}}\ irsasign;}
+\DoxyCodeLine{03289\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03290\ \}\ \mbox{\hyperlink{structbr__ssl__server__policy__rsa__context}{br\_ssl\_server\_policy\_rsa\_context}};}
+\DoxyCodeLine{03291\ }
+\DoxyCodeLine{03306\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{03308\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\_ssl\_server\_policy\_class}}\ *\mbox{\hyperlink{structbr__ssl__server__policy__ec__context_a891d900fdb2ce97c27f26ddcda9dda95}{vtable}};}
+\DoxyCodeLine{03309\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{03310\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain;}
+\DoxyCodeLine{03311\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ chain\_len;}
+\DoxyCodeLine{03312\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__private__key}{br\_ec\_private\_key}}\ *sk;}
+\DoxyCodeLine{03313\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ allowed\_usages;}
+\DoxyCodeLine{03314\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cert\_issuer\_key\_type;}
+\DoxyCodeLine{03315\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__multihash__context}{br\_multihash\_context}}\ *mhash;}
+\DoxyCodeLine{03316\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__impl}{br\_ec\_impl}}\ *iec;}
+\DoxyCodeLine{03317\ \ \ \ \ \mbox{\hyperlink{bearssl__ec_8h_ab7154b0c899ceb3af062c69016258667}{br\_ecdsa\_sign}}\ iecdsa;}
+\DoxyCodeLine{03318\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03319\ \}\ \mbox{\hyperlink{structbr__ssl__server__policy__ec__context}{br\_ssl\_server\_policy\_ec\_context}};}
+\DoxyCodeLine{03320\ }
+\DoxyCodeLine{03331\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__session__cache__class__}{br\_ssl\_session\_cache\_class\_}}\ \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\_ssl\_session\_cache\_class}};}
+\DoxyCodeLine{03332\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__session__cache__class__}{br\_ssl\_session\_cache\_class\_}}\ \{}
+\DoxyCodeLine{03336\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__ssl__session__cache__class___a9f04a86485e1c4d448efa0884ce97690}{context\_size}};}
+\DoxyCodeLine{03337\ }
+\DoxyCodeLine{03350\ \ \ \ \ void\ (*\mbox{\hyperlink{structbr__ssl__session__cache__class___ab4076e708a48abab20b768d872382a3b}{save}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\_ssl\_session\_cache\_class}}\ **ctx,}
+\DoxyCodeLine{03351\ \ \ \ \ \ \ \ \ br\_ssl\_server\_context\ *server\_ctx,}
+\DoxyCodeLine{03352\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ssl__session__parameters}{br\_ssl\_session\_parameters}}\ *params);}
+\DoxyCodeLine{03353\ }
+\DoxyCodeLine{03368\ \ \ \ \ int\ (*\mbox{\hyperlink{structbr__ssl__session__cache__class___a2ef5e675fb1227f55867aebc94bf5a23}{load}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\_ssl\_session\_cache\_class}}\ **ctx,}
+\DoxyCodeLine{03369\ \ \ \ \ \ \ \ \ br\_ssl\_server\_context\ *server\_ctx,}
+\DoxyCodeLine{03370\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__ssl__session__parameters}{br\_ssl\_session\_parameters}}\ *params);}
+\DoxyCodeLine{03371\ \};}
+\DoxyCodeLine{03372\ }
+\DoxyCodeLine{03387\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{03389\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\_ssl\_session\_cache\_class}}\ *\mbox{\hyperlink{structbr__ssl__session__cache__lru_ade832ef9694bb56c61107e9993541ddf}{vtable}};}
+\DoxyCodeLine{03390\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{03391\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *store;}
+\DoxyCodeLine{03392\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ store\_len,\ store\_ptr;}
+\DoxyCodeLine{03393\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ index\_key[32];}
+\DoxyCodeLine{03394\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hash;}
+\DoxyCodeLine{03395\ \ \ \ \ \textcolor{keywordtype}{int}\ init\_done;}
+\DoxyCodeLine{03396\ \ \ \ \ uint32\_t\ head,\ tail,\ root;}
+\DoxyCodeLine{03397\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03398\ \}\ \mbox{\hyperlink{structbr__ssl__session__cache__lru}{br\_ssl\_session\_cache\_lru}};}
+\DoxyCodeLine{03399\ }
+\DoxyCodeLine{03411\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_aeca1741fcd33d9c5fd187da54e68ff3c}{br\_ssl\_session\_cache\_lru\_init}}(\mbox{\hyperlink{structbr__ssl__session__cache__lru}{br\_ssl\_session\_cache\_lru}}\ *cc,}
+\DoxyCodeLine{03412\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *store,\ \textcolor{keywordtype}{size\_t}\ store\_len);}
+\DoxyCodeLine{03413\ }
+\DoxyCodeLine{03424\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a74dfb193e77ff5718e33c2e42c8faf59}{br\_ssl\_session\_cache\_lru\_forget}}(}
+\DoxyCodeLine{03425\ \ \ \ \ \mbox{\hyperlink{structbr__ssl__session__cache__lru}{br\_ssl\_session\_cache\_lru}}\ *cc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\textcolor{keywordtype}{id});}
+\DoxyCodeLine{03426\ }
+\DoxyCodeLine{03435\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbr__ssl__server__context__}{br\_ssl\_server\_context\_}}\ \{}
+\DoxyCodeLine{03439\ \ \ \ \ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ \mbox{\hyperlink{structbr__ssl__server__context___ad0d0015969fedecfd91440b088967279}{eng}};}
+\DoxyCodeLine{03440\ }
+\DoxyCodeLine{03441\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{03442\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03443\ \textcolor{comment}{\ \ \ \ \ *\ Maximum\ version\ from\ the\ client.}}
+\DoxyCodeLine{03444\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03445\ \ \ \ \ uint16\_t\ client\_max\_version;}
+\DoxyCodeLine{03446\ }
+\DoxyCodeLine{03447\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03448\ \textcolor{comment}{\ \ \ \ \ *\ Session\ cache.}}
+\DoxyCodeLine{03449\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03450\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\_ssl\_session\_cache\_class}}\ **cache\_vtable;}
+\DoxyCodeLine{03451\ }
+\DoxyCodeLine{03452\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03453\ \textcolor{comment}{\ \ \ \ \ *\ Translated\ cipher\ suites\ supported\ by\ the\ client.\ The\ list}}
+\DoxyCodeLine{03454\ \textcolor{comment}{\ \ \ \ \ *\ is\ trimmed\ to\ include\ only\ the\ cipher\ suites\ that\ the}}
+\DoxyCodeLine{03455\ \textcolor{comment}{\ \ \ \ \ *\ server\ also\ supports;\ they\ are\ in\ the\ same\ order\ as\ in\ the}}
+\DoxyCodeLine{03456\ \textcolor{comment}{\ \ \ \ \ *\ client\ message.}}
+\DoxyCodeLine{03457\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03458\ \ \ \ \ \mbox{\hyperlink{bearssl__ssl_8h_a67ca54c2771bc77684be772428c231ea}{br\_suite\_translated}}\ client\_suites[BR\_MAX\_CIPHER\_SUITES];}
+\DoxyCodeLine{03459\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ client\_suites\_num;}
+\DoxyCodeLine{03460\ }
+\DoxyCodeLine{03461\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03462\ \textcolor{comment}{\ \ \ \ \ *\ Hash\ functions\ supported\ by\ the\ client,\ with\ ECDSA\ and\ RSA}}
+\DoxyCodeLine{03463\ \textcolor{comment}{\ \ \ \ \ *\ (bit\ mask).\ For\ hash\ function\ with\ id\ 'x',\ set\ bit\ index\ is}}
+\DoxyCodeLine{03464\ \textcolor{comment}{\ \ \ \ \ *\ x\ for\ RSA,\ x+8\ for\ ECDSA.\ For\ newer\ algorithms,\ with\ ID}}
+\DoxyCodeLine{03465\ \textcolor{comment}{\ \ \ \ \ *\ 0x08**,\ bit\ 16+k\ is\ set\ for\ algorithm\ 0x0800+k.}}
+\DoxyCodeLine{03466\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03467\ \ \ \ \ uint32\_t\ hashes;}
+\DoxyCodeLine{03468\ }
+\DoxyCodeLine{03469\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03470\ \textcolor{comment}{\ \ \ \ \ *\ Curves\ supported\ by\ the\ client\ (bit\ mask,\ for\ named\ curves).}}
+\DoxyCodeLine{03471\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03472\ \ \ \ \ uint32\_t\ curves;}
+\DoxyCodeLine{03473\ }
+\DoxyCodeLine{03474\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03475\ \textcolor{comment}{\ \ \ \ \ *\ Context\ for\ chain\ handler.}}
+\DoxyCodeLine{03476\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03477\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\_ssl\_server\_policy\_class}}\ **policy\_vtable;}
+\DoxyCodeLine{03478\ \ \ \ \ uint16\_t\ sign\_hash\_id;}
+\DoxyCodeLine{03479\ }
+\DoxyCodeLine{03480\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03481\ \textcolor{comment}{\ \ \ \ \ *\ For\ the\ core\ handlers,\ thus\ avoiding\ (in\ most\ cases)\ the}}
+\DoxyCodeLine{03482\ \textcolor{comment}{\ \ \ \ \ *\ need\ for\ an\ externally\ provided\ policy\ context.}}
+\DoxyCodeLine{03483\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03484\ \ \ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{03485\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\_ssl\_server\_policy\_class}}\ *vtable;}
+\DoxyCodeLine{03486\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__ssl__server__policy__rsa__context}{br\_ssl\_server\_policy\_rsa\_context}}\ single\_rsa;}
+\DoxyCodeLine{03487\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structbr__ssl__server__policy__ec__context}{br\_ssl\_server\_policy\_ec\_context}}\ single\_ec;}
+\DoxyCodeLine{03488\ \ \ \ \ \}\ chain\_handler;}
+\DoxyCodeLine{03489\ }
+\DoxyCodeLine{03490\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03491\ \textcolor{comment}{\ \ \ \ \ *\ Buffer\ for\ the\ ECDHE\ private\ key.}}
+\DoxyCodeLine{03492\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03493\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ ecdhe\_key[70];}
+\DoxyCodeLine{03494\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ ecdhe\_key\_len;}
+\DoxyCodeLine{03495\ }
+\DoxyCodeLine{03496\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03497\ \textcolor{comment}{\ \ \ \ \ *\ Trust\ anchor\ names\ for\ client\ authentication.\ "{}ta\_names"{}\ and}}
+\DoxyCodeLine{03498\ \textcolor{comment}{\ \ \ \ \ *\ "{}tas"{}\ cannot\ be\ both\ non-\/NULL.}}
+\DoxyCodeLine{03499\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03500\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x500__name}{br\_x500\_name}}\ *ta\_names;}
+\DoxyCodeLine{03501\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__trust__anchor}{br\_x509\_trust\_anchor}}\ *tas;}
+\DoxyCodeLine{03502\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ num\_tas;}
+\DoxyCodeLine{03503\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ cur\_dn\_index;}
+\DoxyCodeLine{03504\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *cur\_dn;}
+\DoxyCodeLine{03505\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ cur\_dn\_len;}
+\DoxyCodeLine{03506\ }
+\DoxyCodeLine{03507\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03508\ \textcolor{comment}{\ \ \ \ \ *\ Buffer\ for\ the\ hash\ value\ computed\ over\ all\ handshake\ messages}}
+\DoxyCodeLine{03509\ \textcolor{comment}{\ \ \ \ \ *\ prior\ to\ CertificateVerify,\ and\ identifier\ for\ the\ hash\ function.}}
+\DoxyCodeLine{03510\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03511\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ hash\_CV[64];}
+\DoxyCodeLine{03512\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ hash\_CV\_len;}
+\DoxyCodeLine{03513\ \ \ \ \ \textcolor{keywordtype}{int}\ hash\_CV\_id;}
+\DoxyCodeLine{03514\ }
+\DoxyCodeLine{03515\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{03516\ \textcolor{comment}{\ \ \ \ \ *\ Server-\/specific\ implementations.}}
+\DoxyCodeLine{03517\ \textcolor{comment}{\ \ \ \ \ *\ (none\ for\ now)}}
+\DoxyCodeLine{03518\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{03519\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03520\ \};}
+\DoxyCodeLine{03521\ }
+\DoxyCodeLine{03522\ \textcolor{comment}{/*}}
+\DoxyCodeLine{03523\ \textcolor{comment}{\ *\ Each\ br\_ssl\_server\_init\_xxx()\ function\ sets\ the\ list\ of\ supported}}
+\DoxyCodeLine{03524\ \textcolor{comment}{\ *\ cipher\ suites\ and\ used\ implementations,\ as\ specified\ by\ the\ profile}}
+\DoxyCodeLine{03525\ \textcolor{comment}{\ *\ name\ 'xxx'.\ Defined\ profile\ names\ are:}}
+\DoxyCodeLine{03526\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{03527\ \textcolor{comment}{\ *\ \ \ \ full\_rsa\ \ \ \ all\ supported\ algorithm,\ server\ key\ type\ is\ RSA}}
+\DoxyCodeLine{03528\ \textcolor{comment}{\ *\ \ \ \ full\_ec\ \ \ \ \ all\ supported\ algorithm,\ server\ key\ type\ is\ EC}}
+\DoxyCodeLine{03529\ \textcolor{comment}{\ *\ \ \ \ TODO:\ add\ other\ profiles}}
+\DoxyCodeLine{03530\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{03531\ \textcolor{comment}{\ *\ Naming\ scheme\ for\ "{}minimal"{}\ profiles:\ min123}}
+\DoxyCodeLine{03532\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{03533\ \textcolor{comment}{\ *\ -\/-\/\ character\ 1:\ key\ exchange}}
+\DoxyCodeLine{03534\ \textcolor{comment}{\ *\ \ \ \ \ \ r\ =\ RSA}}
+\DoxyCodeLine{03535\ \textcolor{comment}{\ *\ \ \ \ \ \ e\ =\ ECDHE\_RSA}}
+\DoxyCodeLine{03536\ \textcolor{comment}{\ *\ \ \ \ \ \ f\ =\ ECDHE\_ECDSA}}
+\DoxyCodeLine{03537\ \textcolor{comment}{\ *\ \ \ \ \ \ u\ =\ ECDH\_RSA}}
+\DoxyCodeLine{03538\ \textcolor{comment}{\ *\ \ \ \ \ \ v\ =\ ECDH\_ECDSA}}
+\DoxyCodeLine{03539\ \textcolor{comment}{\ *\ -\/-\/\ character\ 2:\ version\ /\ PRF}}
+\DoxyCodeLine{03540\ \textcolor{comment}{\ *\ \ \ \ \ \ 0\ =\ TLS\ 1.0\ /\ 1.1\ with\ MD5+SHA-\/1}}
+\DoxyCodeLine{03541\ \textcolor{comment}{\ *\ \ \ \ \ \ 2\ =\ TLS\ 1.2\ with\ SHA-\/256}}
+\DoxyCodeLine{03542\ \textcolor{comment}{\ *\ \ \ \ \ \ 3\ =\ TLS\ 1.2\ with\ SHA-\/384}}
+\DoxyCodeLine{03543\ \textcolor{comment}{\ *\ -\/-\/\ character\ 3:\ encryption}}
+\DoxyCodeLine{03544\ \textcolor{comment}{\ *\ \ \ \ \ \ a\ =\ AES/CBC}}
+\DoxyCodeLine{03545\ \textcolor{comment}{\ *\ \ \ \ \ \ d\ =\ 3DES/CBC}}
+\DoxyCodeLine{03546\ \textcolor{comment}{\ *\ \ \ \ \ \ g\ =\ AES/GCM}}
+\DoxyCodeLine{03547\ \textcolor{comment}{\ *\ \ \ \ \ \ c\ =\ ChaCha20+Poly1305}}
+\DoxyCodeLine{03548\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{03549\ }
+\DoxyCodeLine{03562\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a76293c81c4624c58254a62be7b2d5e79}{br\_ssl\_server\_init\_full\_rsa}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03563\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03564\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{03565\ }
+\DoxyCodeLine{03584\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a592b2af27b2f6b9389aac854fb0b783a}{br\_ssl\_server\_init\_full\_ec}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03585\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03586\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cert\_issuer\_key\_type,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__private__key}{br\_ec\_private\_key}}\ *sk);}
+\DoxyCodeLine{03587\ }
+\DoxyCodeLine{03600\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a6ab887660a77733ccf07e4c8354cedf3}{br\_ssl\_server\_init\_minr2g}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03601\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03602\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{03603\ }
+\DoxyCodeLine{03617\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a11043c59970842612f85dd81442a5894}{br\_ssl\_server\_init\_mine2g}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03618\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03619\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{03620\ }
+\DoxyCodeLine{03635\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a1533be2421b141c5d9bc6ddf5b273adf}{br\_ssl\_server\_init\_minf2g}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03636\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03637\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__private__key}{br\_ec\_private\_key}}\ *sk);}
+\DoxyCodeLine{03638\ }
+\DoxyCodeLine{03655\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_ad57e8fbd7ed2ce0cd7fec56fb47963fc}{br\_ssl\_server\_init\_minu2g}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03656\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03657\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__private__key}{br\_ec\_private\_key}}\ *sk);}
+\DoxyCodeLine{03658\ }
+\DoxyCodeLine{03675\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_afde9e79db4cf932509c114fe4018d0c7}{br\_ssl\_server\_init\_minv2g}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03676\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03677\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__private__key}{br\_ec\_private\_key}}\ *sk);}
+\DoxyCodeLine{03678\ }
+\DoxyCodeLine{03691\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_a5880fc359729ccc550ada12d35818cd3}{br\_ssl\_server\_init\_mine2c}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03692\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03693\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{03694\ }
+\DoxyCodeLine{03707\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_aa46aed295a37326ee94bcc592a2ffc33}{br\_ssl\_server\_init\_minf2c}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03708\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03709\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__private__key}{br\_ec\_private\_key}}\ *sk);}
+\DoxyCodeLine{03710\ }
+\DoxyCodeLine{03733\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a67ca54c2771bc77684be772428c231ea}{br\_suite\_translated}}\ *}
+\DoxyCodeLine{03734\ br\_ssl\_server\_get\_client\_suites(\textcolor{keyword}{const}\ br\_ssl\_server\_context\ *cc,\ \textcolor{keywordtype}{size\_t}\ *num)}
+\DoxyCodeLine{03735\ \{}
+\DoxyCodeLine{03736\ \ \ \ \ *num\ =\ cc-\/>client\_suites\_num;}
+\DoxyCodeLine{03737\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>client\_suites;}
+\DoxyCodeLine{03738\ \}}
+\DoxyCodeLine{03739\ }
+\DoxyCodeLine{03770\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t}
+\DoxyCodeLine{03771\ br\_ssl\_server\_get\_client\_hashes(\textcolor{keyword}{const}\ br\_ssl\_server\_context\ *cc)}
+\DoxyCodeLine{03772\ \{}
+\DoxyCodeLine{03773\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>hashes;}
+\DoxyCodeLine{03774\ \}}
+\DoxyCodeLine{03775\ }
+\DoxyCodeLine{03784\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t}
+\DoxyCodeLine{03785\ br\_ssl\_server\_get\_client\_curves(\textcolor{keyword}{const}\ br\_ssl\_server\_context\ *cc)}
+\DoxyCodeLine{03786\ \{}
+\DoxyCodeLine{03787\ \ \ \ \ \textcolor{keywordflow}{return}\ cc-\/>curves;}
+\DoxyCodeLine{03788\ \}}
+\DoxyCodeLine{03789\ }
+\DoxyCodeLine{03799\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_abd0b4a8d6732d5e2b1453043f081961f}{br\_ssl\_server\_zero}}(br\_ssl\_server\_context\ *cc);}
+\DoxyCodeLine{03800\ }
+\DoxyCodeLine{03811\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03812\ br\_ssl\_server\_set\_policy(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03813\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\_ssl\_server\_policy\_class}}\ **pctx)}
+\DoxyCodeLine{03814\ \{}
+\DoxyCodeLine{03815\ \ \ \ \ cc-\/>policy\_vtable\ =\ pctx;}
+\DoxyCodeLine{03816\ \}}
+\DoxyCodeLine{03817\ }
+\DoxyCodeLine{03836\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_af5953bc6db9dce4a31a54d4559600ee1}{br\_ssl\_server\_set\_single\_rsa}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03837\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03838\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ allowed\_usages,}
+\DoxyCodeLine{03839\ \ \ \ \ \mbox{\hyperlink{bearssl__rsa_8h_a77085d6f13d25d5e211e6954ff30ff6a}{br\_rsa\_private}}\ irsacore,\ \mbox{\hyperlink{bearssl__rsa_8h_a24180c531a5c88c08cf7e32e96aa2eca}{br\_rsa\_pkcs1\_sign}}\ irsasign);}
+\DoxyCodeLine{03840\ }
+\DoxyCodeLine{03865\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_ae513a26c74d0d499b0ad0bf47f17adba}{br\_ssl\_server\_set\_single\_ec}}(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03866\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__certificate}{br\_x509\_certificate}}\ *chain,\ \textcolor{keywordtype}{size\_t}\ chain\_len,}
+\DoxyCodeLine{03867\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__private__key}{br\_ec\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ allowed\_usages,}
+\DoxyCodeLine{03868\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ cert\_issuer\_key\_type,}
+\DoxyCodeLine{03869\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__ec__impl}{br\_ec\_impl}}\ *iec,\ \mbox{\hyperlink{bearssl__ec_8h_ab7154b0c899ceb3af062c69016258667}{br\_ecdsa\_sign}}\ iecdsa);}
+\DoxyCodeLine{03870\ }
+\DoxyCodeLine{03890\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03891\ br\_ssl\_server\_set\_trust\_anchor\_names(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03892\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x500__name}{br\_x500\_name}}\ *ta\_names,\ \textcolor{keywordtype}{size\_t}\ num)}
+\DoxyCodeLine{03893\ \{}
+\DoxyCodeLine{03894\ \ \ \ \ cc-\/>ta\_names\ =\ ta\_names;}
+\DoxyCodeLine{03895\ \ \ \ \ cc-\/>tas\ =\ NULL;}
+\DoxyCodeLine{03896\ \ \ \ \ cc-\/>num\_tas\ =\ num;}
+\DoxyCodeLine{03897\ \}}
+\DoxyCodeLine{03898\ }
+\DoxyCodeLine{03917\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03918\ br\_ssl\_server\_set\_trust\_anchor\_names\_alt(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03919\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__x509__trust__anchor}{br\_x509\_trust\_anchor}}\ *tas,\ \textcolor{keywordtype}{size\_t}\ num)}
+\DoxyCodeLine{03920\ \{}
+\DoxyCodeLine{03921\ \ \ \ \ cc-\/>ta\_names\ =\ NULL;}
+\DoxyCodeLine{03922\ \ \ \ \ cc-\/>tas\ =\ tas;}
+\DoxyCodeLine{03923\ \ \ \ \ cc-\/>num\_tas\ =\ num;}
+\DoxyCodeLine{03924\ \}}
+\DoxyCodeLine{03925\ }
+\DoxyCodeLine{03935\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{03936\ br\_ssl\_server\_set\_cache(br\_ssl\_server\_context\ *cc,}
+\DoxyCodeLine{03937\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\_ssl\_session\_cache\_class}}\ **vtable)}
+\DoxyCodeLine{03938\ \{}
+\DoxyCodeLine{03939\ \ \ \ \ cc-\/>cache\_vtable\ =\ vtable;}
+\DoxyCodeLine{03940\ \}}
+\DoxyCodeLine{03941\ }
+\DoxyCodeLine{03948\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_a72774118d4f926292f3dc3ea11869552}{br\_ssl\_server\_reset}}(br\_ssl\_server\_context\ *cc);}
+\DoxyCodeLine{03949\ }
+\DoxyCodeLine{03950\ \textcolor{comment}{/*\ =====================================================================\ */}}
+\DoxyCodeLine{03951\ }
+\DoxyCodeLine{03952\ \textcolor{comment}{/*}}
+\DoxyCodeLine{03953\ \textcolor{comment}{\ *\ Context\ for\ the\ simplified\ I/O\ context.\ The\ transport\ medium\ is\ accessed}}
+\DoxyCodeLine{03954\ \textcolor{comment}{\ *\ through\ the\ low\_read()\ and\ low\_write()\ callback\ functions,\ each\ with}}
+\DoxyCodeLine{03955\ \textcolor{comment}{\ *\ its\ own\ opaque\ context\ pointer.}}
+\DoxyCodeLine{03956\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{03957\ \textcolor{comment}{\ *\ \ low\_read()\ \ \ \ read\ some\ bytes,\ at\ most\ 'len'\ bytes,\ into\ data[].\ The}}
+\DoxyCodeLine{03958\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ returned\ value\ is\ the\ number\ of\ read\ bytes,\ or\ -\/1\ on\ error.}}
+\DoxyCodeLine{03959\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ 'len'\ parameter\ is\ guaranteed\ never\ to\ exceed\ 20000,}}
+\DoxyCodeLine{03960\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ so\ the\ length\ always\ fits\ in\ an\ 'int'\ on\ all\ platforms.}}
+\DoxyCodeLine{03961\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{03962\ \textcolor{comment}{\ *\ \ low\_write()\ \ \ write\ up\ to\ 'len'\ bytes,\ to\ be\ read\ from\ data[].\ The}}
+\DoxyCodeLine{03963\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ returned\ value\ is\ the\ number\ of\ written\ bytes,\ or\ -\/1\ on}}
+\DoxyCodeLine{03964\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ error.\ The\ 'len'\ parameter\ is\ guaranteed\ never\ to\ exceed}}
+\DoxyCodeLine{03965\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 20000,\ so\ the\ length\ always\ fits\ in\ an\ 'int'\ on\ all}}
+\DoxyCodeLine{03966\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ parameters.}}
+\DoxyCodeLine{03967\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{03968\ \textcolor{comment}{\ *\ A\ socket\ closure\ (if\ the\ transport\ medium\ is\ a\ socket)\ should\ be\ reported}}
+\DoxyCodeLine{03969\ \textcolor{comment}{\ *\ as\ an\ error\ (-\/1).\ The\ callbacks\ shall\ endeavour\ to\ block\ until\ at\ least}}
+\DoxyCodeLine{03970\ \textcolor{comment}{\ *\ one\ byte\ can\ be\ read\ or\ written;\ a\ callback\ returning\ 0\ at\ times\ is}}
+\DoxyCodeLine{03971\ \textcolor{comment}{\ *\ acceptable,\ but\ this\ normally\ leads\ to\ the\ callback\ being\ immediately}}
+\DoxyCodeLine{03972\ \textcolor{comment}{\ *\ called\ again,\ so\ the\ callback\ should\ at\ least\ always\ try\ to\ block\ for}}
+\DoxyCodeLine{03973\ \textcolor{comment}{\ *\ some\ time\ if\ no\ I/O\ can\ take\ place.}}
+\DoxyCodeLine{03974\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{03975\ \textcolor{comment}{\ *\ The\ SSL\ engine\ naturally\ applies\ some\ buffering,\ so\ the\ callbacks\ need}}
+\DoxyCodeLine{03976\ \textcolor{comment}{\ *\ not\ apply\ buffers\ of\ their\ own.}}
+\DoxyCodeLine{03977\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{03984\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{03985\ \textcolor{preprocessor}{\#ifndef\ BR\_DOXYGEN\_IGNORE}}
+\DoxyCodeLine{03986\ \ \ \ \ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *engine;}
+\DoxyCodeLine{03987\ \ \ \ \ int\ (*low\_read)(\textcolor{keywordtype}{void}\ *read\_context,}
+\DoxyCodeLine{03988\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{03989\ \ \ \ \ \textcolor{keywordtype}{void}\ *read\_context;}
+\DoxyCodeLine{03990\ \ \ \ \ int\ (*low\_write)(\textcolor{keywordtype}{void}\ *write\_context,}
+\DoxyCodeLine{03991\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{03992\ \ \ \ \ \textcolor{keywordtype}{void}\ *write\_context;}
+\DoxyCodeLine{03993\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03994\ \}\ \mbox{\hyperlink{structbr__sslio__context}{br\_sslio\_context}};}
+\DoxyCodeLine{03995\ }
+\DoxyCodeLine{04043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bearssl__ssl_8h_ab9f7303a713df06e676fc10c6f1de769}{br\_sslio\_init}}(\mbox{\hyperlink{structbr__sslio__context}{br\_sslio\_context}}\ *ctx,}
+\DoxyCodeLine{04044\ \ \ \ \ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *engine,}
+\DoxyCodeLine{04045\ \ \ \ \ \textcolor{keywordtype}{int}\ (*low\_read)(\textcolor{keywordtype}{void}\ *read\_context,}
+\DoxyCodeLine{04046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len),}
+\DoxyCodeLine{04047\ \ \ \ \ \textcolor{keywordtype}{void}\ *read\_context,}
+\DoxyCodeLine{04048\ \ \ \ \ \textcolor{keywordtype}{int}\ (*low\_write)(\textcolor{keywordtype}{void}\ *write\_context,}
+\DoxyCodeLine{04049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len),}
+\DoxyCodeLine{04050\ \ \ \ \ \textcolor{keywordtype}{void}\ *write\_context);}
+\DoxyCodeLine{04051\ }
+\DoxyCodeLine{04072\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_afb752eaccd69e6f4bf75656a13ce9d7f}{br\_sslio\_read}}(\mbox{\hyperlink{structbr__sslio__context}{br\_sslio\_context}}\ *cc,\ \textcolor{keywordtype}{void}\ *dst,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{04073\ }
+\DoxyCodeLine{04087\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_a10369c5196a2e87db177c7988be1dbd1}{br\_sslio\_read\_all}}(\mbox{\hyperlink{structbr__sslio__context}{br\_sslio\_context}}\ *cc,\ \textcolor{keywordtype}{void}\ *dst,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{04088\ }
+\DoxyCodeLine{04113\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_a1fc04be2039ce2b909d20f95cc9cba70}{br\_sslio\_write}}(\mbox{\hyperlink{structbr__sslio__context}{br\_sslio\_context}}\ *cc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{04114\ }
+\DoxyCodeLine{04133\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_a521bd2e4031b6a93aae1c0b0d9df898f}{br\_sslio\_write\_all}}(\mbox{\hyperlink{structbr__sslio__context}{br\_sslio\_context}}\ *cc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{04134\ }
+\DoxyCodeLine{04152\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_aa9514a2c716955bd851ed04eec55a62b}{br\_sslio\_flush}}(\mbox{\hyperlink{structbr__sslio__context}{br\_sslio\_context}}\ *cc);}
+\DoxyCodeLine{04153\ }
+\DoxyCodeLine{04170\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{bearssl__ssl_8h_a8fb7707ba3ef638601681cce5491af12}{br\_sslio\_close}}(\mbox{\hyperlink{structbr__sslio__context}{br\_sslio\_context}}\ *cc);}
+\DoxyCodeLine{04171\ }
+\DoxyCodeLine{04172\ \textcolor{comment}{/*\ =====================================================================\ */}}
+\DoxyCodeLine{04173\ }
+\DoxyCodeLine{04174\ \textcolor{comment}{/*}}
+\DoxyCodeLine{04175\ \textcolor{comment}{\ *\ Symbolic\ constants\ for\ cipher\ suites.}}
+\DoxyCodeLine{04176\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{04177\ }
+\DoxyCodeLine{04178\ \textcolor{comment}{/*\ From\ RFC\ 5246\ */}}
+\DoxyCodeLine{04179\ \textcolor{preprocessor}{\#define\ BR\_TLS\_NULL\_WITH\_NULL\_NULL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0000}}
+\DoxyCodeLine{04180\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_NULL\_MD5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0001}}
+\DoxyCodeLine{04181\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_NULL\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0002}}
+\DoxyCodeLine{04182\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_NULL\_SHA256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x003B}}
+\DoxyCodeLine{04183\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_RC4\_128\_MD5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0004}}
+\DoxyCodeLine{04184\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_RC4\_128\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0005}}
+\DoxyCodeLine{04185\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ 0x000A}}
+\DoxyCodeLine{04186\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x002F}}
+\DoxyCodeLine{04187\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0035}}
+\DoxyCodeLine{04188\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_128\_CBC\_SHA256\ \ \ \ \ \ \ \ \ \ \ 0x003C}}
+\DoxyCodeLine{04189\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_256\_CBC\_SHA256\ \ \ \ \ \ \ \ \ \ \ 0x003D}}
+\DoxyCodeLine{04190\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_DSS\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ 0x000D}}
+\DoxyCodeLine{04191\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_RSA\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ 0x0010}}
+\DoxyCodeLine{04192\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_DSS\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ \ \ \ 0x0013}}
+\DoxyCodeLine{04193\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_RSA\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ \ \ \ 0x0016}}
+\DoxyCodeLine{04194\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_DSS\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ \ 0x0030}}
+\DoxyCodeLine{04195\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_RSA\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ \ 0x0031}}
+\DoxyCodeLine{04196\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_DSS\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ 0x0032}}
+\DoxyCodeLine{04197\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_RSA\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ 0x0033}}
+\DoxyCodeLine{04198\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_DSS\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ \ 0x0036}}
+\DoxyCodeLine{04199\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_RSA\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ \ 0x0037}}
+\DoxyCodeLine{04200\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_DSS\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ 0x0038}}
+\DoxyCodeLine{04201\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_RSA\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ 0x0039}}
+\DoxyCodeLine{04202\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_DSS\_WITH\_AES\_128\_CBC\_SHA256\ \ \ \ \ \ \ \ 0x003E}}
+\DoxyCodeLine{04203\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_RSA\_WITH\_AES\_128\_CBC\_SHA256\ \ \ \ \ \ \ \ 0x003F}}
+\DoxyCodeLine{04204\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_DSS\_WITH\_AES\_128\_CBC\_SHA256\ \ \ \ \ \ \ 0x0040}}
+\DoxyCodeLine{04205\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_RSA\_WITH\_AES\_128\_CBC\_SHA256\ \ \ \ \ \ \ 0x0067}}
+\DoxyCodeLine{04206\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_DSS\_WITH\_AES\_256\_CBC\_SHA256\ \ \ \ \ \ \ \ 0x0068}}
+\DoxyCodeLine{04207\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_RSA\_WITH\_AES\_256\_CBC\_SHA256\ \ \ \ \ \ \ \ 0x0069}}
+\DoxyCodeLine{04208\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_DSS\_WITH\_AES\_256\_CBC\_SHA256\ \ \ \ \ \ \ 0x006A}}
+\DoxyCodeLine{04209\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_RSA\_WITH\_AES\_256\_CBC\_SHA256\ \ \ \ \ \ \ 0x006B}}
+\DoxyCodeLine{04210\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_anon\_WITH\_RC4\_128\_MD5\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0018}}
+\DoxyCodeLine{04211\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_anon\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ \ \ \ 0x001B}}
+\DoxyCodeLine{04212\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_anon\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ 0x0034}}
+\DoxyCodeLine{04213\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_anon\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ \ \ \ 0x003A}}
+\DoxyCodeLine{04214\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_anon\_WITH\_AES\_128\_CBC\_SHA256\ \ \ \ \ \ \ 0x006C}}
+\DoxyCodeLine{04215\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_anon\_WITH\_AES\_256\_CBC\_SHA256\ \ \ \ \ \ \ 0x006D}}
+\DoxyCodeLine{04216\ }
+\DoxyCodeLine{04217\ \textcolor{comment}{/*\ From\ RFC\ 4492\ */}}
+\DoxyCodeLine{04218\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_ECDSA\_WITH\_NULL\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xC001}}
+\DoxyCodeLine{04219\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_ECDSA\_WITH\_RC4\_128\_SHA\ \ \ \ \ \ \ \ \ \ \ 0xC002}}
+\DoxyCodeLine{04220\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_ECDSA\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ 0xC003}}
+\DoxyCodeLine{04221\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_ECDSA\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ 0xC004}}
+\DoxyCodeLine{04222\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_ECDSA\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ 0xC005}}
+\DoxyCodeLine{04223\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_NULL\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ 0xC006}}
+\DoxyCodeLine{04224\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_RC4\_128\_SHA\ \ \ \ \ \ \ \ \ \ 0xC007}}
+\DoxyCodeLine{04225\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ 0xC008}}
+\DoxyCodeLine{04226\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ 0xC009}}
+\DoxyCodeLine{04227\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ 0xC00A}}
+\DoxyCodeLine{04228\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_RSA\_WITH\_NULL\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xC00B}}
+\DoxyCodeLine{04229\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_RSA\_WITH\_RC4\_128\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ 0xC00C}}
+\DoxyCodeLine{04230\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_RSA\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ \ \ 0xC00D}}
+\DoxyCodeLine{04231\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_RSA\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ \ \ 0xC00E}}
+\DoxyCodeLine{04232\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_RSA\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ \ \ 0xC00F}}
+\DoxyCodeLine{04233\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_NULL\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xC010}}
+\DoxyCodeLine{04234\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_RC4\_128\_SHA\ \ \ \ \ \ \ \ \ \ \ \ 0xC011}}
+\DoxyCodeLine{04235\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ \ 0xC012}}
+\DoxyCodeLine{04236\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ \ 0xC013}}
+\DoxyCodeLine{04237\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ \ 0xC014}}
+\DoxyCodeLine{04238\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_anon\_WITH\_NULL\_SHA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xC015}}
+\DoxyCodeLine{04239\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_anon\_WITH\_RC4\_128\_SHA\ \ \ \ \ \ \ \ \ \ \ \ 0xC016}}
+\DoxyCodeLine{04240\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_anon\_WITH\_3DES\_EDE\_CBC\_SHA\ \ \ \ \ \ \ 0xC017}}
+\DoxyCodeLine{04241\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_anon\_WITH\_AES\_128\_CBC\_SHA\ \ \ \ \ \ \ \ 0xC018}}
+\DoxyCodeLine{04242\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_anon\_WITH\_AES\_256\_CBC\_SHA\ \ \ \ \ \ \ \ 0xC019}}
+\DoxyCodeLine{04243\ }
+\DoxyCodeLine{04244\ \textcolor{comment}{/*\ From\ RFC\ 5288\ */}}
+\DoxyCodeLine{04245\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_128\_GCM\_SHA256\ \ \ \ \ \ \ \ \ \ \ 0x009C}}
+\DoxyCodeLine{04246\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_256\_GCM\_SHA384\ \ \ \ \ \ \ \ \ \ \ 0x009D}}
+\DoxyCodeLine{04247\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_RSA\_WITH\_AES\_128\_GCM\_SHA256\ \ \ \ \ \ \ 0x009E}}
+\DoxyCodeLine{04248\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_RSA\_WITH\_AES\_256\_GCM\_SHA384\ \ \ \ \ \ \ 0x009F}}
+\DoxyCodeLine{04249\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_RSA\_WITH\_AES\_128\_GCM\_SHA256\ \ \ \ \ \ \ \ 0x00A0}}
+\DoxyCodeLine{04250\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_RSA\_WITH\_AES\_256\_GCM\_SHA384\ \ \ \ \ \ \ \ 0x00A1}}
+\DoxyCodeLine{04251\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_DSS\_WITH\_AES\_128\_GCM\_SHA256\ \ \ \ \ \ \ 0x00A2}}
+\DoxyCodeLine{04252\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_DSS\_WITH\_AES\_256\_GCM\_SHA384\ \ \ \ \ \ \ 0x00A3}}
+\DoxyCodeLine{04253\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_DSS\_WITH\_AES\_128\_GCM\_SHA256\ \ \ \ \ \ \ \ 0x00A4}}
+\DoxyCodeLine{04254\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_DSS\_WITH\_AES\_256\_GCM\_SHA384\ \ \ \ \ \ \ \ 0x00A5}}
+\DoxyCodeLine{04255\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_anon\_WITH\_AES\_128\_GCM\_SHA256\ \ \ \ \ \ \ 0x00A6}}
+\DoxyCodeLine{04256\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DH\_anon\_WITH\_AES\_256\_GCM\_SHA384\ \ \ \ \ \ \ 0x00A7}}
+\DoxyCodeLine{04257\ }
+\DoxyCodeLine{04258\ \textcolor{comment}{/*\ From\ RFC\ 5289\ */}}
+\DoxyCodeLine{04259\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CBC\_SHA256\ \ \ 0xC023}}
+\DoxyCodeLine{04260\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_256\_CBC\_SHA384\ \ \ 0xC024}}
+\DoxyCodeLine{04261\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_ECDSA\_WITH\_AES\_128\_CBC\_SHA256\ \ \ \ 0xC025}}
+\DoxyCodeLine{04262\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_ECDSA\_WITH\_AES\_256\_CBC\_SHA384\ \ \ \ 0xC026}}
+\DoxyCodeLine{04263\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_AES\_128\_CBC\_SHA256\ \ \ \ \ 0xC027}}
+\DoxyCodeLine{04264\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_AES\_256\_CBC\_SHA384\ \ \ \ \ 0xC028}}
+\DoxyCodeLine{04265\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_RSA\_WITH\_AES\_128\_CBC\_SHA256\ \ \ \ \ \ 0xC029}}
+\DoxyCodeLine{04266\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_RSA\_WITH\_AES\_256\_CBC\_SHA384\ \ \ \ \ \ 0xC02A}}
+\DoxyCodeLine{04267\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_GCM\_SHA256\ \ \ 0xC02B}}
+\DoxyCodeLine{04268\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_256\_GCM\_SHA384\ \ \ 0xC02C}}
+\DoxyCodeLine{04269\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_ECDSA\_WITH\_AES\_128\_GCM\_SHA256\ \ \ \ 0xC02D}}
+\DoxyCodeLine{04270\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_ECDSA\_WITH\_AES\_256\_GCM\_SHA384\ \ \ \ 0xC02E}}
+\DoxyCodeLine{04271\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_AES\_128\_GCM\_SHA256\ \ \ \ \ 0xC02F}}
+\DoxyCodeLine{04272\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_AES\_256\_GCM\_SHA384\ \ \ \ \ 0xC030}}
+\DoxyCodeLine{04273\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_RSA\_WITH\_AES\_128\_GCM\_SHA256\ \ \ \ \ \ 0xC031}}
+\DoxyCodeLine{04274\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDH\_RSA\_WITH\_AES\_256\_GCM\_SHA384\ \ \ \ \ \ 0xC032}}
+\DoxyCodeLine{04275\ }
+\DoxyCodeLine{04276\ \textcolor{comment}{/*\ From\ RFC\ 6655\ and\ 7251\ */}}
+\DoxyCodeLine{04277\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_128\_CCM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xC09C}}
+\DoxyCodeLine{04278\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_256\_CCM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xC09D}}
+\DoxyCodeLine{04279\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_128\_CCM\_8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xC0A0}}
+\DoxyCodeLine{04280\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_WITH\_AES\_256\_CCM\_8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xC0A1}}
+\DoxyCodeLine{04281\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\ \ \ \ \ \ \ \ \ \ 0xC0AC}}
+\DoxyCodeLine{04282\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_256\_CCM\ \ \ \ \ \ \ \ \ \ 0xC0AD}}
+\DoxyCodeLine{04283\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_128\_CCM\_8\ \ \ \ \ \ \ \ 0xC0AE}}
+\DoxyCodeLine{04284\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_AES\_256\_CCM\_8\ \ \ \ \ \ \ \ 0xC0AF}}
+\DoxyCodeLine{04285\ }
+\DoxyCodeLine{04286\ \textcolor{comment}{/*\ From\ RFC\ 7905\ */}}
+\DoxyCodeLine{04287\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_RSA\_WITH\_CHACHA20\_POLY1305\_SHA256\ \ \ \ \ 0xCCA8}}
+\DoxyCodeLine{04288\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_ECDSA\_WITH\_CHACHA20\_POLY1305\_SHA256\ \ \ 0xCCA9}}
+\DoxyCodeLine{04289\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_RSA\_WITH\_CHACHA20\_POLY1305\_SHA256\ \ \ \ \ \ \ 0xCCAA}}
+\DoxyCodeLine{04290\ \textcolor{preprocessor}{\#define\ BR\_TLS\_PSK\_WITH\_CHACHA20\_POLY1305\_SHA256\ \ \ \ \ \ \ \ \ \ \ 0xCCAB}}
+\DoxyCodeLine{04291\ \textcolor{preprocessor}{\#define\ BR\_TLS\_ECDHE\_PSK\_WITH\_CHACHA20\_POLY1305\_SHA256\ \ \ \ \ 0xCCAC}}
+\DoxyCodeLine{04292\ \textcolor{preprocessor}{\#define\ BR\_TLS\_DHE\_PSK\_WITH\_CHACHA20\_POLY1305\_SHA256\ \ \ \ \ \ \ 0xCCAD}}
+\DoxyCodeLine{04293\ \textcolor{preprocessor}{\#define\ BR\_TLS\_RSA\_PSK\_WITH\_CHACHA20\_POLY1305\_SHA256\ \ \ \ \ \ \ 0xCCAE}}
+\DoxyCodeLine{04294\ }
+\DoxyCodeLine{04295\ \textcolor{comment}{/*\ From\ RFC\ 7507\ */}}
+\DoxyCodeLine{04296\ \textcolor{preprocessor}{\#define\ BR\_TLS\_FALLBACK\_SCSV\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x5600}}
+\DoxyCodeLine{04297\ }
+\DoxyCodeLine{04298\ \textcolor{comment}{/*}}
+\DoxyCodeLine{04299\ \textcolor{comment}{\ *\ Symbolic\ constants\ for\ alerts.}}
+\DoxyCodeLine{04300\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{04301\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_CLOSE\_NOTIFY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{04302\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_UNEXPECTED\_MESSAGE\ \ \ \ \ \ \ \ \ 10}}
+\DoxyCodeLine{04303\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_BAD\_RECORD\_MAC\ \ \ \ \ \ \ \ \ \ \ \ \ 20}}
+\DoxyCodeLine{04304\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_RECORD\_OVERFLOW\ \ \ \ \ \ \ \ \ \ \ \ 22}}
+\DoxyCodeLine{04305\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_DECOMPRESSION\_FAILURE\ \ \ \ \ \ 30}}
+\DoxyCodeLine{04306\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_HANDSHAKE\_FAILURE\ \ \ \ \ \ \ \ \ \ 40}}
+\DoxyCodeLine{04307\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_BAD\_CERTIFICATE\ \ \ \ \ \ \ \ \ \ \ \ 42}}
+\DoxyCodeLine{04308\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_UNSUPPORTED\_CERTIFICATE\ \ \ \ 43}}
+\DoxyCodeLine{04309\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_CERTIFICATE\_REVOKED\ \ \ \ \ \ \ \ 44}}
+\DoxyCodeLine{04310\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_CERTIFICATE\_EXPIRED\ \ \ \ \ \ \ \ 45}}
+\DoxyCodeLine{04311\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_CERTIFICATE\_UNKNOWN\ \ \ \ \ \ \ \ 46}}
+\DoxyCodeLine{04312\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_ILLEGAL\_PARAMETER\ \ \ \ \ \ \ \ \ \ 47}}
+\DoxyCodeLine{04313\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_UNKNOWN\_CA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 48}}
+\DoxyCodeLine{04314\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_ACCESS\_DENIED\ \ \ \ \ \ \ \ \ \ \ \ \ \ 49}}
+\DoxyCodeLine{04315\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_DECODE\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 50}}
+\DoxyCodeLine{04316\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_DECRYPT\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ 51}}
+\DoxyCodeLine{04317\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_PROTOCOL\_VERSION\ \ \ \ \ \ \ \ \ \ \ 70}}
+\DoxyCodeLine{04318\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_INSUFFICIENT\_SECURITY\ \ \ \ \ \ 71}}
+\DoxyCodeLine{04319\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_INTERNAL\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ 80}}
+\DoxyCodeLine{04320\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_USER\_CANCELED\ \ \ \ \ \ \ \ \ \ \ \ \ \ 90}}
+\DoxyCodeLine{04321\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_NO\_RENEGOTIATION\ \ \ \ \ \ \ \ \ \ 100}}
+\DoxyCodeLine{04322\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_UNSUPPORTED\_EXTENSION\ \ \ \ \ 110}}
+\DoxyCodeLine{04323\ \textcolor{preprocessor}{\#define\ BR\_ALERT\_NO\_APPLICATION\_PROTOCOL\ \ \ 120}}
+\DoxyCodeLine{04324\ }
+\DoxyCodeLine{04325\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{04326\ \}}
+\DoxyCodeLine{04327\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{04328\ }
+\DoxyCodeLine{04329\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{04330\ }
+\DoxyCodeLine{04331\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

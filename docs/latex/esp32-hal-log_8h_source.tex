@@ -1,0 +1,355 @@
+\doxysection{esp32-\/hal-\/log.h}
+\hypertarget{esp32-hal-log_8h_source}{}\label{esp32-hal-log_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/log.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/log.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2016\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ \_\_ARDUHAL\_LOG\_H\_\_}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ \_\_ARDUHAL\_LOG\_H\_\_}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}esp\_timer.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}rom/ets\_sys.h"{}}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_LEVEL\_NONE\ \ \ \ (0)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_LEVEL\_ERROR\ \ \ (1)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_LEVEL\_WARN\ \ \ \ (2)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_LEVEL\_INFO\ \ \ \ (3)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_LEVEL\_DEBUG\ \ \ (4)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_LEVEL\_VERBOSE\ (5)}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_ARDUHAL\_LOG\_DEFAULT\_LEVEL}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ CONFIG\_ARDUHAL\_LOG\_DEFAULT\_LEVEL\ ARDUHAL\_LOG\_LEVEL\_NONE}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#ifndef\ CORE\_DEBUG\_LEVEL}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_LEVEL\ CONFIG\_ARDUHAL\_LOG\_DEFAULT\_LEVEL}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_LEVEL\ CORE\_DEBUG\_LEVEL}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifdef\ USE\_ESP\_IDF\_LOG}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ LOG\_LOCAL\_LEVEL}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ LOG\_LOCAL\_LEVEL\ CORE\_DEBUG\_LEVEL}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_ARDUHAL\_LOG\_COLORS}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ CONFIG\_ARDUHAL\_LOG\_COLORS\ 0}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#if\ CONFIG\_ARDUHAL\_LOG\_COLORS}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_BLACK\ \ \ "{}30"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_RED\ \ \ \ \ "{}31"{}\ \ }\textcolor{comment}{//ERROR}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_GREEN\ \ \ "{}32"{}\ \ }\textcolor{comment}{//INFO}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_YELLOW\ \ "{}33"{}\ \ }\textcolor{comment}{//WARNING}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_BLUE\ \ \ \ "{}34"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_MAGENTA\ "{}35"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_CYAN\ \ \ \ "{}36"{}\ \ }\textcolor{comment}{//DEBUG}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_GRAY\ \ \ \ "{}37"{}\ \ }\textcolor{comment}{//VERBOSE}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_WHITE\ \ \ "{}38"{}}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR(COLOR)\ "{}\(\backslash\)033[0;"{}\ COLOR\ "{}m"{}}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_BOLD(COLOR)\ \ "{}\(\backslash\)033[1;"{}\ COLOR\ "{}m"{}}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_RESET\_COLOR\ \ "{}\(\backslash\)033[0m"{}}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_E\ \ \ \ \ \ \ \ \ \ \ \ \ ARDUHAL\_LOG\_COLOR(ARDUHAL\_LOG\_COLOR\_RED)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_W\ \ \ \ \ \ \ \ \ \ \ \ \ ARDUHAL\_LOG\_COLOR(ARDUHAL\_LOG\_COLOR\_YELLOW)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_I\ \ \ \ \ \ \ \ \ \ \ \ \ ARDUHAL\_LOG\_COLOR(ARDUHAL\_LOG\_COLOR\_GREEN)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_D\ \ \ \ \ \ \ \ \ \ \ \ \ ARDUHAL\_LOG\_COLOR(ARDUHAL\_LOG\_COLOR\_CYAN)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_V\ \ \ \ \ \ \ \ \ \ \ \ \ ARDUHAL\_LOG\_COLOR(ARDUHAL\_LOG\_COLOR\_GRAY)}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_PRINT(letter)\ log\_printf(ARDUHAL\_LOG\_COLOR\_\#\#letter)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_PRINT\_END\ \ \ \ \ log\_printf(ARDUHAL\_LOG\_RESET\_COLOR)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_E}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_W}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_I}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_D}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_V}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_RESET\_COLOR}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_PRINT(letter)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_COLOR\_PRINT\_END}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#ifdef\ USE\_ESP\_IDF\_LOG}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#ifndef\ ARDUHAL\_ESP\_LOG\_TAG}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ARDUHAL\_ESP\_LOG\_TAG\ "{}ARDUINO"{}}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pathToFileName(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{int}\ log\_printf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fmt,\ ...);}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{void}\ log\_print\_buf(\textcolor{keyword}{const}\ uint8\_t\ *b,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ ARDUHAL\_SHORT\_LOG\_FORMAT(letter,\ format)\ ARDUHAL\_LOG\_COLOR\_\#\#letter\ format\ ARDUHAL\_LOG\_RESET\_COLOR\ "{}\(\backslash\)r\(\backslash\)n"{}}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ARDUHAL\_LOG\_FORMAT(letter,\ format)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \ ARDUHAL\_LOG\_COLOR\_\#\#letter\ "{}[\%6u]["{}\ \#letter\ "{}][\%s:\%u]\ \%s():\ "{}\ format\ ARDUHAL\_LOG\_RESET\_COLOR\ "{}\(\backslash\)r\(\backslash\)n"{},\ (unsigned\ long)(esp\_timer\_get\_time()\ /\ 1000ULL),\ \(\backslash\)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ \ \ pathToFileName(\_\_FILE\_\_),\ \_\_LINE\_\_,\ \_\_FUNCTION\_\_}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{comment}{//esp\_rom\_printf(DRAM\_STR("{}ST:\%d\(\backslash\)n"{}),\ frame\_pos);}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#if\ ARDUHAL\_LOG\_LEVEL\ >=\ ARDUHAL\_LOG\_LEVEL\_VERBOSE}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#ifndef\ USE\_ESP\_IDF\_LOG}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ log\_v(format,\ ...)\ \ \ \ \ log\_printf(ARDUHAL\_LOG\_FORMAT(V,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ isr\_log\_v(format,\ ...)\ ets\_printf(ARDUHAL\_LOG\_FORMAT(V,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ log\_buf\_v(b,\ l)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT(V);\ \ \(\backslash\)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ \ \ log\_print\_buf(b,\ l);\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT\_END;\ \(\backslash\)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ log\_v(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_LEVEL\_LOCAL(ESP\_LOG\_VERBOSE,\ ARDUHAL\_ESP\_LOG\_TAG,\ format,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ isr\_log\_v(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ \ \ ets\_printf(LOG\_FORMAT(V,\ format),\ esp\_log\_timestamp(),\ ARDUHAL\_ESP\_LOG\_TAG,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ log\_buf\_v(b,\ l)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_BUFFER\_HEXDUMP(ARDUHAL\_ESP\_LOG\_TAG,\ b,\ l,\ ESP\_LOG\_VERBOSE);\ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ log\_v(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ isr\_log\_v(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ log\_buf\_v(b,\ l)\ \(\backslash\)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#if\ ARDUHAL\_LOG\_LEVEL\ >=\ ARDUHAL\_LOG\_LEVEL\_DEBUG}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#ifndef\ USE\_ESP\_IDF\_LOG}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ log\_d(format,\ ...)\ \ \ \ \ log\_printf(ARDUHAL\_LOG\_FORMAT(D,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ isr\_log\_d(format,\ ...)\ ets\_printf(ARDUHAL\_LOG\_FORMAT(D,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ log\_buf\_d(b,\ l)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT(D);\ \ \(\backslash\)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ \ \ log\_print\_buf(b,\ l);\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT\_END;\ \(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ log\_d(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_LEVEL\_LOCAL(ESP\_LOG\_DEBUG,\ ARDUHAL\_ESP\_LOG\_TAG,\ format,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ isr\_log\_d(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ \ \ ets\_printf(LOG\_FORMAT(D,\ format),\ esp\_log\_timestamp(),\ ARDUHAL\_ESP\_LOG\_TAG,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ log\_buf\_d(b,\ l)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_BUFFER\_HEXDUMP(ARDUHAL\_ESP\_LOG\_TAG,\ b,\ l,\ ESP\_LOG\_DEBUG);\ \(\backslash\)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ log\_d(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ isr\_log\_d(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ log\_buf\_d(b,\ l)\ \(\backslash\)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#if\ ARDUHAL\_LOG\_LEVEL\ >=\ ARDUHAL\_LOG\_LEVEL\_INFO}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#ifndef\ USE\_ESP\_IDF\_LOG}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#define\ log\_i(format,\ ...)\ \ \ \ \ log\_printf(ARDUHAL\_LOG\_FORMAT(I,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ isr\_log\_i(format,\ ...)\ ets\_printf(ARDUHAL\_LOG\_FORMAT(I,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ log\_buf\_i(b,\ l)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT(I);\ \ \(\backslash\)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\ \ \ \ log\_print\_buf(b,\ l);\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT\_END;\ \(\backslash\)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ log\_i(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_LEVEL\_LOCAL(ESP\_LOG\_INFO,\ ARDUHAL\_ESP\_LOG\_TAG,\ format,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#define\ isr\_log\_i(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ \ \ ets\_printf(LOG\_FORMAT(I,\ format),\ esp\_log\_timestamp(),\ ARDUHAL\_ESP\_LOG\_TAG,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ log\_buf\_i(b,\ l)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_BUFFER\_HEXDUMP(ARDUHAL\_ESP\_LOG\_TAG,\ b,\ l,\ ESP\_LOG\_INFO);\ \(\backslash\)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ log\_i(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ isr\_log\_i(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ log\_buf\_i(b,\ l)\ \(\backslash\)}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#if\ ARDUHAL\_LOG\_LEVEL\ >=\ ARDUHAL\_LOG\_LEVEL\_WARN}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#ifndef\ USE\_ESP\_IDF\_LOG}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ log\_w(format,\ ...)\ \ \ \ \ log\_printf(ARDUHAL\_LOG\_FORMAT(W,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ isr\_log\_w(format,\ ...)\ ets\_printf(ARDUHAL\_LOG\_FORMAT(W,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ log\_buf\_w(b,\ l)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT(W);\ \ \(\backslash\)}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \ \ log\_print\_buf(b,\ l);\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT\_END;\ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#define\ log\_w(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_LEVEL\_LOCAL(ESP\_LOG\_WARN,\ ARDUHAL\_ESP\_LOG\_TAG,\ format,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ isr\_log\_w(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\ \ \ \ ets\_printf(LOG\_FORMAT(W,\ format),\ esp\_log\_timestamp(),\ ARDUHAL\_ESP\_LOG\_TAG,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ log\_buf\_w(b,\ l)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_BUFFER\_HEXDUMP(ARDUHAL\_ESP\_LOG\_TAG,\ b,\ l,\ ESP\_LOG\_WARN);\ \(\backslash\)}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#define\ log\_w(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ isr\_log\_w(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#define\ log\_buf\_w(b,\ l)\ \(\backslash\)}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#if\ ARDUHAL\_LOG\_LEVEL\ >=\ ARDUHAL\_LOG\_LEVEL\_ERROR}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#ifndef\ USE\_ESP\_IDF\_LOG}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#define\ log\_e(format,\ ...)\ \ \ \ \ log\_printf(ARDUHAL\_LOG\_FORMAT(E,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#define\ isr\_log\_e(format,\ ...)\ ets\_printf(ARDUHAL\_LOG\_FORMAT(E,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#define\ log\_buf\_e(b,\ l)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT(E);\ \ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ \ \ log\_print\_buf(b,\ l);\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT\_END;\ \(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ log\_e(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_LEVEL\_LOCAL(ESP\_LOG\_ERROR,\ ARDUHAL\_ESP\_LOG\_TAG,\ format,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#define\ isr\_log\_e(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\ \ \ \ ets\_printf(LOG\_FORMAT(E,\ format),\ esp\_log\_timestamp(),\ ARDUHAL\_ESP\_LOG\_TAG,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#define\ log\_buf\_e(b,\ l)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_BUFFER\_HEXDUMP(ARDUHAL\_ESP\_LOG\_TAG,\ b,\ l,\ ESP\_LOG\_ERROR);\ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#define\ log\_e(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ isr\_log\_e(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#define\ log\_buf\_e(b,\ l)\ \(\backslash\)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#if\ ARDUHAL\_LOG\_LEVEL\ >=\ ARDUHAL\_LOG\_LEVEL\_NONE}}
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#ifndef\ USE\_ESP\_IDF\_LOG}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#define\ log\_n(format,\ ...)\ \ \ \ \ log\_printf(ARDUHAL\_LOG\_FORMAT(E,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#define\ isr\_log\_n(format,\ ...)\ ets\_printf(ARDUHAL\_LOG\_FORMAT(E,\ format),\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#define\ log\_buf\_n(b,\ l)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT(E);\ \ \(\backslash\)}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\ \ \ \ log\_print\_buf(b,\ l);\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\ \ \ \ ARDUHAL\_LOG\_COLOR\_PRINT\_END;\ \(\backslash\)}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#define\ log\_n(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_LEVEL\_LOCAL(ESP\_LOG\_ERROR,\ ARDUHAL\_ESP\_LOG\_TAG,\ format,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#define\ isr\_log\_n(format,\ ...)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\ \ \ \ ets\_printf(LOG\_FORMAT(E,\ format),\ esp\_log\_timestamp(),\ ARDUHAL\_ESP\_LOG\_TAG,\ \#\#\_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ log\_buf\_n(b,\ l)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\ \ \ \ ESP\_LOG\_BUFFER\_HEXDUMP(ARDUHAL\_ESP\_LOG\_TAG,\ b,\ l,\ ESP\_LOG\_ERROR);\ \(\backslash\)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#define\ log\_n(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#define\ isr\_log\_n(format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#define\ log\_buf\_n(b,\ l)\ \(\backslash\)}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#ifndef\ USE\_ESP\_IDF\_LOG}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ARDUHAL\_ESP\_LOG}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#undef\ ESP\_LOGE}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#undef\ ESP\_LOGW}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#undef\ ESP\_LOGI}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#undef\ ESP\_LOGD}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#undef\ ESP\_LOGV}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#undef\ ESP\_EARLY\_LOGE}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#undef\ ESP\_EARLY\_LOGW}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#undef\ ESP\_EARLY\_LOGI}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#undef\ ESP\_EARLY\_LOGD}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#undef\ ESP\_EARLY\_LOGV}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#define\ ESP\_LOGE(tag,\ format,\ ...)\ \ \ \ \ \ \ log\_e("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#define\ ESP\_LOGW(tag,\ format,\ ...)\ \ \ \ \ \ \ log\_w("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#define\ ESP\_LOGI(tag,\ format,\ ...)\ \ \ \ \ \ \ log\_i("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#define\ ESP\_LOGD(tag,\ format,\ ...)\ \ \ \ \ \ \ log\_d("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\#define\ ESP\_LOGV(tag,\ format,\ ...)\ \ \ \ \ \ \ log\_v("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#define\ ESP\_EARLY\_LOGE(tag,\ format,\ ...)\ isr\_log\_e("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#define\ ESP\_EARLY\_LOGW(tag,\ format,\ ...)\ isr\_log\_w("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#define\ ESP\_EARLY\_LOGI(tag,\ format,\ ...)\ isr\_log\_i("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#define\ ESP\_EARLY\_LOGD(tag,\ format,\ ...)\ isr\_log\_d("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#define\ ESP\_EARLY\_LOGV(tag,\ format,\ ...)\ isr\_log\_v("{}[\%s]\ "{}\ format,\ tag,\ \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00342\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00346\ \}}
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_ESP\_LOGGING\_H\_\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,101 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+mdns/examples/query\+\_\+advertise Directory Reference}
+\hypertarget{dir_b554310c19c8a86dfdcc07bea3e87771}{}\label{dir_b554310c19c8a86dfdcc07bea3e87771}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/examples/query\_advertise Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/examples/query\_advertise Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_00913d8a389851c4aff76a1f80e7d736}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Shows how to use m\+DNS to advertise and query services and hosts\hypertarget{README.md_autotoc_md1402}{}\doxysubsection{\texorpdfstring{Example workflow}{Example workflow}}\label{README.md_autotoc_md1402}
+
+\begin{DoxyItemize}
+\item m\+DNS is initialized with host name and instance name defined through the project configuration and {\ttfamily \+\_\+http.\+\_\+tcp} service is added to be advertised
+\item A delegated host {\ttfamily esp32-\/delegated.\+\_\+local} is added and another {\ttfamily \+\_\+http.\+\_\+tcp} service is added for this host.
+\item Wi\+Fi STA is started and trying to connect to the access point defined through the project configuration
+\item The system event handler is used to pass the network events to m\+DNS so the service is aware when the interface comes up or down
+\item GPIO0 (BOOT Button) is initialized as pulled-\/up input that can be monitored for button press
+\item Example task is started to check if the button is pressed so it can execute the m\+DNS queries defined
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1403}{}\doxysubsubsection{\texorpdfstring{Configure the project}{Configure the project}}\label{README.md_autotoc_md1403}
+
+\begin{DoxyItemize}
+\item Open the project configuration menu ({\ttfamily idf.\+py menuconfig})
+\item Configure Wi-\/\+Fi or Ethernet under "{}\+Example Connection Configuration"{} menu
+\item Set {\ttfamily m\+DNS Hostname} as host name prefix for the device and its instance name in {\ttfamily m\+DNS Instance Name}
+\item Disable {\ttfamily Resolve test services} to prevent the example from querying defined names/services on startup (cause warnings in example logs, as illustrated below)
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1404}{}\doxysubsubsection{\texorpdfstring{Build and Flash}{Build and Flash}}\label{README.md_autotoc_md1404}
+Build the project and flash it to the board, then run monitor tool to view serial output\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/p\ PORT\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item Wait for Wi\+Fi to connect to your access point
+\item You can now ping the device at {\ttfamily \mbox{[}board-\/hostname\mbox{]}.local}, where {\ttfamily \mbox{[}board-\/hostname\mbox{]}} is preconfigured hostname, {\ttfamily esp32-\/mdns} by default.
+\item You can also browse for {\ttfamily \+\_\+http.\+\_\+tcp} on the same network to find the advertised service
+\item Pressing the BOOT button will start querying the local network for the predefined in {\ttfamily check\+\_\+button} hosts and services
+\item Note that for purpose of CI tests, configuration options of {\ttfamily MDNS\+\_\+\+RESOLVE\+\_\+\+TEST\+\_\+\+SERVICES} and {\ttfamily MDNS\+\_\+\+ADD\+\_\+\+MAC\+\_\+\+TO\+\_\+\+HOSTNAME} are available, but disabled by default. If enabled, then the hostname suffix of last 3 bytes from device MAC address is added, e.\+g. {\ttfamily esp32-\/mdns-\/80\+FFFF}, and a query for test service is issued.
+\end{DoxyItemize}
+
+(To exit the serial monitor, type {\ttfamily Ctrl-\/\mbox{]}}.)
+
+See the Getting Started Guide for full steps to configure and use ESP-\/\+IDF to build projects.\hypertarget{README.md_autotoc_md1405}{}\doxysubsection{\texorpdfstring{Example Output}{Example Output}}\label{README.md_autotoc_md1405}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{I\ (0)\ cpu\_start:\ Starting\ scheduler\ on\ APP\ CPU.}
+\DoxyCodeLine{I\ (276)\ system\_api:\ Base\ MAC\ address\ is\ not\ set,\ read\ default\ base\ MAC\ address\ from\ BLK0\ of\ EFUSE}
+\DoxyCodeLine{I\ (276)\ mdns-\/test:\ mdns\ hostname\ set\ to:\ [esp32-\/mdns]}
+\DoxyCodeLine{I\ (286)\ wifi:\ wifi\ driver\ task:\ 3ffc2fa4,\ prio:23,\ stack:3584,\ core=0}
+\DoxyCodeLine{I\ (286)\ wifi:\ wifi\ firmware\ version:\ a3be639}
+\DoxyCodeLine{I\ (286)\ wifi:\ config\ NVS\ flash:\ enabled}
+\DoxyCodeLine{I\ (296)\ wifi:\ config\ nano\ formating:\ disabled}
+\DoxyCodeLine{I\ (296)\ system\_api:\ Base\ MAC\ address\ is\ not\ set,\ read\ default\ base\ MAC\ address\ from\ BLK0\ of\ EFUSE}
+\DoxyCodeLine{I\ (306)\ system\_api:\ Base\ MAC\ address\ is\ not\ set,\ read\ default\ base\ MAC\ address\ from\ BLK0\ of\ EFUSE}
+\DoxyCodeLine{I\ (336)\ wifi:\ Init\ dynamic\ tx\ buffer\ num:\ 32}
+\DoxyCodeLine{I\ (336)\ wifi:\ Init\ data\ frame\ dynamic\ rx\ buffer\ num:\ 32}
+\DoxyCodeLine{I\ (336)\ wifi:\ Init\ management\ frame\ dynamic\ rx\ buffer\ num:\ 32}
+\DoxyCodeLine{I\ (346)\ wifi:\ Init\ static\ rx\ buffer\ size:\ 1600}
+\DoxyCodeLine{I\ (346)\ wifi:\ Init\ static\ rx\ buffer\ num:\ 10}
+\DoxyCodeLine{I\ (346)\ wifi:\ Init\ dynamic\ rx\ buffer\ num:\ 32}
+\DoxyCodeLine{I\ (356)\ mdns-\/test:\ Setting\ WiFi\ configuration\ SSID\ myssid...}
+\DoxyCodeLine{I\ (426)\ phy:\ phy\_version:\ 4000,\ b6198fa,\ Sep\ \ 3\ 2018,\ 15:11:06,\ 0,\ 0}
+\DoxyCodeLine{I\ (426)\ wifi:\ mode\ :\ sta\ (30:ae:a4:80:FF:FF)}
+\DoxyCodeLine{I\ (426)\ gpio:\ GPIO[0]|\ InputEn:\ 1|\ OutputEn:\ 0|\ OpenDrain:\ 0|\ Pullup:\ 1|\ Pulldown:\ 0|\ Intr:0}
+\DoxyCodeLine{I\ (1756)\ wifi:\ n:11\ 0,\ o:1\ 0,\ ap:255\ 255,\ sta:11\ 0,\ prof:1}
+\DoxyCodeLine{I\ (2736)\ wifi:\ state:\ init\ -\/>\ auth\ (b0)}
+\DoxyCodeLine{I\ (2756)\ wifi:\ state:\ auth\ -\/>\ assoc\ (0)}
+\DoxyCodeLine{I\ (2766)\ wifi:\ state:\ assoc\ -\/>\ run\ (10)}
+\DoxyCodeLine{I\ (2786)\ wifi:\ connected\ with\ myssid,\ channel\ 11}
+\DoxyCodeLine{I\ (2786)\ wifi:\ pm\ start,\ type:\ 1}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (4786)\ event:\ sta\ ip:\ 192.168.0.139,\ mask:\ 255.255.255.0,\ gw:\ 192.168.0.2}
+\DoxyCodeLine{I\ (21126)\ mdns-\/test:\ Query\ A:\ esp32.local}
+\DoxyCodeLine{W\ (23176)\ mdns-\/test:\ ESP\_ERR\_NOT\_FOUND:\ Host\ was\ not\ found!}
+\DoxyCodeLine{I\ (23176)\ mdns-\/test:\ Query\ PTR:\ \_arduino.\_tcp.local}
+\DoxyCodeLine{W\ (26276)\ mdns-\/test:\ No\ results\ found!}
+\DoxyCodeLine{I\ (26276)\ mdns-\/test:\ Query\ PTR:\ \_http.\_tcp.local}
+\DoxyCodeLine{1:\ Interface:\ STA,\ Type:\ V6}
+\DoxyCodeLine{\ \ PTR\ :\ HP\ Color\ LaserJet\ MFP\ M277dw\ (7C2E10)}
+\DoxyCodeLine{\ \ SRV\ :\ NPI7C2E10.local:80}
+\DoxyCodeLine{\ \ A\ \ \ :\ 254.128.0.0}
+\DoxyCodeLine{2:\ Interface:\ STA,\ Type:\ V4}
+\DoxyCodeLine{\ \ PTR\ :\ switch4e4919}
+\DoxyCodeLine{\ \ SRV\ :\ switch4e4919.local:80}
+\DoxyCodeLine{\ \ TXT\ :\ [1]\ path=/config/authentication\_page.htm;}
+\DoxyCodeLine{\ \ A\ \ \ :\ 192.168.0.118}
+\DoxyCodeLine{I\ (29396)\ mdns-\/test:\ Query\ PTR:\ \_printer.\_tcp.local}
+\DoxyCodeLine{1:\ Interface:\ STA,\ Type:\ V6}
+\DoxyCodeLine{\ \ PTR\ :\ HP\ Color\ LaserJet\ MFP\ M277dw\ (7C2E10)}
+\DoxyCodeLine{\ \ SRV\ :\ NPI7C2E10.local:515}
+\DoxyCodeLine{\ \ A\ \ \ :\ 254.128.0.0}
+\DoxyCodeLine{2:\ Interface:\ STA,\ Type:\ V4}
+\DoxyCodeLine{\ \ PTR\ :\ HP\ Color\ LaserJet\ MFP\ M277dw\ (7C2E10)}
+
+\end{DoxyCode}
+ 

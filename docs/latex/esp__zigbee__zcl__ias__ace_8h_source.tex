@@ -1,0 +1,244 @@
+\doxysection{esp\+\_\+zigbee\+\_\+zcl\+\_\+ias\+\_\+ace.\+h}
+\hypertarget{esp__zigbee__zcl__ias__ace_8h_source}{}\label{esp__zigbee__zcl__ias__ace_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_ias\_ace.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_ias\_ace.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2024\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_type.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__table__s}{esp\_zb\_zcl\_ias\_ace\_zone\_table\_s}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ uint8\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__table__s_a280a44bf19350b08ebcf146954bc06c2}{zone\_id}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__table__s_a9ef06b3c81b9821aec829a9fe100a93d}{zone\_type}};\ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ esp\_zb\_ieee\_addr\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__table__s_a7de232134fdeebf06727292d763b28dd}{zone\_address}};\ \ }
+\DoxyCodeLine{00019\ \ \ \ \ uint8\_t\ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__table__s_a68d42ab7c76ad3c2a3a840e5e5fb6f1d}{zone\_label}};\ \ \ }
+\DoxyCodeLine{00020\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_zone\_table\_t;}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_IAS\_ACE\_CLUSTER\_REVISION\_DEFAULT\ ((uint16\_t)0x0001u)}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_IAS\_ACE\_ZONE\_TABLE\_LENGTH\ \ \ \ \ \ 255}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_IAS\_ACE\_ZONE\_TYPE\_MAX\_VALUE\ \ \ \ 0xfffe}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_IAS\_ACE\_ZONE\_ID\_MAX\_VALUE\ \ \ \ \ \ 0xfe}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_IAS\_ACE\_ZONE\_ID\_DEFAULT\_VALUE\ \ 0}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_IAS\_ACE\_SET\_ZONE\_ADDRESS\_DEFAULT\_VALUE(ptr)\ \ (ZB\_IEEE\_ADDR\_COPY(ptr,\ \&g\_unknown\_ieee\_addr))}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_ARM\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_BYPASS\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,\ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_EMERGENCY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_FIRE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03,\ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_PANIC\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x04,\ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_GET\_ZONE\_ID\_MAP\_ID\ \ \ \ \ \ \ \ =\ 0x05,\ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_GET\_ZONE\_INFO\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x06,\ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_GET\_PANEL\_STATUS\_ID\ \ \ \ \ \ \ =\ 0x07,\ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_GET\_BYPASSED\_ZONE\_LIST\_ID\ =\ 0x08,\ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_GET\_ZONE\_STATUS\_ID\ \ \ \ \ \ \ \ =\ 0x09,\ \ \ }
+\DoxyCodeLine{00052\ \}\ esp\_zb\_zcl\_ias\_ace\_cmd\_t;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_ARM\_RESP\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00057\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_GET\_ZONE\_ID\_MAP\_RESP\_ID\ \ \ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00058\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_GET\_ZONE\_INFO\_RESP\_ID\ \ \ \ \ \ \ \ =\ 0x02,\ }
+\DoxyCodeLine{00059\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_ZONE\_STATUS\_CHANGED\_ID\ \ \ \ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{00060\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_PANEL\_STATUS\_CHANGED\_ID\ \ \ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{00061\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_GET\_PANEL\_STATUS\_RESPONSE\_ID\ =\ 0x05,\ }
+\DoxyCodeLine{00062\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_SET\_BYPASSED\_ZONE\_LIST\_ID\ \ \ \ =\ 0x06,\ }
+\DoxyCodeLine{00063\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_BYPASS\_RESPONSE\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x07,\ }
+\DoxyCodeLine{00064\ \ \ \ \ ESP\_ZB\_ZCL\_CMD\_IAS\_ACE\_GET\_ZONE\_STATUS\_RESPONSE\_ID\ \ =\ 0x08,\ }
+\DoxyCodeLine{00065\ \}\ esp\_zb\_zcl\_ias\_ace\_resp\_cmd\_t;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{/*******************************\ Arm\ Command\ ******************************/}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_MODE\_DISARM\ \ =\ 0x00,\ }
+\DoxyCodeLine{00072\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_MODE\_DAY\ \ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00073\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_MODE\_NIGHT\ \ \ =\ 0x02,\ }
+\DoxyCodeLine{00074\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_MODE\_ALL\ \ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{00075\ \}\ esp\_zb\_zcl\_ias\_ace\_arm\_mode\_t;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__arm__s}{esp\_zb\_zcl\_ias\_ace\_arm\_s}}\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__arm__s_a958e9ca46a42d59dc2bd460682aa92ab}{arm\_mode}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__arm__s_ae8b716a8cf67198c017a7da8ef008c3e}{arm\_disarm\_code}}[ESP\_ZB\_ZCL\_MAX\_STRING\_SIZE];\ \ }
+\DoxyCodeLine{00081\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__arm__s_a5242cccd75202ce340b6c602cf8d81f0}{zone\_id}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00082\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_arm\_t;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{/*******************************\ Bypass\ Command\ ******************************/}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__bypass__s}{esp\_zb\_zcl\_ias\_ace\_bypass\_s}}\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__bypass__s_a82260805b05a052005aba437d9427c3a}{length}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__bypass__s_abd5cf1b570bd68ee5136bc04d0ee9847}{zone\_id}}[ESP\_ZB\_ZCL\_IAS\_ACE\_ZONE\_TABLE\_LENGTH];\ \ }
+\DoxyCodeLine{00090\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__bypass__s_aa14f1f1f121786f2c185e86a8055c3a8}{arm\_disarm\_code}}[ESP\_ZB\_ZCL\_MAX\_STRING\_SIZE];\ \ \ \ }
+\DoxyCodeLine{00091\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_bypass\_t;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{/*******************************\ Emergency\ Command\ ******************************/}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{/*******************************\ Fire\ Command\ ******************************/}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*******************************\ Panic\ Command\ ******************************/}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{comment}{/*******************************\ Get\ Zone\ ID\ Map\ command\ ******************************/}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{/*******************************\ Get\ Zone\ Information\ command\ ******************************/}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__info__s}{esp\_zb\_zcl\_ias\_ace\_get\_zone\_info\_s}}\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__info__s_a4a101dcd7ffafcb4f97f58625d0dfe1e}{zone\_id}};\ \ }
+\DoxyCodeLine{00106\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_get\_zone\_info\_t;}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{comment}{/*******************************\ Get\ Panel\ Status\ command\ ******************************/}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{comment}{/*******************************\ Get\ Bypassed\ Zone\ List\ command\ ******************************/}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{/*******************************\ Get\ Zone\ Status\ command\ ******************************/}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__status__s}{esp\_zb\_zcl\_ias\_ace\_get\_zone\_status\_s}}\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__status__s_a9d00ee10a45530c2d16ba05a5cb82d7a}{starting\_zone\_id}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__status__s_a9b8852973a7f151f0927d98d2ab8776d}{max\_num\_zone\_ids}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00118\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__status__s_a2d3629f2896cb9bd130bdb7b8e2367d7}{zone\_status\_mask\_flag}};\ \ }
+\DoxyCodeLine{00119\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__status__s_a530b67eec5f47570fd00161426cb43a3}{zone\_status\_mask}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00120\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_get\_zone\_status\_t;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{comment}{/*******************************\ Arm\ Response\ command\ ******************************/}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_NOTIF\_ALL\_ZONES\_DISARMED\ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_NOTIF\_ONLY\_DAY\_HOME\_ZONES\_ARMED\ \ \ \ =\ 0x01,\ \ \ }
+\DoxyCodeLine{00128\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_NOTIF\_ONLY\_NIGHT\_SLEEP\_ZONES\_ARMED\ =\ 0x02,\ \ \ }
+\DoxyCodeLine{00129\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_NOTIF\_ALL\_ZONES\_ARMED\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03,\ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_NOTIF\_INVALID\_ARM\_DISARM\_CODE\ \ \ \ \ \ =\ 0x04,\ \ \ }
+\DoxyCodeLine{00131\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_NOTIF\_NOT\_READY\_TO\_ARM\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x05,\ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ARM\_NOTIF\_ALREADY\_DISARMED\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x06,\ \ \ }
+\DoxyCodeLine{00133\ \}\ esp\_zb\_zcl\_ias\_ace\_arm\_notif\_t;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00136\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__arm__resp__s}{esp\_zb\_zcl\_ias\_ace\_arm\_resp\_s}}\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__arm__resp__s_a567db5cd174e5a8dde283ce542599ab1}{arm\_notification}};\ }
+\DoxyCodeLine{00138\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_arm\_resp\_t;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{comment}{/*******************************\ Get\ Zone\ ID\ Map\ Response\ command\ ******************************/}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_IAS\_ACE\_GET\_ZONE\_ID\_MAP\_LENGTH\ \ \ 16}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__id__map__resp__s}{esp\_zb\_zcl\_ias\_ace\_get\_zone\_id\_map\_resp\_s}}\ \{}
+\DoxyCodeLine{00147\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__id__map__resp__s_acebf6b883e3b5e094db3efb104a08aea}{zone\_id\_map}}[ESP\_ZB\_ZCL\_IAS\_ACE\_GET\_ZONE\_ID\_MAP\_LENGTH];\ }
+\DoxyCodeLine{00148\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_get\_zone\_id\_map\_resp\_t;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{/*******************\ Get\ Zone\ Information\ Response\ command\ ******************************/}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_IAS\_ACE\_GET\_ZONE\_INFO\_TYPE\_NONE\ \ \ 0xffff}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00156\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__info__resp__s}{esp\_zb\_zcl\_ias\_ace\_get\_zone\_info\_resp\_s}}\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ uint8\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__info__resp__s_a4cc8c5ba3edd28cd2fa2b2e3e3f46602}{zone\_id}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__info__resp__s_aada1b6eda54c277d46e953a22a8edcd0}{zone\_type}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00159\ \ \ \ \ esp\_zb\_ieee\_addr\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__info__resp__s_a136828ecc890cdae3fb460366e2c9fe9}{address}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ uint8\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__info__resp__s_a15e688ddd4ebc85bedfca9b6c35656e7}{zone\_label}}[ESP\_ZB\_ZCL\_MAX\_STRING\_SIZE];\ \ }
+\DoxyCodeLine{00161\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_get\_zone\_info\_resp\_t;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{/*******************\ Zone\ Status\ Changed\ command\ ******************************/}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_AUD\_NOTIFICATION\_MUTE\ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00170\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_AUD\_NOTIFICATION\_DEF\_SOUND\ \ \ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00171\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_AUD\_NOTIFICATION\_MANUF\_SPECIFIC\ =\ 0x80,\ }
+\DoxyCodeLine{00172\ \}\ esp\_zb\_zcl\_ias\_ace\_aud\_notification\_t;}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00175\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__status__changed__s}{esp\_zb\_zcl\_ias\_ace\_zone\_status\_changed\_s}}\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__status__changed__s_acd249fb2363f88607c76bc5343132ec4}{zone\_id}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00177\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__status__changed__s_a41566b6c3da145b29b84451142f714fc}{zone\_status}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00178\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__status__changed__s_ab097a36380061740e681513b29092dba}{aud\_notification}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00179\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__status__changed__s_a3817bf1eacff44b6784611cd18d8bb80}{zone\_label}}[ESP\_ZB\_ZCL\_MAX\_STRING\_SIZE];\ \ }
+\DoxyCodeLine{00180\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_zone\_status\_changed\_t;}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{comment}{/*******************\ Panel\ Status\ Changed\ command\ ******************************/}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_DISARMED\ \ \ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00187\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_ARMED\_STAY\ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00188\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_ARMED\_NIGHT\ \ \ =\ 0x02,\ }
+\DoxyCodeLine{00189\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_ARMED\_AWAY\ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{00190\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_EXIT\_DELAY\ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{00191\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_ENTRY\_DELAY\ \ \ =\ 0x05,\ }
+\DoxyCodeLine{00192\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_NOT\_READY\ \ \ \ \ =\ 0x06,\ }
+\DoxyCodeLine{00193\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_IN\_ALARM\ \ \ \ \ \ =\ 0x07,\ }
+\DoxyCodeLine{00194\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_ARMING\_STAY\ \ \ =\ 0x08,\ }
+\DoxyCodeLine{00195\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_ARMING\_NIGHT\ \ =\ 0x09,\ }
+\DoxyCodeLine{00196\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_PANEL\_STATUS\_ARMING\_AWAY\ \ \ =\ 0x0a,\ }
+\DoxyCodeLine{00197\ \}\ esp\_zb\_zcl\_ias\_ace\_panel\_status\_t;}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00200\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ALARM\_STATUS\_NO\_ALARM\ \ \ \ \ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00202\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ALARM\_STATUS\_BURGLAR\ \ \ \ \ \ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00203\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ALARM\_STATUS\_FIRE\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ }
+\DoxyCodeLine{00204\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ALARM\_STATUS\_EMERGENCY\ \ \ \ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{00205\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ALARM\_STATUS\_POLICE\_PANIC\ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{00206\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ALARM\_STATUS\_FIRE\_PANIC\ \ \ \ \ \ =\ 0x05,\ }
+\DoxyCodeLine{00207\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_ALARM\_STATUS\_EMERGENCY\_PANIC\ =\ 0x06,\ }
+\DoxyCodeLine{00208\ \}\ esp\_zb\_zcl\_ias\_ace\_alarm\_status\_t;}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00211\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__panel__status__changed__s}{esp\_zb\_zcl\_ias\_ace\_panel\_status\_changed\_s}}\ \{}
+\DoxyCodeLine{00212\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__panel__status__changed__s_aa8a9602b460a598de74c039f8988c9e8}{panel\_status}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00213\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__panel__status__changed__s_a64d1e4e3b32236281bad8b4224720434}{seconds\_remaining}};\ \ }
+\DoxyCodeLine{00214\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__panel__status__changed__s_a095f4026d29294f351fc432e90f55e71}{aud\_notification}};\ \ \ }
+\DoxyCodeLine{00215\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__panel__status__changed__s_a1db41314a4615b798cf905b7ac892490}{alarm\_status}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00216\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_panel\_status\_changed\_t;}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{comment}{/*******************\ Get\ Panel\ Status\ Response\ command\ ******************************/}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00221\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__panel__status__resp__s}{esp\_zb\_zcl\_ias\_ace\_get\_panel\_status\_resp\_s}}\ \{}
+\DoxyCodeLine{00222\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__panel__status__resp__s_a4e60c80667245b45e11f032f124c953e}{panel\_status}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00223\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__panel__status__resp__s_a6a9aad7d679fe693d42558c7890b2514}{seconds\_remaining}};\ \ }
+\DoxyCodeLine{00224\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__panel__status__resp__s_a656ecdc8b4af3329b267024a96489436}{aud\_notification}};\ \ \ }
+\DoxyCodeLine{00225\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__panel__status__resp__s_a8e12162dd8117690f52ca09336429d1a}{alarm\_status}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00226\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_get\_panel\_status\_resp\_t;}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{comment}{/*******************\ Set\ Bypassed\ Zone\ List\ command\ ******************************/}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00231\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__set__bypassed__zone__list__s}{esp\_zb\_zcl\_ias\_ace\_set\_bypassed\_zone\_list\_s}}\ \{}
+\DoxyCodeLine{00232\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__set__bypassed__zone__list__s_ae4e2344952c563bca1b0cea43908145f}{length}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00233\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__set__bypassed__zone__list__s_a662386d7099fe73920ba22b74100e9b5}{zone\_id}}[ESP\_ZB\_ZCL\_IAS\_ACE\_ZONE\_TABLE\_LENGTH];\ \ }
+\DoxyCodeLine{00234\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_set\_bypassed\_zone\_list\_t;}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{comment}{/*******************\ Bypass\ Response\ command\ ******************************/}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00239\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_BYPASS\_RESULT\_BYPASSED\ \ \ \ \ \ \ \ \ =\ 0x00,\ \ \ }
+\DoxyCodeLine{00241\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_BYPASS\_RESULT\_NOT\_BYPASSED\ \ \ \ \ =\ 0x01,\ \ \ }
+\DoxyCodeLine{00242\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_BYPASS\_RESULT\_NOT\_ALLOWED\ \ \ \ \ \ =\ 0x02,\ \ \ }
+\DoxyCodeLine{00243\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_BYPASS\_RESULT\_INVALID\_ZONE\_ID\ \ =\ 0x03,\ \ \ }
+\DoxyCodeLine{00244\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_BYPASS\_RESULT\_UNKNOWN\_ZONE\_ID\ \ =\ 0x04,\ \ \ }
+\DoxyCodeLine{00245\ \ \ \ \ ESP\_ZB\_ZCL\_IAS\_ACE\_BYPASS\_RESULT\_INVALID\_ARM\_CODE\ =\ 0x05,\ \ \ }
+\DoxyCodeLine{00246\ \}\ esp\_zb\_zcl\_ias\_ace\_bypass\_result\_t;}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00249\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__bypass__resp__s}{esp\_zb\_zcl\_ias\_ace\_bypass\_resp\_s}}\ \{}
+\DoxyCodeLine{00250\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__bypass__resp__s_a92bf218be044a49f52ac2dce33f65361}{length}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00251\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__bypass__resp__s_a4d5bef99cce93a6c9bc883aafc6aec93}{bypass\_result}}[ESP\_ZB\_ZCL\_IAS\_ACE\_ZONE\_TABLE\_LENGTH];\ \ }
+\DoxyCodeLine{00252\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_bypass\_resp\_t;}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{comment}{/*******************\ Get\ Zone\ Status\ Response\ command\ ******************************/}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00257\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__status__s}{esp\_zb\_zcl\_ias\_ace\_zone\_status\_s}}\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ uint8\_t\ \ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__status__s_a765770729aa280c3644519c801246e06}{zone\_id}};\ \ \ \ \ \ }
+\DoxyCodeLine{00259\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__zone__status__s_a0265a246eb88169e4925b73d92148bb9}{zone\_status}};\ \ }
+\DoxyCodeLine{00260\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_zone\_status\_t;}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00263\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__status__resp__s}{esp\_zb\_zcl\_ias\_ace\_get\_zone\_status\_resp\_s}}\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__status__resp__s_ad660515f26cd9bfe54267b95bd0b8cf2}{zone\_status\_complete}};\ \ \ }
+\DoxyCodeLine{00265\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__status__resp__s_ad3afe80f5360c21c07521d7de87c25bc}{length}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00266\ \ \ \ \ esp\_zb\_zcl\_ias\_ace\_zone\_status\_t\ \mbox{\hyperlink{structesp__zb__zcl__ias__ace__get__zone__status__resp__s_a66a2981f7db221731aa0fd2fac843e1f}{zone\_id\_status}}[ESP\_ZB\_ZCL\_IAS\_ACE\_ZONE\_TABLE\_LENGTH];\ \ }
+\DoxyCodeLine{00267\ \}\ ESP\_ZB\_PACKED\_STRUCT\ esp\_zb\_zcl\_ias\_ace\_get\_zone\_status\_resp\_t;}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00270\ \}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

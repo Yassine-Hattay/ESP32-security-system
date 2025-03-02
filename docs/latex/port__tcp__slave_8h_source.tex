@@ -1,0 +1,103 @@
+\doxysection{port\+\_\+tcp\+\_\+slave.\+h}
+\hypertarget{port__tcp__slave_8h_source}{}\label{port__tcp__slave_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/tcp\_slave/port/port\_tcp\_slave.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/tcp\_slave/port/port\_tcp\_slave.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2006\ Christian\ Walter}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ SPDX-\/FileContributor:\ 2016-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ FreeModbus\ Libary:\ ESP32\ TCP\ Port}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2006\ Christian\ Walter\ <wolti@sil.at>}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ Parts\ of\ crt0.S\ Copyright\ (c)\ 1995,\ 1996,\ 1998\ Cygnus\ Support}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ are\ met:}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ 3.\ The\ name\ of\ the\ author\ may\ not\ be\ used\ to\ endorse\ or\ promote\ products}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ \ \ derived\ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ AUTHOR\ \`{}\`{}AS\ IS''\ AND\ ANY\ EXPRESS\ OR}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ IF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHOR\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ File:\ \$Id:\ port.h,v\ 1.2\ 2006/09/04\ 14:39:20\ wolti\ Exp\ \$}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifndef\ \_PORT\_TCP\_SLAVE\_H}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ \_PORT\_TCP\_SLAVE\_H}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Platform\ includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}lwip/opt.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}lwip/sys.h"{}}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}port.h"{}}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}esp\_modbus\_common.h"{}}\ \ \ \ \ \ \textcolor{comment}{//\ for\ common\ types\ for\ network\ options}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Defines\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#ifndef\ TRUE}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ TRUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#ifndef\ FALSE}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ FALSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00060\ PR\_BEGIN\_EXTERN\_C}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Type\ definitions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00064\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_mb_client_info__t_a750eee420df6898c3781c0e82bfab300}{xIndex}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_mb_client_info__t_af4af4a0636bd0ae35097c2de3413ec30}{xSockId}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_mb_client_info__t_ae3308a7c6cd51c5beafe93048b791879}{xError}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{struct_mb_client_info__t_a6fe53c2e10cd75292be8a401ea697d55}{pcIpAddr}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ UCHAR*\ \mbox{\hyperlink{struct_mb_client_info__t_a91b83df87202e940c900d34614ff3896}{pucTCPBuf}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ USHORT\ \mbox{\hyperlink{struct_mb_client_info__t_a08257f5b7253029374340e9b718fdf1d}{usTCPBufPos}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ USHORT\ \mbox{\hyperlink{struct_mb_client_info__t_a68d2fd4a43886ee9935da018b885dc90}{usTCPFrameBytesLeft}};\ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ int64\_t\ \mbox{\hyperlink{struct_mb_client_info__t_afce281240d85bf8f91a7f9829d3e3061}{xSendTimeStamp}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ int64\_t\ \mbox{\hyperlink{struct_mb_client_info__t_a9ee38cf84ca76fb82b726c6f016f1f3b}{xRecvTimeStamp}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ USHORT\ \mbox{\hyperlink{struct_mb_client_info__t_aa36a09f502a922e5031f70a796bc54e9}{usTidCnt}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00075\ \}\ \mbox{\hyperlink{struct_mb_client_info__t}{MbClientInfo\_t}};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00078\ \ \ \ \ TaskHandle\_t\ \mbox{\hyperlink{struct_mb_slave_port_config__t_a679efc79ac3a45dc05e0705c783b3632}{xMbTcpTaskHandle}};\ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ QueueHandle\_t\ \mbox{\hyperlink{struct_mb_slave_port_config__t_ad09b5cb6366f3a01a7e093333c02c6a2}{xRespQueueHandle}};\ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{struct_mb_client_info__t}{MbClientInfo\_t}}*\ \mbox{\hyperlink{struct_mb_slave_port_config__t_a66a371acf9edf41de2abf9bfcd42e259}{pxCurClientInfo}};\ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{struct_mb_client_info__t}{MbClientInfo\_t}}**\ \mbox{\hyperlink{struct_mb_slave_port_config__t_a200baace0a182b8dcc42f672a25e177a}{pxMbClientInfo}};\ \ \ \ }
+\DoxyCodeLine{00082\ \ \ \ \ USHORT\ \mbox{\hyperlink{struct_mb_slave_port_config__t_a473f0d6a71b9431bd9f7859216dbc9db}{usPort}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ CHAR*\ \mbox{\hyperlink{struct_mb_slave_port_config__t_a2be7a63d132567848b31d3cfe7550185}{pcBindAddr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ eMBPortProto\ \mbox{\hyperlink{struct_mb_slave_port_config__t_a14a7cbb6281524ae6988f663a17db50a}{eMbProto}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ USHORT\ \mbox{\hyperlink{struct_mb_slave_port_config__t_aa218eb46fd9d855c932e8e99922b9f65}{usClientCount}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{struct_mb_slave_port_config__t_a08a40cda2458aef2df1469a37936efee}{pvNetIface}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ eMBPortIpVer\ \mbox{\hyperlink{struct_mb_slave_port_config__t_a4d6ba7d484b69ee85d7b638040e19c02}{xIpVer}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00088\ \}\ \mbox{\hyperlink{struct_mb_slave_port_config__t}{MbSlavePortConfig\_t}};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Function\ prototypes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ vMBTCPPortSlaveSetNetOpt(\textcolor{keywordtype}{void}*\ pvNetIf,\ eMBPortIpVer\ xIpVersion,\ eMBPortProto\ xProto,\ CHAR*\ pcBindAddr);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00105\ PR\_END\_EXTERN\_C}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,123 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/examples/esp\+\_\+matter\+\_\+light Directory Reference}
+\hypertarget{dir_a20ab08ca0544a65935225a8760b3eaa}{}\label{dir_a20ab08ca0544a65935225a8760b3eaa}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/examples/esp\_matter\_light Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/examples/esp\_matter\_light Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_674fe5eb4d0435afdb6a89b27aa9e806}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\texorpdfstring{$\vert$}{|} Supported Targets \texorpdfstring{$\vert$}{|} ESP32-\/\+S3 \texorpdfstring{$\vert$}{|} ESP32-\/\+C3 \texorpdfstring{$\vert$}{|} ESP32-\/\+C6 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|}\hypertarget{README.md_autotoc_md1}{}\doxysubsection{\texorpdfstring{Managed Component Light}{Managed Component Light}}\label{README.md_autotoc_md1}
+This example sets automatically the RGB LED GPIO and BOOT Button GPIO based on the default pin used by the selected Devkit Board.
+
+This example creates a Color Temperature Light device using the esp\+\_\+matter component downloaded from the \href{https://components.espressif.com/}{\texttt{ Espressif Component Registry}} instead of an extra component locally, so the example can work without setting up the esp-\/matter environment.
+
+Read the \href{https://docs.espressif.com/projects/esp-matter/en/latest/esp32/developing.html}{\texttt{ documentation}} for more information about building and flashing the firmware.
+
+The code is based on the Arduino API and uses Arduino as an IDF Component.\hypertarget{README.md_autotoc_md2}{}\doxysubsubsection{\texorpdfstring{How to use it}{How to use it}}\label{README.md_autotoc_md2}
+Once the device runs for the first time, it must be commissioned to the Matter Fabric of the available Matter Environment. ~\newline
+ Possible Matter Environments are\+: ~\newline
+
+\begin{DoxyItemize}
+\item Amazon Alexa
+\item Google Home Assistant (\texorpdfstring{$\ast$}{*})
+\item Apple Home
+\item Open Source Home Assistant
+\end{DoxyItemize}
+
+(\texorpdfstring{$\ast$}{*}) Google Home Assistant requires the user to set up a Matter Light using the \href{https://developers.home.google.com/codelabs/matter-device\#2}{\texttt{ Google Home Developer Console}}. It is necessary to create a Matter Light device with VID = 0x\+FFF1 and PID = 0x8000. Otherwise, the Light won\textquotesingle{}t show up in the GHA APP. This action is necessary because the Firmware uses Testing credentials and Google requires the user to create the testing device before using it.
+
+{\bfseries{There is no QR Code}} to be used when the Smartphone APP wants to add the Matter Device. ~\newline
+ Please enter the code manually\+: {\ttfamily 34970112332}
+
+Each Devkit Board has a built-\/in LED that will be used as the Matter Light. ~\newline
+ The default setting for ESP32-\/\+S3 is pin 48, for ESP32-\/\+C3 and ESP32-\/\+C6, it is pin 8. ~\newline
+ The BOOT Button pin of ESP32-\/\+S3 is GPIO 0, by toher hand, the ESP32-\/\+C3 and ESP32-\/\+C6 use GPIO 9. ~\newline
+ Please change it in using the Menu\+Config executing {\ttfamily idf.\+py menuconfig} and selecting {\ttfamily Menu-\/\texorpdfstring{$>$}{>}Light Matter Accessory} options.\hypertarget{README.md_autotoc_md3}{}\doxysubsubsection{\texorpdfstring{LED Status and Factory Mode}{LED Status and Factory Mode}}\label{README.md_autotoc_md3}
+The WS2812b built-\/in LED will turn purple as soon as the device is flashed and runs for the first time. ~\newline
+ The purple color indicates that the Matter Accessory has not been commissioned yet. ~\newline
+ After using a Matter provider Smartphone APP to add a Matter device to your Home Application, it may turn orange to indicate that it has no Wi-\/\+Fi connection.
+
+Once it connects to the Wi-\/\+Fi network, the LED will turn white to indicate that Matter is working and the device is connected to the Matter Environment. Please note that Matter over Wi-\/\+Fi using an ESP32 device will connect to a 2.\+4 GHz Wi-\/\+Fi SSID, therefore the Commissioner APP Smartphone shall be connected to this SSID.
+
+The Matter and Wi-\/\+Fi configuration will be stored in NVS to ensure that it will connect to the Matter Fabric and Wi-\/\+Fi Network again once it is reset.
+
+The Matter Smartphone APP will control the light state (ON/\+OFF), temperature (Warm/\+Cold White), and brightness.\hypertarget{README.md_autotoc_md4}{}\doxysubsubsection{\texorpdfstring{On Board Light toggle button}{On Board Light toggle button}}\label{README.md_autotoc_md4}
+The built-\/in BOOT button will toggle On/\+Off and replicate the new state to the Matter Environment, making it visible in the Matter Smartphone APP as well.\hypertarget{README.md_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Returning to the Factory State}{Returning to the Factory State}}\label{README.md_autotoc_md5}
+Holding the BOOT button pressed for more than 10 seconds and then releasing it will erase all Matter and Wi-\/\+Fi configuration, forcing it to reset to factory state. After that, the device needs to be commissioned again. ~\newline
+ Previous setups done in the Smartphone APP won\textquotesingle{}t work again; therefore, the virtual device shall be removed from the APP.\hypertarget{README.md_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{Building the Application using Wi-\/\+Fi and Matter}{Building the Application using Wi-\/\+Fi and Matter}}\label{README.md_autotoc_md6}
+Use ESP-\/\+IDF 5.\+1.\+4 from \href{https://github.com/espressif/esp-idf/tree/release/v5.1}{\texttt{ https\+://github.\+com/espressif/esp-\/idf/tree/release/v5.\+1}} ~\newline
+ This example has been tested with Arduino Core 3.\+0.\+4
+
+The project will download all necessary components, including the Arduino Core. ~\newline
+ Run {\ttfamily idf.\+py -\/D SDKCONFIG\+\_\+\+DEFAULTS="{}sdkconfig.\+defaults.$<$\+SOC$>$.\+idf"{} -\/p \texorpdfstring{$<$}{<}PORT\texorpdfstring{$>$}{>} flash monitor}
+
+Example for ESP32-\/\+S3/\+Linux \texorpdfstring{$\vert$}{|} mac\+OS\+: ~\newline
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/D\ SDKCONFIG\_DEFAULTS="{}sdkconfig.defaults.esp32s3"{}\ -\/p\ /dev/ttyACM0\ flash\ monitor}
+
+\end{DoxyCode}
+ Example for ESP32-\/\+C3/\+Windows\+: ~\newline
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/D\ SDKCONFIG\_DEFAULTS="{}sdkconfig.defaults.esp32c3"{}\ -\/p\ com3\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+It may be necessary to delete some folders and files before running {\ttfamily idf.\+py} ~\newline
+
+\begin{DoxyItemize}
+\item Linux/mac\+OS\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rm\ -\/rf\ build\ managed\_components\ sdkconfig\ dependencies.lock}
+
+\end{DoxyCode}
+
+\item Windows\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rmdir\ /s/q\ build\ managed\_components\ \&\&\ del\ sdkconfig\ dependencies.lock}
+
+\end{DoxyCode}
+
+\end{DoxyItemize}
+
+There is a configuration file for these SoC\+: esp32s3, esp32c3, esp32c6. Those are the tested devices that have a WS2812 RGB LED and can run BLE, Wi-\/\+Fi and Matter.
+
+In case it is necessary to change the Button Pin or the REG LED Pin, please use the {\ttfamily menuconfig} {\ttfamily idf.\+py menuconfig} and change the Menu Option {\ttfamily Light Matter Accessory}\hypertarget{README.md_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Building the Application using Open\+Thread and Matter}{Building the Application using Open\+Thread and Matter}}\label{README.md_autotoc_md7}
+This is possible with the ESP32-\/\+C6. It is necessary to have a Thread Border Router in the Matter Environment. ~\newline
+ Check your Matter hardware provider. ~\newline
+ In order to build the application that will use Thread Networking instead of Wi-\/\+Fi, please execute\+:
+
+Example for ESP32-\/\+C6/\+Linux \texorpdfstring{$\vert$}{|} mac\+OS\+: ~\newline
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/D\ SDKCONFIG\_DEFAULTS="{}sdkconfig.defaults.c6\_thread"{}\ -\/p\ /dev/ttyACM0\ flash\ monitor}
+
+\end{DoxyCode}
+ Example for ESP32-\/\+C6/\+Windows\+: ~\newline
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/D\ SDKCONFIG\_DEFAULTS="{}sdkconfig.defaults.c6\_thread"{}\ -\/p\ com3\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+It may be necessary to delete some folders and files before running {\ttfamily idf.\+py} ~\newline
+
+\begin{DoxyItemize}
+\item Linux/mac\+OS 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rm\ -\/rf\ build\ managed\_components\ sdkconfig\ dependencies.lock}
+
+\end{DoxyCode}
+
+\item Windows 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rmdir\ /s/q\ build\ managed\_components\ \&\&\ del\ sdkconfig\ dependencies.lock}
+
+\end{DoxyCode}
+ 
+\end{DoxyItemize}

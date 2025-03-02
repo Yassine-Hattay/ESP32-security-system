@@ -1,0 +1,130 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Web\+Server/examples/\+Multi\+Homed\+Servers Directory Reference}
+\hypertarget{dir_32611b16e1ce872fbad0d190769c284c}{}\label{dir_32611b16e1ce872fbad0d190769c284c}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/examples/MultiHomedServers Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/examples/MultiHomedServers Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+This example tests support for multi-\/homed servers, i.\+e. a distinct web servers on distinct IP interface.
+
+It only tests the case n=2 because on a basic ESP32 device, we only have two IP interfaces, namely the Wi-\/\+Fi station interfaces and the Wi-\/\+Fi soft AP interface. For this to work, the \doxylink{class_web_server}{Web\+Server} and the \doxylink{class_network_server}{Network\+Server} classes must correctly handle the case where an IP address is passed to their relevant constructor. It also requires \doxylink{class_web_server}{Web\+Server} to work with multiple, simultaneous instances.
+
+Testing the \doxylink{class_web_server}{Web\+Server} and the \doxylink{class_network_server}{Network\+Server} constructors was the primary purpose of this script. The part of \doxylink{class_web_server}{Web\+Server} used by this sketch does seem to work with multiple, simultaneous instances. However there is much functionality in \doxylink{class_web_server}{Web\+Server} that is not tested here. It may all be well, but that is not proven here.
+
+This sketch starts the m\+DNS server, as did Hello\+Server, and it resolves esp32.\+local on both interfaces, but was not otherwise tested. This script also tests that a server not bound to a specific IP address still works.
+
+We create three, simultaneous web servers, one specific to each interface and one that listens on both\+:
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ IP Address   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Port    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ name   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ IP Address   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Port    }\\\cline{1-3}
+\endhead
+server0   &INADDR\+\_\+\+ANY   &8080    \\\cline{1-3}
+server1   &station address   &8081    \\\cline{1-3}
+server2   &soft AP address   &8081   \\\cline{1-3}
+\end{longtabu}
+
+
+The expected responses to a browser\textquotesingle{}s requests are as follows\+:\hypertarget{README.md_autotoc_md597}{}\doxysubsubsubsection{\texorpdfstring{1. The Client connected to the same WLAN as the station\+:}{1. The Client connected to the same WLAN as the station\+:}}\label{README.md_autotoc_md597}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Request URL   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Response    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Request URL   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Response    }\\\cline{1-2}
+\endhead
+\href{http://stationaddress:8080}{\texttt{ http\+://stationaddress\+:8080}}   &Hello from server0 who listens on both WLAN and own Soft AP    \\\cline{1-2}
+\href{http://stationaddress:8081}{\texttt{ http\+://stationaddress\+:8081}}   &Hello from server1 who listens only on WLAN   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{README.md_autotoc_md598}{}\doxysubsubsubsection{\texorpdfstring{2. The Client is connected to the soft AP\+:}{2. The Client is connected to the soft AP\+:}}\label{README.md_autotoc_md598}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Request URL   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Response    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Request URL   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Response    }\\\cline{1-2}
+\endhead
+\href{http://softAPaddress:8080}{\texttt{ http\+://soft\+APaddress\+:8080}}   &Hello from server0 who listens on both WLAN and own Soft AP    \\\cline{1-2}
+\href{http://softAPaddress:8081}{\texttt{ http\+://soft\+APaddress\+:8081}}   &Hello from server2 who listens only on own Soft AP   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{README.md_autotoc_md599}{}\doxysubsubsubsection{\texorpdfstring{3. The Client is connect to either WLAN or Soft\+AP\+:}{3. The Client is connect to either WLAN or Soft\+AP\+:}}\label{README.md_autotoc_md599}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Request URL   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Response    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Request URL   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Response    }\\\cline{1-2}
+\endhead
+\href{http://esp32.local:8080}{\texttt{ http\+://esp32.\+local\+:8080}}   &Hello from server0 who listens on both WLAN and own Soft AP    \\\cline{1-2}
+\href{http://esp32.local:8081}{\texttt{ http\+://esp32.\+local\+:8081}}   &Hello from server1 who listens only on WLAN   \\\cline{1-2}
+\end{longtabu}
+
+
+Multi\+Homed\+Servers was originally based on Hello\+Server.\hypertarget{README.md_autotoc_md600}{}\doxysubsection{\texorpdfstring{Supported Targets}{Supported Targets}}\label{README.md_autotoc_md600}
+Currently, this example supports the following targets.
+
+\texorpdfstring{$\vert$}{|} Supported Targets \texorpdfstring{$\vert$}{|} ESP32 \texorpdfstring{$\vert$}{|} ESP32-\/\+S2 \texorpdfstring{$\vert$}{|} ESP32-\/\+C3 \texorpdfstring{$\vert$}{|} ESP32-\/\+S3 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|}\hypertarget{README.md_autotoc_md601}{}\doxysubsubsection{\texorpdfstring{How to Use Example}{How to Use Example}}\label{README.md_autotoc_md601}
+Change the SSID and password in the example to your Wi-\/\+Fi and flash the example. Open a serial terminal and the example will write the exact addresses with used IP addresses you can use to test the servers.
+
+
+\begin{DoxyItemize}
+\item How to install the Arduino IDE\+: \href{https://github.com/espressif/arduino-esp32/tree/master/docs/arduino-ide}{\texttt{ Install Arduino IDE}}.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md602}{}\doxysubsubsubsubsection{\texorpdfstring{Using Arduino IDE}{Using Arduino IDE}}\label{README.md_autotoc_md602}
+To get more information about the Espressif boards see \href{https://www.espressif.com/en/products/devkits}{\texttt{ Espressif Development Kits}}.
+
+
+\begin{DoxyItemize}
+\item Before Compile/\+Verify, select the correct board\+: {\ttfamily Tools -\/\texorpdfstring{$>$}{>} Board}.
+\item Select the COM port\+: {\ttfamily Tools -\/\texorpdfstring{$>$}{>} Port\+: xxx} where the {\ttfamily xxx} is the detected COM port.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md603}{}\doxysubsubsection{\texorpdfstring{Example Log Output}{Example Log Output}}\label{README.md_autotoc_md603}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{Multi-\/homed\ Servers\ example\ starting}
+\DoxyCodeLine{Connecting\ ...}
+\DoxyCodeLine{Connected\ to\ "{}WiFi\_SSID"{},\ IP\ address:\ "{}192.168.42.24}
+\DoxyCodeLine{Soft\ AP\ SSID:\ "{}ESP32"{},\ IP\ address:\ 192.168.4.1}
+\DoxyCodeLine{MDNS\ responder\ started}
+\DoxyCodeLine{SSID:\ WiFi\_SSID}
+\DoxyCodeLine{\ \ \ \ http://192.168.42.24:8080}
+\DoxyCodeLine{\ \ \ \ http://192.168.42.24:8081}
+\DoxyCodeLine{SSID:\ ESP32}
+\DoxyCodeLine{\ \ \ \ http://192.168.4.1:8080}
+\DoxyCodeLine{\ \ \ \ http://192.168.4.1:8081}
+\DoxyCodeLine{Any\ of\ the\ above\ SSIDs}
+\DoxyCodeLine{\ \ \ \ http://esp32.local:8080}
+\DoxyCodeLine{\ \ \ \ http://esp32.local:8081}
+\DoxyCodeLine{HTTP\ server0\ started}
+\DoxyCodeLine{HTTP\ server1\ started}
+\DoxyCodeLine{HTTP\ server2\ started}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md604}{}\doxysubsubsection{\texorpdfstring{Known issues}{Known issues}}\label{README.md_autotoc_md604}
+{\ttfamily \href{http://esp32.local}{\texttt{ http\+://esp32.\+local}}} Does not work on some Android phones\hypertarget{README.md_autotoc_md605}{}\doxysubsubsection{\texorpdfstring{Troubleshooting}{Troubleshooting}}\label{README.md_autotoc_md605}
+{\itshape {\bfseries{Important\+: Make sure you are using a good quality USB cable and that you have a reliable power source}}}\hypertarget{README.md_autotoc_md606}{}\doxysubsubsection{\texorpdfstring{Contribute}{Contribute}}\label{README.md_autotoc_md606}
+To know how to contribute to this project, see \href{https://github.com/espressif/arduino-esp32/blob/master/CONTRIBUTING.rst}{\texttt{ How to contribute.}}
+
+If you have any {\bfseries{feedback}} or {\bfseries{issue}} to report on this example/library, please open an issue or fix it by creating a new PR. Contributions are more than welcome!
+
+Before creating a new issue, be sure to try Troubleshooting and check if the same issue was already created by someone else.\hypertarget{README.md_autotoc_md607}{}\doxysubsubsection{\texorpdfstring{Resources}{Resources}}\label{README.md_autotoc_md607}
+
+\begin{DoxyItemize}
+\item Official ESP32 Forum\+: \href{https://esp32.com}{\texttt{ Link}}
+\item Arduino-\/\+ESP32 Official Repository\+: \href{https://github.com/espressif/arduino-esp32}{\texttt{ espressif/arduino-\/esp32}}
+\item ESP32 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item ESP32-\/\+S2 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item ESP32-\/\+C3 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item Official ESP-\/\+IDF documentation\+: \href{https://idf.espressif.com}{\texttt{ ESP-\/\+IDF}} 
+\end{DoxyItemize}

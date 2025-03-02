@@ -1,0 +1,43 @@
+\doxysection{dspm\+\_\+sub.\+h}
+\hypertarget{dspm__sub_8h_source}{}\label{dspm__sub_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/matrix/sub/include/dspm\_sub.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/matrix/sub/include/dspm\_sub.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ \_dspm\_sub\_H\_}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ \_dspm\_sub\_H\_}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}dsp\_err.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}dspm\_sub\_platform.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00042\ esp\_err\_t\ dspm\_sub\_f32\_ansi(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *input1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *input2,\ \textcolor{keywordtype}{float}\ *output,\ \textcolor{keywordtype}{int}\ rows,\ \textcolor{keywordtype}{int}\ cols,\ \textcolor{keywordtype}{int}\ padd1,\ \textcolor{keywordtype}{int}\ padd2,\ \textcolor{keywordtype}{int}\ padd\_out,\ \textcolor{keywordtype}{int}\ step1,\ \textcolor{keywordtype}{int}\ step2,\ \textcolor{keywordtype}{int}\ step\_out);}
+\DoxyCodeLine{00043\ esp\_err\_t\ dspm\_sub\_f32\_ae32(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *input1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ *input2,\ \textcolor{keywordtype}{float}\ *output,\ \textcolor{keywordtype}{int}\ rows,\ \textcolor{keywordtype}{int}\ cols,\ \textcolor{keywordtype}{int}\ padd1,\ \textcolor{keywordtype}{int}\ padd2,\ \textcolor{keywordtype}{int}\ padd\_out,\ \textcolor{keywordtype}{int}\ step1,\ \textcolor{keywordtype}{int}\ step2,\ \textcolor{keywordtype}{int}\ step\_out);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00047\ \}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#if\ CONFIG\_DSP\_OPTIMIZED}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#if\ (dspm\_sub\_f32\_ae32\_enabled\ ==\ 1)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ dspm\_sub\_f32\ dspm\_sub\_f32\_ae32}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ dspm\_sub\_f32\ dspm\_sub\_f32\_ansi}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ dspm\_sub\_f32\ dspm\_sub\_f32\_ansi}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CONFIG\_DSP\_OPTIMIZED}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_dspm\_sub\_H\_}}
+
+\end{DoxyCode}

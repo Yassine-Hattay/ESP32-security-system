@@ -1,0 +1,97 @@
+\doxysection{USBHIDConsumer\+Control.\+h}
+\hypertarget{_u_s_b_h_i_d_consumer_control_8h_source}{}\label{_u_s_b_h_i_d_consumer_control_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/USBHIDConsumerControl.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/USBHIDConsumerControl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2020\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ SOC\_USB\_OTG\_SUPPORTED}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}USBHID.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#if\ CONFIG\_TINYUSB\_HID\_ENABLED}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ Power\ Control}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_POWER\ 0x0030}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_RESET\ 0x0031}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_SLEEP\ 0x0032}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ Screen\ Brightness}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_BRIGHTNESS\_INCREMENT\ 0x006F}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_BRIGHTNESS\_DECREMENT\ 0x0070}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ These\ HID\ usages\ operate\ only\ on\ mobile\ systems\ (battery\ powered)\ and}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ require\ Windows\ 8\ (build\ 8302\ or\ greater).}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_WIRELESS\_RADIO\_CONTROLS\ \ \ \ \ \ 0x000C}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_WIRELESS\_RADIO\_BUTTONS\ \ \ \ \ \ \ 0x00C6}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_WIRELESS\_RADIO\_LED\ \ \ \ \ \ \ \ \ \ \ 0x00C7}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_WIRELESS\_RADIO\_SLIDER\_SWITCH\ 0x00C8}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ Media\ Control}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_PLAY\_PAUSE\ \ \ \ \ \ \ 0x00CD}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_SCAN\_NEXT\ \ \ \ \ \ \ \ 0x00B5}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_SCAN\_PREVIOUS\ \ \ \ 0x00B6}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_STOP\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00B7}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_VOLUME\ \ \ \ \ \ \ \ \ \ \ 0x00E0}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_MUTE\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00E2}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_BASS\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00E3}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_TREBLE\ \ \ \ \ \ \ \ \ \ \ 0x00E4}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_BASS\_BOOST\ \ \ \ \ \ \ 0x00E5}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_VOLUME\_INCREMENT\ 0x00E9}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_VOLUME\_DECREMENT\ 0x00EA}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_BASS\_INCREMENT\ \ \ 0x0152}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_BASS\_DECREMENT\ \ \ 0x0153}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_TREBLE\_INCREMENT\ 0x0154}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_TREBLE\_DECREMENT\ 0x0155}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ Application\ Launcher}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_CONFIGURATION\ 0x0183}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_EMAIL\_READER\ \ 0x018A}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_CALCULATOR\ \ \ \ 0x0192}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_LOCAL\_BROWSER\ 0x0194}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ Browser/Explorer\ Specific}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_SEARCH\ \ \ \ 0x0221}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_HOME\ \ \ \ \ \ 0x0223}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_BACK\ \ \ \ \ \ 0x0224}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_FORWARD\ \ \ 0x0225}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_BR\_STOP\ \ \ 0x0226}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_REFRESH\ \ \ 0x0227}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_BOOKMARKS\ 0x022A}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ Mouse\ Horizontal\ scroll}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ CONSUMER\_CONTROL\_PAN\ 0x0238}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{class\ }USBHIDConsumerControl\ :\ \textcolor{keyword}{public}\ USBHIDDevice\ \{}
+\DoxyCodeLine{00075\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ USBHID\ hid;}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{bool}\ send(uint16\_t\ value);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00080\ \ \ USBHIDConsumerControl(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{void}\ begin(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{void}\ end(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{size\_t}\ press(uint16\_t\ k);}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{size\_t}\ release();}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ internal\ use}}
+\DoxyCodeLine{00087\ \ \ uint16\_t\ \_onGetDescriptor(uint8\_t\ *buffer);}
+\DoxyCodeLine{00088\ \};}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_TINYUSB\_HID\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_USB\_OTG\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

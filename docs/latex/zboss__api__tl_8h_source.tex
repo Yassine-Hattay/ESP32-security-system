@@ -1,0 +1,228 @@
+\doxysection{zboss\+\_\+api\+\_\+tl.\+h}
+\hypertarget{zboss__api__tl_8h_source}{}\label{zboss__api__tl_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_tl.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_tl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ ZBOSS\ Zigbee\ cluster\ library\ API\ header}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifndef\ ZBOSS\_API\_TL\_H}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ZBOSS\_API\_TL\_H\ 1}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}zb\_types.h"{}}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_config.h"{}}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_common.h"{}}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_commands.h"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_touchlink\_commissioning.h"{}}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ ZB\_ZLL\_TRANS\_CTX\_DEV\_INFO\_MAX\_NUMBER\ 8U}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ZB\_ZLL\_TRANS\_CTX\_EP\_INFO\_MAX\_NUMBER\ 6U}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_addr\_range\_s}
+\DoxyCodeLine{00070\ \{}
+\DoxyCodeLine{00071\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ addr\_begin;}
+\DoxyCodeLine{00072\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ addr\_end;}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ zb\_zll\_addr\_range\_t;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_group\_id\_range\_s}
+\DoxyCodeLine{00078\ \{}
+\DoxyCodeLine{00079\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ group\_id\_begin;}
+\DoxyCodeLine{00080\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ group\_id\_end;}
+\DoxyCodeLine{00081\ \}}
+\DoxyCodeLine{00082\ zb\_zll\_group\_id\_range\_t;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_sub\_device\_info\_s}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ep\_id;}
+\DoxyCodeLine{00088\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ profile\_id;}
+\DoxyCodeLine{00089\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ device\_id;}
+\DoxyCodeLine{00090\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ version;}
+\DoxyCodeLine{00091\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ group\_id\_count;}
+\DoxyCodeLine{00092\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dev\_idx;\ }
+\DoxyCodeLine{00093\ \}\ zb\_zll\_sub\_device\_info\_t;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00096\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_ext\_device\_info\_s}
+\DoxyCodeLine{00097\ \{}
+\DoxyCodeLine{00099\ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ device\_addr;}
+\DoxyCodeLine{00100\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ rssi\_correction;}
+\DoxyCodeLine{00101\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_info;}
+\DoxyCodeLine{00102\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zll\_info;}
+\DoxyCodeLine{00103\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ key\_info;}
+\DoxyCodeLine{00104\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ resp\_id;}
+\DoxyCodeLine{00105\ \ \ \mbox{\hyperlink{group__base__types_gacc88c1d29982ff7e500c71db8979b084}{zb\_ext\_pan\_id\_t}}\ ext\_pan\_id;}
+\DoxyCodeLine{00106\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ nwk\_update\_id;}
+\DoxyCodeLine{00107\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ channel\_number;}
+\DoxyCodeLine{00108\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ pan\_id;}
+\DoxyCodeLine{00109\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ nwk\_addr;}
+\DoxyCodeLine{00110\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ sub\_device\_count;}
+\DoxyCodeLine{00111\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ total\_group\_id\_count;}
+\DoxyCodeLine{00112\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ep\_info\_idx;}
+\DoxyCodeLine{00113\ \ \ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ rssi;}
+\DoxyCodeLine{00114\ \}\ zb\_zll\_ext\_device\_info\_t;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00120\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_start\_new\_network\_target\_data\_s}
+\DoxyCodeLine{00121\ \{}
+\DoxyCodeLine{00122\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ seq\_number;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00123\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ pan\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00124\ \ \ \mbox{\hyperlink{group__base__types_gacc88c1d29982ff7e500c71db8979b084}{zb\_ext\_pan\_id\_t}}\ ext\_pan\_id;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00125\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ channel;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00126\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ short\_addr;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00127\ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ target\_ieee\_addr;\ \ }
+\DoxyCodeLine{00128\ \}\ zb\_zll\_start\_new\_network\_target\_data\_t;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_start\_router\_param\_s}
+\DoxyCodeLine{00132\ \{}
+\DoxyCodeLine{00133\ \ \ \mbox{\hyperlink{group__base__types_gacc88c1d29982ff7e500c71db8979b084}{zb\_ext\_pan\_id\_t}}\ ext\_pan\_id;\ \ \ }
+\DoxyCodeLine{00134\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ short\_pan\_id;\ \ \ \ \ }
+\DoxyCodeLine{00135\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ channel;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00136\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ short\_addr;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ zb\_zll\_start\_router\_param\_t;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00141\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_rejon\_nwk\_ed\_param\_s}
+\DoxyCodeLine{00142\ \{}
+\DoxyCodeLine{00143\ \ \ \mbox{\hyperlink{group__base__types_gacc88c1d29982ff7e500c71db8979b084}{zb\_ext\_pan\_id\_t}}\ ext\_pan\_id;\ \ \ }
+\DoxyCodeLine{00144\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ short\_pan\_id;\ \ \ \ \ }
+\DoxyCodeLine{00145\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ channel;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00146\ \}}
+\DoxyCodeLine{00147\ zb\_zll\_rejon\_nwk\_ed\_param\_t;}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00150\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_network\_join\_router\_data\_s}
+\DoxyCodeLine{00151\ \{}
+\DoxyCodeLine{00152\ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ target\_ieee\_addr;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00153\ \}\ zb\_zll\_network\_join\_router\_data\_t;}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }zb\_zll\_command\_target\_data\_u}
+\DoxyCodeLine{00160\ \{}
+\DoxyCodeLine{00161\ \ \ zb\_zll\_start\_new\_network\_target\_data\_t\ start\_new\_nwk;\ }
+\DoxyCodeLine{00162\ \ \ zb\_zll\_start\_router\_param\_t\ start\_router\_param;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00163\ \ \ zb\_zll\_rejon\_nwk\_ed\_param\_t\ rejoin\_nwk\_param;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00165\ \ \ zb\_zll\_network\_join\_router\_data\_t\ nwk\_join\_router;\ \ \ \ }
+\DoxyCodeLine{00166\ \}\ zb\_zll\_command\_target\_data\_t;}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ (*zb\_zll\_is\_action\_allowed\_cb\_t)(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ action);}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00176\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_device\_info\_s}
+\DoxyCodeLine{00177\ \{}
+\DoxyCodeLine{00178\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ rssi\_correction;}
+\DoxyCodeLine{00179\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zll\_info;}
+\DoxyCodeLine{00180\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ key\_info;}
+\DoxyCodeLine{00181\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ key\_index;}
+\DoxyCodeLine{00182\ \ \ zb\_zll\_addr\_range\_t\ addr\_range;}
+\DoxyCodeLine{00183\ \ \ zb\_zll\_group\_id\_range\_t\ group\_id\_range;}
+\DoxyCodeLine{00184\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ total\_group\_id\_count;\ \textcolor{comment}{/*\ TODO:\ Not\ sure\ it\ is\ needed\ maybe\ calculate\ it\ using\ group\ ID}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ count\ for\ EP?\ */}}
+\DoxyCodeLine{00187\ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ report\_task\_result;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ master\_key[16];}
+\DoxyCodeLine{00190\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ certification\_key[16];}
+\DoxyCodeLine{00191\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ transaction\_id;}
+\DoxyCodeLine{00192\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ response\_id;}
+\DoxyCodeLine{00193\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ encr\_nwk\_key[16];\ \ \textcolor{comment}{/*\ FIXME:\ do\ we\ really\ need\ to\ store\ it?\ */}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ identify\_duration;\ \ }
+\DoxyCodeLine{00196\ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ identify\_handler;\ }
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ freqagility\_channel;}
+\DoxyCodeLine{00199\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ nwk\_channel;\ \ \ \ \ \ \ \textcolor{comment}{/*\ Logical\ channel\ number\ for\ start/join\ the\ network\ (as\ initiator}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ role)\ */}}
+\DoxyCodeLine{00201\ \ \ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ rssi\_threshold;\ \ \ \ \ \textcolor{comment}{/*\ RSSI\ threshold\ */}}
+\DoxyCodeLine{00202\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ target\_timeout;\ \ \ \textcolor{comment}{/*\ Timeout\ for\ target\ to\ wait\ initiator\ */}}
+\DoxyCodeLine{00203\ \}}
+\DoxyCodeLine{00204\ zb\_zll\_device\_info\_t;}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00207\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_transaction\_ctx\_s}
+\DoxyCodeLine{00208\ \{}
+\DoxyCodeLine{00210\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ transaction\_id;}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00213\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ identify\_sent:1;}
+\DoxyCodeLine{00215\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ send\_confirmed:1;}
+\DoxyCodeLine{00217\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ scan\_timed\_out:1;}
+\DoxyCodeLine{00219\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ ext\_scan:1;}
+\DoxyCodeLine{00221\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ out\_of\_memory:1;}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00224\ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ src\_addr;}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00230\ \ \ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ transaction\_task;}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ n\_device\_infos;\ \ }
+\DoxyCodeLine{00233\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ current\_dev\_info\_idx;\ \ }
+\DoxyCodeLine{00235\ \ \ zb\_zll\_ext\_device\_info\_t\ device\_infos[ZB\_ZLL\_TRANS\_CTX\_DEV\_INFO\_MAX\_NUMBER];}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00238\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ n\_ep\_infos;}
+\DoxyCodeLine{00240\ \ \ zb\_zll\_sub\_device\_info\_t\ ep\_infos[ZB\_ZLL\_TRANS\_CTX\_DEV\_INFO\_MAX\_NUMBER\ *\ ZB\_ZLL\_TRANS\_CTX\_EP\_INFO\_MAX\_NUMBER];}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00243\ \ \ zb\_zll\_is\_action\_allowed\_cb\_t\ check\_action\_allowed;}
+\DoxyCodeLine{00249\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ pckt\_cnt;}
+\DoxyCodeLine{00251\ \ \ zb\_zll\_addr\_range\_t\ addr\_range;}
+\DoxyCodeLine{00253\ \ \ zb\_zll\_group\_id\_range\_t\ group\_id\_range;}
+\DoxyCodeLine{00255\ \ \ zb\_zll\_command\_target\_data\_t\ command\_data;}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \}\ zb\_zll\_transaction\_ctx\_t;}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00260\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zll\_ctx\_s}
+\DoxyCodeLine{00261\ \{}
+\DoxyCodeLine{00262\ \ \ zb\_zll\_device\_info\_t\ zll\_device\_info;}
+\DoxyCodeLine{00263\ \ \ zb\_zll\_transaction\_ctx\_t\ zll\_tran\_ctx;}
+\DoxyCodeLine{00264\ \}\ zb\_zll\_ctx\_t;}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00270\ zb\_zll\_ctx\_t\ *zb\_zll\_get\_ctx(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00276\ zb\_zll\_device\_info\_t\ *zb\_zll\_get\_device\_info(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00282\ zb\_zll\_transaction\_ctx\_t\ *zb\_zll\_get\_transaction\_ctx(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00283\ \ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#define\ ZLL\_CTX()\ (*zb\_zll\_get\_ctx())}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#define\ ZLL\_DEVICE\_INFO()\ (*zb\_zll\_get\_device\_info())}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#define\ ZLL\_TRAN\_CTX()\ (*zb\_zll\_get\_transaction\_ctx())}}
+\DoxyCodeLine{00294\ \ \textcolor{comment}{/*\ ZB\_ZCL\_TOUCHLINK\_COMMON\ */}}
+\DoxyCodeLine{00296\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ \&\&\ DOXYGEN\_TOUCHLINK\_FEATURE\ */}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZBOSS\_API\_TL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

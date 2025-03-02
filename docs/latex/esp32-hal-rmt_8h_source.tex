@@ -1,0 +1,107 @@
+\doxysection{esp32-\/hal-\/rmt.h}
+\hypertarget{esp32-hal-rmt_8h_source}{}\label{esp32-hal-rmt_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/rmt.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/rmt.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2023\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ MAIN\_ESP32\_HAL\_RMT\_H\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MAIN\_ESP32\_HAL\_RMT\_H\_}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#if\ SOC\_RMT\_SUPPORTED}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00026\ \ \ RMT\_RX\_MODE\ =\ 0,\ \ \textcolor{comment}{//\ false}}
+\DoxyCodeLine{00027\ \ \ RMT\_TX\_MODE\ =\ 1,\ \ \textcolor{comment}{//\ true}}
+\DoxyCodeLine{00028\ \}\ rmt\_ch\_dir\_t;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00031\ \ \ RMT\_MEM\_NUM\_BLOCKS\_1\ =\ 1,}
+\DoxyCodeLine{00032\ \ \ RMT\_MEM\_NUM\_BLOCKS\_2\ =\ 2,}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ SOC\_RMT\_TX\_CANDIDATES\_PER\_GROUP\ >\ 2}}
+\DoxyCodeLine{00034\ \ \ RMT\_MEM\_NUM\_BLOCKS\_3\ =\ 3,}
+\DoxyCodeLine{00035\ \ \ RMT\_MEM\_NUM\_BLOCKS\_4\ =\ 4,}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#if\ SOC\_RMT\_TX\_CANDIDATES\_PER\_GROUP\ >\ 4}}
+\DoxyCodeLine{00037\ \ \ RMT\_MEM\_NUM\_BLOCKS\_5\ =\ 5,}
+\DoxyCodeLine{00038\ \ \ RMT\_MEM\_NUM\_BLOCKS\_6\ =\ 6,}
+\DoxyCodeLine{00039\ \ \ RMT\_MEM\_NUM\_BLOCKS\_7\ =\ 7,}
+\DoxyCodeLine{00040\ \ \ RMT\_MEM\_NUM\_BLOCKS\_8\ =\ 8,}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ \}\ rmt\_reserve\_memsize\_t;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ Each\ RMT\ Symbols\ has\ 4\ bytes}}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ Total\ number\ of\ bytes\ per\ RMT\_MEM\_BLOCK\ is\ RMT\_SYMBOLS\_PER\_CHANNEL\_BLOCK\ *\ 4\ bytes}}
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ uint32\_t\ duration0\ :\ 15;}
+\DoxyCodeLine{00050\ \ \ \ \ uint32\_t\ level0\ \ \ \ :\ 1;}
+\DoxyCodeLine{00051\ \ \ \ \ uint32\_t\ duration1\ :\ 15;}
+\DoxyCodeLine{00052\ \ \ \ \ uint32\_t\ level1\ \ \ \ :\ 1;}
+\DoxyCodeLine{00053\ \ \ \};}
+\DoxyCodeLine{00054\ \ \ uint32\_t\ val;}
+\DoxyCodeLine{00055\ \}\ rmt\_data\_t;}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ Reading\ and\ Writing\ shall\ use\ as\ rmt\_symbols\_size\ this\ unit}}
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ ESP32\ has\ 8\ MEM\ BLOCKS\ in\ total\ shared\ with\ Reading\ and/or\ Writing}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ ESP32-\/S2\ has\ 4\ MEM\ BLOCKS\ in\ total\ shared\ with\ Reading\ and/or\ Writing}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ ESP32-\/S3\ has\ 4\ MEM\ BLOCKS\ for\ Reading\ and\ another\ 4\ MEM\ BLOCKS\ for\ Writing}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ ESP32-\/C3\ has\ 2\ MEM\ BLOCKS\ for\ Reading\ and\ another\ 2\ MEM\ BLOCKS\ for\ Writing}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ RMT\_SYMBOLS\_PER\_CHANNEL\_BLOCK\ SOC\_RMT\_MEM\_WORDS\_PER\_CHANNEL}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ Used\ to\ tell\ rmtRead()\ to\ wait\ for\ ever\ until\ reading\ data\ from\ the\ RMT\ channel}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ RMT\_WAIT\_FOR\_EVER\ ((uint32\_t)portMAX\_DELAY)}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ Helper\ macro\ to\ calculate\ the\ number\ of\ RTM\ symbols\ in\ a\ array\ or\ type}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ RMT\_SYMBOLS\_OF(x)\ (sizeof(x)\ /\ sizeof(rmt\_data\_t))}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00077\ \textcolor{keywordtype}{bool}\ rmtInit(\textcolor{keywordtype}{int}\ pin,\ rmt\_ch\_dir\_t\ channel\_direction,\ rmt\_reserve\_memsize\_t\ memsize,\ uint32\_t\ frequency\_Hz);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{bool}\ rmtSetEOT(\textcolor{keywordtype}{int}\ pin,\ uint8\_t\ EOT\_Level);}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{bool}\ rmtWrite(\textcolor{keywordtype}{int}\ pin,\ rmt\_data\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ num\_rmt\_symbols,\ uint32\_t\ timeout\_ms);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{bool}\ rmtWriteAsync(\textcolor{keywordtype}{int}\ pin,\ rmt\_data\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ num\_rmt\_symbols);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00138\ \textcolor{keywordtype}{bool}\ rmtWriteLooping(\textcolor{keywordtype}{int}\ pin,\ rmt\_data\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ num\_rmt\_symbols);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00150\ \textcolor{keywordtype}{bool}\ rmtTransmitCompleted(\textcolor{keywordtype}{int}\ pin);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00170\ \textcolor{keywordtype}{bool}\ rmtRead(\textcolor{keywordtype}{int}\ pin,\ rmt\_data\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ *num\_rmt\_symbols,\ uint32\_t\ timeout\_ms);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00184\ \textcolor{keywordtype}{bool}\ rmtReadAsync(\textcolor{keywordtype}{int}\ pin,\ rmt\_data\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ *num\_rmt\_symbols);}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00191\ \textcolor{keywordtype}{bool}\ rmtReceiveCompleted(\textcolor{keywordtype}{int}\ pin);}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00201\ \textcolor{keywordtype}{bool}\ rmtSetRxMaxThreshold(\textcolor{keywordtype}{int}\ pin,\ uint16\_t\ idle\_thres\_ticks);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00214\ \textcolor{keywordtype}{bool}\ rmtSetCarrier(\textcolor{keywordtype}{int}\ pin,\ \textcolor{keywordtype}{bool}\ carrier\_en,\ \textcolor{keywordtype}{bool}\ carrier\_level,\ uint32\_t\ frequency\_Hz,\ \textcolor{keywordtype}{float}\ duty\_percent);}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{bool}\ rmtSetRxMinThreshold(\textcolor{keywordtype}{int}\ pin,\ uint8\_t\ filter\_pulse\_ticks);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00229\ \textcolor{keywordtype}{bool}\ rmtDeinit(\textcolor{keywordtype}{int}\ pin);}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00232\ \}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_RMT\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MAIN\_ESP32\_HAL\_RMT\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

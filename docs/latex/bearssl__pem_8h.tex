@@ -1,0 +1,197 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/bearssl\+\_\+pem.h File Reference}
+\hypertarget{bearssl__pem_8h}{}\label{bearssl__pem_8h}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_pem.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_pem.h}}
+{\ttfamily \#include "{}../\+ESP\+\_\+\+SSLClient\+\_\+\+FS.\+h"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structbr__pem__decoder__context}{br\+\_\+pem\+\_\+decoder\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em PEM decoder context. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{bearssl__pem_8h_a6ab44a877df8f2ff2bb156fd88fc6bd0}{BR\+\_\+\+PEM\+\_\+\+BEGIN\+\_\+\+OBJ}}~1
+\begin{DoxyCompactList}\small\item\em Event\+: start of object. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{bearssl__pem_8h_a02c1d9a3661d220663ad69ebe0d5a686}{BR\+\_\+\+PEM\+\_\+\+END\+\_\+\+OBJ}}~2
+\begin{DoxyCompactList}\small\item\em Event\+: end of object. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{bearssl__pem_8h_ad3179ed560e159b22b12e598456417e3}{BR\+\_\+\+PEM\+\_\+\+ERROR}}~3
+\begin{DoxyCompactList}\small\item\em Event\+: decoding error. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__pem_8h_aa808e5be331f5dd2f249f9b111fb2ac8}\label{bearssl__pem_8h_aa808e5be331f5dd2f249f9b111fb2ac8} 
+\#define {\bfseries BR\+\_\+\+PEM\+\_\+\+LINE64}~0x0001
+\begin{DoxyCompactList}\small\item\em PEM encoding flag\+: split lines at 64 characters. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__pem_8h_aea3595adbbc5be116a983d858786a3aa}\label{bearssl__pem_8h_aea3595adbbc5be116a983d858786a3aa} 
+\#define {\bfseries BR\+\_\+\+PEM\+\_\+\+CRLF}~0x0002
+\begin{DoxyCompactList}\small\item\em PEM encoding flag\+: use CR+\+LF line endings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bearssl__pem_8h_afd458a4c25710cfe2eb2458760bf71bf}{br\+\_\+pem\+\_\+decoder\+\_\+init}} (\mbox{\hyperlink{structbr__pem__decoder__context}{br\+\_\+pem\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx)
+\begin{DoxyCompactList}\small\item\em Initialise a PEM decoder structure. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{bearssl__pem_8h_a4d370a4ca904e4bcd0b90495821949ad}{br\+\_\+pem\+\_\+decoder\+\_\+push}} (\mbox{\hyperlink{structbr__pem__decoder__context}{br\+\_\+pem\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Push some bytes into the decoder. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{bearssl__pem_8h_a9e0c4331448f2a7496fbfc83484019a6}{br\+\_\+pem\+\_\+decoder\+\_\+event}} (\mbox{\hyperlink{structbr__pem__decoder__context}{br\+\_\+pem\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx)
+\begin{DoxyCompactList}\small\item\em Get the last event. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{bearssl__pem_8h_a90c9194770301eef8fc6f49883271497}{br\+\_\+pem\+\_\+encode}} (void \texorpdfstring{$\ast$}{*}dest, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len, const char \texorpdfstring{$\ast$}{*}banner, unsigned flags)
+\begin{DoxyCompactList}\small\item\em Encode an object in PEM. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{bearssl__pem_8h_autotoc_md97}{}\doxysubsection{\texorpdfstring{PEM Support}{PEM Support}}\label{bearssl__pem_8h_autotoc_md97}
+PEM is a traditional encoding layer use to store binary objects (in particular X.\+509 certificates, and private keys) in text files. While the acronym comes from an old, defunct standard ("{}\+Privacy Enhanced \+Mail"{}), the format has been reused, with some variations, by many systems, and is a {\itshape de facto} standard, even though it is not, actually, specified in all clarity anywhere.\hypertarget{bearssl__pem_8h_autotoc_md98}{}\doxysubsubsection{\texorpdfstring{Format Details}{Format Details}}\label{bearssl__pem_8h_autotoc_md98}
+Bear\+SSL contains a generic, streamed PEM decoder, which handles the following format\+:
+
+
+\begin{DoxyItemize}
+\item The input source (a sequence of bytes) is assumed to be the encoding of a text file in an ASCII-\/compatible charset. This includes ISO-\/8859-\/1, Windows-\/1252, and UTF-\/8 encodings. Each line ends on a newline character (U+000A LINE FEED). The U+000D CARRIAGE RETURN characters are ignored, so the code accepts both Windows-\/style and Unix-\/style line endings.
+\item Each object begins with a banner that occurs at the start of a line; the first banner characters are "{}\`{}-\/-\/-\/-\/-\/\+BEGIN \`{}"{} (five dashes, the word "{}\+BEGIN"{}, and a space). The banner matching is not case-\/sensitive.
+\item The {\itshape object name} consists in the characters that follow the banner start sequence, up to the end of the line, but without trailing dashes (in "{}normal"{} PEM, there are five trailing dashes, but this implementation is not picky about these dashes). The Bear\+SSL decoder normalises the name characters to uppercase (for ASCII letters only) and accepts names up to 127 characters.
+\item The object ends with a banner that again occurs at the start of a line, and starts with "{}\`{}-\/-\/-\/-\/-\/\+END \`{}"{} (again case-\/insensitive).
+\item Between that start and end banner, only Base64 data shall occur. Base64 converts each sequence of three bytes into four characters; the four characters are ASCII letters, digits, "{}\`{}+\`{}"{} or "{}\`{}-\/\`{}"{} signs, and one or two "{}\`{}=\`{}"{} signs may occur in the last quartet. Whitespace is ignored (whitespace is any ASCII character of code 32 or less, so control characters are whitespace) and lines may have arbitrary length; the only restriction is that the four characters of a quartet must appear on the same line (no line break inside a quartet).
+\item A single file may contain more than one PEM object. Bytes that occur between objects are ignored.
+\end{DoxyItemize}\hypertarget{bearssl__pem_8h_autotoc_md99}{}\doxysubsubsection{\texorpdfstring{PEM Decoder API}{PEM Decoder API}}\label{bearssl__pem_8h_autotoc_md99}
+The PEM decoder offers a state-\/machine API. The caller allocates a decoder context, then injects source bytes. Source bytes are pushed with {\ttfamily \doxylink{bearssl__pem_8h_a4d370a4ca904e4bcd0b90495821949ad}{br\+\_\+pem\+\_\+decoder\+\_\+push()}}. The decoder stops accepting bytes when it reaches an "{}event"{}, which is either the start of an object, the end of an object, or a decoding error within an object.
+
+The {\ttfamily \doxylink{bearssl__pem_8h_a9e0c4331448f2a7496fbfc83484019a6}{br\+\_\+pem\+\_\+decoder\+\_\+event()}} function is used to obtain the current event; it also clears it, thus allowing the decoder to accept more bytes. When a object start event is raised, the decoder context offers the found object name (normalised to ASCII uppercase).
+
+When an object is reached, the caller must set an appropriate callback function, which will receive (by chunks) the decoded object data.
+
+Since the decoder context makes no dynamic allocation, it requires no explicit deallocation. 
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{bearssl__pem_8h_a6ab44a877df8f2ff2bb156fd88fc6bd0}\index{bearssl\_pem.h@{bearssl\_pem.h}!BR\_PEM\_BEGIN\_OBJ@{BR\_PEM\_BEGIN\_OBJ}}
+\index{BR\_PEM\_BEGIN\_OBJ@{BR\_PEM\_BEGIN\_OBJ}!bearssl\_pem.h@{bearssl\_pem.h}}
+\doxysubsubsection{\texorpdfstring{BR\_PEM\_BEGIN\_OBJ}{BR\_PEM\_BEGIN\_OBJ}}
+{\footnotesize\ttfamily \label{bearssl__pem_8h_a6ab44a877df8f2ff2bb156fd88fc6bd0} 
+\#define BR\+\_\+\+PEM\+\_\+\+BEGIN\+\_\+\+OBJ~1}
+
+
+
+Event\+: start of object. 
+
+This event is raised when the start of a new object has been detected. The object name (normalised to uppercase) can be accessed with {\ttfamily br\+\_\+pem\+\_\+decoder\+\_\+name()}. \Hypertarget{bearssl__pem_8h_a02c1d9a3661d220663ad69ebe0d5a686}\index{bearssl\_pem.h@{bearssl\_pem.h}!BR\_PEM\_END\_OBJ@{BR\_PEM\_END\_OBJ}}
+\index{BR\_PEM\_END\_OBJ@{BR\_PEM\_END\_OBJ}!bearssl\_pem.h@{bearssl\_pem.h}}
+\doxysubsubsection{\texorpdfstring{BR\_PEM\_END\_OBJ}{BR\_PEM\_END\_OBJ}}
+{\footnotesize\ttfamily \label{bearssl__pem_8h_a02c1d9a3661d220663ad69ebe0d5a686} 
+\#define BR\+\_\+\+PEM\+\_\+\+END\+\_\+\+OBJ~2}
+
+
+
+Event\+: end of object. 
+
+This event is raised when the end of the current object is reached (normally, i.\+e. with no decoding error). \Hypertarget{bearssl__pem_8h_ad3179ed560e159b22b12e598456417e3}\index{bearssl\_pem.h@{bearssl\_pem.h}!BR\_PEM\_ERROR@{BR\_PEM\_ERROR}}
+\index{BR\_PEM\_ERROR@{BR\_PEM\_ERROR}!bearssl\_pem.h@{bearssl\_pem.h}}
+\doxysubsubsection{\texorpdfstring{BR\_PEM\_ERROR}{BR\_PEM\_ERROR}}
+{\footnotesize\ttfamily \label{bearssl__pem_8h_ad3179ed560e159b22b12e598456417e3} 
+\#define BR\+\_\+\+PEM\+\_\+\+ERROR~3}
+
+
+
+Event\+: decoding error. 
+
+This event is raised when decoding fails within an object. This formally closes the current object and brings the decoder back to the "{}out of any object"{} state. The offending line in the source is consumed. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{bearssl__pem_8h_a9e0c4331448f2a7496fbfc83484019a6}\index{bearssl\_pem.h@{bearssl\_pem.h}!br\_pem\_decoder\_event@{br\_pem\_decoder\_event}}
+\index{br\_pem\_decoder\_event@{br\_pem\_decoder\_event}!bearssl\_pem.h@{bearssl\_pem.h}}
+\doxysubsubsection{\texorpdfstring{br\_pem\_decoder\_event()}{br\_pem\_decoder\_event()}}
+{\footnotesize\ttfamily \label{bearssl__pem_8h_a9e0c4331448f2a7496fbfc83484019a6} 
+int br\+\_\+pem\+\_\+decoder\+\_\+event (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__pem__decoder__context}{br\+\_\+pem\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Get the last event. 
+
+If an event was raised, then this function returns the event value, and also clears it, thereby allowing the decoder to proceed. If no event was raised since the last call to {\ttfamily \doxylink{bearssl__pem_8h_a9e0c4331448f2a7496fbfc83484019a6}{br\+\_\+pem\+\_\+decoder\+\_\+event()}}, then this function returns 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & decoder context. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the raised event, or 0. 
+\end{DoxyReturn}
+\Hypertarget{bearssl__pem_8h_afd458a4c25710cfe2eb2458760bf71bf}\index{bearssl\_pem.h@{bearssl\_pem.h}!br\_pem\_decoder\_init@{br\_pem\_decoder\_init}}
+\index{br\_pem\_decoder\_init@{br\_pem\_decoder\_init}!bearssl\_pem.h@{bearssl\_pem.h}}
+\doxysubsubsection{\texorpdfstring{br\_pem\_decoder\_init()}{br\_pem\_decoder\_init()}}
+{\footnotesize\ttfamily \label{bearssl__pem_8h_afd458a4c25710cfe2eb2458760bf71bf} 
+void br\+\_\+pem\+\_\+decoder\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__pem__decoder__context}{br\+\_\+pem\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Initialise a PEM decoder structure. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & decoder context to initialise. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__pem_8h_a4d370a4ca904e4bcd0b90495821949ad}\index{bearssl\_pem.h@{bearssl\_pem.h}!br\_pem\_decoder\_push@{br\_pem\_decoder\_push}}
+\index{br\_pem\_decoder\_push@{br\_pem\_decoder\_push}!bearssl\_pem.h@{bearssl\_pem.h}}
+\doxysubsubsection{\texorpdfstring{br\_pem\_decoder\_push()}{br\_pem\_decoder\_push()}}
+{\footnotesize\ttfamily \label{bearssl__pem_8h_a4d370a4ca904e4bcd0b90495821949ad} 
+size\+\_\+t br\+\_\+pem\+\_\+decoder\+\_\+push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__pem__decoder__context}{br\+\_\+pem\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Push some bytes into the decoder. 
+
+Returned value is the number of bytes actually consumed; this may be less than the number of provided bytes if an event is raised. When an event is raised, it must be read (with {\ttfamily \doxylink{bearssl__pem_8h_a9e0c4331448f2a7496fbfc83484019a6}{br\+\_\+pem\+\_\+decoder\+\_\+event()}}); until the event is read, this function will return 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & decoder context. \\
+\hline
+{\em data} & new data bytes. \\
+\hline
+{\em len} & number of new data bytes. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of bytes actually received (may be less than {\ttfamily len}). 
+\end{DoxyReturn}
+\Hypertarget{bearssl__pem_8h_a90c9194770301eef8fc6f49883271497}\index{bearssl\_pem.h@{bearssl\_pem.h}!br\_pem\_encode@{br\_pem\_encode}}
+\index{br\_pem\_encode@{br\_pem\_encode}!bearssl\_pem.h@{bearssl\_pem.h}}
+\doxysubsubsection{\texorpdfstring{br\_pem\_encode()}{br\_pem\_encode()}}
+{\footnotesize\ttfamily \label{bearssl__pem_8h_a90c9194770301eef8fc6f49883271497} 
+size\+\_\+t br\+\_\+pem\+\_\+encode (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{dest}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{banner}{, }\item[{unsigned}]{flags}{}\end{DoxyParamCaption})}
+
+
+
+Encode an object in PEM. 
+
+This function encodes the provided binary object ({\ttfamily data}, of length {\ttfamily len} bytes) into PEM. The {\ttfamily banner} text will be included in the header and footer (e.\+g. use {\ttfamily "{}\+CERTIFICATE"{}} to get a {\ttfamily "{}\+BEGIN CERTIFICATE"{}} header).
+
+The length (in characters) of the PEM output is returned; that length does NOT include the terminating zero, that this function nevertheless adds. If using the returned value for allocation purposes, the allocated buffer size MUST be at least one byte larger than the returned size.
+
+If {\ttfamily dest} is {\ttfamily NULL}, then the encoding does not happen; however, the length of the encoded object is still computed and returned.
+
+The {\ttfamily data} pointer may be {\ttfamily NULL} only if {\ttfamily len} is zero (when encoding an object of length zero, which is not very useful), or when {\ttfamily dest} is {\ttfamily NULL} (in that case, source data bytes are ignored).
+
+Some {\ttfamily flags} can be specified to alter the encoding behaviour\+:
+
+
+\begin{DoxyItemize}
+\item If {\ttfamily BR\+\_\+\+PEM\+\_\+\+LINE64} is set, then line-\/breaking will occur after every 64 characters of output, instead of the default of 76.
+\item If {\ttfamily BR\+\_\+\+PEM\+\_\+\+CRLF} is set, then end-\/of-\/line sequence will use CR+\+LF instead of a single LF.
+\end{DoxyItemize}
+
+The {\ttfamily data} and {\ttfamily dest} buffers may overlap, in which case the source binary data is destroyed in the process. Note that the PEM-\/encoded output is always larger than the source binary.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dest} & the destination buffer (or {\ttfamily NULL}). \\
+\hline
+{\em data} & the source buffer (can be {\ttfamily NULL} in some cases). \\
+\hline
+{\em len} & the source length (in bytes). \\
+\hline
+{\em banner} & the PEM banner expression. \\
+\hline
+{\em flags} & the behavioural flags. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the PEM object length (in characters), EXCLUDING the final zero. 
+\end{DoxyReturn}

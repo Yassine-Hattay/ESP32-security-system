@@ -1,0 +1,138 @@
+\doxysection{esp\+\_\+modem\+\_\+dce\+\_\+module.\+hpp}
+\hypertarget{esp__modem__dce__module_8hpp_source}{}\label{esp__modem__dce__module_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_dce\_module.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_dce\_module.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}generate/esp\_modem\_command\_declare.inc"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_command\_library.hpp"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_types.hpp"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}esp\_modem\_dce\_config.h"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{namespace\ }esp\_modem\ \{}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}};}
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classesp__modem_1_1_d_t_e}{DTE}};}
+\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__modem_1_1_pdp_context}{PdpContext}};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classesp__modem_1_1_generic_module_a8fc8100cef97138313584368182404c4}{GenericModule}}:\ \textcolor{keyword}{public}\ ModuleIf\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a8fc8100cef97138313584368182404c4}{GenericModule}}(std::shared\_ptr<DTE>\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a5002e85c6fe57f34723e925e91116b7e}{dte}},\ std::unique\_ptr<PdpContext>\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a71426f4f7f48263709763851b3b5d351}{pdp}}):}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a5002e85c6fe57f34723e925e91116b7e}{dte}}(std::move(\mbox{\hyperlink{classesp__modem_1_1_generic_module_a5002e85c6fe57f34723e925e91116b7e}{dte}})),\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a71426f4f7f48263709763851b3b5d351}{pdp}}(std::move(\mbox{\hyperlink{classesp__modem_1_1_generic_module_a71426f4f7f48263709763851b3b5d351}{pdp}}))\ \{\}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a8fc8100cef97138313584368182404c4}{GenericModule}}(std::shared\_ptr<DTE>\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a5002e85c6fe57f34723e925e91116b7e}{dte}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structesp__modem__dce__config}{esp\_modem\_dce\_config}}\ *config);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a36987c1e3aa36ac5d3b6d06a1e73b821}{setup\_data\_mode}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00052\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (set\_echo(\textcolor{keyword}{false})\ !=\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fae0aa021e21dddbd6d8cecec71e9cf564}{command\_result::OK}})\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (set\_pdp\_context(*\mbox{\hyperlink{classesp__modem_1_1_generic_module_a71426f4f7f48263709763851b3b5d351}{pdp}})\ !=\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fae0aa021e21dddbd6d8cecec71e9cf564}{command\_result::OK}})\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_ae5a7b637303143a87f654e9e5c6f6611}{set\_mode}}(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\_mode}}\ mode)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00067\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (mode\ ==\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gga80fa0ae4f6b04bc4e753bd207e0f298fa58e19a67d77f6b9de4aeb7f7ca337ee2}{modem\_mode::DATA\_MODE}})\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (set\_data\_mode()\ !=\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fae0aa021e21dddbd6d8cecec71e9cf564}{command\_result::OK}})\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ resume\_data\_mode()\ ==\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fae0aa021e21dddbd6d8cecec71e9cf564}{command\_result::OK}};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (mode\ ==\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gga80fa0ae4f6b04bc4e753bd207e0f298fa023ec1c4bd62841e0c7d56d231e9c739}{modem\_mode::COMMAND\_MODE}})\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ Task::Delay(1000);\ \textcolor{comment}{//\ Mandatory\ 1s\ pause\ before}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ retry\ =\ 0;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (retry++\ <\ 3)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (set\_command\_mode()\ ==\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fae0aa021e21dddbd6d8cecec71e9cf564}{command\_result::OK}})\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ send\ a\ newline\ to\ delimit\ the\ escape\ from\ the\ upcoming\ sync\ command}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ delim\ =\ \textcolor{charliteral}{'\(\backslash\)n'};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a5002e85c6fe57f34723e925e91116b7e}{dte}}-\/>write(\&delim,\ 1);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sync()\ ==\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fae0aa021e21dddbd6d8cecec71e9cf564}{command\_result::OK}})\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Task::Delay(1000);\ \textcolor{comment}{//\ Mandatory\ 1s\ pause\ before\ escape}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (mode\ ==\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gga80fa0ae4f6b04bc4e753bd207e0f298fa30495670a3b2cf47b0dea06ee25e148b}{modem\_mode::CMUX\_MODE}})\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ set\_cmux()\ ==\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fae0aa021e21dddbd6d8cecec71e9cf564}{command\_result::OK}};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_afdf31de445b80670afff0253a3cabef4}{configure\_pdp\_context}}(std::unique\_ptr<PdpContext>\ new\_pdp)}
+\DoxyCodeLine{00099\ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a71426f4f7f48263709763851b3b5d351}{pdp}}\ =\ std::move(new\_pdp);}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a56b7529540a2abc727232eeed81214cc}{get\_operator\_name}}(std::string\ \&name)}
+\DoxyCodeLine{00107\ \ \ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dummy\_act;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a56b7529540a2abc727232eeed81214cc}{get\_operator\_name}}(name,\ dummy\_act);}
+\DoxyCodeLine{00110\ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ ESP\_MODEM\_DECLARE\_DCE\_COMMAND(name,\ return\_type,\ num,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\ \ \ \ virtual\ return\_type\ name(\_\_VA\_ARGS\_\_);}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ DECLARE\_ALL\_COMMAND\_APIS(\textcolor{keyword}{virtual}\ return\_type\ name(...);\ )}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \#undef\ ESP\_MODEM\_DECLARE\_DCE\_COMMAND}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00124\ \ \ \ \ std::shared\_ptr<\mbox{\hyperlink{classesp__modem_1_1_d_t_e}{DTE}}>\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a5002e85c6fe57f34723e925e91116b7e}{dte}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00125\ \ \ \ \ std::unique\_ptr<PdpContext>\ \mbox{\hyperlink{classesp__modem_1_1_generic_module_a71426f4f7f48263709763851b3b5d351}{pdp}};\ \ }
+\DoxyCodeLine{00126\ \};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ Definitions\ of\ other\ supported\ modules\ with\ some\ specific\ commands\ overwritten}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classesp__modem_1_1_s_i_m7600}{SIM7600}}:\ \textcolor{keyword}{public}\ GenericModule\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classesp__modem_1_1_generic_module_a8fc8100cef97138313584368182404c4}{GenericModule::GenericModule}};}
+\DoxyCodeLine{00135\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00136\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ get\_battery\_status(\textcolor{keywordtype}{int}\ \&voltage,\ \textcolor{keywordtype}{int}\ \&bcs,\ \textcolor{keywordtype}{int}\ \&bcl)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ power\_down()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ set\_gnss\_power\_mode(\textcolor{keywordtype}{int}\ mode)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ set\_network\_bands(\textcolor{keyword}{const}\ std::string\ \&mode,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ *bands,\ \textcolor{keywordtype}{int}\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00140\ \};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00145\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classesp__modem_1_1_s_i_m7070}{SIM7070}}:\ \textcolor{keyword}{public}\ GenericModule\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classesp__modem_1_1_generic_module_a8fc8100cef97138313584368182404c4}{GenericModule::GenericModule}};}
+\DoxyCodeLine{00147\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00148\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ power\_down()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00149\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ set\_data\_mode()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00156\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classesp__modem_1_1_s_i_m7000}{SIM7000}}:\ \textcolor{keyword}{public}\ GenericModule\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classesp__modem_1_1_generic_module_a8fc8100cef97138313584368182404c4}{GenericModule::GenericModule}};}
+\DoxyCodeLine{00158\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00159\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ power\_down()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00160\ \};}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classesp__modem_1_1_s_i_m800}{SIM800}}:\ \textcolor{keyword}{public}\ GenericModule\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classesp__modem_1_1_generic_module_a8fc8100cef97138313584368182404c4}{GenericModule::GenericModule}};}
+\DoxyCodeLine{00167\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00168\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ power\_down()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00169\ \};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00174\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classesp__modem_1_1_b_g96}{BG96}}:\ \textcolor{keyword}{public}\ GenericModule\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{classesp__modem_1_1_generic_module_a8fc8100cef97138313584368182404c4}{GenericModule::GenericModule}};}
+\DoxyCodeLine{00176\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00177\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ set\_pdp\_context(\mbox{\hyperlink{structesp__modem_1_1_pdp_context}{PdpContext}}\ \&\mbox{\hyperlink{classesp__modem_1_1_generic_module_a71426f4f7f48263709763851b3b5d351}{pdp}})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00178\ \};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \}\ \textcolor{comment}{//\ namespace\ esp\_modem}}
+
+\end{DoxyCode}

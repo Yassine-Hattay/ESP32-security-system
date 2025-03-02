@@ -1,0 +1,129 @@
+\doxysection{esp32-\/hal-\/uart.h}
+\hypertarget{esp32-hal-uart_8h_source}{}\label{esp32-hal-uart_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/uart.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/uart.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2023\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ MAIN\_ESP32\_HAL\_UART\_H\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MAIN\_ESP32\_HAL\_UART\_H\_}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#if\ SOC\_UART\_SUPPORTED}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}freertos/queue.h"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}hal/uart\_types.h"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }uart\_struct\_t;}
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }uart\_struct\_t\ uart\_t;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{bool}\ \_testUartBegin(}
+\DoxyCodeLine{00036\ \ \ uint8\_t\ uart\_nr,\ uint32\_t\ baudrate,\ uint32\_t\ config,\ int8\_t\ rxPin,\ int8\_t\ txPin,\ uint32\_t\ rx\_buffer\_size,\ uint32\_t\ tx\_buffer\_size,\ \textcolor{keywordtype}{bool}\ inverted,}
+\DoxyCodeLine{00037\ \ \ uint8\_t\ rxfifo\_full\_thrhd}
+\DoxyCodeLine{00038\ );}
+\DoxyCodeLine{00039\ uart\_t\ *uartBegin(}
+\DoxyCodeLine{00040\ \ \ uint8\_t\ uart\_nr,\ uint32\_t\ baudrate,\ uint32\_t\ config,\ int8\_t\ rxPin,\ int8\_t\ txPin,\ uint32\_t\ rx\_buffer\_size,\ uint32\_t\ tx\_buffer\_size,\ \textcolor{keywordtype}{bool}\ inverted,}
+\DoxyCodeLine{00041\ \ \ uint8\_t\ rxfifo\_full\_thrhd}
+\DoxyCodeLine{00042\ );}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ uartEnd(uint8\_t\ uart\_num);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ This\ is\ used\ to\ retrieve\ the\ Event\ Queue\ pointer\ from\ a\ UART\ IDF\ Driver\ in\ order\ to\ allow\ user\ to\ deal\ with\ its\ events}}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ uartGetEventQueue(uart\_t\ *uart,\ QueueHandle\_t\ *q);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ uint32\_t\ uartAvailable(uart\_t\ *uart);}
+\DoxyCodeLine{00049\ uint32\_t\ uartAvailableForWrite(uart\_t\ *uart);}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{size\_t}\ uartReadBytes(uart\_t\ *uart,\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size,\ uint32\_t\ timeout\_ms);}
+\DoxyCodeLine{00051\ uint8\_t\ uartRead(uart\_t\ *uart);}
+\DoxyCodeLine{00052\ uint8\_t\ uartPeek(uart\_t\ *uart);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ uartWrite(uart\_t\ *uart,\ uint8\_t\ c);}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ uartWriteBuf(uart\_t\ *uart,\ \textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ uartFlush(uart\_t\ *uart);}
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{void}\ uartFlushTxOnly(uart\_t\ *uart,\ \textcolor{keywordtype}{bool}\ txOnly);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}\ uartSetBaudRate(uart\_t\ *uart,\ uint32\_t\ baud\_rate);}
+\DoxyCodeLine{00061\ uint32\_t\ uartGetBaudRate(uart\_t\ *uart);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{void}\ uartSetRxInvert(uart\_t\ *uart,\ \textcolor{keywordtype}{bool}\ invert);}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{bool}\ uartSetRxTimeout(uart\_t\ *uart,\ uint8\_t\ numSymbTimeout);}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{bool}\ uartSetRxFIFOFull(uart\_t\ *uart,\ uint8\_t\ numBytesFIFOFull);}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ uartSetFastReading(uart\_t\ *uart);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{void}\ uartSetDebug(uart\_t\ *uart);}
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{int}\ uartGetDebug();}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{bool}\ uartIsDriverInstalled(uart\_t\ *uart);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ Negative\ Pin\ Number\ will\ keep\ it\ unmodified,\ thus\ this\ function\ can\ set\ individual\ pins}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ When\ pins\ are\ changed,\ it\ will\ detach\ the\ previous\ ones}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ Can\ be\ called\ before\ or\ after\ begin()}}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{bool}\ uartSetPins(uint8\_t\ uart\_num,\ int8\_t\ rxPin,\ int8\_t\ txPin,\ int8\_t\ ctsPin,\ int8\_t\ rtsPin);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{//\ helper\ functions}}
+\DoxyCodeLine{00079\ int8\_t\ uart\_get\_RxPin(uint8\_t\ uart\_num);}
+\DoxyCodeLine{00080\ int8\_t\ uart\_get\_TxPin(uint8\_t\ uart\_num);}
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}\ uart\_init\_PeriMan(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ Enables\ or\ disables\ HW\ Flow\ Control\ function\ -\/-\/\ needs\ also\ to\ set\ CTS\ and/or\ RTS\ pins}}
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ \ \ \ UART\_HW\_FLOWCTRL\_DISABLE\ =\ 0x0\ \ \ disable\ hardware\ flow\ control}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ \ \ \ UART\_HW\_FLOWCTRL\_RTS\ \ \ \ \ =\ 0x1\ \ \ enable\ RX\ hardware\ flow\ control\ (rts)}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ \ \ \ UART\_HW\_FLOWCTRL\_CTS\ \ \ \ \ =\ 0x2\ \ \ enable\ TX\ hardware\ flow\ control\ (cts)}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//\ \ \ \ UART\_HW\_FLOWCTRL\_CTS\_RTS\ =\ 0x3\ \ \ enable\ hardware\ flow\ control}}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{bool}\ uartSetHwFlowCtrlMode(uart\_t\ *uart,\ uart\_hw\_flowcontrol\_t\ mode,\ uint8\_t\ threshold);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ Used\ to\ set\ RS485\ function\ -\/-\/\ needs\ to\ disable\ HW\ Flow\ Control\ and\ set\ RTS\ pin\ to\ use}}
+\DoxyCodeLine{00091\ \textcolor{comment}{//\ RTS\ pin\ becomes\ RS485\ half\ duplex\ RE/DE}}
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ \ \ \ UART\_MODE\_UART\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00\ \ \ \ mode:\ regular\ UART\ mode}}
+\DoxyCodeLine{00093\ \textcolor{comment}{//\ \ \ \ UART\_MODE\_RS485\_HALF\_DUPLEX\ \ \ \ \ \ =\ 0x01\ \ \ \ mode:\ half\ duplex\ RS485\ UART\ mode\ control\ by\ RTS\ pin}}
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ \ \ \ UART\_MODE\_IRDA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02\ \ \ \ mode:\ IRDA\ \ UART\ mode}}
+\DoxyCodeLine{00095\ \textcolor{comment}{//\ \ \ \ UART\_MODE\_RS485\_COLLISION\_DETECT\ =\ 0x03\ \ \ \ mode:\ RS485\ collision\ detection\ UART\ mode\ (used\ for\ test\ purposes)}}
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ \ \ \ UART\_MODE\_RS485\_APP\_CTRL\ \ \ \ \ \ \ \ \ =\ 0x04\ \ \ \ mode:\ application\ control\ RS485\ UART\ mode\ (used\ for\ test\ purposes)}}
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{bool}\ uartSetMode(uart\_t\ *uart,\ uart\_mode\_t\ mode);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{void}\ uartStartDetectBaudrate(uart\_t\ *uart);}
+\DoxyCodeLine{00100\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ uartDetectBaudrate(uart\_t\ *uart);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ \ \ \ These\ functions\ are\ for\ testing\ puspose\ only\ and\ can\ be\ used\ in\ Arduino\ Sketches}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ \ \ Those\ are\ used\ in\ the\ UART\ examples}}
+\DoxyCodeLine{00105\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ Make\ sure\ UART's\ RX\ signal\ is\ connected\ to\ TX\ pin}}
+\DoxyCodeLine{00108\ \textcolor{comment}{//\ This\ creates\ a\ loop\ that\ lets\ us\ receive\ anything\ we\ send\ on\ the\ UART}}
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{void}\ uart\_internal\_loopback(uint8\_t\ uartNum,\ int8\_t\ rxPin);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ Routines\ that\ generate\ BREAK\ in\ the\ UART\ for\ testing\ purpose}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{//\ Forces\ a\ BREAK\ in\ the\ line\ based\ on\ SERIAL\_8N1\ configuration\ at\ any\ baud\ rate}}
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{void}\ uart\_send\_break(uint8\_t\ uartNum);}
+\DoxyCodeLine{00115\ \textcolor{comment}{//\ Sends\ a\ buffer\ and\ at\ the\ end\ of\ the\ stream,\ it\ generates\ BREAK\ in\ the\ line}}
+\DoxyCodeLine{00116\ \textcolor{keywordtype}{int}\ uart\_send\_msg\_with\_break(uint8\_t\ uartNum,\ uint8\_t\ *msg,\ \textcolor{keywordtype}{size\_t}\ msgSize);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00119\ \}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_UART\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MAIN\_ESP32\_HAL\_UART\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

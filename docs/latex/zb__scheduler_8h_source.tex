@@ -1,0 +1,270 @@
+\doxysection{zb\+\_\+scheduler.\+h}
+\hypertarget{zb__scheduler_8h_source}{}\label{zb__scheduler_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_scheduler.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_scheduler.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Zigbee\ scheduler:\ cooperative\ multitasking.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_SCHEDULER\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULER\_H\ 1}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}zboss\_api\_core.h"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zb\_osif.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zb\_pooled\_list.h"{}}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}zboss\_api\_internal.h"{}}\ \textcolor{comment}{/*\ zb\_cb\_q\_ent\_t\ */}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}zb\_time.h"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}zb\_ringbuffer.h"{}}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ZB\_CB\_SCHEDULER\_EVENT()\ ZB\_OSIF\_SCHEDULER\_EVENT()}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#ifdef\ ZB\_INTERRUPT\_SAFE\_ALARMS}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ZB\_ALARM\_INT\_DISABLE()\ ZB\_OSIF\_GLOBAL\_LOCK()}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ ZB\_ALARM\_INT\_ENABLE()\ ZB\_OSIF\_GLOBAL\_UNLOCK()}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ ZB\_INTERRUPT\_SAFE\_ALARMS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ ZB\_ALARM\_INT\_DISABLE()}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ZB\_ALARM\_INT\_ENABLE()}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_INTERRUPT\_SAFE\_ALARMS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#ifdef\ ZB\_INTERRUPT\_SAFE\_CALLBACKS}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ZB\_CB\_INT\_DISABLE()\ ZB\_OSIF\_GLOBAL\_LOCK()}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ZB\_CB\_INT\_ENABLE()\ ZB\_OSIF\_GLOBAL\_UNLOCK()}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ ZB\_INTERRUPT\_SAFE\_CALLBACKS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ZB\_CB\_INT\_DISABLE()}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ZB\_CB\_INT\_ENABLE()}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_INTERRUPT\_SAFE\_CALLBACKS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{/*\ When\ running\ in\ multithreaded\ environment,\ is\ it\ possible}}
+\DoxyCodeLine{00074\ \textcolor{comment}{when\ a\ callback\ is\ scheduled\ from\ another\ thread.\ }}
+\DoxyCodeLine{00075\ \textcolor{comment}{The\ scheduler\ itself\ if\ thread-\/safe,\ so,\ this\ is\ possible.\ }}
+\DoxyCodeLine{00076\ \textcolor{comment}{However,\ if\ scheduler\ is\ sleeping\ in\ a\ main\ ZBOSS\ thread\ now,\ }}
+\DoxyCodeLine{00077\ \textcolor{comment}{it\ should\ be\ signalled\ somehow.}}
+\DoxyCodeLine{00078\ \textcolor{comment}{In\ this\ case\ there\ is\ a\ zb\_scheduler\_wakeup()\ routine\ shall\ be\ defined.}}
+\DoxyCodeLine{00079\ \textcolor{comment}{Since\ it\ is\ a\ platform-\/specific\ item,\ it\ shall\ be\ defined\ in\ OSIF\ */}\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#if\ defined(ZB\_THREADS)\ \&\&\ !defined(ZB\_SCHEDULER\_NO\_AUTOWAKEUP)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULER\_WAKEUP()\ zb\_scheduler\_wakeup()}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULER\_WAKEUP()}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#if\ defined\ ZB\_NWK\_STOCHASTIC\_ADDRESS\_ASSIGN\ \&\&\ defined\ ZB\_ROUTER\_ROLE\ \ \ \ \ }\textcolor{comment}{/*\ Zigbee\ pro\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ (ZB\_CODE\ *\ zb\_callback\_compare\_t)(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \textcolor{keywordtype}{void}*\ param2);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#ifdef\ ZB\_PRO\_ADDRESS\_ASSIGNMENT\_CB}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ internals\_doc\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ (ZB\_CODE\ *\ \mbox{\hyperlink{group__sched_ga86aae4a8f9912f60b514255d9909c90e}{zb\_addr\_assignment\_cb\_t}})(\mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ ieee\_addr);}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{/*\ zb\_cb\_q\_ent\_t\ moved\ to\ zboss\_api\_internal.h\ */}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULER\_SET\_2PARAM\_CB(i)\ (ZG-\/>sched.cb\_flag\_bm[(i)/32U]\ |=\ (1UL\ <<\ ((i)\%32U)))}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULER\_RESET\_2PARAM\_CB(i)\ (ZG-\/>sched.cb\_flag\_bm[(i)/32U]\ \&=\ \string~(1UL\ <<\ ((i)\%32U)))}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULER\_IS\_2PARAM\_CB(i)\ (ZG-\/>sched.cb\_flag\_bm[(i)/32U]\ \&\ (1UL\ <<\ ((i)\%32U)))}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_mac\_cb\_ent\_s}
+\DoxyCodeLine{00125\ \{}
+\DoxyCodeLine{00126\ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ func;\ \ \ \textcolor{comment}{/*\ currently,\ it\ is\ the\ same\ as\ common\ queue,\ */}}
+\DoxyCodeLine{00127\ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param;\ \ \ \ \ \textcolor{comment}{/*\ but,\ possibly,\ it\ is\ better\ to\ remove\ param\ from\ it\ */}}
+\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00129\ ZB\_PACKED\_STRUCT}
+\DoxyCodeLine{00130\ zb\_mac\_cb\_ent\_t;}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{comment}{/*\ zb\_tm\_q\_ent\_t\ moved\ to\ zboss\_api\_core.h\ */}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#ifndef\ ZB\_CONFIGURABLE\_MEM}}
+\DoxyCodeLine{00138\ ZB\_RING\_BUFFER\_DECLARE(zb\_cb\_q,\ zb\_cb\_q\_ent\_t,\ \mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga50808b11b569276037d853b12dea3173}{ZB\_SCHEDULER\_Q\_SIZE}});}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00140\ \textcolor{comment}{/*\ declare\ a\ header\ and\ 1\ entry\ */}}
+\DoxyCodeLine{00141\ ZB\_RING\_BUFFER\_DECLARE(zb\_cb\_q,\ zb\_cb\_q\_ent\_t,\ 1);}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00143\ \textcolor{comment}{/*\ Mac\ "{}clear\ to\ tx"{}\ queue.\ */}}
+\DoxyCodeLine{00144\ ZB\_RING\_BUFFER\_DECLARE(zb\_mac\_tx\_q,\ zb\_mac\_cb\_ent\_t,\ ZB\_MAC\_QUEUE\_SIZE);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{comment}{/*\ Ring\ buffer\ for\ storing\ callbacks\ waiting\ for\ delayed\ buffers\ */}}
+\DoxyCodeLine{00147\ ZB\_RING\_BUFFER\_DECLARE(zb\_delayed\_cb\_q,\ zb\_delayed\_buf\_q\_ent\_t,\ \mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga75f97a6740e56c9301f398529556f979}{ZB\_BUF\_Q\_SIZE}});}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{keyword}{typedef}\ void\ (ZB\_CODE\ *\ zb\_zdo\_sleep\_ind\_cb\_t)(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ sleep\_tmo);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ (*\ zb\_sched\_stopping\_cb\_checker\_t)(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_sched\_globals\_s}
+\DoxyCodeLine{00158\ \{}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#ifndef\ ZB\_CONFIGURABLE\_MEM}}
+\DoxyCodeLine{00160\ \ \ zb\_cb\_q\_t\ cb\_q;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#define\ ZB\_CB\_Q\ (\&ZG-\/>sched.cb\_q)}}
+\DoxyCodeLine{00162\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ cb\_flag\_bm[(\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga50808b11b569276037d853b12dea3173}{ZB\_SCHEDULER\_Q\_SIZE}}\ +\ 31U)/32U];}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00164\ \ \ zb\_cb\_q\_t\ *cb\_q;}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ ZB\_CB\_Q\ (ZG-\/>sched.cb\_q)}}
+\DoxyCodeLine{00166\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ *cb\_flag\_bm;}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#ifndef\ ZB\_ALIEN\_SCHEDULER}}
+\DoxyCodeLine{00169\ \ \ zb\_mac\_tx\_q\_t\ mac\_tx\_q;\ \ \ \textcolor{comment}{/*\ queue\ of\ callback's\ waiting\ for\ tx\ */}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#if\ defined(\ ENABLE\_USB\_SERIAL\_IMITATOR\ )}}
+\DoxyCodeLine{00172\ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ usbc\_rx\_cb;\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ defined(\ ENABLE\_USB\_SERIAL\_IMITATOR\ )\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#ifndef\ ZB\_CONFIGURABLE\_MEM}}
+\DoxyCodeLine{00175\ \ \ zb\_tm\_q\_ent\_t\ tm\_buffer[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga50808b11b569276037d853b12dea3173}{ZB\_SCHEDULER\_Q\_SIZE}}];\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00177\ \ \ zb\_tm\_q\_ent\_t\ *tm\_buffer;}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00179\ \ \ \textcolor{comment}{/*\ \ Use\ list\ macros\ for\ indexed\ lists\ and\ use\ byte\ instead\ pointer\ here.\ */}}
+\DoxyCodeLine{00180\ \ \ ZB\_POOLED\_LIST8\_DEFINE(tm\_queue);\ \ \ \ }
+\DoxyCodeLine{00181\ \ \ ZB\_POOLED\_LIST8\_DEFINE(tm\_freelist);\ }
+\DoxyCodeLine{00182\ \ \ zb\_delayed\_cb\_q\_t\ delayed\_queue[2];\ }
+\DoxyCodeLine{00183\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ tm\_buffer\_usage;\ \ \ }
+\DoxyCodeLine{00184\ \ \ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ stop;}
+\DoxyCodeLine{00185\ \ \ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ stopping;}
+\DoxyCodeLine{00186\ \ \ zb\_sched\_stopping\_cb\_checker\_t\ stopping\_cb\_checker;}
+\DoxyCodeLine{00187\ \}\ zb\_sched\_globals\_t;}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00192\ \textcolor{keywordtype}{void}\ zb\_sched\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00197\ \textcolor{keywordtype}{void}\ zb\_sched\_stop(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00218\ \textcolor{keywordtype}{void}\ zb\_sched\_loop\_iteration(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#ifndef\ ZB\_ALIEN\_SCHEDULER}}
+\DoxyCodeLine{00221\ \textcolor{comment}{/*\ Schedules\ a\ callback,\ that\ requires\ NORMAL\_FIFO\ for\ transfer\ or\ security\ operations,}}
+\DoxyCodeLine{00222\ \textcolor{comment}{it\ will\ be\ called\ after\ current\ tx\ finished\ or\ just\ during\ next\ scheduler\ loop\ */}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_TX\_CB(func,\ param)\ zb\_schedule\_tx\_cb(func,\ param,\ 0)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_TX\_CB\_WITH\_HIGH\_PRIORITY(func,\ param)\ zb\_schedule\_tx\_cb(func,\ param,\ 1)}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_TX\_CB\ ZB\_SCHEDULE\_CALLBACK}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#if\ defined\ ZB\_TRACE\_LEVEL\ \&\&\ defined\ ZB\_TRACE\_MASK}}
+\DoxyCodeLine{00231\ \textcolor{keywordtype}{void}\ zb\_scheduler\_trace\_file\_line(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ file\_id,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ line\_number,\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ func);}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_TRACE\_LEVEL\ \&\&\ ZB\_TRACE\_MASK\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#if\ defined\ ZB\_NWK\_STOCHASTIC\_ADDRESS\_ASSIGN\ \&\&\ defined\ ZB\_ROUTER\_ROLE\ \ \ \ \ }\textcolor{comment}{/*\ Zigbee\ pro\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#ifndef\ ZB\_MINIMAL\_CONTEXT}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00250\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_schedule\_alarm\_cancel\_compare(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ func,\ zb\_callback\_compare\_t\ comp,\ \textcolor{keywordtype}{void}*\ param);}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !ZB\_MINIMAL\_CONTEXT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ ZB\_SCHED\_HAS\_PENDING\_CALLBACKS()\ !ZB\_RING\_BUFFER\_IS\_EMPTY(\&ZG-\/>sched.cb\_q)}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ ZB\_SCHED\_WAIT\_COND(condition)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{do\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\ \ ZB\_SCHED\_GLOBAL\_LOCK();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\ \ while\ (\ !(condition)\ )\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ \ \ ZB\_SCHED\_GLOBAL\_UNLOCK();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\ \ \ \ ZB\_GO\_IDLE();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\ \ \ \ ZB\_SCHED\_GLOBAL\_LOCK();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\ \ ZB\_SCHED\_GLOBAL\_UNLOCK();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{while(0)}}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#define\ ZB\_SCHED\_GLOBAL\_LOCK\ ZB\_OSIF\_GLOBAL\_LOCK}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#define\ ZB\_SCHED\_GLOBAL\_UNLOCK\ ZB\_OSIF\_GLOBAL\_UNLOCK}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ ZB\_SCHED\_GLOBAL\_LOCK\_INT()\ ZB\_OSIF\_GLOBAL\_LOCK\_INT}}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#define\ ZB\_SCHED\_GLOBAL\_UNLOCK\_INT()\ ZB\_OSIF\_GLOBAL\_UNLOCK\_INT}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#ifndef\ ZB\_MINIMAL\_CONTEXT}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00316\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_schedule\_tx\_cb(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ func,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ prior);}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ !ZB\_MINIMAL\_CONTEXT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00331\ \textcolor{keywordtype}{void}\ zb\_sched\_register\_usbc\_rx\_cb(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ usbc\_rx\_cb);}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#ifdef\ ZB\_LWIP}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00337\ \textcolor{keywordtype}{void}\ zb\_sched\_register\_ethernet\_cb(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ usbc\_rx\_cb);}
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_LWIP\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#define\ ZB\_SCHED\_TX\_CB\_HIGH\_PRIOR\_RESERVE\ 1U}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00348\ \textcolor{keywordtype}{void}\ zb\_schedule\_callback\_from\_alien(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ func,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#ifdef\ ZB\_DEBUG\_BUFFERS\_EXT}}
+\DoxyCodeLine{00351\ \ \ \textcolor{keywordtype}{void}\ zb\_schedule\_trace\_queue();}
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_TRACE\_QUEUE()\ \ \ \ \ \ \ zb\_schedule\_trace\_queue()}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_TRACE\_QUEUE()}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_schedule\_callback(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ func,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_CALLBACK(func,\ param)\ (void)zb\_schedule\_callback(func,\ param)}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_schedule\_callback2(\mbox{\hyperlink{group__sched_ga26d2980d5bf1973f9cd1a42d727a8427}{zb\_callback2\_t}}\ func,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ user\_param);}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_CALLBACK2(func,\ param,\ user\_param)\ (void)zb\_schedule\_callback2(func,\ param,\ user\_param)}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_schedule\_callback\_prior(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ func,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_CALLBACK\_PRIOR(func,\ param)\ (void)zb\_schedule\_callback\_prior(func,\ param)}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_schedule\_alarm(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ func,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{group__time_ga4a9b11432472914ec75400482181483a}{zb\_time\_t}}\ timeout\_bi);}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00429\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_ALARM(func,\ param,\ timeout\_bi)\ (void)zb\_schedule\_alarm(func,\ param,\ timeout\_bi)}}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00443\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_ALARM\_CANCEL(func,\ param)\ (void)zb\_schedule\_alarm\_cancel((func),\ (param),\ NULL)}}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\#define\ ZB\_SCHEDULE\_ALARM\_CANCEL\_AND\_GET\_BUF(func,\ param,\ p\_param)\ (void)zb\_schedule\_alarm\_cancel((func),\ (param),\ (p\_param))}}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00478\ \textcolor{keywordtype}{void}\ zb\_scheduler\_start\_shutting(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \textcolor{keywordtype}{void}\ zb\_scheduler\_set\_cb\_checker(zb\_sched\_stopping\_cb\_checker\_t\ checker);}
+\DoxyCodeLine{00481\ \ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_SCHEDULER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

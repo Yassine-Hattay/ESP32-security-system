@@ -1,0 +1,297 @@
+\doxysection{Network\+Events Class Reference}
+\hypertarget{class_network_events}{}\label{class_network_events}\index{NetworkEvents@{NetworkEvents}}
+
+
+Class that provides network events callback handling it registers user callback functions for event handling, maintains the queue of events and propagates the event among subscribed callbacks callback are called in the context of a dedicated task consuming the queue.  
+
+
+
+
+{\ttfamily \#include $<$Network\+Events.\+h$>$}
+
+Inheritance diagram for Network\+Events\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_network_events}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+network\+\_\+event\+\_\+handle\+\_\+t \mbox{\hyperlink{class_network_events_aabf36d5f646a4587be7e4d46bdaeb2cc}{on\+Event}} (Network\+Event\+Cb cb\+Event, arduino\+\_\+event\+\_\+id\+\_\+t event=ARDUINO\+\_\+\+EVENT\+\_\+\+MAX)
+\begin{DoxyCompactList}\small\item\em register callback function to be executed on arduino event(s) \end{DoxyCompactList}\item 
+network\+\_\+event\+\_\+handle\+\_\+t \mbox{\hyperlink{class_network_events_a12a5b37b91454720e9d1f2549a4c47c3}{on\+Event}} (Network\+Event\+Func\+Cb cb\+Event, arduino\+\_\+event\+\_\+id\+\_\+t event=ARDUINO\+\_\+\+EVENT\+\_\+\+MAX)
+\begin{DoxyCompactList}\small\item\em register functional callback to be executed on arduino event(s) also used for lambda callbacks \end{DoxyCompactList}\item 
+network\+\_\+event\+\_\+handle\+\_\+t \mbox{\hyperlink{class_network_events_aeb08e663243868c15944ce2b3bd26876}{on\+Event}} (Network\+Event\+Sys\+Cb cb\+Event, arduino\+\_\+event\+\_\+id\+\_\+t event=ARDUINO\+\_\+\+EVENT\+\_\+\+MAX)
+\begin{DoxyCompactList}\small\item\em register static system callback to be executed on arduino event(s) callback function would be supplied with a pointer to \doxylink{structarduino__event__t}{arduino\+\_\+event\+\_\+t} structure as an argument \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_network_events_aaa071a8d097666f98e6b4f749d9c262b}{remove\+Event}} (Network\+Event\+Cb cb\+Event, arduino\+\_\+event\+\_\+id\+\_\+t event=ARDUINO\+\_\+\+EVENT\+\_\+\+MAX)
+\begin{DoxyCompactList}\small\item\em unregister static function callback \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_network_events_a2df7d70f94f6d92bf6094f5bd52406f8}{remove\+Event}} (Network\+Event\+Func\+Cb cb\+Event, arduino\+\_\+event\+\_\+id\+\_\+t event=ARDUINO\+\_\+\+EVENT\+\_\+\+MAX) \mbox{\hyperlink{struct____attribute____}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}((deprecated("{}removing functional callbacks via pointer is deprecated
+\begin{DoxyCompactList}\small\item\em unregister functional callback \end{DoxyCompactList}\item 
+\Hypertarget{class_network_events_a0a57e5067be1edb50d93a2df7c3f2ff7}\label{class_network_events_a0a57e5067be1edb50d93a2df7c3f2ff7} 
+void use {\bfseries remove\+Event} (network\+\_\+event\+\_\+handle\+\_\+t) instead"{})))
+\item 
+void \mbox{\hyperlink{class_network_events_a951c8e95ae6e7c3312ba8a33ef02ec1a}{remove\+Event}} (Network\+Event\+Sys\+Cb cb\+Event, arduino\+\_\+event\+\_\+id\+\_\+t event=ARDUINO\+\_\+\+EVENT\+\_\+\+MAX)
+\begin{DoxyCompactList}\small\item\em unregister static system function callback \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_network_events_a4c02fbe90d9d69b579aa5493bb1f6a1f}{remove\+Event}} (network\+\_\+event\+\_\+handle\+\_\+t event\+\_\+handle)
+\begin{DoxyCompactList}\small\item\em unregister event callback via handler \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_network_events_aae50bfc02fa713b4f5d8bfcf0c53d319}{post\+Event}} (const \mbox{\hyperlink{structarduino__event__t}{arduino\+\_\+event\+\_\+t}} \texorpdfstring{$\ast$}{*}event)
+\begin{DoxyCompactList}\small\item\em post an event to the queue and propagade and event to subscribed handlers \end{DoxyCompactList}\item 
+\Hypertarget{class_network_events_afc720795818dcb99541c57435c132c8a}\label{class_network_events_afc720795818dcb99541c57435c132c8a} 
+int {\bfseries get\+Status\+Bits} () const
+\item 
+\Hypertarget{class_network_events_a057a7c71f066a1066dad4e9b4fa6341e}\label{class_network_events_a057a7c71f066a1066dad4e9b4fa6341e} 
+int {\bfseries wait\+Status\+Bits} (int bits, uint32\+\_\+t timeout\+\_\+ms)
+\item 
+\Hypertarget{class_network_events_a2ed0ce60d5b3947c512b4ff9523cd95d}\label{class_network_events_a2ed0ce60d5b3947c512b4ff9523cd95d} 
+int {\bfseries set\+Status\+Bits} (int bits)
+\item 
+\Hypertarget{class_network_events_ad6f02d0908924b5e3e4752ef1f16b8d9}\label{class_network_events_ad6f02d0908924b5e3e4752ef1f16b8d9} 
+int {\bfseries clear\+Status\+Bits} (int bits)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_network_events_a6c975cf3cb9a74d4147c8f89bbc79db4}{event\+Name}} (arduino\+\_\+event\+\_\+id\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em get a human-\/readable name of an event by it\textquotesingle{}s id \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_network_events_a940a94277b9afcead11585d2690af1ab}\label{class_network_events_a940a94277b9afcead11585d2690af1ab} 
+bool {\bfseries init\+Network\+Events} ()
+\item 
+\Hypertarget{class_network_events_ada2730b4cc34e6b368c3e670abb25ab1}\label{class_network_events_ada2730b4cc34e6b368c3e670abb25ab1} 
+network\+\_\+event\+\_\+handle\+\_\+t {\bfseries on\+Sys\+Event} (Network\+Event\+Cb cb\+Event, arduino\+\_\+event\+\_\+id\+\_\+t event=ARDUINO\+\_\+\+EVENT\+\_\+\+MAX)
+\item 
+\Hypertarget{class_network_events_a738570f7511a9ce8a1c39def2eb7d384}\label{class_network_events_a738570f7511a9ce8a1c39def2eb7d384} 
+network\+\_\+event\+\_\+handle\+\_\+t {\bfseries on\+Sys\+Event} (Network\+Event\+Func\+Cb cb\+Event, arduino\+\_\+event\+\_\+id\+\_\+t event=ARDUINO\+\_\+\+EVENT\+\_\+\+MAX)
+\item 
+\Hypertarget{class_network_events_a89351b6392d5534dc68599065597a4d7}\label{class_network_events_a89351b6392d5534dc68599065597a4d7} 
+network\+\_\+event\+\_\+handle\+\_\+t {\bfseries on\+Sys\+Event} (Network\+Event\+Sys\+Cb cb\+Event, arduino\+\_\+event\+\_\+id\+\_\+t event=ARDUINO\+\_\+\+EVENT\+\_\+\+MAX)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_network_events_ae608ce0dca30ba49b3a441bffacb1990}\label{class_network_events_ae608ce0dca30ba49b3a441bffacb1990} 
+class {\bfseries ESP\+\_\+\+Network\+Interface}
+\item 
+\Hypertarget{class_network_events_a6b20df8721e412fe804680296e12a23c}\label{class_network_events_a6b20df8721e412fe804680296e12a23c} 
+class {\bfseries ETHClass}
+\item 
+\Hypertarget{class_network_events_a02c2bcea1ba9b22f6443c5098e76f45c}\label{class_network_events_a02c2bcea1ba9b22f6443c5098e76f45c} 
+class {\bfseries PPPClass}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that provides network events callback handling it registers user callback functions for event handling, maintains the queue of events and propagates the event among subscribed callbacks callback are called in the context of a dedicated task consuming the queue. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_network_events_a6c975cf3cb9a74d4147c8f89bbc79db4}\index{NetworkEvents@{NetworkEvents}!eventName@{eventName}}
+\index{eventName@{eventName}!NetworkEvents@{NetworkEvents}}
+\doxysubsubsection{\texorpdfstring{eventName()}{eventName()}}
+{\footnotesize\ttfamily \label{class_network_events_a6c975cf3cb9a74d4147c8f89bbc79db4} 
+const char \texorpdfstring{$\ast$}{*} Network\+Events\+::event\+Name (\begin{DoxyParamCaption}\item[{arduino\+\_\+event\+\_\+id\+\_\+t}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+get a human-\/readable name of an event by it\textquotesingle{}s id 
+
+Convert arduino\+\_\+event\+\_\+id\+\_\+t to a C string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & event id code \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const char\texorpdfstring{$\ast$}{*} event name string
+\end{DoxyReturn}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em id} & The event id to be converted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A string representation of the event id. 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+\+: arduino\+\_\+event\+\_\+id\+\_\+t values as of Mar 2023 (arduino-\/esp32 r2.\+0.\+7) are\+: 0-\/39 (ARDUINO\+\_\+\+EVENT\+\_\+\+MAX=40) and are defined in \doxylink{_wi_fi_generic_8h_source}{Wi\+Fi\+Generic.\+h}. 
+\end{DoxyNote}
+\Hypertarget{class_network_events_aabf36d5f646a4587be7e4d46bdaeb2cc}\index{NetworkEvents@{NetworkEvents}!onEvent@{onEvent}}
+\index{onEvent@{onEvent}!NetworkEvents@{NetworkEvents}}
+\doxysubsubsection{\texorpdfstring{onEvent()}{onEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{class_network_events_aabf36d5f646a4587be7e4d46bdaeb2cc} 
+network\+\_\+event\+\_\+handle\+\_\+t Network\+Events\+::on\+Event (\begin{DoxyParamCaption}\item[{Network\+Event\+Cb}]{cb\+Event}{, }\item[{arduino\+\_\+event\+\_\+id\+\_\+t}]{event}{ = {\ttfamily ARDUINO\+\_\+EVENT\+\_\+MAX}}\end{DoxyParamCaption})}
+
+
+
+register callback function to be executed on arduino event(s) 
+
+\begin{DoxyNote}{Note}
+if same handler is registered twice or more than same handler would be called twice or more times
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em cb\+Event} & static callback function \\
+\hline
+{\em event} & event to process, any event by default \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+network\+\_\+event\+\_\+handle\+\_\+t 
+\end{DoxyReturn}
+\Hypertarget{class_network_events_a12a5b37b91454720e9d1f2549a4c47c3}\index{NetworkEvents@{NetworkEvents}!onEvent@{onEvent}}
+\index{onEvent@{onEvent}!NetworkEvents@{NetworkEvents}}
+\doxysubsubsection{\texorpdfstring{onEvent()}{onEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{class_network_events_a12a5b37b91454720e9d1f2549a4c47c3} 
+network\+\_\+event\+\_\+handle\+\_\+t Network\+Events\+::on\+Event (\begin{DoxyParamCaption}\item[{Network\+Event\+Func\+Cb}]{cb\+Event}{, }\item[{arduino\+\_\+event\+\_\+id\+\_\+t}]{event}{ = {\ttfamily ARDUINO\+\_\+EVENT\+\_\+MAX}}\end{DoxyParamCaption})}
+
+
+
+register functional callback to be executed on arduino event(s) also used for lambda callbacks 
+
+\begin{DoxyNote}{Note}
+if same handler is registered twice or more than same handler would be called twice or more times
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em cb\+Event} & static callback function \\
+\hline
+{\em event} & event to process, any event by default \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+network\+\_\+event\+\_\+handle\+\_\+t 
+\end{DoxyReturn}
+\Hypertarget{class_network_events_aeb08e663243868c15944ce2b3bd26876}\index{NetworkEvents@{NetworkEvents}!onEvent@{onEvent}}
+\index{onEvent@{onEvent}!NetworkEvents@{NetworkEvents}}
+\doxysubsubsection{\texorpdfstring{onEvent()}{onEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{class_network_events_aeb08e663243868c15944ce2b3bd26876} 
+network\+\_\+event\+\_\+handle\+\_\+t Network\+Events\+::on\+Event (\begin{DoxyParamCaption}\item[{Network\+Event\+Sys\+Cb}]{cb\+Event}{, }\item[{arduino\+\_\+event\+\_\+id\+\_\+t}]{event}{ = {\ttfamily ARDUINO\+\_\+EVENT\+\_\+MAX}}\end{DoxyParamCaption})}
+
+
+
+register static system callback to be executed on arduino event(s) callback function would be supplied with a pointer to \doxylink{structarduino__event__t}{arduino\+\_\+event\+\_\+t} structure as an argument 
+
+\begin{DoxyNote}{Note}
+if same handler is registered twice or more than same handler would be called twice or more times
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em cb\+Event} & static callback function \\
+\hline
+{\em event} & event to process, any event by default \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+network\+\_\+event\+\_\+handle\+\_\+t 
+\end{DoxyReturn}
+\Hypertarget{class_network_events_aae50bfc02fa713b4f5d8bfcf0c53d319}\index{NetworkEvents@{NetworkEvents}!postEvent@{postEvent}}
+\index{postEvent@{postEvent}!NetworkEvents@{NetworkEvents}}
+\doxysubsubsection{\texorpdfstring{postEvent()}{postEvent()}}
+{\footnotesize\ttfamily \label{class_network_events_aae50bfc02fa713b4f5d8bfcf0c53d319} 
+bool Network\+Events\+::post\+Event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structarduino__event__t}{arduino\+\_\+event\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})}
+
+
+
+post an event to the queue and propagade and event to subscribed handlers 
+
+\begin{DoxyNote}{Note}
+posting an event will trigger context switch from a lower priority task
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em event} & a pointer to \doxylink{structarduino__event__t}{arduino\+\_\+event\+\_\+t} struct \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if event was queued susccessfuly 
+
+false on memrory allocation error or queue is full 
+\end{DoxyReturn}
+\Hypertarget{class_network_events_a4c02fbe90d9d69b579aa5493bb1f6a1f}\index{NetworkEvents@{NetworkEvents}!removeEvent@{removeEvent}}
+\index{removeEvent@{removeEvent}!NetworkEvents@{NetworkEvents}}
+\doxysubsubsection{\texorpdfstring{removeEvent()}{removeEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{class_network_events_a4c02fbe90d9d69b579aa5493bb1f6a1f} 
+void Network\+Events\+::remove\+Event (\begin{DoxyParamCaption}\item[{network\+\_\+event\+\_\+handle\+\_\+t}]{event\+\_\+handle}{}\end{DoxyParamCaption})}
+
+
+
+unregister event callback via handler 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cb\+Event} & static callback function \\
+\hline
+{\em event} & event to process, any event by default \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_events_aaa071a8d097666f98e6b4f749d9c262b}\index{NetworkEvents@{NetworkEvents}!removeEvent@{removeEvent}}
+\index{removeEvent@{removeEvent}!NetworkEvents@{NetworkEvents}}
+\doxysubsubsection{\texorpdfstring{removeEvent()}{removeEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{class_network_events_aaa071a8d097666f98e6b4f749d9c262b} 
+void Network\+Events\+::remove\+Event (\begin{DoxyParamCaption}\item[{Network\+Event\+Cb}]{cb\+Event}{, }\item[{arduino\+\_\+event\+\_\+id\+\_\+t}]{event}{ = {\ttfamily ARDUINO\+\_\+EVENT\+\_\+MAX}}\end{DoxyParamCaption})}
+
+
+
+unregister static function callback 
+
+\begin{DoxyNote}{Note}
+a better way to unregister callbacks is to save/unregister via network\+\_\+event\+\_\+handle\+\_\+t
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em cb\+Event} & static callback function \\
+\hline
+{\em event} & event to process, any event by default \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_events_a2df7d70f94f6d92bf6094f5bd52406f8}\index{NetworkEvents@{NetworkEvents}!removeEvent@{removeEvent}}
+\index{removeEvent@{removeEvent}!NetworkEvents@{NetworkEvents}}
+\doxysubsubsection{\texorpdfstring{removeEvent()}{removeEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{class_network_events_a2df7d70f94f6d92bf6094f5bd52406f8} 
+void Network\+Events\+::remove\+Event (\begin{DoxyParamCaption}\item[{Network\+Event\+Func\+Cb}]{cb\+Event}{, }\item[{arduino\+\_\+event\+\_\+id\+\_\+t}]{event}{ = {\ttfamily ARDUINO\+\_\+EVENT\+\_\+MAX}}\end{DoxyParamCaption})}
+
+
+
+unregister functional callback 
+
+\begin{DoxyNote}{Note}
+a better way to unregister callbacks is to save/unregister via network\+\_\+event\+\_\+handle\+\_\+t 
+
+this does not work for lambda\textquotesingle{}s! Do unregister via network\+\_\+event\+\_\+handle\+\_\+t
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em cb\+Event} & functional callback \\
+\hline
+{\em event} & event to process, any event by default \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_network_events_a951c8e95ae6e7c3312ba8a33ef02ec1a}\index{NetworkEvents@{NetworkEvents}!removeEvent@{removeEvent}}
+\index{removeEvent@{removeEvent}!NetworkEvents@{NetworkEvents}}
+\doxysubsubsection{\texorpdfstring{removeEvent()}{removeEvent()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{class_network_events_a951c8e95ae6e7c3312ba8a33ef02ec1a} 
+void Network\+Events\+::remove\+Event (\begin{DoxyParamCaption}\item[{Network\+Event\+Sys\+Cb}]{cb\+Event}{, }\item[{arduino\+\_\+event\+\_\+id\+\_\+t}]{event}{ = {\ttfamily ARDUINO\+\_\+EVENT\+\_\+MAX}}\end{DoxyParamCaption})}
+
+
+
+unregister static system function callback 
+
+\begin{DoxyNote}{Note}
+a better way to unregister callbacks is to save/unregister via network\+\_\+event\+\_\+handle\+\_\+t
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em cb\+Event} & static callback function \\
+\hline
+{\em event} & event to process, any event by default \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Network/src/Network\+Events.\+h\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Network/src/Network\+Events.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,84 @@
+\doxysection{esp32-\/hal-\/sr.h}
+\hypertarget{esp32-hal-sr_8h_source}{}\label{esp32-hal-sr_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP\_SR/src/esp32-\/hal-\/sr.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP\_SR/src/esp32-\/hal-\/sr.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2015-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Unlicense\ OR\ CC0-\/1.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#if\ CONFIG\_IDF\_TARGET\_ESP32S3\ \&\&\ (CONFIG\_USE\_WAKENET\ ||\ CONFIG\_USE\_MULTINET)}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}driver/i2s\_types.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ SR\_CMD\_STR\_LEN\_MAX\ \ \ \ \ 64}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ SR\_CMD\_PHONEME\_LEN\_MAX\ 64}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }sr\_cmd\_t\ \{}
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordtype}{int}\ command\_id;}
+\DoxyCodeLine{00023\ \ \ \textcolor{keywordtype}{char}\ str[SR\_CMD\_STR\_LEN\_MAX];}
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{char}\ phoneme[SR\_CMD\_PHONEME\_LEN\_MAX];}
+\DoxyCodeLine{00025\ \}\ sr\_cmd\_t;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00028\ \ \ SR\_EVENT\_WAKEWORD,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//WakeWord\ Detected}}
+\DoxyCodeLine{00029\ \ \ SR\_EVENT\_WAKEWORD\_CHANNEL,\ \ \textcolor{comment}{//WakeWord\ Channel\ Verified}}
+\DoxyCodeLine{00030\ \ \ SR\_EVENT\_COMMAND,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Command\ Detected}}
+\DoxyCodeLine{00031\ \ \ SR\_EVENT\_TIMEOUT,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Command\ Timeout}}
+\DoxyCodeLine{00032\ \ \ SR\_EVENT\_MAX}
+\DoxyCodeLine{00033\ \}\ sr\_event\_t;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00036\ \ \ SR\_MODE\_OFF,\ \ \ \ \ \ \ \textcolor{comment}{//Detection\ Off}}
+\DoxyCodeLine{00037\ \ \ SR\_MODE\_WAKEWORD,\ \ \textcolor{comment}{//WakeWord\ Detection}}
+\DoxyCodeLine{00038\ \ \ SR\_MODE\_COMMAND,\ \ \ \textcolor{comment}{//Command\ Detection}}
+\DoxyCodeLine{00039\ \ \ SR\_MODE\_MAX}
+\DoxyCodeLine{00040\ \}\ sr\_mode\_t;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00043\ \ \ SR\_CHANNELS\_MONO,}
+\DoxyCodeLine{00044\ \ \ SR\_CHANNELS\_STEREO,}
+\DoxyCodeLine{00045\ \ \ SR\_CHANNELS\_MAX}
+\DoxyCodeLine{00046\ \}\ sr\_channels\_t;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ void\ (*sr\_event\_cb)(\textcolor{keywordtype}{void}\ *arg,\ sr\_event\_t\ event,\ \textcolor{keywordtype}{int}\ command\_id,\ \textcolor{keywordtype}{int}\ phrase\_id);}
+\DoxyCodeLine{00049\ \textcolor{keyword}{typedef}\ esp\_err\_t\ (*sr\_fill\_cb)(\textcolor{keywordtype}{void}\ *arg,\ \textcolor{keywordtype}{void}\ *out,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{size\_t}\ *bytes\_read,\ uint32\_t\ timeout\_ms);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ esp\_err\_t\ sr\_start(}
+\DoxyCodeLine{00052\ \ \ sr\_fill\_cb\ fill\_cb,\ \textcolor{keywordtype}{void}\ *fill\_cb\_arg,\ sr\_channels\_t\ rx\_chan,\ sr\_mode\_t\ mode,\ \textcolor{keyword}{const}\ sr\_cmd\_t\ *sr\_commands,\ \textcolor{keywordtype}{size\_t}\ cmd\_number,\ sr\_event\_cb\ cb,\ \textcolor{keywordtype}{void}\ *cb\_arg}
+\DoxyCodeLine{00053\ );}
+\DoxyCodeLine{00054\ esp\_err\_t\ sr\_stop(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00055\ esp\_err\_t\ sr\_pause(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00056\ esp\_err\_t\ sr\_resume(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00057\ esp\_err\_t\ sr\_set\_mode(sr\_mode\_t\ mode);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ static\ const\ sr\_cmd\_t\ sr\_commands[]\ =\ \{}}
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ \ \ \ \ \{0,\ "{}Turn\ On\ the\ Light"{},\ "{}TkN\ nN\ jc\ LiT"{}\},}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ \ \ \ \ \{0,\ "{}Switch\ On\ the\ Light"{},\ "{}SWgp\ nN\ jc\ LiT"{}\},}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ \ \ \ \ \{1,\ "{}Switch\ Off\ the\ Light"{},\ "{}SWgp\ eF\ jc\ LiT"{}\},}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \ \ \ \ \{1,\ "{}Turn\ Off\ the\ Light"{},\ "{}TkN\ eF\ jc\ LiT"{}\},}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ \ \ \ \ \{2,\ "{}Turn\ Red"{},\ "{}TkN\ RfD"{}\},}}
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ \ \ \ \ \{3,\ "{}Turn\ Green"{},\ "{}TkN\ GRmN"{}\},}}
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ \ \ \ \ \{4,\ "{}Turn\ Blue"{},\ "{}TkN\ BLo"{}\},}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ \ \ \ \ \{5,\ "{}Customize\ Color"{},\ "{}KcSTcMiZ\ KcLk"{}\},}}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ \ \ \ \ \{6,\ "{}Sing\ a\ song"{},\ "{}Sgl\ c\ Sel"{}\},}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ \ \ \ \ \{7,\ "{}Play\ Music"{},\ "{}PLd\ MYoZgK"{}\},}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ \ \ \ \ \{8,\ "{}Next\ Song"{},\ "{}NfKST\ Sel"{}\},}}
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ \ \ \ \ \{9,\ "{}Pause\ Playing"{},\ "{}PeZ\ PLdgl"{}\},}}
+\DoxyCodeLine{00072\ \textcolor{comment}{//\ \};}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00075\ \}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ CONFIG\_IDF\_TARGET\_ESP32S3}}
+
+\end{DoxyCode}

@@ -1,8 +1,19 @@
+/**
+ * @file email_module.h
+ * @author Yassine Hattay (hattayyassine519@gmail.com)
+ * @brief 
+ * @version 0.1
+ * @date 2025-03-02
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
+
 #ifndef SMTP_H
 #define SMTP_H
 
 #include <ESP_Mail_Client.h>
-// Email credentials and settings
+
 #define emailSenderAccount "yassinebeebotte@gmail.com"
 #define emailSenderPassword "gsti ffmp djsg kfhf"
 #define smtpServer "smtp.gmail.com"

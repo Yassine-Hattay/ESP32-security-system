@@ -1,0 +1,138 @@
+\doxysection{br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class\+\_\+ Struct Reference}
+\hypertarget{structbr__ssl__server__policy__class__}{}\label{structbr__ssl__server__policy__class__}\index{br\_ssl\_server\_policy\_class\_@{br\_ssl\_server\_policy\_class\_}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structbr__ssl__server__policy__class___a18c30e437ebf8997032487383e6bbbcf}\label{structbr__ssl__server__policy__class___a18c30e437ebf8997032487383e6bbbcf} 
+size\+\_\+t {\bfseries context\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Context size (in bytes). \end{DoxyCompactList}\item 
+int(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__ssl__server__policy__class___abe8a7678839aa9ac7f905e2b404f7b88}{choose}} )(const \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pctx, const \mbox{\hyperlink{structbr__ssl__server__context__}{br\+\_\+ssl\+\_\+server\+\_\+context}} \texorpdfstring{$\ast$}{*}cc, \mbox{\hyperlink{structbr__ssl__server__choices}{br\+\_\+ssl\+\_\+server\+\_\+choices}} \texorpdfstring{$\ast$}{*}choices)
+\begin{DoxyCompactList}\small\item\em Select algorithms and certificates for this connection. \end{DoxyCompactList}\item 
+uint32\+\_\+t(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__ssl__server__policy__class___ab44be849fc46841e1aed12fff58860f4}{do\+\_\+keyx}} )(const \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pctx, unsigned char \texorpdfstring{$\ast$}{*}data, size\+\_\+t \texorpdfstring{$\ast$}{*}len)
+\begin{DoxyCompactList}\small\item\em Perform key exchange (server part). \end{DoxyCompactList}\item 
+size\+\_\+t(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__ssl__server__policy__class___a3491b6ba9ea1d304043edb5d3b30bcb8}{do\+\_\+sign}} )(const \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pctx, unsigned algo\+\_\+id, unsigned char \texorpdfstring{$\ast$}{*}data, size\+\_\+t hv\+\_\+len, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Perform a signature (for a Server\+Key\+Exchange message). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structbr__ssl__server__policy__class___abe8a7678839aa9ac7f905e2b404f7b88}\index{br\_ssl\_server\_policy\_class\_@{br\_ssl\_server\_policy\_class\_}!choose@{choose}}
+\index{choose@{choose}!br\_ssl\_server\_policy\_class\_@{br\_ssl\_server\_policy\_class\_}}
+\doxysubsubsection{\texorpdfstring{choose}{choose}}
+{\footnotesize\ttfamily \label{structbr__ssl__server__policy__class___abe8a7678839aa9ac7f905e2b404f7b88} 
+int(\texorpdfstring{$\ast$}{*} br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class\+\_\+\+::choose) (const \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pctx, const \mbox{\hyperlink{structbr__ssl__server__context__}{br\+\_\+ssl\+\_\+server\+\_\+context}} \texorpdfstring{$\ast$}{*}cc, \mbox{\hyperlink{structbr__ssl__server__choices}{br\+\_\+ssl\+\_\+server\+\_\+choices}} \texorpdfstring{$\ast$}{*}choices)}
+
+
+
+Select algorithms and certificates for this connection. 
+
+This callback function shall fill the provided {\ttfamily choices} structure with the policy choices for this connection. This entails selecting the cipher suite, hash function for signing the Server\+Key\+Exchange (applicable only to ECDHE cipher suites), and certificate chain to send.
+
+The callback receives a pointer to the server context that contains the relevant data. In particular, the functions {\ttfamily br\+\_\+ssl\+\_\+server\+\_\+get\+\_\+client\+\_\+suites()}, {\ttfamily br\+\_\+ssl\+\_\+server\+\_\+get\+\_\+client\+\_\+hashes()} and {\ttfamily br\+\_\+ssl\+\_\+server\+\_\+get\+\_\+client\+\_\+curves()} can be used to obtain the cipher suites, hash functions and elliptic curves supported by both the client and server, respectively. The {\ttfamily br\+\_\+ssl\+\_\+engine\+\_\+get\+\_\+version()} and {\ttfamily br\+\_\+ssl\+\_\+engine\+\_\+get\+\_\+server\+\_\+name()} functions yield the protocol version and requested server name (SNI), respectively.
+
+This function may modify its context structure ({\ttfamily pctx}) in arbitrary ways to keep track of its own choices.
+
+This function shall return 1 if appropriate policy choices could be made, or 0 if this connection cannot be pursued.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pctx} & policy context. \\
+\hline
+{\em cc} & SSL server context. \\
+\hline
+{\em choices} & destination structure for the policy choices. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 on success, 0 on error. 
+\end{DoxyReturn}
+\Hypertarget{structbr__ssl__server__policy__class___ab44be849fc46841e1aed12fff58860f4}\index{br\_ssl\_server\_policy\_class\_@{br\_ssl\_server\_policy\_class\_}!do\_keyx@{do\_keyx}}
+\index{do\_keyx@{do\_keyx}!br\_ssl\_server\_policy\_class\_@{br\_ssl\_server\_policy\_class\_}}
+\doxysubsubsection{\texorpdfstring{do\_keyx}{do\_keyx}}
+{\footnotesize\ttfamily \label{structbr__ssl__server__policy__class___ab44be849fc46841e1aed12fff58860f4} 
+uint32\+\_\+t(\texorpdfstring{$\ast$}{*} br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class\+\_\+\+::do\+\_\+keyx) (const \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pctx, unsigned char \texorpdfstring{$\ast$}{*}data, size\+\_\+t \texorpdfstring{$\ast$}{*}len)}
+
+
+
+Perform key exchange (server part). 
+
+This callback is invoked to perform the server-\/side cryptographic operation for a key exchange that is not ECDHE. This callback uses the private key.
+
+{\bfseries{For RSA key exchange}}, the provided {\ttfamily data} (of length {\ttfamily \texorpdfstring{$\ast$}{*}len} bytes) shall be decrypted with the server\textquotesingle{}s private key, and the 48-\/byte premaster secret copied back to the first 48 bytes of {\ttfamily data}.
+
+
+\begin{DoxyItemize}
+\item The caller makes sure that {\ttfamily \texorpdfstring{$\ast$}{*}len} is at least 59 bytes.
+\item This callback MUST check that the provided length matches that of the key modulus; it shall report an error otherwise.
+\item If the length matches that of the RSA key modulus, then processing MUST be constant-\/time, even if decryption fails, or the padding is incorrect, or the plaintext message length is not exactly 48 bytes.
+\item This callback needs not check the two first bytes of the obtained pre-\/master secret (the caller will do that).
+\item If an error is reported (0), then what the callback put in the first 48 bytes of {\ttfamily data} is unimportant (the caller will use random bytes instead).
+\end{DoxyItemize}
+
+{\bfseries{For ECDH key exchange}}, the provided {\ttfamily data} (of length {\ttfamily \texorpdfstring{$\ast$}{*}len} bytes) is the elliptic curve point from the client. The callback shall multiply it with its private key, and store the resulting X coordinate in {\ttfamily data}, starting at offset 0, and set {\ttfamily \texorpdfstring{$\ast$}{*}len} to the length of the X coordinate.
+
+
+\begin{DoxyItemize}
+\item If the input array does not have the proper length for an encoded curve point, then an error (0) shall be reported.
+\item If the input array has the proper length, then processing MUST be constant-\/time, even if the data is not a valid encoded point.
+\item This callback MUST check that the input point is valid.
+\end{DoxyItemize}
+
+Returned value is 1 on success, 0 on error.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pctx} & policy context. \\
+\hline
+{\em data} & key exchange data from the client. \\
+\hline
+{\em len} & key exchange data length (in bytes). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 on success, 0 on error. 
+\end{DoxyReturn}
+\Hypertarget{structbr__ssl__server__policy__class___a3491b6ba9ea1d304043edb5d3b30bcb8}\index{br\_ssl\_server\_policy\_class\_@{br\_ssl\_server\_policy\_class\_}!do\_sign@{do\_sign}}
+\index{do\_sign@{do\_sign}!br\_ssl\_server\_policy\_class\_@{br\_ssl\_server\_policy\_class\_}}
+\doxysubsubsection{\texorpdfstring{do\_sign}{do\_sign}}
+{\footnotesize\ttfamily \label{structbr__ssl__server__policy__class___a3491b6ba9ea1d304043edb5d3b30bcb8} 
+size\+\_\+t(\texorpdfstring{$\ast$}{*} br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class\+\_\+\+::do\+\_\+sign) (const \mbox{\hyperlink{bearssl__ssl_8h_a20bd6d3a5ad0396134122e937a960d43}{br\+\_\+ssl\+\_\+server\+\_\+policy\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}pctx, unsigned algo\+\_\+id, unsigned char \texorpdfstring{$\ast$}{*}data, size\+\_\+t hv\+\_\+len, size\+\_\+t len)}
+
+
+
+Perform a signature (for a Server\+Key\+Exchange message). 
+
+This callback function is invoked for ECDHE cipher suites. On input, the hash value or message to sign is in {\ttfamily data}, of size {\ttfamily hv\+\_\+len}; the involved hash function or algorithm is identified by {\ttfamily algo\+\_\+id}. The signature shall be computed and written back into {\ttfamily data}; the total size of that buffer is {\ttfamily len} bytes.
+
+This callback shall verify that the signature length does not exceed {\ttfamily len} bytes, and abstain from writing the signature if it does not fit.
+
+The {\ttfamily algo\+\_\+id} value matches that which was written in the {\ttfamily choices} structures by the {\ttfamily \doxylink{structbr__ssl__server__policy__class___abe8a7678839aa9ac7f905e2b404f7b88}{choose()}} callback. This will be one of the following\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily 0x\+FF00 + id} for a hash function identifier {\ttfamily id}. In that case, the {\ttfamily data} buffer contains a hash value already computed over the data that is to be signed, of length {\ttfamily hv\+\_\+len}. The {\ttfamily id} may be 0 to designate the special MD5+\+SHA-\/1 concatenation (old-\/style RSA signing).
+\item Another value, lower than {\ttfamily 0x\+FF00}. The {\ttfamily data} buffer then contains the raw, non-\/hashed data to be signed (concatenation of the client and server randoms and ECDH parameters). The callback is responsible to apply any relevant hashing as part of the signing process.
+\end{DoxyItemize}
+
+Returned value is the signature length (in bytes), or 0 on error.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pctx} & policy context. \\
+\hline
+{\em algo\+\_\+id} & hash function / algorithm identifier. \\
+\hline
+{\em data} & input/output buffer (message/hash, then signature). \\
+\hline
+{\em hv\+\_\+len} & hash value or message length (in bytes). \\
+\hline
+{\em len} & total buffer length (in bytes). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+signature length (in bytes) on success, or 0 on error. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/\mbox{\hyperlink{bearssl__ssl_8h}{bearssl\+\_\+ssl.\+h}}\end{DoxyCompactItemize}

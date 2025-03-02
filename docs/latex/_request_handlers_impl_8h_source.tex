@@ -1,0 +1,303 @@
+\doxysection{Request\+Handlers\+Impl.\+h}
+\hypertarget{_request_handlers_impl_8h_source}{}\label{_request_handlers_impl_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/src/detail/RequestHandlersImpl.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/src/detail/RequestHandlersImpl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ REQUESTHANDLERSIMPL\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ REQUESTHANDLERSIMPL\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}RequestHandler.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}mimetable.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}WString.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Uri.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <MD5Builder.h>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <base64.h>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{using\ namespace\ }mime;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ \&RequestHandler::addMiddleware(\mbox{\hyperlink{class_middleware}{Middleware}}\ *middleware)\ \{}
+\DoxyCodeLine{00014\ \ \ \textcolor{keywordflow}{if}\ (!\_chain)\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \_chain\ =\ \textcolor{keyword}{new}\ MiddlewareChain();}
+\DoxyCodeLine{00016\ \ \ \}}
+\DoxyCodeLine{00017\ \ \ \_chain-\/>addMiddleware(middleware);}
+\DoxyCodeLine{00018\ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00019\ \}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ \&RequestHandler::addMiddleware(Middleware::Function\ fn)\ \{}
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordflow}{if}\ (!\_chain)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \_chain\ =\ \textcolor{keyword}{new}\ MiddlewareChain();}
+\DoxyCodeLine{00024\ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \_chain-\/>addMiddleware(fn);}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00027\ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ \&RequestHandler::removeMiddleware(\mbox{\hyperlink{class_middleware}{Middleware}}\ *middleware)\ \{}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordflow}{if}\ (\_chain)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \_chain-\/>removeMiddleware(middleware);}
+\DoxyCodeLine{00032\ \ \ \}}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{bool}\ RequestHandler::process(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ HTTPMethod\ requestMethod,\ String\ requestUri)\ \{}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordflow}{if}\ (\_chain)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{return}\ \_chain-\/>runChain(server,\ [\textcolor{keyword}{this},\ \&server,\ \&requestMethod,\ \&requestUri]()\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ handle(server,\ requestMethod,\ requestUri);}
+\DoxyCodeLine{00040\ \ \ \ \ \});}
+\DoxyCodeLine{00041\ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ handle(server,\ requestMethod,\ requestUri);}
+\DoxyCodeLine{00043\ \ \ \}}
+\DoxyCodeLine{00044\ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{class\ }FunctionRequestHandler\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ \{}
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00048\ \ \ FunctionRequestHandler(WebServer::THandlerFunction\ fn,\ WebServer::THandlerFunction\ ufn,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_uri}{Uri}}\ \&uri,\ HTTPMethod\ method)}
+\DoxyCodeLine{00049\ \ \ \ \ :\ \_fn(fn),\ \_ufn(ufn),\ \_uri(uri.clone()),\ \_method(method)\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \_uri-\/>initPathArgs(pathArgs);}
+\DoxyCodeLine{00051\ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \string~FunctionRequestHandler()\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{delete}\ \_uri;}
+\DoxyCodeLine{00055\ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{bool}\ canHandle(HTTPMethod\ requestMethod,\ \textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_method\ !=\ HTTP\_ANY\ \&\&\ \_method\ !=\ requestMethod)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{return}\ \_uri-\/>canHandle(requestUri,\ pathArgs);}
+\DoxyCodeLine{00063\ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{bool}\ canUpload(\textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_ufn\ ||\ !canHandle(HTTP\_POST,\ requestUri))\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00071\ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{bool}\ canRaw(\textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_ufn\ ||\ \_method\ ==\ HTTP\_GET)\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00079\ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{bool}\ canHandle(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ HTTPMethod\ requestMethod,\ \textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_method\ !=\ HTTP\_ANY\ \&\&\ \_method\ !=\ requestMethod)\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{return}\ \_uri-\/>canHandle(requestUri,\ pathArgs)\ \&\&\ (\_filter\ !=\ NULL\ ?\ \_filter(server)\ :\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{bool}\ canUpload(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ \textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_ufn\ ||\ !canHandle(server,\ HTTP\_POST,\ requestUri))\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00095\ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{bool}\ canRaw(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ \textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_ufn\ ||\ \_method\ ==\ HTTP\_GET\ ||\ (\_filter\ !=\ NULL\ ?\ \_filter(server)\ ==\ \textcolor{keyword}{false}\ :\ \textcolor{keyword}{false}))\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00103\ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{bool}\ handle(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ HTTPMethod\ requestMethod,\ \textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{if}\ (!canHandle(server,\ requestMethod,\ requestUri))\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \_fn();}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00112\ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{void}\ upload(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ \textcolor{keyword}{const}\ String\ \&requestUri,\ \mbox{\hyperlink{struct_h_t_t_p_upload}{HTTPUpload}}\ \&upload)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00115\ \ \ \ \ (void)upload;}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{if}\ (canUpload(server,\ requestUri))\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \_ufn();}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \ \ \}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{void}\ raw(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ \textcolor{keyword}{const}\ String\ \&requestUri,\ \mbox{\hyperlink{struct_h_t_t_p_raw}{HTTPRaw}}\ \&raw)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00122\ \ \ \ \ (void)raw;}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{if}\ (canRaw(server,\ requestUri))\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \_ufn();}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ FunctionRequestHandler\ \&setFilter(WebServer::FilterFunction\ filter)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \_filter\ =\ filter;}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00131\ \ \ \}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00134\ \ \ WebServer::THandlerFunction\ \_fn;}
+\DoxyCodeLine{00135\ \ \ WebServer::THandlerFunction\ \_ufn;}
+\DoxyCodeLine{00136\ \ \ \textcolor{comment}{//\ \_filter\ should\ return\ 'true'\ when\ the\ request\ should\ be\ handled}}
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{//\ and\ 'false'\ when\ the\ request\ should\ be\ ignored}}
+\DoxyCodeLine{00138\ \ \ WebServer::FilterFunction\ \_filter;}
+\DoxyCodeLine{00139\ \ \ \mbox{\hyperlink{class_uri}{Uri}}\ *\_uri;}
+\DoxyCodeLine{00140\ \ \ HTTPMethod\ \_method;}
+\DoxyCodeLine{00141\ \};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{class\ }StaticRequestHandler\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ \{}
+\DoxyCodeLine{00144\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00145\ \ \ StaticRequestHandler(\mbox{\hyperlink{class_f_s}{FS}}\ \&fs,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *uri,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cache\_header)\ :\ \_fs(fs),\ \_uri(uri),\ \_path(path),\ \_cache\_header(cache\_header)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{class_file}{File}}\ f\ =\ fs.open(path);}
+\DoxyCodeLine{00147\ \ \ \ \ \_isFile\ =\ (f\ \&\&\ (!f.isDirectory()));}
+\DoxyCodeLine{00148\ \ \ \ \ log\_v(}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \textcolor{stringliteral}{"{}StaticRequestHandler:\ path=\%s\ uri=\%s\ isFile=\%d,\ cache\_header=\%s\(\backslash\)r\(\backslash\)n"{}},\ path,\ uri,\ \_isFile,\ cache\_header\ ?\ cache\_header\ :\ \textcolor{stringliteral}{"{}"{}}}
+\DoxyCodeLine{00150\ \ \ \ \ );\ \ \textcolor{comment}{//\ issue\ 5506\ -\/\ cache\_header\ can\ be\ nullptr}}
+\DoxyCodeLine{00151\ \ \ \ \ \_baseUriLength\ =\ \_uri.length();}
+\DoxyCodeLine{00152\ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{bool}\ canHandle(HTTPMethod\ requestMethod,\ \textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{if}\ (requestMethod\ !=\ HTTP\_GET)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{if}\ ((\_isFile\ \&\&\ requestUri\ !=\ \_uri)\ ||\ !requestUri.startsWith(\_uri))\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00161\ \ \ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00164\ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{bool}\ canHandle(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ HTTPMethod\ requestMethod,\ \textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{if}\ (requestMethod\ !=\ HTTP\_GET)\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00169\ \ \ \ \ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{if}\ ((\_isFile\ \&\&\ requestUri\ !=\ \_uri)\ ||\ !requestUri.startsWith(\_uri))\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_filter\ !=\ NULL\ ?\ \_filter(server)\ ==\ \textcolor{keyword}{false}\ :\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00180\ \ \ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \textcolor{keywordtype}{bool}\ handle(\mbox{\hyperlink{class_web_server}{WebServer}}\ \&server,\ HTTPMethod\ requestMethod,\ \textcolor{keyword}{const}\ String\ \&requestUri)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{if}\ (!canHandle(server,\ requestMethod,\ requestUri))\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00185\ \ \ \ \ \}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ log\_v(\textcolor{stringliteral}{"{}StaticRequestHandler::handle:\ request=\%s\ \_uri=\%s\(\backslash\)r\(\backslash\)n"{}},\ requestUri.c\_str(),\ \_uri.c\_str());}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ String\ path(\_path);}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_isFile)\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \textcolor{comment}{//\ Base\ URI\ doesn't\ point\ to\ a\ file.}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ a\ directory\ is\ requested,\ look\ for\ index\ file.}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (requestUri.endsWith(\textcolor{stringliteral}{"{}/"{}}))\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ handle(server,\ requestMethod,\ String(requestUri\ +\ \textcolor{stringliteral}{"{}index.htm"{}}));}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \textcolor{comment}{//\ Append\ whatever\ follows\ this\ URI\ in\ request\ to\ get\ the\ file\ path.}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ path\ +=\ requestUri.substring(\_baseUriLength);}
+\DoxyCodeLine{00200\ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ log\_v(\textcolor{stringliteral}{"{}StaticRequestHandler::handle:\ path=\%s,\ isFile=\%d\(\backslash\)r\(\backslash\)n"{}},\ path.c\_str(),\ \_isFile);}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ String\ contentType\ =\ getContentType(path);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{comment}{//\ look\ for\ gz\ file,\ only\ if\ the\ original\ specified\ path\ is\ not\ a\ gz.\ \ So\ part\ only\ works\ to\ send\ gzip\ via\ content\ encoding\ when\ a\ non\ compressed\ is\ asked\ for}}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{comment}{//\ if\ you\ point\ the\ the\ path\ to\ gzip\ you\ will\ serve\ the\ gzip\ as\ content\ type\ "{}application/x-\/gzip"{},\ not\ text\ or\ javascript\ etc...}}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{if}\ (!path.endsWith(FPSTR(mimeTable[gz].endsWith))\ \&\&\ !\_fs.exists(path))\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ String\ pathWithGz\ =\ path\ +\ FPSTR(mimeTable[gz].endsWith);}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_fs.exists(pathWithGz))\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ path\ +=\ FPSTR(mimeTable[gz].endsWith);}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \mbox{\hyperlink{class_file}{File}}\ f\ =\ \_fs.open(path,\ \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{if}\ (!f\ ||\ !f.available())\ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00217\ \ \ \ \ \}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ String\ eTagCode;}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{if}\ (server.\_eTagEnabled)\ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (server.\_eTagFunction)\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ eTagCode\ =\ (server.\_eTagFunction)(\_fs,\ path);}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ eTagCode\ =\ calcETag(\_fs,\ path);}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (server.header(\textcolor{stringliteral}{"{}If-\/None-\/Match"{}})\ ==\ eTagCode)\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ server.send(304);}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00232\ \ \ \ \ \}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_cache\_header.length()\ !=\ 0)\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ server.sendHeader(\textcolor{stringliteral}{"{}Cache-\/Control"{}},\ \_cache\_header);}
+\DoxyCodeLine{00236\ \ \ \ \ \}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keywordflow}{if}\ ((server.\_eTagEnabled)\ \&\&\ (eTagCode.length()\ >\ 0))\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ server.sendHeader(\textcolor{stringliteral}{"{}ETag"{}},\ eTagCode);}
+\DoxyCodeLine{00240\ \ \ \ \ \}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ server.streamFile(f,\ contentType);}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00244\ \ \ \}}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \textcolor{keyword}{static}\ String\ getContentType(\textcolor{keyword}{const}\ String\ \&path)\ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordtype}{char}\ buff[\textcolor{keyword}{sizeof}(mimeTable[0].mimeType)];}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{comment}{//\ Check\ all\ entries\ but\ last\ one\ for\ match,\ return\ if\ found}}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \textcolor{keyword}{sizeof}(mimeTable)\ /\ \textcolor{keyword}{sizeof}(mimeTable[0])\ -\/\ 1;\ i++)\ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ strcpy\_P(buff,\ mimeTable[i].endsWith);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (path.endsWith(buff))\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ strcpy\_P(buff,\ mimeTable[i].mimeType);}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ String(buff);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00255\ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{comment}{//\ Fall-\/through\ and\ just\ return\ default\ type}}
+\DoxyCodeLine{00257\ \ \ \ \ strcpy\_P(buff,\ mimeTable[\textcolor{keyword}{sizeof}(mimeTable)\ /\ \textcolor{keyword}{sizeof}(mimeTable[0])\ -\/\ 1].mimeType);}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{return}\ String(buff);}
+\DoxyCodeLine{00259\ \ \ \}}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \textcolor{comment}{//\ calculate\ an\ ETag\ for\ a\ file\ in\ filesystem\ based\ on\ md5\ checksum}}
+\DoxyCodeLine{00262\ \ \ \textcolor{comment}{//\ that\ can\ be\ used\ in\ the\ http\ headers\ -\/\ include\ quotes.}}
+\DoxyCodeLine{00263\ \ \ \textcolor{keyword}{static}\ String\ calcETag(\mbox{\hyperlink{class_f_s}{FS}}\ \&fs,\ \textcolor{keyword}{const}\ String\ \&path)\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ String\ result;}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{comment}{//\ calculate\ eTag\ using\ md5\ checksum}}
+\DoxyCodeLine{00267\ \ \ \ \ uint8\_t\ md5\_buf[16];}
+\DoxyCodeLine{00268\ \ \ \ \ \mbox{\hyperlink{class_file}{File}}\ f\ =\ fs.open(path,\ \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{00269\ \ \ \ \ \mbox{\hyperlink{class_m_d5_builder}{MD5Builder}}\ calcMD5;}
+\DoxyCodeLine{00270\ \ \ \ \ calcMD5.begin();}
+\DoxyCodeLine{00271\ \ \ \ \ calcMD5.addStream(f,\ f.size());}
+\DoxyCodeLine{00272\ \ \ \ \ calcMD5.calculate();}
+\DoxyCodeLine{00273\ \ \ \ \ calcMD5.getBytes(md5\_buf);}
+\DoxyCodeLine{00274\ \ \ \ \ f.close();}
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{comment}{//\ create\ a\ minimal-\/length\ eTag\ using\ base64\ byte[]-\/>text\ encoding.}}
+\DoxyCodeLine{00276\ \ \ \ \ result\ =\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}}\ +\ \mbox{\hyperlink{classbase64_ac7744f9ed0e03c976787c0c282e99ab2}{base64::encode}}(md5\_buf,\ 16)\ +\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{return}\ (result);}
+\DoxyCodeLine{00278\ \ \ \}\ \ \textcolor{comment}{//\ calcETag}}
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ \ \ StaticRequestHandler\ \&setFilter(WebServer::FilterFunction\ filter)\ \{}
+\DoxyCodeLine{00281\ \ \ \ \ \_filter\ =\ filter;}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00283\ \ \ \}}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00286\ \ \ \textcolor{comment}{//\ \_filter\ should\ return\ 'true'\ when\ the\ request\ should\ be\ handled}}
+\DoxyCodeLine{00287\ \ \ \textcolor{comment}{//\ and\ 'false'\ when\ the\ request\ should\ be\ ignored}}
+\DoxyCodeLine{00288\ \ \ WebServer::FilterFunction\ \_filter;}
+\DoxyCodeLine{00289\ \ \ \mbox{\hyperlink{class_f_s}{FS}}\ \_fs;}
+\DoxyCodeLine{00290\ \ \ String\ \_uri;}
+\DoxyCodeLine{00291\ \ \ String\ \_path;}
+\DoxyCodeLine{00292\ \ \ String\ \_cache\_header;}
+\DoxyCodeLine{00293\ \ \ \textcolor{keywordtype}{bool}\ \_isFile;}
+\DoxyCodeLine{00294\ \ \ \textcolor{keywordtype}{size\_t}\ \_baseUriLength;}
+\DoxyCodeLine{00295\ \};}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//REQUESTHANDLERSIMPL\_H}}
+
+\end{DoxyCode}

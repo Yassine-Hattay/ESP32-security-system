@@ -1,0 +1,150 @@
+\doxysection{Time\+Lib.\+h}
+\hypertarget{_time_lib_8h_source}{}\label{_time_lib_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Time/TimeLib.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Time/TimeLib.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ time.h\ -\/\ low\ level\ time\ and\ date\ functions}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ July\ 3\ 2011\ -\/\ fixed\ elapsedSecsThisWeek\ macro\ (thanks\ Vincent\ Valdy\ for\ this)}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ fixed\ \ daysToTime\_t\ macro\ (thanks\ maniacbug)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*/}\ \ \ \ \ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ \_Time\_h}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ \_Time\_h}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ \_\_AVR\_\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <sys/types.h>}\ \textcolor{comment}{//\ for\ \_\_time\_t\_defined,\ but\ avr\ libc\ lacks\ sys/types.h}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ !defined(\_\_time\_t\_defined)\ }\textcolor{comment}{//\ avoid\ conflict\ with\ newlib\ or\ other\ posix\ libc}}
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ time\_t;}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ This\ ugly\ hack\ allows\ us\ to\ define\ C++\ overloaded\ functions,\ when\ included}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ from\ within\ an\ extern\ "{}C"{},\ as\ newlib's\ sys/stat.h\ does.\ \ Actually\ it\ is}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ intended\ to\ include\ "{}time.h"{}\ from\ the\ C\ library\ (on\ ARM,\ but\ AVR\ does\ not}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ have\ that\ file\ at\ all).\ \ On\ Mac\ and\ Windows,\ the\ compiler\ will\ find\ this}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ "{}Time.h"{}\ instead\ of\ the\ C\ library\ "{}time.h"{},\ so\ we\ may\ cause\ other\ weird}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ and\ unpredictable\ effects\ by\ conflicting\ with\ the\ C\ library\ header\ "{}time.h"{},}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ but\ at\ least\ this\ hack\ lets\ us\ define\ C++\ functions\ as\ intended.\ \ Hopefully}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ nothing\ too\ terrible\ will\ result\ from\ overriding\ the\ C\ library\ header?!}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C++"{}}\ \{}
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{timeNotSet,\ timeNeedsSync,\ timeSet}
+\DoxyCodeLine{00035\ \}\ \ timeStatus\_t\ ;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ dowInvalid,\ dowSunday,\ dowMonday,\ dowTuesday,\ dowWednesday,\ dowThursday,\ dowFriday,\ dowSaturday}
+\DoxyCodeLine{00039\ \}\ timeDayOfWeek\_t;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ tmSecond,\ tmMinute,\ tmHour,\ tmWday,\ tmDay,tmMonth,\ tmYear,\ tmNbrFields}
+\DoxyCodeLine{00043\ \}\ tmByteFields;\ \ \ \ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\{\ }
+\DoxyCodeLine{00046\ \ \ uint8\_t\ Second;\ }
+\DoxyCodeLine{00047\ \ \ uint8\_t\ Minute;\ }
+\DoxyCodeLine{00048\ \ \ uint8\_t\ Hour;\ }
+\DoxyCodeLine{00049\ \ \ uint8\_t\ Wday;\ \ \ \textcolor{comment}{//\ day\ of\ week,\ sunday\ is\ day\ 1}}
+\DoxyCodeLine{00050\ \ \ uint8\_t\ Day;}
+\DoxyCodeLine{00051\ \ \ uint8\_t\ Month;\ }
+\DoxyCodeLine{00052\ \ \ uint8\_t\ Year;\ \ \ \textcolor{comment}{//\ offset\ from\ 1970;\ }}
+\DoxyCodeLine{00053\ \}\ \ \ tmElements\_t,\ TimeElements,\ *tmElementsPtr\_t;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//convenience\ macros\ to\ convert\ to\ and\ from\ tm\ years\ }}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ \ tmYearToCalendar(Y)\ ((Y)\ +\ 1970)\ \ }\textcolor{comment}{//\ full\ four\ digit\ year\ }}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ \ CalendarYrToTm(Y)\ \ \ ((Y)\ -\/\ 1970)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ \ tmYearToY2k(Y)\ \ \ \ \ \ ((Y)\ -\/\ 30)\ \ \ \ }\textcolor{comment}{//\ offset\ is\ from\ 2000}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ \ y2kYearToTm(Y)\ \ \ \ \ \ ((Y)\ +\ 30)\ \ \ }}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{typedef}\ time\_t(*getExternalTime)();}
+\DoxyCodeLine{00062\ \textcolor{comment}{//typedef\ void\ \ (*setExternalTime)(const\ time\_t);\ //\ not\ used\ in\ this\ version}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*==============================================================================*/}}
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ Useful\ Constants\ */}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ SECS\_PER\_MIN\ \ ((time\_t)(60UL))}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ SECS\_PER\_HOUR\ ((time\_t)(3600UL))}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ SECS\_PER\_DAY\ \ ((time\_t)(SECS\_PER\_HOUR\ *\ 24UL))}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ DAYS\_PER\_WEEK\ ((time\_t)(7UL))}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ SECS\_PER\_WEEK\ ((time\_t)(SECS\_PER\_DAY\ *\ DAYS\_PER\_WEEK))}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ SECS\_PER\_YEAR\ ((time\_t)(SECS\_PER\_DAY\ *\ 365UL))\ }\textcolor{comment}{//\ TODO:\ ought\ to\ handle\ leap\ years}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ SECS\_YR\_2000\ \ ((time\_t)(946684800UL))\ }\textcolor{comment}{//\ the\ time\ at\ the\ start\ of\ y2k}}
+\DoxyCodeLine{00074\ \ }
+\DoxyCodeLine{00075\ \textcolor{comment}{/*\ Useful\ Macros\ for\ getting\ elapsed\ time\ */}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ numberOfSeconds(\_time\_)\ ((\_time\_)\ \%\ SECS\_PER\_MIN)\ \ }}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ numberOfMinutes(\_time\_)\ (((\_time\_)\ /\ SECS\_PER\_MIN)\ \%\ SECS\_PER\_MIN)\ }}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ numberOfHours(\_time\_)\ (((\_time\_)\ \%\ SECS\_PER\_DAY)\ /\ SECS\_PER\_HOUR)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ dayOfWeek(\_time\_)\ ((((\_time\_)\ /\ SECS\_PER\_DAY\ +\ 4)\ \ \%\ DAYS\_PER\_WEEK)+1)\ }\textcolor{comment}{//\ 1\ =\ Sunday}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ elapsedDays(\_time\_)\ ((\_time\_)\ /\ SECS\_PER\_DAY)\ \ }\textcolor{comment}{//\ this\ is\ number\ of\ days\ since\ Jan\ 1\ 1970}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ elapsedSecsToday(\_time\_)\ ((\_time\_)\ \%\ SECS\_PER\_DAY)\ \ \ }\textcolor{comment}{//\ the\ number\ of\ seconds\ since\ last\ midnight\ }}
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ The\ following\ macros\ are\ used\ in\ calculating\ alarms\ and\ assume\ the\ clock\ is\ set\ to\ a\ date\ later\ than\ Jan\ 1\ 1971}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ Always\ set\ the\ correct\ time\ before\ setting\ alarms}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ previousMidnight(\_time\_)\ (((\_time\_)\ /\ SECS\_PER\_DAY)\ *\ SECS\_PER\_DAY)\ \ }\textcolor{comment}{//\ time\ at\ the\ start\ of\ the\ given\ day}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ nextMidnight(\_time\_)\ (previousMidnight(\_time\_)\ \ +\ SECS\_PER\_DAY)\ \ \ }\textcolor{comment}{//\ time\ at\ the\ end\ of\ the\ given\ day\ }}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ elapsedSecsThisWeek(\_time\_)\ (elapsedSecsToday(\_time\_)\ +\ \ ((dayOfWeek(\_time\_)-\/1)\ *\ SECS\_PER\_DAY))\ \ \ }\textcolor{comment}{//\ note\ that\ week\ starts\ on\ day\ 1}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ previousSunday(\_time\_)\ ((\_time\_)\ -\/\ elapsedSecsThisWeek(\_time\_))\ \ \ \ \ \ }\textcolor{comment}{//\ time\ at\ the\ start\ of\ the\ week\ for\ the\ given\ time}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ nextSunday(\_time\_)\ (previousSunday(\_time\_)+SECS\_PER\_WEEK)\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ time\ at\ the\ end\ of\ the\ week\ for\ the\ given\ time}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{/*\ Useful\ Macros\ for\ converting\ elapsed\ time\ to\ a\ time\_t\ */}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ minutesToTime\_t\ ((M))\ (\ (M)\ *\ SECS\_PER\_MIN)\ \ }}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ hoursToTime\_t\ \ \ ((H))\ (\ (H)\ *\ SECS\_PER\_HOUR)\ \ }}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ daysToTime\_t\ \ \ \ ((D))\ (\ (D)\ *\ SECS\_PER\_DAY)\ }\textcolor{comment}{//\ fixed\ on\ Jul\ 22\ 2011}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ weeksToTime\_t\ \ \ ((W))\ (\ (W)\ *\ SECS\_PER\_WEEK)\ \ \ }}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/*============================================================================*/}}
+\DoxyCodeLine{00098\ \textcolor{comment}{/*\ \ time\ and\ date\ functions\ \ \ */}}
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{int}\ \ \ \ \ hour();\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ hour\ now\ }}
+\DoxyCodeLine{00100\ \textcolor{keywordtype}{int}\ \ \ \ \ hour(time\_t\ t);\ \ \ \ \textcolor{comment}{//\ the\ hour\ for\ the\ given\ time}}
+\DoxyCodeLine{00101\ \textcolor{keywordtype}{int}\ \ \ \ \ hourFormat12();\ \ \ \ \textcolor{comment}{//\ the\ hour\ now\ in\ 12\ hour\ format}}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{int}\ \ \ \ \ hourFormat12(time\_t\ t);\ \textcolor{comment}{//\ the\ hour\ for\ the\ given\ time\ in\ 12\ hour\ format}}
+\DoxyCodeLine{00103\ uint8\_t\ isAM();\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ true\ if\ time\ now\ is\ AM}}
+\DoxyCodeLine{00104\ uint8\_t\ isAM(time\_t\ t);\ \ \ \ \textcolor{comment}{//\ returns\ true\ the\ given\ time\ is\ AM}}
+\DoxyCodeLine{00105\ uint8\_t\ isPM();\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ true\ if\ time\ now\ is\ PM}}
+\DoxyCodeLine{00106\ uint8\_t\ isPM(time\_t\ t);\ \ \ \ \textcolor{comment}{//\ returns\ true\ the\ given\ time\ is\ PM}}
+\DoxyCodeLine{00107\ \textcolor{keywordtype}{int}\ \ \ \ \ minute();\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ minute\ now\ }}
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{int}\ \ \ \ \ minute(time\_t\ t);\ \ \textcolor{comment}{//\ the\ minute\ for\ the\ given\ time}}
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{int}\ \ \ \ \ second();\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ second\ now\ }}
+\DoxyCodeLine{00110\ \textcolor{keywordtype}{int}\ \ \ \ \ second(time\_t\ t);\ \ \textcolor{comment}{//\ the\ second\ for\ the\ given\ time}}
+\DoxyCodeLine{00111\ \textcolor{keywordtype}{int}\ \ \ \ \ day();\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ day\ now\ }}
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{int}\ \ \ \ \ day(time\_t\ t);\ \ \ \ \ \textcolor{comment}{//\ the\ day\ for\ the\ given\ time}}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{int}\ \ \ \ \ weekday();\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ weekday\ now\ (Sunday\ is\ day\ 1)\ }}
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{int}\ \ \ \ \ weekday(time\_t\ t);\ \textcolor{comment}{//\ the\ weekday\ for\ the\ given\ time\ }}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{int}\ \ \ \ \ month();\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ month\ now\ \ (Jan\ is\ month\ 1)}}
+\DoxyCodeLine{00116\ \textcolor{keywordtype}{int}\ \ \ \ \ month(time\_t\ t);\ \ \ \textcolor{comment}{//\ the\ month\ for\ the\ given\ time}}
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{int}\ \ \ \ \ year();\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ the\ full\ four\ digit\ year:\ (2009,\ 2010\ etc)\ }}
+\DoxyCodeLine{00118\ \textcolor{keywordtype}{int}\ \ \ \ \ year(time\_t\ t);\ \ \ \ \textcolor{comment}{//\ the\ year\ for\ the\ given\ time}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ time\_t\ now();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ return\ the\ current\ time\ as\ seconds\ since\ Jan\ 1\ 1970\ }}
+\DoxyCodeLine{00121\ \textcolor{keywordtype}{void}\ \ \ \ setTime(time\_t\ t);}
+\DoxyCodeLine{00122\ \textcolor{keywordtype}{void}\ \ \ \ setTime(\textcolor{keywordtype}{int}\ hr,\textcolor{keywordtype}{int}\ min,\textcolor{keywordtype}{int}\ sec,\textcolor{keywordtype}{int}\ day,\ \textcolor{keywordtype}{int}\ month,\ \textcolor{keywordtype}{int}\ yr);}
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{void}\ \ \ \ adjustTime(\textcolor{keywordtype}{long}\ adjustment);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{/*\ date\ strings\ */}\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ dt\_MAX\_STRING\_LEN\ 9\ }\textcolor{comment}{//\ length\ of\ longest\ date\ string\ (excluding\ terminating\ null)}}
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{char}*\ monthStr(uint8\_t\ month);}
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{char}*\ dayStr(uint8\_t\ day);}
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{char}*\ monthShortStr(uint8\_t\ month);}
+\DoxyCodeLine{00130\ \textcolor{keywordtype}{char}*\ dayShortStr(uint8\_t\ day);}
+\DoxyCodeLine{00131\ \ \ \ \ }
+\DoxyCodeLine{00132\ \textcolor{comment}{/*\ time\ sync\ functions\ \ */}}
+\DoxyCodeLine{00133\ timeStatus\_t\ timeStatus();\ \textcolor{comment}{//\ indicates\ if\ time\ has\ been\ set\ and\ recently\ synchronized}}
+\DoxyCodeLine{00134\ \textcolor{keywordtype}{void}\ \ \ \ setSyncProvider(\ getExternalTime\ getTimeFunction);\ \textcolor{comment}{//\ identify\ the\ external\ time\ provider}}
+\DoxyCodeLine{00135\ \textcolor{keywordtype}{void}\ \ \ \ setSyncInterval(time\_t\ interval);\ \textcolor{comment}{//\ set\ the\ number\ of\ seconds\ between\ re-\/sync}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{/*\ low\ level\ functions\ to\ convert\ to\ and\ from\ system\ time\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00138\ \textcolor{keywordtype}{void}\ breakTime(time\_t\ time,\ tmElements\_t\ \&tm);\ \ \textcolor{comment}{//\ break\ time\_t\ into\ elements}}
+\DoxyCodeLine{00139\ time\_t\ makeTime(\textcolor{keyword}{const}\ tmElements\_t\ \&tm);\ \ \textcolor{comment}{//\ convert\ time\ elements\ into\ time\_t}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \}\ \textcolor{comment}{//\ extern\ "{}C++"{}}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_\_cplusplus}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_Time\_h\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00144\ }
+
+\end{DoxyCode}

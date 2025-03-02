@@ -1,0 +1,45 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+mdns/tests/host\+\_\+test Directory Reference}
+\hypertarget{dir_6d139ccc289606cff357e3cabbe4149c}{}\label{dir_6d139ccc289606cff357e3cabbe4149c}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/tests/host\_test Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/tests/host\_test Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_367d16e592896708002c71433631d460}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Note\+: Set two addresses so we could use one as source and another as destination 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo\ ip\ link\ add\ eth2\ type\ dummy}
+\DoxyCodeLine{sudo\ ip\ addr\ add\ 192.168.1.200/24\ dev\ eth2}
+\DoxyCodeLine{sudo\ ip\ addr\ add\ 192.168.1.201/24\ dev\ eth2}
+\DoxyCodeLine{sudo\ ip\ link\ set\ eth2\ up}
+\DoxyCodeLine{sudo\ ifconfig\ eth2\ multicast}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1410}{}\doxysubsection{\texorpdfstring{Dig on a specified interface}{Dig on a specified interface}}\label{README.md_autotoc_md1410}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{dig\ +short\ -\/b\ 192.168.1.200\ -\/p\ 5353\ @224.0.0.251\ myesp.local}
+
+\end{DoxyCode}
+
+
+or a reverse query\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{dig\ +short\ -\/b\ 192.168.2.200\ -\/p\ 5353\ @224.0.0.251\ -\/x\ 192.168.1.200}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1411}{}\doxysubsection{\texorpdfstring{Run avahi to browse services}{Run avahi to browse services}}\label{README.md_autotoc_md1411}
+Avahi needs the netif to have the "{}multicast"{} flag set
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{david@david-\/comp:\string~/esp/idf\ (feature/mdns\_networking\_socket)\$\ avahi-\/browse\ -\/a\ -\/r\ -\/p}
+\DoxyCodeLine{+;eth2;IPv6;myesp-\/service2;Web\ Site;local}
+\DoxyCodeLine{+;eth2;IPv4;myesp-\/service2;Web\ Site;local}
+\DoxyCodeLine{=;eth2;IPv6;myesp-\/service2;Web\ Site;local;myesp.local;192.168.1.200;80;"{}board=esp32"{}\ "{}u=user"{}\ "{}p=password"{}}
+\DoxyCodeLine{=;eth2;IPv4;myesp-\/service2;Web\ Site;local;myesp.local;192.168.1.200;80;"{}board=esp32"{}\ "{}u=user"{}\ "{}p=password"{}}
+
+\end{DoxyCode}
+ 

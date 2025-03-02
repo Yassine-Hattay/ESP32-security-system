@@ -1,0 +1,124 @@
+\doxysection{Print.\+h}
+\hypertarget{_print_8h_source}{}\label{_print_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/Print.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/Print.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ Print.h\ -\/\ Base\ class\ that\ provides\ print()\ and\ println()}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ Copyright\ (c)\ 2008\ David\ A.\ Mellis.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ Print\_h}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ Print\_h}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}WString.h"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}Printable.h"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ DEC\ 10}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ HEX\ 16}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ OCT\ 8}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ BIN\ 2}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }Print\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{int}\ write\_error;}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{size\_t}\ printNumber(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long},\ uint8\_t);}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{size\_t}\ printNumber(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long},\ uint8\_t);}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{size\_t}\ printFloat(\textcolor{keywordtype}{double},\ uint8\_t);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{void}\ setWriteError(\textcolor{keywordtype}{int}\ err\ =\ 1)\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ write\_error\ =\ err;}
+\DoxyCodeLine{00045\ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00048\ \ \ Print()\ :\ write\_error(0)\ \{\}}
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{virtual}\ \string~Print()\ \{\}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{int}\ getWriteError()\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ write\_error;}
+\DoxyCodeLine{00052\ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{void}\ clearWriteError()\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ setWriteError(0);}
+\DoxyCodeLine{00055\ \ \ \}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ write(uint8\_t)\ =\ 0;}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str)\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{if}\ (str\ ==\ NULL)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{return}\ write((\textcolor{keyword}{const}\ uint8\_t\ *)str,\ strlen(str));}
+\DoxyCodeLine{00063\ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ write((\textcolor{keyword}{const}\ uint8\_t\ *)buffer,\ size);}
+\DoxyCodeLine{00067\ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{size\_t}\ vprintf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ va\_list\ arg);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{size\_t}\ printf(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)\ \_\_attribute\_\_((format(printf,\ 2,\ 3)));}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{size\_t}\ printf(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *ifsh,\ ...);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{comment}{//\ add\ availableForWrite\ to\ make\ compatible\ with\ Arduino\ Print.h}}
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ default\ to\ zero,\ meaning\ "{}a\ single\ write\ may\ block"{}}}
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ should\ be\ overridden\ by\ subclasses\ with\ buffering}}
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ availableForWrite()\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00079\ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *ifsh)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ print(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(ifsh));}
+\DoxyCodeLine{00082\ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keyword}{const}\ String\ \&);}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}[]);}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keywordtype}{char});}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keywordtype}{long},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keywordtype}{double},\ \textcolor{keywordtype}{int}\ =\ 2);}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_printable}{Printable}}\ \&);}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{size\_t}\ print(\textcolor{keyword}{struct}\ tm\ *timeinfo,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format\ =\ NULL);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *ifsh)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{return}\ println(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(ifsh));}
+\DoxyCodeLine{00099\ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keyword}{const}\ String\ \&s);}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}[]);}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{char});}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{long},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{int}\ =\ DEC);}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{double},\ \textcolor{keywordtype}{int}\ =\ 2);}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_printable}{Printable}}\ \&);}
+\DoxyCodeLine{00112\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keyword}{struct}\ tm\ *timeinfo,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format\ =\ NULL);}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{size\_t}\ println(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ flush()\ \{\ \textcolor{comment}{/*\ Empty\ implementation\ for\ backward\ compatibility\ */}\ \}}
+\DoxyCodeLine{00116\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

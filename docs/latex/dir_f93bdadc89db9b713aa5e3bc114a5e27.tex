@@ -1,0 +1,53 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/examples/hw\+\_\+cdc\+\_\+hello\+\_\+world Directory Reference}
+\hypertarget{dir_f93bdadc89db9b713aa5e3bc114a5e27}{}\label{dir_f93bdadc89db9b713aa5e3bc114a5e27}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/examples/hw\_cdc\_hello\_world Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/examples/hw\_cdc\_hello\_world Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_1409a63a533c5e61fdd59b18c57080dd}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\texorpdfstring{$\vert$}{|} Supported Targets \texorpdfstring{$\vert$}{|} ESP32-\/\+C3 \texorpdfstring{$\vert$}{|} ESP32-\/\+C6 \texorpdfstring{$\vert$}{|} ESP32-\/\+H2 \texorpdfstring{$\vert$}{|} ESP32-\/\+S3 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|}\hypertarget{README.md_autotoc_md12}{}\doxysubsection{\texorpdfstring{{\itshape HW Serial USB CDC example}}{{\itshape HW Serial USB CDC example}}}\label{README.md_autotoc_md12}
+This is the simplest buildable example made to be used as a template for new projects running Arduino-\/\+ESP32 as an ESP-\/\+IDF component that will redefine the {\ttfamily Serial} interface to be attached to the USB CDC Hardware Serial port.\textbackslash{} See \href{https://components.espressif.com/components/espressif/arduino-esp32}{\texttt{ arduino-\/esp32}} in ESP Registry.\hypertarget{README.md_autotoc_md13}{}\doxysubsubsection{\texorpdfstring{How to use example}{How to use example}}\label{README.md_autotoc_md13}
+After cloning this repository, go to the {\ttfamily hw\+\_\+cdc\+\_\+hello\+\_\+world} folder and select the target by executing\textbackslash{} {\ttfamily idf.\+py set-\/target \texorpdfstring{$<$}{<}So\+C\+\_\+target\texorpdfstring{$>$}{>}}.\textbackslash{} {\ttfamily \texorpdfstring{$<$}{<}So\+C\+\_\+target\texorpdfstring{$>$}{>}} can be one of the installed IDF version supported targets.
+
+It is possible to just clone this folder be executing\textbackslash{} {\ttfamily idf.\+py create-\/project-\/from-\/example "{}espressif/arduino-\/esp32\texorpdfstring{$^\wedge$}{\string^}3.\+0.\+5\+:hw\+\_\+cdc\+\_\+hello\+\_\+world"{}}
+
+For IDF 5.\+1.\+x and forward, the list of targets that support Hardware USB CDC are, at least\+: esp32s3, esp32c3, esp32c6 and esp32h2.\textbackslash{} Then just run command\+: {\ttfamily idf.\+py build} or {\ttfamily idf.\+py -\/p USB\+\_\+\+PORT flash monitor}.
+
+Usually, it is necessary to make the ESP32 SoC to enter in {\ttfamily Download Mode} before uploading the firmware.\textbackslash{} After that, just press {\ttfamily RESET/\+EN} to start the new firmware.\hypertarget{README.md_autotoc_md14}{}\doxysubsubsection{\texorpdfstring{Example folder contents}{Example folder contents}}\label{README.md_autotoc_md14}
+The project {\bfseries{hw\+\_\+serial\+\_\+example}} contains one source file in C++ language \href{main/main.cpp}{\texttt{ main.\+cpp}}. The file is located in folder \mbox{[}main\mbox{]}(main).
+
+ESP-\/\+IDF projects are built using CMake. The project building configuration is contained in {\ttfamily CMake\+Lists.\+txt} file that provide a set of directives and instructions describing the project\textquotesingle{}s source files and targets (executable, library, or both).
+
+Below is the minimum list of files in the project folder.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{├──\ CMakeLists.txt\ \ \ \ \ \ \ \ \ \ \ \ \ Global\ project\ CMake\ configuration\ file}
+\DoxyCodeLine{├──\ sdkconfig.defaults\ \ \ \ \ \ \ \ \ sdkconfig\ setting\ for\ an\ Arduino\ project}
+\DoxyCodeLine{├──\ main\ \ }
+\DoxyCodeLine{│  \ ├──\ CMakeLists.txt\ \ \ \ \ \ \ \ \ Arduino\ sketch\ CMake\ configuration\ file}
+\DoxyCodeLine{│\ \ \ ├──\ idf\_component.yml\ \ \ \ \ \ List\ of\ IDF\ components\ necessary\ to\ build\ the\ project}
+\DoxyCodeLine{│  \ └──\ main.cpp\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Arduino\ Sketch\ code\ -\/\ don't\ forget\ to\ add\ "{}\#include\ <Arduino.h>"{}\ on\ it}
+\DoxyCodeLine{└──\ README.md\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ is\ the\ file\ you\ are\ currently\ reading}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md15}{}\doxysubsubsection{\texorpdfstring{Configuring the Hardware USB CDC Serial}{Configuring the Hardware USB CDC Serial}}\label{README.md_autotoc_md15}
+ESP32 Arduino has two macro defined symbols that control what {\ttfamily Serial} symbol will represent. Default {\ttfamily Serial} is the UART0 from {\ttfamily \doxylink{class_hardware_serial}{Hardware\+Serial}} class.
+
+{\ttfamily Serial} can be changed to be attached to the HW Serial JTAG port fro the SoC. In order to make it work, it is necessary to define 2 symbols\+: {\ttfamily ARDUINO\+\_\+\+USB\+\_\+\+CDC\+\_\+\+ON\+\_\+\+BOOT} and {\ttfamily ARDUINO\+\_\+\+USB\+\_\+\+MODE} to {\ttfamily 1}. This is achieved by adding a couple lines to the \href{CMakeLists.txt}{\texttt{ Project Folder CMake\+Lists.\+txt}} file.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Adds\ necessary\ definitions\ for\ compiling\ it\ using\ Serial\ symbol\ attached\ to\ the\ HW\ USB\ CDC\ port}
+\DoxyCodeLine{list(APPEND\ compile\_definitions\ "{}ARDUINO\_USB\_CDC\_ON\_BOOT=1"{})}
+\DoxyCodeLine{list(APPEND\ compile\_definitions\ "{}ARDUINO\_USB\_MODE=1"{})}
+
+\end{DoxyCode}
+
+
+Those two lines will add a {\ttfamily -\/DSYMBOL=VAL} when compiling every source code file.
+
+In order to make sure that it is actually working correctly, the \href{main/main.cpp}{\texttt{ sketch}} will execute {\ttfamily Serial.\+begin();} with no baudrate, which only works for USB CDC. 

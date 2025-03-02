@@ -1,0 +1,130 @@
+\doxysection{esp\+\_\+secure\+\_\+cert\+\_\+tlv\+\_\+read.\+h}
+\hypertarget{esp__secure__cert__tlv__read_8h_source}{}\label{esp__secure__cert__tlv__read_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_secure\_cert\_mgr/include/esp\_secure\_cert\_tlv\_read.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_secure\_cert\_mgr/include/esp\_secure\_cert\_tlv\_read.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_secure\_cert\_tlv\_config.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ TLV\ config\ struct}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtlv__config}{tlv\_config}}\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ esp\_secure\_cert\_tlv\_type\_t\ type;\ \textcolor{comment}{/*\ TLV\ type\ */}}
+\DoxyCodeLine{00021\ \ \ \ \ esp\_secure\_cert\_tlv\_subtype\_t\ subtype;\ \textcolor{comment}{/*\ TLV\ subtype\ */}}
+\DoxyCodeLine{00022\ \}\ esp\_secure\_cert\_tlv\_config\_t;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ TLV\ info\ struct}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtlv__info}{tlv\_info}}\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ esp\_secure\_cert\_tlv\_type\_t\ type;\ \textcolor{comment}{/*\ Type\ of\ the\ TLV\ */}}
+\DoxyCodeLine{00029\ \ \ \ \ esp\_secure\_cert\_tlv\_subtype\_t\ subtype;\ \textcolor{comment}{/*\ Subtype\ of\ the\ TLV\ */}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{char}\ *data;\ \textcolor{comment}{/*\ Pointer\ to\ the\ buffer\ containting\ TLV\ data\ */}}
+\DoxyCodeLine{00031\ \ \ \ \ uint32\_t\ length;\ \textcolor{comment}{/*\ TLV\ data\ length\ */}}
+\DoxyCodeLine{00032\ \ \ \ \ uint8\_t\ flags;}
+\DoxyCodeLine{00033\ \}\ esp\_secure\_cert\_tlv\_info\_t;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ TLV\ iterator\ struct}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtlv__iterator}{tlv\_iterator}}\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ *iterator;\ \textcolor{comment}{/*\ Opaque\ TLV\ iterator\ */}}
+\DoxyCodeLine{00040\ \}\ esp\_secure\_cert\_tlv\_iterator\_t;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ \ Get\ the\ TLV\ information\ for\ given\ TLV\ configuration}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ \ @note}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ \ TLV\ Algorithms:}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ \ If\ the\ TLV\ data\ is\ stored\ with\ some\ additional\ encryption\ then\ it\ first\ needs\ to\ be\ decrypted\ and\ the\ decrypted\ data\ is}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ \ stored\ in\ a\ dynamically\ allocated\ buffer.\ This\ API\ automatically\ decrypts\ any\ encryption\ applied\ to\ the\ TLV\ by\ supported\ algorithms.}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ \ For\ this\ the\ API\ may\ look\ for\ TLV\ entries\ of\ other\ types\ which\ store\ necessary\ information,\ these\ TLV\ entries\ must\ be\ of\ the\ same\ subtype\ as\ of\ the\ subtype\ field\ in\ the\ config\ struct.}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *\ \ Please\ see\ documentation\ regarding\ supported\ TLV\ storage\ algorithms\ in\ the\ TLV\ documentation.}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ \ A\ call\ to\ the\ esp\_secure\_cert\_free\_tlv\_info()\ should\ be\ made\ to\ free\ any\ memory\ allocated\ while\ populating\ the\ tlv\ information\ object.}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *\ \ This\ API\ also\ validates\ the\ crc\ of\ the\ respective\ tlv\ before\ returning\ the\ offset.}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *\ \ If\ tlv\ type\ in\ the\ config\ struct\ is\ set\ to\ ESP\_SECURE\_CERT\_TLV\_END\ then\ the\ address\ returned\ shall\ be\ the\ end\ address\ of\ current\ tlv\ formatted\ data\ and\ the\ length\ returned\ shall\ be\ the\ total\ length\ of\ the\ valid\ TLV\ entries.}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *\ @input}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *\ \ \ \ \ tlv\_config\ \ \ \ \ \ \ \ \ \ \ Pointer\ to\ a\ readable\ struct\ of\ type\ esp\_secure\_cert\_tlv\_config\_t.}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ contents\ of\ the\ struct\ must\ be\ already\ filled\ by\ the\ caller,}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ information\ shall\ be\ used\ to\ find\ the\ appropriate\ TLV\ entry.}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ \ \ \ \ tlv\_info\ \ \ \ \ \ \ \ \ \ \ \ \ Pointer\ to\ a\ writable\ struct\ of\ type\ esp\_secure\_cert\_tlv\_info\_t,}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ If\ TLV\ entry\ defined\ by\ tlv\_config\ is\ found\ then\ the\ TLV\ information\ shall\ be\ populated\ in\ this\ struct.}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ @return}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ \ \ \ \ \ -\/\ ESP\_OK\ \ \ \ On\ success}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ \ \ \ \ \ -\/\ ESP\_FAIL/other\ relevant\ esp\ error\ code}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ On\ failure}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00068\ esp\_err\_t\ esp\_secure\_cert\_get\_tlv\_info(esp\_secure\_cert\_tlv\_config\_t\ *\mbox{\hyperlink{structtlv__config}{tlv\_config}},\ esp\_secure\_cert\_tlv\_info\_t\ *\mbox{\hyperlink{structtlv__info}{tlv\_info}});}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ Free\ the\ memory\ allocated\ while\ populating\ the\ tlv\_info\ object}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *\ @note}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ Please\ note\ this\ does\ not\ free\ the\ tlv\_info\ struct\ itself\ but\ only\ the\ memory\ allocated\ internally\ while\ populating\ this\ struct.}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00075\ esp\_err\_t\ esp\_secure\_cert\_free\_tlv\_info(esp\_secure\_cert\_tlv\_info\_t\ *\mbox{\hyperlink{structtlv__info}{tlv\_info}});}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ Iterate\ to\ the\ next\ valid\ TLV\ entry}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ @note}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *\ \ \ \ \ \ \ To\ obtain\ the\ first\ TLV\ entry,\ the\ tlv\_iterator\ structure\ must\ be\ zero\ initialized}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *\ @input}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ \ \ \ \ \ tlv\_iterator\ Pointer\ to\ a\ readable\ struct\ of\ type\ esp\_secure\_cert\_tlv\_iterator\_t}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ @return}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *\ \ ESP\_OK\ \ \ \ \ \ On\ success}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ iterator\ location\ shall\ be\ moved\ to\ point\ to\ the\ next\ TLV\ entry.}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ \ ESP\_FAIL/other\ relevant\ error\ codes}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ On\ failure}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00090\ esp\_err\_t\ esp\_secure\_cert\_iterate\_to\_next\_tlv(esp\_secure\_cert\_tlv\_iterator\_t\ *\mbox{\hyperlink{structtlv__iterator}{tlv\_iterator}});}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ Get\ the\ TLV\ information\ from\ a\ valid\ iterator\ location}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *\ @note}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ A\ call\ to\ the\ esp\_secure\_cert\_free\_tlv\_info()\ should\ be\ made\ to\ free\ any\ memory\ allocated\ while\ populating\ the\ tlv\ information\ object.}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ *\ @input}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *\ \ \ \ \ tlv\_config\ \ \ \ \ \ \ \ \ \ \ Pointer\ to\ a\ readable\ struct\ of\ type\ esp\_secure\_cert\_tlv\_iterator\_t.}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ iterator\ must\ be\ set\ to\ point\ to\ a\ valid\ TLV,}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ by\ a\ previous\ call\ to\ esp\_secure\_cert\_iterate\_to\_next\_tlv();.}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ *\ \ \ \ \ tlv\_info\ \ \ \ \ \ \ \ \ \ \ \ \ Pointer\ to\ a\ writable\ struct\ of\ type\ esp\_secure\_cert\_tlv\_info\_t}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ If\ TLV\ entry\ pointed\ by\ the\ iterator\ is\ valid\ then\ the\ TLV\ information\ shall\ be\ populated\ in\ this\ struct.}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ @return}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ \ ESP\_OK\ \ On\ success}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ The\ tlv\_info\ object\ shall\ be\ populated\ with\ information\ of\ the\ TLV\ pointed\ by\ the\ iterator}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ \ ESP\_FAIL/other\ relevant\ error\ codes}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ On\ failure}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00111\ esp\_err\_t\ esp\_secure\_cert\_get\_tlv\_info\_from\_iterator(esp\_secure\_cert\_tlv\_iterator\_t\ *\mbox{\hyperlink{structtlv__iterator}{tlv\_iterator}},\ esp\_secure\_cert\_tlv\_info\_t\ *\mbox{\hyperlink{structtlv__info}{tlv\_info}});}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ List\ TLV\ entries}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ This\ API\ serially\ traverses\ through\ all\ of\ the\ available}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ TLV\ entries\ in\ the\ esp\_secure\_cert\ partition\ and\ logs}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *\ brief\ information\ about\ each\ TLV\ entry.}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{void}\ esp\_secure\_cert\_list\_tlv\_entries(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00123\ \}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

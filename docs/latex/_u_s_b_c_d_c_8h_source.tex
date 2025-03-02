@@ -1,0 +1,150 @@
+\doxysection{USBCDC.\+h}
+\hypertarget{_u_s_b_c_d_c_8h_source}{}\label{_u_s_b_c_d_c_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/USBCDC.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/USBCDC.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2020\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#if\ SOC\_USB\_OTG\_SUPPORTED}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#if\ CONFIG\_TINYUSB\_CDC\_ENABLED}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}esp\_event.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}freertos/queue.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}freertos/semphr.h"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}Stream.h"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ ESP\_EVENT\_DECLARE\_BASE(ARDUINO\_USB\_CDC\_EVENTS);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00032\ \ \ ARDUINO\_USB\_CDC\_ANY\_EVENT\ =\ ESP\_EVENT\_ANY\_ID,}
+\DoxyCodeLine{00033\ \ \ ARDUINO\_USB\_CDC\_CONNECTED\_EVENT\ =\ 0,}
+\DoxyCodeLine{00034\ \ \ ARDUINO\_USB\_CDC\_DISCONNECTED\_EVENT,}
+\DoxyCodeLine{00035\ \ \ ARDUINO\_USB\_CDC\_LINE\_STATE\_EVENT,}
+\DoxyCodeLine{00036\ \ \ ARDUINO\_USB\_CDC\_LINE\_CODING\_EVENT,}
+\DoxyCodeLine{00037\ \ \ ARDUINO\_USB\_CDC\_RX\_EVENT,}
+\DoxyCodeLine{00038\ \ \ ARDUINO\_USB\_CDC\_TX\_EVENT,}
+\DoxyCodeLine{00039\ \ \ ARDUINO\_USB\_CDC\_RX\_OVERFLOW\_EVENT,}
+\DoxyCodeLine{00040\ \ \ ARDUINO\_USB\_CDC\_MAX\_EVENT,}
+\DoxyCodeLine{00041\ \}\ arduino\_usb\_cdc\_event\_t;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00044\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{bool}\ dtr;}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{bool}\ rts;}
+\DoxyCodeLine{00047\ \ \ \}\ line\_state;}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00049\ \ \ \ \ uint32\_t\ bit\_rate;}
+\DoxyCodeLine{00050\ \ \ \ \ uint8\_t\ stop\_bits;\ \ }
+\DoxyCodeLine{00051\ \ \ \ \ uint8\_t\ parity;\ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ uint8\_t\ data\_bits;\ \ }
+\DoxyCodeLine{00053\ \ \ \}\ line\_coding;}
+\DoxyCodeLine{00054\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len;}
+\DoxyCodeLine{00056\ \ \ \}\ rx;}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ dropped\_bytes;}
+\DoxyCodeLine{00059\ \ \ \}\ rx\_overflow;}
+\DoxyCodeLine{00060\ \}\ arduino\_usb\_cdc\_event\_data\_t;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{class\ }USBCDC\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_stream}{Stream}}\ \{}
+\DoxyCodeLine{00063\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ USBCDC(uint8\_t\ itf\ =\ 0);}
+\DoxyCodeLine{00065\ \ \ \string~USBCDC();}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ onEvent(esp\_event\_handler\_t\ callback);}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{void}\ onEvent(arduino\_usb\_cdc\_event\_t\ event,\ esp\_event\_handler\_t\ callback);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{size\_t}\ setRxBufferSize(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{void}\ setTxTimeoutMs(uint32\_t\ timeout);}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ begin(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ baud\ =\ 0);}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{int}\ available(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{int}\ availableForWrite(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{int}\ peek(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{int}\ read(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{size\_t}\ read(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t);}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{void}\ flush(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ read(\textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{return}\ read((uint8\_t\ *)buffer,\ size);}
+\DoxyCodeLine{00086\ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t\ *)buffer,\ size);}
+\DoxyCodeLine{00089\ \ \ \}}
+\DoxyCodeLine{00090\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t\ *)s,\ strlen(s));}
+\DoxyCodeLine{00092\ \ \ \}}
+\DoxyCodeLine{00093\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ n)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t)n);}
+\DoxyCodeLine{00095\ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{long}\ n)\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t)n);}
+\DoxyCodeLine{00098\ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t)n);}
+\DoxyCodeLine{00101\ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{int}\ n)\ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t)n);}
+\DoxyCodeLine{00104\ \ \ \}}
+\DoxyCodeLine{00105\ \ \ uint32\_t\ baudRate();}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{void}\ setDebugOutput(\textcolor{keywordtype}{bool});}
+\DoxyCodeLine{00107\ \ \ \textcolor{keyword}{operator}\ bool()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{void}\ enableReboot(\textcolor{keywordtype}{bool}\ enable);}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{bool}\ rebootEnabled(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{comment}{//internal\ methods}}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{void}\ \_onDFU(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{void}\ \_onLineState(\textcolor{keywordtype}{bool}\ \_dtr,\ \textcolor{keywordtype}{bool}\ \_rts);}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{void}\ \_onLineCoding(uint32\_t\ \_bit\_rate,\ uint8\_t\ \_stop\_bits,\ uint8\_t\ \_parity,\ uint8\_t\ \_data\_bits);}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{void}\ \_onRX(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{void}\ \_onTX(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{void}\ \_onUnplugged(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00121\ \ \ uint8\_t\ itf;}
+\DoxyCodeLine{00122\ \ \ uint32\_t\ bit\_rate;}
+\DoxyCodeLine{00123\ \ \ uint8\_t\ stop\_bits;\ \ }
+\DoxyCodeLine{00124\ \ \ uint8\_t\ parity;\ \ \ \ \ }
+\DoxyCodeLine{00125\ \ \ uint8\_t\ data\_bits;\ \ }
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{bool}\ dtr;}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{bool}\ rts;}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{bool}\ connected;}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{bool}\ reboot\_enable;}
+\DoxyCodeLine{00130\ \ \ QueueHandle\_t\ rx\_queue;}
+\DoxyCodeLine{00131\ \ \ SemaphoreHandle\_t\ tx\_lock;}
+\DoxyCodeLine{00132\ \ \ uint32\_t\ tx\_timeout\_ms;}
+\DoxyCodeLine{00133\ \};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#if\ !ARDUINO\_USB\_MODE\ \&\&\ ARDUINO\_USB\_CDC\_ON\_BOOT\ \ }\textcolor{comment}{//\ Native\ USB\ CDC\ selected}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#ifndef\ USB\_SERIAL\_IS\_DEFINED}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ USB\_SERIAL\_IS\_DEFINED\ 1}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ USBSerial\ is\ always\ available\ to\ be\ used}}
+\DoxyCodeLine{00140\ \textcolor{keyword}{extern}\ USBCDC\ USBSerial;}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_TINYUSB\_CDC\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_USB\_OTG\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,411 @@
+\doxysection{MB\+\_\+\+Time.\+h}
+\hypertarget{_m_b___time_8h_source}{}\label{_m_b___time_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/extras/MB\_Time.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/extras/MB\_Time.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MB\_Time\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MB\_Time\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Time\ helper\ class\ v1.0.7}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ Created\ August\ 28,\ 2023}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ Do\ not\ remove\ or\ modify\ this\ file\ as\ it\ required\ for\ AVR,\ ARM,\ SAMD\ devices\ and\ external\ client\ to\ work.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ The\ MIT\ License\ (MIT)}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2022\ K.\ Suwatchai\ (Mobizt)}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ returning\ a\ copy\ of}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal\ in}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights\ to}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or\ sell\ copies\ of}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ FITNESS}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}./extras/Networks.h"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ ESP\_TIME\_DEFAULT\_TS\ 1577836800}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ESP\_TIME\_NON\_TS\ -\/1000}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ \&\&\ !defined(ESP\_ARDUINO\_VERSION)\ }\textcolor{comment}{/*\ ESP32\ core\ <\ v2.0.x\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <sys/time.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <time.h>}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_USE\_PSRAM)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ MB\_STRING\_USE\_PSRAM}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}./extras/MB\_String.h"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}./extras/MB\_MCU.h"{}}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ defined(ESP8266)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}user\_interface.h"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#if\ defined(\_\_AVR\_\_)\ ||\ defined(MB\_ARDUINO\_TEENSY)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ MB\_TIME\_PGM\_ATTR}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ MB\_TIME\_PGM\_ATTR\ PROGMEM}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#if\ !defined(MB\_ARDUINO\_ESP)}}
+\DoxyCodeLine{00067\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *mb\_months[12]\ MB\_TIME\_PGM\_ATTR\ =\ \{\textcolor{stringliteral}{"{}Jan"{}},\ \textcolor{stringliteral}{"{}Feb"{}},\ \textcolor{stringliteral}{"{}Mar"{}},\ \textcolor{stringliteral}{"{}Apr"{}},\ \textcolor{stringliteral}{"{}May"{}},\ \textcolor{stringliteral}{"{}Jun"{}},\ \textcolor{stringliteral}{"{}Jul"{}},\ \textcolor{stringliteral}{"{}Aug"{}},\ \textcolor{stringliteral}{"{}Sep"{}},\ \textcolor{stringliteral}{"{}Oct"{}},\ \textcolor{stringliteral}{"{}Nov"{}},\ \textcolor{stringliteral}{"{}Dec"{}}\};}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{enum}\ base\_time\_type\_t}
+\DoxyCodeLine{00071\ \{}
+\DoxyCodeLine{00072\ \ \ base\_time\_type\_undefined\ =\ -\/1,}
+\DoxyCodeLine{00073\ \ \ base\_time\_type\_unset\ =\ 0,}
+\DoxyCodeLine{00074\ \ \ base\_time\_type\_auto\ =\ 1,}
+\DoxyCodeLine{00075\ \ \ base\_time\_type\_user\ =\ 2}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{class\ }MB\_Time}
+\DoxyCodeLine{00079\ \{}
+\DoxyCodeLine{00080\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00081\ \ \ MB\_Time()}
+\DoxyCodeLine{00082\ \ \ \{}
+\DoxyCodeLine{00083\ \ \ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \string~MB\_Time()}
+\DoxyCodeLine{00086\ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ clear();}
+\DoxyCodeLine{00088\ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{00091\ \ \ \{}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_NTP\_TIME)}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_sv1.length())}
+\DoxyCodeLine{00094\ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \_sv1.clear();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \_sv2.clear();}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \_sv3.clear();}
+\DoxyCodeLine{00098\ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{void}\ readNTPTime(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ waitMs,\ \textcolor{keywordtype}{bool}\ debugProgress)}
+\DoxyCodeLine{00103\ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_m_b___time_a6f5f129729051640a92920268be0d6c6}{timeReady}}())}
+\DoxyCodeLine{00105\ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (WiFI\_CONNECTED)}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_NTP\_TIME)}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#if\ (defined(ESP32)\ ||\ defined(ESP8266))}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ configTime(\_gmt\_offset\ *\ 3600,\ \_daylight\_offset\ *\ 60,\ \_sv1.c\_str(),\ \_sv2.c\_str(),\ \_sv3.c\_str());}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#elif\ defined(ARDUINO\_RASPBERRY\_PI\_PICO\_W)}}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ NTP.begin(\_sv1.c\_str(),\ \_sv2.c\_str());}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ NTP.waitSet();}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ ms\ =\ millis();}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pgms\ =\ 0;}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_HAS\_WIFI\_TIME)}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \_base\_ts\ =\ WiFi.getTime()\ >\ ESP\_TIME\_DEFAULT\_TS\ ?\ WiFi.getTime()\ :\ \_base\_ts;}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#elif\ defined(ENABLE\_NTP\_TIME)}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \_base\_ts\ =\ time(\textcolor{keyword}{nullptr})\ >\ ESP\_TIME\_DEFAULT\_TS\ ?\ time(\textcolor{keyword}{nullptr})\ :\ \_base\_ts;}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (debugProgress\ \&\&\ millis()\ -\/\ pgms\ >\ 50)}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ pgms\ =\ millis();}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print(\textcolor{stringliteral}{"{}."{}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ yield\_impl();}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (millis()\ -\/\ ms\ <\ waitMs\ \&\&\ \_base\_ts\ <\ ESP\_TIME\_DEFAULT\_TS);}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#if\ !defined(SILENT\_MODE)}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (debugProgress)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ esp\_mail\_debug\_print(\textcolor{stringliteral}{"{}"{}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keywordtype}{int}\ setTimestamp(time\_t\ ts,\ \textcolor{keywordtype}{float}\ gmtOffset)}
+\DoxyCodeLine{00151\ \ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \_gmt\_offset\ =\ gmtOffset;}
+\DoxyCodeLine{00153\ \ \ \ \ \_base\_time\_type\ =\ ts\ >\ ESP\_TIME\_DEFAULT\_TS\ ?\ base\_time\_type\_user\ :\ base\_time\_type\_unset;}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#if\ defined(MB\_ARDUINO\_ESP)}}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{struct\ }timeval\ tm;\ \textcolor{comment}{//\ sec,\ us}}
+\DoxyCodeLine{00156\ \ \ \ \ tm.tv\_sec\ =\ ts;}
+\DoxyCodeLine{00157\ \ \ \ \ tm.tv\_usec\ =\ 0;}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{return}\ settimeofday((\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ timeval\ *)\&tm,\ 0);}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00160\ \ \ \ \ \_ts\_offset\ =\ ts\ -\/\ millis()\ /\ 1000;}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00163\ \ \ \}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00176\ \ \ time\_t\ \mbox{\hyperlink{class_m_b___time_a32de62500486f5ddcc631ba0742a9d1b}{getTimestamp}}(\textcolor{keywordtype}{int}\ year,\ \textcolor{keywordtype}{int}\ mon,\ \textcolor{keywordtype}{int}\ date,\ \textcolor{keywordtype}{int}\ hour,\ \textcolor{keywordtype}{int}\ mins,\ \textcolor{keywordtype}{int}\ sec)}
+\DoxyCodeLine{00177\ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keyword}{struct\ }tm\ timeinfo;}
+\DoxyCodeLine{00179\ \ \ \ \ timeinfo.tm\_year\ =\ year\ -\/\ 1900;}
+\DoxyCodeLine{00180\ \ \ \ \ timeinfo.tm\_mon\ =\ mon\ -\/\ 1;}
+\DoxyCodeLine{00181\ \ \ \ \ timeinfo.tm\_mday\ =\ date;}
+\DoxyCodeLine{00182\ \ \ \ \ timeinfo.tm\_hour\ =\ hour;}
+\DoxyCodeLine{00183\ \ \ \ \ timeinfo.tm\_min\ =\ mins;}
+\DoxyCodeLine{00184\ \ \ \ \ timeinfo.tm\_sec\ =\ sec;}
+\DoxyCodeLine{00185\ \ \ \ \ time\_t\ ts\ =\ mktime(\&timeinfo);}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keywordflow}{return}\ ts;}
+\DoxyCodeLine{00187\ \ \ \}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00195\ \ \ time\_t\ \mbox{\hyperlink{class_m_b___time_a5854b564338740dcd3ca43b83048c5fc}{getTimestamp}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *timeString,\ \textcolor{keywordtype}{bool}\ gmt\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00196\ \ \ \{}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#if\ defined(MB\_ARDUINO\_ESP)}}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{struct\ }tm\ timeinfo;}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordflow}{if}\ (strstr(timeString,\ \textcolor{stringliteral}{"{},"{}})\ !=\ NULL)}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ strptime(timeString,\ \textcolor{stringliteral}{"{}\%a,\ \%d\ \%b\ \%Y\ \%H:\%M:\%S\ \%z"{}},\ \&timeinfo);}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ strptime(timeString,\ \textcolor{stringliteral}{"{}\%d\ \%b\ \%Y\ \%H:\%M:\%S\ \%z"{}},\ \&timeinfo);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ time\_t\ ts\ =\ mktime(\&timeinfo);}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordflow}{return}\ ts;}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ time\_t\ ts\ =\ 0;}
+\DoxyCodeLine{00211\ \ \ \ \ \_vectorImpl<MB\_String>\ tk;}
+\DoxyCodeLine{00212\ \ \ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ s1\ =\ timeString;}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ splitToken(s1,\ tk,\ \textcolor{charliteral}{'\ '});}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{int}\ day\ =\ 0,\ mon\ =\ 0,\ year\ =\ 0,\ hr\ =\ 0,\ mins\ =\ 0,\ sec\ =\ 0,\ tz\_h\ =\ 0,\ tz\_m\ =\ 0;}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{int}\ tkindex\ =\ tk.size()\ ==\ 5\ ?\ -\/1\ :\ 0;\ \textcolor{comment}{//\ No\ week\ days?}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{comment}{//\ some\ response\ may\ include\ (UTC)\ and\ (ICT)}}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{if}\ (tk.size()\ >=\ 5)}
+\DoxyCodeLine{00221\ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ day\ =\ atoi(tk[tkindex\ +\ 1].c\_str());}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ 12;\ i++)}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp\_P(mb\_months[i],\ tk[tkindex\ +\ 2].c\_str())\ ==\ 0)}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ mon\ =\ i;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \textcolor{comment}{//\ RFC\ 822\ year\ to\ RFC\ 2822}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tk[tkindex\ +\ 3].length()\ ==\ 2)}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ tk[tkindex\ +\ 3].prepend(\textcolor{stringliteral}{"{}20"{}});}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ \ \ year\ =\ atoi(tk[tkindex\ +\ 3].c\_str());}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \_vectorImpl<MB\_String>\ tk2;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ splitToken(tk[tkindex\ +\ 4],\ tk2,\ \textcolor{charliteral}{':'});}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tk2.size()\ ==\ 3)}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ hr\ =\ atoi(tk2[0].c\_str());}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ mins\ =\ atoi(tk2[1].c\_str());}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ sec\ =\ atoi(tk2[2].c\_str());}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ ts\ =\ \mbox{\hyperlink{class_m_b___time_a32de62500486f5ddcc631ba0742a9d1b}{getTimestamp}}(year,\ mon\ +\ 1,\ day,\ hr,\ mins,\ sec);}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tk[tkindex\ +\ 5].length()\ ==\ 5\ \&\&\ gmt)}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ tmp[6];}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ memset(tmp,\ 0,\ 6);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ strncpy(tmp,\ tk[tkindex\ +\ 5].c\_str()\ +\ 1,\ 2);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ tz\_h\ =\ atoi(tmp);}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ memset(tmp,\ 0,\ 6);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ strncpy(tmp,\ tk[tkindex\ +\ 5].c\_str()\ +\ 3,\ 2);}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ tz\_m\ =\ atoi(tmp);}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ time\_t\ tz\ =\ tz\_h\ *\ 60\ *\ 60\ +\ tz\_m\ *\ 60;}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tk[tkindex\ +\ 5][0]\ ==\ \textcolor{charliteral}{'+'})}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ ts\ -\/=\ tz;\ \textcolor{comment}{//\ remove\ time\ zone\ offset}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ ts\ +=\ tz;}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00263\ \ \ \ \ \}}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordflow}{return}\ ts;}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00266\ \ \ \}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00272\ \ \ uint64\_t\ \mbox{\hyperlink{class_m_b___time_a68c4d34bd5bbf8315533c370b47249d3}{getCurrentTimestamp}}()}
+\DoxyCodeLine{00273\ \ \ \{}
+\DoxyCodeLine{00274\ \ \ \ \ getBaseTime();}
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordflow}{return}\ \_base\_ts;}
+\DoxyCodeLine{00276\ \ \ \}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00281\ \ \ String\ \mbox{\hyperlink{class_m_b___time_a13c684b90c625d8240b42fdd6ec3efd4}{getDateTimeString}}()}
+\DoxyCodeLine{00282\ \ \ \{}
+\DoxyCodeLine{00283\ \ \ \ \ getBaseTime();}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordtype}{char}\ tbuf[40];}
+\DoxyCodeLine{00286\ \ \ \ \ strftime(tbuf,\ 40,\ \textcolor{stringliteral}{"{}\%a,\ \%d\ \%b\ \%Y\ \%H:\%M:\%S\ \%z"{}},\ \&\_time\_info);}
+\DoxyCodeLine{00287\ \ \ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ tStr\ =\ tbuf,\ tzStr;}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordtype}{int}\ p\ =\ \_gmt\_offset\ <\ 0\ ?\ -\/1\ :\ 1;}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keywordtype}{float}\ dif\ =\ (p\ *\ (\_gmt\_offset\ *\ 10\ -\/\ (int)\_gmt\_offset\ *\ 10))\ *\ 60.0\ /\ 10;}
+\DoxyCodeLine{00291\ \ \ \ \ tzStr\ =\ (\_gmt\_offset\ <\ 0)\ ?\ \textcolor{charliteral}{'-\/'}\ :\ \textcolor{charliteral}{'+'};}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordflow}{if}\ ((\textcolor{keywordtype}{int})\_gmt\_offset\ <\ 10)}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ tzStr\ +=\ 0;}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \ \ tzStr\ +=\ (int)\_gmt\_offset;}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordflow}{if}\ (dif\ <\ 10)}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ tzStr\ +=\ 0;}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ tzStr\ +=\ (int)dif;}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//\ replace\ for\ valid\ timezone}}
+\DoxyCodeLine{00304\ \ \ \ \ tStr.replaceAll(\textcolor{stringliteral}{"{}+0000"{}},\ tzStr);}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{keywordflow}{return}\ tStr.c\_str();}
+\DoxyCodeLine{00306\ \ \ \}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ String\ \mbox{\hyperlink{class_m_b___time_a13c684b90c625d8240b42fdd6ec3efd4}{getDateTimeString}}(time\_t\ ts,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format)}
+\DoxyCodeLine{00309\ \ \ \{}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordtype}{char}\ tbuf[100];}
+\DoxyCodeLine{00311\ \ \ \ \ strftime(tbuf,\ 100,\ format,\ localtime(\&ts));}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{keywordflow}{return}\ tbuf;}
+\DoxyCodeLine{00313\ \ \ \}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \textcolor{keywordtype}{void}\ begin(\textcolor{keywordtype}{float}\ gmtOffset,\ \textcolor{keywordtype}{float}\ daylightOffset,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *servers)}
+\DoxyCodeLine{00316\ \ \ \{}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_m_b___time_a6f5f129729051640a92920268be0d6c6}{timeReady}}()\ \&\&\ \_base\_time\_type\ ==\ base\_time\_type\_undefined)}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \_base\_time\_type\ =\ base\_time\_type\_auto;}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\_base\_time\_type\ ==\ base\_time\_type\_undefined)}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \_base\_time\_type\ =\ base\_time\_type\_unset;}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_NTP\_TIME)\ \&\&\ (defined(ESP32)\ ||\ defined(ESP8266)\ ||\ defined(ARDUINO\_RASPBERRY\_PI\_PICO\_W))}}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \_vectorImpl<MB\_String>\ tk;}
+\DoxyCodeLine{00325\ \ \ \ \ MB\_String\ sv\ =\ servers;}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ clear();}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \ \ \ \ splitToken(sv,\ tk,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordflow}{if}\ (tk.size()\ >\ 0)}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \_sv1\ =\ tk[0];}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordflow}{if}\ (tk.size()\ >\ 1)}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \_sv2\ =\ tk[1];}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keywordflow}{if}\ (tk.size()\ >\ 2)}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \_sv3\ =\ tk[2];}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordflow}{if}\ ((gmtOffset\ >\ ESP\_TIME\_NON\_TS\ \&\&\ \_gmt\_offset\ !=\ gmtOffset)\ ||\ (daylightOffset\ >\ ESP\_TIME\_NON\_TS\ \&\&\ \_daylight\_offset\ !=\ daylightOffset))}
+\DoxyCodeLine{00341\ \ \ \ \ \{}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \textcolor{comment}{//\ Reset\ system\ timestamp\ when\ config\ changed}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \_base\_ts\ =\ 0;}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (gmtOffset\ >\ ESP\_TIME\_NON\_TS)}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \_gmt\_offset\ =\ gmtOffset;}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (daylightOffset\ >\ ESP\_TIME\_NON\_TS)}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \_daylight\_offset\ =\ daylightOffset;}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_base\_time\_type\ ==\ base\_time\_type\_unset)}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ setTimestamp(millis(),\ \_gmt\_offset);}
+\DoxyCodeLine{00351\ \ \ \ \ \}}
+\DoxyCodeLine{00352\ \ \ \}}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00356\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_m_b___time_a6f5f129729051640a92920268be0d6c6}{timeReady}}()}
+\DoxyCodeLine{00357\ \ \ \{}
+\DoxyCodeLine{00358\ \ \ \ \ getBaseTime();}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keywordflow}{return}\ \_time\_ready;}
+\DoxyCodeLine{00360\ \ \ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00363\ \ \ time\_t\ \_base\_ts\ =\ 0;}
+\DoxyCodeLine{00364\ \ \ \textcolor{keyword}{struct\ }tm\ \_time\_info;}
+\DoxyCodeLine{00365\ \ \ \textcolor{keywordtype}{float}\ \_gmt\_offset\ =\ ESP\_TIME\_NON\_TS;}
+\DoxyCodeLine{00366\ \ \ \textcolor{keywordtype}{float}\ \_daylight\_offset\ =\ ESP\_TIME\_NON\_TS;}
+\DoxyCodeLine{00367\ \ \ \textcolor{keywordtype}{void}\ splitToken(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&str,\ \_vectorImpl<MB\_String>\ \&tk,\ \textcolor{keywordtype}{char}\ delim)}
+\DoxyCodeLine{00368\ \ \ \{}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ current,\ previous\ =\ 0;}
+\DoxyCodeLine{00370\ \ \ \ \ current\ =\ str.find(delim,\ previous);}
+\DoxyCodeLine{00371\ \ \ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ s;}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keywordflow}{while}\ (current\ !=\ MB\_String::npos)}
+\DoxyCodeLine{00373\ \ \ \ \ \{}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \ \ \ \ \ \ s\ =\ str.substr(previous,\ current\ -\/\ previous);}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ s.trim();}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.length()\ >\ 0)}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ tk.push\_back(s);}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ previous\ =\ current\ +\ 1;}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ current\ =\ str.find(delim,\ previous);}
+\DoxyCodeLine{00382\ \ \ \ \ \}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ s\ =\ str.substr(previous,\ current\ -\/\ previous);}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \ \ \ \ s.trim();}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{keywordflow}{if}\ (s.length()\ >\ 0)}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ tk.push\_back(s);}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ s.clear();}
+\DoxyCodeLine{00392\ \ \ \}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \ \ \textcolor{comment}{//\ (Safe)\ Get\ base\ timestamp}}
+\DoxyCodeLine{00395\ \ \ \textcolor{keywordtype}{void}\ getBaseTime()}
+\DoxyCodeLine{00396\ \ \ \{}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ ||\ defined(ESP8266)\ ||\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_base\_ts\ <\ time(\textcolor{keyword}{nullptr})\ \&\&\ time(\textcolor{keyword}{nullptr})\ >\ ESP\_TIME\_DEFAULT\_TS)}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \_base\_ts\ =\ time(\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#if\ defined(ESP32)}}
+\DoxyCodeLine{00404\ \ \ \ \ getLocalTime(\&\_time\_info);}
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#elif\ defined(ESP8266)\ ||\ defined(MB\_ARDUINO\_PICO)}}
+\DoxyCodeLine{00406\ \ \ \ \ localtime\_r(\&\_base\_ts,\ \&\_time\_info);}
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \textcolor{preprocessor}{\#elif\ defined(ESP\_MAIL\_HAS\_WIFI\_TIME)}}
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keywordflow}{if}\ (WiFI\_CONNECTED)}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \_base\_ts\ =\ WiFi.getTime()\ >\ ESP\_TIME\_DEFAULT\_TS\ ?\ WiFi.getTime()\ :\ \_base\_ts;}
+\DoxyCodeLine{00412\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00413\ \ \ \ \ \_base\_ts\ =\ \_ts\_offset\ +\ millis()\ /\ 1000;}
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \ \ \ \ \_time\_ready\ =\ \_base\_ts\ >\ ESP\_TIME\_DEFAULT\_TS;}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_time\_ready)}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \_ts\_offset\ =\ \_base\_ts\ -\/\ millis()\ /\ 1000;}
+\DoxyCodeLine{00419\ \ \ \}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#if\ defined(ENABLE\_NTP\_TIME)}}
+\DoxyCodeLine{00422\ \ \ \textcolor{comment}{//\ in\ ESP8266\ these\ NTP\ sever\ strings\ should\ be\ existed\ during\ configuring\ time.}}
+\DoxyCodeLine{00423\ \ \ MB\_String\ \_sv1,\ \_sv2,\ \_sv3;}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \ \ uint32\_t\ \_ts\_offset\ =\ 0;}
+\DoxyCodeLine{00427\ \ \ \textcolor{keywordtype}{bool}\ \_time\_ready\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00428\ \ \ base\_time\_type\_t\ \_base\_time\_type\ =\ base\_time\_type\_undefined;}
+\DoxyCodeLine{00429\ \};}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MB\_Time\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,279 @@
+\doxysection{lfs\+\_\+util.\+h}
+\hypertarget{lfs__util_8h_source}{}\label{lfs__util_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/lfs\_util.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/lfs\_util.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ lfs\ utility\ functions}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2022,\ The\ littlefs\ authors.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2017,\ Arm\ Limited.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ LFS\_UTIL\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ LFS\_UTIL\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ LFS\_STRINGIZE(x)\ LFS\_STRINGIZE2(x)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ LFS\_STRINGIZE2(x)\ \#x}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ Users\ can\ override\ lfs\_util.h\ with\ their\ own\ configuration\ by\ defining}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ LFS\_CONFIG\ as\ a\ header\ file\ to\ include\ (-\/DLFS\_CONFIG=lfs\_config.h).}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ If\ LFS\_CONFIG\ is\ used,\ none\ of\ the\ default\ utils\ will\ be\ emitted\ and\ must\ be}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ provided\ by\ the\ config\ file.\ To\ start,\ I\ would\ suggest\ copying\ lfs\_util.h}}
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ and\ modifying\ as\ needed.}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifdef\ LFS\_CONFIG}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ LFS\_STRINGIZE(LFS\_CONFIG)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ Alternatively,\ users\ can\ provide\ a\ header\ file\ which\ defines}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ macros\ and\ other\ things\ consumed\ by\ littlefs.}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ For\ example,\ provide\ my\_defines.h,\ which\ contains}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ something\ like:}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ \#include\ <stddef.h>}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ extern\ void\ *my\_malloc(size\_t\ sz);}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ \#define\ LFS\_MALLOC(sz)\ my\_malloc(sz)}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ And\ build\ littlefs\ with\ the\ header\ by\ defining\ LFS\_DEFINES.}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ (-\/DLFS\_DEFINES=my\_defines.h)}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifdef\ LFS\_DEFINES}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ LFS\_STRINGIZE(LFS\_DEFINES)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ System\ includes}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifndef\ LFS\_NO\_MALLOC}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ LFS\_NO\_ASSERT}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#if\ !defined(LFS\_NO\_DEBUG)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ !defined(LFS\_NO\_WARN)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ !defined(LFS\_NO\_ERROR)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ defined(LFS\_YES\_TRACE)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00061\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{//\ Macros,\ may\ be\ replaced\ by\ system\ specific\ wrappers.\ Arguments\ to\ these}}
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ macros\ must\ not\ have\ side-\/effects\ as\ the\ macros\ can\ be\ removed\ for\ a\ smaller}}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ code\ footprint}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ Logging\ functions}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifndef\ LFS\_TRACE}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#ifdef\ LFS\_YES\_TRACE}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ LFS\_TRACE\_(fmt,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\ \ \ \ printf("{}\%s:\%d:trace:\ "{}\ fmt\ "{}\%s\(\backslash\)n"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ LFS\_TRACE(...)\ LFS\_TRACE\_(\_\_VA\_ARGS\_\_,\ "{}"{})}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ LFS\_TRACE(...)}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#ifndef\ LFS\_DEBUG}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#ifndef\ LFS\_NO\_DEBUG}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ LFS\_DEBUG\_(fmt,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\ \ \ \ printf("{}\%s:\%d:debug:\ "{}\ fmt\ "{}\%s\(\backslash\)n"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ LFS\_DEBUG(...)\ LFS\_DEBUG\_(\_\_VA\_ARGS\_\_,\ "{}"{})}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ LFS\_DEBUG(...)}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#ifndef\ LFS\_WARN}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#ifndef\ LFS\_NO\_WARN}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ LFS\_WARN\_(fmt,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\ \ \ \ printf("{}\%s:\%d:warn:\ "{}\ fmt\ "{}\%s\(\backslash\)n"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ LFS\_WARN(...)\ LFS\_WARN\_(\_\_VA\_ARGS\_\_,\ "{}"{})}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ LFS\_WARN(...)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#ifndef\ LFS\_ERROR}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#ifndef\ LFS\_NO\_ERROR}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ LFS\_ERROR\_(fmt,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\ \ \ \ printf("{}\%s:\%d:error:\ "{}\ fmt\ "{}\%s\(\backslash\)n"{},\ \_\_FILE\_\_,\ \_\_LINE\_\_,\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ LFS\_ERROR(...)\ LFS\_ERROR\_(\_\_VA\_ARGS\_\_,\ "{}"{})}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ LFS\_ERROR(...)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ Runtime\ assertions}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#ifndef\ LFS\_ASSERT}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#ifndef\ LFS\_NO\_ASSERT}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ LFS\_ASSERT(test)\ assert(test)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ LFS\_ASSERT(test)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ Builtin\ functions,\ these\ may\ be\ replaced\ by\ more\ efficient}}
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ toolchain-\/specific\ implementations.\ LFS\_NO\_INTRINSICS\ falls\ back\ to\ a\ more}}
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ expensive\ basic\ C\ implementation\ for\ debugging\ purposes}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ Min/max\ functions\ for\ unsigned\ 32-\/bit\ numbers}}
+\DoxyCodeLine{00126\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_max(uint32\_t\ a,\ uint32\_t\ b)\ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{return}\ (a\ >\ b)\ ?\ a\ :\ b;}
+\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_min(uint32\_t\ a,\ uint32\_t\ b)\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{return}\ (a\ <\ b)\ ?\ a\ :\ b;}
+\DoxyCodeLine{00132\ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{comment}{//\ Align\ to\ nearest\ multiple\ of\ a\ size}}
+\DoxyCodeLine{00135\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_aligndown(uint32\_t\ a,\ uint32\_t\ alignment)\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ -\/\ (a\ \%\ alignment);}
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_alignup(uint32\_t\ a,\ uint32\_t\ alignment)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{return}\ lfs\_aligndown(a\ +\ alignment-\/1,\ alignment);}
+\DoxyCodeLine{00141\ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{comment}{//\ Find\ the\ smallest\ power\ of\ 2\ greater\ than\ or\ equal\ to\ a}}
+\DoxyCodeLine{00144\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_npw2(uint32\_t\ a)\ \{}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#if\ !defined(LFS\_NO\_INTRINSICS)\ \&\&\ (defined(\_\_GNUC\_\_)\ ||\ defined(\_\_CC\_ARM))}}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{return}\ 32\ -\/\ \_\_builtin\_clz(a-\/1);}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00148\ \ \ \ \ uint32\_t\ r\ =\ 0;}
+\DoxyCodeLine{00149\ \ \ \ \ uint32\_t\ s;}
+\DoxyCodeLine{00150\ \ \ \ \ a\ -\/=\ 1;}
+\DoxyCodeLine{00151\ \ \ \ \ s\ =\ (a\ >\ 0xffff)\ <<\ 4;\ a\ >>=\ s;\ r\ |=\ s;}
+\DoxyCodeLine{00152\ \ \ \ \ s\ =\ (a\ >\ 0xff\ \ )\ <<\ 3;\ a\ >>=\ s;\ r\ |=\ s;}
+\DoxyCodeLine{00153\ \ \ \ \ s\ =\ (a\ >\ 0xf\ \ \ )\ <<\ 2;\ a\ >>=\ s;\ r\ |=\ s;}
+\DoxyCodeLine{00154\ \ \ \ \ s\ =\ (a\ >\ 0x3\ \ \ )\ <<\ 1;\ a\ >>=\ s;\ r\ |=\ s;}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{return}\ (r\ |\ (a\ >>\ 1))\ +\ 1;}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00157\ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{comment}{//\ Count\ the\ number\ of\ trailing\ binary\ zeros\ in\ a}}
+\DoxyCodeLine{00160\ \textcolor{comment}{//\ lfs\_ctz(0)\ may\ be\ undefined}}
+\DoxyCodeLine{00161\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_ctz(uint32\_t\ a)\ \{}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#if\ !defined(LFS\_NO\_INTRINSICS)\ \&\&\ defined(\_\_GNUC\_\_)}}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_builtin\_ctz(a);}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ lfs\_npw2((a\ \&\ -\/a)\ +\ 1)\ -\/\ 1;}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00167\ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{comment}{//\ Count\ the\ number\ of\ binary\ ones\ in\ a}}
+\DoxyCodeLine{00170\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_popc(uint32\_t\ a)\ \{}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#if\ !defined(LFS\_NO\_INTRINSICS)\ \&\&\ (defined(\_\_GNUC\_\_)\ ||\ defined(\_\_CC\_ARM))}}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_builtin\_popcount(a);}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00174\ \ \ \ \ a\ =\ a\ -\/\ ((a\ >>\ 1)\ \&\ 0x55555555);}
+\DoxyCodeLine{00175\ \ \ \ \ a\ =\ (a\ \&\ 0x33333333)\ +\ ((a\ >>\ 2)\ \&\ 0x33333333);}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{return}\ (((a\ +\ (a\ >>\ 4))\ \&\ 0xf0f0f0f)\ *\ 0x1010101)\ >>\ 24;}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00178\ \}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{comment}{//\ Find\ the\ sequence\ comparison\ of\ a\ and\ b,\ this\ is\ the\ distance}}
+\DoxyCodeLine{00181\ \textcolor{comment}{//\ between\ a\ and\ b\ ignoring\ overflow}}
+\DoxyCodeLine{00182\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ lfs\_scmp(uint32\_t\ a,\ uint32\_t\ b)\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{int})(unsigned)(a\ -\/\ b);}
+\DoxyCodeLine{00184\ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \textcolor{comment}{//\ Convert\ between\ 32-\/bit\ little-\/endian\ and\ native\ order}}
+\DoxyCodeLine{00187\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_fromle32(uint32\_t\ a)\ \{}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#if\ (defined(\ \ BYTE\_ORDER\ \ )\ \&\&\ defined(\ \ ORDER\_LITTLE\_ENDIAN\ \ )\ \&\&\ \ \ BYTE\_ORDER\ \ \ ==\ \ \ ORDER\_LITTLE\_ENDIAN\ \ )\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\ \ \ \ (defined(\_\_BYTE\_ORDER\ \ )\ \&\&\ defined(\_\_ORDER\_LITTLE\_ENDIAN\ \ )\ \&\&\ \_\_BYTE\_ORDER\ \ \ ==\ \_\_ORDER\_LITTLE\_ENDIAN\ \ )\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ \ \ (defined(\_\_BYTE\_ORDER\_\_)\ \&\&\ defined(\_\_ORDER\_LITTLE\_ENDIAN\_\_)\ \&\&\ \_\_BYTE\_ORDER\_\_\ ==\ \_\_ORDER\_LITTLE\_ENDIAN\_\_)}}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordflow}{return}\ a;}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#elif\ !defined(LFS\_NO\_INTRINSICS)\ \&\&\ (\ \(\backslash\)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ \ \ (defined(\ \ BYTE\_ORDER\ \ )\ \&\&\ defined(\ \ ORDER\_BIG\_ENDIAN\ \ )\ \&\&\ \ \ BYTE\_ORDER\ \ \ ==\ \ \ ORDER\_BIG\_ENDIAN\ \ )\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ (defined(\_\_BYTE\_ORDER\ \ )\ \&\&\ defined(\_\_ORDER\_BIG\_ENDIAN\ \ )\ \&\&\ \_\_BYTE\_ORDER\ \ \ ==\ \_\_ORDER\_BIG\_ENDIAN\ \ )\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \ \ (defined(\_\_BYTE\_ORDER\_\_)\ \&\&\ defined(\_\_ORDER\_BIG\_ENDIAN\_\_)\ \&\&\ \_\_BYTE\_ORDER\_\_\ ==\ \_\_ORDER\_BIG\_ENDIAN\_\_))}}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_builtin\_bswap32(a);}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordflow}{return}\ (((uint8\_t*)\&a)[0]\ <<\ \ 0)\ |}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ (((uint8\_t*)\&a)[1]\ <<\ \ 8)\ |}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ (((uint8\_t*)\&a)[2]\ <<\ 16)\ |}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ (((uint8\_t*)\&a)[3]\ <<\ 24);}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00203\ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_tole32(uint32\_t\ a)\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordflow}{return}\ lfs\_fromle32(a);}
+\DoxyCodeLine{00207\ \}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{comment}{//\ Convert\ between\ 32-\/bit\ big-\/endian\ and\ native\ order}}
+\DoxyCodeLine{00210\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_frombe32(uint32\_t\ a)\ \{}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#if\ !defined(LFS\_NO\_INTRINSICS)\ \&\&\ (\ \(\backslash\)}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\ \ \ \ (defined(\ \ BYTE\_ORDER\ \ )\ \&\&\ defined(\ \ ORDER\_LITTLE\_ENDIAN\ \ )\ \&\&\ \ \ BYTE\_ORDER\ \ \ ==\ \ \ ORDER\_LITTLE\_ENDIAN\ \ )\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\ \ \ \ (defined(\_\_BYTE\_ORDER\ \ )\ \&\&\ defined(\_\_ORDER\_LITTLE\_ENDIAN\ \ )\ \&\&\ \_\_BYTE\_ORDER\ \ \ ==\ \_\_ORDER\_LITTLE\_ENDIAN\ \ )\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\ \ \ \ (defined(\_\_BYTE\_ORDER\_\_)\ \&\&\ defined(\_\_ORDER\_LITTLE\_ENDIAN\_\_)\ \&\&\ \_\_BYTE\_ORDER\_\_\ ==\ \_\_ORDER\_LITTLE\_ENDIAN\_\_))}}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{return}\ \_\_builtin\_bswap32(a);}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#elif\ (defined(\ \ BYTE\_ORDER\ \ )\ \&\&\ defined(\ \ ORDER\_BIG\_ENDIAN\ \ )\ \&\&\ \ \ BYTE\_ORDER\ \ \ ==\ \ \ ORDER\_BIG\_ENDIAN\ \ )\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\ \ \ \ (defined(\_\_BYTE\_ORDER\ \ )\ \&\&\ defined(\_\_ORDER\_BIG\_ENDIAN\ \ )\ \&\&\ \_\_BYTE\_ORDER\ \ \ ==\ \_\_ORDER\_BIG\_ENDIAN\ \ )\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \ \ (defined(\_\_BYTE\_ORDER\_\_)\ \&\&\ defined(\_\_ORDER\_BIG\_ENDIAN\_\_)\ \&\&\ \_\_BYTE\_ORDER\_\_\ ==\ \_\_ORDER\_BIG\_ENDIAN\_\_)}}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordflow}{return}\ a;}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{return}\ (((uint8\_t*)\&a)[0]\ <<\ 24)\ |}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ (((uint8\_t*)\&a)[1]\ <<\ 16)\ |}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ (((uint8\_t*)\&a)[2]\ <<\ \ 8)\ |}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ (((uint8\_t*)\&a)[3]\ <<\ \ 0);}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00226\ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint32\_t\ lfs\_tobe32(uint32\_t\ a)\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{return}\ lfs\_frombe32(a);}
+\DoxyCodeLine{00230\ \}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{comment}{//\ Calculate\ CRC-\/32\ with\ polynomial\ =\ 0x04c11db7}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#ifdef\ LFS\_CRC}}
+\DoxyCodeLine{00234\ uint32\_t\ lfs\_crc(uint32\_t\ crc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{return}\ LFS\_CRC(crc,\ buffer,\ size)}
+\DoxyCodeLine{00236\ \}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00238\ uint32\_t\ lfs\_crc(uint32\_t\ crc,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{comment}{//\ Allocate\ memory,\ only\ used\ if\ buffers\ are\ not\ provided\ to\ littlefs}}
+\DoxyCodeLine{00242\ \textcolor{comment}{//}}
+\DoxyCodeLine{00243\ \textcolor{comment}{//\ littlefs\ current\ has\ no\ alignment\ requirements,\ as\ it\ only\ allocates}}
+\DoxyCodeLine{00244\ \textcolor{comment}{//\ byte-\/level\ buffers.}}
+\DoxyCodeLine{00245\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ *lfs\_malloc(\textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#if\ defined(LFS\_MALLOC)}}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{return}\ LFS\_MALLOC(size);}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#elif\ !defined(LFS\_NO\_MALLOC)}}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordflow}{return}\ malloc(size);}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00251\ \ \ \ \ (void)size;}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00254\ \}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{comment}{//\ Deallocate\ memory,\ only\ used\ if\ buffers\ are\ not\ provided\ to\ littlefs}}
+\DoxyCodeLine{00257\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ lfs\_free(\textcolor{keywordtype}{void}\ *p)\ \{}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#if\ defined(LFS\_FREE)}}
+\DoxyCodeLine{00259\ \ \ \ \ LFS\_FREE(p);}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\#elif\ !defined(LFS\_NO\_MALLOC)}}
+\DoxyCodeLine{00261\ \ \ \ \ free(p);}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00263\ \ \ \ \ (void)p;}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00265\ \}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00269\ \}\ \textcolor{comment}{/*\ extern\ "{}C"{}\ */}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

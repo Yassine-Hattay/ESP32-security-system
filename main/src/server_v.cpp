@@ -1,3 +1,14 @@
+/**
+ * @file server_v.cpp
+ * @author Yassine Hattay (hattayyassine519@gmail.com)
+ * @brief server code
+ * @version 0.1
+ * @date 2025-03-02
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
+
 #include "global_header.h"
 #include "server_v.h"
 #include "tasks_v.h"
@@ -11,6 +22,12 @@ bool manual_b = true;
 
 httpd_handle_t stream_httpd = NULL;
 int32_t channel;
+
+/**
+ * @brief gets current acces point wifi channel
+ *
+ * @param parameter
+ */
 
 int32_t getWiFiChannel(const char *ssid)
 {
@@ -26,6 +43,13 @@ int32_t getWiFiChannel(const char *ssid)
   }
   return 0;
 }
+
+
+/**
+ * @brief HTML and CSS of main page(on connect page) 
+ *
+ * @param parameter
+ */
 
 String SendHTML() 
 {
@@ -95,6 +119,11 @@ String SendHTML()
   return ptr;
 }
 
+/**
+ * @brief function that attempts to connect to wifi
+ *
+ * @param parameter
+ */
 
 bool connectToWiFi(const char* ssid, const char* password, unsigned long timeout) {
   
@@ -120,6 +149,12 @@ bool connectToWiFi(const char* ssid, const char* password, unsigned long timeout
   Serial.println("\nWiFi connected!");
   return true; // Successfully connected
 }
+
+/**
+ * @brief function that attempts to connect to wifi modified so it can stop connexion attempt when there is movment detected
+ *
+ * @param parameter
+ */
 
 bool connectToWiFi_mod(const char *ssid, const char *password, unsigned long timeout)
 {
@@ -153,7 +188,10 @@ bool connectToWiFi_mod(const char *ssid, const char *password, unsigned long tim
   return true; // Successfully connected
 }
 
-
+/**
+ * @brief this handles the main page(on connect page)
+ * @param parameter
+ */
 
 void handle_OnConnect()
 {
@@ -178,45 +216,11 @@ void handle_OnConnect()
   }
 }
 
-void wait_smiley()
-{
-  server.send(200, "text/html", R"(
-<html>
-  <head>
-    <meta charset='UTF-8'>
-    <meta http-equiv='refresh' content='1'>
-    <style>
-      .dots {
-        display: inline-block;
-        font-size: 24px;
-        letter-spacing: 2px;
-      }
-      .dots::after {
-        content: ' .';
-        animation: dots 1.5s steps(5, end) infinite;
-      }
-      @keyframes dots {
-        0%, 20% {
-          content: ' .';
-        }
-        40% {
-          content: ' ..';
-        }
-        60% {
-          content: ' ...';
-        }
-        80%, 100% {
-          content: ' ....';
-        }
-      }
-    </style>
-  </head>
-  <body>
-    Plz wait for a few seconds (●'◡'●)<span class="dots"></span>
-  </body>
-</html>
-)");
-}
+/**
+ * @brief function that handles web page and tasks when automated mode is clicked in the main page(on connect page)
+ *
+ * @param parameter
+ */
 
 void handleAutomatedMode()
 {
@@ -256,6 +260,11 @@ void handleAutomatedMode()
       &sending_photo_Handle);
 }
 
+/**
+ * @brief function that handles web page and tasks when Manual(live) mode is clicked in the main page(on connect page)
+ *
+ * @param parameter
+ */
 
 void handleManualMode() 
 { 
@@ -300,6 +309,12 @@ void handleManualMode()
   
 }
 
+/**
+ * @brief this setups and starts the server
+ *
+ * @param parameter
+ */
+
 void setup_server()
 {
 
@@ -310,6 +325,5 @@ void setup_server()
   server.on("/manual", handleManualMode);
   server.on("/automated", handleAutomatedMode);
 
-  server.onNotFound(wait_smiley);
   server.begin();
 }

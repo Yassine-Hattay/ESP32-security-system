@@ -1,0 +1,75 @@
+\doxysection{c\+\_\+api\+\_\+wrapper.\+hpp}
+\hypertarget{c__api__wrapper_8hpp_source}{}\label{c__api__wrapper_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/esp\_private/c\_api\_wrapper.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/esp\_private/c\_api\_wrapper.hpp}}
+\mbox{\hyperlink{c__api__wrapper_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_dce\_factory.hpp"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}esp\_modem\_c\_api\_types.h"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{using\ namespace\ }esp\_modem;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{struct\ }esp\_modem\_dce\_wrap\ \{\ \textcolor{comment}{//\ need\ to\ mimic\ the\ polymorphic\ dispatch\ as\ CPP\ uses\ templated\ dispatch}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{enum\ class}\ modem\_wrap\_dte\_type\ \{\ UART,\ VFS,\ USB\ \}\ dte\_type;}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___f_a_c_t_o_r_y_ga34f5bd407ce186b43f44b5c8cfbf2fd9}{dce\_factory::ModemType}}\ modem\_type;}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classesp__modem_1_1_d_c_e}{DCE}}\ *dce;}
+\DoxyCodeLine{00029\ \ \ \ \ std::shared\_ptr<DTE>\ dte;}
+\DoxyCodeLine{00030\ \ \ \ \ esp\_modem\_dce\_wrap()\ :\ dce(\textcolor{keyword}{nullptr}),\ dte(\textcolor{keyword}{nullptr})\ \{\}}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___f_a_c_t_o_r_y_ga34f5bd407ce186b43f44b5c8cfbf2fd9}{dce\_factory::ModemType}}\ convert\_modem\_enum(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___c___a_p_i_ga30660e790f39fc663aa02b2419568d65}{esp\_modem\_dce\_device\_t}}\ module)}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{switch}\ (module)\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordflow}{case}\ ESP\_MODEM\_DCE\_SIM7600:}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___f_a_c_t_o_r_y_gga34f5bd407ce186b43f44b5c8cfbf2fd9aa0e5dcb06d41510dde0b20f2e59e75a2}{esp\_modem::dce\_factory::ModemType::SIM7600}};}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{case}\ ESP\_MODEM\_DCE\_SIM7070:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___f_a_c_t_o_r_y_gga34f5bd407ce186b43f44b5c8cfbf2fd9a17612eb64619563fb0b5c35d046d419d}{esp\_modem::dce\_factory::ModemType::SIM7070}};}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{case}\ ESP\_MODEM\_DCE\_SIM7000:}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___f_a_c_t_o_r_y_gga34f5bd407ce186b43f44b5c8cfbf2fd9a719215eb78ae5f264bb9af70af9aedaa}{esp\_modem::dce\_factory::ModemType::SIM7000}};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{case}\ ESP\_MODEM\_DCE\_BG96:}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___f_a_c_t_o_r_y_gga34f5bd407ce186b43f44b5c8cfbf2fd9a80e1af61101ed94123673230a16bdbe0}{esp\_modem::dce\_factory::ModemType::BG96}};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{case}\ ESP\_MODEM\_DCE\_SIM800:}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___f_a_c_t_o_r_y_gga34f5bd407ce186b43f44b5c8cfbf2fd9a6705b747abfe5514ac06e14ef95ebc44}{esp\_modem::dce\_factory::ModemType::SIM800}};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___c___a_p_i_gga1f3ff76188839171bc16bb8eee550a89a626fe9a743f358efa80119e089832e8d}{ESP\_MODEM\_DCE\_GENERIC}}:}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___f_a_c_t_o_r_y_gga34f5bd407ce186b43f44b5c8cfbf2fd9aa8bf3237121049ad32b6caa9e888a248}{esp\_modem::dce\_factory::ModemType::GenericModule}};}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___c___a_p_i_gae730b31a3d07364e12100877d5351e1f}{esp\_modem\_terminal\_error\_t}}\ convert\_terminal\_error\_enum(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_e_r_m_i_n_a_l_ga9e2467aa5656f359e3dbcc33b28416ea}{terminal\_error}}\ err)}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{switch}\ (err)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{case}\ terminal\_error::BUFFER\_OVERFLOW:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ESP\_MODEM\_TERMINAL\_BUFFER\_OVERFLOW;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{case}\ terminal\_error::CHECKSUM\_ERROR:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ESP\_MODEM\_TERMINAL\_CHECKSUM\_ERROR;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{case}\ terminal\_error::UNEXPECTED\_CONTROL\_FLOW:}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ESP\_MODEM\_TERMINAL\_UNEXPECTED\_CONTROL\_FLOW;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{case}\ terminal\_error::DEVICE\_GONE:}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ESP\_MODEM\_TERMINAL\_DEVICE\_GONE;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ESP\_MODEM\_TERMINAL\_UNKNOWN\_ERROR;}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{inline}\ esp\_err\_t\ command\_response\_to\_esp\_err(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ res)}
+\DoxyCodeLine{00069\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{switch}\ (res)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fae0aa021e21dddbd6d8cecec71e9cf564}{command\_result::OK}}:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ESP\_OK;}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fac2759effffc94bb9acc71d69fe3e8a1f}{command\_result::FAIL}}:}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ESP\_FAIL;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ggac47d24e750cc329387e893697d1f132fa070a0fb40f6c308ab544b227660aadff}{command\_result::TIMEOUT}}:}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ESP\_ERR\_TIMEOUT;}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ ESP\_ERR\_INVALID\_ARG;}
+\DoxyCodeLine{00079\ \}}
+
+\end{DoxyCode}

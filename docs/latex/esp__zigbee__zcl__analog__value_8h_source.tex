@@ -1,0 +1,124 @@
+\doxysection{esp\+\_\+zigbee\+\_\+zcl\+\_\+analog\+\_\+value.\+h}
+\hypertarget{esp__zigbee__zcl__analog__value_8h_source}{}\label{esp__zigbee__zcl__analog__value_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_analog\_value.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_analog\_value.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022-\/2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_type.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_ANALOG\_VALUE\_DESCRIPTION\_ID\ \ \ \ \ \ \ \ =\ 0x001c,\ }
+\DoxyCodeLine{00017\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_ANALOG\_VALUE\_OUT\_OF\_SERVICE\_ID\ \ \ \ \ =\ 0x0051,\ }
+\DoxyCodeLine{00018\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_ANALOG\_VALUE\_PRESENT\_VALUE\_ID\ \ \ \ \ \ =\ 0x0055,\ }
+\DoxyCodeLine{00019\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_ANALOG\_VALUE\_PRIORITY\_ARRAY\_ID\ \ \ \ \ =\ 0x0057,\ }
+\DoxyCodeLine{00020\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_ANALOG\_VALUE\_RELIABILITY\_ID\ \ \ \ \ \ \ \ =\ 0x0067,\ }
+\DoxyCodeLine{00021\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_ANALOG\_VALUE\_RELINQUISH\_DEFAULT\_ID\ =\ 0x0068,\ }
+\DoxyCodeLine{00022\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_ANALOG\_VALUE\_STATUS\_FLAGS\_ID\ \ \ \ \ \ \ =\ 0x006f,\ }
+\DoxyCodeLine{00023\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_ANALOG\_VALUE\_ENGINEERING\_UNITS\_ID\ \ =\ 0x0075,\ }
+\DoxyCodeLine{00024\ \ \ \ \ ESP\_ZB\_ZCL\_ATTR\_ANALOG\_VALUE\_APPLICATION\_TYPE\_ID\ \ \ =\ 0x0100,\ }
+\DoxyCodeLine{00025\ \}\ esp\_zb\_zcl\_analog\_value\_attr\_t;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_STATUS\_FLAG\_NORMAL\ \ \ \ \ \ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00030\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_STATUS\_FLAG\_IN\_ALARM\ \ \ \ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00031\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_STATUS\_FLAG\_FAULT\ \ \ \ \ \ \ \ \ \ =\ 0x02,\ }
+\DoxyCodeLine{00032\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_STATUS\_FLAG\_OVERRIDDEN\ \ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{00033\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_STATUS\_FLAG\_OUT\_OF\_SERVICE\ =\ 0x08,\ }
+\DoxyCodeLine{00034\ \}\ esp\_zb\_zcl\_analog\_value\_status\_flags\_value\_t;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_NO\_FAULT\_DETECTED\ =\ 0x00,\ }
+\DoxyCodeLine{00039\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_NO\_SENSOR\ \ \ \ \ \ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00040\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_OVER\_RANGE\ \ \ \ \ \ \ \ =\ 0x02,\ }
+\DoxyCodeLine{00041\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_UNDER\_RANGE\ \ \ \ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{00042\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_OPEN\_LOOP\ \ \ \ \ \ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{00043\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_SHORTED\_LOOP\ \ \ \ \ \ =\ 0x05,\ }
+\DoxyCodeLine{00044\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_NO\_OUTPUT\ \ \ \ \ \ \ \ \ =\ 0x06,\ }
+\DoxyCodeLine{00045\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_UNRELIABLE\_OTHER\ \ =\ 0x07,\ }
+\DoxyCodeLine{00046\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_PROCESS\_ERROR\ \ \ \ \ =\ 0x08,\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{/*\ 0x09\ is\ for\ multistate\ clusters\ only\ */}}
+\DoxyCodeLine{00048\ \ \ \ \ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_CONFIGURATION\_ERROR\ =\ 0x0a,\ }
+\DoxyCodeLine{00049\ \}\ esp\_zb\_zcl\_analog\_value\_reliability\_value\_t;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_AV\_GROUP\_ID\ 0x02}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_AV\_SET\_APP\_TYPE\_WITH\_ID(\_type,\ \_id)\ ((ESP\_ZB\_ZCL\_AV\_GROUP\_ID\ <<\ 24)\ |\ ((\_type\ \&\ 0xff)\ <<\ 16)\ |\ (\_id\ \&\ 0xffff))}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00072\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_TEMPERATURE\ =\ 0x00,\ }
+\DoxyCodeLine{00074\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_AREA\ \ \ \ \ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00075\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_MULTIPLIER\ \ =\ 0x02,\ }
+\DoxyCodeLine{00076\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_FLOW\ \ \ \ \ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{00077\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_OTHER\ \ \ \ \ \ \ =\ 0xff,\ }
+\DoxyCodeLine{00078\ \}\ esp\_zb\_zcl\_av\_application\_types\_t;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_SETPOINT\_OFFSET\_0\ =\ ESP\_ZB\_ZCL\_AV\_SET\_APP\_TYPE\_WITH\_ID(ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_TEMPERATURE,\ 0x0000),\ }
+\DoxyCodeLine{00083\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_TEMP\_DEADBAND,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_OCCUPIED\_HEATING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_UNOCCUPIED\_HEATING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_OCCUPIED\_COOLING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_UNOCCUPIED\_COOLING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_STANDBY\_HEAT\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_STANDBY\_COOLING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00090\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_EFFECTIVE\_OCCUPIED\_HEATING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_EFFECTIVE\_UNOCCUPIED\_HEATING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_EFFECTIVE\_OCCUPIED\_COOLING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_EFFECTIVE\_UNOCCUPIED\_COOLING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_EFFECTIVE\_STANDBY\_HEAT\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_EFFECTIVE\_STANDBY\_COOLING\_SETPOINT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_SETPOINT\_OFFSET\_2,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_SETPOINT\_SHIFT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{comment}{/*\ 0x0200\ to\ 0xfffe\ are\ Vendor\ defined\ */}}
+\DoxyCodeLine{00099\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_TEMPERATURE\_OTHER\ =\ ESP\_ZB\_ZCL\_AV\_SET\_APP\_TYPE\_WITH\_ID(ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_TEMPERATURE,\ 0xffff),\ }
+\DoxyCodeLine{00100\ \}\ esp\_zb\_zcl\_av\_temperature\_in\_degrees\_celsius\_t;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00103\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_AREA\_DUCT\_AREA\ =\ ESP\_ZB\_ZCL\_AV\_SET\_APP\_TYPE\_WITH\_ID(ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_AREA,\ 0x0000),\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{comment}{/*\ 0x0200\ to\ 0xffffe\ are\ Vendor\ defined\ */}}
+\DoxyCodeLine{00106\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_AREA\_OTHER\ =\ ESP\_ZB\_ZCL\_AV\_SET\_APP\_TYPE\_WITH\_ID(ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_AREA,\ 0xffff),\ }
+\DoxyCodeLine{00107\ \}\ esp\_zb\_zcl\_av\_area\_in\_squares\_meters\_t;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_MULTIPLIER\_DUCT\_MULTIPLIER\ =\ ESP\_ZB\_ZCL\_AV\_SET\_APP\_TYPE\_WITH\_ID(ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_MULTIPLIER,\ 0x0000),\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{comment}{/*\ 0x0200\ to\ 0xffffe\ are\ Vendor\ defined\ */}}
+\DoxyCodeLine{00113\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_MULTIPLIER\_OTHER\ =\ ESP\_ZB\_ZCL\_AV\_SET\_APP\_TYPE\_WITH\_ID(ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_MULTIPLIER,\ 0xffff),\ }
+\DoxyCodeLine{00114\ \}\ esp\_zb\_zcl\_av\_multiplier\_number\_t;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_FLOW\_MINIMUM\_AIR\_FLOW\ =\ ESP\_ZB\_ZCL\_AV\_SET\_APP\_TYPE\_WITH\_ID(ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_FLOW,\ 0x0000),\ }
+\DoxyCodeLine{00119\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_FLOW\_MAXIMUM\_AIR\_FLOW,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00120\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_FLOW\_HEATING\_MINIMUM\_AIR\_FLOW,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_FLOW\_HEATING\_MAXIMUM\_AIR\_FLOW,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00122\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_FLOW\_STANDBY\_MINIMUM\_AIR\_FLOW,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00123\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_FLOW\_STANDBY\_MAXIMUM\_AIR\_FLOW,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{/*\ 0x0200\ to\ 0xfffe\ are\ Vendor\ defined\ */}}
+\DoxyCodeLine{00125\ \ \ \ \ ESP\_ZB\_ZCL\_AV\_FLOW\_OTHER\ =\ ESP\_ZB\_ZCL\_AV\_SET\_APP\_TYPE\_WITH\_ID(ESP\_ZB\_ZCL\_AV\_APP\_TYPE\_FLOW,\ 0xffff),\ }
+\DoxyCodeLine{00126\ \}\ esp\_zb\_zcl\_av\_flow\_in\_liters\_per\_second\_t;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_DESCRIPTION\_DEFAULT\_VALUE\ \{0\}}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_OUT\_OF\_SERVICE\_DEFAULT\_VALUE\ false}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_RELIABILITY\_DEFAULT\_VALUE\ 0x00}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_STATUS\_FLAGS\_DEFAULT\_VALUE\ 0}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_STATUS\_FLAGS\_MIN\_VALUE\ 0}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_ANALOG\_VALUE\_STATUS\_FLAGS\_MAX\_VALUE\ 0x0f}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00147\ \}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

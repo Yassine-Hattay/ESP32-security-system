@@ -1,0 +1,220 @@
+\doxysection{aegis256\+\_\+common.\+h}
+\hypertarget{aegis256__common_8h_source}{}\label{aegis256__common_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_aead/aegis256/aegis256\_common.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/crypto\_aead/aegis256/aegis256\_common.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#define\ RATE\ 16}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00004\ aegis256\_init(\textcolor{keyword}{const}\ uint8\_t\ *key,\ \textcolor{keyword}{const}\ uint8\_t\ *nonce,\ aes\_block\_t\ *\textcolor{keyword}{const}\ state)}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keyword}{static}\ CRYPTO\_ALIGN(AES\_BLOCK\_LENGTH)}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ c0\_[AES\_BLOCK\_LENGTH]\ =\ \{\ 0x00,\ 0x01,\ 0x01,\ 0x02,\ 0x03,\ 0x05,\ 0x08,\ 0x0d,}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x15,\ 0x22,\ 0x37,\ 0x59,\ 0x90,\ 0xe9,\ 0x79,\ 0x62\ \};}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{static}\ CRYPTO\_ALIGN(AES\_BLOCK\_LENGTH)}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ c1\_[AES\_BLOCK\_LENGTH]\ =\ \{\ 0xdb,\ 0x3d,\ 0x18,\ 0x55,\ 0x6d,\ 0xc2,\ 0x2f,\ 0xf1,}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x20,\ 0x11,\ 0x31,\ 0x42,\ 0x73,\ 0xb5,\ 0x28,\ 0xdd\ \};}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{const}\ aes\_block\_t\ c0\ \ \ \ =\ AES\_BLOCK\_LOAD(c0\_);}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{const}\ aes\_block\_t\ c1\ \ \ \ =\ AES\_BLOCK\_LOAD(c1\_);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{const}\ aes\_block\_t\ k0\ \ \ \ =\ AES\_BLOCK\_LOAD(key);}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{const}\ aes\_block\_t\ k1\ \ \ \ =\ AES\_BLOCK\_LOAD(key\ +\ AES\_BLOCK\_LENGTH);}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{const}\ aes\_block\_t\ n0\ \ \ \ =\ AES\_BLOCK\_LOAD(nonce);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{const}\ aes\_block\_t\ n1\ \ \ \ =\ AES\_BLOCK\_LOAD(nonce\ +\ AES\_BLOCK\_LENGTH);}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{const}\ aes\_block\_t\ k0\_n0\ =\ AES\_BLOCK\_XOR(k0,\ n0);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{const}\ aes\_block\_t\ k1\_n1\ =\ AES\_BLOCK\_XOR(k1,\ n1);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ state[0]\ =\ k0\_n0;}
+\DoxyCodeLine{00024\ \ \ \ \ state[1]\ =\ k1\_n1;}
+\DoxyCodeLine{00025\ \ \ \ \ state[2]\ =\ c1;}
+\DoxyCodeLine{00026\ \ \ \ \ state[3]\ =\ c0;}
+\DoxyCodeLine{00027\ \ \ \ \ state[4]\ =\ AES\_BLOCK\_XOR(k0,\ c0);}
+\DoxyCodeLine{00028\ \ \ \ \ state[5]\ =\ AES\_BLOCK\_XOR(k1,\ c1);}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ 4;\ i++)\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ aegis256\_update(state,\ k0);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ aegis256\_update(state,\ k1);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ aegis256\_update(state,\ k0\_n0);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ aegis256\_update(state,\ k1\_n1);}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00038\ aegis256\_mac(uint8\_t\ *mac,\ \textcolor{keywordtype}{size\_t}\ maclen,\ \textcolor{keywordtype}{size\_t}\ adlen,\ \textcolor{keywordtype}{size\_t}\ mlen,\ aes\_block\_t\ *\textcolor{keyword}{const}\ state)}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ aes\_block\_t\ tmp;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ i;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ tmp\ =\ AES\_BLOCK\_LOAD\_64x2(((uint64\_t)\ mlen)\ <<\ 3,\ ((uint64\_t)\ adlen)\ <<\ 3);}
+\DoxyCodeLine{00044\ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(tmp,\ state[3]);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ 7;\ i++)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ aegis256\_update(state,\ tmp);}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{if}\ (maclen\ ==\ 16)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(state[5],\ state[4]);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(tmp,\ AES\_BLOCK\_XOR(state[3],\ state[2]));}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(tmp,\ AES\_BLOCK\_XOR(state[1],\ state[0]));}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ AES\_BLOCK\_STORE(mac,\ tmp);}
+\DoxyCodeLine{00055\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (maclen\ ==\ 32)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(AES\_BLOCK\_XOR(state[2],\ state[1]),\ state[0]);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ AES\_BLOCK\_STORE(mac,\ tmp);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(AES\_BLOCK\_XOR(state[5],\ state[4]),\ state[3]);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ AES\_BLOCK\_STORE(mac\ +\ 16,\ tmp);}
+\DoxyCodeLine{00060\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ memset(mac,\ 0,\ maclen);}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00066\ aegis256\_absorb(\textcolor{keyword}{const}\ uint8\_t\ *\textcolor{keyword}{const}\ src,\ aes\_block\_t\ *\textcolor{keyword}{const}\ state)}
+\DoxyCodeLine{00067\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ aes\_block\_t\ msg;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ msg\ =\ AES\_BLOCK\_LOAD(src);}
+\DoxyCodeLine{00071\ \ \ \ \ aegis256\_update(state,\ msg);}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00075\ aegis256\_enc(uint8\_t\ *\textcolor{keyword}{const}\ dst,\ \textcolor{keyword}{const}\ uint8\_t\ *\textcolor{keyword}{const}\ src,\ aes\_block\_t\ *\textcolor{keyword}{const}\ state)}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ aes\_block\_t\ msg;}
+\DoxyCodeLine{00078\ \ \ \ \ aes\_block\_t\ tmp;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ msg\ =\ AES\_BLOCK\_LOAD(src);}
+\DoxyCodeLine{00081\ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(msg,\ state[5]);}
+\DoxyCodeLine{00082\ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(tmp,\ state[4]);}
+\DoxyCodeLine{00083\ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(tmp,\ state[1]);}
+\DoxyCodeLine{00084\ \ \ \ \ tmp\ =\ AES\_BLOCK\_XOR(tmp,\ AES\_BLOCK\_AND(state[2],\ state[3]));}
+\DoxyCodeLine{00085\ \ \ \ \ AES\_BLOCK\_STORE(dst,\ tmp);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ aegis256\_update(state,\ msg);}
+\DoxyCodeLine{00088\ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00091\ aegis256\_dec(uint8\_t\ *\textcolor{keyword}{const}\ dst,\ \textcolor{keyword}{const}\ uint8\_t\ *\textcolor{keyword}{const}\ src,\ aes\_block\_t\ *\textcolor{keyword}{const}\ state)}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ aes\_block\_t\ msg;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ msg\ =\ AES\_BLOCK\_LOAD(src);}
+\DoxyCodeLine{00096\ \ \ \ \ msg\ =\ AES\_BLOCK\_XOR(msg,\ state[5]);}
+\DoxyCodeLine{00097\ \ \ \ \ msg\ =\ AES\_BLOCK\_XOR(msg,\ state[4]);}
+\DoxyCodeLine{00098\ \ \ \ \ msg\ =\ AES\_BLOCK\_XOR(msg,\ state[1]);}
+\DoxyCodeLine{00099\ \ \ \ \ msg\ =\ AES\_BLOCK\_XOR(msg,\ AES\_BLOCK\_AND(state[2],\ state[3]));}
+\DoxyCodeLine{00100\ \ \ \ \ AES\_BLOCK\_STORE(dst,\ msg);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ aegis256\_update(state,\ msg);}
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00106\ aegis256\_declast(uint8\_t\ *\textcolor{keyword}{const}\ dst,\ \textcolor{keyword}{const}\ uint8\_t\ *\textcolor{keyword}{const}\ src,\ \textcolor{keywordtype}{size\_t}\ len,\ aes\_block\_t\ *\textcolor{keyword}{const}\ state)}
+\DoxyCodeLine{00107\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ uint8\_t\ \ \ \ \ pad[RATE];}
+\DoxyCodeLine{00109\ \ \ \ \ aes\_block\_t\ msg;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ memset(pad,\ 0,\ \textcolor{keyword}{sizeof}\ pad);}
+\DoxyCodeLine{00112\ \ \ \ \ memcpy(pad,\ src,\ len);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ msg\ =\ AES\_BLOCK\_LOAD(pad);}
+\DoxyCodeLine{00115\ \ \ \ \ msg\ =\ AES\_BLOCK\_XOR(msg,\ state[5]);}
+\DoxyCodeLine{00116\ \ \ \ \ msg\ =\ AES\_BLOCK\_XOR(msg,\ state[4]);}
+\DoxyCodeLine{00117\ \ \ \ \ msg\ =\ AES\_BLOCK\_XOR(msg,\ state[1]);}
+\DoxyCodeLine{00118\ \ \ \ \ msg\ =\ AES\_BLOCK\_XOR(msg,\ AES\_BLOCK\_AND(state[2],\ state[3]));}
+\DoxyCodeLine{00119\ \ \ \ \ AES\_BLOCK\_STORE(pad,\ msg);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ memset(pad\ +\ len,\ 0,\ \textcolor{keyword}{sizeof}\ pad\ -\/\ len);}
+\DoxyCodeLine{00122\ \ \ \ \ memcpy(dst,\ pad,\ len);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ msg\ =\ AES\_BLOCK\_LOAD(pad);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ aegis256\_update(state,\ msg);}
+\DoxyCodeLine{00127\ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00130\ encrypt\_detached(uint8\_t\ *c,\ uint8\_t\ *mac,\ \textcolor{keywordtype}{size\_t}\ maclen,\ \textcolor{keyword}{const}\ uint8\_t\ *m,\ \textcolor{keywordtype}{size\_t}\ mlen,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *ad,\ \textcolor{keywordtype}{size\_t}\ adlen,\ \textcolor{keyword}{const}\ uint8\_t\ *npub,\ \textcolor{keyword}{const}\ uint8\_t\ *k)}
+\DoxyCodeLine{00132\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ aes\_block\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state[6];}
+\DoxyCodeLine{00134\ \ \ \ \ CRYPTO\_ALIGN(RATE)\ uint8\_t\ src[RATE];}
+\DoxyCodeLine{00135\ \ \ \ \ CRYPTO\_ALIGN(RATE)\ uint8\_t\ dst[RATE];}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ aegis256\_init(k,\ npub,\ state);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ +\ RATE\ <=\ adlen;\ i\ +=\ RATE)\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ aegis256\_absorb(ad\ +\ i,\ state);}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordflow}{if}\ (adlen\ \%\ RATE)\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ memset(src,\ 0,\ RATE);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ memcpy(src,\ ad\ +\ i,\ adlen\ \%\ RATE);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ aegis256\_absorb(src,\ state);}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ +\ RATE\ <=\ mlen;\ i\ +=\ RATE)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ aegis256\_enc(c\ +\ i,\ m\ +\ i,\ state);}
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{if}\ (mlen\ \%\ RATE)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ memset(src,\ 0,\ RATE);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ memcpy(src,\ m\ +\ i,\ mlen\ \%\ RATE);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ aegis256\_enc(dst,\ src,\ state);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ memcpy(c\ +\ i,\ dst,\ mlen\ \%\ RATE);}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ aegis256\_mac(mac,\ maclen,\ adlen,\ mlen,\ state);}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00161\ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00164\ decrypt\_detached(uint8\_t\ *m,\ \textcolor{keyword}{const}\ uint8\_t\ *c,\ \textcolor{keywordtype}{size\_t}\ clen,\ \textcolor{keyword}{const}\ uint8\_t\ *mac,\ \textcolor{keywordtype}{size\_t}\ maclen,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ uint8\_t\ *ad,\ \textcolor{keywordtype}{size\_t}\ adlen,\ \textcolor{keyword}{const}\ uint8\_t\ *npub,\ \textcolor{keyword}{const}\ uint8\_t\ *k)}
+\DoxyCodeLine{00166\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ aes\_block\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ state[6];}
+\DoxyCodeLine{00168\ \ \ \ \ CRYPTO\_ALIGN(RATE)\ uint8\_t\ src[RATE];}
+\DoxyCodeLine{00169\ \ \ \ \ CRYPTO\_ALIGN(RATE)\ uint8\_t\ dst[RATE];}
+\DoxyCodeLine{00170\ \ \ \ \ CRYPTO\_ALIGN(16)\ uint8\_t\ \ \ computed\_mac[32];}
+\DoxyCodeLine{00171\ \ \ \ \ const\ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mlen\ =\ clen;}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i;}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ret;}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ aegis256\_init(k,\ npub,\ state);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ for\ (i\ =\ 0;\ i\ +\ RATE\ <=\ adlen;\ i\ +=\ RATE)\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ aegis256\_absorb(ad\ +\ i,\ state);}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordflow}{if}\ (adlen\ \%\ RATE)\ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ memset(src,\ 0,\ RATE);}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ memcpy(src,\ ad\ +\ i,\ adlen\ \%\ RATE);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ aegis256\_absorb(src,\ state);}
+\DoxyCodeLine{00184\ \ \ \ \ \}}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{if}\ (m\ !=\ NULL)\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ +\ RATE\ <=\ mlen;\ i\ +=\ RATE)\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ aegis256\_dec(m\ +\ i,\ c\ +\ i,\ state);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ +\ RATE\ <=\ mlen;\ i\ +=\ RATE)\ \{}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ aegis256\_dec(dst,\ c\ +\ i,\ state);}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00193\ \ \ \ \ \}}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordflow}{if}\ (mlen\ \%\ RATE)\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m\ !=\ NULL)\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ aegis256\_declast(m\ +\ i,\ c\ +\ i,\ mlen\ \%\ RATE,\ state);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ aegis256\_declast(dst,\ c\ +\ i,\ mlen\ \%\ RATE,\ state);}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ COMPILER\_ASSERT(\textcolor{keyword}{sizeof}\ computed\_mac\ >=\ 32);}
+\DoxyCodeLine{00203\ \ \ \ \ aegis256\_mac(computed\_mac,\ maclen,\ adlen,\ mlen,\ state);}
+\DoxyCodeLine{00204\ \ \ \ \ ret\ =\ -\/1;}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{if}\ (maclen\ ==\ 16)\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ ret\ =\ crypto\_verify\_16(computed\_mac,\ mac);}
+\DoxyCodeLine{00207\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (maclen\ ==\ 32)\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ ret\ =\ crypto\_verify\_32(computed\_mac,\ mac);}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{if}\ (ret\ !=\ 0\ \&\&\ m\ !=\ NULL)\ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ memset(m,\ 0,\ mlen);}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{return}\ ret;}
+\DoxyCodeLine{00214\ \}}
+
+\end{DoxyCode}

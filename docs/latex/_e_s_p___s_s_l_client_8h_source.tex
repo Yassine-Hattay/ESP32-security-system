@@ -1,0 +1,59 @@
+\doxysection{ESP\+\_\+\+SSLClient.\+h}
+\hypertarget{_e_s_p___s_s_l_client_8h_source}{}\label{_e_s_p___s_s_l_client_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/ESP\_SSLClient.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/ESP\_SSLClient.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#ifndef\ ESP\_SSLCLIENT\_H}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ ESP\_SSLCLIENT\_H}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}ESP\_SSLClient\_FS.h"{}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifndef\ SSLCLIENT\_CONNECTION\_UPGRADABLE}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ SSLCLIENT\_CONNECTION\_UPGRADABLE}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}ESP\_SSLClient\_Const.h"{}}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#if\ defined(USE\_EMBED\_SSL\_ENGINE)\ ||\ defined(USE\_LIB\_SSL\_ENGINE)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}client/BSSL\_TCP\_Client.h"{}}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{class\ }ESP\_SSLClient\ :\ \textcolor{keyword}{public}\ BSSL\_TCP\_Client}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00043\ \ \ \ \ ESP\_SSLClient()\{\};}
+\DoxyCodeLine{00044\ \ \ \ \ \string~ESP\_SSLClient()\{\};}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{class\ }ESP\_SSLClient2\ :\ \textcolor{keyword}{public}\ BSSL\_TCP\_Client}
+\DoxyCodeLine{00048\ \{}
+\DoxyCodeLine{00049\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keyword}{explicit}\ ESP\_SSLClient2(\mbox{\hyperlink{class_client}{Client}}\ \&client,\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_s_l___t_c_p___client_abd2144ab3c962a7df02299263f569e6e}{enableSSL}}\ =\ \textcolor{keyword}{true})\ :\ \_base\_client(client)}
+\DoxyCodeLine{00051\ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_b_s_s_l___t_c_p___client_a47ddd0a8e81d2e9f8196acf402d9c756}{setClient}}(\&\_base\_client,\ \mbox{\hyperlink{class_b_s_s_l___t_c_p___client_abd2144ab3c962a7df02299263f569e6e}{enableSSL}});}
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ \ \ \ \ \string~ESP\_SSLClient2()\{\};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_client}{Client}}\ \&\_base\_client;}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00061\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_e_s_p___s_s_l_client}{ESP\_SSLClient}}}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_e_s_p___s_s_l_client}{ESP\_SSLClient}}()\{\};}
+\DoxyCodeLine{00065\ \ \ \ \ \string~ESP\_SSLClient()\{\};}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_e_s_p___s_s_l_client2}{ESP\_SSLClient2}}}
+\DoxyCodeLine{00069\ \{}
+\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{explicit}\ ESP\_SSLClient2(Client\ \&client,\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_b_s_s_l___t_c_p___client_abd2144ab3c962a7df02299263f569e6e}{enableSSL}}\ =\ \textcolor{keyword}{true})\ :\ \_base\_client(client)\{\};}
+\DoxyCodeLine{00072\ \ \ \ \ \string~ESP\_SSLClient2()\{\};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00075\ \ \ \ \ Client\ \&\_base\_client;}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

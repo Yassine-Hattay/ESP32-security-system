@@ -1,0 +1,261 @@
+\doxysection{Arduino.\+h}
+\hypertarget{_arduino_8h_source}{}\label{_arduino_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/Arduino.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/Arduino.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ Arduino.h\ -\/\ Main\ include\ file\ for\ the\ Arduino\ SDK}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ Copyright\ (c)\ 2005-\/2013\ Arduino\ Team.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ Arduino\_h}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ Arduino\_h}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}esp\_arduino\_version.h"{}}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}freertos/semphr.h"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal.h"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}esp8266-\/compat.h"{}}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}soc/gpio\_reg.h"{}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ "{}stdlib\_noniso.h"{}}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}binary.h"{}}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}extra\_attr.h"{}}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ PI\ \ \ \ \ \ \ \ \ 3.1415926535897932384626433832795}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ HALF\_PI\ \ \ \ 1.5707963267948966192313216916398}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ TWO\_PI\ \ \ \ \ 6.283185307179586476925286766559}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ DEG\_TO\_RAD\ 0.017453292519943295769236907684886}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ RAD\_TO\_DEG\ 57.295779513082320876798154814105}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ EULER\ \ \ \ \ \ 2.718281828459045235360287471352}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ SERIAL\ \ 0x0}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ DISPLAY\ 0x1}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ LSBFIRST\ 0}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ MSBFIRST\ 1}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//Interrupt\ Modes}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ RISING\ \ \ \ 0x01}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ FALLING\ \ \ 0x02}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ CHANGE\ \ \ \ 0x03}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ ONLOW\ \ \ \ \ 0x04}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ONHIGH\ \ \ \ 0x05}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ONLOW\_WE\ \ 0x0C}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ONHIGH\_WE\ 0x0D}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ DEFAULT\ \ 1}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ EXTERNAL\ 0}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#ifndef\ \_\_STRINGIFY}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ \_\_STRINGIFY(a)\ \#a}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{//\ can't\ define\ max()\ /\ min()\ because\ of\ conflicts\ with\ C++}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ \_min(a,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((a)\ <\ (b)\ ?\ (a)\ :\ (b))}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ \_max(a,\ b)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((a)\ >\ (b)\ ?\ (a)\ :\ (b))}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ \_abs(x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((x)\ >\ 0\ ?\ (x)\ :\ -\/(x))\ \ }\textcolor{comment}{//\ abs()\ comes\ from\ STL}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ constrain(amt,\ low,\ high)\ ((amt)\ <\ (low)\ ?\ (low)\ :\ ((amt)\ >\ (high)\ ?\ (high)\ :\ (amt)))}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ \_round(x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((x)\ >=\ 0\ ?\ (long)((x)\ +\ 0.5)\ :\ (long)((x)\ -\/\ 0.5))\ \ }\textcolor{comment}{//\ round()\ comes\ from\ STL}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ radians(deg)\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((deg)\ *\ DEG\_TO\_RAD)}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ degrees(rad)\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((rad)\ *\ RAD\_TO\_DEG)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ sq(x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((x)\ *\ (x))}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ ESP32xx\ runs\ FreeRTOS...\ disabling\ interrupts\ can\ lead\ to\ issues,\ such\ as\ Watchdog\ Timeout}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ sei()\ \ \ \ \ \ \ \ \ \ portENABLE\_INTERRUPTS()}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ cli()\ \ \ \ \ \ \ \ \ \ portDISABLE\_INTERRUPTS()}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ interrupts()\ \ \ sei()}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ noInterrupts()\ cli()}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ clockCyclesPerMicrosecond()\ \ ((long\ int)getCpuFrequencyMhz())}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ clockCyclesToMicroseconds(a)\ ((a)\ /\ clockCyclesPerMicrosecond())}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ microsecondsToClockCycles(a)\ ((a)\ *\ clockCyclesPerMicrosecond())}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ lowByte(w)\ \ ((uint8\_t)((w)\ \&\ 0xff))}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ highByte(w)\ ((uint8\_t)((w)\ >>\ 8))}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ bitRead(value,\ bit)\ \ \ \ \ \ \ \ \ \ \ \ (((value)\ >>\ (bit))\ \&\ 0x01)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ bitSet(value,\ bit)\ \ \ \ \ \ \ \ \ \ \ \ \ ((value)\ |=\ (1UL\ <<\ (bit)))}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ bitClear(value,\ bit)\ \ \ \ \ \ \ \ \ \ \ ((value)\ \&=\ \string~(1UL\ <<\ (bit)))}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ bitToggle(value,\ bit)\ \ \ \ \ \ \ \ \ \ ((value)\ \string^=\ (1UL\ <<\ (bit)))}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ bitWrite(value,\ bit,\ bitvalue)\ ((bitvalue)\ ?\ bitSet(value,\ bit)\ :\ bitClear(value,\ bit))}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{//\ avr-\/libc\ defines\ \_NOP()\ since\ 1.6.2}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#ifndef\ \_NOP}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ \_NOP()\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\ \ \ \ \_\_asm\_\_\ volatile("{}nop"{});\ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \}\ while\ (0)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ bit(b)\ (1UL\ <<\ (b))}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ \_BV(b)\ (1UL\ <<\ (b))}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ digitalPinToTimer(pin)\ (0)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ analogInPinToBit(P)\ \ \ \ (P)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#if\ SOC\_GPIO\_PIN\_COUNT\ <=\ 32}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ digitalPinToPort(pin)\ \ \ \ (0)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ digitalPinToBitMask(pin)\ (1UL\ <<\ digitalPinToGPIONumber(pin))}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ portOutputRegister(port)\ ((volatile\ uint32\_t\ *)GPIO\_OUT\_REG)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ portInputRegister(port)\ \ ((volatile\ uint32\_t\ *)GPIO\_IN\_REG)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ portModeRegister(port)\ \ \ ((volatile\ uint32\_t\ *)GPIO\_ENABLE\_REG)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#elif\ SOC\_GPIO\_PIN\_COUNT\ <=\ 64}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ digitalPinToPort(pin)\ \ \ \ ((digitalPinToGPIONumber(pin)\ >\ 31)\ ?\ 1\ :\ 0)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ digitalPinToBitMask(pin)\ (1UL\ <<\ (digitalPinToGPIONumber(pin)\ \&\ 31))}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ portOutputRegister(port)\ ((volatile\ uint32\_t\ *)((port)\ ?\ GPIO\_OUT1\_REG\ :\ GPIO\_OUT\_REG))}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ portInputRegister(port)\ \ ((volatile\ uint32\_t\ *)((port)\ ?\ GPIO\_IN1\_REG\ :\ GPIO\_IN\_REG))}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ portModeRegister(port)\ \ \ ((volatile\ uint32\_t\ *)((port)\ ?\ GPIO\_ENABLE1\_REG\ :\ GPIO\_ENABLE\_REG))}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#error\ SOC\_GPIO\_PIN\_COUNT\ >\ 64\ not\ implemented}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ NOT\_A\_PIN\ \ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ NOT\_A\_PORT\ \ \ \ \ \ \ -\/1}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ NOT\_AN\_INTERRUPT\ -\/1}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ NOT\_ON\_TIMER\ \ \ \ \ 0}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{comment}{//\ some\ defines\ generic\ for\ all\ SoC\ moved\ from\ variants/board\_name/pins\_arduino.h}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ NUM\_DIGITAL\_PINS\ SOC\_GPIO\_PIN\_COUNT\ \ }\textcolor{comment}{//\ All\ GPIOs}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#if\ SOC\_ADC\_PERIPH\_NUM\ ==\ 1}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ NUM\_ANALOG\_INPUTS\ (SOC\_ADC\_CHANNEL\_NUM(0))\ \ }\textcolor{comment}{//\ Depends\ on\ the\ SoC\ (ESP32C6,\ ESP32H2,\ ESP32C2,\ ESP32P4)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#elif\ SOC\_ADC\_PERIPH\_NUM\ ==\ 2}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ NUM\_ANALOG\_INPUTS\ (SOC\_ADC\_CHANNEL\_NUM(0)\ +\ SOC\_ADC\_CHANNEL\_NUM(1))\ \ }\textcolor{comment}{//\ Depends\ on\ the\ SoC\ (ESP32,\ ESP32S2,\ ESP32S3,\ ESP32C3)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ EXTERNAL\_NUM\_INTERRUPTS\ \ \ \ NUM\_DIGITAL\_PINS\ \ }\textcolor{comment}{//\ All\ GPIOs}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ analogInputToDigitalPin(p)\ (((p)\ <\ NUM\_ANALOG\_INPUTS)\ ?\ (analogChannelToDigitalPin(p))\ :\ -\/1)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ digitalPinToInterrupt(p)\ \ \ ((((uint8\_t)digitalPinToGPIONumber(p))\ <\ NUM\_DIGITAL\_PINS)\ ?\ (p)\ :\ NOT\_AN\_INTERRUPT)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ digitalPinHasPWM(p)\ \ \ \ \ \ \ \ (((uint8\_t)digitalPinToGPIONumber(p))\ <\ NUM\_DIGITAL\_PINS)}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{bool}\ boolean;}
+\DoxyCodeLine{00149\ \textcolor{keyword}{typedef}\ uint8\_t\ byte;}
+\DoxyCodeLine{00150\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ word;}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00153\ \textcolor{keywordtype}{void}\ setup(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00154\ \textcolor{keywordtype}{void}\ loop(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{//\ The\ default\ is\ using\ Real\ Hardware\ random\ number\ generator}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\ But\ when\ randomSeed()\ is\ called,\ it\ turns\ to\ Psedo\ random}}
+\DoxyCodeLine{00158\ \textcolor{comment}{//\ generator,\ exactly\ as\ done\ in\ Arduino\ mainstream}}
+\DoxyCodeLine{00159\ \textcolor{keywordtype}{long}\ random(\textcolor{keywordtype}{long});}
+\DoxyCodeLine{00160\ \textcolor{keywordtype}{long}\ random(\textcolor{keywordtype}{long},\ \textcolor{keywordtype}{long});}
+\DoxyCodeLine{00161\ \textcolor{comment}{//\ Calling\ randomSeed()\ will\ make\ random()}}
+\DoxyCodeLine{00162\ \textcolor{comment}{//\ using\ pseudo\ random\ like\ in\ Arduino}}
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{void}\ randomSeed(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long});}
+\DoxyCodeLine{00164\ \textcolor{comment}{//\ Allow\ the\ Application\ to\ decide\ if\ the\ random\ generator}}
+\DoxyCodeLine{00165\ \textcolor{comment}{//\ will\ use\ Real\ Hardware\ random\ generation\ (true\ -\/\ default)}}
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ or\ Pseudo\ random\ generation\ (false)\ as\ in\ Arduino\ MainStream}}
+\DoxyCodeLine{00167\ \textcolor{keywordtype}{void}\ useRealRandomGenerator(\textcolor{keywordtype}{bool}\ useRandomHW);}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00169\ \textcolor{keywordtype}{long}\ map(\textcolor{keywordtype}{long},\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{long});}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00172\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{keywordtype}{void}\ init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00176\ \textcolor{keywordtype}{void}\ initVariant(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}\ initArduino(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pulseIn(uint8\_t\ pin,\ uint8\_t\ state,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeout);}
+\DoxyCodeLine{00180\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pulseInLong(uint8\_t\ pin,\ uint8\_t\ state,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeout);}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ uint8\_t\ shiftIn(uint8\_t\ dataPin,\ uint8\_t\ clockPin,\ uint8\_t\ bitOrder);\ \ \textcolor{comment}{//\ codespell:ignore\ shiftin}}
+\DoxyCodeLine{00183\ \textcolor{keywordtype}{void}\ shiftOut(uint8\_t\ dataPin,\ uint8\_t\ clockPin,\ uint8\_t\ bitOrder,\ uint8\_t\ val);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00186\ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#include\ "{}WCharacter.h"{}}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#include\ "{}WString.h"{}}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#include\ "{}Stream.h"{}}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#include\ "{}Printable.h"{}}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#include\ "{}Print.h"{}}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#include\ "{}IPAddress.h"{}}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#include\ "{}Client.h"{}}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#include\ "{}Server.h"{}}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#include\ "{}Udp.h"{}}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#include\ "{}HardwareSerial.h"{}}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#include\ "{}Esp.h"{}}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#include\ "{}freertos\_stats.h"{}}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{comment}{//\ Use\ float-\/compatible\ stl\ abs()\ and\ round(),\ we\ don't\ use\ Arduino\ macros\ to\ avoid\ issues\ with\ the\ C++\ libraries}}
+\DoxyCodeLine{00205\ \textcolor{keyword}{using\ }std::abs;}
+\DoxyCodeLine{00206\ \textcolor{keyword}{using\ }std::isinf;}
+\DoxyCodeLine{00207\ \textcolor{keyword}{using\ }std::isnan;}
+\DoxyCodeLine{00208\ \textcolor{keyword}{using\ }std::max;}
+\DoxyCodeLine{00209\ \textcolor{keyword}{using\ }std::min;}
+\DoxyCodeLine{00210\ \textcolor{keyword}{using\ }std::round;}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ uint16\_t\ makeWord(uint16\_t\ w);}
+\DoxyCodeLine{00213\ uint16\_t\ makeWord(uint8\_t\ h,\ uint8\_t\ l);}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\#define\ word(...)\ makeWord(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{size\_t}\ getArduinoLoopTaskStackSize(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#define\ SET\_LOOP\_TASK\_STACK\_SIZE(sz)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ size\_t\ getArduinoLoopTaskStackSize()\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ \ \ return\ sz;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{bool}\ shouldPrintChipDebugReport(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ ENABLE\_CHIP\_DEBUG\_REPORT\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\ \ bool\ shouldPrintChipDebugReport(void)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\ \ \ \ return\ true;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{comment}{//\ allows\ user\ to\ bypass\ esp\_spiram\_test()}}
+\DoxyCodeLine{00230\ \textcolor{keywordtype}{bool}\ esp\_psram\_extram\_test(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ BYPASS\_SPIRAM\_TEST(bypass)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\ \ bool\ testSPIRAM(void)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\ \ \ \ if\ (bypass)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\ \ \ \ \ \ return\ true;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\ \ \ \ else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\ \ \ \ \ \ return\ esp\_psram\_extram\_test();\ \(\backslash\)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pulseIn(uint8\_t\ pin,\ uint8\_t\ state,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeout\ =\ 1000000L);}
+\DoxyCodeLine{00240\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ pulseInLong(uint8\_t\ pin,\ uint8\_t\ state,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeout\ =\ 1000000L);}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{bool}\ getLocalTime(\textcolor{keyword}{struct}\ tm\ *info,\ uint32\_t\ ms\ =\ 5000);}
+\DoxyCodeLine{00243\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{void}\ configTime(\textcolor{keywordtype}{long}\ gmtOffset\_sec,\ \textcolor{keywordtype}{int}\ daylightOffset\_sec,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *server1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *server2\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *server3\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00244\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{void}\ configTzTime(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tz,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *server1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *server2\ =\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *server3\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00246\ \textcolor{keywordtype}{void}\ setToneChannel(uint8\_t\ channel\ =\ 0);}
+\DoxyCodeLine{00247\ \textcolor{keywordtype}{void}\ tone(uint8\_t\ \_pin,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ frequency,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ duration\ =\ 0);}
+\DoxyCodeLine{00248\ \textcolor{keywordtype}{void}\ noTone(uint8\_t\ \_pin);}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#include\ "{}pins\_arduino.h"{}}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#include\ "{}io\_pin\_remap.h"{}}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_ESP32\_CORE\_ARDUINO\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

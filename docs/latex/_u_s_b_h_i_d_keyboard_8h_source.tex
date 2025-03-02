@@ -1,0 +1,189 @@
+\doxysection{USBHIDKeyboard.\+h}
+\hypertarget{_u_s_b_h_i_d_keyboard_8h_source}{}\label{_u_s_b_h_i_d_keyboard_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/USBHIDKeyboard.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/USBHIDKeyboard.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ Keyboard.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ Copyright\ (c)\ 2015,\ Arduino\ LLC}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ Original\ code\ (pre-\/library):\ Copyright\ (c)\ 2011,\ Peter\ Barrett}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#if\ SOC\_USB\_OTG\_SUPPORTED}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}Print.h"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}USBHID.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#if\ CONFIG\_TINYUSB\_HID\_ENABLED}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}esp\_event.h"{}}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ ESP\_EVENT\_DECLARE\_BASE(ARDUINO\_USB\_HID\_KEYBOARD\_EVENTS);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00036\ \ \ ARDUINO\_USB\_HID\_KEYBOARD\_ANY\_EVENT\ =\ ESP\_EVENT\_ANY\_ID,}
+\DoxyCodeLine{00037\ \ \ ARDUINO\_USB\_HID\_KEYBOARD\_LED\_EVENT\ =\ 0,}
+\DoxyCodeLine{00038\ \ \ ARDUINO\_USB\_HID\_KEYBOARD\_MAX\_EVENT,}
+\DoxyCodeLine{00039\ \}\ arduino\_usb\_hid\_keyboard\_event\_t;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00042\ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00043\ \ \ \ \ uint8\_t\ numlock\ \ \ \ :\ 1;}
+\DoxyCodeLine{00044\ \ \ \ \ uint8\_t\ capslock\ \ \ :\ 1;}
+\DoxyCodeLine{00045\ \ \ \ \ uint8\_t\ scrolllock\ :\ 1;}
+\DoxyCodeLine{00046\ \ \ \ \ uint8\_t\ compose\ \ \ \ :\ 1;}
+\DoxyCodeLine{00047\ \ \ \ \ uint8\_t\ kana\ \ \ \ \ \ \ :\ 1;}
+\DoxyCodeLine{00048\ \ \ \ \ uint8\_t\ reserved\ \ \ :\ 3;}
+\DoxyCodeLine{00049\ \ \ \};}
+\DoxyCodeLine{00050\ \ \ uint8\_t\ leds;}
+\DoxyCodeLine{00051\ \}\ arduino\_usb\_hid\_keyboard\_event\_data\_t;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ Supported\ keyboard\ layouts}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_de\_DE[];}
+\DoxyCodeLine{00055\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_en\_US[];}
+\DoxyCodeLine{00056\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_es\_ES[];}
+\DoxyCodeLine{00057\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_fr\_FR[];}
+\DoxyCodeLine{00058\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_it\_IT[];}
+\DoxyCodeLine{00059\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_pt\_PT[];}
+\DoxyCodeLine{00060\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_sv\_SE[];}
+\DoxyCodeLine{00061\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_da\_DK[];}
+\DoxyCodeLine{00062\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_hu\_HU[];}
+\DoxyCodeLine{00063\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ uint8\_t\ KeyboardLayout\_pt\_BR[];}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ KEY\_LEFT\_CTRL\ \ \ 0x80}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ KEY\_LEFT\_SHIFT\ \ 0x81}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ KEY\_LEFT\_ALT\ \ \ \ 0x82}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ KEY\_LEFT\_GUI\ \ \ \ 0x83}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ KEY\_RIGHT\_CTRL\ \ 0x84}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ KEY\_RIGHT\_SHIFT\ 0x85}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ KEY\_RIGHT\_ALT\ \ \ 0x86\ \ }\textcolor{comment}{//\ AltGr\ (Right\ Alt)\ Key}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ KEY\_RIGHT\_GUI\ \ \ 0x87}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ KEY\_UP\_ARROW\ \ \ \ \ 0xDA}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ KEY\_DOWN\_ARROW\ \ \ 0xD9}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ KEY\_LEFT\_ARROW\ \ \ 0xD8}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ KEY\_RIGHT\_ARROW\ \ 0xD7}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ KEY\_MENU\ \ \ \ \ \ \ \ \ 0xED\ \ }\textcolor{comment}{//\ \ "{}Keyboard\ Application"{}\ in\ USB\ standard}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ KEY\_SPACE\ \ \ \ \ \ \ \ 0x20}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ KEY\_BACKSPACE\ \ \ \ 0xB2}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ KEY\_TAB\ \ \ \ \ \ \ \ \ \ 0xB3}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ KEY\_RETURN\ \ \ \ \ \ \ 0xB0}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ KEY\_ESC\ \ \ \ \ \ \ \ \ \ 0xB1}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ KEY\_INSERT\ \ \ \ \ \ \ 0xD1}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ KEY\_DELETE\ \ \ \ \ \ \ 0xD4}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ KEY\_PAGE\_UP\ \ \ \ \ \ 0xD3}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ KEY\_PAGE\_DOWN\ \ \ \ 0xD6}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ KEY\_HOME\ \ \ \ \ \ \ \ \ 0xD2}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ KEY\_END\ \ \ \ \ \ \ \ \ \ 0xD5}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ KEY\_NUM\_LOCK\ \ \ \ \ 0xDB}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ KEY\_CAPS\_LOCK\ \ \ \ 0xC1}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ KEY\_F1\ \ \ \ \ \ \ \ \ \ \ 0xC2}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ KEY\_F2\ \ \ \ \ \ \ \ \ \ \ 0xC3}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ KEY\_F3\ \ \ \ \ \ \ \ \ \ \ 0xC4}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ KEY\_F4\ \ \ \ \ \ \ \ \ \ \ 0xC5}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ KEY\_F5\ \ \ \ \ \ \ \ \ \ \ 0xC6}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ KEY\_F6\ \ \ \ \ \ \ \ \ \ \ 0xC7}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ KEY\_F7\ \ \ \ \ \ \ \ \ \ \ 0xC8}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ KEY\_F8\ \ \ \ \ \ \ \ \ \ \ 0xC9}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ KEY\_F9\ \ \ \ \ \ \ \ \ \ \ 0xCA}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ KEY\_F10\ \ \ \ \ \ \ \ \ \ 0xCB}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ KEY\_F11\ \ \ \ \ \ \ \ \ \ 0xCC}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ KEY\_F12\ \ \ \ \ \ \ \ \ \ 0xCD}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ KEY\_F13\ \ \ \ \ \ \ \ \ \ 0xF0}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ KEY\_F14\ \ \ \ \ \ \ \ \ \ 0xF1}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ KEY\_F15\ \ \ \ \ \ \ \ \ \ 0xF2}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ KEY\_F16\ \ \ \ \ \ \ \ \ \ 0xF3}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ KEY\_F17\ \ \ \ \ \ \ \ \ \ 0xF4}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ KEY\_F18\ \ \ \ \ \ \ \ \ \ 0xF5}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ KEY\_F19\ \ \ \ \ \ \ \ \ \ 0xF6}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ KEY\_F20\ \ \ \ \ \ \ \ \ \ 0xF7}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ KEY\_F21\ \ \ \ \ \ \ \ \ \ 0xF8}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ KEY\_F22\ \ \ \ \ \ \ \ \ \ 0xF9}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ KEY\_F23\ \ \ \ \ \ \ \ \ \ 0xFA}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ KEY\_F24\ \ \ \ \ \ \ \ \ \ 0xFB}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ KEY\_PRINT\_SCREEN\ 0xCE}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ KEY\_SCROLL\_LOCK\ \ 0xCF}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ KEY\_PAUSE\ \ \ \ \ \ \ \ 0xD0}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ LED\_NUMLOCK\ \ \ \ 0x01}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ LED\_CAPSLOCK\ \ \ 0x02}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ LED\_SCROLLLOCK\ 0x04}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ LED\_COMPOSE\ \ \ \ 0x08}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ LED\_KANA\ \ \ \ \ \ \ 0x10}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ Numeric\ keypad}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ KEY\_KP\_SLASH\ \ \ \ 0xDC}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ KEY\_KP\_ASTERISK\ 0xDD}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ KEY\_KP\_MINUS\ \ \ \ 0xDE}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ KEY\_KP\_PLUS\ \ \ \ \ 0xDF}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ KEY\_KP\_ENTER\ \ \ \ 0xE0}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ KEY\_KP\_1\ \ \ \ \ \ \ \ 0xE1}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ KEY\_KP\_2\ \ \ \ \ \ \ \ 0xE2}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#define\ KEY\_KP\_3\ \ \ \ \ \ \ \ 0xE3}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ KEY\_KP\_4\ \ \ \ \ \ \ \ 0xE4}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ KEY\_KP\_5\ \ \ \ \ \ \ \ 0xE5}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ KEY\_KP\_6\ \ \ \ \ \ \ \ 0xE6}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ KEY\_KP\_7\ \ \ \ \ \ \ \ 0xE7}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ KEY\_KP\_8\ \ \ \ \ \ \ \ 0xE8}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ KEY\_KP\_9\ \ \ \ \ \ \ \ 0xE9}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ KEY\_KP\_0\ \ \ \ \ \ \ \ 0xEA}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ KEY\_KP\_DOT\ \ \ \ \ \ 0xEB}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ \ Low\ level\ key\ report:\ up\ to\ 6\ keys\ and\ shift,\ ctrl\ etc\ at\ once}}
+\DoxyCodeLine{00145\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00146\ \ \ uint8\_t\ modifiers;}
+\DoxyCodeLine{00147\ \ \ uint8\_t\ reserved;}
+\DoxyCodeLine{00148\ \ \ uint8\_t\ keys[6];}
+\DoxyCodeLine{00149\ \}\ KeyReport;}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{class\ }USBHIDKeyboard\ :\ \textcolor{keyword}{public}\ USBHIDDevice,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_print}{Print}}\ \{}
+\DoxyCodeLine{00152\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00153\ \ \ USBHID\ hid;}
+\DoxyCodeLine{00154\ \ \ KeyReport\ \_keyReport;}
+\DoxyCodeLine{00155\ \ \ \textcolor{keyword}{const}\ uint8\_t\ *\_asciimap;}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{bool}\ shiftKeyReports;}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00159\ \ \ USBHIDKeyboard(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{void}\ begin(\textcolor{keyword}{const}\ uint8\_t\ *layout\ =\ KeyboardLayout\_en\_US);}
+\DoxyCodeLine{00161\ \ \ \textcolor{keywordtype}{void}\ end(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t\ k);}
+\DoxyCodeLine{00163\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00164\ \ \ \textcolor{keywordtype}{size\_t}\ press(uint8\_t\ k);}
+\DoxyCodeLine{00165\ \ \ \textcolor{keywordtype}{size\_t}\ release(uint8\_t\ k);}
+\DoxyCodeLine{00166\ \ \ \textcolor{keywordtype}{void}\ releaseAll(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{void}\ sendReport(KeyReport\ *keys);}
+\DoxyCodeLine{00168\ \ \ \textcolor{keywordtype}{void}\ setShiftKeyReports(\textcolor{keywordtype}{bool}\ set);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \textcolor{comment}{//raw\ functions\ work\ with\ TinyUSB's\ HID\_KEY\_*\ macros}}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordtype}{size\_t}\ pressRaw(uint8\_t\ k);}
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordtype}{size\_t}\ releaseRaw(uint8\_t\ k);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ \textcolor{keywordtype}{void}\ onEvent(esp\_event\_handler\_t\ callback);}
+\DoxyCodeLine{00175\ \ \ \textcolor{keywordtype}{void}\ onEvent(arduino\_usb\_hid\_keyboard\_event\_t\ event,\ esp\_event\_handler\_t\ callback);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \textcolor{comment}{//\ internal\ use}}
+\DoxyCodeLine{00178\ \ \ uint16\_t\ \_onGetDescriptor(uint8\_t\ *buffer);}
+\DoxyCodeLine{00179\ \ \ \textcolor{keywordtype}{void}\ \_onOutput(uint8\_t\ report\_id,\ \textcolor{keyword}{const}\ uint8\_t\ *buffer,\ uint16\_t\ len);}
+\DoxyCodeLine{00180\ \};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_TINYUSB\_HID\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_USB\_OTG\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

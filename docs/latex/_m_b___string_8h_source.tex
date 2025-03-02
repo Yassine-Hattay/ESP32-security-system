@@ -1,0 +1,2007 @@
+\doxysection{MB\+\_\+\+String.\+h}
+\hypertarget{_m_b___string_8h_source}{}\label{_m_b___string_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/extras/MB\_String.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/extras/MB\_String.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#ifndef\ MB\_String\_H}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ MB\_String\_H}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#if\ !defined(\_\_AVR\_\_)}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#include\ <strings.h>}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ MB\_STRING\_MAJOR\ 1}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ MB\_STRING\_MINOR\ 2}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ MB\_STRING\_PATCH\ 5}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#if\ defined(ESP8266)\ \&\&\ defined(MMU\_EXTERNAL\_HEAP)\ \&\&\ defined(MB\_STRING\_USE\_PSRAM)}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#include\ <umm\_malloc/umm\_malloc.h>}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#include\ <umm\_malloc/umm\_heap\_select.h>}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ ESP8266\_USE\_EXTERNAL\_HEAP}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#if\ defined(ESP8266)\ ||\ defined(ESP32)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ MBSTRING\_FLASH\_MCR\ FPSTR}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#elif\ defined(ARDUINO\_ARCH\_SAMD)\ ||\ defined(\_\_AVR\_ATmega4809\_\_)\ ||\ defined(ARDUINO\_NANO\_RP2040\_CONNECT)}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ MBSTRING\_FLASH\_MCR\ PSTR}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ MBSTRING\_FLASH\_MCR(s)\ (s)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_m_b___string}{MB\_String}};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ pgm2Str(p)\ (MB\_String().appendP(p).c\_str())}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ num2Str(v,\ p)\ (MB\_String().appendNum(v,\ p).c\_str())}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#if\ defined(ARDUINO\_ARCH\_STM32)\ ||\ defined(ARDUINO\_ARCH\_STM32F1)\ ||\ defined(ARDUINO\_ARCH\_STM32F4)}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ MB\_IS\_SAME\ std::is\_same}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ MB\_ENABLE\_IF\ std::enable\_if}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ MB\_IS\_SAME\ is\_same}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ MB\_ENABLE\_IF\ enable\_if}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{namespace\ }mb\_string}
+\DoxyCodeLine{00123\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keyword}{enum}\ mb\_string\_sub\_type}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_none,}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_bool,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_float,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_double,}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_int8,}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_uint8,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_int16,}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_uint16,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_int32,}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_uint32,}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_int64,}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_uint64,}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_cstring,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_chars,}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_mb\_string,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_arduino\_string,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_std\_string,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_fptr,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\_string\_sum\_helper}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }mb\_string\_ptr\_t}
+\DoxyCodeLine{00149\ \ \ \ \ \{}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ mb\_string\_ptr\_t(uint32\_t\ addr\ =\ 0,\ mb\_string\_sub\_type\ type\ =\ mb\_string\_sub\_type\_cstring,\ \textcolor{keywordtype}{int}\ precision\ =\ -\/1,\ \textcolor{keyword}{const}\ StringSumHelper\ *s\ =\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \_addr\ =\ addr;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \_type\ =\ type;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \_precision\ =\ precision;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \_ssh\ =\ s;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ precision()\ \{\ \textcolor{keywordflow}{return}\ \_precision;\ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\ type()\ \{\ \textcolor{keywordflow}{return}\ \_type;\ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ uint32\_t\ address()\ \{\ \textcolor{keywordflow}{return}\ \_addr;\ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringSumHelper\ *stringsumhelper()\ \{\ \textcolor{keywordflow}{return}\ \_ssh;\ \}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ mb\_string\_sub\_type\ \_type\ =\ mb\_string\_sub\_type\_none;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_precision\ =\ -\/1;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ uint32\_t\ \_addr\ =\ 0;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ StringSumHelper\ *\_ssh\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \}\ MB\_StringPtr;}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{bool},\ \textcolor{keyword}{typename}\ T\ =\ \textcolor{keywordtype}{void}>}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1enable__if}{enable\_if}}}
+\DoxyCodeLine{00174\ \ \ \ \ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \};}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1enable__if}{enable\_if}}<true,\ T>}
+\DoxyCodeLine{00178\ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keyword}{typedef}\ T\ type;}
+\DoxyCodeLine{00180\ \ \ \ \ \};}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}\ U>}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__same}{is\_same}}}
+\DoxyCodeLine{00183\ \ \ \ \ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00185\ \ \ \ \ \};}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__same}{is\_same}}<T,\ T>}
+\DoxyCodeLine{00188\ \ \ \ \ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00190\ \ \ \ \ \};}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__int8}{is\_num\_int8}}}
+\DoxyCodeLine{00194\ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ int8\_t>::value\ ||\ MB\_IS\_SAME<T,\ signed\ char>::value;}
+\DoxyCodeLine{00196\ \ \ \ \ \};}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__uint8}{is\_num\_uint8}}}
+\DoxyCodeLine{00200\ \ \ \ \ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ uint8\_t>::value\ ||\ MB\_IS\_SAME<T,\ unsigned\ char>::value;}
+\DoxyCodeLine{00202\ \ \ \ \ \};}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__int16}{is\_num\_int16}}}
+\DoxyCodeLine{00206\ \ \ \ \ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ int16\_t>::value\ ||\ MB\_IS\_SAME<T,\ signed\ short>::value;}
+\DoxyCodeLine{00208\ \ \ \ \ \};}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__uint16}{is\_num\_uint16}}}
+\DoxyCodeLine{00212\ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ uint16\_t>::value\ ||\ MB\_IS\_SAME<T,\ unsigned\ short>::value;}
+\DoxyCodeLine{00214\ \ \ \ \ \};}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__int32}{is\_num\_int32}}}
+\DoxyCodeLine{00218\ \ \ \ \ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ signed\ int>::value\ ||\ MB\_IS\_SAME<T,\ int>::value\ ||}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MB\_IS\_SAME<T,\ int32\_t>::value\ ||\ MB\_IS\_SAME<T,\ long>::value\ ||}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MB\_IS\_SAME<T,\ signed\ long>::value;}
+\DoxyCodeLine{00222\ \ \ \ \ \};}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__uint32}{is\_num\_uint32}}}
+\DoxyCodeLine{00226\ \ \ \ \ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ unsigned\ int>::value\ ||\ MB\_IS\_SAME<T,\ uint32\_t>::value\ ||}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MB\_IS\_SAME<T,\ unsigned\ long>::value;}
+\DoxyCodeLine{00229\ \ \ \ \ \};}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__int64}{is\_num\_int64}}}
+\DoxyCodeLine{00233\ \ \ \ \ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ int64\_t>::value\ ||\ MB\_IS\_SAME<T,\ signed\ long\ long>::value;}
+\DoxyCodeLine{00235\ \ \ \ \ \};}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__uint64}{is\_num\_uint64}}}
+\DoxyCodeLine{00239\ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ uint64\_t>::value\ ||\ MB\_IS\_SAME<T,\ unsigned\ long\ long>::value;}
+\DoxyCodeLine{00241\ \ \ \ \ \};}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__neg__int}{is\_num\_neg\_int}}}
+\DoxyCodeLine{00245\ \ \ \ \ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ is\_num\_int8<T>::value\ ||\ is\_num\_int16<T>::value\ ||}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_num\_int32<T>::value\ ||\ is\_num\_int64<T>::value;}
+\DoxyCodeLine{00248\ \ \ \ \ \};}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__pos__int}{is\_num\_pos\_int}}}
+\DoxyCodeLine{00252\ \ \ \ \ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ is\_num\_uint8<T>::value\ ||\ is\_num\_uint16<T>::value\ ||}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_num\_uint32<T>::value\ ||\ is\_num\_uint64<T>::value;}
+\DoxyCodeLine{00255\ \ \ \ \ \};}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__int}{is\_num\_int}}}
+\DoxyCodeLine{00259\ \ \ \ \ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ is\_num\_pos\_int<T>::value\ ||\ is\_num\_neg\_int<T>::value;}
+\DoxyCodeLine{00261\ \ \ \ \ \};}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__num__float}{is\_num\_float}}}
+\DoxyCodeLine{00265\ \ \ \ \ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ float>::value\ ||\ MB\_IS\_SAME<T,\ double>::value\ ||\ MB\_IS\_SAME<T,\ long\ double>::value;}
+\DoxyCodeLine{00267\ \ \ \ \ \};}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__bool}{is\_bool}}}
+\DoxyCodeLine{00271\ \ \ \ \ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ bool>::value;}
+\DoxyCodeLine{00273\ \ \ \ \ \};}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1cs__t}{cs\_t}}}
+\DoxyCodeLine{00277\ \ \ \ \ \{}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ char\ *>::value;}
+\DoxyCodeLine{00279\ \ \ \ \ \};}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1ccs__t}{ccs\_t}}}
+\DoxyCodeLine{00283\ \ \ \ \ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ const\ char\ *>::value;}
+\DoxyCodeLine{00285\ \ \ \ \ \};}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1as__t}{as\_t}}}
+\DoxyCodeLine{00289\ \ \ \ \ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ String>::value;}
+\DoxyCodeLine{00291\ \ \ \ \ \};}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1cas__t}{cas\_t}}}
+\DoxyCodeLine{00295\ \ \ \ \ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ const\ String>::value;}
+\DoxyCodeLine{00297\ \ \ \ \ \};}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1ss__t}{ss\_t}}}
+\DoxyCodeLine{00301\ \ \ \ \ \{}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#if\ !defined(\_\_AVR\_\_)}}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ std::string>::value;}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00307\ \ \ \ \ \};}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1css__t}{css\_t}}}
+\DoxyCodeLine{00311\ \ \ \ \ \{}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#if\ !defined(\_\_AVR\_\_)}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ const\ std::string>::value;}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00317\ \ \ \ \ \};}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1ssh__t}{ssh\_t}}}
+\DoxyCodeLine{00321\ \ \ \ \ \{}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ StringSumHelper>::value;}
+\DoxyCodeLine{00323\ \ \ \ \ \};}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1fs__t}{fs\_t}}}
+\DoxyCodeLine{00327\ \ \ \ \ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ const\ \_\_FlashStringHelper\ *>::value;}
+\DoxyCodeLine{00329\ \ \ \ \ \};}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1mbs__t}{mbs\_t}}}
+\DoxyCodeLine{00333\ \ \ \ \ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ MB\_String>::value;}
+\DoxyCodeLine{00335\ \ \ \ \ \};}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1cmbs__t}{cmbs\_t}}}
+\DoxyCodeLine{00339\ \ \ \ \ \{}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ const\ MB\_String>::value;}
+\DoxyCodeLine{00341\ \ \ \ \ \};}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1pgm__t}{pgm\_t}}}
+\DoxyCodeLine{00345\ \ \ \ \ \{}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ MB\_IS\_SAME<T,\ PGM\_P>::value;}
+\DoxyCodeLine{00347\ \ \ \ \ \};}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__const__chars}{is\_const\_chars}}}
+\DoxyCodeLine{00351\ \ \ \ \ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ cs\_t<T>::value\ ||\ ccs\_t<T>::value;}
+\DoxyCodeLine{00353\ \ \ \ \ \};}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__arduino__string}{is\_arduino\_string}}}
+\DoxyCodeLine{00357\ \ \ \ \ \{}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ as\_t<T>::value\ ||\ cas\_t<T>::value;}
+\DoxyCodeLine{00359\ \ \ \ \ \};}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__std__string}{is\_std\_string}}}
+\DoxyCodeLine{00363\ \ \ \ \ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ ss\_t<T>::value\ ||\ css\_t<T>::value;}
+\DoxyCodeLine{00365\ \ \ \ \ \};}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__mb__string}{is\_mb\_string}}}
+\DoxyCodeLine{00369\ \ \ \ \ \{}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ mbs\_t<T>::value\ ||\ cmbs\_t<T>::value;}
+\DoxyCodeLine{00371\ \ \ \ \ \};}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__arduino__string__sum__helper}{is\_arduino\_string\_sum\_helper}}}
+\DoxyCodeLine{00375\ \ \ \ \ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ ssh\_t<T>::value;}
+\DoxyCodeLine{00377\ \ \ \ \ \};}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__arduino__flash__string__helper}{is\_arduino\_flash\_string\_helper}}}
+\DoxyCodeLine{00381\ \ \ \ \ \{}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ fs\_t<T>::value;}
+\DoxyCodeLine{00383\ \ \ \ \ \};}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00386\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmb__string_1_1is__string}{is\_string}}}
+\DoxyCodeLine{00387\ \ \ \ \ \{}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \textcolor{keyword}{const}\ value\ =\ is\_const\_chars<T>::value\ ||\ is\_arduino\_string<T>::value\ ||}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_arduino\_string\_sum\_helper<T>::value\ ||\ is\_arduino\_flash\_string\_helper<T>::value\ ||}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ is\_std\_string<T>::value\ ||\ is\_mb\_string<T>::value;}
+\DoxyCodeLine{00391\ \ \ \ \ \};}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00394\ \ \ \ \ uint32\_t\ toAddr(T\ \&v)\ \{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}uint32\_t\textcolor{keyword}{>}(\&v);\ \}}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#if\ defined(\_\_AVR\_\_)}}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00398\ \ \ \ \ T\ addrTo(\textcolor{keywordtype}{int}\ address)}
+\DoxyCodeLine{00399\ \ \ \ \ \{}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}T\textcolor{keyword}{>}(address);}
+\DoxyCodeLine{00401\ \ \ \ \ \}}
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keyword}{auto}\ addrTo(\textcolor{keywordtype}{int}\ address)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<!MB\_IS\_SAME<T,\ nullptr\_t>::value,\ T>::type}
+\DoxyCodeLine{00405\ \ \ \ \ \{}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}T\textcolor{keyword}{>}(address);}
+\DoxyCodeLine{00407\ \ \ \ \ \}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{keyword}{auto}\ getSubType(T\ val)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<is\_num\_int<T>::value\ ||\ is\_num\_float<T>::value\ ||\ MB\_IS\_SAME<T,\ bool>::value\ ||\ is\_const\_chars<T>::value\ ||\ is\_arduino\_flash\_string\_helper<T>::value\ ||\ is\_arduino\_string<T>::value\ ||\ is\_std\_string<T>::value\ ||\ is\_mb\_string<T>::value\ ||\ MB\_IS\_SAME<T,\ StringSumHelper>::value,\ mb\_string\_sub\_type>::type}
+\DoxyCodeLine{00412\ \ \ \ \ \{}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_num\_uint64<T>::value)}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_uint64;}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_num\_int64<T>::value)}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_int64;}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_num\_uint32<T>::value)}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_uint32;}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_num\_int32<T>::value)}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_int32;}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_num\_uint16<T>::value)}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_uint16;}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_num\_int16<T>::value)}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_int16;}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_num\_uint8<T>::value)}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_uint8;}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_num\_int8<T>::value)}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_int8;}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (MB\_IS\_SAME<T,\ bool>::value)}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_bool;}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (MB\_IS\_SAME<T,\ float>::value)}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_float;}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (MB\_IS\_SAME<T,\ double>::value)}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_double;}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_arduino\_string<T>::value)}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_arduino\_string;}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_std\_string<T>::value)}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_std\_string;}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_mb\_string<T>::value)}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_mb\_string;}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_arduino\_flash\_string\_helper<T>::value)}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_fptr;}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (MB\_IS\_SAME<T,\ StringSumHelper>::value)}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_string\_sum\_helper;}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (ccs\_t<T>::value)}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_cstring;}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (cs\_t<T>::value)}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_chars;}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ mb\_string\_sub\_type\_int8;}
+\DoxyCodeLine{00451\ \ \ \ \ \}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00454\ \ \ \ \ \textcolor{keyword}{auto}\ getSubType(T\ *val)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<is\_num\_int<T>::value\ ||\ is\_num\_float<T>::value\ ||\ MB\_IS\_SAME<T,\ bool>::value\ ||\ is\_const\_chars<T>::value\ ||\ is\_arduino\_flash\_string\_helper<T>::value\ ||\ is\_arduino\_string<T>::value\ ||\ is\_std\_string<T>::value\ ||\ is\_mb\_string<T>::value\ ||\ MB\_IS\_SAME<T,\ StringSumHelper>::value,\ mb\_string\_sub\_type>::type}
+\DoxyCodeLine{00455\ \ \ \ \ \{}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ getSubType(*val);}
+\DoxyCodeLine{00457\ \ \ \ \ \}}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00459\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keyword}{auto}\ toStringPtr(\textcolor{keyword}{const}\ T\ \&val)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<is\_std\_string<T>::value\ ||\ is\_arduino\_string<T>::value\ ||\ is\_mb\_string<T>::value,\ MB\_StringPtr>::type}
+\DoxyCodeLine{00461\ \ \ \ \ \{}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MB\_StringPtr(\textcolor{keyword}{reinterpret\_cast<}uint32\_t\textcolor{keyword}{>}(\&val),\ getSubType(val));}
+\DoxyCodeLine{00463\ \ \ \ \ \}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{keyword}{auto}\ toStringPtr(\textcolor{keyword}{const}\ T\ \&val)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<MB\_IS\_SAME<T,\ StringSumHelper>::value,\ MB\_StringPtr>::type}
+\DoxyCodeLine{00467\ \ \ \ \ \{}
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\#if\ defined(ESP8266)}}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MB\_StringPtr(\textcolor{keyword}{reinterpret\_cast<}uint32\_t\textcolor{keyword}{>}(\&val),\ getSubType(val),\ -\/1);}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MB\_StringPtr(\textcolor{keyword}{reinterpret\_cast<}uint32\_t\textcolor{keyword}{>}(\&val),\ getSubType(val),\ -\/1,\ \&val);}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00474\ \ \ \ \ \}}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00477\ \ \ \ \ \textcolor{keyword}{auto}\ toStringPtr(T\ val)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<is\_const\_chars<T>::value,\ MB\_StringPtr>::type\ \{\ \textcolor{keywordflow}{return}\ MB\_StringPtr(\textcolor{keyword}{reinterpret\_cast<}uint32\_t\textcolor{keyword}{>}(val),\ getSubType(val));\ \}}
+\DoxyCodeLine{00478\ }
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keyword}{auto}\ toStringPtr(T\ \&val)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<is\_arduino\_flash\_string\_helper<T>::value,\ MB\_StringPtr>::type\ \{\ \textcolor{keywordflow}{return}\ MB\_StringPtr(\textcolor{keyword}{reinterpret\_cast<}uint32\_t\textcolor{keyword}{>}(val),\ getSubType(val));\ \}}
+\DoxyCodeLine{00481\ }
+\DoxyCodeLine{00482\ \textcolor{preprocessor}{\#if\ !defined(\_\_AVR\_\_)}}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keyword}{auto}\ toStringPtr(T\ val)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<MB\_IS\_SAME<T,\ std::nullptr\_t>::value,\ MB\_StringPtr>::type}
+\DoxyCodeLine{00485\ \ \ \ \ \{}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ MB\_StringPtr();}
+\DoxyCodeLine{00487\ \ \ \ \ \}}
+\DoxyCodeLine{00488\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00491\ \ \ \ \ \textcolor{keyword}{auto}\ toStringPtr(T\ val)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<MB\_IS\_SAME<T,\ MB\_StringPtr>::value,\ MB\_StringPtr>::type}
+\DoxyCodeLine{00492\ \ \ \ \ \{}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ val;}
+\DoxyCodeLine{00494\ \ \ \ \ \}}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{keyword}{auto}\ toStringPtr(T\ \&val,\ \textcolor{keywordtype}{int}\ precision\ =\ -\/1)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<is\_num\_int<T>::value\ ||\ is\_num\_float<T>::value\ ||\ MB\_IS\_SAME<T,\ bool>::value,\ MB\_StringPtr>::type\ \{\ \textcolor{keywordflow}{return}\ MB\_StringPtr(\textcolor{keyword}{reinterpret\_cast<}uint32\_t\textcolor{keyword}{>}(\&val),\ getSubType(val),\ precision);\ \}}
+\DoxyCodeLine{00498\ \}}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \textcolor{keyword}{using\ namespace\ }mb\_string;}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \textcolor{keyword}{class\ }MB\_String}
+\DoxyCodeLine{00503\ \{}
+\DoxyCodeLine{00504\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00505\ \ \ \ \ MB\_String()}
+\DoxyCodeLine{00506\ \ \ \ \ \{}
+\DoxyCodeLine{00507\ \textcolor{preprocessor}{\#if\ defined(ESP8266\_USE\_EXTERNAL\_HEAP)}}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reserve\ default\ 1\ byte\ external\ heap\ to\ refer\ to\ its\ pointer\ later}}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ reset(1);}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00511\ \ \ \ \ \};}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \ \ \ \ \string~MB\_String()}
+\DoxyCodeLine{00514\ \ \ \ \ \{}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ allocate(0,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00516\ \ \ \ \ \};}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00518\ \ \ \ \ MB\_String(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)}
+\DoxyCodeLine{00519\ \ \ \ \ \{}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cstr)}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ copy(cstr,\ strlen\_P(cstr));}
+\DoxyCodeLine{00522\ \ \ \ \ \}}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ MB\_String(\textcolor{keyword}{const}\ MB\_String\ \&value)}
+\DoxyCodeLine{00525\ \ \ \ \ \{}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ value;}
+\DoxyCodeLine{00527\ \ \ \ \ \}}
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00529\ \ \ \ \ MB\_String(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *str)}
+\DoxyCodeLine{00530\ \ \ \ \ \{}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ str;}
+\DoxyCodeLine{00532\ \ \ \ \ \}}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00534\ \textcolor{preprocessor}{\#if\ !defined(ESP8266)}}
+\DoxyCodeLine{00535\ \ \ \ \ MB\_String(StringSumHelper\ rval)}
+\DoxyCodeLine{00536\ \ \ \ \ \{}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ rval;}
+\DoxyCodeLine{00538\ \ \ \ \ \}}
+\DoxyCodeLine{00539\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ \ \ \ \ MB\_String(MB\_StringPtr\ value)}
+\DoxyCodeLine{00542\ \ \ \ \ \{}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ value;}
+\DoxyCodeLine{00544\ \ \ \ \ \}}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \ \ \ \ MB\_String(String\ value)}
+\DoxyCodeLine{00547\ \ \ \ \ \{}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ value;}
+\DoxyCodeLine{00549\ \ \ \ \ \}}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00551\ \ \ \ \ MB\_String(\textcolor{keywordtype}{bool}\ value)}
+\DoxyCodeLine{00552\ \ \ \ \ \{}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ appendNum(value);}
+\DoxyCodeLine{00554\ \ \ \ \ \}}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \ \ \ \ MB\_String(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ value,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10)}
+\DoxyCodeLine{00557\ \ \ \ \ \{}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ len\ =\ 1\ +\ 8\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ char);}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ reserve(len);}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >\ 0)}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \ \ \ \ utoa(value,\ buf,\ base);}
+\DoxyCodeLine{00563\ \ \ \ \ \}}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \ \ \ \ MB\_String(\textcolor{keywordtype}{int}\ value,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10)}
+\DoxyCodeLine{00566\ \ \ \ \ \{}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ len\ =\ 2\ +\ 8\ *\ \textcolor{keyword}{sizeof}(int);}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ reserve(len);}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >\ 0)}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (base\ ==\ 10)}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(buf,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\%d"{}}),\ value);}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ itoa(value,\ buf,\ base);}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00577\ \ \ \ \ \}}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ \ \ \ \ MB\_String(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ value,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10)}
+\DoxyCodeLine{00580\ \ \ \ \ \{}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ len\ =\ 1\ +\ 8\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ int);}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ reserve(len);}
+\DoxyCodeLine{00583\ }
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >\ 0)}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \ \ \ \ utoa(value,\ buf,\ base);}
+\DoxyCodeLine{00586\ \ \ \ \ \}}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ \ \ \ \ MB\_String(\textcolor{keywordtype}{long}\ value,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10)}
+\DoxyCodeLine{00589\ \ \ \ \ \{}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ len\ =\ 2\ +\ 8\ *\ \textcolor{keyword}{sizeof}(long);}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ reserve(len);}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >\ 0)}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (base\ ==\ 10)}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(buf,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\%ld"{}}),\ value);}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ltoa(value,\ buf,\ base);}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00600\ \ \ \ \ \}}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00602\ \ \ \ \ MB\_String(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ value,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10)}
+\DoxyCodeLine{00603\ \ \ \ \ \{}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ len\ =\ 1\ +\ 8\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned}\ long);}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ reserve(len);}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >\ 0)}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ ultoa(value,\ buf,\ base);}
+\DoxyCodeLine{00609\ \ \ \ \ \}}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \ \ MB\_String(\textcolor{keywordtype}{float}\ value,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ decimalPlaces\ =\ 2)}
+\DoxyCodeLine{00612\ \ \ \ \ \{}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ reserve(33);}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >\ 0)}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *v\ =\ toFloatStr(value,\ 0,\ decimalPlaces);}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (v)}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(buf,\ v);}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delP(\&v);}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00623\ \ \ \ \ \}}
+\DoxyCodeLine{00624\ }
+\DoxyCodeLine{00625\ \ \ \ \ MB\_String(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ decimalPlaces\ =\ 3)}
+\DoxyCodeLine{00626\ \ \ \ \ \{}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ reserve(33);}
+\DoxyCodeLine{00628\ }
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >\ 0)}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *v\ =\ toFloatStr(value,\ 1,\ decimalPlaces);}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (v)}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(buf,\ v);}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delP(\&v);}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00638\ \ \ \ \ \}}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00640\ \ \ \ \ MB\_String(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ decimalPlaces\ =\ 3)}
+\DoxyCodeLine{00641\ \ \ \ \ \{}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ reserve(65);}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >\ 0)}
+\DoxyCodeLine{00644\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *v\ =\ toFloatStr(value,\ 2,\ decimalPlaces);}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (v)}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(buf,\ v);}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delP(\&v);}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00652\ \ \ \ \ \}}
+\DoxyCodeLine{00653\ }
+\DoxyCodeLine{00654\ \textcolor{preprocessor}{\#if\ !defined(\_\_AVR\_\_)}}
+\DoxyCodeLine{00655\ \ \ \ \ MB\_String\ \&operator=(\textcolor{keyword}{const}\ std::string\ \&rhs)}
+\DoxyCodeLine{00656\ \ \ \ \ \{}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rhs.length()\ >\ 0)}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \ \ \ \ copy(rhs.c\_str(),\ rhs.length());}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00661\ }
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00663\ \ \ \ \ \}}
+\DoxyCodeLine{00664\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00665\ \ \ \ \ MB\_String\ \&operator=(\textcolor{keyword}{const}\ String\ \&rhs)}
+\DoxyCodeLine{00666\ \ \ \ \ \{}
+\DoxyCodeLine{00667\ }
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rhs.length()\ >\ 0)}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ copy(rhs.c\_str(),\ rhs.length());}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00672\ }
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00674\ \ \ \ \ \}}
+\DoxyCodeLine{00675\ }
+\DoxyCodeLine{00676\ \ \ \ \ MB\_String\ \&operator=(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *str)}
+\DoxyCodeLine{00677\ \ \ \ \ \{}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (str)}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ appendF(str,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00680\ }
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00682\ \ \ \ \ \}}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \textcolor{preprocessor}{\#if\ !defined(ESP8266)}}
+\DoxyCodeLine{00685\ \ \ \ \ MB\_String\ \&operator=(StringSumHelper\ rval)}
+\DoxyCodeLine{00686\ \ \ \ \ \{}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ String\ temp\ =\ rval;}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ =\ temp;}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00690\ \ \ \ \ \}}
+\DoxyCodeLine{00691\ }
+\DoxyCodeLine{00692\ \ \ \ \ MB\_String\ \&operator+=(StringSumHelper\ rval)}
+\DoxyCodeLine{00693\ \ \ \ \ \{}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ String\ temp\ =\ rval;}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ temp;}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00697\ \ \ \ \ \}}
+\DoxyCodeLine{00698\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00699\ }
+\DoxyCodeLine{00700\ \ \ \ \ MB\_String\ \&operator+=(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *str)}
+\DoxyCodeLine{00701\ \ \ \ \ \{}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (str)}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ appendF(str);}
+\DoxyCodeLine{00704\ }
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00706\ \ \ \ \ \}}
+\DoxyCodeLine{00707\ }
+\DoxyCodeLine{00708\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ operator==(\textcolor{keyword}{const}\ MB\_String\ \&rhs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00709\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ equals(rhs);}
+\DoxyCodeLine{00711\ \ \ \ \ \}}
+\DoxyCodeLine{00712\ }
+\DoxyCodeLine{00713\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ operator==(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00714\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ equals(cstr);}
+\DoxyCodeLine{00716\ \ \ \ \ \}}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ operator!=(\textcolor{keyword}{const}\ MB\_String\ \&rhs)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00719\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !equals(rhs);}
+\DoxyCodeLine{00721\ \ \ \ \ \}}
+\DoxyCodeLine{00722\ }
+\DoxyCodeLine{00723\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ operator!=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00724\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00725\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !equals(cstr);}
+\DoxyCodeLine{00726\ \ \ \ \ \}}
+\DoxyCodeLine{00727\ \textcolor{preprocessor}{\#if\ !defined(\_\_AVR\_\_)}}
+\DoxyCodeLine{00728\ \ \ \ \ MB\_String\ \&operator+=(\textcolor{keyword}{const}\ std::string\ \&rhs)}
+\DoxyCodeLine{00729\ \ \ \ \ \{}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ concat(rhs.c\_str());}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00732\ \ \ \ \ \}}
+\DoxyCodeLine{00733\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00734\ \ \ \ \ MB\_String\ \&operator+=(\textcolor{keyword}{const}\ String\ \&rhs)}
+\DoxyCodeLine{00735\ \ \ \ \ \{}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ concat(rhs.c\_str());}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00738\ \ \ \ \ \}}
+\DoxyCodeLine{00739\ }
+\DoxyCodeLine{00740\ \ \ \ \ MB\_String\ \&operator=(\textcolor{keyword}{const}\ MB\_String\ \&rhs)}
+\DoxyCodeLine{00741\ \ \ \ \ \{}
+\DoxyCodeLine{00742\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ ==\ \&rhs)}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rhs.length()\ >\ 0)}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \ \ \ \ copy(rhs.buf,\ rhs.length());}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00749\ }
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00751\ \ \ \ \ \}}
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00753\ \ \ \ \ MB\_String\ \&operator+=(\textcolor{keyword}{const}\ MB\_String\ \&rhs)}
+\DoxyCodeLine{00754\ \ \ \ \ \{}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ concat(rhs);}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00757\ \ \ \ \ \}}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \ \ \ \ MB\_String\ \&operator+=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)}
+\DoxyCodeLine{00760\ \ \ \ \ \{}
+\DoxyCodeLine{00761\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len\ =\ strlen\_P(cstr);}
+\DoxyCodeLine{00762\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_reserve(slen\ +\ len,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ \ \ \ \ strcat\_P(buf,\ (PGM\_P)cstr);}
+\DoxyCodeLine{00767\ \ \ \ \ \ \ \ \ \ \ \ \ *(buf\ +\ slen\ +\ len)\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00769\ }
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00771\ \ \ \ \ \}}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00773\ \ \ \ \ MB\_String\ \&operator+=(\textcolor{keywordtype}{char}\ cstr)}
+\DoxyCodeLine{00774\ \ \ \ \ \{}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ append(1,\ cstr);}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00777\ \ \ \ \ \}}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00779\ \ \ \ \ MB\_String\ \&operator+=(\textcolor{keywordtype}{bool}\ value)}
+\DoxyCodeLine{00780\ \ \ \ \ \{}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ appendNum(value);}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00783\ \ \ \ \ \}}
+\DoxyCodeLine{00784\ }
+\DoxyCodeLine{00785\ \ \ \ \ MB\_String\ \&operator=(MB\_StringPtr\ ptr)}
+\DoxyCodeLine{00786\ \ \ \ \ \{}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ setPtr(ptr);}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00789\ \ \ \ \ \}}
+\DoxyCodeLine{00790\ }
+\DoxyCodeLine{00791\ \ \ \ \ MB\_String\ \&operator+=(MB\_StringPtr\ ptr)}
+\DoxyCodeLine{00792\ \ \ \ \ \{}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ appendPtr(ptr);}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00795\ \ \ \ \ \}}
+\DoxyCodeLine{00796\ }
+\DoxyCodeLine{00797\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ \textcolor{keywordtype}{int}>}
+\DoxyCodeLine{00798\ \ \ \ \ \textcolor{keyword}{auto}\ operator=(T\ value)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<is\_num\_int<T>::value\ ||\ is\_num\_float<T>::value\ ||\ is\_bool<T>::value,\ MB\_String\ \&>::type}
+\DoxyCodeLine{00799\ \ \ \ \ \{}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00801\ \ \ \ \ \ \ \ \ appendNum(value);}
+\DoxyCodeLine{00802\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00803\ \ \ \ \ \}}
+\DoxyCodeLine{00804\ }
+\DoxyCodeLine{00805\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ \textcolor{keywordtype}{int}>}
+\DoxyCodeLine{00806\ \ \ \ \ \textcolor{keyword}{auto}\ operator+=(T\ value)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<is\_num\_int<T>::value\ ||\ is\_num\_float<T>::value\ ||\ is\_bool<T>::value,\ MB\_String\ \&>::type}
+\DoxyCodeLine{00807\ \ \ \ \ \{}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ appendNum(value);}
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00810\ \ \ \ \ \}}
+\DoxyCodeLine{00811\ }
+\DoxyCodeLine{00812\ \ \ \ \ MB\_String\ \&appendP(PGM\_P\ pgms,\ \textcolor{keywordtype}{bool}\ clear\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00813\ \ \ \ \ \{}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (clear)}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>clear();}
+\DoxyCodeLine{00816\ }
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *t\ =\ pgmStr(pgms);}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (t)}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00820\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ t;}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \ \ \ \ delP(\&t);}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00823\ }
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00825\ \ \ \ \ \}}
+\DoxyCodeLine{00826\ }
+\DoxyCodeLine{00827\ \ \ \ \ MB\_String\ \&appendF(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *pstr,\ \textcolor{keywordtype}{bool}\ clear\ =\ \textcolor{keyword}{false})}
+\DoxyCodeLine{00828\ \ \ \ \ \{}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (clear)}
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>clear();}
+\DoxyCodeLine{00831\ }
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ len\ =\ strlen\_P((PGM\_P)pstr);}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ >\ 0)}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ newlen\ =\ length()\ +\ len;}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \ \ \ \ reserve(newlen);}
+\DoxyCodeLine{00837\ }
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >\ 0)}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy\_P(buf\ +\ length(),\ (PGM\_P)pstr,\ len\ +\ 1);}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00841\ }
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00843\ \ \ \ \ \}}
+\DoxyCodeLine{00844\ }
+\DoxyCodeLine{00845\ \ \ \ \ MB\_String\ \&setPtr(MB\_StringPtr\ src)}
+\DoxyCodeLine{00846\ \ \ \ \ \{}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ appendPtr(src);}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00850\ \ \ \ \ \};}
+\DoxyCodeLine{00851\ }
+\DoxyCodeLine{00852\ \ \ \ \ MB\_String\ \&appendPtr(MB\_StringPtr\ src)}
+\DoxyCodeLine{00853\ \ \ \ \ \{}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_fptr)}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \ \ \ \ appendF(addrTo<const\ \_\_FlashStringHelper\ *>(src.address()));}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_cstring\ ||\ src.type()\ ==\ mb\_string\_sub\_type\_chars)}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ addrTo<const\ char\ *>(src.address());}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_arduino\_string)}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ *addrTo<String\ *>(src.address());}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_string\_sum\_helper)}
+\DoxyCodeLine{00861\ \textcolor{preprocessor}{\#if\ !defined(ESP8266)}}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ *src.stringsumhelper();}
+\DoxyCodeLine{00863\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ *addrTo<String\ *>(src.address());}
+\DoxyCodeLine{00865\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00866\ \textcolor{preprocessor}{\#if\ !defined(\_\_AVR\_\_)}}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_std\_string)}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ *addrTo<std::string\ *>(src.address());}
+\DoxyCodeLine{00869\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_mb\_string)}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ *addrTo<MB\_String\ *>(src.address());}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_uint64)}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<uint64\_t\ *>(src.address()));}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_int64)}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<int64\_t\ *>(src.address()));}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_uint32)}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<uint32\_t\ *>(src.address()));}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_int32)}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<int32\_t\ *>(src.address()));}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_uint16)}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<uint16\_t\ *>(src.address()));}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_int16)}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<int16\_t\ *>(src.address()));}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_uint8)}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<uint8\_t\ *>(src.address()));}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_int8)}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<int8\_t\ *>(src.address()));}
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_bool)}
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<bool\ *>(src.address()));}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_float)}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<float\ *>(src.address()),\ src.precision());}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (src.type()\ ==\ mb\_string\_sub\_type\_double)}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \ \ \ \ appendNum(*addrTo<double\ *>(src.address()),\ src.precision());}
+\DoxyCodeLine{00894\ }
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00896\ \ \ \ \ \};}
+\DoxyCodeLine{00897\ }
+\DoxyCodeLine{00898\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ \textcolor{keywordtype}{int}>}
+\DoxyCodeLine{00899\ \ \ \ \ \textcolor{keyword}{auto}\ appendNum(T\ value,\ \textcolor{keywordtype}{int}\ precision\ =\ 0)\ -\/>\ \textcolor{keyword}{typename}\ MB\_ENABLE\_IF<is\_num\_int<T>::value\ ||\ is\_bool<T>::value,\ MB\_String\ \&>::type}
+\DoxyCodeLine{00900\ \ \ \ \ \{}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *s\ =\ NULL;}
+\DoxyCodeLine{00902\ }
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_bool<T>::value)}
+\DoxyCodeLine{00904\ \ \ \ \ \ \ \ \ \ \ \ \ s\ =\ boolStr(value);}
+\DoxyCodeLine{00905\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_num\_neg\_int<T>::value)}
+\DoxyCodeLine{00906\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00907\ \textcolor{preprocessor}{\#if\ defined(ARDUINO\_ARCH\_SAMD)\ ||\ defined(\_\_AVR\_ATmega4809\_\_)\ ||\ defined(ARDUINO\_NANO\_RP2040\_CONNECT)\ ||\ defined(ARDUINO\_UNOWIFIR4)}}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ \ \ \ \ s\ =\ int32Str(value);}
+\DoxyCodeLine{00909\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00910\ \ \ \ \ \ \ \ \ \ \ \ \ s\ =\ int64Str(value);}
+\DoxyCodeLine{00911\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00912\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (is\_num\_pos\_int<T>::value)}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00915\ \textcolor{preprocessor}{\#if\ defined(ARDUINO\_ARCH\_SAMD)\ ||\ defined(\_\_AVR\_ATmega4809\_\_)\ ||\ defined(ARDUINO\_NANO\_RP2040\_CONNECT)\ ||\ defined(ARDUINO\_UNOWIFIR4)}}
+\DoxyCodeLine{00916\ \ \ \ \ \ \ \ \ \ \ \ \ s\ =\ uint32Str(value);}
+\DoxyCodeLine{00917\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00918\ \ \ \ \ \ \ \ \ \ \ \ \ s\ =\ uint64Str(value);}
+\DoxyCodeLine{00919\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00920\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00921\ }
+\DoxyCodeLine{00922\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s)}
+\DoxyCodeLine{00923\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ s;}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ \ \ \ \ delP(\&s);}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00928\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00929\ \ \ \ \ \}}
+\DoxyCodeLine{00930\ }
+\DoxyCodeLine{00931\ \ \ \ \ MB\_String\ \&appendNum(\textcolor{keywordtype}{float}\ value,\ \textcolor{keywordtype}{int}\ precision\ =\ 5)}
+\DoxyCodeLine{00932\ \ \ \ \ \{}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (precision\ <\ 0)}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \ \ \ \ precision\ =\ 5;}
+\DoxyCodeLine{00935\ }
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *s\ =\ toFloatStr(value,\ 0,\ precision);}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s)}
+\DoxyCodeLine{00938\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00939\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ s;}
+\DoxyCodeLine{00940\ \ \ \ \ \ \ \ \ \ \ \ \ delP(\&s);}
+\DoxyCodeLine{00941\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00942\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00943\ \ \ \ \ \}}
+\DoxyCodeLine{00944\ }
+\DoxyCodeLine{00945\ \ \ \ \ MB\_String\ \&appendNum(\textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{int}\ precision\ =\ 9)}
+\DoxyCodeLine{00946\ \ \ \ \ \{}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (precision\ <\ 0)}
+\DoxyCodeLine{00948\ \ \ \ \ \ \ \ \ \ \ \ \ precision\ =\ 9;}
+\DoxyCodeLine{00949\ }
+\DoxyCodeLine{00950\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *s\ =\ toFloatStr(value,\ 1,\ precision);}
+\DoxyCodeLine{00951\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s)}
+\DoxyCodeLine{00952\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00953\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ s;}
+\DoxyCodeLine{00954\ \ \ \ \ \ \ \ \ \ \ \ \ delP(\&s);}
+\DoxyCodeLine{00955\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00956\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00957\ \ \ \ \ \}}
+\DoxyCodeLine{00958\ }
+\DoxyCodeLine{00959\ \ \ \ \ MB\_String\ \&appendNum(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{int}\ precision\ =\ 9)}
+\DoxyCodeLine{00960\ \ \ \ \ \{}
+\DoxyCodeLine{00961\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (precision\ <\ 0)}
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \ \ \ \ precision\ =\ 9;}
+\DoxyCodeLine{00963\ }
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *s\ =\ toFloatStr(value,\ 2,\ precision);}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s)}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ \ \ *\textcolor{keyword}{this}\ +=\ s;}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \ \ \ \ delP(\&s);}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00971\ \ \ \ \ \}}
+\DoxyCodeLine{00972\ }
+\DoxyCodeLine{00973\ \ \ \ \ MB\_String\ \&operator=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)}
+\DoxyCodeLine{00974\ \ \ \ \ \{}
+\DoxyCodeLine{00975\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cstr)}
+\DoxyCodeLine{00976\ \ \ \ \ \ \ \ \ \ \ \ \ copy(cstr,\ strlen\_P(cstr));}
+\DoxyCodeLine{00977\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00978\ \ \ \ \ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00979\ }
+\DoxyCodeLine{00980\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00981\ \ \ \ \ \}}
+\DoxyCodeLine{00982\ }
+\DoxyCodeLine{00983\ \ \ \ \ MB\_String\ \&operator=(\textcolor{keywordtype}{char}\ c)}
+\DoxyCodeLine{00984\ \ \ \ \ \{}
+\DoxyCodeLine{00985\ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{00986\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_reserve(1,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{00987\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00988\ \ \ \ \ \ \ \ \ \ \ \ \ *(buf)\ =\ c;}
+\DoxyCodeLine{00989\ \ \ \ \ \ \ \ \ \ \ \ \ *(buf\ +\ 1)\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00990\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00991\ }
+\DoxyCodeLine{00992\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00993\ \ \ \ \ \}}
+\DoxyCodeLine{00994\ }
+\DoxyCodeLine{00995\ \ \ \ \ \textcolor{keywordtype}{void}\ trim()}
+\DoxyCodeLine{00996\ \ \ \ \ \{}
+\DoxyCodeLine{00997\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ p1\ =\ 0,\ p2\ =\ length()\ -\/\ 1;}
+\DoxyCodeLine{00998\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (p1\ <\ (\textcolor{keywordtype}{int})length())}
+\DoxyCodeLine{00999\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01000\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (buf[p1]\ >\ 32)}
+\DoxyCodeLine{01001\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01002\ \ \ \ \ \ \ \ \ \ \ \ \ p1++;}
+\DoxyCodeLine{01003\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01004\ }
+\DoxyCodeLine{01005\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (p2\ >=\ 0)}
+\DoxyCodeLine{01006\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01007\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (buf[p2]\ >\ 32)}
+\DoxyCodeLine{01008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01009\ \ \ \ \ \ \ \ \ \ \ \ \ p2-\/-\/;}
+\DoxyCodeLine{01010\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01011\ }
+\DoxyCodeLine{01012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (p1\ ==\ (\textcolor{keywordtype}{int})length()\ \&\&\ p2\ <\ 0)}
+\DoxyCodeLine{01013\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01014\ \ \ \ \ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{01015\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01016\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01017\ }
+\DoxyCodeLine{01018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (p2\ >=\ p1\ \&\&\ p2\ >=\ 0\ \&\&\ p1\ <\ (\textcolor{keywordtype}{int})length())}
+\DoxyCodeLine{01019\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01020\ \ \ \ \ \ \ \ \ \ \ \ \ memmove(buf,\ buf\ +\ p1,\ p2\ -\/\ p1\ +\ 1);}
+\DoxyCodeLine{01021\ \ \ \ \ \ \ \ \ \ \ \ \ buf[p2\ -\/\ p1\ +\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01022\ \ \ \ \ \ \ \ \ \ \ \ \ \_reserve(p2\ -\/\ p1\ +\ 1,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01024\ \ \ \ \ \}}
+\DoxyCodeLine{01025\ }
+\DoxyCodeLine{01026\ \ \ \ \ \textcolor{keywordtype}{void}\ append(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{size\_t}\ n)}
+\DoxyCodeLine{01027\ \ \ \ \ \{}
+\DoxyCodeLine{01028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cstr)}
+\DoxyCodeLine{01029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01030\ }
+\DoxyCodeLine{01031\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{01032\ }
+\DoxyCodeLine{01033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ >\ strlen(cstr))}
+\DoxyCodeLine{01034\ \ \ \ \ \ \ \ \ \ \ \ \ n\ =\ strlen(cstr);}
+\DoxyCodeLine{01035\ }
+\DoxyCodeLine{01036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_reserve(slen\ +\ n,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{01037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01038\ \ \ \ \ \ \ \ \ \ \ \ \ memmove(buf\ +\ slen,\ cstr,\ n);}
+\DoxyCodeLine{01039\ \ \ \ \ \ \ \ \ \ \ \ \ *(buf\ +\ slen\ +\ n)\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01041\ \ \ \ \ \}}
+\DoxyCodeLine{01042\ }
+\DoxyCodeLine{01043\ \ \ \ \ \textcolor{keywordtype}{void}\ append(\textcolor{keywordtype}{size\_t}\ n,\ \textcolor{keywordtype}{char}\ c)}
+\DoxyCodeLine{01044\ \ \ \ \ \{}
+\DoxyCodeLine{01045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{01046\ }
+\DoxyCodeLine{01047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_reserve(slen\ +\ n,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{01048\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ n;\ i++)}
+\DoxyCodeLine{01050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(buf\ +\ slen\ +\ i)\ =\ c;}
+\DoxyCodeLine{01051\ \ \ \ \ \ \ \ \ \ \ \ \ *(buf\ +\ slen\ +\ n)\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01052\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01053\ \ \ \ \ \}}
+\DoxyCodeLine{01054\ }
+\DoxyCodeLine{01055\ \ \ \ \ \textcolor{keywordtype}{void}\ prepend(\textcolor{keywordtype}{char}\ c)}
+\DoxyCodeLine{01056\ \ \ \ \ \{}
+\DoxyCodeLine{01057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{01058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len\ =\ 1;}
+\DoxyCodeLine{01059\ }
+\DoxyCodeLine{01060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (maxLength()\ <\ slen\ +\ len)}
+\DoxyCodeLine{01061\ \ \ \ \ \ \ \ \ \ \ \ \ \_reserve(slen\ +\ len,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01062\ }
+\DoxyCodeLine{01063\ \ \ \ \ \ \ \ \ memmove(buf\ +\ len,\ buf,\ slen);}
+\DoxyCodeLine{01064\ \ \ \ \ \ \ \ \ buf[0]\ =\ c;}
+\DoxyCodeLine{01065\ \ \ \ \ \ \ \ \ buf[len\ +\ slen]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01066\ \ \ \ \ \}}
+\DoxyCodeLine{01067\ }
+\DoxyCodeLine{01068\ \ \ \ \ \textcolor{keywordtype}{void}\ prepend(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)}
+\DoxyCodeLine{01069\ \ \ \ \ \{}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{01071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len\ =\ strlen(cstr);}
+\DoxyCodeLine{01072\ }
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (maxLength()\ <\ slen\ +\ len)}
+\DoxyCodeLine{01074\ \ \ \ \ \ \ \ \ \ \ \ \ \_reserve(slen\ +\ len,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01075\ }
+\DoxyCodeLine{01076\ \ \ \ \ \ \ \ \ memmove(buf\ +\ len,\ buf,\ slen);}
+\DoxyCodeLine{01077\ \ \ \ \ \ \ \ \ memmove(buf,\ cstr,\ len);}
+\DoxyCodeLine{01078\ \ \ \ \ \ \ \ \ buf[len\ +\ slen]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01079\ \ \ \ \ \}}
+\DoxyCodeLine{01080\ }
+\DoxyCodeLine{01081\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *c\_str()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01082\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!buf)}
+\DoxyCodeLine{01084\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{01085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)buf;}
+\DoxyCodeLine{01086\ \ \ \ \ \}}
+\DoxyCodeLine{01087\ }
+\DoxyCodeLine{01088\ \ \ \ \ \textcolor{keywordtype}{char}\ operator[](\textcolor{keywordtype}{size\_t}\ index)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01089\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ bufLen\ ||\ !buf)}
+\DoxyCodeLine{01091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ buf[index];}
+\DoxyCodeLine{01093\ \ \ \ \ \}}
+\DoxyCodeLine{01094\ }
+\DoxyCodeLine{01095\ \ \ \ \ \textcolor{keywordtype}{char}\ \&operator[](\textcolor{keywordtype}{size\_t}\ index)}
+\DoxyCodeLine{01096\ \ \ \ \ \{}
+\DoxyCodeLine{01097\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{char}\ c;}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ >=\ bufLen\ ||\ !buf)}
+\DoxyCodeLine{01099\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01100\ \ \ \ \ \ \ \ \ \ \ \ \ c\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ c;}
+\DoxyCodeLine{01102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ buf[index];}
+\DoxyCodeLine{01104\ \ \ \ \ \}}
+\DoxyCodeLine{01105\ }
+\DoxyCodeLine{01106\ \ \ \ \ \textcolor{keywordtype}{void}\ swap(MB\_String\ \&rhs)}
+\DoxyCodeLine{01107\ \ \ \ \ \{}
+\DoxyCodeLine{01108\ \ \ \ \ \ \ \ \ rhs.clear();}
+\DoxyCodeLine{01109\ \ \ \ \ \}}
+\DoxyCodeLine{01110\ }
+\DoxyCodeLine{01111\ \ \ \ \ \textcolor{keywordtype}{void}\ shrink\_to\_fit()}
+\DoxyCodeLine{01112\ \ \ \ \ \{}
+\DoxyCodeLine{01113\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{01114\ \ \ \ \ \ \ \ \ \_reserve(slen,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01115\ \ \ \ \ \}}
+\DoxyCodeLine{01116\ }
+\DoxyCodeLine{01117\ \ \ \ \ \textcolor{keywordtype}{void}\ pop\_back()}
+\DoxyCodeLine{01118\ \ \ \ \ \{}
+\DoxyCodeLine{01119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (length()\ >\ 0)}
+\DoxyCodeLine{01120\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{01122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (slen\ >\ 0)}
+\DoxyCodeLine{01123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf[slen\ -\/\ 1]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01124\ \ \ \ \ \ \ \ \ \ \ \ \ \_reserve(slen,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01126\ \ \ \ \ \}}
+\DoxyCodeLine{01127\ }
+\DoxyCodeLine{01128\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01129\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ length();}
+\DoxyCodeLine{01131\ \ \ \ \ \}}
+\DoxyCodeLine{01132\ }
+\DoxyCodeLine{01133\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ bufferLength()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01134\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ bufLen;}
+\DoxyCodeLine{01136\ \ \ \ \ \}}
+\DoxyCodeLine{01137\ }
+\DoxyCodeLine{01138\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find(\textcolor{keyword}{const}\ MB\_String\ \&s,\ \textcolor{keywordtype}{size\_t}\ index\ =\ 0)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01139\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!s.buf)}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ strpos(buf,\ s.buf,\ index);}
+\DoxyCodeLine{01143\ \ \ \ \ \}}
+\DoxyCodeLine{01144\ }
+\DoxyCodeLine{01145\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s,\ \textcolor{keywordtype}{size\_t}\ index\ =\ 0)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01146\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ strpos(buf,\ s,\ index);}
+\DoxyCodeLine{01148\ \ \ \ \ \}}
+\DoxyCodeLine{01149\ }
+\DoxyCodeLine{01150\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find(\textcolor{keywordtype}{char}\ c,\ \textcolor{keywordtype}{size\_t}\ index\ =\ 0)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01151\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ strpos(buf,\ c,\ index);}
+\DoxyCodeLine{01153\ \ \ \ \ \}}
+\DoxyCodeLine{01154\ }
+\DoxyCodeLine{01155\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ rfind(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s,\ \textcolor{keywordtype}{size\_t}\ index\ =\ npos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01156\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rstrpos(buf,\ s,\ index);}
+\DoxyCodeLine{01158\ \ \ \ \ \}}
+\DoxyCodeLine{01159\ }
+\DoxyCodeLine{01160\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ rfind(\textcolor{keywordtype}{char}\ c,\ \textcolor{keywordtype}{size\_t}\ index\ =\ npos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01161\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rstrpos(buf,\ c,\ index);}
+\DoxyCodeLine{01163\ \ \ \ \ \}}
+\DoxyCodeLine{01164\ }
+\DoxyCodeLine{01165\ \ \ \ \ \textcolor{keywordtype}{void}\ erase(\textcolor{keywordtype}{size\_t}\ index\ =\ 0,\ \textcolor{keywordtype}{size\_t}\ len\ =\ npos)}
+\DoxyCodeLine{01166\ \ \ \ \ \{}
+\DoxyCodeLine{01167\ }
+\DoxyCodeLine{01168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!buf\ ||\ index\ >=\ length())}
+\DoxyCodeLine{01169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01170\ }
+\DoxyCodeLine{01171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (index\ +\ len\ >\ length()\ ||\ len\ ==\ npos)}
+\DoxyCodeLine{01172\ \ \ \ \ \ \ \ \ \ \ \ \ len\ =\ length()\ -\/\ index;}
+\DoxyCodeLine{01173\ }
+\DoxyCodeLine{01174\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ rightLen\ =\ length()\ -\/\ index\ -\/\ len;}
+\DoxyCodeLine{01175\ }
+\DoxyCodeLine{01176\ \ \ \ \ \ \ \ \ memmove(buf\ +\ index,\ buf\ +\ index\ +\ len,\ rightLen);}
+\DoxyCodeLine{01177\ }
+\DoxyCodeLine{01178\ \ \ \ \ \ \ \ \ buf[index\ +\ rightLen]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01179\ }
+\DoxyCodeLine{01180\ \ \ \ \ \ \ \ \ \_reserve(length(),\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01181\ \ \ \ \ \}}
+\DoxyCodeLine{01182\ }
+\DoxyCodeLine{01183\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ length()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01184\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!buf)}
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ strlen(buf);}
+\DoxyCodeLine{01188\ \ \ \ \ \}}
+\DoxyCodeLine{01189\ }
+\DoxyCodeLine{01190\ \ \ \ \ MB\_String\ substr(\textcolor{keywordtype}{size\_t}\ offset,\ \textcolor{keywordtype}{size\_t}\ len\ =\ npos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01191\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01192\ \ \ \ \ \ \ \ \ MB\_String\ out;}
+\DoxyCodeLine{01193\ \ \ \ \ \ \ \ \ substr(out,\ offset,\ len);}
+\DoxyCodeLine{01194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{01195\ \ \ \ \ \}}
+\DoxyCodeLine{01196\ }
+\DoxyCodeLine{01197\ \ \ \ \ \textcolor{keywordtype}{void}\ substr(MB\_String\ \&out,\ \textcolor{keywordtype}{size\_t}\ offset,\ \textcolor{keywordtype}{size\_t}\ len\ =\ npos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01198\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ >\ 0\ \&\&\ length()\ >\ 0\ \&\&\ offset\ <\ length())}
+\DoxyCodeLine{01200\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ >\ length()\ -\/\ offset)}
+\DoxyCodeLine{01202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len\ =\ length()\ -\/\ offset;}
+\DoxyCodeLine{01203\ \ \ \ \ \ \ \ \ \ \ \ \ out.copy(buf\ +\ offset,\ len);}
+\DoxyCodeLine{01204\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01205\ \ \ \ \ \}}
+\DoxyCodeLine{01206\ }
+\DoxyCodeLine{01207\ \ \ \ \ \textcolor{keywordtype}{void}\ clear()}
+\DoxyCodeLine{01208\ \ \ \ \ \{}
+\DoxyCodeLine{01209\ \textcolor{preprocessor}{\#if\ defined(ESP8266\_USE\_EXTERNAL\_HEAP)}}
+\DoxyCodeLine{01210\ \ \ \ \ \ \ \ \ reset(1);}
+\DoxyCodeLine{01211\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01212\ \ \ \ \ \ \ \ \ allocate(0,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01213\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01214\ \ \ \ \ \}}
+\DoxyCodeLine{01215\ }
+\DoxyCodeLine{01216\ \textcolor{preprocessor}{\#if\ defined(ESP8266\_USE\_EXTERNAL\_HEAP)}}
+\DoxyCodeLine{01217\ \ \ \ \ \textcolor{keywordtype}{void}\ reset(\textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{01218\ \ \ \ \ \{}
+\DoxyCodeLine{01219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ ==\ 0)}
+\DoxyCodeLine{01220\ \ \ \ \ \ \ \ \ \ \ \ \ len\ =\ 4;}
+\DoxyCodeLine{01221\ \ \ \ \ \ \ \ \ ESP.setExternalHeap();}
+\DoxyCodeLine{01222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (buf)}
+\DoxyCodeLine{01223\ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ (\textcolor{keywordtype}{char}\ *)realloc(buf,\ len);}
+\DoxyCodeLine{01224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01225\ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ (\textcolor{keywordtype}{char}\ *)malloc(len);}
+\DoxyCodeLine{01226\ \ \ \ \ \ \ \ \ ESP.resetHeap();}
+\DoxyCodeLine{01227\ }
+\DoxyCodeLine{01228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (buf)}
+\DoxyCodeLine{01229\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01230\ \ \ \ \ \ \ \ \ \ \ \ \ bufLen\ =\ len;}
+\DoxyCodeLine{01231\ \ \ \ \ \ \ \ \ \ \ \ \ memset(buf,\ 0,\ len);}
+\DoxyCodeLine{01232\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01233\ \ \ \ \ \}}
+\DoxyCodeLine{01234\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01235\ }
+\DoxyCodeLine{01236\ \ \ \ \ \textcolor{keywordtype}{void}\ resize(\textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{01237\ \ \ \ \ \{}
+\DoxyCodeLine{01238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_reserve(len,\ \textcolor{keyword}{true}))}
+\DoxyCodeLine{01239\ \ \ \ \ \ \ \ \ \ \ \ \ buf[len]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01240\ \ \ \ \ \}}
+\DoxyCodeLine{01241\ }
+\DoxyCodeLine{01242\ \ \ \ \ MB\_String\ \&replace(\textcolor{keywordtype}{size\_t}\ pos,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *replace)}
+\DoxyCodeLine{01243\ \ \ \ \ \{}
+\DoxyCodeLine{01244\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ repLen\ =\ strlen(replace);}
+\DoxyCodeLine{01245\ }
+\DoxyCodeLine{01246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (length()\ >\ 0\ \&\&\ length()\ >\ pos\ \&\&\ repLen\ >\ 0)}
+\DoxyCodeLine{01247\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ +\ len\ >\ length())}
+\DoxyCodeLine{01249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ len\ =\ length()\ -\/\ pos;}
+\DoxyCodeLine{01250\ }
+\DoxyCodeLine{01251\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (repLen\ >\ len)}
+\DoxyCodeLine{01252\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ rightLen\ =\ length()\ -\/\ pos\ -\/\ len;}
+\DoxyCodeLine{01254\ }
+\DoxyCodeLine{01255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (maxLength()\ <\ length()\ +\ repLen\ -\/\ len)}
+\DoxyCodeLine{01256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_reserve(length()\ +\ repLen\ -\/\ len,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01257\ }
+\DoxyCodeLine{01258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memmove(buf\ +\ pos\ +\ repLen,\ buf\ +\ pos\ +\ len,\ rightLen);}
+\DoxyCodeLine{01259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf[pos\ +\ repLen\ +\ rightLen]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01260\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01261\ }
+\DoxyCodeLine{01262\ \ \ \ \ \ \ \ \ \ \ \ \ memmove(buf\ +\ pos,\ replace,\ repLen);}
+\DoxyCodeLine{01263\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01264\ }
+\DoxyCodeLine{01265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01266\ \ \ \ \ \}}
+\DoxyCodeLine{01267\ }
+\DoxyCodeLine{01268\ \ \ \ \ MB\_String\ \&replace(\textcolor{keywordtype}{size\_t}\ pos,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keyword}{const}\ MB\_String\ \&replace)}
+\DoxyCodeLine{01269\ \ \ \ \ \{}
+\DoxyCodeLine{01270\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>replace(pos,\ len,\ replace.c\_str());}
+\DoxyCodeLine{01271\ \ \ \ \ \}}
+\DoxyCodeLine{01272\ }
+\DoxyCodeLine{01273\ \ \ \ \ MB\_String\ \&insert(\textcolor{keywordtype}{size\_t}\ pos,\ \textcolor{keywordtype}{size\_t}\ n,\ \textcolor{keywordtype}{char}\ c)}
+\DoxyCodeLine{01274\ \ \ \ \ \{}
+\DoxyCodeLine{01275\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{01276\ }
+\DoxyCodeLine{01277\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ rightLen\ =\ slen\ -\/\ pos;}
+\DoxyCodeLine{01278\ }
+\DoxyCodeLine{01279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (maxLength()\ <\ slen\ +\ n)}
+\DoxyCodeLine{01280\ \ \ \ \ \ \ \ \ \ \ \ \ \_reserve(slen\ +\ n,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01281\ }
+\DoxyCodeLine{01282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (maxLength()\ >=\ slen\ +\ n)}
+\DoxyCodeLine{01283\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01284\ \ \ \ \ \ \ \ \ \ \ \ \ memmove(buf\ +\ pos\ +\ n,\ buf\ +\ pos,\ rightLen);}
+\DoxyCodeLine{01285\ }
+\DoxyCodeLine{01286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ n;\ i++)}
+\DoxyCodeLine{01287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *(buf\ +\ pos\ +\ i)\ =\ c;}
+\DoxyCodeLine{01288\ }
+\DoxyCodeLine{01289\ \ \ \ \ \ \ \ \ \ \ \ \ buf[pos\ +\ n\ +\ rightLen]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01290\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01291\ }
+\DoxyCodeLine{01292\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01293\ \ \ \ \ \}}
+\DoxyCodeLine{01294\ }
+\DoxyCodeLine{01295\ \ \ \ \ MB\_String\ \&insert(\textcolor{keywordtype}{size\_t}\ pos,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)}
+\DoxyCodeLine{01296\ \ \ \ \ \{}
+\DoxyCodeLine{01297\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ insLen\ =\ strlen(cstr);}
+\DoxyCodeLine{01298\ }
+\DoxyCodeLine{01299\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (length()\ >\ 0\ \&\&\ length()\ >\ pos\ \&\&\ insLen\ >\ 0)}
+\DoxyCodeLine{01300\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01301\ }
+\DoxyCodeLine{01302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ rightLen\ =\ length()\ -\/\ pos;}
+\DoxyCodeLine{01303\ }
+\DoxyCodeLine{01304\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (maxLength()\ <\ length()\ +\ insLen)}
+\DoxyCodeLine{01305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_reserve(length()\ +\ insLen,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01306\ }
+\DoxyCodeLine{01307\ \ \ \ \ \ \ \ \ \ \ \ \ memmove(buf\ +\ pos\ +\ insLen,\ buf\ +\ pos,\ rightLen);}
+\DoxyCodeLine{01308\ \ \ \ \ \ \ \ \ \ \ \ \ buf[pos\ +\ insLen\ +\ rightLen]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01309\ \ \ \ \ \ \ \ \ \ \ \ \ memmove(buf\ +\ pos,\ cstr,\ insLen);}
+\DoxyCodeLine{01310\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01311\ }
+\DoxyCodeLine{01312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01313\ \ \ \ \ \}}
+\DoxyCodeLine{01314\ }
+\DoxyCodeLine{01315\ \ \ \ \ MB\_String\ \&insert(\textcolor{keywordtype}{size\_t}\ pos,\ \textcolor{keyword}{const}\ MB\_String\ \&str)}
+\DoxyCodeLine{01316\ \ \ \ \ \{}
+\DoxyCodeLine{01317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ insert(pos,\ str.c\_str());}
+\DoxyCodeLine{01318\ \ \ \ \ \}}
+\DoxyCodeLine{01319\ }
+\DoxyCodeLine{01320\ \ \ \ \ MB\_String\ \&insert(\textcolor{keywordtype}{size\_t}\ pos,\ \textcolor{keywordtype}{char}\ c)}
+\DoxyCodeLine{01321\ \ \ \ \ \{}
+\DoxyCodeLine{01322\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ temp[2]\{c,\ \textcolor{charliteral}{'\(\backslash\)0'}\};}
+\DoxyCodeLine{01323\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ insert(pos,\ temp);}
+\DoxyCodeLine{01324\ \ \ \ \ \}}
+\DoxyCodeLine{01325\ }
+\DoxyCodeLine{01326\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find\_first\_of(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{size\_t}\ pos\ =\ 0)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01327\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01328\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cstr)}
+\DoxyCodeLine{01329\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01330\ }
+\DoxyCodeLine{01331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ strpos(buf,\ cstr,\ pos);}
+\DoxyCodeLine{01332\ \ \ \ \ \}}
+\DoxyCodeLine{01333\ }
+\DoxyCodeLine{01334\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find\_first\_of(\textcolor{keyword}{const}\ MB\_String\ \&str,\ \textcolor{keywordtype}{size\_t}\ pos\ =\ 0)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01335\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01336\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (length()\ ==\ 0\ ||\ pos\ >=\ length())}
+\DoxyCodeLine{01337\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01338\ }
+\DoxyCodeLine{01339\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ find\_first\_of(str.buf,\ pos);}
+\DoxyCodeLine{01340\ \ \ \ \ \}}
+\DoxyCodeLine{01341\ }
+\DoxyCodeLine{01342\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find\_first\_not\_of(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{size\_t}\ pos\ =\ 0)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01343\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01344\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (length()\ ==\ 0\ ||\ pos\ >=\ length())}
+\DoxyCodeLine{01345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01346\ }
+\DoxyCodeLine{01347\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ strcspn(buf\ +\ pos,\ cstr);}
+\DoxyCodeLine{01348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
+\DoxyCodeLine{01349\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (size\ ==\ 0\ \&\&\ pos\ <\ length())}
+\DoxyCodeLine{01351\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\ =\ strcspn(buf\ +\ pos,\ cstr);}
+\DoxyCodeLine{01353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos++;}
+\DoxyCodeLine{01354\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01355\ }
+\DoxyCodeLine{01356\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ >\ 0)}
+\DoxyCodeLine{01357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pos-\/-\/;}
+\DoxyCodeLine{01358\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01359\ }
+\DoxyCodeLine{01360\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pos;}
+\DoxyCodeLine{01361\ \ \ \ \ \}}
+\DoxyCodeLine{01362\ }
+\DoxyCodeLine{01363\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find\_first\_not\_of(\textcolor{keyword}{const}\ MB\_String\ \&str,\ \textcolor{keywordtype}{size\_t}\ pos\ =\ 0)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01364\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01365\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (length()\ ==\ 0\ ||\ pos\ >=\ length()\ ||\ str.length()\ ==\ 0)}
+\DoxyCodeLine{01366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01367\ }
+\DoxyCodeLine{01368\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ find\_first\_not\_of(str.buf,\ pos);}
+\DoxyCodeLine{01369\ \ \ \ \ \}}
+\DoxyCodeLine{01370\ }
+\DoxyCodeLine{01371\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find\_last\_of(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{size\_t}\ pos\ =\ npos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01372\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01373\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cstr)}
+\DoxyCodeLine{01374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01375\ }
+\DoxyCodeLine{01376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rstrpos(buf,\ cstr,\ pos);}
+\DoxyCodeLine{01377\ \ \ \ \ \}}
+\DoxyCodeLine{01378\ }
+\DoxyCodeLine{01379\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find\_last\_of(\textcolor{keyword}{const}\ MB\_String\ \&str,\ \textcolor{keywordtype}{size\_t}\ pos\ =\ npos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01380\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01381\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (str.length()\ ==\ 0)}
+\DoxyCodeLine{01382\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01383\ }
+\DoxyCodeLine{01384\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ find\_last\_of(str.buf,\ pos);}
+\DoxyCodeLine{01385\ \ \ \ \ \}}
+\DoxyCodeLine{01386\ }
+\DoxyCodeLine{01387\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find\_last\_not\_of(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{size\_t}\ pos\ =\ npos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01388\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01389\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (length()\ ==\ 0)}
+\DoxyCodeLine{01390\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01391\ }
+\DoxyCodeLine{01392\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pos\ >=\ length())}
+\DoxyCodeLine{01393\ \ \ \ \ \ \ \ \ \ \ \ \ pos\ =\ length()\ -\/\ 1;}
+\DoxyCodeLine{01394\ }
+\DoxyCodeLine{01395\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ p\ =\ length()\ -\/\ 1;}
+\DoxyCodeLine{01396\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ strcspn(buf\ +\ p,\ cstr);}
+\DoxyCodeLine{01397\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (size\ ==\ 0)}
+\DoxyCodeLine{01398\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01399\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (size\ ==\ 0\ \&\&\ p\ >\ 0)}
+\DoxyCodeLine{01400\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ size\ =\ strcspn(buf\ +\ p,\ cstr);}
+\DoxyCodeLine{01402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p-\/-\/;}
+\DoxyCodeLine{01403\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01404\ \ \ \ \ \ \ \ \ \ \ \ \ p++;}
+\DoxyCodeLine{01405\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01406\ }
+\DoxyCodeLine{01407\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ p;}
+\DoxyCodeLine{01408\ \ \ \ \ \}}
+\DoxyCodeLine{01409\ }
+\DoxyCodeLine{01410\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ find\_last\_not\_of(\textcolor{keyword}{const}\ MB\_String\ \&str,\ \textcolor{keywordtype}{size\_t}\ pos\ =\ npos)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01411\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01412\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (str.length()\ ==\ 0)}
+\DoxyCodeLine{01413\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01414\ }
+\DoxyCodeLine{01415\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ find\_last\_not\_of(str.buf,\ pos);}
+\DoxyCodeLine{01416\ \ \ \ \ \}}
+\DoxyCodeLine{01417\ }
+\DoxyCodeLine{01418\ \ \ \ \ MB\_String\ \&\ replaceAll(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *find,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *replace)}
+\DoxyCodeLine{01419\ \ \ \ \ \{}
+\DoxyCodeLine{01420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (length()\ ==\ 0)}
+\DoxyCodeLine{01421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};;}
+\DoxyCodeLine{01422\ }
+\DoxyCodeLine{01423\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i,\ cnt\ =\ 0;}
+\DoxyCodeLine{01424\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ repLen\ =\ strlen(replace);}
+\DoxyCodeLine{01425\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ findLen\ =\ strlen(find);}
+\DoxyCodeLine{01426\ }
+\DoxyCodeLine{01427\ \ \ \ \ \ \ \ \ MB\_String\ temp\ =\ buf;}
+\DoxyCodeLine{01428\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *s\ =\ temp.buf;}
+\DoxyCodeLine{01429\ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{01430\ }
+\DoxyCodeLine{01431\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ s[i]\ !=\ \textcolor{charliteral}{'\(\backslash\)0'};\ i++)}
+\DoxyCodeLine{01432\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01433\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strstr(\&s[i],\ find)\ ==\ \&s[i])}
+\DoxyCodeLine{01434\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cnt++;}
+\DoxyCodeLine{01436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ findLen\ -\/\ 1;}
+\DoxyCodeLine{01437\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01438\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01439\ }
+\DoxyCodeLine{01440\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_reserve(i\ +\ cnt\ *\ (repLen\ -\/\ findLen)\ +\ 1,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{01441\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01442\ \ \ \ \ \ \ \ \ \ \ \ \ i\ =\ 0;}
+\DoxyCodeLine{01443\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (*s)}
+\DoxyCodeLine{01444\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strstr(s,\ find)\ ==\ s)}
+\DoxyCodeLine{01446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(\&buf[i],\ replace);}
+\DoxyCodeLine{01448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i\ +=\ repLen;}
+\DoxyCodeLine{01449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\ +=\ findLen;}
+\DoxyCodeLine{01450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf[i++]\ =\ *s++;}
+\DoxyCodeLine{01453\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01454\ }
+\DoxyCodeLine{01455\ \ \ \ \ \ \ \ \ \ \ \ \ buf[i]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01456\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01457\ }
+\DoxyCodeLine{01458\ \ \ \ \ \ \ \ \ temp.clear();}
+\DoxyCodeLine{01459\ }
+\DoxyCodeLine{01460\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01461\ \ \ \ \ \}}
+\DoxyCodeLine{01462\ }
+\DoxyCodeLine{01463\ \ \ \ \ \textcolor{keywordtype}{void}\ replaceAll(\textcolor{keyword}{const}\ MB\_String\ \&find,\ \textcolor{keyword}{const}\ MB\_String\ \&replace)}
+\DoxyCodeLine{01464\ \ \ \ \ \{}
+\DoxyCodeLine{01465\ \ \ \ \ \ \ \ \ replaceAll(find.c\_str(),\ replace.c\_str());}
+\DoxyCodeLine{01466\ \ \ \ \ \}}
+\DoxyCodeLine{01467\ }
+\DoxyCodeLine{01468\ \ \ \ \ \textcolor{keywordtype}{bool}\ empty()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01469\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01470\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ length()\ ==\ 0;}
+\DoxyCodeLine{01471\ \ \ \ \ \}}
+\DoxyCodeLine{01472\ }
+\DoxyCodeLine{01473\ \ \ \ \ \textcolor{keywordtype}{void}\ reserve(\textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{01474\ \ \ \ \ \{}
+\DoxyCodeLine{01475\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\_reserve(len,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{01476\ \ \ \ \ \ \ \ \ \ \ \ \ buf[len]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01477\ \ \ \ \ \}}
+\DoxyCodeLine{01478\ }
+\DoxyCodeLine{01479\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ npos\ =\ -\/1;}
+\DoxyCodeLine{01480\ }
+\DoxyCodeLine{01481\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{01482\ \textcolor{preprocessor}{\#if\ defined(ARDUINO\_ARCH\_SAMD)\ ||\ defined(\_\_AVR\_ATmega4809\_\_)\ ||\ defined(ARDUINO\_NANO\_RP2040\_CONNECT)\ ||\ defined(ARDUINO\_UNOWIFIR4)}}
+\DoxyCodeLine{01483\ }
+\DoxyCodeLine{01484\ \ \ \ \ \textcolor{keywordtype}{char}\ *int32Str(\textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{long}\ value)}
+\DoxyCodeLine{01485\ \ \ \ \ \{}
+\DoxyCodeLine{01486\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *t\ =\ (\textcolor{keywordtype}{char}\ *)newP(64);}
+\DoxyCodeLine{01487\ \ \ \ \ \ \ \ \ sprintf(t,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\%ld"{}}),\ value);}
+\DoxyCodeLine{01488\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{01489\ \ \ \ \ \}}
+\DoxyCodeLine{01490\ }
+\DoxyCodeLine{01491\ \ \ \ \ \textcolor{keywordtype}{char}\ *uint32Str(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ value)}
+\DoxyCodeLine{01492\ \ \ \ \ \{}
+\DoxyCodeLine{01493\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *t\ =\ (\textcolor{keywordtype}{char}\ *)newP(64);}
+\DoxyCodeLine{01494\ \ \ \ \ \ \ \ \ sprintf(t,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\%lu"{}}),\ value);}
+\DoxyCodeLine{01495\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{01496\ \ \ \ \ \}}
+\DoxyCodeLine{01497\ }
+\DoxyCodeLine{01498\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01499\ }
+\DoxyCodeLine{01500\ \ \ \ \ \textcolor{keywordtype}{char}\ *int64Str(\textcolor{keywordtype}{signed}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ value)}
+\DoxyCodeLine{01501\ \ \ \ \ \{}
+\DoxyCodeLine{01502\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *t\ =\ (\textcolor{keywordtype}{char}\ *)newP(64);}
+\DoxyCodeLine{01503\ \ \ \ \ \ \ \ \ sprintf(t,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\%lld"{}}),\ value);}
+\DoxyCodeLine{01504\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{01505\ \ \ \ \ \}}
+\DoxyCodeLine{01506\ }
+\DoxyCodeLine{01507\ \ \ \ \ \textcolor{keywordtype}{char}\ *uint64Str(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ value)}
+\DoxyCodeLine{01508\ \ \ \ \ \{}
+\DoxyCodeLine{01509\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *t\ =\ (\textcolor{keywordtype}{char}\ *)newP(64);}
+\DoxyCodeLine{01510\ \ \ \ \ \ \ \ \ sprintf(t,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\%llu"{}}),\ value);}
+\DoxyCodeLine{01511\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{01512\ \ \ \ \ \}}
+\DoxyCodeLine{01513\ }
+\DoxyCodeLine{01514\ \ \ \ \ \textcolor{keywordtype}{char}\ *boolStr(\textcolor{keywordtype}{bool}\ value)}
+\DoxyCodeLine{01515\ \ \ \ \ \{}
+\DoxyCodeLine{01516\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *t\ =\ (\textcolor{keywordtype}{char}\ *)newP(8);}
+\DoxyCodeLine{01517\ \ \ \ \ \ \ \ \ value\ ?\ strcpy(t,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}true"{}}))\ :\ strcpy(t,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}false"{}}));}
+\DoxyCodeLine{01518\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{01519\ \ \ \ \ \}}
+\DoxyCodeLine{01520\ }
+\DoxyCodeLine{01521\ \ \ \ \ \textcolor{keywordtype}{char}\ *toFloatStr(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{double}\ value,\ \textcolor{keywordtype}{int}\ type,\ \textcolor{keywordtype}{int}\ precision)}
+\DoxyCodeLine{01522\ \ \ \ \ \{}
+\DoxyCodeLine{01523\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ width\ =\ type\ ==\ 0\ ?\ 32\ :\ 64;}
+\DoxyCodeLine{01524\ }
+\DoxyCodeLine{01525\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *t\ =\ (\textcolor{keywordtype}{char}\ *)newP(width);}
+\DoxyCodeLine{01526\ }
+\DoxyCodeLine{01527\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (t)}
+\DoxyCodeLine{01528\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01529\ \ \ \ \ \ \ \ \ \ \ \ \ MB\_String\ fmt\ =\ MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}\%."{}});}
+\DoxyCodeLine{01530\ \ \ \ \ \ \ \ \ \ \ \ \ fmt\ +=\ precision;}
+\DoxyCodeLine{01531\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ 2)}
+\DoxyCodeLine{01532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fmt\ +=\ MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}L"{}});}
+\DoxyCodeLine{01533\ \ \ \ \ \ \ \ \ \ \ \ \ fmt\ +=\ MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}f"{}});}
+\DoxyCodeLine{01534\ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(t,\ fmt.c\_str(),\ value);}
+\DoxyCodeLine{01535\ \ \ \ \ \ \ \ \ \ \ \ \ trim(t);}
+\DoxyCodeLine{01536\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01537\ }
+\DoxyCodeLine{01538\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{01539\ \ \ \ \ \}}
+\DoxyCodeLine{01540\ }
+\DoxyCodeLine{01541\ \ \ \ \ \textcolor{keywordtype}{char}\ *nullStr()}
+\DoxyCodeLine{01542\ \ \ \ \ \{}
+\DoxyCodeLine{01543\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *t\ =\ (\textcolor{keywordtype}{char}\ *)newP(6);}
+\DoxyCodeLine{01544\ \ \ \ \ \ \ \ \ strcpy(t,\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)MBSTRING\_FLASH\_MCR(\textcolor{stringliteral}{"{}null"{}}));}
+\DoxyCodeLine{01545\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{01546\ \ \ \ \ \}}
+\DoxyCodeLine{01547\ }
+\DoxyCodeLine{01548\ \ \ \ \ \textcolor{keywordtype}{char}\ *pgmStr(PGM\_P\ p)}
+\DoxyCodeLine{01549\ \ \ \ \ \{}
+\DoxyCodeLine{01550\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *t\ =\ (\textcolor{keywordtype}{char}\ *)newP(strlen\_P(p));}
+\DoxyCodeLine{01551\ \ \ \ \ \ \ \ \ strcpy\_P(t,\ p);}
+\DoxyCodeLine{01552\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{01553\ \ \ \ \ \}}
+\DoxyCodeLine{01554\ }
+\DoxyCodeLine{01555\ \ \ \ \ \textcolor{keywordtype}{void}\ trim(\textcolor{keywordtype}{char}\ *s)}
+\DoxyCodeLine{01556\ \ \ \ \ \{}
+\DoxyCodeLine{01557\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!s)}
+\DoxyCodeLine{01558\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01559\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ i\ =\ strlen(s)\ -\/\ 1;}
+\DoxyCodeLine{01560\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (s[i]\ ==\ \textcolor{charliteral}{'0'}\ \&\&\ i\ >\ 0)}
+\DoxyCodeLine{01561\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01562\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s[i\ -\/\ 1]\ ==\ \textcolor{charliteral}{'.'})}
+\DoxyCodeLine{01563\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01564\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i-\/-\/;}
+\DoxyCodeLine{01565\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01566\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01567\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s[i\ -\/\ 1]\ !=\ \textcolor{charliteral}{'0'})}
+\DoxyCodeLine{01568\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01569\ \ \ \ \ \ \ \ \ \ \ \ \ i-\/-\/;}
+\DoxyCodeLine{01570\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01571\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ <\ strlen(s)\ -\/\ 1)}
+\DoxyCodeLine{01572\ \ \ \ \ \ \ \ \ \ \ \ \ s[i]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01573\ \ \ \ \ \}}
+\DoxyCodeLine{01574\ }
+\DoxyCodeLine{01575\ \ \ \ \ \textcolor{keywordtype}{void}\ *newP(\textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{01576\ \ \ \ \ \{}
+\DoxyCodeLine{01577\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *p;}
+\DoxyCodeLine{01578\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ newLen\ =\ getReservedLen(len);}
+\DoxyCodeLine{01579\ \textcolor{preprocessor}{\#if\ defined(BOARD\_HAS\_PSRAM)\ \&\&\ defined(MB\_STRING\_USE\_PSRAM)}}
+\DoxyCodeLine{01580\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ESP.getPsramSize()\ >\ 0)}
+\DoxyCodeLine{01581\ \ \ \ \ \ \ \ \ \ \ \ \ p\ =\ (\textcolor{keywordtype}{void}\ *)ps\_malloc(newLen);}
+\DoxyCodeLine{01582\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01583\ \ \ \ \ \ \ \ \ \ \ \ \ p\ =\ (\textcolor{keywordtype}{void}\ *)malloc(newLen);}
+\DoxyCodeLine{01584\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!p)}
+\DoxyCodeLine{01585\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01586\ }
+\DoxyCodeLine{01587\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01588\ }
+\DoxyCodeLine{01589\ \textcolor{preprocessor}{\#if\ defined(ESP8266\_USE\_EXTERNAL\_HEAP)}}
+\DoxyCodeLine{01590\ \ \ \ \ \ \ \ \ ESP.setExternalHeap();}
+\DoxyCodeLine{01591\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01592\ }
+\DoxyCodeLine{01593\ \ \ \ \ \ \ \ \ p\ =\ (\textcolor{keywordtype}{void}\ *)malloc(newLen);}
+\DoxyCodeLine{01594\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ nn\ =\ p\ ?\ true\ :\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01595\ }
+\DoxyCodeLine{01596\ \textcolor{preprocessor}{\#if\ defined(ESP8266\_USE\_EXTERNAL\_HEAP)}}
+\DoxyCodeLine{01597\ \ \ \ \ \ \ \ \ ESP.resetHeap();}
+\DoxyCodeLine{01598\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01599\ }
+\DoxyCodeLine{01600\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!nn)}
+\DoxyCodeLine{01601\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01602\ }
+\DoxyCodeLine{01603\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01604\ \ \ \ \ \ \ \ \ memset(p,\ 0,\ newLen);}
+\DoxyCodeLine{01605\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ p;}
+\DoxyCodeLine{01606\ \ \ \ \ \}}
+\DoxyCodeLine{01607\ }
+\DoxyCodeLine{01608\ \ \ \ \ \textcolor{keywordtype}{void}\ delP(\textcolor{keywordtype}{void}\ *ptr)}
+\DoxyCodeLine{01609\ \ \ \ \ \{}
+\DoxyCodeLine{01610\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ **p\ =\ (\textcolor{keywordtype}{void}\ **)ptr;}
+\DoxyCodeLine{01611\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*p)}
+\DoxyCodeLine{01612\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01613\ \ \ \ \ \ \ \ \ \ \ \ \ free(*p);}
+\DoxyCodeLine{01614\ \ \ \ \ \ \ \ \ \ \ \ \ *p\ =\ 0;}
+\DoxyCodeLine{01615\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01616\ \ \ \ \ \}}
+\DoxyCodeLine{01617\ }
+\DoxyCodeLine{01618\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ getReservedLen(\textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{01619\ \ \ \ \ \{}
+\DoxyCodeLine{01620\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ blen\ =\ len\ +\ 1;}
+\DoxyCodeLine{01621\ }
+\DoxyCodeLine{01622\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ newlen\ =\ (blen\ /\ 4)\ *\ 4;}
+\DoxyCodeLine{01623\ }
+\DoxyCodeLine{01624\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (newlen\ <\ blen)}
+\DoxyCodeLine{01625\ \ \ \ \ \ \ \ \ \ \ \ \ newlen\ +=\ 4;}
+\DoxyCodeLine{01626\ }
+\DoxyCodeLine{01627\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{size\_t})newlen;}
+\DoxyCodeLine{01628\ \ \ \ \ \}}
+\DoxyCodeLine{01629\ }
+\DoxyCodeLine{01630\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxLength()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01631\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01632\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufferLength()\ ==\ 0)}
+\DoxyCodeLine{01633\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{01634\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ bufferLength()\ -\/\ 1;}
+\DoxyCodeLine{01635\ \ \ \ \ \}}
+\DoxyCodeLine{01636\ }
+\DoxyCodeLine{01637\ \ \ \ \ \textcolor{keywordtype}{void}\ concat(\textcolor{keyword}{const}\ MB\_String\ \&s)}
+\DoxyCodeLine{01638\ \ \ \ \ \{}
+\DoxyCodeLine{01639\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.length()\ ==\ 0)}
+\DoxyCodeLine{01640\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01641\ }
+\DoxyCodeLine{01642\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\&s\ ==\ \textcolor{keyword}{this})}
+\DoxyCodeLine{01643\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01644\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{01645\ }
+\DoxyCodeLine{01646\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (2\ *\ slen\ >\ maxLength())}
+\DoxyCodeLine{01647\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01648\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_reserve(2\ *\ slen,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{01649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01650\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01651\ }
+\DoxyCodeLine{01652\ \ \ \ \ \ \ \ \ \ \ \ \ memmove(buf\ +\ slen,\ buf,\ slen);}
+\DoxyCodeLine{01653\ \ \ \ \ \ \ \ \ \ \ \ \ buf[2\ *\ slen]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01654\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01655\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01656\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01657\ \ \ \ \ \ \ \ \ \ \ \ \ concat(s.buf,\ s.length());}
+\DoxyCodeLine{01658\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01659\ \ \ \ \ \}}
+\DoxyCodeLine{01660\ }
+\DoxyCodeLine{01661\ \ \ \ \ \textcolor{keywordtype}{void}\ concat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{01662\ \ \ \ \ \{}
+\DoxyCodeLine{01663\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cstr)}
+\DoxyCodeLine{01664\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01665\ }
+\DoxyCodeLine{01666\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ slen\ =\ length();}
+\DoxyCodeLine{01667\ }
+\DoxyCodeLine{01668\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (slen\ +\ len\ >\ maxLength())}
+\DoxyCodeLine{01669\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01670\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_reserve(slen\ +\ len,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{01671\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01672\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01673\ }
+\DoxyCodeLine{01674\ \ \ \ \ \ \ \ \ memmove(buf\ +\ slen,\ cstr,\ len);}
+\DoxyCodeLine{01675\ \ \ \ \ \ \ \ \ buf[slen\ +\ len]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01676\ \ \ \ \ \}}
+\DoxyCodeLine{01677\ }
+\DoxyCodeLine{01678\ \ \ \ \ \textcolor{keywordtype}{void}\ concat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)}
+\DoxyCodeLine{01679\ \ \ \ \ \{}
+\DoxyCodeLine{01680\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!cstr)}
+\DoxyCodeLine{01681\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01682\ }
+\DoxyCodeLine{01683\ \ \ \ \ \ \ \ \ concat(cstr,\ strlen(cstr));}
+\DoxyCodeLine{01684\ \ \ \ \ \}}
+\DoxyCodeLine{01685\ }
+\DoxyCodeLine{01686\ \ \ \ \ \textcolor{keywordtype}{void}\ move(MB\_String\ \&rhs)}
+\DoxyCodeLine{01687\ \ \ \ \ \{}
+\DoxyCodeLine{01688\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (buf)}
+\DoxyCodeLine{01689\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01690\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bufLen\ >=\ rhs.bufLen)}
+\DoxyCodeLine{01691\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(buf,\ rhs.buf);}
+\DoxyCodeLine{01693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bufLen\ =\ rhs.bufLen;}
+\DoxyCodeLine{01694\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rhs.bufLen\ =\ 0;}
+\DoxyCodeLine{01695\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01696\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01697\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01698\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ free(buf);}
+\DoxyCodeLine{01700\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01701\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01702\ \ \ \ \ \ \ \ \ buf\ =\ rhs.buf;}
+\DoxyCodeLine{01703\ \ \ \ \ \ \ \ \ bufLen\ =\ rhs.bufLen;}
+\DoxyCodeLine{01704\ \ \ \ \ \ \ \ \ rhs.buf\ =\ NULL;}
+\DoxyCodeLine{01705\ \ \ \ \ \}}
+\DoxyCodeLine{01706\ }
+\DoxyCodeLine{01707\ \ \ \ \ \textcolor{keywordtype}{void}\ allocate(\textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{bool}\ shrink)}
+\DoxyCodeLine{01708\ \ \ \ \ \{}
+\DoxyCodeLine{01709\ }
+\DoxyCodeLine{01710\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ ==\ 0)}
+\DoxyCodeLine{01711\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01712\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (buf)}
+\DoxyCodeLine{01713\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ free(buf);}
+\DoxyCodeLine{01714\ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ NULL;}
+\DoxyCodeLine{01715\ \ \ \ \ \ \ \ \ \ \ \ \ bufLen\ =\ 0;}
+\DoxyCodeLine{01716\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{01717\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01718\ }
+\DoxyCodeLine{01719\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ >\ bufLen\ ||\ shrink)}
+\DoxyCodeLine{01720\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01721\ }
+\DoxyCodeLine{01722\ \textcolor{preprocessor}{\#if\ defined(ESP8266\_USE\_EXTERNAL\_HEAP)}}
+\DoxyCodeLine{01723\ \ \ \ \ \ \ \ \ \ \ \ \ ESP.setExternalHeap();}
+\DoxyCodeLine{01724\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01725\ }
+\DoxyCodeLine{01726\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (shrink\ ||\ (bufLen\ >\ 0\ \&\&\ buf))}
+\DoxyCodeLine{01727\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01728\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ slen\ =\ length();}
+\DoxyCodeLine{01729\ }
+\DoxyCodeLine{01730\ \textcolor{preprocessor}{\#if\ defined(BOARD\_HAS\_PSRAM)\ \&\&\ defined(MB\_STRING\_USE\_PSRAM)}}
+\DoxyCodeLine{01731\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ESP.getPsramSize()\ >\ 0)}
+\DoxyCodeLine{01732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ (\textcolor{keywordtype}{char}\ *)ps\_realloc(buf,\ len);}
+\DoxyCodeLine{01733\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01734\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ (\textcolor{keywordtype}{char}\ *)realloc(buf,\ len);}
+\DoxyCodeLine{01735\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01736\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ (\textcolor{keywordtype}{char}\ *)realloc(buf,\ len);}
+\DoxyCodeLine{01737\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01738\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (buf)}
+\DoxyCodeLine{01739\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01740\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf[slen]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01741\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bufLen\ =\ len;}
+\DoxyCodeLine{01742\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01743\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01744\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01745\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01746\ \textcolor{preprocessor}{\#if\ defined(BOARD\_HAS\_PSRAM)\ \&\&\ defined(MB\_STRING\_USE\_PSRAM)}}
+\DoxyCodeLine{01747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ESP.getPsramSize()\ >\ 0)}
+\DoxyCodeLine{01748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ (\textcolor{keywordtype}{char}\ *)ps\_malloc(len);}
+\DoxyCodeLine{01749\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ (\textcolor{keywordtype}{char}\ *)malloc(len);}
+\DoxyCodeLine{01751\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01752\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf\ =\ (\textcolor{keywordtype}{char}\ *)malloc(len);}
+\DoxyCodeLine{01753\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01754\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (buf)}
+\DoxyCodeLine{01755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ buf[0]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bufLen\ =\ len;}
+\DoxyCodeLine{01758\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01759\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01760\ }
+\DoxyCodeLine{01761\ \textcolor{preprocessor}{\#if\ defined(ESP8266\_USE\_EXTERNAL\_HEAP)}}
+\DoxyCodeLine{01762\ \ \ \ \ \ \ \ \ \ \ \ \ ESP.resetHeap();}
+\DoxyCodeLine{01763\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01764\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01765\ \ \ \ \ \}}
+\DoxyCodeLine{01766\ }
+\DoxyCodeLine{01767\ \ \ \ \ MB\_String\ \&copy(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{size\_t}\ length)}
+\DoxyCodeLine{01768\ \ \ \ \ \{}
+\DoxyCodeLine{01769\ }
+\DoxyCodeLine{01770\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\_reserve(length,\ \textcolor{keyword}{false}))}
+\DoxyCodeLine{01771\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01772\ \ \ \ \ \ \ \ \ \ \ \ \ clear();}
+\DoxyCodeLine{01773\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01774\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01775\ }
+\DoxyCodeLine{01776\ \ \ \ \ \ \ \ \ memcpy\_P(buf,\ (PGM\_P)cstr,\ length);}
+\DoxyCodeLine{01777\ \ \ \ \ \ \ \ \ buf[length]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{01778\ }
+\DoxyCodeLine{01779\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{01780\ \ \ \ \ \}}
+\DoxyCodeLine{01781\ }
+\DoxyCodeLine{01782\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_reserve(\textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{bool}\ shrink)}
+\DoxyCodeLine{01783\ \ \ \ \ \{}
+\DoxyCodeLine{01784\ }
+\DoxyCodeLine{01785\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ newlen\ =\ getReservedLen(len);}
+\DoxyCodeLine{01786\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (shrink)}
+\DoxyCodeLine{01787\ \ \ \ \ \ \ \ \ \ \ \ \ allocate(newlen,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{01788\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (newlen\ >\ bufLen)}
+\DoxyCodeLine{01789\ \ \ \ \ \ \ \ \ \ \ \ \ allocate(newlen,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{01790\ }
+\DoxyCodeLine{01791\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ newlen\ <=\ bufLen;}
+\DoxyCodeLine{01792\ \ \ \ \ \}}
+\DoxyCodeLine{01793\ }
+\DoxyCodeLine{01794\ \ \ \ \ \textcolor{keywordtype}{int}\ strpos(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *haystack,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *needle,\ \textcolor{keywordtype}{int}\ offset)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01795\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01796\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!haystack\ ||\ !needle)}
+\DoxyCodeLine{01797\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01798\ }
+\DoxyCodeLine{01799\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hlen\ =\ strlen(haystack);}
+\DoxyCodeLine{01800\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nlen\ =\ strlen(needle);}
+\DoxyCodeLine{01801\ }
+\DoxyCodeLine{01802\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hlen\ ==\ 0\ ||\ nlen\ ==\ 0)}
+\DoxyCodeLine{01803\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01804\ }
+\DoxyCodeLine{01805\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hidx\ =\ offset,\ nidx\ =\ 0;}
+\DoxyCodeLine{01806\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((*(haystack\ +\ hidx)\ !=\ \textcolor{charliteral}{'\(\backslash\)0'})\ \&\&\ (*(needle\ +\ nidx)\ !=\ \textcolor{charliteral}{'\(\backslash\)0'})\ \&\&\ hidx\ <\ hlen)}
+\DoxyCodeLine{01807\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01808\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*(needle\ +\ nidx)\ !=\ *(haystack\ +\ hidx))}
+\DoxyCodeLine{01809\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01810\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hidx++;}
+\DoxyCodeLine{01811\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nidx\ =\ 0;}
+\DoxyCodeLine{01812\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01813\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01814\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nidx++;}
+\DoxyCodeLine{01816\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hidx++;}
+\DoxyCodeLine{01817\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nidx\ ==\ nlen)}
+\DoxyCodeLine{01818\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hidx\ -\/\ nidx;}
+\DoxyCodeLine{01819\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01820\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01821\ }
+\DoxyCodeLine{01822\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01823\ \ \ \ \ \}}
+\DoxyCodeLine{01824\ }
+\DoxyCodeLine{01825\ \ \ \ \ \textcolor{keywordtype}{int}\ strpos(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *haystack,\ \textcolor{keywordtype}{char}\ needle,\ \textcolor{keywordtype}{int}\ offset)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01826\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01827\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!haystack\ ||\ needle\ ==\ 0)}
+\DoxyCodeLine{01828\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01829\ }
+\DoxyCodeLine{01830\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hlen\ =\ strlen(haystack);}
+\DoxyCodeLine{01831\ }
+\DoxyCodeLine{01832\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hlen\ ==\ 0)}
+\DoxyCodeLine{01833\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01834\ }
+\DoxyCodeLine{01835\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hidx\ =\ offset;}
+\DoxyCodeLine{01836\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ ((*(haystack\ +\ hidx)\ !=\ \textcolor{charliteral}{'\(\backslash\)0'})\ \&\&\ hidx\ <\ hlen)}
+\DoxyCodeLine{01837\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01838\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (needle\ ==\ *(haystack\ +\ hidx))}
+\DoxyCodeLine{01839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hidx;}
+\DoxyCodeLine{01840\ \ \ \ \ \ \ \ \ \ \ \ \ hidx++;}
+\DoxyCodeLine{01841\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01842\ }
+\DoxyCodeLine{01843\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01844\ \ \ \ \ \}}
+\DoxyCodeLine{01845\ }
+\DoxyCodeLine{01846\ \ \ \ \ \textcolor{keywordtype}{int}\ rstrpos(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *haystack,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *needle,\ \textcolor{keywordtype}{int}\ offset\ \textcolor{comment}{/*\ start\ search\ from\ this\ offset\ to\ the\ left\ string\ */})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01847\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01848\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!haystack\ ||\ !needle)}
+\DoxyCodeLine{01849\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01850\ }
+\DoxyCodeLine{01851\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hlen\ =\ strlen(haystack);}
+\DoxyCodeLine{01852\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nlen\ =\ strlen(needle);}
+\DoxyCodeLine{01853\ }
+\DoxyCodeLine{01854\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hlen\ ==\ 0\ ||\ nlen\ ==\ 0)}
+\DoxyCodeLine{01855\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01856\ }
+\DoxyCodeLine{01857\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hidx\ =\ offset;}
+\DoxyCodeLine{01858\ }
+\DoxyCodeLine{01859\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hidx\ >=\ hlen\ ||\ (\textcolor{keywordtype}{size\_t})offset\ ==\ npos)}
+\DoxyCodeLine{01860\ \ \ \ \ \ \ \ \ \ \ \ \ hidx\ =\ hlen\ -\/\ 1;}
+\DoxyCodeLine{01861\ }
+\DoxyCodeLine{01862\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nidx\ =\ nlen\ -\/\ 1;}
+\DoxyCodeLine{01863\ }
+\DoxyCodeLine{01864\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (hidx\ >=\ 0)}
+\DoxyCodeLine{01865\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01866\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (*(needle\ +\ nidx)\ !=\ *(haystack\ +\ hidx))}
+\DoxyCodeLine{01867\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01868\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hidx-\/-\/;}
+\DoxyCodeLine{01869\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nidx\ =\ nlen\ -\/\ 1;}
+\DoxyCodeLine{01870\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01871\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01872\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01873\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nidx\ ==\ 0)}
+\DoxyCodeLine{01874\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hidx\ +\ nidx;}
+\DoxyCodeLine{01875\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nidx-\/-\/;}
+\DoxyCodeLine{01876\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hidx-\/-\/;}
+\DoxyCodeLine{01877\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01878\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01879\ }
+\DoxyCodeLine{01880\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01881\ \ \ \ \ \}}
+\DoxyCodeLine{01882\ }
+\DoxyCodeLine{01883\ \ \ \ \ \textcolor{keywordtype}{int}\ rstrpos(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *haystack,\ \textcolor{keywordtype}{char}\ needle,\ \textcolor{keywordtype}{int}\ offset\ \textcolor{comment}{/*\ start\ search\ from\ this\ offset\ to\ the\ left\ char\ */})\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01884\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01885\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!haystack\ ||\ needle\ ==\ 0)}
+\DoxyCodeLine{01886\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01887\ }
+\DoxyCodeLine{01888\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hlen\ =\ strlen(haystack);}
+\DoxyCodeLine{01889\ }
+\DoxyCodeLine{01890\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hlen\ ==\ 0)}
+\DoxyCodeLine{01891\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01892\ }
+\DoxyCodeLine{01893\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hidx\ =\ offset;}
+\DoxyCodeLine{01894\ }
+\DoxyCodeLine{01895\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hidx\ >=\ hlen\ ||\ (\textcolor{keywordtype}{size\_t})offset\ ==\ npos)}
+\DoxyCodeLine{01896\ \ \ \ \ \ \ \ \ \ \ \ \ hidx\ =\ hlen\ -\/\ 1;}
+\DoxyCodeLine{01897\ }
+\DoxyCodeLine{01898\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (hidx\ >=\ 0)}
+\DoxyCodeLine{01899\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01900\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (needle\ ==\ *(haystack\ +\ hidx))}
+\DoxyCodeLine{01901\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hidx;}
+\DoxyCodeLine{01902\ \ \ \ \ \ \ \ \ \ \ \ \ hidx-\/-\/;}
+\DoxyCodeLine{01903\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01904\ }
+\DoxyCodeLine{01905\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{01906\ \ \ \ \ \}}
+\DoxyCodeLine{01907\ }
+\DoxyCodeLine{01908\ \ \ \ \ \textcolor{keywordtype}{int}\ compareTo(\textcolor{keyword}{const}\ MB\_String\ \&s)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01909\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01910\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!buf\ ||\ !s.buf)}
+\DoxyCodeLine{01911\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01912\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (s.buf\ \&\&\ s.length()\ >\ 0)}
+\DoxyCodeLine{01913\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0\ -\/\ *(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)s.buf;}
+\DoxyCodeLine{01914\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (buf\ \&\&\ length()\ >\ 0)}
+\DoxyCodeLine{01915\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)buf;}
+\DoxyCodeLine{01916\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{01917\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01918\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ strcmp(buf,\ s.buf);}
+\DoxyCodeLine{01919\ \ \ \ \ \}}
+\DoxyCodeLine{01920\ }
+\DoxyCodeLine{01921\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ equals(\textcolor{keyword}{const}\ MB\_String\ \&s2)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01922\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01923\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (length()\ ==\ s2.length()\ \&\&\ compareTo(s2)\ ==\ 0);}
+\DoxyCodeLine{01924\ \ \ \ \ \}}
+\DoxyCodeLine{01925\ }
+\DoxyCodeLine{01926\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ equals(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{01927\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{01928\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (length()\ ==\ 0)}
+\DoxyCodeLine{01929\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cstr\ ==\ NULL\ ||\ *cstr\ ==\ 0);}
+\DoxyCodeLine{01930\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cstr\ ==\ NULL)}
+\DoxyCodeLine{01931\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ buf[0]\ ==\ 0;}
+\DoxyCodeLine{01932\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ strcmp(buf,\ cstr)\ ==\ 0;}
+\DoxyCodeLine{01933\ \ \ \ \ \}}
+\DoxyCodeLine{01934\ }
+\DoxyCodeLine{01935\ \ \ \ \ \textcolor{keywordtype}{char}\ *ultoa(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ value,\ \textcolor{keywordtype}{char}\ *str,\ \textcolor{keywordtype}{int}\ radix)}
+\DoxyCodeLine{01936\ \ \ \ \ \{}
+\DoxyCodeLine{01937\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format\ =\ NULL;}
+\DoxyCodeLine{01938\ }
+\DoxyCodeLine{01939\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (radix)}
+\DoxyCodeLine{01940\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01941\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{01942\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%o"{}};}
+\DoxyCodeLine{01943\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01944\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 10:}
+\DoxyCodeLine{01945\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%ul"{}};}
+\DoxyCodeLine{01946\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01947\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 16:}
+\DoxyCodeLine{01948\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%x"{}};}
+\DoxyCodeLine{01949\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01950\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01951\ }
+\DoxyCodeLine{01952\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (format\ ==\ NULL)}
+\DoxyCodeLine{01953\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{01954\ }
+\DoxyCodeLine{01955\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ sprintf(str,\ format,\ value);}
+\DoxyCodeLine{01956\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&str[size];}
+\DoxyCodeLine{01957\ \ \ \ \ \}}
+\DoxyCodeLine{01958\ }
+\DoxyCodeLine{01959\ \textcolor{preprocessor}{\#if\ (!defined(ESP32)\ \&\&\ !defined(ESP8266)\ \&\&\ !defined(ARDUINO\_ARCH\_STM32)\ \&\&\ !defined(ARDUINO\_ARCH\_SAMD))\ ||\ defined(ARDUINO\_NANO\_RP2040\_CONNECT)}}
+\DoxyCodeLine{01960\ \ \ \ \ \textcolor{keywordtype}{char}\ *ltoa(\textcolor{keywordtype}{long}\ value,\ \textcolor{keywordtype}{char}\ *str,\ \textcolor{keywordtype}{int}\ radix)}
+\DoxyCodeLine{01961\ \ \ \ \ \{}
+\DoxyCodeLine{01962\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format\ =\ NULL;}
+\DoxyCodeLine{01963\ }
+\DoxyCodeLine{01964\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (radix)}
+\DoxyCodeLine{01965\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01966\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{01967\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%o"{}};}
+\DoxyCodeLine{01968\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01969\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 10:}
+\DoxyCodeLine{01970\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%l"{}};}
+\DoxyCodeLine{01971\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01972\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 16:}
+\DoxyCodeLine{01973\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%x"{}};}
+\DoxyCodeLine{01974\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01975\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01976\ }
+\DoxyCodeLine{01977\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (format\ ==\ NULL)}
+\DoxyCodeLine{01978\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{01979\ }
+\DoxyCodeLine{01980\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ sprintf(str,\ format,\ value);}
+\DoxyCodeLine{01981\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&str[size];}
+\DoxyCodeLine{01982\ \ \ \ \ \}}
+\DoxyCodeLine{01983\ }
+\DoxyCodeLine{01984\ \ \ \ \ \textcolor{keywordtype}{char}\ *utoa(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ value,\ \textcolor{keywordtype}{char}\ *str,\ \textcolor{keywordtype}{int}\ radix)}
+\DoxyCodeLine{01985\ \ \ \ \ \{}
+\DoxyCodeLine{01986\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format\ =\ NULL;}
+\DoxyCodeLine{01987\ }
+\DoxyCodeLine{01988\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (radix)}
+\DoxyCodeLine{01989\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01990\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{01991\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%o"{}};}
+\DoxyCodeLine{01992\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01993\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 10:}
+\DoxyCodeLine{01994\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%u"{}};}
+\DoxyCodeLine{01995\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01996\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 16:}
+\DoxyCodeLine{01997\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%x"{}};}
+\DoxyCodeLine{01998\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01999\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02000\ }
+\DoxyCodeLine{02001\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (format\ ==\ NULL)}
+\DoxyCodeLine{02002\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{02003\ }
+\DoxyCodeLine{02004\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ sprintf(str,\ format,\ value);}
+\DoxyCodeLine{02005\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&str[size];}
+\DoxyCodeLine{02006\ \ \ \ \ \}}
+\DoxyCodeLine{02007\ }
+\DoxyCodeLine{02008\ \ \ \ \ \textcolor{keywordtype}{char}\ *itoa(\textcolor{keywordtype}{int}\ value,\ \textcolor{keywordtype}{char}\ *str,\ \textcolor{keywordtype}{int}\ radix)}
+\DoxyCodeLine{02009\ \ \ \ \ \{}
+\DoxyCodeLine{02010\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format\ =\ NULL;}
+\DoxyCodeLine{02011\ }
+\DoxyCodeLine{02012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (radix)}
+\DoxyCodeLine{02013\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{02015\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%o"{}};}
+\DoxyCodeLine{02016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 10:}
+\DoxyCodeLine{02018\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%d"{}};}
+\DoxyCodeLine{02019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 16:}
+\DoxyCodeLine{02021\ \ \ \ \ \ \ \ \ \ \ \ \ format\ =\ \textcolor{stringliteral}{"{}\%x"{}};}
+\DoxyCodeLine{02022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{02023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02024\ }
+\DoxyCodeLine{02025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (format\ ==\ NULL)}
+\DoxyCodeLine{02026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ str;}
+\DoxyCodeLine{02027\ }
+\DoxyCodeLine{02028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ sprintf(str,\ format,\ value);}
+\DoxyCodeLine{02029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&str[size];}
+\DoxyCodeLine{02030\ \ \ \ \ \}}
+\DoxyCodeLine{02031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02032\ }
+\DoxyCodeLine{02033\ \ \ \ \ \textcolor{keywordtype}{char}\ *buf\ =\ NULL;}
+\DoxyCodeLine{02034\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ bufLen\ =\ 0;}
+\DoxyCodeLine{02035\ \};}
+\DoxyCodeLine{02036\ }
+\DoxyCodeLine{02037\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ operator+(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&rhs)}
+\DoxyCodeLine{02038\ \{}
+\DoxyCodeLine{02039\ \ \ \ \ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ res;}
+\DoxyCodeLine{02040\ \ \ \ \ res.reserve(lhs.length()\ +\ rhs.length());}
+\DoxyCodeLine{02041\ \ \ \ \ res\ +=\ lhs;}
+\DoxyCodeLine{02042\ \ \ \ \ res\ +=\ rhs;}
+\DoxyCodeLine{02043\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{02044\ \}}
+\DoxyCodeLine{02045\ }
+\DoxyCodeLine{02046\ \textcolor{preprocessor}{\#if\ !defined(\_\_AVR\_\_)}}
+\DoxyCodeLine{02047\ }
+\DoxyCodeLine{02048\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ operator+(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&\&lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&rhs)}
+\DoxyCodeLine{02049\ \{}
+\DoxyCodeLine{02050\ \ \ \ \ lhs\ +=\ rhs;}
+\DoxyCodeLine{02051\ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(lhs);}
+\DoxyCodeLine{02052\ \}}
+\DoxyCodeLine{02053\ }
+\DoxyCodeLine{02054\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ operator+(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&lhs,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&\&rhs)}
+\DoxyCodeLine{02055\ \{}
+\DoxyCodeLine{02056\ \ \ \ \ lhs\ +=\ rhs;}
+\DoxyCodeLine{02057\ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(lhs);}
+\DoxyCodeLine{02058\ \}}
+\DoxyCodeLine{02059\ }
+\DoxyCodeLine{02060\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ operator+(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&lhs,\ \textcolor{keywordtype}{char}\ rhs)}
+\DoxyCodeLine{02061\ \{}
+\DoxyCodeLine{02062\ \ \ \ \ lhs\ +=\ rhs;}
+\DoxyCodeLine{02063\ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(lhs);}
+\DoxyCodeLine{02064\ \}}
+\DoxyCodeLine{02065\ }
+\DoxyCodeLine{02066\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ operator+(\textcolor{keywordtype}{char}\ lhs,\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&rhs)}
+\DoxyCodeLine{02067\ \{}
+\DoxyCodeLine{02068\ \ \ \ \ rhs.insert(0,\ lhs);}
+\DoxyCodeLine{02069\ \ \ \ \ \textcolor{keywordflow}{return}\ rhs;}
+\DoxyCodeLine{02070\ \}}
+\DoxyCodeLine{02071\ }
+\DoxyCodeLine{02072\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{class_m_b___string}{MB\_String}}\ operator+(\mbox{\hyperlink{class_m_b___string}{MB\_String}}\ \&\&lhs,\ \textcolor{keywordtype}{char}\ rhs)}
+\DoxyCodeLine{02073\ \{}
+\DoxyCodeLine{02074\ \ \ \ \ \textcolor{keywordflow}{return}\ std::move(lhs.insert(0,\ rhs));}
+\DoxyCodeLine{02075\ \}}
+\DoxyCodeLine{02076\ }
+\DoxyCodeLine{02077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02078\ }
+\DoxyCodeLine{02079\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

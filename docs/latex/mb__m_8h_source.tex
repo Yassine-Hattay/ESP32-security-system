@@ -1,0 +1,202 @@
+\doxysection{mb\+\_\+m.\+h}
+\hypertarget{mb__m_8h_source}{}\label{mb__m_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/modbus/include/mb\_m.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/modbus/include/mb\_m.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2013\ Armink}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ SPDX-\/FileContributor:\ 2016-\/2021\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ FreeModbus\ Libary:\ A\ portable\ Modbus\ implementation\ for\ Modbus\ ASCII/RTU.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2013\ Armink\ <armink.ztl@gmail.com>}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ are\ met:}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ 3.\ The\ name\ of\ the\ author\ may\ not\ be\ used\ to\ endorse\ or\ promote\ products}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ \ \ \ derived\ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ AUTHOR\ \`{}\`{}AS\ IS''\ AND\ ANY\ EXPRESS\ OR}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHOR\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ File:\ \$Id:\ mb\_m.h,v\ 1.60\ 2013/09/03\ 10:20:05\ Armink\ Add\ Master\ Functions\ \$}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#ifndef\ \_MB\_M\_H}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ \_MB\_M\_H}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}mbconfig.h"{}}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}port.h"{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}mb.h"{}}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00046\ PR\_BEGIN\_EXTERN\_C}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ "{}mbport.h"{}}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}mbproto.h"{}}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Defines\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ MB\_MASTER\_TCP\_PORT\_USE\_DEFAULT\ 0}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00088\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{group__modbus_gga4a4221894721a805eb82e27af9b9fd3faf9473380121c3ce156f54da0b7082087}{MB\_MRE\_NO\_ERR}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{group__modbus_gga4a4221894721a805eb82e27af9b9fd3fa096bce8c6a970e86c47d58038034f241}{MB\_MRE\_NO\_REG}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{group__modbus_gga4a4221894721a805eb82e27af9b9fd3fac36b5aa38a3576c969eae697b35b0312}{MB\_MRE\_ILL\_ARG}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{group__modbus_gga4a4221894721a805eb82e27af9b9fd3fa61c2126752f6121911777bd8194a41f1}{MB\_MRE\_REV\_DATA}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{group__modbus_gga4a4221894721a805eb82e27af9b9fd3fa82e84aea1de7e18c11dcdc868cf61b64}{MB\_MRE\_TIMEDOUT}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{group__modbus_gga4a4221894721a805eb82e27af9b9fd3faf17dd45dc2ca8e413809ce2f84ac3f40}{MB\_MRE\_MASTER\_BUSY}},\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{group__modbus_gga4a4221894721a805eb82e27af9b9fd3fabb85debb71a36cb4368469a5219aa920}{MB\_MRE\_EXE\_FUN}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00096\ \}\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00103\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ uint64\_t\ xTransId;}
+\DoxyCodeLine{00105\ \ \ \ \ UCHAR\ ucDestAddr;}
+\DoxyCodeLine{00106\ \ \ \ \ UCHAR\ ucFuncCode;}
+\DoxyCodeLine{00107\ \ \ \ \ eMBException\ eException;}
+\DoxyCodeLine{00108\ \ \ \ \ UCHAR\ ucFrameError;}
+\DoxyCodeLine{00109\ \}\ \mbox{\hyperlink{struct_transaction_info__t}{TransactionInfo\_t}};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00115\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{group__modbus_ggaecbc4cfbd1883102b5d07bac7f1e0287a079e3da05d71891b00c73d883791d9c9}{MB\_TMODE\_T35}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{group__modbus_ggaecbc4cfbd1883102b5d07bac7f1e0287a21307128dbf9ca10da9e9b5ecffe6965}{MB\_TMODE\_RESPOND\_TIMEOUT}},\ \ \ \ \ \ \ }
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{group__modbus_ggaecbc4cfbd1883102b5d07bac7f1e0287ad096bb73d01ce4eda3804490ed65274b}{MB\_TMODE\_CONVERT\_DELAY}}\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00119\ \}\ \mbox{\hyperlink{group__modbus_gaecbc4cfbd1883102b5d07bac7f1e0287}{eMBMasterTimerMode}};}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{extern}\ \_lock\_t\ xMBMLock;\ \textcolor{comment}{//\ Modbus\ lock\ object}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ MB\_ATOMIC\_SECTION\ CRITICAL\_SECTION(xMBMLock)}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Function\ prototypes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00147\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \ \ \ \mbox{\hyperlink{group__modbus_ga5dcd8f7775b249391c20be352441afbd}{eMBMasterSerialInit}}(\ \mbox{\hyperlink{group__modbus_ga462d0d9396f02be6f9fd5b6f19463e61}{eMBMode}}\ eMode,\ UCHAR\ ucPort,}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ULONG\ ulBaudRate,\ \mbox{\hyperlink{group__modbus_ga16ba85fa56bcd52a11a12576af445ccb}{eMBParity}}\ eParity\ );}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00164\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \ \ \ \mbox{\hyperlink{group__modbus_ga5d7972dc53f325ba4ec3fdbd81d65b8d}{eMBMasterTCPInit}}(\ USHORT\ usTCPPort\ );}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00180\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \ \ \ \mbox{\hyperlink{group__modbus_ga665326ed2c1a3186e4538121610084e1}{eMBMasterClose}}(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00192\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \ \ \ \mbox{\hyperlink{group__modbus_gadf1d4463487c5b3643b76c9418ba174e}{eMBMasterEnable}}(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00203\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \ \ \ \mbox{\hyperlink{group__modbus_ga8714b419351b34d88f067280ed61063f}{eMBMasterDisable}}(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00217\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \ \ \ \mbox{\hyperlink{group__modbus_ga914f60176226a453fc974b3ed5a9b457}{eMBMasterPoll}}(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00239\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \ \ \ \mbox{\hyperlink{group__modbus_ga98909e0cb2e8f24cc31e24a0e851272d}{eMBMasterRegisterCB}}(\ UCHAR\ ucFunctionCode,}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pxMBFunctionHandler\ pxHandler\ );}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Callback\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00276\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \mbox{\hyperlink{group__modbus__registers_gade9e2830a4753d0d70d8ba5b87e8f67d}{eMBMasterRegCommonCB}}(\ UCHAR\ *\ pucData,\ USHORT\ usAddress,}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ USHORT\ usBytes\ );}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00298\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \mbox{\hyperlink{group__modbus__registers_gafed33e6cbab5cb7c3fcda38dc2065627}{eMBMasterRegInputCB}}(\ UCHAR\ *\ pucRegBuffer,\ USHORT\ usAddress,}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ USHORT\ usNRegs\ );}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00327\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \mbox{\hyperlink{group__modbus__registers_ga38248652eb20c6f14026d1da15201714}{eMBMasterRegHoldingCB}}(\ UCHAR\ *\ pucRegBuffer,\ USHORT\ usAddress,}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ USHORT\ usNRegs,\ \mbox{\hyperlink{group__modbus_gaf1398cbbeb317b1dbd0276b275f5b0f8}{eMBRegisterMode}}\ eMode\ );}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00356\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \mbox{\hyperlink{group__modbus__registers_gabafb7643ab427b399892158f084c1d86}{eMBMasterRegCoilsCB}}(\ UCHAR\ *\ pucRegBuffer,\ USHORT\ usAddress,}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ USHORT\ usNCoils,\ \mbox{\hyperlink{group__modbus_gaf1398cbbeb317b1dbd0276b275f5b0f8}{eMBRegisterMode}}\ eMode\ );}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00379\ \mbox{\hyperlink{group__modbus_ga9e7fce8c431cb0e521c67f7f36dd823d}{eMBErrorCode}}\ \mbox{\hyperlink{group__modbus__registers_ga0bb63a51c450a5b70af2aedc92f47d6b}{eMBMasterRegDiscreteCB}}(\ UCHAR\ *\ pucRegBuffer,\ USHORT\ usAddress,}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ USHORT\ usNDiscrete\ );}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00385\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00386\ \mbox{\hyperlink{group__modbus_ga4cd2126cf5d717b4d1985ae6ed3aae49}{eMBMasterReqReportSlaveID}}(\ UCHAR\ ucSndAddr,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00387\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00388\ eMBMasterReqReadInputRegister(\ UCHAR\ ucSndAddr,\ USHORT\ usRegAddr,\ USHORT\ usNRegs,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00389\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00390\ eMBMasterReqWriteHoldingRegister(\ UCHAR\ ucSndAddr,\ USHORT\ usRegAddr,\ USHORT\ usRegData,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00391\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00392\ eMBMasterReqWriteMultipleHoldingRegister(\ UCHAR\ ucSndAddr,\ USHORT\ usRegAddr,}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ USHORT\ usNRegs,\ USHORT\ *\ pusDataBuffer,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00394\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00395\ eMBMasterReqReadHoldingRegister(\ UCHAR\ ucSndAddr,\ USHORT\ usRegAddr,\ USHORT\ usNRegs,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00396\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00397\ eMBMasterReqReadWriteMultipleHoldingRegister(\ UCHAR\ ucSndAddr,}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ USHORT\ usReadRegAddr,\ USHORT\ usNReadRegs,\ USHORT\ *\ pusDataBuffer,}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ USHORT\ usWriteRegAddr,\ USHORT\ usNWriteRegs,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00400\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00401\ eMBMasterReqReadCoils(\ UCHAR\ ucSndAddr,\ USHORT\ usCoilAddr,\ USHORT\ usNCoils,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00402\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00403\ eMBMasterReqWriteCoil(\ UCHAR\ ucSndAddr,\ USHORT\ usCoilAddr,\ USHORT\ usCoilData,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00404\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00405\ eMBMasterReqWriteMultipleCoils(\ UCHAR\ ucSndAddr,}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ USHORT\ usCoilAddr,\ USHORT\ usNCoils,\ UCHAR\ *\ pucDataBuffer,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00407\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}}
+\DoxyCodeLine{00408\ eMBMasterReqReadDiscreteInputs(\ UCHAR\ ucSndAddr,\ USHORT\ usDiscreteAddr,\ USHORT\ usNDiscreteIn,\ LONG\ lTimeOut\ );}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ eMBException}
+\DoxyCodeLine{00411\ eMBMasterFuncReportSlaveID(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00412\ eMBException}
+\DoxyCodeLine{00413\ eMBMasterFuncReadInputRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00414\ eMBException}
+\DoxyCodeLine{00415\ eMBMasterFuncReadHoldingRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00416\ eMBException}
+\DoxyCodeLine{00417\ eMBMasterFuncWriteHoldingRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00418\ eMBException}
+\DoxyCodeLine{00419\ eMBMasterFuncWriteMultipleHoldingRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00420\ eMBException}
+\DoxyCodeLine{00421\ eMBMasterFuncReadCoils(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00422\ eMBException}
+\DoxyCodeLine{00423\ eMBMasterFuncWriteCoil(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00424\ eMBException}
+\DoxyCodeLine{00425\ eMBMasterFuncWriteMultipleCoils(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00426\ eMBException}
+\DoxyCodeLine{00427\ eMBMasterFuncReadDiscreteInputs(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00428\ eMBException}
+\DoxyCodeLine{00429\ eMBMasterFuncReadWriteMultipleHoldingRegister(\ UCHAR\ *\ pucFrame,\ USHORT\ *\ usLen\ );}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{comment}{/*\ \(\backslash\)ingroup\ modbus}}
+\DoxyCodeLine{00432\ \textcolor{comment}{\ *\ \(\backslash\)brief\ These\ functions\ are\ interface\ for\ Modbus\ Master}}
+\DoxyCodeLine{00433\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00434\ \textcolor{keywordtype}{void}\ vMBMasterGetPDUSndBuf(\ UCHAR\ **\ pucFrame\ );}
+\DoxyCodeLine{00435\ UCHAR\ ucMBMasterGetDestAddress(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00436\ \textcolor{keywordtype}{void}\ vMBMasterSetDestAddress(\ UCHAR\ Address\ );}
+\DoxyCodeLine{00437\ BOOL\ xMBMasterGetCBRunInMasterMode(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00438\ \textcolor{keywordtype}{void}\ vMBMasterSetCBRunInMasterMode(\ BOOL\ IsMasterMode\ );}
+\DoxyCodeLine{00439\ USHORT\ usMBMasterGetPDUSndLength(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00440\ \textcolor{keywordtype}{void}\ vMBMasterSetPDUSndLength(\ USHORT\ SendPDULength\ );}
+\DoxyCodeLine{00441\ \textcolor{keywordtype}{void}\ vMBMasterSetCurTimerMode(\ \mbox{\hyperlink{group__modbus_gaecbc4cfbd1883102b5d07bac7f1e0287}{eMBMasterTimerMode}}\ eMBTimerMode\ );}
+\DoxyCodeLine{00442\ \textcolor{keywordtype}{void}\ vMBMasterRequestSetType(\ BOOL\ xIsBroadcast\ );}
+\DoxyCodeLine{00443\ \mbox{\hyperlink{group__modbus_gaecbc4cfbd1883102b5d07bac7f1e0287}{eMBMasterTimerMode}}\ xMBMasterGetCurTimerMode(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00444\ BOOL\ xMBMasterRequestIsBroadcast(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00445\ eMBMasterErrorEventType\ eMBMasterGetErrorType(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00446\ \textcolor{keywordtype}{void}\ vMBMasterSetErrorType(\ eMBMasterErrorEventType\ errorType\ );}
+\DoxyCodeLine{00447\ \mbox{\hyperlink{group__modbus_ga4a4221894721a805eb82e27af9b9fd3f}{eMBMasterReqErrCode}}\ eMBMasterWaitRequestFinish(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00448\ \mbox{\hyperlink{group__modbus_ga462d0d9396f02be6f9fd5b6f19463e61}{eMBMode}}\ ucMBMasterGetCommMode(\ \textcolor{keywordtype}{void}\ );}
+\DoxyCodeLine{00449\ BOOL\ xMBMasterGetLastTransactionInfo(\ uint64\_t\ *pxTransId,\ UCHAR\ *pucDestAddress,}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UCHAR\ *pucFunctionCode,\ UCHAR\ *pucException,}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ USHORT\ *pusErrorType\ );}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Callback\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00454\ }
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00456\ PR\_END\_EXTERN\_C}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00458\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

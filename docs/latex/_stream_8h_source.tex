@@ -1,0 +1,154 @@
+\doxysection{Stream.\+h}
+\hypertarget{_stream_8h_source}{}\label{_stream_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/Stream.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/Stream.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ Stream.h\ -\/\ base\ class\ for\ character-\/based\ streams.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ Copyright\ (c)\ 2010\ David\ A.\ Mellis.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ parsing\ functions\ based\ on\ TextFinder\ library\ by\ Michael\ Margolis}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}Print.h"{}}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ compatibility\ macros\ for\ testing}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\#define\ \ \ getInt()\ \ \ \ \ \ \ \ \ \ \ \ parseInt()}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\#define\ \ \ getInt(ignore)\ \ \ \ \ \ parseInt(ignore)}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\#define\ \ \ getFloat()\ \ \ \ \ \ \ \ \ \ parseFloat()}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\#define\ \ \ getFloat(ignore)\ \ \ \ parseFloat(ignore)}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\#define\ \ \ getString(\ pre\_string,\ post\_string,\ buffer,\ length)}}
+\DoxyCodeLine{00034\ \textcolor{comment}{readBytesBetween(\ pre\_string,\ terminator,\ buffer,\ length)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ This\ enumeration\ provides\ the\ lookahead\ options\ for\ parseInt(),\ parseFloat()}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ The\ rules\ set\ out\ here\ are\ used\ until\ either\ the\ first\ valid\ character\ is\ found}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ or\ a\ time\ out\ occurs\ due\ to\ lack\ of\ input.}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{enum}\ LookaheadMode\ \{}
+\DoxyCodeLine{00041\ \ \ SKIP\_ALL,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ All\ invalid\ characters\ are\ ignored.}}
+\DoxyCodeLine{00042\ \ \ SKIP\_NONE,\ \ \ \ \ \ \ \textcolor{comment}{//\ Nothing\ is\ skipped,\ and\ the\ stream\ is\ not\ touched\ unless\ the\ first\ waiting\ character\ is\ valid.}}
+\DoxyCodeLine{00043\ \ \ SKIP\_WHITESPACE\ \ \textcolor{comment}{//\ Only\ tabs,\ spaces,\ line\ feeds\ \&\ carriage\ returns\ are\ skipped.}}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ NO\_IGNORE\_CHAR\ '\(\backslash\)x01'\ \ }\textcolor{comment}{//\ a\ char\ not\ found\ in\ a\ valid\ ASCII\ numeric\ field}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }Stream\ :\ \textcolor{keyword}{public}\ Print\ \{}
+\DoxyCodeLine{00049\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_timeout;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ number\ of\ milliseconds\ to\ wait\ for\ the\ next\ char\ before\ aborting\ timed\ read}}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_startMillis;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ used\ for\ timeout\ measurement}}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{int}\ timedRead();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ private\ method\ to\ read\ stream\ with\ timeout}}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{int}\ timedPeek();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ private\ method\ to\ peek\ stream\ with\ timeout}}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{int}\ peekNextDigit(LookaheadMode\ lookahead,\ \textcolor{keywordtype}{bool}\ detectDecimal);\ \ \textcolor{comment}{//\ returns\ the\ next\ numeric\ digit\ in\ the\ stream\ or\ -\/1\ if\ timeout}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ available()\ =\ 0;}
+\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ read()\ =\ 0;}
+\DoxyCodeLine{00059\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ peek()\ =\ 0;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ Stream()\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \_timeout\ =\ 1000;}
+\DoxyCodeLine{00063\ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{comment}{//\ parsing\ methods}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{void}\ setTimeout(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeout);\ \ \textcolor{comment}{//\ sets\ maximum\ milliseconds\ to\ wait\ for\ stream\ data,\ default\ is\ 1\ second}}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ getTimeout(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{return}\ \_timeout;}
+\DoxyCodeLine{00070\ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{bool}\ find(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *target);\ \ \textcolor{comment}{//\ reads\ data\ from\ the\ stream\ until\ the\ target\ string\ is\ found}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{bool}\ find(\textcolor{keyword}{const}\ uint8\_t\ *target)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{return}\ find((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)target);}
+\DoxyCodeLine{00075\ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \textcolor{comment}{//\ returns\ true\ if\ target\ string\ is\ found,\ false\ if\ timed\ out\ (see\ setTimeout)}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{bool}\ find(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *target,\ \textcolor{keywordtype}{size\_t}\ length);\ \ \textcolor{comment}{//\ reads\ data\ from\ the\ stream\ until\ the\ target\ string\ of\ given\ length\ is\ found}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{bool}\ find(\textcolor{keyword}{const}\ uint8\_t\ *target,\ \textcolor{keywordtype}{size\_t}\ length)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ find((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)target,\ length);}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ returns\ true\ if\ target\ string\ is\ found,\ false\ if\ timed\ out}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{bool}\ find(\textcolor{keywordtype}{char}\ target)\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{return}\ find(\&target,\ 1);}
+\DoxyCodeLine{00086\ \ \ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{bool}\ findUntil(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *target,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *terminator);\ \ \textcolor{comment}{//\ as\ find\ but\ search\ ends\ if\ the\ terminator\ string\ is\ found}}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{bool}\ findUntil(\textcolor{keyword}{const}\ uint8\_t\ *target,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *terminator)\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{return}\ findUntil((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)target,\ terminator);}
+\DoxyCodeLine{00091\ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{bool}\ findUntil(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *target,\ \textcolor{keywordtype}{size\_t}\ targetLen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *terminate,\ \textcolor{keywordtype}{size\_t}\ termLen);\ \ \textcolor{comment}{//\ as\ above\ but\ search\ ends\ if\ the\ terminate\ string\ is\ found}}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ findUntil(\textcolor{keyword}{const}\ uint8\_t\ *target,\ \textcolor{keywordtype}{size\_t}\ targetLen,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *terminate,\ \textcolor{keywordtype}{size\_t}\ termLen)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{return}\ findUntil((\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *)target,\ targetLen,\ terminate,\ termLen);}
+\DoxyCodeLine{00096\ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{long}\ parseInt(LookaheadMode\ lookahead\ =\ SKIP\_ALL,\ \textcolor{keywordtype}{char}\ ignore\ =\ NO\_IGNORE\_CHAR);}
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ returns\ the\ first\ valid\ (long)\ integer\ value\ from\ the\ current\ position.}}
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{//\ lookahead\ determines\ how\ parseInt\ looks\ ahead\ in\ the\ stream.}}
+\DoxyCodeLine{00101\ \ \ \textcolor{comment}{//\ See\ LookaheadMode\ enumeration\ at\ the\ top\ of\ the\ file.}}
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ Lookahead\ is\ terminated\ by\ the\ first\ character\ that\ is\ not\ a\ valid\ part\ of\ an\ integer.}}
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ Once\ parsing\ commences,\ 'ignore'\ will\ be\ skipped\ in\ the\ stream.}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{float}\ parseFloat(LookaheadMode\ lookahead\ =\ SKIP\_ALL,\ \textcolor{keywordtype}{char}\ ignore\ =\ NO\_IGNORE\_CHAR);}
+\DoxyCodeLine{00106\ \ \ \textcolor{comment}{//\ float\ version\ of\ parseInt}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ readBytes(\textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ length);\ \ \textcolor{comment}{//\ read\ chars\ from\ stream\ into\ buffer}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ readBytes(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ length)\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{return}\ readBytes((\textcolor{keywordtype}{char}\ *)buffer,\ length);}
+\DoxyCodeLine{00111\ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \textcolor{comment}{//\ terminates\ if\ length\ characters\ have\ been\ read\ or\ timeout\ (see\ setTimeout)}}
+\DoxyCodeLine{00113\ \ \ \textcolor{comment}{//\ returns\ the\ number\ of\ characters\ placed\ in\ the\ buffer\ (0\ means\ no\ valid\ data\ found)}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{size\_t}\ readBytesUntil(\textcolor{keywordtype}{char}\ terminator,\ \textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ length);\ \ \textcolor{comment}{//\ as\ readBytes\ with\ terminator\ character}}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{size\_t}\ readBytesUntil(\textcolor{keywordtype}{char}\ terminator,\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ length)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordflow}{return}\ readBytesUntil(terminator,\ (\textcolor{keywordtype}{char}\ *)buffer,\ length);}
+\DoxyCodeLine{00118\ \ \ \}}
+\DoxyCodeLine{00119\ \ \ \textcolor{comment}{//\ terminates\ if\ length\ characters\ have\ been\ read,\ timeout,\ or\ if\ the\ terminator\ character\ \ detected}}
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{//\ returns\ the\ number\ of\ characters\ placed\ in\ the\ buffer\ (0\ means\ no\ valid\ data\ found)}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{comment}{//\ Arduino\ String\ functions\ to\ be\ added\ here}}
+\DoxyCodeLine{00123\ \ \ \textcolor{keyword}{virtual}\ String\ readString();}
+\DoxyCodeLine{00124\ \ \ String\ readStringUntil(\textcolor{keywordtype}{char}\ terminator);}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{long}\ parseInt(\textcolor{keywordtype}{char}\ ignore)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{return}\ parseInt(SKIP\_ALL,\ ignore);}
+\DoxyCodeLine{00129\ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{float}\ parseFloat(\textcolor{keywordtype}{char}\ ignore)\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{return}\ parseFloat(SKIP\_ALL,\ ignore);}
+\DoxyCodeLine{00132\ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \textcolor{comment}{//\ These\ overload\ exists\ for\ compatibility\ with\ any\ class\ that\ has\ derived}}
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{//\ Stream\ and\ used\ parseFloat/Int\ with\ a\ custom\ ignore\ character.\ To\ keep}}
+\DoxyCodeLine{00135\ \ \ \textcolor{comment}{//\ the\ public\ API\ simple,\ these\ overload\ remains\ protected.}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_stream_1_1_multi_target}{MultiTarget}}\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str;\ \ \textcolor{comment}{//\ string\ you're\ searching\ for}}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len;\ \ \ \ \ \ \ \textcolor{comment}{//\ length\ of\ string\ you're\ searching\ for}}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ index;\ \ \ \ \ \textcolor{comment}{//\ index\ used\ by\ the\ search\ routine.}}
+\DoxyCodeLine{00141\ \ \ \};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \textcolor{comment}{//\ This\ allows\ you\ to\ search\ for\ an\ arbitrary\ number\ of\ strings.}}
+\DoxyCodeLine{00144\ \ \ \textcolor{comment}{//\ Returns\ index\ of\ the\ target\ that\ is\ found\ first\ or\ -\/1\ if\ timeout\ occurs.}}
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{int}\ findMulti(\textcolor{keyword}{struct}\ \mbox{\hyperlink{struct_stream_1_1_multi_target}{MultiTarget}}\ *targets,\ \textcolor{keywordtype}{int}\ tCount);}
+\DoxyCodeLine{00146\ \};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#undef\ NO\_IGNORE\_CHAR}}
+
+\end{DoxyCode}

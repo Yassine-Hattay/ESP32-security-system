@@ -1,0 +1,213 @@
+\doxysection{Matter\+Thermostat.\+h}
+\hypertarget{_matter_thermostat_8h_source}{}\label{_matter_thermostat_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Matter/src/MatterEndpoints/MatterThermostat.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Matter/src/MatterEndpoints/MatterThermostat.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <sdkconfig.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ESP\_MATTER\_ENABLE\_DATA\_MODEL}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <Matter.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <MatterEndPoint.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <app-\/common/zap-\/generated/cluster-\/enums.h>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{using\ namespace\ }chip::app::Clusters;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }MatterThermostat\ :\ \textcolor{keyword}{public}\ MatterEndPoint\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \textcolor{comment}{//\ clang-\/format\ off}}
+\DoxyCodeLine{00028\ \ \ \textcolor{keyword}{enum}\ ControlSequenceOfOperation\_t\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ THERMOSTAT\_SEQ\_OP\_COOLING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::ControlSequenceOfOperationEnum::kCoolingOnly,}
+\DoxyCodeLine{00030\ \ \ \ \ THERMOSTAT\_SEQ\_OP\_COOLING\_REHEAT\ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::ControlSequenceOfOperationEnum::kCoolingWithReheat,}
+\DoxyCodeLine{00031\ \ \ \ \ THERMOSTAT\_SEQ\_OP\_HEATING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::ControlSequenceOfOperationEnum::kHeatingOnly,}
+\DoxyCodeLine{00032\ \ \ \ \ THERMOSTAT\_SEQ\_OP\_HEATING\_REHEAT\ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::ControlSequenceOfOperationEnum::kHeatingWithReheat,}
+\DoxyCodeLine{00033\ \ \ \ \ THERMOSTAT\_SEQ\_OP\_COOLING\_HEATING\ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::ControlSequenceOfOperationEnum::kCoolingAndHeating,}
+\DoxyCodeLine{00034\ \ \ \ \ THERMOSTAT\_SEQ\_OP\_COOLING\_HEATING\_REHEAT\ =\ (uint8\_t)\ Thermostat::ControlSequenceOfOperationEnum::kCoolingAndHeatingWithReheat,}
+\DoxyCodeLine{00035\ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{enum}\ ThermostatMode\_t\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ THERMOSTAT\_MODE\_OFF\ \ \ \ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kOff,}
+\DoxyCodeLine{00039\ \ \ \ \ THERMOSTAT\_MODE\_AUTO\ \ \ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kAuto,}
+\DoxyCodeLine{00040\ \ \ \ \ THERMOSTAT\_MODE\_COOL\ \ \ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kCool,}
+\DoxyCodeLine{00041\ \ \ \ \ THERMOSTAT\_MODE\_HEAT\ \ \ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kHeat,}
+\DoxyCodeLine{00042\ \ \ \ \ THERMOSTAT\_MODE\_EMERGENCY\_HEAT\ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kEmergencyHeat,}
+\DoxyCodeLine{00043\ \ \ \ \ THERMOSTAT\_MODE\_PRECOOLING\ \ \ \ \ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kPrecooling,}
+\DoxyCodeLine{00044\ \ \ \ \ THERMOSTAT\_MODE\_FAN\_ONLY\ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kFanOnly,}
+\DoxyCodeLine{00045\ \ \ \ \ THERMOSTAT\_MODE\_DRY\ \ \ \ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kDry,}
+\DoxyCodeLine{00046\ \ \ \ \ THERMOSTAT\_MODE\_SLEEP\ \ \ \ \ \ \ \ \ \ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kSleep}
+\DoxyCodeLine{00047\ \ \ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{enum}\ ThermostatAutoMode\_t\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ THERMOSTAT\_AUTO\_MODE\_DISABLED\ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kOff,}
+\DoxyCodeLine{00051\ \ \ \ \ THERMOSTAT\_AUTO\_MODE\_ENABLED\ \ =\ (uint8\_t)\ Thermostat::SystemModeEnum::kAuto,}
+\DoxyCodeLine{00052\ \ \ \};}
+\DoxyCodeLine{00053\ \ \ \textcolor{comment}{//\ clang-\/format\ on}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ MatterThermostat();}
+\DoxyCodeLine{00056\ \ \ \string~MatterThermostat();}
+\DoxyCodeLine{00057\ \ \ \textcolor{comment}{//\ begin\ Matter\ Thermostat\ endpoint\ with\ initial\ Operation\ Mode}}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{bool}\ begin(ControlSequenceOfOperation\_t\ controlSequence\ =\ THERMOSTAT\_SEQ\_OP\_COOLING,\ ThermostatAutoMode\_t\ autoMode\ =\ THERMOSTAT\_AUTO\_MODE\_DISABLED);}
+\DoxyCodeLine{00059\ \ \ \textcolor{comment}{//\ this\ will\ stop\ processing\ Thermostat\ Matter\ events}}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{comment}{//\ set\ the\ Thermostat\ Mode}}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{bool}\ setMode(ThermostatMode\_t\ mode);}
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{//\ get\ the\ Thermostat\ Mode}}
+\DoxyCodeLine{00065\ \ \ ThermostatMode\_t\ getMode()\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ currentMode;}
+\DoxyCodeLine{00067\ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \textcolor{comment}{//\ returns\ a\ friendly\ string\ for\ the\ Fan\ Mode}}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *getThermostatModeString(uint8\_t\ mode)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{return}\ thermostatModeString[mode];}
+\DoxyCodeLine{00071\ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{comment}{//\ get\ the\ Thermostat\ Control\ Sequence\ of\ Operation}}
+\DoxyCodeLine{00074\ \ \ ControlSequenceOfOperation\_t\ getControlSequence()\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ controlSequence;}
+\DoxyCodeLine{00076\ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{comment}{//\ get\ the\ minimum\ heating\ setpoint\ in\ 1/100th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{float}\ getMinHeatSetpoint()\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{float})kDefaultMinHeatSetpointLimit\ /\ 100.00;}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ get\ the\ maximum\ heating\ setpoint\ in\ 1/100th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{float}\ getMaxHeatSetpoint()\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{float})kDefaultMaxHeatSetpointLimit\ /\ 100.00;}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ get\ the\ minimum\ cooling\ setpoint\ in\ 1/100th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{float}\ getMinCoolSetpoint()\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{float})kDefaultMinCoolSetpointLimit\ /\ 100.00;}
+\DoxyCodeLine{00089\ \ \ \}}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ get\ the\ maximum\ cooling\ setpoint\ in\ 1/100th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{float}\ getMaxCoolSetpoint()\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{float})kDefaultMaxCoolSetpointLimit\ /\ 100.00;}
+\DoxyCodeLine{00093\ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \textcolor{comment}{//\ get\ the\ deadband\ in\ 1/10th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{float}\ getDeadBand()\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{float})kDefaultDeadBand\ /\ 10.00;}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ generic\ function\ for\ setting\ the\ cooling\ and\ heating\ setpoints\ -\/\ checks\ if\ the\ setpoints\ are\ valid}}
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{//\ it\ can\ be\ used\ to\ set\ both\ setpoints\ at\ the\ same\ time\ or\ only\ one\ of\ them,\ by\ setting\ the\ other\ to\ (float)0xffff}}
+\DoxyCodeLine{00101\ \ \ \textcolor{comment}{//\ Heating\ Setpoint\ must\ be\ lower\ than\ Cooling\ Setpoint}}
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ When\ using\ AUTO\ mode\ the\ Cooling\ Setpoint\ must\ be\ higher\ than\ Heating\ Setpoint\ by\ at\ least\ the\ 2.5C\ (deadband)}}
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{//\ Thermostat\ Matter\ Server\ will\ enforce\ those\ rules\ and\ the\ Max/Min\ setpoints\ limits\ as\ in\ the\ Matter\ Specification}}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{bool}\ setCoolingHeatingSetpoints(\textcolor{keywordtype}{double}\ \_setpointHeatingTemperature,\ \textcolor{keywordtype}{double}\ \_setpointCollingTemperature);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \textcolor{comment}{//\ set\ the\ heating\ setpoint\ in\ 1/100th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{bool}\ setHeatingSetpoint(\textcolor{keywordtype}{double}\ \_setpointHeatingTemperature)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ setCoolingHeatingSetpoints((\textcolor{keywordtype}{double})0xffff,\ \_setpointHeatingTemperature);}
+\DoxyCodeLine{00109\ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{//\ get\ the\ heating\ setpoint\ in\ 1/100th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00111\ \ \ \textcolor{keywordtype}{double}\ getHeatingSetpoint()\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{return}\ heatingSetpointTemperature\ /\ 100.0;}
+\DoxyCodeLine{00113\ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ set\ the\ cooling\ setpoint\ in\ 1/100th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordtype}{bool}\ setCoolingSetpoint(\textcolor{keywordtype}{double}\ \_setpointCollingTemperature)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{return}\ setCoolingHeatingSetpoints(\_setpointCollingTemperature,\ (\textcolor{keywordtype}{double})0xffff);}
+\DoxyCodeLine{00117\ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \textcolor{comment}{//\ get\ the\ cooling\ setpoint\ in\ 1/100th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{double}\ getCoolingSetpoint()\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{return}\ coolingSetpointTemperature\ /\ 100.0;}
+\DoxyCodeLine{00121\ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \textcolor{comment}{//\ set\ the\ local\ Thermostat\ temperature\ in\ \ Celsio\ degrees}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{bool}\ setLocalTemperature(\textcolor{keywordtype}{double}\ temperature)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ stores\ up\ to\ 1/100th\ of\ a\ Celsio\ degree\ precision}}
+\DoxyCodeLine{00126\ \ \ \ \ int16\_t\ rawValue\ =\ \textcolor{keyword}{static\_cast<}int16\_t\textcolor{keyword}{>}(temperature\ *\ 100.0f);}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{return}\ setRawTemperature(rawValue,\ Thermostat::Attributes::LocalTemperature::Id,\ \&localTemperature);}
+\DoxyCodeLine{00128\ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \textcolor{comment}{//\ returns\ the\ local\ Thermostat\ float\ temperature\ with\ 1/100th\ of\ a\ Celsio\ degree\ precision}}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{double}\ getLocalTemperature()\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{double})localTemperature\ /\ 100.0;}
+\DoxyCodeLine{00132\ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{comment}{//\ User\ Callback\ for\ whenever\ the\ Thermostat\ Mode\ is\ changed\ by\ the\ Matter\ Controller}}
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{using\ }EndPointModeCB\ =\ std::function<bool(ThermostatMode\_t)>;}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{void}\ onChangeMode(EndPointModeCB\ onChangeCB)\ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \_onChangeModeCB\ =\ onChangeCB;}
+\DoxyCodeLine{00138\ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \textcolor{comment}{//\ User\ Callback\ for\ whenever\ the\ Local\ Temperature\ is\ changed\ by\ the\ Matter\ Controller}}
+\DoxyCodeLine{00141\ \ \ \textcolor{keyword}{using\ }EndPointTemperatureCB\ =\ std::function<bool(\textcolor{keywordtype}{float})>;}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{void}\ onChangeLocalTemperature(EndPointTemperatureCB\ onChangeCB)\ \{}
+\DoxyCodeLine{00143\ \ \ \ \ \_onChangeTemperatureCB\ =\ onChangeCB;}
+\DoxyCodeLine{00144\ \ \ \}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \textcolor{comment}{//\ User\ Callback\ for\ whenever\ the\ Cooling\ or\ Heating\ Setpoint\ is\ changed\ by\ the\ Matter\ Controller}}
+\DoxyCodeLine{00147\ \ \ \textcolor{keyword}{using\ }EndPointCoolingSetpointCB\ =\ std::function<bool(\textcolor{keywordtype}{double})>;}
+\DoxyCodeLine{00148\ \ \ \textcolor{keywordtype}{void}\ onChangeCoolingSetpoint(EndPointCoolingSetpointCB\ onChangeCB)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \_onChangeCoolingSetpointCB\ =\ onChangeCB;}
+\DoxyCodeLine{00150\ \ \ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \textcolor{comment}{//\ User\ Callback\ for\ whenever\ the\ Cooling\ or\ Heating\ Setpoint\ is\ changed\ by\ the\ Matter\ Controller}}
+\DoxyCodeLine{00153\ \ \ \textcolor{keyword}{using\ }EndPointHeatingSetpointCB\ =\ std::function<bool(\textcolor{keywordtype}{double})>;}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{void}\ onChangeHeatingSetpoint(EndPointHeatingSetpointCB\ onChangeCB)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \_onChangeHeatingSetpointCB\ =\ onChangeCB;}
+\DoxyCodeLine{00156\ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \textcolor{comment}{//\ User\ Callback\ for\ whenever\ any\ parameter\ is\ changed\ by\ the\ Matter\ Controller}}
+\DoxyCodeLine{00159\ \ \ \textcolor{comment}{//\ Main\ parameters\ are\ Thermostat\ Mode,\ Local\ Temperature,\ Cooling\ Setpoint\ and\ Heating\ Setpoint}}
+\DoxyCodeLine{00160\ \ \ \textcolor{comment}{//\ Those\ can\ be\ obtained\ using\ getMode(),\ getTemperature(),\ getCoolingSetpoint()\ and\ getHeatingSetpoint()}}
+\DoxyCodeLine{00161\ \ \ \textcolor{keyword}{using\ }EndPointCB\ =\ std::function<bool(\textcolor{keywordtype}{void})>;}
+\DoxyCodeLine{00162\ \ \ \textcolor{keywordtype}{void}\ onChange(EndPointCB\ onChangeCB)\ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \_onChangeCB\ =\ onChangeCB;}
+\DoxyCodeLine{00164\ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{comment}{//\ this\ function\ is\ called\ by\ Matter\ internal\ event\ processor.\ It\ could\ be\ overwritten\ by\ the\ application,\ if\ necessary.}}
+\DoxyCodeLine{00167\ \ \ \textcolor{keywordtype}{bool}\ attributeChangeCB(uint16\_t\ endpoint\_id,\ uint32\_t\ cluster\_id,\ uint32\_t\ attribute\_id,\ esp\_matter\_attr\_val\_t\ *val);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00170\ \ \ \textcolor{keywordtype}{bool}\ started\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00171\ \ \ \textcolor{comment}{//\ implementation\ keeps\ temperature\ in\ 1/100th\ of\ a\ Celsio\ degree}}
+\DoxyCodeLine{00172\ \ \ int16\_t\ coolingSetpointTemperature\ =\ 2400;\ \ \textcolor{comment}{//\ 24C\ cooling\ setpoint}}
+\DoxyCodeLine{00173\ \ \ int16\_t\ localTemperature\ =\ 2000;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 20C\ local\ temperature}}
+\DoxyCodeLine{00174\ \ \ int16\_t\ heatingSetpointTemperature\ =\ 1600;\ \ \textcolor{comment}{//\ 16C\ heating\ setpoint}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ ThermostatMode\_t\ currentMode\ =\ THERMOSTAT\_MODE\_OFF;}
+\DoxyCodeLine{00177\ \ \ ControlSequenceOfOperation\_t\ controlSequence\ =\ THERMOSTAT\_SEQ\_OP\_COOLING;}
+\DoxyCodeLine{00178\ \ \ ThermostatAutoMode\_t\ autoMode\ =\ THERMOSTAT\_AUTO\_MODE\_DISABLED;}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ EndPointModeCB\ \_onChangeModeCB\ =\ NULL;}
+\DoxyCodeLine{00181\ \ \ EndPointTemperatureCB\ \_onChangeTemperatureCB\ =\ NULL;}
+\DoxyCodeLine{00182\ \ \ EndPointCoolingSetpointCB\ \_onChangeCoolingSetpointCB\ =\ NULL;}
+\DoxyCodeLine{00183\ \ \ EndPointHeatingSetpointCB\ \_onChangeHeatingSetpointCB\ =\ NULL;}
+\DoxyCodeLine{00184\ \ \ EndPointCB\ \_onChangeCB\ =\ NULL;}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \textcolor{comment}{//\ internal\ function\ to\ set\ the\ raw\ temperature\ value\ (Matter\ Cluster)}}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{bool}\ setRawTemperature(int16\_t\ \_rawTemperature,\ uint32\_t\ attribute\_id,\ int16\_t\ *internalValue);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \textcolor{comment}{//\ clang-\/format\ off}}
+\DoxyCodeLine{00190\ \ \ \textcolor{comment}{//\ Default\ Thermostat\ values\ -\/\ can't\ be\ changed\ -\/\ defined\ in\ the\ Thermostat\ Cluster\ Server\ code}}
+\DoxyCodeLine{00191\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ int16\_t\ kDefaultAbsMinHeatSetpointLimit\ =\ 700;\ \ \textcolor{comment}{//\ 7C\ (44.5\ F)}}
+\DoxyCodeLine{00192\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ int16\_t\ kDefaultMinHeatSetpointLimit\ \ \ \ =\ 700;\ \ \textcolor{comment}{//\ 7C\ (44.5\ F)}}
+\DoxyCodeLine{00193\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ int16\_t\ kDefaultAbsMaxHeatSetpointLimit\ =\ 3000;\ \textcolor{comment}{//\ 30C\ (86\ F)}}
+\DoxyCodeLine{00194\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ int16\_t\ kDefaultMaxHeatSetpointLimit\ \ \ \ =\ 3000;\ \textcolor{comment}{//\ 30C\ (86\ F)}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ int16\_t\ kDefaultAbsMinCoolSetpointLimit\ =\ 1600;\ \textcolor{comment}{//\ 16C\ (61\ F)}}
+\DoxyCodeLine{00197\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ int16\_t\ kDefaultMinCoolSetpointLimit\ \ \ \ =\ 1600;\ \textcolor{comment}{//\ 16C\ (61\ F)}}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ int16\_t\ kDefaultAbsMaxCoolSetpointLimit\ =\ 3200;\ \textcolor{comment}{//\ 32C\ (90\ F)}}
+\DoxyCodeLine{00199\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ int16\_t\ kDefaultMaxCoolSetpointLimit\ \ \ \ =\ 3200;\ \textcolor{comment}{//\ 32C\ (90\ F)}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ int8\_t\ \ kDefaultDeadBand\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 25;\ \textcolor{comment}{//\ 2.5C\ when\ in\ AUTO\ mode}}
+\DoxyCodeLine{00202\ \ \ \textcolor{comment}{//\ clang-\/format\ on}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \textcolor{comment}{//\ string\ helper\ for\ the\ THERMOSTAT\ MODE}}
+\DoxyCodeLine{00205\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *thermostatModeString[5];}
+\DoxyCodeLine{00206\ \};}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_ESP\_MATTER\_ENABLE\_DATA\_MODEL\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

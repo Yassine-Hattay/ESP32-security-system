@@ -1,0 +1,135 @@
+\doxysection{esp\+\_\+rmaker\+\_\+internal.\+h}
+\hypertarget{esp__rmaker__internal_8h_source}{}\label{esp__rmaker__internal_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_rainmaker/src/core/esp\_rmaker\_internal.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_rainmaker/src/core/esp\_rmaker\_internal.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2020\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <freertos/FreeRTOS.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <freertos/queue.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <json\_generator.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <esp\_rmaker\_core.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <esp\_idf\_version.h>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ RMAKER\_PARAM\_FLAG\_VALUE\_CHANGE\ \ \ (1\ <<\ 0)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ RMAKER\_PARAM\_FLAG\_VALUE\_NOTIFY\ \ \ (1\ <<\ 1)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ ESP\_RMAKER\_NVS\_PART\_NAME\ \ \ \ \ \ \ \ \ \ \ \ "{}nvs"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ ESP\_IDF\_VERSION\ >=\ ESP\_IDF\_VERSION\_VAL(5,\ 1,\ 0)\ \&\&\ defined(CONFIG\_ESP\_RMAKER\_USING\_NETWORK\_PROV)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ RMAKER\_USING\_NETWORK\_PROV\ 1}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ RMAKER\_USING\_NETWORK\_PROV\ 0}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ ESP\_RMAKER\_STATE\_DEINIT\ =\ 0,}
+\DoxyCodeLine{00034\ \ \ \ \ ESP\_RMAKER\_STATE\_INIT\_DONE,}
+\DoxyCodeLine{00035\ \ \ \ \ ESP\_RMAKER\_STATE\_STARTING,}
+\DoxyCodeLine{00036\ \ \ \ \ ESP\_RMAKER\_STATE\_STARTED,}
+\DoxyCodeLine{00037\ \ \ \ \ ESP\_RMAKER\_STATE\_STOP\_REQUESTED,}
+\DoxyCodeLine{00038\ \}\ esp\_rmaker\_state\_t;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{structesp__rmaker__param__val__t}{esp\_rmaker\_param\_val\_t}}\ min;}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{structesp__rmaker__param__val__t}{esp\_rmaker\_param\_val\_t}}\ max;}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{structesp__rmaker__param__val__t}{esp\_rmaker\_param\_val\_t}}\ step;}
+\DoxyCodeLine{00044\ \}\ \mbox{\hyperlink{structesp__rmaker__param__bounds__t}{esp\_rmaker\_param\_bounds\_t}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00047\ \ \ \ \ uint8\_t\ str\_list\_cnt;}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **str\_list;}
+\DoxyCodeLine{00049\ \}\ \mbox{\hyperlink{structesp__rmaker__param__valid__str__list__t}{esp\_rmaker\_param\_valid\_str\_list\_t}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__param}{esp\_rmaker\_param}}\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{char}\ *name;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{char}\ *type;}
+\DoxyCodeLine{00054\ \ \ \ \ uint8\_t\ flags;}
+\DoxyCodeLine{00055\ \ \ \ \ uint8\_t\ prop\_flags;}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{char}\ *ui\_type;}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{structesp__rmaker__param__val__t}{esp\_rmaker\_param\_val\_t}}\ val;}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{structesp__rmaker__param__bounds__t}{esp\_rmaker\_param\_bounds\_t}}\ *bounds;}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{structesp__rmaker__param__valid__str__list__t}{esp\_rmaker\_param\_valid\_str\_list\_t}}\ *valid\_str\_list;}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__device}{esp\_rmaker\_device}}\ *parent;}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__param}{esp\_rmaker\_param}}\ *\ next;}
+\DoxyCodeLine{00062\ \};}
+\DoxyCodeLine{00063\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__param}{esp\_rmaker\_param}}\ \_esp\_rmaker\_param\_t;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__attr}{esp\_rmaker\_attr}}\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{char}\ *name;}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{char}\ *value;}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__attr}{esp\_rmaker\_attr}}\ *next;}
+\DoxyCodeLine{00069\ \};}
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__attr}{esp\_rmaker\_attr}}\ esp\_rmaker\_attr\_t;}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__device}{esp\_rmaker\_device}}\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{char}\ *name;}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{char}\ *type;}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{char}\ *subtype;}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{char}\ *model;}
+\DoxyCodeLine{00078\ \ \ \ \ uint8\_t\ param\_count;}
+\DoxyCodeLine{00079\ \ \ \ \ esp\_rmaker\_device\_write\_cb\_t\ write\_cb;}
+\DoxyCodeLine{00080\ \ \ \ \ esp\_rmaker\_device\_read\_cb\_t\ read\_cb;}
+\DoxyCodeLine{00081\ \ \ \ \ esp\_rmaker\_device\_bulk\_write\_cb\_t\ bulk\_write\_cb;}
+\DoxyCodeLine{00082\ \ \ \ \ esp\_rmaker\_device\_bulk\_read\_cb\_t\ bulk\_read\_cb;}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ *priv\_data;}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_service;}
+\DoxyCodeLine{00085\ \ \ \ \ esp\_rmaker\_attr\_t\ *attributes;}
+\DoxyCodeLine{00086\ \ \ \ \ \_esp\_rmaker\_param\_t\ *params;}
+\DoxyCodeLine{00087\ \ \ \ \ \_esp\_rmaker\_param\_t\ *primary;}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{const}\ esp\_rmaker\_node\_t\ *parent;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__device}{esp\_rmaker\_device}}\ *next;}
+\DoxyCodeLine{00090\ \};}
+\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__rmaker__device}{esp\_rmaker\_device}}\ \_esp\_rmaker\_device\_t;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{char}\ *node\_id;}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{structesp__rmaker__node__info__t}{esp\_rmaker\_node\_info\_t}}\ *info;}
+\DoxyCodeLine{00096\ \ \ \ \ esp\_rmaker\_attr\_t\ *attributes;}
+\DoxyCodeLine{00097\ \ \ \ \ \_esp\_rmaker\_device\_t\ *devices;}
+\DoxyCodeLine{00098\ \}\ \mbox{\hyperlink{struct__esp__rmaker__node__t}{\_esp\_rmaker\_node\_t}};}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ esp\_rmaker\_node\_t\ *esp\_rmaker\_node\_create(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *type);}
+\DoxyCodeLine{00101\ esp\_err\_t\ esp\_rmaker\_change\_node\_id(\textcolor{keywordtype}{char}\ *node\_id,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00102\ esp\_err\_t\ esp\_rmaker\_report\_value(\textcolor{keyword}{const}\ \mbox{\hyperlink{structesp__rmaker__param__val__t}{esp\_rmaker\_param\_val\_t}}\ *val,\ \textcolor{keywordtype}{char}\ *key,\ \mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jptr);}
+\DoxyCodeLine{00103\ esp\_err\_t\ esp\_rmaker\_report\_data\_type(esp\_rmaker\_val\_type\_t\ type,\ \textcolor{keywordtype}{char}\ *data\_type\_key,\ \mbox{\hyperlink{structjson__gen__str__t}{json\_gen\_str\_t}}\ *jptr);}
+\DoxyCodeLine{00104\ esp\_err\_t\ esp\_rmaker\_report\_node\_config(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00105\ esp\_err\_t\ esp\_rmaker\_report\_node\_state(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00106\ \_esp\_rmaker\_device\_t\ *esp\_rmaker\_node\_get\_first\_device(\textcolor{keyword}{const}\ esp\_rmaker\_node\_t\ *node);}
+\DoxyCodeLine{00107\ esp\_rmaker\_attr\_t\ *esp\_rmaker\_node\_get\_first\_attribute(\textcolor{keyword}{const}\ esp\_rmaker\_node\_t\ *node);}
+\DoxyCodeLine{00108\ esp\_err\_t\ esp\_rmaker\_params\_mqtt\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00109\ esp\_err\_t\ esp\_rmaker\_param\_get\_stored\_value(\_esp\_rmaker\_param\_t\ *param,\ \mbox{\hyperlink{structesp__rmaker__param__val__t}{esp\_rmaker\_param\_val\_t}}\ *val);}
+\DoxyCodeLine{00110\ esp\_err\_t\ esp\_rmaker\_param\_store\_value(\_esp\_rmaker\_param\_t\ *param);}
+\DoxyCodeLine{00111\ esp\_err\_t\ esp\_rmaker\_node\_delete(\textcolor{keyword}{const}\ esp\_rmaker\_node\_t\ *node);}
+\DoxyCodeLine{00112\ esp\_err\_t\ esp\_rmaker\_param\_delete(\textcolor{keyword}{const}\ esp\_rmaker\_param\_t\ *param);}
+\DoxyCodeLine{00113\ esp\_err\_t\ esp\_rmaker\_attribute\_delete(esp\_rmaker\_attr\_t\ *attr);}
+\DoxyCodeLine{00114\ \textcolor{keywordtype}{char}\ *esp\_rmaker\_get\_node\_config(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{char}\ *esp\_rmaker\_get\_node\_params(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00116\ esp\_err\_t\ esp\_rmaker\_handle\_set\_params(\textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ data\_len,\ esp\_rmaker\_req\_src\_t\ src);}
+\DoxyCodeLine{00117\ esp\_err\_t\ esp\_rmaker\_user\_mapping\_prov\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00118\ esp\_err\_t\ esp\_rmaker\_user\_mapping\_prov\_deinit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00119\ esp\_err\_t\ esp\_rmaker\_user\_node\_mapping\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00120\ esp\_err\_t\ esp\_rmaker\_user\_node\_mapping\_deinit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00121\ esp\_err\_t\ esp\_rmaker\_reset\_user\_node\_mapping(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00122\ esp\_err\_t\ esp\_rmaker\_init\_local\_ctrl\_service(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00123\ esp\_err\_t\ esp\_rmaker\_start\_local\_ctrl\_service(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *serv\_name);}
+\DoxyCodeLine{00124\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ esp\_err\_t\ esp\_rmaker\_post\_event(esp\_rmaker\_event\_t\ event\_id,\ \textcolor{keywordtype}{void}*\ data,\ \textcolor{keywordtype}{size\_t}\ data\_size)}
+\DoxyCodeLine{00125\ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{return}\ esp\_event\_post(RMAKER\_EVENT,\ event\_id,\ data,\ data\_size,\ portMAX\_DELAY);}
+\DoxyCodeLine{00127\ \}}
+\DoxyCodeLine{00128\ esp\_rmaker\_state\_t\ esp\_rmaker\_get\_state(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00129\ esp\_err\_t\ esp\_rmaker\_cmd\_response\_enable(\textcolor{keywordtype}{void});}
+
+\end{DoxyCode}

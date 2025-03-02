@@ -1,0 +1,130 @@
+\doxysection{crypto\+\_\+sign\+\_\+ed25519.\+h}
+\hypertarget{crypto__sign__ed25519_8h_source}{}\label{crypto__sign__ed25519_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_sign\_ed25519.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_sign\_ed25519.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ crypto\_sign\_ed25519\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ crypto\_sign\_ed25519\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}crypto\_hash\_sha512.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}export.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#\ ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#\ \ pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wlong-\/long"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcrypto__sign__ed25519ph__state}{crypto\_sign\_ed25519ph\_state}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{structcrypto__hash__sha512__state}{crypto\_hash\_sha512\_state}}\ hs;}
+\DoxyCodeLine{00017\ \}\ \mbox{\hyperlink{structcrypto__sign__ed25519ph__state}{crypto\_sign\_ed25519ph\_state}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ SODIUM\_EXPORT}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{size\_t}\ crypto\_sign\_ed25519ph\_statebytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ crypto\_sign\_ed25519\_BYTES\ 64U}}
+\DoxyCodeLine{00023\ SODIUM\_EXPORT}
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{size\_t}\ crypto\_sign\_ed25519\_bytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ crypto\_sign\_ed25519\_SEEDBYTES\ 32U}}
+\DoxyCodeLine{00027\ SODIUM\_EXPORT}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{size\_t}\ crypto\_sign\_ed25519\_seedbytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ crypto\_sign\_ed25519\_PUBLICKEYBYTES\ 32U}}
+\DoxyCodeLine{00031\ SODIUM\_EXPORT}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{size\_t}\ crypto\_sign\_ed25519\_publickeybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ crypto\_sign\_ed25519\_SECRETKEYBYTES\ (32U\ +\ 32U)}}
+\DoxyCodeLine{00035\ SODIUM\_EXPORT}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{size\_t}\ crypto\_sign\_ed25519\_secretkeybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ crypto\_sign\_ed25519\_MESSAGEBYTES\_MAX\ (SODIUM\_SIZE\_MAX\ -\/\ crypto\_sign\_ed25519\_BYTES)}}
+\DoxyCodeLine{00039\ SODIUM\_EXPORT}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{size\_t}\ crypto\_sign\_ed25519\_messagebytes\_max(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ SODIUM\_EXPORT}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sm,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *smlen\_p,}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1,\ 5)));}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ SODIUM\_EXPORT}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519\_open(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *mlen\_p,}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sm,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ smlen,}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk)}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(3,\ 5)));}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ SODIUM\_EXPORT}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519\_detached(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sig,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *siglen\_p,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1,\ 5)));}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ SODIUM\_EXPORT}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519\_verify\_detached(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sig,}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk)}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(1,\ 4)));}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ SODIUM\_EXPORT}
+\DoxyCodeLine{00070\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519\_keypair(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ SODIUM\_EXPORT}
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519\_seed\_keypair(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk,}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *seed)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ SODIUM\_EXPORT}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519\_pk\_to\_curve25519(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *curve25519\_pk,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ed25519\_pk)}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ SODIUM\_EXPORT}
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519\_sk\_to\_curve25519(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *curve25519\_sk,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *ed25519\_sk)}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ SODIUM\_EXPORT}
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519\_sk\_to\_seed(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *seed,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ SODIUM\_EXPORT}
+\DoxyCodeLine{00094\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519\_sk\_to\_pk(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ SODIUM\_EXPORT}
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519ph\_init(\mbox{\hyperlink{structcrypto__sign__ed25519ph__state}{crypto\_sign\_ed25519ph\_state}}\ *state)}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ SODIUM\_EXPORT}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519ph\_update(\mbox{\hyperlink{structcrypto__sign__ed25519ph__state}{crypto\_sign\_ed25519ph\_state}}\ *state,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *m,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ mlen)}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ SODIUM\_EXPORT}
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519ph\_final\_create(\mbox{\hyperlink{structcrypto__sign__ed25519ph__state}{crypto\_sign\_ed25519ph\_state}}\ *state,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sig,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ *siglen\_p,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sk)}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1,\ 2,\ 4)));}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ SODIUM\_EXPORT}
+\DoxyCodeLine{00115\ \textcolor{keywordtype}{int}\ crypto\_sign\_ed25519ph\_final\_verify(\mbox{\hyperlink{structcrypto__sign__ed25519ph__state}{crypto\_sign\_ed25519ph\_state}}\ *state,}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *sig,}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *pk)}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00121\ \}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

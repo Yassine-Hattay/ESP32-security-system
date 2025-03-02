@@ -1,0 +1,125 @@
+\doxysection{Insights.\+h}
+\hypertarget{_insights_8h_source}{}\label{_insights_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Insights/src/Insights.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Insights/src/Insights.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ESP\_INSIGHTS\_ENABLED}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }ESPInsightsMetricsClass\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00015\ \ \ \textcolor{keywordtype}{bool}\ initialized;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00018\ \ \ ESPInsightsMetricsClass()\ :\ initialized(false)\ \{\}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \textcolor{keywordtype}{bool}\ addBool(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00021\ \ \ \textcolor{keywordtype}{bool}\ addInt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00022\ \ \ \textcolor{keywordtype}{bool}\ addUint(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00023\ \ \ \textcolor{keywordtype}{bool}\ addFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{bool}\ addString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{bool}\ addIPv4(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{bool}\ addMAC(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{bool}\ setBool(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{bool}\ b);}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{bool}\ setInt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int32\_t\ i);}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{bool}\ setUint(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint32\_t\ u);}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{bool}\ setFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{float}\ f);}
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{bool}\ setString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str);}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{bool}\ setIPv4(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint32\_t\ ip);}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{bool}\ setMAC(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint8\_t\ *mac);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{bool}\ remove(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{bool}\ removeAll();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{void}\ setHeapPeriod(uint32\_t\ seconds);}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{void}\ setWiFiPeriod(uint32\_t\ seconds);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{bool}\ dumpHeap();}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{bool}\ dumpWiFi();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \textcolor{comment}{//internal\ use}}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{void}\ setInitialized(\textcolor{keywordtype}{bool}\ init)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ initialized\ =\ init;}
+\DoxyCodeLine{00048\ \ \ \}}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{class\ }ESPInsightsVariablesClass\ \{}
+\DoxyCodeLine{00052\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{bool}\ initialized;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ ESPInsightsVariablesClass()\ :\ initialized(false)\ \{\}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{bool}\ addBool(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{bool}\ addInt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{bool}\ addUint(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{bool}\ addFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{bool}\ addString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{bool}\ addIPv4(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{bool}\ addMAC(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *label,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{bool}\ setBool(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{bool}\ b);}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{bool}\ setInt(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ int32\_t\ i);}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{bool}\ setUint(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint32\_t\ u);}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{bool}\ setFloat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keywordtype}{float}\ f);}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ setString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *str);}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ setIPv4(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint32\_t\ ip);}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{bool}\ setMAC(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key,\ uint8\_t\ *mac);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{bool}\ remove(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *key);}
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{bool}\ removeAll();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{comment}{//internal\ use}}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ setInitialized(\textcolor{keywordtype}{bool}\ init)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ initialized\ =\ init;}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{class\ }ESPInsightsClass\ \{}
+\DoxyCodeLine{00084\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{bool}\ initialized;}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00088\ \ \ ESPInsightsMetricsClass\ metrics;}
+\DoxyCodeLine{00089\ \ \ ESPInsightsVariablesClass\ variables;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ ESPInsightsClass();}
+\DoxyCodeLine{00092\ \ \ \string~ESPInsightsClass();}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ begin(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *auth\_key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *node\_id\ =\ NULL,\ uint32\_t\ log\_type\ =\ 0xFFFFFFFF,\ \textcolor{keywordtype}{bool}\ alloc\_ext\_ram\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{bool}\ use\_default\_transport\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{bool}\ send();}
+\DoxyCodeLine{00097\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *nodeID();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{void}\ dumpTasksStatus();}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{bool}\ event(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...);}
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{extern}\ ESPInsightsClass\ Insights;}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00111\ esp\_err\_t\ esp\_diag\_log\_event(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *tag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *format,\ ...)\ \_\_attribute\_\_((format(printf,\ 2,\ 3)));}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ insightsEvent(tag,\ format,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\ \ \{\ esp\_diag\_log\_event(tag,\ "{}EV\ (\%"{}\ PRIu32\ "{})\ \%s:\ "{}\ format,\ esp\_log\_timestamp(),\ tag,\ \#\#\_\_VA\_ARGS\_\_);\ \}}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00116\ \}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

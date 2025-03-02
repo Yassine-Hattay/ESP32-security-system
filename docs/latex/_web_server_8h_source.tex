@@ -1,0 +1,329 @@
+\doxysection{Web\+Server.\+h}
+\hypertarget{_web_server_8h_source}{}\label{_web_server_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/src/WebServer.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/src/WebServer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ WebServer.h\ -\/\ Dead\ simple\ web-\/server.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ Supports\ only\ one\ simultaneous\ client,\ knows\ how\ to\ handle\ GET\ and\ POST.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ Copyright\ (c)\ 2014\ Ivan\ Grokhotkov.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ Modified\ 8\ May\ 2015\ by\ Hristo\ Gochkov\ (proper\ post\ and\ file\ upload\ handling)}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ WEBSERVER\_H}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ WEBSERVER\_H}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}FS.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}Network.h"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}HTTP\_Method.h"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}Uri.h"{}}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{enum}\ HTTPUploadStatus\ \{}
+\DoxyCodeLine{00034\ \ \ UPLOAD\_FILE\_START,}
+\DoxyCodeLine{00035\ \ \ UPLOAD\_FILE\_WRITE,}
+\DoxyCodeLine{00036\ \ \ UPLOAD\_FILE\_END,}
+\DoxyCodeLine{00037\ \ \ UPLOAD\_FILE\_ABORTED}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ \textcolor{keyword}{enum}\ HTTPRawStatus\ \{}
+\DoxyCodeLine{00040\ \ \ RAW\_START,}
+\DoxyCodeLine{00041\ \ \ RAW\_WRITE,}
+\DoxyCodeLine{00042\ \ \ RAW\_END,}
+\DoxyCodeLine{00043\ \ \ RAW\_ABORTED}
+\DoxyCodeLine{00044\ \};}
+\DoxyCodeLine{00045\ \textcolor{keyword}{enum}\ HTTPClientStatus\ \{}
+\DoxyCodeLine{00046\ \ \ HC\_NONE,}
+\DoxyCodeLine{00047\ \ \ HC\_WAIT\_READ,}
+\DoxyCodeLine{00048\ \ \ HC\_WAIT\_CLOSE}
+\DoxyCodeLine{00049\ \};}
+\DoxyCodeLine{00050\ \textcolor{keyword}{enum}\ HTTPAuthMethod\ \{}
+\DoxyCodeLine{00051\ \ \ BASIC\_AUTH,}
+\DoxyCodeLine{00052\ \ \ DIGEST\_AUTH,}
+\DoxyCodeLine{00053\ \ \ OTHER\_AUTH}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ HTTP\_DOWNLOAD\_UNIT\_SIZE\ 1436}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifndef\ HTTP\_UPLOAD\_BUFLEN}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ HTTP\_UPLOAD\_BUFLEN\ 1436}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#ifndef\ HTTP\_RAW\_BUFLEN}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ HTTP\_RAW\_BUFLEN\ 1436}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ HTTP\_MAX\_DATA\_WAIT\ \ \ \ \ \ 5000\ \ }\textcolor{comment}{//ms\ to\ wait\ for\ the\ client\ to\ send\ the\ request}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ HTTP\_MAX\_POST\_WAIT\ \ \ \ \ \ 5000\ \ }\textcolor{comment}{//ms\ to\ wait\ for\ POST\ data\ to\ arrive}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ HTTP\_MAX\_SEND\_WAIT\ \ \ \ \ \ 5000\ \ }\textcolor{comment}{//ms\ to\ wait\ for\ data\ chunk\ to\ be\ ACKed}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ HTTP\_MAX\_CLOSE\_WAIT\ \ \ \ \ 5000\ \ }\textcolor{comment}{//ms\ to\ wait\ for\ the\ client\ to\ close\ the\ connection}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ HTTP\_MAX\_BASIC\_AUTH\_LEN\ 256\ \ \ }\textcolor{comment}{//\ maximum\ length\ of\ a\ basic\ Auth\ base64\ encoded\ username:password\ string}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ CONTENT\_LENGTH\_UNKNOWN\ ((size\_t)\ -\/\ 1)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ CONTENT\_LENGTH\_NOT\_SET\ ((size\_t)\ -\/\ 2)}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_web_server}{WebServer}};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00078\ \ \ HTTPUploadStatus\ status;}
+\DoxyCodeLine{00079\ \ \ String\ filename;}
+\DoxyCodeLine{00080\ \ \ String\ name;}
+\DoxyCodeLine{00081\ \ \ String\ type;}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{size\_t}\ totalSize;\ \ \ \ \textcolor{comment}{//\ file\ size}}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{size\_t}\ currentSize;\ \ \textcolor{comment}{//\ size\ of\ data\ currently\ in\ buf}}
+\DoxyCodeLine{00084\ \ \ uint8\_t\ buf[HTTP\_UPLOAD\_BUFLEN];}
+\DoxyCodeLine{00085\ \}\ \mbox{\hyperlink{struct_h_t_t_p_upload}{HTTPUpload}};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00088\ \ \ HTTPRawStatus\ status;}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{size\_t}\ totalSize;\ \ \ \ \textcolor{comment}{//\ content\ size}}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{size\_t}\ currentSize;\ \ \textcolor{comment}{//\ size\ of\ data\ currently\ in\ buf}}
+\DoxyCodeLine{00091\ \ \ uint8\_t\ buf[HTTP\_RAW\_BUFLEN];}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}\ *data;\ \ \textcolor{comment}{//\ additional\ data}}
+\DoxyCodeLine{00093\ \}\ \mbox{\hyperlink{struct_h_t_t_p_raw}{HTTPRaw}};}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#include\ "{}middleware/Middleware.h"{}}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#include\ "{}detail/RequestHandler.h"{}}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{namespace\ }fs\ \{}
+\DoxyCodeLine{00099\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classfs_1_1_f_s}{FS}};}
+\DoxyCodeLine{00100\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{class\ }WebServer\ \{}
+\DoxyCodeLine{00103\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00104\ \ \ WebServer(\mbox{\hyperlink{class_i_p_address}{IPAddress}}\ addr,\ \textcolor{keywordtype}{int}\ port\ =\ 80);}
+\DoxyCodeLine{00105\ \ \ WebServer(\textcolor{keywordtype}{int}\ port\ =\ 80);}
+\DoxyCodeLine{00106\ \ \ \textcolor{keyword}{virtual}\ \string~WebServer();}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ begin();}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ begin(uint16\_t\ port);}
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ handleClient();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ close();}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{void}\ stop();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{const}\ String\ AuthTypeDigest\ =\ F(\textcolor{stringliteral}{"{}Digest"{}});}
+\DoxyCodeLine{00116\ \ \ \textcolor{keyword}{const}\ String\ AuthTypeBasic\ =\ F(\textcolor{stringliteral}{"{}Basic"{}});}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \textcolor{comment}{/*\ Callbackhandler\ for\ authentication.\ The\ extra\ parameters\ depend\ on\ the}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ *\ HTTPAuthMethod\ mode:}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ *\ BASIC\_AUTH\ \ \ \ \ \ \ \ \ enteredUsernameOrReq\ \ \ \ contains\ the\ username\ entered\ by\ the\ user}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ param[0]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ password\ entered\ (in\ the\ clear)}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ param[1]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ authentication\ realm.}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ *\ To\ return\ -\/\ the\ password\ the\ user\ entered\ password\ is\ compared\ to.\ Or\ Null\ on\ fail.}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ *\ DIGEST\_AUTH\ \ \ \ \ \ \ \ enteredUsernameOrReq\ \ \ \ contains\ the\ username\ entered\ by\ the\ user}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ param[0]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ autenticaiton\ realm}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ param[1]\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ authentication\ URI}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ *\ To\ return\ -\/\ the\ password\ of\ which\ the\ digest\ will\ be\ based\ on\ for\ comparison.\ Or\ NULL}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ *\ to\ fail.}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ \ *\ OTHER\_AUTH\ \ \ \ \ \ \ \ \ enteredUsernameOrReq\ \ \ \ rest\ of\ the\ auth\ line.}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ \ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ empty\ array}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ \ *}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ \ \ *\ To\ return\ -\/\ NULL\ to\ fail;\ or\ any\ string.}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{typedef}\ std::function<String\ *(HTTPAuthMethod\ mode,\ String\ enteredUsernameOrReq,\ String\ extraParams[])>\ THandlerFunctionAuthCheck;}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordtype}{bool}\ authenticate(THandlerFunctionAuthCheck\ fn);}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{bool}\ authenticate(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *username,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password);}
+\DoxyCodeLine{00143\ \ \ \textcolor{keywordtype}{bool}\ authenticateBasicSHA1(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\_username,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\_sha1AsBase64orHex);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \textcolor{keywordtype}{void}\ requestAuthentication(HTTPAuthMethod\ mode\ =\ BASIC\_AUTH,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *realm\ =\ NULL,\ \textcolor{keyword}{const}\ String\ \&authFailMsg\ =\ String(\textcolor{stringliteral}{"{}"{}}));}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \textcolor{keyword}{typedef}\ std::function<void(\textcolor{keywordtype}{void})>\ THandlerFunction;}
+\DoxyCodeLine{00148\ \ \ \textcolor{keyword}{typedef}\ std::function<bool(WebServer\ \&server)>\ FilterFunction;}
+\DoxyCodeLine{00149\ \ \ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ \&on(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_uri}{Uri}}\ \&uri,\ THandlerFunction\ fn);}
+\DoxyCodeLine{00150\ \ \ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ \&on(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_uri}{Uri}}\ \&uri,\ HTTPMethod\ method,\ THandlerFunction\ fn);}
+\DoxyCodeLine{00151\ \ \ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ \&on(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_uri}{Uri}}\ \&uri,\ HTTPMethod\ method,\ THandlerFunction\ fn,\ THandlerFunction\ ufn);\ \ \textcolor{comment}{//ufn\ handles\ file\ uploads}}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{bool}\ removeRoute(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *uri);}
+\DoxyCodeLine{00153\ \ \ \textcolor{keywordtype}{bool}\ removeRoute(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *uri,\ HTTPMethod\ method);}
+\DoxyCodeLine{00154\ \ \ \textcolor{keywordtype}{bool}\ removeRoute(\textcolor{keyword}{const}\ String\ \&uri);}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{bool}\ removeRoute(\textcolor{keyword}{const}\ String\ \&uri,\ HTTPMethod\ method);}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{void}\ addHandler(\mbox{\hyperlink{class_request_handler}{RequestHandler}}\ *handler);}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{bool}\ removeHandler(\mbox{\hyperlink{class_request_handler}{RequestHandler}}\ *handler);}
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordtype}{void}\ serveStatic(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *uri,\ \mbox{\hyperlink{classfs_1_1_f_s}{fs::FS}}\ \&fs,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cache\_header\ =\ NULL);}
+\DoxyCodeLine{00159\ \ \ \textcolor{keywordtype}{void}\ onNotFound(THandlerFunction\ fn);\ \ \ \ \ \textcolor{comment}{//called\ when\ handler\ is\ not\ assigned}}
+\DoxyCodeLine{00160\ \ \ \textcolor{keywordtype}{void}\ onFileUpload(THandlerFunction\ ufn);\ \ \textcolor{comment}{//handle\ file\ uploads}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ WebServer\ \&addMiddleware(\mbox{\hyperlink{class_middleware}{Middleware}}\ *middleware);}
+\DoxyCodeLine{00163\ \ \ WebServer\ \&addMiddleware(Middleware::Function\ fn);}
+\DoxyCodeLine{00164\ \ \ WebServer\ \&removeMiddleware(\mbox{\hyperlink{class_middleware}{Middleware}}\ *middleware);}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ String\ uri()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ \_currentUri;}
+\DoxyCodeLine{00168\ \ \ \}}
+\DoxyCodeLine{00169\ \ \ HTTPMethod\ method()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordflow}{return}\ \_currentMethod;}
+\DoxyCodeLine{00171\ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_network_client}{NetworkClient}}\ \&client()\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{return}\ \_currentClient;}
+\DoxyCodeLine{00174\ \ \ \}}
+\DoxyCodeLine{00175\ \ \ \mbox{\hyperlink{struct_h_t_t_p_upload}{HTTPUpload}}\ \&upload()\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{return}\ *\_currentUpload;}
+\DoxyCodeLine{00177\ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \mbox{\hyperlink{struct_h_t_t_p_raw}{HTTPRaw}}\ \&raw()\ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{return}\ *\_currentRaw;}
+\DoxyCodeLine{00180\ \ \ \}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ String\ pathArg(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ path\ argument\ by\ number}}
+\DoxyCodeLine{00183\ \ \ String\ arg(\textcolor{keyword}{const}\ String\ \&name)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ argument\ value\ by\ name}}
+\DoxyCodeLine{00184\ \ \ String\ arg(\textcolor{keywordtype}{int}\ i)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ argument\ value\ by\ number}}
+\DoxyCodeLine{00185\ \ \ String\ argName(\textcolor{keywordtype}{int}\ i)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ argument\ name\ by\ number}}
+\DoxyCodeLine{00186\ \ \ \textcolor{keywordtype}{int}\ args()\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ arguments\ count}}
+\DoxyCodeLine{00187\ \ \ \textcolor{keywordtype}{bool}\ hasArg(\textcolor{keyword}{const}\ String\ \&name)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ argument\ exists}}
+\DoxyCodeLine{00188\ \ \ \textcolor{keywordtype}{void}\ collectHeaders(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *headerKeys[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ headerKeysCount);\ \ \textcolor{comment}{//\ set\ the\ request\ headers\ to\ collect}}
+\DoxyCodeLine{00189\ \ \ \textcolor{keywordtype}{void}\ collectAllHeaders();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ collect\ all\ request\ headers}}
+\DoxyCodeLine{00190\ \ \ String\ header(\textcolor{keyword}{const}\ String\ \&name)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ header\ value\ by\ name}}
+\DoxyCodeLine{00191\ \ \ String\ header(\textcolor{keywordtype}{int}\ i)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ header\ value\ by\ number}}
+\DoxyCodeLine{00192\ \ \ String\ headerName(\textcolor{keywordtype}{int}\ i)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ header\ name\ by\ number}}
+\DoxyCodeLine{00193\ \ \ \textcolor{keywordtype}{int}\ headers()\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ header\ count}}
+\DoxyCodeLine{00194\ \ \ \textcolor{keywordtype}{bool}\ hasHeader(\textcolor{keyword}{const}\ String\ \&name)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ check\ if\ header\ exists}}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \textcolor{keywordtype}{int}\ clientContentLength()\ \textcolor{keyword}{const};\ \ \textcolor{comment}{//\ return\ "{}content-\/length"{}\ of\ incoming\ HTTP\ header\ from\ "{}\_currentClient"{}}}
+\DoxyCodeLine{00197\ \ \ \textcolor{keyword}{const}\ String\ version()\ \textcolor{keyword}{const};\ \ \ \ \ \textcolor{comment}{//\ get\ the\ HTTP\ version\ string}}
+\DoxyCodeLine{00198\ \ \ String\ hostHeader()\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ request\ host\ header\ if\ available\ or\ empty\ String\ if\ not}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \textcolor{keywordtype}{int}\ responseCode()\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ the\ HTTP\ response\ code\ set}}
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordtype}{int}\ responseHeaders()\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ the\ HTTP\ response\ headers\ count}}
+\DoxyCodeLine{00202\ \ \ \textcolor{keyword}{const}\ String\ \&responseHeader(String\ name)\ \textcolor{keyword}{const};\ \ \ \textcolor{comment}{//\ get\ the\ HTTP\ response\ header\ value\ by\ name}}
+\DoxyCodeLine{00203\ \ \ \textcolor{keyword}{const}\ String\ \&responseHeader(\textcolor{keywordtype}{int}\ i)\ \textcolor{keyword}{const};\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ the\ HTTP\ response\ header\ value\ by\ number}}
+\DoxyCodeLine{00204\ \ \ \textcolor{keyword}{const}\ String\ \&responseHeaderName(\textcolor{keywordtype}{int}\ i)\ \textcolor{keyword}{const};\ \ \ \ \ \textcolor{comment}{//\ get\ the\ HTTP\ response\ header\ name\ by\ number}}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordtype}{bool}\ hasResponseHeader(\textcolor{keyword}{const}\ String\ \&name)\ \textcolor{keyword}{const};\ \ \textcolor{comment}{//\ check\ if\ response\ header\ exists}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \textcolor{comment}{//\ send\ response\ to\ the\ client}}
+\DoxyCodeLine{00208\ \ \ \textcolor{comment}{//\ code\ -\/\ HTTP\ response\ code,\ can\ be\ 200\ or\ 404}}
+\DoxyCodeLine{00209\ \ \ \textcolor{comment}{//\ content\_type\ -\/\ HTTP\ content\ type,\ like\ "{}text/plain"{}\ or\ "{}image/png"{}}}
+\DoxyCodeLine{00210\ \ \ \textcolor{comment}{//\ content\ -\/\ actual\ content\ body}}
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordtype}{void}\ send(\textcolor{keywordtype}{int}\ code,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *content\_type\ =\ NULL,\ \textcolor{keyword}{const}\ String\ \&content\ =\ String(\textcolor{stringliteral}{"{}"{}}));}
+\DoxyCodeLine{00212\ \ \ \textcolor{keywordtype}{void}\ send(\textcolor{keywordtype}{int}\ code,\ \textcolor{keywordtype}{char}\ *content\_type,\ \textcolor{keyword}{const}\ String\ \&content);}
+\DoxyCodeLine{00213\ \ \ \textcolor{keywordtype}{void}\ send(\textcolor{keywordtype}{int}\ code,\ \textcolor{keyword}{const}\ String\ \&content\_type,\ \textcolor{keyword}{const}\ String\ \&content);}
+\DoxyCodeLine{00214\ \ \ \textcolor{keywordtype}{void}\ send(\textcolor{keywordtype}{int}\ code,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *content\_type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *content);}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \textcolor{keywordtype}{void}\ send\_P(\textcolor{keywordtype}{int}\ code,\ PGM\_P\ content\_type,\ PGM\_P\ content);}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{void}\ send\_P(\textcolor{keywordtype}{int}\ code,\ PGM\_P\ content\_type,\ PGM\_P\ content,\ \textcolor{keywordtype}{size\_t}\ contentLength);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \textcolor{keywordtype}{void}\ enableDelay(\textcolor{keywordtype}{boolean}\ value);}
+\DoxyCodeLine{00220\ \ \ \textcolor{keywordtype}{void}\ enableCORS(\textcolor{keywordtype}{boolean}\ value\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00221\ \ \ \textcolor{keywordtype}{void}\ enableCrossOrigin(\textcolor{keywordtype}{boolean}\ value\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00222\ \ \ \textcolor{keyword}{typedef}\ std::function<String(\mbox{\hyperlink{classfs_1_1_f_s}{FS}}\ \&fs,\ \textcolor{keyword}{const}\ String\ \&fName)>\ ETagFunction;}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{void}\ enableETag(\textcolor{keywordtype}{bool}\ enable,\ ETagFunction\ fn\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{void}\ setContentLength(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ contentLength);}
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordtype}{void}\ sendHeader(\textcolor{keyword}{const}\ String\ \&name,\ \textcolor{keyword}{const}\ String\ \&value,\ \textcolor{keywordtype}{bool}\ first\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{void}\ sendContent(\textcolor{keyword}{const}\ String\ \&content);}
+\DoxyCodeLine{00228\ \ \ \textcolor{keywordtype}{void}\ sendContent(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *content,\ \textcolor{keywordtype}{size\_t}\ contentLength);}
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordtype}{void}\ sendContent\_P(PGM\_P\ content);}
+\DoxyCodeLine{00230\ \ \ \textcolor{keywordtype}{void}\ sendContent\_P(PGM\_P\ content,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \textcolor{keyword}{static}\ String\ urlDecode(\textcolor{keyword}{const}\ String\ \&text);}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>\ \textcolor{keywordtype}{size\_t}\ streamFile(T\ \&file,\ \textcolor{keyword}{const}\ String\ \&contentType,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ code\ =\ 200)\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \_streamFileCore(file.size(),\ file.name(),\ contentType,\ code);}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{return}\ \_currentClient.write(file);}
+\DoxyCodeLine{00237\ \ \ \}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \textcolor{keywordtype}{bool}\ \_eTagEnabled\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00240\ \ \ ETagFunction\ \_eTagFunction\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \textcolor{keyword}{static}\ String\ responseCodeToString(\textcolor{keywordtype}{int}\ code);}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00245\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ \_currentClientWrite(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *b,\ \textcolor{keywordtype}{size\_t}\ l)\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordflow}{return}\ \_currentClient.write(b,\ l);}
+\DoxyCodeLine{00247\ \ \ \}}
+\DoxyCodeLine{00248\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{size\_t}\ \_currentClientWrite\_P(PGM\_P\ b,\ \textcolor{keywordtype}{size\_t}\ l)\ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordflow}{return}\ \_currentClient.write\_P(b,\ l);}
+\DoxyCodeLine{00250\ \ \ \}}
+\DoxyCodeLine{00251\ \ \ \textcolor{keywordtype}{void}\ \_addRequestHandler(\mbox{\hyperlink{class_request_handler}{RequestHandler}}\ *handler);}
+\DoxyCodeLine{00252\ \ \ \textcolor{keywordtype}{bool}\ \_removeRequestHandler(\mbox{\hyperlink{class_request_handler}{RequestHandler}}\ *handler);}
+\DoxyCodeLine{00253\ \ \ \textcolor{keywordtype}{bool}\ \_handleRequest();}
+\DoxyCodeLine{00254\ \ \ \textcolor{keywordtype}{void}\ \_finalizeResponse();}
+\DoxyCodeLine{00255\ \ \ \textcolor{keywordtype}{bool}\ \_parseRequest(\mbox{\hyperlink{class_network_client}{NetworkClient}}\ \&client);}
+\DoxyCodeLine{00256\ \ \ \textcolor{keywordtype}{void}\ \_parseArguments(\textcolor{keyword}{const}\ String\ \&data);}
+\DoxyCodeLine{00257\ \ \ \textcolor{keywordtype}{bool}\ \_parseForm(\mbox{\hyperlink{class_network_client}{NetworkClient}}\ \&client,\ \textcolor{keyword}{const}\ String\ \&boundary,\ uint32\_t\ len);}
+\DoxyCodeLine{00258\ \ \ \textcolor{keywordtype}{bool}\ \_parseFormUploadAborted();}
+\DoxyCodeLine{00259\ \ \ \textcolor{keywordtype}{void}\ \_uploadWriteByte(uint8\_t\ b);}
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordtype}{int}\ \_uploadReadByte(\mbox{\hyperlink{class_network_client}{NetworkClient}}\ \&client);}
+\DoxyCodeLine{00261\ \ \ \textcolor{keywordtype}{void}\ \_prepareHeader(String\ \&response,\ \textcolor{keywordtype}{int}\ code,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *content\_type,\ \textcolor{keywordtype}{size\_t}\ contentLength);}
+\DoxyCodeLine{00262\ \ \ \textcolor{keywordtype}{bool}\ \_collectHeader(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *headerName,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *headerValue);}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \textcolor{keywordtype}{void}\ \_streamFileCore(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ fileSize,\ \textcolor{keyword}{const}\ String\ \&fileName,\ \textcolor{keyword}{const}\ String\ \&contentType,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ code\ =\ 200);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ String\ \_getRandomHexString();}
+\DoxyCodeLine{00267\ \ \ \textcolor{comment}{//\ for\ extracting\ Auth\ parameters}}
+\DoxyCodeLine{00268\ \ \ String\ \_extractParam(String\ \&authReq,\ \textcolor{keyword}{const}\ String\ \&param,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ delimit\ =\ \textcolor{charliteral}{'"{}'});}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \textcolor{keywordtype}{void}\ \_clearResponseHeaders();}
+\DoxyCodeLine{00271\ \ \ \textcolor{keywordtype}{void}\ \_clearRequestHeaders();}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_web_server_1_1_request_argument}{RequestArgument}}\ \{}
+\DoxyCodeLine{00274\ \ \ \ \ String\ key;}
+\DoxyCodeLine{00275\ \ \ \ \ String\ value;}
+\DoxyCodeLine{00276\ \ \ \ \ \mbox{\hyperlink{struct_web_server_1_1_request_argument}{RequestArgument}}\ *next;}
+\DoxyCodeLine{00277\ \ \ \};}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordtype}{boolean}\ \_corsEnabled\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00280\ \ \ \mbox{\hyperlink{class_network_server}{NetworkServer}}\ \_server;}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \ \ \mbox{\hyperlink{class_network_client}{NetworkClient}}\ \_currentClient;}
+\DoxyCodeLine{00283\ \ \ HTTPMethod\ \_currentMethod\ =\ HTTP\_ANY;}
+\DoxyCodeLine{00284\ \ \ String\ \_currentUri;}
+\DoxyCodeLine{00285\ \ \ uint8\_t\ \_currentVersion\ =\ 0;}
+\DoxyCodeLine{00286\ \ \ HTTPClientStatus\ \_currentStatus\ =\ HC\_NONE;}
+\DoxyCodeLine{00287\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_statusChange\ =\ 0;}
+\DoxyCodeLine{00288\ \ \ \textcolor{keywordtype}{boolean}\ \_nullDelay\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ \ \ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ *\_currentHandler\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00291\ \ \ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ *\_firstHandler\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00292\ \ \ \mbox{\hyperlink{class_request_handler}{RequestHandler}}\ *\_lastHandler\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00293\ \ \ THandlerFunction\ \_notFoundHandler\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00294\ \ \ THandlerFunction\ \_fileUploadHandler\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \ \ \textcolor{keywordtype}{int}\ \_currentArgCount\ =\ 0;}
+\DoxyCodeLine{00297\ \ \ \mbox{\hyperlink{struct_web_server_1_1_request_argument}{RequestArgument}}\ *\_currentArgs\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00298\ \ \ \textcolor{keywordtype}{int}\ \_postArgsLen\ =\ 0;}
+\DoxyCodeLine{00299\ \ \ \mbox{\hyperlink{struct_web_server_1_1_request_argument}{RequestArgument}}\ *\_postArgs\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ std::unique\_ptr<HTTPUpload>\ \_currentUpload;}
+\DoxyCodeLine{00302\ \ \ std::unique\_ptr<HTTPRaw>\ \_currentRaw;}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \textcolor{keywordtype}{int}\ \_headerKeysCount\ =\ 0;}
+\DoxyCodeLine{00305\ \ \ \mbox{\hyperlink{struct_web_server_1_1_request_argument}{RequestArgument}}\ *\_currentHeaders\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordtype}{size\_t}\ \_contentLength\ =\ 0;}
+\DoxyCodeLine{00307\ \ \ \textcolor{keywordtype}{int}\ \_clientContentLength\ =\ 0;\ \ \textcolor{comment}{//\ "{}Content-\/Length"{}\ from\ header\ of\ incoming\ POST\ or\ GET\ request}}
+\DoxyCodeLine{00308\ \ \ \mbox{\hyperlink{struct_web_server_1_1_request_argument}{RequestArgument}}\ *\_responseHeaders\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ String\ \_hostHeader;}
+\DoxyCodeLine{00311\ \ \ \textcolor{keywordtype}{bool}\ \_chunked\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ String\ \_snonce;\ \ \textcolor{comment}{//\ Store\ noance\ and\ opaque\ for\ future\ comparison}}
+\DoxyCodeLine{00314\ \ \ String\ \_sopaque;}
+\DoxyCodeLine{00315\ \ \ String\ \_srealm;\ \ \textcolor{comment}{//\ Store\ the\ Auth\ realm\ between\ Calls}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \textcolor{keywordtype}{int}\ \_responseHeaderCount\ =\ 0;}
+\DoxyCodeLine{00318\ \ \ \textcolor{keywordtype}{int}\ \_responseCode\ =\ 0;}
+\DoxyCodeLine{00319\ \ \ \textcolor{keywordtype}{bool}\ \_collectAllHeaders\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00320\ \ \ \mbox{\hyperlink{class_middleware_chain}{MiddlewareChain}}\ *\_chain\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00321\ \};}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//ESP8266WEBSERVER\_H}}
+
+\end{DoxyCode}

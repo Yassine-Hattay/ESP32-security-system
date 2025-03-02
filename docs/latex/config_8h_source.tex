@@ -1,0 +1,258 @@
+\doxysection{config.\+h}
+\hypertarget{config_8h_source}{}\label{config_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/config.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/config.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Thomas\ Pornin\ <pornin@bolet.org>}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ }}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ }}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ }}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ SOFTWARE.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}../ESP\_SSLClient\_FS.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(USE\_LIB\_SSL\_ENGINE)}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_H\_\_}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ CONFIG\_H\_\_}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ This\ file\ contains\ compile-\/time\ flags\ that\ can\ override\ the}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ autodetection\ performed\ in\ relevant\ files.\ Each\ flag\ is\ a\ macro;\ it}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ deactivates\ the\ feature\ if\ defined\ to\ 0,\ activates\ it\ if\ defined\ to\ a}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ non-\/zero\ integer\ (normally\ 1).\ If\ the\ macro\ is\ not\ defined,\ then}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ autodetection\ applies.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ When\ BR\_64\ is\ enabled,\ 64-\/bit\ integer\ types\ are\ assumed\ to\ be}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ efficient\ (i.e.\ the\ architecture\ has\ 64-\/bit\ registers\ and\ can}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ do\ 64-\/bit\ operations\ as\ fast\ as\ 32-\/bit\ operations).}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\#define\ BR\_64\ \ \ 1}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ When\ BR\_LOMUL\ is\ enabled,\ then\ multiplications\ of\ 32-\/bit\ values\ whose}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ result\ are\ truncated\ to\ the\ low\ 32\ bits\ are\ assumed\ to\ be}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *\ substantially\ more\ efficient\ than\ 32-\/bit\ multiplications\ that\ yield}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ 64-\/bit\ results.\ This\ is\ typically\ the\ case\ on\ low-\/end\ ARM\ Cortex\ M}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *\ systems\ (M0,\ M0+,\ M1,\ and\ arguably\ M3\ and\ M4\ as\ well).}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\#define\ BR\_LOMUL\ \ \ 1}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ When\ BR\_SLOW\_MUL\ is\ enabled,\ multiplications\ are\ assumed\ to\ be}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ substantially\ slow\ with\ regards\ to\ other\ integer\ operations,\ thus}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ making\ it\ worth\ to\ make\ more\ operations\ for\ a\ given\ task\ if\ it\ allows}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ using\ less\ multiplications.}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\#define\ BR\_SLOW\_MUL\ \ \ 1}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ When\ BR\_SLOW\_MUL15\ is\ enabled,\ short\ multplications\ (on\ 15-\/bit\ words)}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *\ are\ assumed\ to\ be\ substantially\ slow\ with\ regards\ to\ other\ integer}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ operations,\ thus\ making\ it\ worth\ to\ make\ more\ integer\ operations\ if}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ it\ allows\ using\ less\ multiplications.}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\#define\ BR\_SLOW\_MUL15\ \ \ 1}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ When\ BR\_CT\_MUL31\ is\ enabled,\ multiplications\ of\ 31-\/bit\ values\ (used}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ in\ the\ "{}i31"{}\ big\ integer\ implementation)\ use\ an\ alternate\ implementation}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ which\ is\ slower\ and\ larger\ than\ the\ normal\ multiplication,\ but\ should}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ ensure\ constant-\/time\ multiplications\ even\ on\ architectures\ where\ the}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ multiplication\ opcode\ takes\ a\ variable\ number\ of\ cycles\ to\ complete.}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\#define\ BR\_CT\_MUL31\ \ \ 1}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *\ When\ BR\_CT\_MUL15\ is\ enabled,\ multiplications\ of\ 15-\/bit\ values\ (held}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ *\ in\ 32-\/bit\ words)\ use\ an\ alternate\ implementation\ which\ is\ slower\ and}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ *\ larger\ than\ the\ normal\ multiplication,\ but\ should\ ensure}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ *\ constant-\/time\ multiplications\ on\ most/all\ architectures\ where\ the}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *\ basic\ multiplication\ is\ not\ constant-\/time.}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\#define\ BR\_CT\_MUL15\ \ \ 1}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *\ When\ BR\_NO\_ARITH\_SHIFT\ is\ enabled,\ arithmetic\ right\ shifts\ (with\ sign}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *\ extension)\ are\ performed\ with\ a\ sequence\ of\ operations\ which\ is\ bigger}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ and\ slower\ than\ a\ simple\ right\ shift\ on\ a\ signed\ value.\ This\ avoids}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *\ relying\ on\ an\ implementation-\/defined\ behaviour.\ However,\ most\ if\ not}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ *\ all\ C\ compilers\ use\ sign\ extension\ for\ right\ shifts\ on\ signed\ values,}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ *\ so\ this\ alternate\ macro\ is\ disabled\ by\ default.}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\#define\ BR\_NO\_ARITH\_SHIFT\ \ \ 1}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ *\ When\ BR\_RDRAND\ is\ enabled,\ the\ SSL\ engine\ will\ use\ the\ RDRAND\ opcode}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ to\ automatically\ obtain\ quality\ randomness\ for\ seeding\ its\ internal}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ PRNG.\ Since\ that\ opcode\ is\ present\ only\ in\ recent\ x86\ CPU,\ its}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ support\ is\ dynamically\ tested;\ if\ the\ current\ CPU\ does\ not\ support}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ it,\ then\ another\ random\ source\ will\ be\ used,\ such\ as\ /dev/urandom\ or}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ *\ CryptGenRandom().}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\#define\ BR\_RDRAND\ \ \ 1}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ When\ BR\_USE\_GETENTROPY\ is\ enabled,\ the\ SSL\ engine\ will\ use\ the}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ getentropy()\ function\ to\ obtain\ quality\ randomness\ for\ seeding\ its}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ internal\ PRNG.\ On\ Linux\ and\ FreeBSD,\ getentropy()\ is\ implemented\ by}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *\ the\ standard\ library\ with\ the\ system\ call\ getrandom();\ on\ OpenBSD,}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *\ getentropy()\ is\ the\ system\ call,\ and\ there\ is\ no\ getrandom()\ wrapper,}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ hence\ the\ use\ of\ the\ getentropy()\ function\ for\ maximum\ portability.}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *\ If\ the\ getentropy()\ call\ fails,\ and\ BR\_USE\_URANDOM\ is\ not\ explicitly}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ *\ disabled,\ then\ /dev/urandom\ will\ be\ used\ as\ a\ fallback\ mechanism.\ On}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ FreeBSD\ and\ OpenBSD,\ this\ does\ not\ change\ much,\ since\ /dev/urandom}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ will\ block\ if\ not\ enough\ entropy\ has\ been\ obtained\ since\ last\ boot.}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ On\ Linux,\ /dev/urandom\ might\ not\ block,\ which\ can\ be\ troublesome\ in}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ early\ boot\ stages,\ which\ is\ why\ getentropy()\ is\ preferred.}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\#define\ BR\_USE\_GETENTROPY\ \ \ 1}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *\ When\ BR\_USE\_URANDOM\ is\ enabled,\ the\ SSL\ engine\ will\ use\ /dev/urandom}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ to\ automatically\ obtain\ quality\ randomness\ for\ seeding\ its\ internal}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ PRNG.}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\#define\ BR\_USE\_URANDOM\ \ \ 1}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ *\ When\ BR\_USE\_WIN32\_RAND\ is\ enabled,\ the\ SSL\ engine\ will\ use\ the\ Win32}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ (CryptoAPI)\ functions\ (CryptAcquireContext(),\ CryptGenRandom()...)\ to}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *\ automatically\ obtain\ quality\ randomness\ for\ seeding\ its\ internal\ PRNG.}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *\ Note:\ if\ both\ BR\_USE\_URANDOM\ and\ BR\_USE\_WIN32\_RAND\ are\ defined,\ the}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ *\ former\ takes\ precedence.}}
+\DoxyCodeLine{00147\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00148\ \textcolor{comment}{\#define\ BR\_USE\_WIN32\_RAND\ \ \ 1}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *\ When\ BR\_USE\_UNIX\_TIME\ is\ enabled,\ the\ X.509\ validation\ engine\ obtains}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ *\ the\ current\ time\ from\ the\ OS\ by\ calling\ time(),\ and\ assuming\ that\ the}}
+\DoxyCodeLine{00154\ \textcolor{comment}{\ *\ returned\ value\ (a\ 'time\_t')\ is\ an\ integer\ that\ counts\ time\ in\ seconds}}
+\DoxyCodeLine{00155\ \textcolor{comment}{\ *\ since\ the\ Unix\ Epoch\ (Jan\ 1st,\ 1970,\ 00:00\ UTC).}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ BR\_USE\_UNIX\_TIME\ \ \ 0}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ *\ When\ BR\_USE\_WIN32\_TIME\ is\ enabled,\ the\ X.509\ validation\ engine\ obtains}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ *\ the\ current\ time\ from\ the\ OS\ by\ calling\ the\ Win32\ function}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ *\ GetSystemTimeAsFileTime().}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ *\ Note:\ if\ both\ BR\_USE\_UNIX\_TIME\ and\ BR\_USE\_WIN32\_TIME\ are\ defined,\ the}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ *\ former\ takes\ precedence.}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\#define\ BR\_USE\_WIN32\_TIME\ \ \ 1}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ *\ When\ BR\_ARMEL\_CORTEXM\_GCC\ is\ enabled,\ some\ operations\ are\ replaced\ with}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ *\ inline\ assembly\ which\ is\ shorter\ and/or\ faster.\ This\ should\ be\ used}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ *\ only\ when\ all\ of\ the\ following\ are\ true:}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ *\ \ \ -\/\ target\ architecture\ is\ ARM\ in\ Thumb\ mode}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ *\ \ \ -\/\ target\ endianness\ is\ little-\/endian}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ *\ \ \ -\/\ compiler\ is\ GCC\ (or\ GCC-\/compatible\ for\ inline\ assembly\ syntax)}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ *\ This\ is\ meant\ for\ the\ low-\/end\ cores\ (Cortex\ M0,\ M0+,\ M1,\ M3).}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ *\ Note:\ if\ BR\_LOMUL\ is\ not\ explicitly\ enabled\ or\ disabled,\ then}}
+\DoxyCodeLine{00181\ \textcolor{comment}{\ *\ enabling\ BR\_ARMEL\_CORTEXM\_GCC\ also\ enables\ BR\_LOMUL.}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#if\ defined(\_\_arm\_\_)\ \&\&\ defined(\_\_thumb\_\_)}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ BR\_ARMEL\_CORTEXM\_GCC\ \ \ 1}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ *\ When\ BR\_AES\_X86NI\ is\ enabled,\ the\ AES\ implementation\ using\ the\ x86\ "{}NI"{}}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ *\ instructions\ (dedicated\ AES\ opcodes)\ will\ be\ compiled.\ If\ this\ is\ not}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ *\ enabled\ explicitly,\ then\ that\ AES\ implementation\ will\ be\ compiled\ only}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ *\ if\ a\ compatible\ compiler\ is\ detected.\ If\ set\ explicitly\ to\ 0,\ the}}
+\DoxyCodeLine{00192\ \textcolor{comment}{\ *\ implementation\ will\ not\ be\ compiled\ at\ all.}}
+\DoxyCodeLine{00193\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00194\ \textcolor{comment}{\#define\ BR\_AES\_X86NI\ \ \ 1}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ *\ When\ BR\_SSE2\ is\ enabled,\ SSE2\ intrinsics\ will\ be\ used\ for\ some}}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ *\ algorithm\ implementations\ that\ use\ them\ (e.g.\ chacha20\_sse2).\ If\ this}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ *\ is\ not\ enabled\ explicitly,\ then\ support\ for\ SSE2\ intrinsics\ will\ be}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ *\ automatically\ detected.\ If\ set\ explicitly\ to\ 0,\ then\ SSE2\ code\ will}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ *\ not\ be\ compiled\ at\ all.}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00204\ \textcolor{comment}{\#define\ BR\_SSE2\ \ \ 1}}
+\DoxyCodeLine{00205\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ *\ When\ BR\_POWER8\ is\ enabled,\ the\ AES\ implementation\ using\ the\ POWER\ ISA}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ *\ 2.07\ opcodes\ (available\ on\ POWER8\ processors\ and\ later)\ is\ compiled.}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ *\ If\ this\ is\ not\ enabled\ explicitly,\ then\ that\ implementation\ will\ be}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ *\ compiled\ only\ if\ a\ compatible\ compiler\ is\ detected,\ \_and\_\ the\ target}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ *\ architecture\ is\ POWER8\ or\ later.}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\#define\ BR\_POWER8\ \ \ 1}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ *\ When\ BR\_INT128\ is\ enabled,\ then\ code\ using\ the\ 'unsigned\ \_\_int64'}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ *\ and\ 'unsigned\ \_\_int128'\ types\ will\ be\ used\ to\ leverage\ 64x64-\/>128}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ *\ unsigned\ multiplications.\ This\ should\ work\ with\ GCC\ and\ compatible}}
+\DoxyCodeLine{00221\ \textcolor{comment}{\ *\ compilers\ on\ 64-\/bit\ architectures.}}
+\DoxyCodeLine{00222\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00223\ \textcolor{comment}{\#define\ BR\_INT128\ \ \ 1}}
+\DoxyCodeLine{00224\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ *\ When\ BR\_UMUL128\ is\ enabled,\ then\ code\ using\ the\ '\_umul128()'\ and}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ *\ '\_addcarry\_u64()'\ intrinsics\ will\ be\ used\ to\ implement\ 64x64-\/>128}}
+\DoxyCodeLine{00229\ \textcolor{comment}{\ *\ unsigned\ multiplications.\ This\ should\ work\ on\ Visual\ C\ on\ x64\ systems.}}
+\DoxyCodeLine{00230\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00231\ \textcolor{comment}{\#define\ BR\_UMUL128\ \ \ 1}}
+\DoxyCodeLine{00232\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00235\ \textcolor{comment}{\ *\ When\ BR\_LE\_UNALIGNED\ is\ enabled,\ then\ the\ current\ architecture\ is}}
+\DoxyCodeLine{00236\ \textcolor{comment}{\ *\ assumed\ to\ use\ little-\/endian\ encoding\ for\ integers,\ and\ to\ tolerate}}
+\DoxyCodeLine{00237\ \textcolor{comment}{\ *\ unaligned\ accesses\ with\ no\ or\ minimal\ time\ penalty.}}
+\DoxyCodeLine{00238\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00239\ \textcolor{comment}{\#define\ BR\_LE\_UNALIGNED\ \ \ 1}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00243\ \textcolor{comment}{\ *\ When\ BR\_BE\_UNALIGNED\ is\ enabled,\ then\ the\ current\ architecture\ is}}
+\DoxyCodeLine{00244\ \textcolor{comment}{\ *\ assumed\ to\ use\ big-\/endian\ encoding\ for\ integers,\ and\ to\ tolerate}}
+\DoxyCodeLine{00245\ \textcolor{comment}{\ *\ unaligned\ accesses\ with\ no\ or\ minimal\ time\ penalty.}}
+\DoxyCodeLine{00246\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00247\ \textcolor{comment}{\#define\ BR\_BE\_UNALIGNED\ \ \ 1}}
+\DoxyCodeLine{00248\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

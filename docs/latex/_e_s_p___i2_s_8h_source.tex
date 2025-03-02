@@ -1,0 +1,152 @@
+\doxysection{ESP\+\_\+\+I2\+S.\+h}
+\hypertarget{_e_s_p___i2_s_8h_source}{}\label{_e_s_p___i2_s_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP\_I2S/src/ESP\_I2S.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP\_I2S/src/ESP\_I2S.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#if\ defined\ \_\_has\_include\ \&\&\ \_\_has\_include("{}mp3dec.h"{})}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ ARDUINO\_HAS\_MP3\_DECODER\ 1}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTED}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}esp\_err.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}driver/i2s\_std.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_TDM}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}driver/i2s\_tdm.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_TX\ ||\ SOC\_I2S\_SUPPORTS\_PDM\_RX}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}driver/i2s\_pdm.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ esp\_err\_t\ (*i2s\_channel\_read\_fn)(i2s\_chan\_handle\_t\ handle,\ \textcolor{keywordtype}{char}\ *tmp\_buf,\ \textcolor{keywordtype}{void}\ *dest,\ \textcolor{keywordtype}{size\_t}\ size,\ \textcolor{keywordtype}{size\_t}\ *bytes\_read,\ uint32\_t\ timeout\_ms);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00023\ \ \ I2S\_MODE\_STD,}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_TDM}}
+\DoxyCodeLine{00025\ \ \ I2S\_MODE\_TDM,}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_TX}}
+\DoxyCodeLine{00028\ \ \ I2S\_MODE\_PDM\_TX,}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_RX}}
+\DoxyCodeLine{00031\ \ \ I2S\_MODE\_PDM\_RX,}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00033\ \ \ I2S\_MODE\_MAX}
+\DoxyCodeLine{00034\ \}\ i2s\_mode\_t;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00037\ \ \ I2S\_RX\_TRANSFORM\_NONE,}
+\DoxyCodeLine{00038\ \ \ I2S\_RX\_TRANSFORM\_32\_TO\_16,}
+\DoxyCodeLine{00039\ \ \ I2S\_RX\_TRANSFORM\_16\_STEREO\_TO\_MONO,}
+\DoxyCodeLine{00040\ \ \ I2S\_RX\_TRANSFORM\_MAX}
+\DoxyCodeLine{00041\ \}\ i2s\_rx\_transform\_t;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{class\ }I2SClass\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_stream}{Stream}}\ \{}
+\DoxyCodeLine{00044\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ I2SClass();}
+\DoxyCodeLine{00046\ \ \ \string~I2SClass();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//STD\ +\ TDM\ mode}}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{void}\ setPins(int8\_t\ bclk,\ int8\_t\ ws,\ int8\_t\ dout,\ int8\_t\ din\ =\ -\/1,\ int8\_t\ mclk\ =\ -\/1);}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordtype}{void}\ setInverted(\textcolor{keywordtype}{bool}\ bclk,\ \textcolor{keywordtype}{bool}\ ws,\ \textcolor{keywordtype}{bool}\ mclk\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{//PDM\ TX\ +\ PDM\ RX\ mode}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_TX}}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{void}\ setPinsPdmTx(int8\_t\ clk,\ int8\_t\ dout0,\ int8\_t\ dout1\ =\ -\/1);}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_RX}}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{void}\ setPinsPdmRx(int8\_t\ clk,\ int8\_t\ din0,\ int8\_t\ din1\ =\ -\/1,\ int8\_t\ din2\ =\ -\/1,\ int8\_t\ din3\ =\ -\/1);}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_TX\ ||\ SOC\_I2S\_SUPPORTS\_PDM\_RX}}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{void}\ setInvertedPdm(\textcolor{keywordtype}{bool}\ clk);}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{bool}\ begin(i2s\_mode\_t\ mode,\ uint32\_t\ rate,\ i2s\_data\_bit\_width\_t\ bits\_cfg,\ i2s\_slot\_mode\_t\ ch,\ int8\_t\ slot\_mask\ =\ -\/1);}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{bool}\ configureTX(uint32\_t\ rate,\ i2s\_data\_bit\_width\_t\ bits\_cfg,\ i2s\_slot\_mode\_t\ ch,\ int8\_t\ slot\_mask\ =\ -\/1);}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{bool}\ configureRX(uint32\_t\ rate,\ i2s\_data\_bit\_width\_t\ bits\_cfg,\ i2s\_slot\_mode\_t\ ch,\ i2s\_rx\_transform\_t\ transform\ =\ I2S\_RX\_TRANSFORM\_NONE);}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{bool}\ end();}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{size\_t}\ readBytes(\textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ i2s\_chan\_handle\_t\ txChan();}
+\DoxyCodeLine{00072\ \ \ uint32\_t\ txSampleRate();}
+\DoxyCodeLine{00073\ \ \ i2s\_data\_bit\_width\_t\ txDataWidth();}
+\DoxyCodeLine{00074\ \ \ i2s\_slot\_mode\_t\ txSlotMode();}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ i2s\_chan\_handle\_t\ rxChan();}
+\DoxyCodeLine{00077\ \ \ uint32\_t\ rxSampleRate();}
+\DoxyCodeLine{00078\ \ \ i2s\_data\_bit\_width\_t\ rxDataWidth();}
+\DoxyCodeLine{00079\ \ \ i2s\_slot\_mode\_t\ rxSlotMode();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{int}\ lastError();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{int}\ available();}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{int}\ peek();}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{int}\ read();}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t\ d);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ Record\ short\ PCM\ WAV\ to\ memory\ with\ current\ RX\ settings.\ Returns\ buffer\ that\ must\ be\ freed\ by\ the\ user.}}
+\DoxyCodeLine{00089\ \ \ uint8\_t\ *recordWAV(\textcolor{keywordtype}{size\_t}\ rec\_seconds,\ \textcolor{keywordtype}{size\_t}\ *out\_size);}
+\DoxyCodeLine{00090\ \ \ \textcolor{comment}{//\ Play\ short\ PCM\ WAV\ from\ memory}}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ playWAV(uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#if\ ARDUINO\_HAS\_MP3\_DECODER}}
+\DoxyCodeLine{00093\ \ \ \textcolor{comment}{//\ Play\ short\ MP3\ from\ memory}}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ playMP3(uint8\_t\ *src,\ \textcolor{keywordtype}{size\_t}\ src\_len);}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00098\ \ \ esp\_err\_t\ last\_error;}
+\DoxyCodeLine{00099\ \ \ i2s\_mode\_t\ \_mode;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ i2s\_chan\_handle\_t\ tx\_chan;}
+\DoxyCodeLine{00102\ \ \ uint32\_t\ tx\_sample\_rate;}
+\DoxyCodeLine{00103\ \ \ i2s\_data\_bit\_width\_t\ tx\_data\_bit\_width;}
+\DoxyCodeLine{00104\ \ \ i2s\_slot\_mode\_t\ tx\_slot\_mode;}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ i2s\_channel\_read\_fn\ rx\_fn;}
+\DoxyCodeLine{00107\ \ \ i2s\_rx\_transform\_t\ rx\_transform;}
+\DoxyCodeLine{00108\ \ \ \textcolor{keywordtype}{char}\ *rx\_transform\_buf;}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{size\_t}\ rx\_transform\_buf\_len;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ i2s\_chan\_handle\_t\ rx\_chan;}
+\DoxyCodeLine{00112\ \ \ uint32\_t\ rx\_sample\_rate;}
+\DoxyCodeLine{00113\ \ \ i2s\_data\_bit\_width\_t\ rx\_data\_bit\_width;}
+\DoxyCodeLine{00114\ \ \ i2s\_slot\_mode\_t\ rx\_slot\_mode;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{comment}{//STD\ and\ TDM\ mode}}
+\DoxyCodeLine{00117\ \ \ int8\_t\ \_mclk,\ \_bclk,\ \_ws,\ \_dout,\ \_din;}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{bool}\ \_mclk\_inv,\ \_bclk\_inv,\ \_ws\_inv;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{//PDM\ mode}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_RX}}
+\DoxyCodeLine{00122\ \ \ int8\_t\ \_rx\_clk,\ \_rx\_din0,\ \_rx\_din1,\ \_rx\_din2,\ \_rx\_din3;\ \ \textcolor{comment}{//TODO:\ soc\_caps.h\ 1/4}}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{bool}\ \_rx\_clk\_inv;}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_TX}}
+\DoxyCodeLine{00126\ \ \ int8\_t\ \_tx\_clk,\ \_tx\_dout0,\ \_tx\_dout1;}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{bool}\ \_tx\_clk\_inv;}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{bool}\ allocTranformRX(\textcolor{keywordtype}{size\_t}\ buf\_len);}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{bool}\ transformRX(i2s\_rx\_transform\_t\ transform);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ i2sDetachBus(\textcolor{keywordtype}{void}\ *bus\_pointer);}
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordtype}{bool}\ initSTD(uint32\_t\ rate,\ i2s\_data\_bit\_width\_t\ bits\_cfg,\ i2s\_slot\_mode\_t\ ch,\ int8\_t\ slot\_mask);}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_TDM}}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{bool}\ initTDM(uint32\_t\ rate,\ i2s\_data\_bit\_width\_t\ bits\_cfg,\ i2s\_slot\_mode\_t\ ch,\ int8\_t\ slot\_mask);}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_TX}}
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordtype}{bool}\ initPDMtx(uint32\_t\ rate,\ i2s\_data\_bit\_width\_t\ bits\_cfg,\ i2s\_slot\_mode\_t\ ch);}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#if\ SOC\_I2S\_SUPPORTS\_PDM\_RX}}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{bool}\ initPDMrx(uint32\_t\ rate,\ i2s\_data\_bit\_width\_t\ bits\_cfg,\ i2s\_slot\_mode\_t\ ch);}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00144\ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_I2S\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

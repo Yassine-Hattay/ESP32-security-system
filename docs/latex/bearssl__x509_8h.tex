@@ -1,0 +1,642 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/bearssl\+\_\+x509.h File Reference}
+\hypertarget{bearssl__x509_8h}{}\label{bearssl__x509_8h}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_x509.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_x509.h}}
+{\ttfamily \#include "{}../\+ESP\+\_\+\+SSLClient\+\_\+\+FS.\+h"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}bearssl\+\_\+ec.\+h"{}}\newline
+{\ttfamily \#include "{}bearssl\+\_\+hash.\+h"{}}\newline
+{\ttfamily \#include "{}bearssl\+\_\+rsa.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structbr__x509__pkey}{br\+\_\+x509\+\_\+pkey}}
+\begin{DoxyCompactList}\small\item\em Aggregate structure for public keys. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__x500__name}{br\+\_\+x500\+\_\+name}}
+\begin{DoxyCompactList}\small\item\em Distinguished Name (X.\+500) structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__x509__trust__anchor}{br\+\_\+x509\+\_\+trust\+\_\+anchor}}
+\begin{DoxyCompactList}\small\item\em Trust anchor structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__x509__class__}{br\+\_\+x509\+\_\+class\+\_\+}}
+\item 
+struct \mbox{\hyperlink{structbr__x509__knownkey__context}{br\+\_\+x509\+\_\+knownkey\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em The "{}known key"{} X.\+509 engine structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__name__element}{br\+\_\+name\+\_\+element}}
+\begin{DoxyCompactList}\small\item\em Type for receiving a name element. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__x509__minimal__context}{br\+\_\+x509\+\_\+minimal\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em The "{}minimal"{} X.\+509 engine structure. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__x509__decoder__context}{br\+\_\+x509\+\_\+decoder\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em X.\+509 decoder context. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__x509__certificate}{br\+\_\+x509\+\_\+certificate}}
+\begin{DoxyCompactList}\small\item\em Type for an X.\+509 certificate (DER-\/encoded). \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__skey__decoder__context}{br\+\_\+skey\+\_\+decoder\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em Private key decoder context. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structbr__pkey__decoder__context}{br\+\_\+pkey\+\_\+decoder\+\_\+context}}
+\begin{DoxyCompactList}\small\item\em Public key decoder context. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{bearssl__x509_8h_a1713df679830bd69521cc939cab39795}\label{bearssl__x509_8h_a1713df679830bd69521cc939cab39795} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+OK}~32
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: validation was successful; this is not actually an error. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_adb3fb396c748032c6efa6525ad03cf75}\label{bearssl__x509_8h_adb3fb396c748032c6efa6525ad03cf75} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+INVALID\+\_\+\+VALUE}~33
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: invalid value in an ASN.\+1 structure. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a8b445cbe2575b9599185da86056517f2}\label{bearssl__x509_8h_a8b445cbe2575b9599185da86056517f2} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+TRUNCATED}~34
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: truncated certificate. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_aa48ca05c973de29e6b72617d71b8a20b}\label{bearssl__x509_8h_aa48ca05c973de29e6b72617d71b8a20b} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+EMPTY\+\_\+\+CHAIN}~35
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: empty certificate chain (no certificate at all). \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a5a1ef832c53c92ed31ea4ced41d830a1}\label{bearssl__x509_8h_a5a1ef832c53c92ed31ea4ced41d830a1} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+INNER\+\_\+\+TRUNC}~36
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: inner element extends beyond outer element size. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_ad74563eca438c807cdd34601895a520e}\label{bearssl__x509_8h_ad74563eca438c807cdd34601895a520e} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+BAD\+\_\+\+TAG\+\_\+\+CLASS}~37
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: unsupported tag class (application or private). \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a80f3d62dae18d5ba825669b8327dc222}\label{bearssl__x509_8h_a80f3d62dae18d5ba825669b8327dc222} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+BAD\+\_\+\+TAG\+\_\+\+VALUE}~38
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: unsupported tag value. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a5eca7f43877fb54d56f83cc6485cbd7f}\label{bearssl__x509_8h_a5eca7f43877fb54d56f83cc6485cbd7f} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+INDEFINITE\+\_\+\+LENGTH}~39
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: indefinite length. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a5b1a43a6a5527c3f1b9c74be101b1370}\label{bearssl__x509_8h_a5b1a43a6a5527c3f1b9c74be101b1370} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+EXTRA\+\_\+\+ELEMENT}~40
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: extraneous element. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a26c5e29f093f6eeb4147472056d03aed}\label{bearssl__x509_8h_a26c5e29f093f6eeb4147472056d03aed} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+UNEXPECTED}~41
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: unexpected element. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a510bdeb41a9782fb80616f3418492bb1}\label{bearssl__x509_8h_a510bdeb41a9782fb80616f3418492bb1} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+NOT\+\_\+\+CONSTRUCTED}~42
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: expected constructed element, but is primitive. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_ac5c08b9752662c478d9349e361ba68cf}\label{bearssl__x509_8h_ac5c08b9752662c478d9349e361ba68cf} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+NOT\+\_\+\+PRIMITIVE}~43
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: expected primitive element, but is constructed. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a12493cab12ebee5e0e2b7562c4358702}\label{bearssl__x509_8h_a12493cab12ebee5e0e2b7562c4358702} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+PARTIAL\+\_\+\+BYTE}~44
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: BIT STRING length is not multiple of 8. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_aee3368e0cad941d65856dbcb721b730e}\label{bearssl__x509_8h_aee3368e0cad941d65856dbcb721b730e} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+BAD\+\_\+\+BOOLEAN}~45
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: BOOLEAN value has invalid length. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a4a133e8d6152a9161a40a85536404fc0}\label{bearssl__x509_8h_a4a133e8d6152a9161a40a85536404fc0} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+OVERFLOW}~46
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: decoding error\+: value is off-\/limits. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a21a6d9cb8c5d2e2930029534e3b3338e}\label{bearssl__x509_8h_a21a6d9cb8c5d2e2930029534e3b3338e} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+BAD\+\_\+\+DN}~47
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: invalid distinguished name. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a8a0c65156da06846c30f3e7b2aa558b8}\label{bearssl__x509_8h_a8a0c65156da06846c30f3e7b2aa558b8} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+BAD\+\_\+\+TIME}~48
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: invalid date/time representation. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a4a9c8afe343765b22382298a3cabdd2f}\label{bearssl__x509_8h_a4a9c8afe343765b22382298a3cabdd2f} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+UNSUPPORTED}~49
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: certificate contains unsupported features that cannot be ignored. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_aa6c69bc7b1c049fba240319f65772597}\label{bearssl__x509_8h_aa6c69bc7b1c049fba240319f65772597} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+LIMIT\+\_\+\+EXCEEDED}~50
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: key or signature size exceeds internal limits. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a7a73183803aeecefe30215ecf80fac1b}\label{bearssl__x509_8h_a7a73183803aeecefe30215ecf80fac1b} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+WRONG\+\_\+\+KEY\+\_\+\+TYPE}~51
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: key type does not match that which was expected. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_af9e74d2d7c70c880b09d7d94d84e7b1a}\label{bearssl__x509_8h_af9e74d2d7c70c880b09d7d94d84e7b1a} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+BAD\+\_\+\+SIGNATURE}~52
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: signature is invalid. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a72c572f1b9c48d94223d2dfafe6eff57}\label{bearssl__x509_8h_a72c572f1b9c48d94223d2dfafe6eff57} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+TIME\+\_\+\+UNKNOWN}~53
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: validation time is unknown. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_acf49f37ed522b5dcd027fe9cfac82ffd}\label{bearssl__x509_8h_acf49f37ed522b5dcd027fe9cfac82ffd} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+EXPIRED}~54
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: certificate is expired or not yet valid. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a57ead28e301eea1bf920fc326cd49664}\label{bearssl__x509_8h_a57ead28e301eea1bf920fc326cd49664} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+DN\+\_\+\+MISMATCH}~55
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: issuer/subject DN mismatch in the chain. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a2f402b64447ac4f5a8c6aac76ed554c1}\label{bearssl__x509_8h_a2f402b64447ac4f5a8c6aac76ed554c1} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+BAD\+\_\+\+SERVER\+\_\+\+NAME}~56
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: expected server name was not found in the chain. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_ad86cd52316e312c88a59b2814c96d60f}\label{bearssl__x509_8h_ad86cd52316e312c88a59b2814c96d60f} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+CRITICAL\+\_\+\+EXTENSION}~57
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: unknown critical extension in certificate. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a6bf90db87eefa0be5cd725432ae0a7c9}\label{bearssl__x509_8h_a6bf90db87eefa0be5cd725432ae0a7c9} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+NOT\+\_\+\+CA}~58
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: not a CA, or path length constraint violation. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a5440a6d99f7284d191bb6c2ce51508ba}\label{bearssl__x509_8h_a5440a6d99f7284d191bb6c2ce51508ba} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+FORBIDDEN\+\_\+\+KEY\+\_\+\+USAGE}~59
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: Key Usage extension prohibits intended usage. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a7342dc5f96cebafcf93100d46a7871c5}\label{bearssl__x509_8h_a7342dc5f96cebafcf93100d46a7871c5} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+WEAK\+\_\+\+PUBLIC\+\_\+\+KEY}~60
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: public key found in certificate is too small. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_ad5e550c257b6d6425f87d13c2783e056}\label{bearssl__x509_8h_ad5e550c257b6d6425f87d13c2783e056} 
+\#define {\bfseries BR\+\_\+\+ERR\+\_\+\+X509\+\_\+\+NOT\+\_\+\+TRUSTED}~62
+\begin{DoxyCompactList}\small\item\em X.\+509 status\+: chain could not be linked to a trust anchor. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{bearssl__x509_8h_a5f63e9c9bf9ef4ee76354f4662ea0d74}{BR\+\_\+\+X509\+\_\+\+TA\+\_\+\+CA}}~0x0001
+\begin{DoxyCompactList}\small\item\em Trust anchor flag\+: CA. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_abbcac225e09cbd86978e9273013d9fdb}\label{bearssl__x509_8h_abbcac225e09cbd86978e9273013d9fdb} 
+\#define {\bfseries BR\+\_\+\+KEYTYPE\+\_\+\+RSA}~1
+\begin{DoxyCompactList}\small\item\em Key type\+: algorithm is RSA. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a3a1aac0260adb768632b555740b5dfe4}\label{bearssl__x509_8h_a3a1aac0260adb768632b555740b5dfe4} 
+\#define {\bfseries BR\+\_\+\+KEYTYPE\+\_\+\+EC}~2
+\begin{DoxyCompactList}\small\item\em Key type\+: algorithm is EC. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{bearssl__x509_8h_ad0585c052f9a73cc7b83f7ab9a1c9b28}{BR\+\_\+\+KEYTYPE\+\_\+\+KEYX}}~0x10
+\begin{DoxyCompactList}\small\item\em Key type\+: usage is "{}key exchange"{}. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{bearssl__x509_8h_a2b2bd4c6ec8d26754645743ca26ba9ac}{BR\+\_\+\+KEYTYPE\+\_\+\+SIGN}}~0x20
+\begin{DoxyCompactList}\small\item\em Key type\+: usage is "{}signature"{}. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_ad567cfe4c48cd4fe58d0d3deb046e121}\label{bearssl__x509_8h_ad567cfe4c48cd4fe58d0d3deb046e121} 
+\#define {\bfseries BR\+\_\+\+X509\+\_\+\+BUFSIZE\+\_\+\+KEY}~520
+\item 
+\Hypertarget{bearssl__x509_8h_afa92c87927450445749eafe8c0dd69be}\label{bearssl__x509_8h_afa92c87927450445749eafe8c0dd69be} 
+\#define {\bfseries BR\+\_\+\+X509\+\_\+\+BUFSIZE\+\_\+\+SIG}~512
+\item 
+\Hypertarget{bearssl__x509_8h_af95b588de4303cf590c2f18d038e6f82}\label{bearssl__x509_8h_af95b588de4303cf590c2f18d038e6f82} 
+\#define {\bfseries BR\+\_\+\+ENCODE\+\_\+\+PEM\+\_\+\+RSA\+\_\+\+RAW}~"{}RSA PRIVATE KEY"{}
+\begin{DoxyCompactList}\small\item\em PEM banner for RSA private key (raw). \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a2db01781a6e7322133e640ef82de0af1}\label{bearssl__x509_8h_a2db01781a6e7322133e640ef82de0af1} 
+\#define {\bfseries BR\+\_\+\+ENCODE\+\_\+\+PEM\+\_\+\+EC\+\_\+\+RAW}~"{}EC PRIVATE KEY"{}
+\begin{DoxyCompactList}\small\item\em PEM banner for EC private key (raw). \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_a348912c232920f05f810d4474be6053a}\label{bearssl__x509_8h_a348912c232920f05f810d4474be6053a} 
+\#define {\bfseries BR\+\_\+\+ENCODE\+\_\+\+PEM\+\_\+\+PKCS8}~"{}PRIVATE KEY"{}
+\begin{DoxyCompactList}\small\item\em PEM banner for an RSA or EC private key in PKCS\#8 format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structbr__x509__class__}{br\+\_\+x509\+\_\+class\+\_\+}} \mbox{\hyperlink{bearssl__x509_8h_acf3af5c1ad4007b178e4c6d68ce5bb0d}{br\+\_\+x509\+\_\+class}}
+\begin{DoxyCompactList}\small\item\em Class type for an X.\+509 engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bearssl__x509_8h_af89092ad96523f50ef0c104d38a58e62}{br\+\_\+x509\+\_\+knownkey\+\_\+init\+\_\+rsa}} (\mbox{\hyperlink{structbr__x509__knownkey__context}{br\+\_\+x509\+\_\+knownkey\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const \mbox{\hyperlink{structbr__rsa__public__key}{br\+\_\+rsa\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}pk, unsigned usages)
+\begin{DoxyCompactList}\small\item\em Initialize a "{}known key"{} X.\+509 engine with a known RSA public key. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__x509_8h_a79ce369dcf609ec27926fe8825eb8dfb}{br\+\_\+x509\+\_\+knownkey\+\_\+init\+\_\+ec}} (\mbox{\hyperlink{structbr__x509__knownkey__context}{br\+\_\+x509\+\_\+knownkey\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const \mbox{\hyperlink{structbr__ec__public__key}{br\+\_\+ec\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}pk, unsigned usages)
+\begin{DoxyCompactList}\small\item\em Initialize a "{}known key"{} X.\+509 engine with a known EC public key. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__x509_8h_a183044724b9ff13c4d6b88bb4b91f376}{br\+\_\+x509\+\_\+minimal\+\_\+init}} (\mbox{\hyperlink{structbr__x509__minimal__context}{br\+\_\+x509\+\_\+minimal\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}dn\+\_\+hash\+\_\+impl, const \mbox{\hyperlink{structbr__x509__trust__anchor}{br\+\_\+x509\+\_\+trust\+\_\+anchor}} \texorpdfstring{$\ast$}{*}trust\+\_\+anchors, size\+\_\+t trust\+\_\+anchors\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Initialise a "{}minimal"{} X.\+509 engine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__x509_8h_aa15bdbcb9fa20f20184b9f4689452a70}{br\+\_\+x509\+\_\+minimal\+\_\+init\+\_\+full}} (\mbox{\hyperlink{structbr__x509__minimal__context}{br\+\_\+x509\+\_\+minimal\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const \mbox{\hyperlink{structbr__x509__trust__anchor}{br\+\_\+x509\+\_\+trust\+\_\+anchor}} \texorpdfstring{$\ast$}{*}trust\+\_\+anchors, size\+\_\+t trust\+\_\+anchors\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Initialise a "{}minimal"{} X.\+509 engine with default algorithms. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__x509_8h_a1b34a7f2ce9f8c9086491551f848ad0f}{br\+\_\+x509\+\_\+decoder\+\_\+init}} (\mbox{\hyperlink{structbr__x509__decoder__context}{br\+\_\+x509\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, void(\texorpdfstring{$\ast$}{*}append\+\_\+dn)(void \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}buf, size\+\_\+t len), void \texorpdfstring{$\ast$}{*}append\+\_\+dn\+\_\+ctx)
+\begin{DoxyCompactList}\small\item\em Initialise an X.\+509 decoder context for processing a new certificate. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__x509_8h_a8d0fe7d0e8f5a5a6420bf1af831b2ad5}{br\+\_\+x509\+\_\+decoder\+\_\+push}} (\mbox{\hyperlink{structbr__x509__decoder__context}{br\+\_\+x509\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Push some certificate bytes into a decoder context. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__x509_8h_a4b00a6191bf93b916c58f461145f0987}{br\+\_\+skey\+\_\+decoder\+\_\+init}} (\mbox{\hyperlink{structbr__skey__decoder__context}{br\+\_\+skey\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx)
+\begin{DoxyCompactList}\small\item\em Initialise a private key decoder context. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__x509_8h_ab56c19464ac61076ecab2bcbd080b8ea}{br\+\_\+skey\+\_\+decoder\+\_\+push}} (\mbox{\hyperlink{structbr__skey__decoder__context}{br\+\_\+skey\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Push some data bytes into a private key decoder context. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__x509_8h_a7beb69b0d703198d6ddbcf186b507e5c}{br\+\_\+pkey\+\_\+decoder\+\_\+init}} (\mbox{\hyperlink{structbr__pkey__decoder__context}{br\+\_\+pkey\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx)
+\begin{DoxyCompactList}\small\item\em Initialise a public key decoder context. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{bearssl__x509_8h_ac2b4df58cc0c7573db3c11c8af2f044a}{br\+\_\+pkey\+\_\+decoder\+\_\+push}} (\mbox{\hyperlink{structbr__pkey__decoder__context}{br\+\_\+pkey\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Push some data bytes into a public key decoder context. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{bearssl__x509_8h_abf188fc6765c2320040d547b650e0553}{br\+\_\+encode\+\_\+rsa\+\_\+raw\+\_\+der}} (void \texorpdfstring{$\ast$}{*}dest, const \mbox{\hyperlink{structbr__rsa__private__key}{br\+\_\+rsa\+\_\+private\+\_\+key}} \texorpdfstring{$\ast$}{*}sk, const \mbox{\hyperlink{structbr__rsa__public__key}{br\+\_\+rsa\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}pk, const void \texorpdfstring{$\ast$}{*}d, size\+\_\+t dlen)
+\begin{DoxyCompactList}\small\item\em Encode an RSA private key (raw DER format). \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{bearssl__x509_8h_aa2d52c6998d6260a885285aacb7ffde1}{br\+\_\+encode\+\_\+rsa\+\_\+pkcs8\+\_\+der}} (void \texorpdfstring{$\ast$}{*}dest, const \mbox{\hyperlink{structbr__rsa__private__key}{br\+\_\+rsa\+\_\+private\+\_\+key}} \texorpdfstring{$\ast$}{*}sk, const \mbox{\hyperlink{structbr__rsa__public__key}{br\+\_\+rsa\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}pk, const void \texorpdfstring{$\ast$}{*}d, size\+\_\+t dlen)
+\begin{DoxyCompactList}\small\item\em Encode an RSA private key (PKCS\#8 DER format). \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{bearssl__x509_8h_a98b3401f11002d17cb8305ff57ab893a}{br\+\_\+encode\+\_\+ec\+\_\+raw\+\_\+der}} (void \texorpdfstring{$\ast$}{*}dest, const \mbox{\hyperlink{structbr__ec__private__key}{br\+\_\+ec\+\_\+private\+\_\+key}} \texorpdfstring{$\ast$}{*}sk, const \mbox{\hyperlink{structbr__ec__public__key}{br\+\_\+ec\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}pk)
+\begin{DoxyCompactList}\small\item\em Encode an EC private key (raw DER format). \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{bearssl__x509_8h_ae64c72a25d5f3a3d8ddd8105de16a8a8}{br\+\_\+encode\+\_\+ec\+\_\+pkcs8\+\_\+der}} (void \texorpdfstring{$\ast$}{*}dest, const \mbox{\hyperlink{structbr__ec__private__key}{br\+\_\+ec\+\_\+private\+\_\+key}} \texorpdfstring{$\ast$}{*}sk, const \mbox{\hyperlink{structbr__ec__public__key}{br\+\_\+ec\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}pk)
+\begin{DoxyCompactList}\small\item\em Encode an EC private key (PKCS\#8 DER format). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{bearssl__x509_8h_abb114e00d31b7520ea44323cd3a4f884}\label{bearssl__x509_8h_abb114e00d31b7520ea44323cd3a4f884} 
+const \mbox{\hyperlink{bearssl__x509_8h_acf3af5c1ad4007b178e4c6d68ce5bb0d}{br\+\_\+x509\+\_\+class}} {\bfseries br\+\_\+x509\+\_\+knownkey\+\_\+vtable}
+\begin{DoxyCompactList}\small\item\em Class instance for the "{}known key"{} X.\+509 engine. \end{DoxyCompactList}\item 
+\Hypertarget{bearssl__x509_8h_aee76f2097e6c267a77e458e11b237c62}\label{bearssl__x509_8h_aee76f2097e6c267a77e458e11b237c62} 
+const \mbox{\hyperlink{bearssl__x509_8h_acf3af5c1ad4007b178e4c6d68ce5bb0d}{br\+\_\+x509\+\_\+class}} {\bfseries br\+\_\+x509\+\_\+minimal\+\_\+vtable}
+\begin{DoxyCompactList}\small\item\em Class instance for the "{}minimal"{} X.\+509 engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{bearssl__x509_8h_autotoc_md110}{}\doxysubsection{\texorpdfstring{X.\+509 Certificate Chain Processing}{X.\+509 Certificate Chain Processing}}\label{bearssl__x509_8h_autotoc_md110}
+An X.\+509 processing engine receives an X.\+509 chain, chunk by chunk, as received from a SSL/\+TLS client or server (the client receives the server\textquotesingle{}s certificate chain, and the server receives the client\textquotesingle{}s certificate chain if it requested a client certificate). The chain is thus injected in the engine in SSL order (end-\/entity first).
+
+The engine\textquotesingle{}s job is to return the public key to use for SSL/\+TLS. How exactly that key is obtained and verified is entirely up to the engine.
+
+{\bfseries{The "{}known key"{} engine}} returns a public key which is already known from out-\/of-\/band information (e.\+g. the client {\itshape remembers} the key from a previous connection, as in the usual SSH model). This is the simplest engine since it simply ignores the chain, thereby avoiding the need for any decoding logic.
+
+{\bfseries{The "{}minimal"{} engine}} implements minimal X.\+509 decoding and chain validation\+:
+
+
+\begin{DoxyItemize}
+\item The provided chain should validate "{}as is"{}. There is no attempt at reordering, skipping or downloading extra certificates.
+\item X.\+509 v1, v2 and v3 certificates are supported.
+\item Trust anchors are a DN and a public key. Each anchor is either a "{}\+CA"{} anchor, or a non-\/\+CA.
+\item If the end-\/entity certificate matches a non-\/\+CA anchor (subject DN is equal to the non-\/\+CA name, and public key is also identical to the anchor key), then this is a {\itshape direct trust} case and the remaining certificates are ignored.
+\item Unless direct trust is applied, the chain must be verifiable up to a certificate whose issuer DN matches the DN from a "{}\+CA"{} trust anchor, and whose signature is verifiable against that anchor\textquotesingle{}s public key. Subsequent certificates in the chain are ignored.
+\item The engine verifies subject/issuer DN matching, and enforces processing of Basic Constraints and Key Usage extensions. The Authority Key Identifier, Subject Key Identifier, Issuer Alt Name, Subject Directory Attribute, CRL Distribution Points, Freshest CRL, Authority Info Access and Subject Info Access extensions are ignored. The Subject Alt Name is decoded for the end-\/entity certificate under some conditions (see below). Other extensions are ignored if non-\/critical, or imply chain rejection if critical.
+\item The Subject Alt Name extension is parsed for names of type {\ttfamily d\+NSName} when decoding the end-\/entity certificate, and only if there is a server name to match. If there is no SAN extension, then the Common Name from the subject\+DN is used. That name matching is case-\/insensitive and honours a single starting wildcard (i.\+e. if the name in the certificate starts with "{}\`{}\texorpdfstring{$\ast$}{*}.\`{}"{} then this matches any word as first element). Note\+: this name matching is performed also in the "{}direct trust"{} model.
+\item DN matching is byte-\/to-\/byte equality (a future version might include some limited processing for case-\/insensitive matching and whitespace normalisation).
+\item Successful validation produces a public key type but also a set of allowed usages ({\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+KEYX} and/or {\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+SIGN}). The caller is responsible for checking that the key type and usages are compatible with the expected values (e.\+g. with the selected cipher suite, when the client validates the server\textquotesingle{}s certificate).
+\end{DoxyItemize}
+
+{\bfseries{Important caveats\+:}}
+
+
+\begin{DoxyItemize}
+\item The "{}minimal"{} engine does not check revocation status. The relevant extensions are ignored, and CRL or OCSP responses are not gathered or checked.
+\item The "{}minimal"{} engine does not currently support Name Constraints (some basic functionality to handle sub-\/domains may be added in a later version).
+\item The decoder is not "{}validating"{} in the sense that it won\textquotesingle{}t reject some certificates with invalid field values when these fields are not actually processed. 
+\end{DoxyItemize}
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{bearssl__x509_8h_ad0585c052f9a73cc7b83f7ab9a1c9b28}\index{bearssl\_x509.h@{bearssl\_x509.h}!BR\_KEYTYPE\_KEYX@{BR\_KEYTYPE\_KEYX}}
+\index{BR\_KEYTYPE\_KEYX@{BR\_KEYTYPE\_KEYX}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{BR\_KEYTYPE\_KEYX}{BR\_KEYTYPE\_KEYX}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_ad0585c052f9a73cc7b83f7ab9a1c9b28} 
+\#define BR\+\_\+\+KEYTYPE\+\_\+\+KEYX~0x10}
+
+
+
+Key type\+: usage is "{}key exchange"{}. 
+
+This value is combined (with bitwise OR) with the algorithm ({\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+RSA} or {\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+EC}) when informing the X.\+509 validation engine that it should find a public key of that type, fit for key exchanges (e.\+g. {\ttfamily TLS\+\_\+\+RSA\+\_\+\texorpdfstring{$\ast$}{*}} and {\ttfamily TLS\+\_\+\+ECDH\+\_\+\texorpdfstring{$\ast$}{*}} cipher suites). \Hypertarget{bearssl__x509_8h_a2b2bd4c6ec8d26754645743ca26ba9ac}\index{bearssl\_x509.h@{bearssl\_x509.h}!BR\_KEYTYPE\_SIGN@{BR\_KEYTYPE\_SIGN}}
+\index{BR\_KEYTYPE\_SIGN@{BR\_KEYTYPE\_SIGN}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{BR\_KEYTYPE\_SIGN}{BR\_KEYTYPE\_SIGN}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_a2b2bd4c6ec8d26754645743ca26ba9ac} 
+\#define BR\+\_\+\+KEYTYPE\+\_\+\+SIGN~0x20}
+
+
+
+Key type\+: usage is "{}signature"{}. 
+
+This value is combined (with bitwise OR) with the algorithm ({\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+RSA} or {\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+EC}) when informing the X.\+509 validation engine that it should find a public key of that type, fit for signatures (e.\+g. {\ttfamily TLS\+\_\+\+ECDHE\+\_\+\texorpdfstring{$\ast$}{*}} cipher suites). \Hypertarget{bearssl__x509_8h_a5f63e9c9bf9ef4ee76354f4662ea0d74}\index{bearssl\_x509.h@{bearssl\_x509.h}!BR\_X509\_TA\_CA@{BR\_X509\_TA\_CA}}
+\index{BR\_X509\_TA\_CA@{BR\_X509\_TA\_CA}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{BR\_X509\_TA\_CA}{BR\_X509\_TA\_CA}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_a5f63e9c9bf9ef4ee76354f4662ea0d74} 
+\#define BR\+\_\+\+X509\+\_\+\+TA\+\_\+\+CA~0x0001}
+
+
+
+Trust anchor flag\+: CA. 
+
+A "{}\+CA"{} anchor is deemed fit to verify signatures on certificates. A "{}non-\/\+CA"{} anchor is accepted only for direct trust (server\textquotesingle{}s certificate name and key match the anchor). 
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{bearssl__x509_8h_acf3af5c1ad4007b178e4c6d68ce5bb0d}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_x509\_class@{br\_x509\_class}}
+\index{br\_x509\_class@{br\_x509\_class}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_x509\_class}{br\_x509\_class}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_acf3af5c1ad4007b178e4c6d68ce5bb0d} 
+typedef struct \mbox{\hyperlink{structbr__x509__class__}{br\+\_\+x509\+\_\+class\+\_\+}} \mbox{\hyperlink{bearssl__x509_8h_acf3af5c1ad4007b178e4c6d68ce5bb0d}{br\+\_\+x509\+\_\+class}}}
+
+
+
+Class type for an X.\+509 engine. 
+
+A certificate chain validation uses a caller-\/allocated context, which contains the running state for that validation. Methods are called in due order\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily start\+\_\+chain()} is called at the start of the validation.
+\item Certificates are processed one by one, in SSL order (end-\/entity comes first). For each certificate, the following methods are called\+:
+\begin{DoxyItemize}
+\item {\ttfamily start\+\_\+cert()} at the beginning of the certificate.
+\item {\ttfamily append()} is called zero, one or more times, to provide the certificate (possibly in chunks).
+\item {\ttfamily end\+\_\+cert()} at the end of the certificate.
+\end{DoxyItemize}
+\item {\ttfamily end\+\_\+chain()} is called when the last certificate in the chain was processed.
+\item {\ttfamily get\+\_\+pkey()} is called after chain processing, if the chain validation was successful.
+\end{DoxyItemize}
+
+A context structure may be reused; the {\ttfamily start\+\_\+chain()} method shall ensure (re)initialisation. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{bearssl__x509_8h_ae64c72a25d5f3a3d8ddd8105de16a8a8}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_encode\_ec\_pkcs8\_der@{br\_encode\_ec\_pkcs8\_der}}
+\index{br\_encode\_ec\_pkcs8\_der@{br\_encode\_ec\_pkcs8\_der}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_encode\_ec\_pkcs8\_der()}{br\_encode\_ec\_pkcs8\_der()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_ae64c72a25d5f3a3d8ddd8105de16a8a8} 
+size\+\_\+t br\+\_\+encode\+\_\+ec\+\_\+pkcs8\+\_\+der (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{dest}{, }\item[{const \mbox{\hyperlink{structbr__ec__private__key}{br\+\_\+ec\+\_\+private\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{sk}{, }\item[{const \mbox{\hyperlink{structbr__ec__public__key}{br\+\_\+ec\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{pk}{}\end{DoxyParamCaption})}
+
+
+
+Encode an EC private key (PKCS\#8 DER format). 
+
+This function encodes the provided key into the PKCS\#8 format (RFC 5958, type {\ttfamily One\+Asymmetric\+Key}). The curve is identified by an OID provided as parameters to the {\ttfamily private\+Key\+Algorithm} field. The private key value (contents of the {\ttfamily private\+Key} field) contains the DER encoding of the {\ttfamily ECPrivate\+Key} type defined in RFC 5915, without the {\ttfamily parameters} field (since they would be redundant with the information in {\ttfamily private\+Key\+Algorithm}).
+
+The private key is provided in {\ttfamily sk}, the public key being {\ttfamily pk}. If {\ttfamily pk} is not {\ttfamily NULL}, then the encoded public key is included in the {\ttfamily public\+Key} field of the private key value (but not in the {\ttfamily public\+Key} field of the PKCS\#8 {\ttfamily One\+Asymmetric\+Key} wrapper).
+
+If {\ttfamily dest} is not {\ttfamily NULL}, then the encoded key is written at that address, and the encoded length (in bytes) is returned. If {\ttfamily dest} is {\ttfamily NULL}, then nothing is written, but the encoded length is still computed and returned.
+
+If the key cannot be encoded (e.\+g. because there is no known OBJECT IDENTIFIER for the used curve), then 0 is returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dest} & the destination buffer (or {\ttfamily NULL}). \\
+\hline
+{\em sk} & the EC private key. \\
+\hline
+{\em pk} & the EC public key (or {\ttfamily NULL}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the encoded key length (in bytes), or 0. 
+\end{DoxyReturn}
+\Hypertarget{bearssl__x509_8h_a98b3401f11002d17cb8305ff57ab893a}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_encode\_ec\_raw\_der@{br\_encode\_ec\_raw\_der}}
+\index{br\_encode\_ec\_raw\_der@{br\_encode\_ec\_raw\_der}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_encode\_ec\_raw\_der()}{br\_encode\_ec\_raw\_der()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_a98b3401f11002d17cb8305ff57ab893a} 
+size\+\_\+t br\+\_\+encode\+\_\+ec\+\_\+raw\+\_\+der (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{dest}{, }\item[{const \mbox{\hyperlink{structbr__ec__private__key}{br\+\_\+ec\+\_\+private\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{sk}{, }\item[{const \mbox{\hyperlink{structbr__ec__public__key}{br\+\_\+ec\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{pk}{}\end{DoxyParamCaption})}
+
+
+
+Encode an EC private key (raw DER format). 
+
+This function encodes the provided key into the "{}raw"{} format specified in RFC 5915 (type {\ttfamily ECPrivate\+Key}), with DER encoding rules.
+
+The private key is provided in {\ttfamily sk}, the public key being {\ttfamily pk}. If {\ttfamily pk} is {\ttfamily NULL}, then the encoded key will not include the public key in its {\ttfamily public\+Key} field (which is nominally optional).
+
+If {\ttfamily dest} is not {\ttfamily NULL}, then the encoded key is written at that address, and the encoded length (in bytes) is returned. If {\ttfamily dest} is {\ttfamily NULL}, then nothing is written, but the encoded length is still computed and returned.
+
+If the key cannot be encoded (e.\+g. because there is no known OBJECT IDENTIFIER for the used curve), then 0 is returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dest} & the destination buffer (or {\ttfamily NULL}). \\
+\hline
+{\em sk} & the EC private key. \\
+\hline
+{\em pk} & the EC public key (or {\ttfamily NULL}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the encoded key length (in bytes), or 0. 
+\end{DoxyReturn}
+\Hypertarget{bearssl__x509_8h_aa2d52c6998d6260a885285aacb7ffde1}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_encode\_rsa\_pkcs8\_der@{br\_encode\_rsa\_pkcs8\_der}}
+\index{br\_encode\_rsa\_pkcs8\_der@{br\_encode\_rsa\_pkcs8\_der}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_encode\_rsa\_pkcs8\_der()}{br\_encode\_rsa\_pkcs8\_der()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_aa2d52c6998d6260a885285aacb7ffde1} 
+size\+\_\+t br\+\_\+encode\+\_\+rsa\+\_\+pkcs8\+\_\+der (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{dest}{, }\item[{const \mbox{\hyperlink{structbr__rsa__private__key}{br\+\_\+rsa\+\_\+private\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{sk}{, }\item[{const \mbox{\hyperlink{structbr__rsa__public__key}{br\+\_\+rsa\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{pk}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{d}{, }\item[{size\+\_\+t}]{dlen}{}\end{DoxyParamCaption})}
+
+
+
+Encode an RSA private key (PKCS\#8 DER format). 
+
+This function encodes the provided key into the PKCS\#8 format (RFC 5958, type {\ttfamily One\+Asymmetric\+Key}). It wraps around the "{}raw DER"{} format for the RSA key, as implemented by {\ttfamily \doxylink{bearssl__x509_8h_abf188fc6765c2320040d547b650e0553}{br\+\_\+encode\+\_\+rsa\+\_\+raw\+\_\+der()}}.
+
+The key elements are\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily sk}\+: the private key ({\ttfamily p}, {\ttfamily q}, {\ttfamily dp}, {\ttfamily dq} and {\ttfamily iq})
+\item {\ttfamily pk}\+: the public key ({\ttfamily n} and {\ttfamily e})
+\item {\ttfamily d} (size\+: {\ttfamily dlen} bytes)\+: the private exponent
+\end{DoxyItemize}
+
+The public key elements, and the private exponent {\ttfamily d}, can be recomputed from the private key (see {\ttfamily \doxylink{bearssl__rsa_8h_a9a30757ef7b79641b27a3431bfe8874e}{br\+\_\+rsa\+\_\+compute\+\_\+modulus()}}, {\ttfamily \doxylink{bearssl__rsa_8h_ab497818a6f2585fea9387b01f4a922e1}{br\+\_\+rsa\+\_\+compute\+\_\+pubexp()}} and {\ttfamily \doxylink{bearssl__rsa_8h_ac7e80273a3a9edc13468c6e479f40f28}{br\+\_\+rsa\+\_\+compute\+\_\+privexp()}}).
+
+If {\ttfamily dest} is not {\ttfamily NULL}, then the encoded key is written at that address, and the encoded length (in bytes) is returned. If {\ttfamily dest} is {\ttfamily NULL}, then nothing is written, but the encoded length is still computed and returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dest} & the destination buffer (or {\ttfamily NULL}). \\
+\hline
+{\em sk} & the RSA private key. \\
+\hline
+{\em pk} & the RSA public key. \\
+\hline
+{\em d} & the RSA private exponent. \\
+\hline
+{\em dlen} & the RSA private exponent length (in bytes). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the encoded key length (in bytes). 
+\end{DoxyReturn}
+\Hypertarget{bearssl__x509_8h_abf188fc6765c2320040d547b650e0553}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_encode\_rsa\_raw\_der@{br\_encode\_rsa\_raw\_der}}
+\index{br\_encode\_rsa\_raw\_der@{br\_encode\_rsa\_raw\_der}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_encode\_rsa\_raw\_der()}{br\_encode\_rsa\_raw\_der()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_abf188fc6765c2320040d547b650e0553} 
+size\+\_\+t br\+\_\+encode\+\_\+rsa\+\_\+raw\+\_\+der (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{dest}{, }\item[{const \mbox{\hyperlink{structbr__rsa__private__key}{br\+\_\+rsa\+\_\+private\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{sk}{, }\item[{const \mbox{\hyperlink{structbr__rsa__public__key}{br\+\_\+rsa\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{pk}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{d}{, }\item[{size\+\_\+t}]{dlen}{}\end{DoxyParamCaption})}
+
+
+
+Encode an RSA private key (raw DER format). 
+
+This function encodes the provided key into the "{}raw"{} format specified in PKCS\#1 (RFC 8017, Appendix C, type {\ttfamily RSAPrivate\+Key}), with DER encoding rules.
+
+The key elements are\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily sk}\+: the private key ({\ttfamily p}, {\ttfamily q}, {\ttfamily dp}, {\ttfamily dq} and {\ttfamily iq})
+\item {\ttfamily pk}\+: the public key ({\ttfamily n} and {\ttfamily e})
+\item {\ttfamily d} (size\+: {\ttfamily dlen} bytes)\+: the private exponent
+\end{DoxyItemize}
+
+The public key elements, and the private exponent {\ttfamily d}, can be recomputed from the private key (see {\ttfamily \doxylink{bearssl__rsa_8h_a9a30757ef7b79641b27a3431bfe8874e}{br\+\_\+rsa\+\_\+compute\+\_\+modulus()}}, {\ttfamily \doxylink{bearssl__rsa_8h_ab497818a6f2585fea9387b01f4a922e1}{br\+\_\+rsa\+\_\+compute\+\_\+pubexp()}} and {\ttfamily \doxylink{bearssl__rsa_8h_ac7e80273a3a9edc13468c6e479f40f28}{br\+\_\+rsa\+\_\+compute\+\_\+privexp()}}).
+
+If {\ttfamily dest} is not {\ttfamily NULL}, then the encoded key is written at that address, and the encoded length (in bytes) is returned. If {\ttfamily dest} is {\ttfamily NULL}, then nothing is written, but the encoded length is still computed and returned.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dest} & the destination buffer (or {\ttfamily NULL}). \\
+\hline
+{\em sk} & the RSA private key. \\
+\hline
+{\em pk} & the RSA public key. \\
+\hline
+{\em d} & the RSA private exponent. \\
+\hline
+{\em dlen} & the RSA private exponent length (in bytes). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the encoded key length (in bytes). 
+\end{DoxyReturn}
+\Hypertarget{bearssl__x509_8h_a7beb69b0d703198d6ddbcf186b507e5c}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_pkey\_decoder\_init@{br\_pkey\_decoder\_init}}
+\index{br\_pkey\_decoder\_init@{br\_pkey\_decoder\_init}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_pkey\_decoder\_init()}{br\_pkey\_decoder\_init()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_a7beb69b0d703198d6ddbcf186b507e5c} 
+void br\+\_\+pkey\+\_\+decoder\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__pkey__decoder__context}{br\+\_\+pkey\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Initialise a public key decoder context. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & key decoder context to initialise. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__x509_8h_ac2b4df58cc0c7573db3c11c8af2f044a}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_pkey\_decoder\_push@{br\_pkey\_decoder\_push}}
+\index{br\_pkey\_decoder\_push@{br\_pkey\_decoder\_push}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_pkey\_decoder\_push()}{br\_pkey\_decoder\_push()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_ac2b4df58cc0c7573db3c11c8af2f044a} 
+void br\+\_\+pkey\+\_\+decoder\+\_\+push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__pkey__decoder__context}{br\+\_\+pkey\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Push some data bytes into a public key decoder context. 
+
+If {\ttfamily len} is non-\/zero, then that many data bytes, starting at address {\ttfamily data}, are pushed into the decoder.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & key decoder context. \\
+\hline
+{\em data} & private key data chunk. \\
+\hline
+{\em len} & private key data chunk length (in bytes). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__x509_8h_a4b00a6191bf93b916c58f461145f0987}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_skey\_decoder\_init@{br\_skey\_decoder\_init}}
+\index{br\_skey\_decoder\_init@{br\_skey\_decoder\_init}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_skey\_decoder\_init()}{br\_skey\_decoder\_init()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_a4b00a6191bf93b916c58f461145f0987} 
+void br\+\_\+skey\+\_\+decoder\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__skey__decoder__context}{br\+\_\+skey\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{}\end{DoxyParamCaption})}
+
+
+
+Initialise a private key decoder context. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & key decoder context to initialise. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__x509_8h_ab56c19464ac61076ecab2bcbd080b8ea}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_skey\_decoder\_push@{br\_skey\_decoder\_push}}
+\index{br\_skey\_decoder\_push@{br\_skey\_decoder\_push}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_skey\_decoder\_push()}{br\_skey\_decoder\_push()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_ab56c19464ac61076ecab2bcbd080b8ea} 
+void br\+\_\+skey\+\_\+decoder\+\_\+push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__skey__decoder__context}{br\+\_\+skey\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Push some data bytes into a private key decoder context. 
+
+If {\ttfamily len} is non-\/zero, then that many data bytes, starting at address {\ttfamily data}, are pushed into the decoder.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & key decoder context. \\
+\hline
+{\em data} & private key data chunk. \\
+\hline
+{\em len} & private key data chunk length (in bytes). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__x509_8h_a1b34a7f2ce9f8c9086491551f848ad0f}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_x509\_decoder\_init@{br\_x509\_decoder\_init}}
+\index{br\_x509\_decoder\_init@{br\_x509\_decoder\_init}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_x509\_decoder\_init()}{br\_x509\_decoder\_init()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_a1b34a7f2ce9f8c9086491551f848ad0f} 
+void br\+\_\+x509\+\_\+decoder\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__x509__decoder__context}{br\+\_\+x509\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{append\+\_\+dn~}{)(void \texorpdfstring{$\ast$}{*}ctx, const void \texorpdfstring{$\ast$}{*}buf, size\+\_\+t len), }\item[{void \texorpdfstring{$\ast$}{*}}]{append\+\_\+dn\+\_\+ctx}{}\end{DoxyParamCaption})}
+
+
+
+Initialise an X.\+509 decoder context for processing a new certificate. 
+
+The {\ttfamily append\+\_\+dn()} callback (with opaque context {\ttfamily append\+\_\+dn\+\_\+ctx}) will be invoked to receive, chunk by chunk, the certificate\textquotesingle{}s subject DN. If {\ttfamily append\+\_\+dn} is {\ttfamily 0} then the subject DN will be ignored.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & X.\+509 decoder context to initialise. \\
+\hline
+{\em append\+\_\+dn} & DN receiver callback (or {\ttfamily 0}). \\
+\hline
+{\em append\+\_\+dn\+\_\+ctx} & context for the DN receiver callback. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__x509_8h_a8d0fe7d0e8f5a5a6420bf1af831b2ad5}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_x509\_decoder\_push@{br\_x509\_decoder\_push}}
+\index{br\_x509\_decoder\_push@{br\_x509\_decoder\_push}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_x509\_decoder\_push()}{br\_x509\_decoder\_push()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_a8d0fe7d0e8f5a5a6420bf1af831b2ad5} 
+void br\+\_\+x509\+\_\+decoder\+\_\+push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__x509__decoder__context}{br\+\_\+x509\+\_\+decoder\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Push some certificate bytes into a decoder context. 
+
+If {\ttfamily len} is non-\/zero, then that many bytes are pushed, from address {\ttfamily data}, into the provided decoder context.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & X.\+509 decoder context. \\
+\hline
+{\em data} & certificate data chunk. \\
+\hline
+{\em len} & certificate data chunk length (in bytes). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__x509_8h_a79ce369dcf609ec27926fe8825eb8dfb}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_x509\_knownkey\_init\_ec@{br\_x509\_knownkey\_init\_ec}}
+\index{br\_x509\_knownkey\_init\_ec@{br\_x509\_knownkey\_init\_ec}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_x509\_knownkey\_init\_ec()}{br\_x509\_knownkey\_init\_ec()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_a79ce369dcf609ec27926fe8825eb8dfb} 
+void br\+\_\+x509\+\_\+knownkey\+\_\+init\+\_\+ec (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__x509__knownkey__context}{br\+\_\+x509\+\_\+knownkey\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const \mbox{\hyperlink{structbr__ec__public__key}{br\+\_\+ec\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{pk}{, }\item[{unsigned}]{usages}{}\end{DoxyParamCaption})}
+
+
+
+Initialize a "{}known key"{} X.\+509 engine with a known EC public key. 
+
+The {\ttfamily usages} parameter indicates the allowed key usages for that key ({\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+KEYX} and/or {\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+SIGN}).
+
+The provided pointers are linked in, not copied, so they must remain valid while the public key may be in usage.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & context to initialise. \\
+\hline
+{\em pk} & known public key. \\
+\hline
+{\em usages} & allowed key usages. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__x509_8h_af89092ad96523f50ef0c104d38a58e62}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_x509\_knownkey\_init\_rsa@{br\_x509\_knownkey\_init\_rsa}}
+\index{br\_x509\_knownkey\_init\_rsa@{br\_x509\_knownkey\_init\_rsa}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_x509\_knownkey\_init\_rsa()}{br\_x509\_knownkey\_init\_rsa()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_af89092ad96523f50ef0c104d38a58e62} 
+void br\+\_\+x509\+\_\+knownkey\+\_\+init\+\_\+rsa (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__x509__knownkey__context}{br\+\_\+x509\+\_\+knownkey\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const \mbox{\hyperlink{structbr__rsa__public__key}{br\+\_\+rsa\+\_\+public\+\_\+key}} \texorpdfstring{$\ast$}{*}}]{pk}{, }\item[{unsigned}]{usages}{}\end{DoxyParamCaption})}
+
+
+
+Initialize a "{}known key"{} X.\+509 engine with a known RSA public key. 
+
+The {\ttfamily usages} parameter indicates the allowed key usages for that key ({\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+KEYX} and/or {\ttfamily BR\+\_\+\+KEYTYPE\+\_\+\+SIGN}).
+
+The provided pointers are linked in, not copied, so they must remain valid while the public key may be in usage.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & context to initialise. \\
+\hline
+{\em pk} & known public key. \\
+\hline
+{\em usages} & allowed key usages. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__x509_8h_a183044724b9ff13c4d6b88bb4b91f376}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_x509\_minimal\_init@{br\_x509\_minimal\_init}}
+\index{br\_x509\_minimal\_init@{br\_x509\_minimal\_init}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_x509\_minimal\_init()}{br\_x509\_minimal\_init()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_a183044724b9ff13c4d6b88bb4b91f376} 
+void br\+\_\+x509\+\_\+minimal\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__x509__minimal__context}{br\+\_\+x509\+\_\+minimal\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\+\_\+hash\+\_\+class}} \texorpdfstring{$\ast$}{*}}]{dn\+\_\+hash\+\_\+impl}{, }\item[{const \mbox{\hyperlink{structbr__x509__trust__anchor}{br\+\_\+x509\+\_\+trust\+\_\+anchor}} \texorpdfstring{$\ast$}{*}}]{trust\+\_\+anchors}{, }\item[{size\+\_\+t}]{trust\+\_\+anchors\+\_\+num}{}\end{DoxyParamCaption})}
+
+
+
+Initialise a "{}minimal"{} X.\+509 engine. 
+
+The {\ttfamily dn\+\_\+hash\+\_\+impl} parameter shall be a hash function internally used to match X.\+500 names (subject/issuer DN, and anchor names). Any standard hash function may be used, but a collision-\/resistant hash function is advised.
+
+After initialization, some implementations for signature verification (hash functions and signature algorithms) MUST be added.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & context to initialise. \\
+\hline
+{\em dn\+\_\+hash\+\_\+impl} & hash function for DN comparisons. \\
+\hline
+{\em trust\+\_\+anchors} & trust anchors. \\
+\hline
+{\em trust\+\_\+anchors\+\_\+num} & number of trust anchors. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{bearssl__x509_8h_aa15bdbcb9fa20f20184b9f4689452a70}\index{bearssl\_x509.h@{bearssl\_x509.h}!br\_x509\_minimal\_init\_full@{br\_x509\_minimal\_init\_full}}
+\index{br\_x509\_minimal\_init\_full@{br\_x509\_minimal\_init\_full}!bearssl\_x509.h@{bearssl\_x509.h}}
+\doxysubsubsection{\texorpdfstring{br\_x509\_minimal\_init\_full()}{br\_x509\_minimal\_init\_full()}}
+{\footnotesize\ttfamily \label{bearssl__x509_8h_aa15bdbcb9fa20f20184b9f4689452a70} 
+void br\+\_\+x509\+\_\+minimal\+\_\+init\+\_\+full (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structbr__x509__minimal__context}{br\+\_\+x509\+\_\+minimal\+\_\+context}} \texorpdfstring{$\ast$}{*}}]{ctx}{, }\item[{const \mbox{\hyperlink{structbr__x509__trust__anchor}{br\+\_\+x509\+\_\+trust\+\_\+anchor}} \texorpdfstring{$\ast$}{*}}]{trust\+\_\+anchors}{, }\item[{size\+\_\+t}]{trust\+\_\+anchors\+\_\+num}{}\end{DoxyParamCaption})}
+
+
+
+Initialise a "{}minimal"{} X.\+509 engine with default algorithms. 
+
+This function performs the same job as {\ttfamily \doxylink{bearssl__x509_8h_a183044724b9ff13c4d6b88bb4b91f376}{br\+\_\+x509\+\_\+minimal\+\_\+init()}}, but also sets implementations for RSA, ECDSA, and the standard hash functions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & context to initialise. \\
+\hline
+{\em trust\+\_\+anchors} & trust anchors. \\
+\hline
+{\em trust\+\_\+anchors\+\_\+num} & number of trust anchors. \\
+\hline
+\end{DoxyParams}

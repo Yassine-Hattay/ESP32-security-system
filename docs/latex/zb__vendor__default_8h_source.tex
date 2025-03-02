@@ -1,0 +1,142 @@
+\doxysection{zb\+\_\+vendor\+\_\+default.\+h}
+\hypertarget{zb__vendor__default_8h_source}{}\label{zb__vendor__default_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_vendor\_default.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_vendor\_default.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ Number\ of\ buttons\ supported\ */}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ ZB\_N\_BUTTONS\ 5}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ ZB\_ENABLE\_HA}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ZB\_ENABLE\_ZCL}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_PROFILE}}
+\DoxyCodeLine{00043\ \textcolor{comment}{/*\ Enable\ Rejoin\ Backoff\ (used\ in\ Smart\ Plug\ and\ IAS\ Zone\ samples).\ */}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ ZB\_REJOIN\_BACKOFF}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ZB\_USE\_SLEEP}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ ZB\_CERTIFICATION\_HACKS\ \ \ \ }\textcolor{comment}{/*Special\ modes\ for\ testing\ see\ zb\_config.h*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifdef\ ZB\_USE\_SLEEP}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ ZB\_MEMORY\_COMPACT}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{/*\ ZB3.0\ BDB\ mode\ */}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ ZB\_BDB\_MODE}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ZB\_BDB\_ENABLE\_FINDING\_BINDING}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ ZB\_DISTRIBUTED\_SECURITY\_ON}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ZB\_SECURITY\_INSTALLCODES}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ ZGP\ */}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ZB\_GP\_ENABLED}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ ZB\_ENABLE\_ZGP}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ ZB\_ENABLE\_ZGP\_COMBO}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ ZB\_ENABLE\_ZGP\_GPCB}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_SINK\_TBL\_SIZE\ 10}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \#define\ ZB\_ZGP\_SIMPLE\_COMBO\_START\_AS\_ZR}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_TRANSL\_CMD\_PLD\_MAX\_SIZE\ 3}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ ZGP\_CLUSTER\_TEST}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_SKIP\_GPDF\_ON\_NWK\_LAYER}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_RUNTIME\_WORK\_MODE\_WITH\_PROXIES}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_PROXY\_TBL\_SIZE\ 8}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_ZB\_GP\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{/*\ Device\ support\ */}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ZB\_ALL\_DEVICE\_SUPPORT}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ OOM\ detection\ */}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ ZB\_CHECK\_OOM\_STATUS}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ ZB\_SEND\_OOM\_STATUS}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ ZB\_NO\_NVRAM\_VER\_MIGRATION}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#if\ CONFIG\_ZB\_RADIO\_NATIVE}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ ZB\_LIMIT\_VISIBILITY}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_APS}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_BDB}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_NWK}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_PED}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_PRO}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_R20}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_R21}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_R22}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_SEC}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ ZB\_TEST\_GROUP\_ZCP\_R22\_ZDO}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ZB\_ZCZR}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ZB\_COORDINATOR\_ROLE}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ ZB\_ROUTER\_ROLE}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ ZB\_ED\_ROLE}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ ZB\_ED\_FUNC}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{/*\ APS\ GROUP\ TABLE\ SIZE\ */}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#ifndef\ ZB\_ED\_ROLE}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ ZB\_APS\_GROUP\_TABLE\_SIZE\ 32}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ ZB\_APS\_ENDPOINTS\_IN\_GROUP\_TABLE\ 64U}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ ZB\_APS\_GROUP\_TABLE\_SIZE\ 32}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ ZB\_APS\_ENDPOINTS\_IN\_GROUP\_TABLE\ 64U}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ ZB\_MULTITEST\_CONSOLE\_SLEEP\_TIMEOUT\ 1000000}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{comment}{/*\ TRACE\ FILE\ ID\ NO\ NEED\ */}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ ZB\_DONT\_NEED\_TRACE\_FILE\_ID}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{/*\ Support\ Max\ Endpoint\ Number\ */}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ ZB\_MAX\_EP\_NUMBER\ 64U}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{/*\ Interrupt\ Safe\ */}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ ZB\_INTERRUPT\_SAFE\_ALARMS}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ ZB\_INTERRUPT\_SAFE\_CALLBACKS}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{comment}{/*\ Touchlink\ */}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ ZB\_BDB\_TOUCHLINK}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#ifdef\ ZB\_BDB\_TOUCHLINK}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ ZB\_ENABLE\_ZLL}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ ZB\_ENABLE\_INTER\_PAN\_EXCHANGE}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ZB\_BDB\_TOUCHLINK}}
+\DoxyCodeLine{00128\ \textcolor{comment}{/*\ Add\ dependency\ to\ the\ Inter-\/Pan\ exchange\ */}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#ifdef\ \ ZB\_ENABLE\_INTER\_PAN\_NON\_DEFAULT\_CHANNEL}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#ifndef\ ZB\_ENABLE\_INTER\_PAN\_EXCHANGE}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ ZB\_ENABLE\_INTER\_PAN\_EXCHANGE}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{comment}{/*\ Enable\ APS\ Fragmentation\ */}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ APS\_FRAGMENTATION}}
+
+\end{DoxyCode}

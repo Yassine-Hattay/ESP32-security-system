@@ -1,0 +1,294 @@
+\doxysection{zb\+\_\+channel\+\_\+page.\+h}
+\hypertarget{zb__channel__page_8h_source}{}\label{zb__channel__page_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_channel\_page.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_channel\_page.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ \ PURPOSE:\ Channel\ page\ header\ file.\ All\ channel-\/related\ stuff.}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifndef\ ZB\_CHANNEL\_PAGE\_H}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_H\ 1}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}zb\_config.h"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zb\_types.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zb\_errors.h"{}}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_PAGE\_BITMASK\ \ \ \ \ \ \ \ \ \ \ 0xF8000000u}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_MASK\_BITMASK\ \ \ \ \ \ \ \ \ \ \ 0x07FFFFFFu}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \mbox{\hyperlink{group__channel__page_ga787acef58d574917be52dba259b16a11}{zb\_channel\_page\_t}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__channel__page_ga787acef58d574917be52dba259b16a11}{zb\_channel\_page\_t}}\ \mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_gaf3979c5f8dd869f9637fa80cb144c585}{ZB\_CHANNEL\_PAGES\_NUM}}];}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{comment}{/*\ Private\ API\ */}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE0\_IDX\ \ 0U}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE23\_IDX\ 1U}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE24\_IDX\ 2U}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE25\_IDX\ 3U}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE26\_IDX\ 4U}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE27\_IDX\ 5U}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE28\_IDX\ 6U}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE29\_IDX\ 7U}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE30\_IDX\ 8U}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_LIST\_PAGE31\_IDX\ 9U}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ ZB\_PAGE0\_2\_4\_GHZ\_CHANNEL\_FROM\ \ \ 11U}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ ZB\_PAGE0\_2\_4\_GHZ\_CHANNEL\_TO\ \ \ \ \ 26U}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ ZB\_PAGE23\_SUB\_GHZ\_CHANNEL\_FROM\ \ 0U}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ ZB\_PAGE23\_SUB\_GHZ\_CHANNEL\_TO\ \ \ \ 24U}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ ZB\_PAGE24\_SUB\_GHZ\_CHANNEL\_FROM\ \ 56U}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ZB\_PAGE24\_SUB\_GHZ\_CHANNEL\_TO\ \ \ \ 76U}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ ZB\_PAGE25\_SUB\_GHZ\_CHANNEL\_FROM\ \ 0U}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ZB\_PAGE25\_SUB\_GHZ\_CHANNEL\_TO\ \ \ \ 26U}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ ZB\_PAGE26\_SUB\_GHZ\_CHANNEL\_FROM\ \ 27U}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ ZB\_PAGE26\_SUB\_GHZ\_CHANNEL\_TO\ \ \ \ 34U}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ ZB\_PAGE27\_SUB\_GHZ\_CHANNEL\_FROM\ \ 35U}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ ZB\_PAGE27\_SUB\_GHZ\_CHANNEL\_TO\ \ \ \ 55U}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ ZB\_PAGE28\_SUB\_GHZ\_CHANNEL\_FROM\ \ 0U}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ZB\_PAGE28\_SUB\_GHZ\_CHANNEL\_TO\ \ \ \ 26U}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ ZB\_PAGE29\_SUB\_GHZ\_CHANNEL\_FROM\ \ 27U}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ ZB\_PAGE29\_SUB\_GHZ\_CHANNEL\_TO\ \ \ \ 34U}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ ZB\_PAGE30\_SUB\_GHZ\_CHANNEL\_FROM\ \ 35U}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ ZB\_PAGE30\_SUB\_GHZ\_CHANNEL\_TO\ \ \ \ 61U}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_28\_29\_30\_SUG\_GHZ\_CHANNEL\_FROM\ ZB\_PAGE28\_SUB\_GHZ\_CHANNEL\_FROM}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_28\_29\_30\_SUG\_GHZ\_CHANNEL\_TO\ \ \ 62U}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ ZB\_PAGE29\_SUB\_GHZ\_CHANNEL\_62\ \ \ \ \ \ \ \ \ \ \ 62U}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ ZB\_PAGE31\_SUB\_GHZ\_CHANNEL\_FROM\ \ 0U}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ ZB\_PAGE31\_SUB\_GHZ\_CHANNEL\_TO\ \ \ \ 26U}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_TO\_IDX(channel\_page)\ (((channel\_page)\ >\ 0U)\ ?\ ((channel\_page)\ -\/\ 22U)\ :\ 0U)}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_FROM\_IDX(channel\_page\_idx)\ (((channel\_page\_idx)\ >\ 0U)\ ?\ ((channel\_page\_idx)\ +\ 22U)\ :\ 0U)}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#ifdef\ ZB\_PAGES\_REMAP\_TO\_2\_4GHZ}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_PAGE\_CHANNELS\_NUM\ 3U}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_PAGE0\_SHIFT\ \ 0U}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_PAGE28\_SHIFT\ (ZB\_PAGES\_REMAP\_PAGE0\_SHIFT\ +\ ZB\_PAGES\_REMAP\_PAGE\_CHANNELS\_NUM)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_PAGE29\_SHIFT\ (ZB\_PAGES\_REMAP\_PAGE28\_SHIFT\ +\ ZB\_PAGES\_REMAP\_PAGE\_CHANNELS\_NUM)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_PAGE30\_SHIFT\ (ZB\_PAGES\_REMAP\_PAGE29\_SHIFT\ +\ ZB\_PAGES\_REMAP\_PAGE\_CHANNELS\_NUM)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_PAGE31\_SHIFT\ (ZB\_PAGES\_REMAP\_PAGE30\_SHIFT\ +\ ZB\_PAGES\_REMAP\_PAGE\_CHANNELS\_NUM)}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_CHANNEL\_PAGE\ ZB\_CHANNEL\_PAGE0\_2\_4\_GHZ}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_CHANNEL\_NUMBER(page,\ channel\_number)\ (((channel\_number\ \%\ ZB\_PAGES\_REMAP\_PAGE\_CHANNELS\_NUM))\ +\ ZB\_PAGE0\_2\_4\_GHZ\_START\_CHANNEL\_NUMBER\ +\ \(\backslash\)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (page\ ==\ ZB\_CHANNEL\_PAGE28\_SUB\_GHZ\ ?\ ZB\_PAGES\_REMAP\_PAGE28\_SHIFT\ :\ \(\backslash\)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (page\ ==\ ZB\_CHANNEL\_PAGE29\_SUB\_GHZ\ ?\ ZB\_PAGES\_REMAP\_PAGE29\_SHIFT\ :\ \(\backslash\)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (page\ ==\ ZB\_CHANNEL\_PAGE30\_SUB\_GHZ\ ?\ ZB\_PAGES\_REMAP\_PAGE30\_SHIFT\ :\ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (page\ ==\ ZB\_CHANNEL\_PAGE31\_SUB\_GHZ\ ?\ ZB\_PAGES\_REMAP\_PAGE31\_SHIFT\ :\ \(\backslash\)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_PAGES\_REMAP\_PAGE0\_SHIFT)))))}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00166\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_pages\_remap\_logical\_channel(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ channel\_page,}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ logical\_channel);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_LOGICAL\_CHANNEL(page,\ lchannel\_number)\ zb\_pages\_remap\_logical\_channel(page,\ lchannel\_number)}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ ZB\_PAGES\_REMAP\_LOGICAL\_CHANNEL(page,\ lchannel\_number)\ (lchannel\_number)}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_GET\_PAGE(channel\_page)\ (((channel\_page)\ \&\ ZB\_CHANNEL\_PAGE\_PAGE\_BITMASK)\ >>\ 27U)}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_GET\_MASK(channel\_page)\ ((channel\_page)\ \&\ ZB\_CHANNEL\_PAGE\_MASK\_BITMASK)}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_SET\_PAGE(channel\_page,\ page)\ (channel\_page)\ =\ ((channel\_page)\ \&\ ZB\_CHANNEL\_PAGE\_MASK\_BITMASK)\ |\ (((zb\_uint32\_t)(page))\ <<\ 27U)}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_SET\_MASK(channel\_page,\ mask)\ (channel\_page)\ =\ ((channel\_page)\ \&\ ZB\_CHANNEL\_PAGE\_PAGE\_BITMASK)\ |\ ((mask)\ \&\ ZB\_CHANNEL\_PAGE\_MASK\_BITMASK)}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{comment}{/*\ Numbers\ [23\ -\/\ 31]\ have\ common\ first\ bit}}
+\DoxyCodeLine{00208\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00209\ \textcolor{comment}{\ *\ 23\ =\ 0b10111}}
+\DoxyCodeLine{00210\ \textcolor{comment}{\ *\ 24\ =\ 0b11000}}
+\DoxyCodeLine{00211\ \textcolor{comment}{\ *\ 25\ =\ 0b11001}}
+\DoxyCodeLine{00212\ \textcolor{comment}{\ *\ 26\ =\ 0b11010}}
+\DoxyCodeLine{00213\ \textcolor{comment}{\ *\ 27\ =\ 0b11011}}
+\DoxyCodeLine{00214\ \textcolor{comment}{\ *\ 28\ =\ 0b11100}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ *\ 29\ =\ 0b11101}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ *\ 30\ =\ 0b11110}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ *\ 31\ =\ 0b11111}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ *\ So,\ it\ is\ enough\ to\ compare\ it\ with\ 0b10111\ mask\ =\ 0x17\ =\ 23\ (dec).}}
+\DoxyCodeLine{00220\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#define\ ZB\_LOGICAL\_PAGE\_SUB\_GHZ\_PAGE\_MASK\ ZB\_CHANNEL\_PAGE23\_SUB\_GHZ}}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ ZB\_LOGICAL\_PAGE\_IS\_SUB\_GHZ(logical\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\ \ (ZB\_U2B((logical\_page)\ \&\ ZB\_LOGICAL\_PAGE\_SUB\_GHZ\_PAGE\_MASK))}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ ZB\_LOGICAL\_PAGE\_IS\_SUB\_GHZ\_NA\_FSK(logical\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\ \ ((logical\_page)\ ==\ ZB\_CHANNEL\_PAGE23\_SUB\_GHZ)}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#define\ ZB\_LOGICAL\_PAGE\_IS\_SUB\_GHZ\_EU\_FSK(logical\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\ \ ((logical\_page)\ >=\ ZB\_CHANNEL\_PAGE24\_SUB\_GHZ\ \&\&\ (logical\_page)\ <=\ ZB\_CHANNEL\_PAGE27\_SUB\_GHZ)}}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#define\ ZB\_LOGICAL\_PAGE\_IS\_SUB\_GHZ\_GB\_FSK(logical\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\ \ ((logical\_page)\ >=\ ZB\_CHANNEL\_PAGE28\_SUB\_GHZ\ \&\&\ (logical\_page)\ <=\ ZB\_CHANNEL\_PAGE31\_SUB\_GHZ)}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#define\ ZB\_LOGICAL\_PAGE\_IS\_2\_4GHZ(logical\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\ \ ((logical\_page)\ ==\ ZB\_CHANNEL\_PAGE0\_2\_4\_GHZ)}}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_IS\_SUB\_GHZ(channel\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\ \ (ZB\_LOGICAL\_PAGE\_IS\_SUB\_GHZ(ZB\_CHANNEL\_PAGE\_GET\_PAGE(channel\_page)))}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_IS\_SUB\_GHZ\_NA\_FSK(channel\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\ \ (ZB\_LOGICAL\_PAGE\_IS\_SUB\_GHZ\_NA\_FSK(ZB\_CHANNEL\_PAGE\_GET\_PAGE(channel\_page)))}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_IS\_SUB\_GHZ\_EU\_FSK(channel\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\ \ (ZB\_LOGICAL\_PAGE\_IS\_SUB\_GHZ\_EU\_FSK(ZB\_CHANNEL\_PAGE\_GET\_PAGE(channel\_page)))}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_IS\_SUB\_GHZ\_GB\_FSK(channel\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ (ZB\_LOGICAL\_PAGE\_IS\_SUB\_GHZ\_GB\_FSK(ZB\_CHANNEL\_PAGE\_GET\_PAGE(channel\_page)))}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_IS\_2\_4GHZ(channel\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ (ZB\_LOGICAL\_PAGE\_IS\_2\_4GHZ(ZB\_CHANNEL\_PAGE\_GET\_PAGE(channel\_page)))}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#define\ ZB\_CHANNEL\_PAGE\_IS\_MASK\_EMPTY(channel\_page)\ \(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ (ZB\_CHANNEL\_PAGE\_GET\_MASK(channel\_page)\ ==\ 0U)}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00265\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__channel__page_gac1493dd428e85315561b99047ba79a90}{zb\_channel\_page\_list\_copy}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ dst,}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ src);}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00275\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__channel__page_gab7f9decb0e2fc18268af023f14dcbb95}{zb\_channel\_page\_list\_set\_mask}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list,}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ idx,}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ mask);}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00287\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \mbox{\hyperlink{group__channel__page_ga649f32ab04d9e12f68b1dd80d8b5a0ad}{zb\_channel\_page\_list\_get\_mask}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list,}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ idx);}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00297\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__channel__page_ga4502f3701f7e6767bca1be872440e891}{zb\_channel\_page\_list\_set\_page}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list,}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ idx,}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ page);}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00309\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{group__channel__page_ga1fe90bb7cb5be784b7c84b0ec604bb1d}{zb\_channel\_page\_list\_get\_page}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list,}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ idx);}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00321\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__channel__page_gaf39d0453d5068277a57d42248c11c1a1}{zb\_channel\_page\_list\_get\_page\_idx}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *idx);}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00332\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__channel__page_ga9f0da131877531ac23f2b9d886b82a50}{zb\_channel\_page\_get\_page\_by\_idx}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ idx,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *page);}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00341\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \mbox{\hyperlink{group__channel__page_ga395a118e93ccb22f369931e63cf29bee}{zb\_channel\_page\_get\_all\_channels\_mask\_by\_page}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page);}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00350\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__channel__page_ga5a7df0b884625f7f59e68680fc8647ea}{zb\_channel\_page\_list\_set\_2\_4GHz\_mask}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list,}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \ \ mask);}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00361\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \mbox{\hyperlink{group__channel__page_ga118b865e0689b2ae7fe36a05469966a6}{zb\_channel\_page\_list\_get\_2\_4GHz\_mask}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list);}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00364\ \textcolor{comment}{\ *\ @brief\ Gets\ the\ first\ filled\ page\ index\ of\ channel\ page\ list.}}
+\DoxyCodeLine{00365\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00366\ \textcolor{comment}{\ *\ @param\ list\ -\/\ channel\ page\ list}}
+\DoxyCodeLine{00367\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00368\ \textcolor{comment}{\ *\ @return\ Page\ index\ of\ the\ first\ used\ page\ or\ number\ of\ pages\ if\ all\ list\ is\ empty.}}
+\DoxyCodeLine{00369\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00370\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_channel\_page\_list\_get\_first\_filled\_page(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list);}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00378\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__channel__page_gae3c62a4466ac517354ed54a74dc4b3b0}{zb\_aib\_channel\_page\_list\_set\_mask}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ idx,}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ mask);}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00388\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \mbox{\hyperlink{group__channel__page_ga38f663516b2a147653f03a4883378404}{zb\_aib\_channel\_page\_list\_get\_mask}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ idx);}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00396\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__channel__page_ga857613bf5b0f90f4d3a99382456f287f}{zb\_aib\_channel\_page\_list\_set\_page}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ idx,}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page);}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00406\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{group__channel__page_ga594916c13b9726f8ff8829697e6ea34a}{zb\_aib\_channel\_page\_list\_get\_page}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ idx);}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00414\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__channel__page_gad7ae4a7ca80f8439363ec46bc29972fc}{zb\_aib\_channel\_page\_list\_set\_2\_4GHz\_mask}}(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ mask);}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00422\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \mbox{\hyperlink{group__channel__page_gae14cc865ed87f48770dd29f0451ee1b3}{zb\_aib\_channel\_page\_list\_get\_2\_4GHz\_mask}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00425\ \textcolor{comment}{\ *\ @brief\ Gets\ the\ first\ filled\ page\ index\ of\ the\ AIB\ channel\ page\ list.}}
+\DoxyCodeLine{00426\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00427\ \textcolor{comment}{\ *\ @return\ Page\ index\ of\ the\ first\ used\ AIB\ channel\ page\ or\ number\ of\ pages\ if\ all\ list\ is\ empty.}}
+\DoxyCodeLine{00428\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00429\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_aib\_channel\_page\_list\_get\_first\_filled\_page(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00443\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__channel__page_gad9d496091f71d4f68ba13435e7cfe6fd}{zb\_channel\_page\_get\_start\_channel\_number}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *channel\_number);}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00457\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__channel__page_gaadc686f1cbaa1991415b91178f9cd7fc}{zb\_channel\_page\_get\_max\_channel\_number}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *channel\_number);}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00474\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__channel__page_gacba4b909cdb3fa02ab5ce2be8c144d8a}{zb\_channel\_page\_channel\_logical\_to\_number}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page,}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ logical\_channel,}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *channel\_number);}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00493\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__channel__page_ga272ce7549026cb682398774a57c25ccb}{zb\_channel\_page\_channel\_number\_to\_logical}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page,}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ channel\_number,}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *logical\_channel);}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00507\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__channel__page_gaf75a75e3a62705413eb2a8b9fb8247f6}{zb\_channel\_page\_list\_set\_channel}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list,}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ idx,}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ channel\_number);}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00521\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__channel__page_gac05d9b760ca8bddfc2d9159a119390df}{zb\_channel\_page\_list\_set\_logical\_channel}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list,}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ page,}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ channel\_number);}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00537\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__channel__page_gaa5e2ef0346568d8f504b07119cd8fe92}{zb\_channel\_page\_list\_unset\_channel}}(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list,}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ idx,}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ channel\_number);}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_channel\_page\_list\_get\_channels\_num(\mbox{\hyperlink{group__channel__page_gad558b560ef87c934cbe02d70475a650f}{zb\_channel\_list\_t}}\ list,}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ idx);}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\#ifdef\ ZB\_MAC\_CONFIGURABLE\_TX\_POWER}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00556\ \textcolor{keywordtype}{void}\ zb\_channel\_get\_tx\_power\_offset(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ channel,}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *array\_idx,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *array\_ofs);}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00559\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_MAC\_CONFIGURABLE\_TX\_POWER\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00560\ }
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_CHANNEL\_PAGE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

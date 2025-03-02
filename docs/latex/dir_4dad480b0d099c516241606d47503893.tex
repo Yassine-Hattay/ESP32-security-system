@@ -1,0 +1,66 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Wi\+Fi/examples/\+Wi\+Fi\+Client\+Enterprise Directory Reference}
+\hypertarget{dir_4dad480b0d099c516241606d47503893}{}\label{dir_4dad480b0d099c516241606d47503893}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFi/examples/WiFiClientEnterprise Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFi/examples/WiFiClientEnterprise Directory Reference}}
+
+
+\doxysubsection{Detailed Description}
+
+\begin{DoxyItemize}
+\item Eduroam Wi-\/\+Fi connection with university login identity
+\item Working under Eduroam networks worldwide
+\item Methods\+: PEAP + Ms\+CHAPv2
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md659}{}\doxysubsection{\texorpdfstring{Format}{Format}}\label{README.md_autotoc_md659}
+
+\begin{DoxyItemize}
+\item IDENTITY = youridentity -\/-\/\texorpdfstring{$>$}{>} if connecting from different university, use \href{mailto:youridentity@youruniversity.domain}{\texttt{ youridentity@youruniversity.\+domain}} format
+\item PASSWORD = yourpassword
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md660}{}\doxysubsection{\texorpdfstring{Usage}{Usage}}\label{README.md_autotoc_md660}
+
+\begin{DoxyItemize}
+\item Change IDENTITY
+\item Change password
+\item Upload sketch and enjoy!
+\item After successful assign of IP address, board will connect to HTTP page on internet to verify your authentication
+\item Board will auto reconnect to Eduroam if it lost connection
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md661}{}\doxysubsection{\texorpdfstring{Tested locations}{Tested locations}}\label{README.md_autotoc_md661}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{4}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ University   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Board   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Method   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Result    }\\\cline{1-4}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ University   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Board   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Method   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Result    }\\\cline{1-4}
+\endhead
+Technical University in Košice (Slovakia)   &ESP32 Devkit v1   &PEAP + Ms\+CHAPv2   &Working    \\\cline{1-4}
+Technical University in Košice (Slovakia)   &ESP32 Devmodule v4   &PEAP + Ms\+CHAPv2   &Working on 6th attempt in loop    \\\cline{1-4}
+Slovak Technical University in Bratislava (Slovakia)   &ESP32 Devkit v1   &PEAP + Ms\+CHAPv2   &Working    \\\cline{1-4}
+University of Antwerp (Belgium)   &Lolin32   &PEAP + Ms\+CHAPv2   &Working    \\\cline{1-4}
+UPV Universitat Politècnica de València (Spain)   &ESP32 Devmodule v4   &PEAP + Ms\+CHAPv2   &Working    \\\cline{1-4}
+Local Zeroshell powered network   &ESP32 Devkit v1   &PEAP + Ms\+CHAPv2   &{\itshape Not working}    \\\cline{1-4}
+Hasselt University (Belgium)   &xxx   &PEAP + Ms\+CHAPv2   &Working with fix sketch    \\\cline{1-4}
+Universidad de Granada (Spain)   &Lolin D32 Pro   &PEAP + Ms\+CHAPv2   &Working    \\\cline{1-4}
+Universidad de Granada (Spain)   &Lolin D32   &PEAP + Ms\+CHAPv2   &Working    \\\cline{1-4}
+Universidade Federal de Santa Catarina (Brazil)   &xxx   &EAP-\/\+TTLS + Ms\+CHAPv2   &Working    \\\cline{1-4}
+University of Central Florida (Orlando, Florida)   &ESP32 Built-\/in OLED – Heltec Wi\+Fi Kit 32   &PEAP + Ms\+CHAPv2   &Working    \\\cline{1-4}
+Université de Montpellier (France)   &Node\+MCU-\/32S   &PEAP + Ms\+CHAPv2   &Working   \\\cline{1-4}
+\end{longtabu}
+\hypertarget{README.md_autotoc_md662}{}\doxysubsection{\texorpdfstring{Common errors -\/ Switch to Debug mode for Serial monitor prints}{Common errors -\/ Switch to Debug mode for Serial monitor prints}}\label{README.md_autotoc_md662}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Error   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Appearance   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Solution    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Error   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Appearance   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Solution    }\\\cline{1-3}
+\endhead
+Wi-\/\+Fi\+: Set status to INIT   &Frequent   &Hold EN button for few seconds    \\\cline{1-3}
+HANDSHAKE\+\_\+\+TIMEOUT   &Rare   &Bug was found under Zeroshell RADIUS authentization -\/ Unsuccessful connection    \\\cline{1-3}
+AUTH\+\_\+\+EXPIRE   &Common   &In the case of weak Wi-\/\+Fi network signal, this error is quite common, bring your device closer to AP    \\\cline{1-3}
+ASSOC\+\_\+\+EXPIRE   &Rare   &-\/   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{README.md_autotoc_md663}{}\doxysubsection{\texorpdfstring{Successful connection example}{Successful connection example}}\label{README.md_autotoc_md663}
+ \hypertarget{README.md_autotoc_md664}{}\doxysubsection{\texorpdfstring{Unsuccessful connection example}{Unsuccessful connection example}}\label{README.md_autotoc_md664}
+ 

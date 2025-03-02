@@ -1,0 +1,76 @@
+\doxysection{crypto\+\_\+auth\+\_\+hmacsha256.\+h}
+\hypertarget{crypto__auth__hmacsha256_8h_source}{}\label{crypto__auth__hmacsha256_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_auth\_hmacsha256.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/crypto\_auth\_hmacsha256.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ crypto\_auth\_hmacsha256\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ crypto\_auth\_hmacsha256\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}crypto\_hash\_sha256.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}export.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#\ ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#\ \ pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wlong-\/long"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00012\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ crypto\_auth\_hmacsha256\_BYTES\ 32U}}
+\DoxyCodeLine{00016\ SODIUM\_EXPORT}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{size\_t}\ crypto\_auth\_hmacsha256\_bytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ crypto\_auth\_hmacsha256\_KEYBYTES\ 32U}}
+\DoxyCodeLine{00020\ SODIUM\_EXPORT}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{size\_t}\ crypto\_auth\_hmacsha256\_keybytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ SODIUM\_EXPORT}
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{int}\ crypto\_auth\_hmacsha256(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *out,}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ inlen,}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)\ \_\_attribute\_\_\ ((nonnull(1,\ 4)));}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ SODIUM\_EXPORT}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{int}\ crypto\_auth\_hmacsha256\_verify(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *h,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ inlen,}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *k)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result))\ \_\_attribute\_\_\ ((nonnull(1,\ 4)));}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structcrypto__auth__hmacsha256__state}{crypto\_auth\_hmacsha256\_state}}\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{structcrypto__hash__sha256__state}{crypto\_hash\_sha256\_state}}\ ictx;}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{structcrypto__hash__sha256__state}{crypto\_hash\_sha256\_state}}\ octx;}
+\DoxyCodeLine{00041\ \}\ \mbox{\hyperlink{structcrypto__auth__hmacsha256__state}{crypto\_auth\_hmacsha256\_state}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ SODIUM\_EXPORT}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{size\_t}\ crypto\_auth\_hmacsha256\_statebytes(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ SODIUM\_EXPORT}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{int}\ crypto\_auth\_hmacsha256\_init(\mbox{\hyperlink{structcrypto__auth__hmacsha256__state}{crypto\_auth\_hmacsha256\_state}}\ *state,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *key,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ keylen)\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ SODIUM\_EXPORT}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{int}\ crypto\_auth\_hmacsha256\_update(\mbox{\hyperlink{structcrypto__auth__hmacsha256__state}{crypto\_auth\_hmacsha256\_state}}\ *state,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *in,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ inlen)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ SODIUM\_EXPORT}
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{int}\ crypto\_auth\_hmacsha256\_final(\mbox{\hyperlink{structcrypto__auth__hmacsha256__state}{crypto\_auth\_hmacsha256\_state}}\ *state,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *out)\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ SODIUM\_EXPORT}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{void}\ crypto\_auth\_hmacsha256\_keygen(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ k[crypto\_auth\_hmacsha256\_KEYBYTES])}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

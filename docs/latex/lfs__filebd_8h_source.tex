@@ -1,0 +1,88 @@
+\doxysection{lfs\+\_\+filebd.\+h}
+\hypertarget{lfs__filebd_8h_source}{}\label{lfs__filebd_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/bd/lfs\_filebd.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/bd/lfs\_filebd.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Block\ device\ emulated\ in\ a\ file}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2022,\ The\ littlefs\ authors.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2017,\ Arm\ Limited.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ LFS\_FILEBD\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ LFS\_FILEBD\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}lfs.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}lfs\_util.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ Block\ device\ specific\ tracing}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifndef\ LFS\_FILEBD\_TRACE}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifdef\ LFS\_FILEBD\_YES\_TRACE}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ LFS\_FILEBD\_TRACE(...)\ LFS\_TRACE(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ LFS\_FILEBD\_TRACE(...)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ filebd\ config}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__filebd__config}{lfs\_filebd\_config}}\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ Minimum\ size\ of\ a\ read\ operation\ in\ bytes.}}
+\DoxyCodeLine{00032\ \ \ \ \ lfs\_size\_t\ read\_size;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ Minimum\ size\ of\ a\ program\ operation\ in\ bytes.}}
+\DoxyCodeLine{00035\ \ \ \ \ lfs\_size\_t\ prog\_size;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ Size\ of\ an\ erase\ operation\ in\ bytes.}}
+\DoxyCodeLine{00038\ \ \ \ \ lfs\_size\_t\ erase\_size;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ erase\ blocks\ on\ the\ device.}}
+\DoxyCodeLine{00041\ \ \ \ \ lfs\_size\_t\ erase\_count;}
+\DoxyCodeLine{00042\ \};}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ filebd\ state}}
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__filebd}{lfs\_filebd}}\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{int}\ fd;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__filebd__config}{lfs\_filebd\_config}}\ *cfg;}
+\DoxyCodeLine{00048\ \}\ lfs\_filebd\_t;}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ Create\ a\ file\ block\ device}}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{int}\ lfs\_filebd\_create(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__filebd__config}{lfs\_filebd\_config}}\ *bdcfg);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ Clean\ up\ memory\ associated\ with\ block\ device}}
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{int}\ lfs\_filebd\_destroy(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{//\ Read\ a\ block}}
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{int}\ lfs\_filebd\_read(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_block\_t\ block,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ lfs\_off\_t\ off,\ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ Program\ a\ block}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ The\ block\ must\ have\ previously\ been\ erased.}}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{int}\ lfs\_filebd\_prog(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_block\_t\ block,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ lfs\_off\_t\ off,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ Erase\ a\ block}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ A\ block\ must\ be\ erased\ before\ being\ programmed.\ The}}
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ state\ of\ an\ erased\ block\ is\ undefined.}}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{int}\ lfs\_filebd\_erase(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_block\_t\ block);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ Sync\ the\ block\ device}}
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{int}\ lfs\_filebd\_sync(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00079\ \}\ \textcolor{comment}{/*\ extern\ "{}C"{}\ */}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

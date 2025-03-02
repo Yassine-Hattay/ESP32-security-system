@@ -1,0 +1,65 @@
+\doxysection{br\+\_\+ssl\+\_\+session\+\_\+cache\+\_\+class\+\_\+ Struct Reference}
+\hypertarget{structbr__ssl__session__cache__class__}{}\label{structbr__ssl__session__cache__class__}\index{br\_ssl\_session\_cache\_class\_@{br\_ssl\_session\_cache\_class\_}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structbr__ssl__session__cache__class___a9f04a86485e1c4d448efa0884ce97690}\label{structbr__ssl__session__cache__class___a9f04a86485e1c4d448efa0884ce97690} 
+size\+\_\+t {\bfseries context\+\_\+size}
+\begin{DoxyCompactList}\small\item\em Context size (in bytes). \end{DoxyCompactList}\item 
+void(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__ssl__session__cache__class___ab4076e708a48abab20b768d872382a3b}{save}} )(const \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\+\_\+ssl\+\_\+session\+\_\+cache\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, \mbox{\hyperlink{structbr__ssl__server__context__}{br\+\_\+ssl\+\_\+server\+\_\+context}} \texorpdfstring{$\ast$}{*}server\+\_\+ctx, const \mbox{\hyperlink{structbr__ssl__session__parameters}{br\+\_\+ssl\+\_\+session\+\_\+parameters}} \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Record a session. \end{DoxyCompactList}\item 
+int(\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structbr__ssl__session__cache__class___a2ef5e675fb1227f55867aebc94bf5a23}{load}} )(const \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\+\_\+ssl\+\_\+session\+\_\+cache\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, \mbox{\hyperlink{structbr__ssl__server__context__}{br\+\_\+ssl\+\_\+server\+\_\+context}} \texorpdfstring{$\ast$}{*}server\+\_\+ctx, \mbox{\hyperlink{structbr__ssl__session__parameters}{br\+\_\+ssl\+\_\+session\+\_\+parameters}} \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Lookup a session in the cache. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structbr__ssl__session__cache__class___a2ef5e675fb1227f55867aebc94bf5a23}\index{br\_ssl\_session\_cache\_class\_@{br\_ssl\_session\_cache\_class\_}!load@{load}}
+\index{load@{load}!br\_ssl\_session\_cache\_class\_@{br\_ssl\_session\_cache\_class\_}}
+\doxysubsubsection{\texorpdfstring{load}{load}}
+{\footnotesize\ttfamily \label{structbr__ssl__session__cache__class___a2ef5e675fb1227f55867aebc94bf5a23} 
+int(\texorpdfstring{$\ast$}{*} br\+\_\+ssl\+\_\+session\+\_\+cache\+\_\+class\+\_\+\+::load) (const \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\+\_\+ssl\+\_\+session\+\_\+cache\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, \mbox{\hyperlink{structbr__ssl__server__context__}{br\+\_\+ssl\+\_\+server\+\_\+context}} \texorpdfstring{$\ast$}{*}server\+\_\+ctx, \mbox{\hyperlink{structbr__ssl__session__parameters}{br\+\_\+ssl\+\_\+session\+\_\+parameters}} \texorpdfstring{$\ast$}{*}params)}
+
+
+
+Lookup a session in the cache. 
+
+The session ID to lookup is in {\ttfamily params} and always has length exactly 32 bytes. If the session parameters are found in the cache, then the parameters shall be copied into the {\ttfamily params} structure. Returned value is 1 on successful lookup, 0 otherwise.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & session cache context. \\
+\hline
+{\em server\+\_\+ctx} & SSL server context. \\
+\hline
+{\em params} & destination for session parameters. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if found, 0 otherwise. 
+\end{DoxyReturn}
+\Hypertarget{structbr__ssl__session__cache__class___ab4076e708a48abab20b768d872382a3b}\index{br\_ssl\_session\_cache\_class\_@{br\_ssl\_session\_cache\_class\_}!save@{save}}
+\index{save@{save}!br\_ssl\_session\_cache\_class\_@{br\_ssl\_session\_cache\_class\_}}
+\doxysubsubsection{\texorpdfstring{save}{save}}
+{\footnotesize\ttfamily \label{structbr__ssl__session__cache__class___ab4076e708a48abab20b768d872382a3b} 
+void(\texorpdfstring{$\ast$}{*} br\+\_\+ssl\+\_\+session\+\_\+cache\+\_\+class\+\_\+\+::save) (const \mbox{\hyperlink{bearssl__ssl_8h_a6e111090335176c12f18cf8adc5724e9}{br\+\_\+ssl\+\_\+session\+\_\+cache\+\_\+class}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ctx, \mbox{\hyperlink{structbr__ssl__server__context__}{br\+\_\+ssl\+\_\+server\+\_\+context}} \texorpdfstring{$\ast$}{*}server\+\_\+ctx, const \mbox{\hyperlink{structbr__ssl__session__parameters}{br\+\_\+ssl\+\_\+session\+\_\+parameters}} \texorpdfstring{$\ast$}{*}params)}
+
+
+
+Record a session. 
+
+This callback should record the provided session parameters. The {\ttfamily params} structure is transient, so its contents shall be copied into the cache. The session ID has been randomly generated and always has length exactly 32 bytes.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & session cache context. \\
+\hline
+{\em server\+\_\+ctx} & SSL server context. \\
+\hline
+{\em params} & session parameters to save. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/client/\+SSLClient/bssl/\mbox{\hyperlink{bearssl__ssl_8h}{bearssl\+\_\+ssl.\+h}}\end{DoxyCompactItemize}

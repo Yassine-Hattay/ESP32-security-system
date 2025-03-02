@@ -1,0 +1,205 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/main/src/esp\+\_\+now\+\_\+v.cpp File Reference}
+\hypertarget{esp__now__v_8cpp}{}\label{esp__now__v_8cpp}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/main/src/esp\_now\_v.cpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/main/src/esp\_now\_v.cpp}}
+
+
+back up server communication code  
+
+
+{\ttfamily \#include "{}global\+\_\+header.\+h"{}}\newline
+{\ttfamily \#include "{}camera\+\_\+var.\+h"{}}\newline
+{\ttfamily \#include "{}email\+\_\+module.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{esp__now__v_8cpp_a1ec6b84c5d1247e1390758d6df12d0dc}{On\+Data\+Sent}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}mac\+\_\+addr, esp\+\_\+now\+\_\+send\+\_\+status\+\_\+t status)
+\begin{DoxyCompactList}\small\item\em this function executes each time a packet is sent \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{esp__now__v_8cpp_aeaecae33307e47175167dc3d00b13c54}{Init\+ESPNow}} ()
+\begin{DoxyCompactList}\small\item\em initialization of esp now \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{esp__now__v_8cpp_a7909bd84c7a655feb65b9d53cb8bf2bb}{Set\+\_\+\+SLAVE\+\_\+data}} (uint8\+\_\+t \mbox{\hyperlink{main_8cpp_a2f32c75fb4bc7ba39243ef4a9f8eacc1}{mac}}\mbox{[}6\mbox{]})
+\begin{DoxyCompactList}\small\item\em sets the salve (esp 8266) mac address \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{esp__now__v_8cpp_ad9fa603a047eddacf66af55928156449}{send\+Data}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data\+Array, uint8\+\_\+t data\+Array\+Length)
+\begin{DoxyCompactList}\small\item\em sends esp now packet \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{esp__now__v_8cpp_a7b6f3ec9591d63b2e1b6d16413c9fb44}{start\+Transmit}} ()
+\begin{DoxyCompactList}\small\item\em sends the first esp now packet \end{DoxyCompactList}\item 
+\Hypertarget{esp__now__v_8cpp_a5312f58e90f94210ce5d805eefcb3440}\label{esp__now__v_8cpp_a5312f58e90f94210ce5d805eefcb3440} 
+void {\bfseries send\+Next\+Package} ()
+\item 
+void \mbox{\hyperlink{esp__now__v_8cpp_a4c3dd7b9848d068ae6214f3c1f5ae479}{delete\+Peer}} ()
+\begin{DoxyCompactList}\small\item\em this deletes parameters of the slave \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{esp__now__v_8cpp_ad5a999b52044412bb68878a44217b6ea}{manage\+Slave}} (int channel\+\_\+v)
+\begin{DoxyCompactList}\small\item\em this initializes parameters of the slave (wifi channel , mac address) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{esp__now__v_8cpp_a31f10187aa4ff607c9b59bd19efef330}{take\+Photo}} ()
+\begin{DoxyCompactList}\small\item\em this takes a photo and saves it to little FS \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{esp__now__v_8cpp_ac79118cebc2244b152dabc19b752c305}\label{esp__now__v_8cpp_ac79118cebc2244b152dabc19b752c305} 
+bool {\bfseries is\+Paired} = 0
+\item 
+\Hypertarget{esp__now__v_8cpp_a9cf427b935853420e9dae16ff689bac9}\label{esp__now__v_8cpp_a9cf427b935853420e9dae16ff689bac9} 
+byte {\bfseries take\+Next\+Photo\+Flag} = 1
+\item 
+\Hypertarget{esp__now__v_8cpp_a32db4e1608ffd3ba05d56a8ccdc42079}\label{esp__now__v_8cpp_a32db4e1608ffd3ba05d56a8ccdc42079} 
+esp\+\_\+pm\+\_\+config\+\_\+t {\bfseries pm\+\_\+config}
+\item 
+\Hypertarget{esp__now__v_8cpp_a6578bef4075e39fd86793fa24c15fba1}\label{esp__now__v_8cpp_a6578bef4075e39fd86793fa24c15fba1} 
+Semaphore\+Handle\+\_\+t {\bfseries manual\+\_\+b\+\_\+mutex}
+\item 
+\Hypertarget{esp__now__v_8cpp_ae97afc28cf2c47b79d7740d8528485ea}\label{esp__now__v_8cpp_ae97afc28cf2c47b79d7740d8528485ea} 
+esp\+\_\+now\+\_\+peer\+\_\+info\+\_\+t {\bfseries slave}
+\item 
+\Hypertarget{esp__now__v_8cpp_a3b41a9cd2937dbd5ed1b3bb7a283ac8a}\label{esp__now__v_8cpp_a3b41a9cd2937dbd5ed1b3bb7a283ac8a} 
+const esp\+\_\+now\+\_\+peer\+\_\+info\+\_\+t \texorpdfstring{$\ast$}{*} {\bfseries peer} = \&slave
+\item 
+\Hypertarget{esp__now__v_8cpp_a43d0ae876113645aa9e77399d21418bd}\label{esp__now__v_8cpp_a43d0ae876113645aa9e77399d21418bd} 
+volatile bool {\bfseries wait\+\_\+b} = true
+\item 
+\Hypertarget{esp__now__v_8cpp_a2b133b23e2afe1c498ec25924b32a12e}\label{esp__now__v_8cpp_a2b133b23e2afe1c498ec25924b32a12e} 
+int {\bfseries current\+Transmit\+Current\+Position} = 0
+\item 
+\Hypertarget{esp__now__v_8cpp_a6b29b0d660d7594f41ae5f50383ca04a}\label{esp__now__v_8cpp_a6b29b0d660d7594f41ae5f50383ca04a} 
+int {\bfseries current\+Transmit\+Total\+Packages} = 0
+\item 
+\Hypertarget{esp__now__v_8cpp_a37838ff7501764e757e863bdd55c60ff}\label{esp__now__v_8cpp_a37838ff7501764e757e863bdd55c60ff} 
+byte {\bfseries send\+Next\+Package\+Flag} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+back up server communication code 
+
+\begin{DoxyAuthor}{Author}
+Yassine Hattay (\href{mailto:hattayyassine519@gmail.com}{\texttt{ hattayyassine519@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2025-\/03-\/02
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2025 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{esp__now__v_8cpp_a4c3dd7b9848d068ae6214f3c1f5ae479}\index{esp\_now\_v.cpp@{esp\_now\_v.cpp}!deletePeer@{deletePeer}}
+\index{deletePeer@{deletePeer}!esp\_now\_v.cpp@{esp\_now\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{deletePeer()}{deletePeer()}}
+{\footnotesize\ttfamily \label{esp__now__v_8cpp_a4c3dd7b9848d068ae6214f3c1f5ae479} 
+void delete\+Peer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+this deletes parameters of the slave 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{esp__now__v_8cpp_aeaecae33307e47175167dc3d00b13c54}\index{esp\_now\_v.cpp@{esp\_now\_v.cpp}!InitESPNow@{InitESPNow}}
+\index{InitESPNow@{InitESPNow}!esp\_now\_v.cpp@{esp\_now\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{InitESPNow()}{InitESPNow()}}
+{\footnotesize\ttfamily \label{esp__now__v_8cpp_aeaecae33307e47175167dc3d00b13c54} 
+void Init\+ESPNow (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+initialization of esp now 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{esp__now__v_8cpp_ad5a999b52044412bb68878a44217b6ea}\index{esp\_now\_v.cpp@{esp\_now\_v.cpp}!manageSlave@{manageSlave}}
+\index{manageSlave@{manageSlave}!esp\_now\_v.cpp@{esp\_now\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{manageSlave()}{manageSlave()}}
+{\footnotesize\ttfamily \label{esp__now__v_8cpp_ad5a999b52044412bb68878a44217b6ea} 
+bool manage\+Slave (\begin{DoxyParamCaption}\item[{int}]{channel\+\_\+v}{}\end{DoxyParamCaption})}
+
+
+
+this initializes parameters of the slave (wifi channel , mac address) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{esp__now__v_8cpp_a1ec6b84c5d1247e1390758d6df12d0dc}\index{esp\_now\_v.cpp@{esp\_now\_v.cpp}!OnDataSent@{OnDataSent}}
+\index{OnDataSent@{OnDataSent}!esp\_now\_v.cpp@{esp\_now\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{OnDataSent()}{OnDataSent()}}
+{\footnotesize\ttfamily \label{esp__now__v_8cpp_a1ec6b84c5d1247e1390758d6df12d0dc} 
+void On\+Data\+Sent (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{mac\+\_\+addr}{, }\item[{esp\+\_\+now\+\_\+send\+\_\+status\+\_\+t}]{status}{}\end{DoxyParamCaption})}
+
+
+
+this function executes each time a packet is sent 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{esp__now__v_8cpp_ad9fa603a047eddacf66af55928156449}\index{esp\_now\_v.cpp@{esp\_now\_v.cpp}!sendData@{sendData}}
+\index{sendData@{sendData}!esp\_now\_v.cpp@{esp\_now\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{sendData()}{sendData()}}
+{\footnotesize\ttfamily \label{esp__now__v_8cpp_ad9fa603a047eddacf66af55928156449} 
+void send\+Data (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data\+Array}{, }\item[{uint8\+\_\+t}]{data\+Array\+Length}{}\end{DoxyParamCaption})}
+
+
+
+sends esp now packet 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{esp__now__v_8cpp_a7909bd84c7a655feb65b9d53cb8bf2bb}\index{esp\_now\_v.cpp@{esp\_now\_v.cpp}!Set\_SLAVE\_data@{Set\_SLAVE\_data}}
+\index{Set\_SLAVE\_data@{Set\_SLAVE\_data}!esp\_now\_v.cpp@{esp\_now\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{Set\_SLAVE\_data()}{Set\_SLAVE\_data()}}
+{\footnotesize\ttfamily \label{esp__now__v_8cpp_a7909bd84c7a655feb65b9d53cb8bf2bb} 
+void Set\+\_\+\+SLAVE\+\_\+data (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{mac}{\mbox{[}6\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+sets the salve (esp 8266) mac address 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{esp__now__v_8cpp_a7b6f3ec9591d63b2e1b6d16413c9fb44}\index{esp\_now\_v.cpp@{esp\_now\_v.cpp}!startTransmit@{startTransmit}}
+\index{startTransmit@{startTransmit}!esp\_now\_v.cpp@{esp\_now\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{startTransmit()}{startTransmit()}}
+{\footnotesize\ttfamily \label{esp__now__v_8cpp_a7b6f3ec9591d63b2e1b6d16413c9fb44} 
+void start\+Transmit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+sends the first esp now packet 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{esp__now__v_8cpp_a31f10187aa4ff607c9b59bd19efef330}\index{esp\_now\_v.cpp@{esp\_now\_v.cpp}!takePhoto@{takePhoto}}
+\index{takePhoto@{takePhoto}!esp\_now\_v.cpp@{esp\_now\_v.cpp}}
+\doxysubsubsection{\texorpdfstring{takePhoto()}{takePhoto()}}
+{\footnotesize\ttfamily \label{esp__now__v_8cpp_a31f10187aa4ff607c9b59bd19efef330} 
+void take\+Photo (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+this takes a photo and saves it to little FS 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parameter} & \\
+\hline
+\end{DoxyParams}

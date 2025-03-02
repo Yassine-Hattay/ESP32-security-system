@@ -1,0 +1,50 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+mdns/tests/test\+\_\+apps Directory Reference}
+\hypertarget{dir_c4fee25a9eb048439b865be215287c38}{}\label{dir_c4fee25a9eb048439b865be215287c38}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/tests/test\_apps Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_mdns/tests/test\_apps Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_0ff634d2303f4bf45db3ec86d5ebef4b}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\texorpdfstring{$\vert$}{|} Supported Targets \texorpdfstring{$\vert$}{|} ESP32 \texorpdfstring{$\vert$}{|} ESP32-\/\+S2 \texorpdfstring{$\vert$}{|} ESP32-\/\+C3 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|}\hypertarget{README.md_autotoc_md1419}{}\doxysubsection{\texorpdfstring{m\+DNS test project}{m\+DNS test project}}\label{README.md_autotoc_md1419}
+Main purpose of this application is to test the m\+DNS library to correctly advertise, lookup services and hosts. The "{}app\+\_\+test.\+py"{} logically separated from two sets of test cases 1. "{}\+ESP32 board sends queries -\/$>$ Host sends answers"{} and 2. "{}\+Host sends queries"{} -\/\texorpdfstring{$>$}{>} "{}\+ESP32 board sends answers"{}. Two first sets of test cases are starting by \textquotesingle{}test\+\_\+query\+\_\+\textquotesingle{} and the second ones by \textquotesingle{}start\+\_\+case\textquotesingle{}.\hypertarget{README.md_autotoc_md1420}{}\doxysubsubsection{\texorpdfstring{Runtime settings}{Runtime settings}}\label{README.md_autotoc_md1420}
+
+\begin{DoxyEnumerate}
+\item For first sets of test cases python creates and sends dns queries using "{}dpkt"{} library
+\item For the second sets of test cases this app waits for user input to provide test case(e.\+g. CONFIG\+\_\+\+TEST\+\_\+\+QUERY\+\_\+\+HOST, CONFIG\+\_\+\+TEST\+\_\+\+QUERY\+\_\+\+HOST\+\_\+\+ASYNC or CONFIG\+\_\+\+TEST\+\_\+\+QUERY\+\_\+\+SERVICE) In order to run both of them just needed to set up the project and run by \textquotesingle{}python app\+\_\+test.\+py\textquotesingle{}
+\end{DoxyEnumerate}\hypertarget{README.md_autotoc_md1421}{}\doxysubsubsection{\texorpdfstring{Test app workflow}{Test app workflow}}\label{README.md_autotoc_md1421}
+
+\begin{DoxyItemize}
+\item m\+DNS is initialized with hostname and instance name defined through the project configuration and {\ttfamily \+\_\+http.\+\_\+tcp} service is added to be advertised
+\item A delegated host {\ttfamily esp32-\/delegated.\+\_\+local} is added and another {\ttfamily \+\_\+http.\+\_\+tcp} service is added for this host.
+\item Wi\+Fi STA is started and tries to connect to the access point defined through the project configuration
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1422}{}\doxysubsubsubsection{\texorpdfstring{Configure the project}{Configure the project}}\label{README.md_autotoc_md1422}
+
+\begin{DoxyItemize}
+\item Open the project configuration menu ({\ttfamily idf.\+py menuconfig})
+\item Configure Wi-\/\+Fi or Ethernet under "{}\+Example Connection Configuration"{} menu.
+\item Set {\ttfamily m\+DNS Hostname} as host name prefix for the device and its instance name in {\ttfamily m\+DNS Instance Name}
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1423}{}\doxysubsubsubsection{\texorpdfstring{Build and Flash}{Build and Flash}}\label{README.md_autotoc_md1423}
+Build the project and flash it to the board, then run the monitor tool to view the serial output\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/p\ PORT\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item Wait for Wi\+Fi to connect to your access point
+\item You can now ping the device at {\ttfamily \mbox{[}board-\/hostname\mbox{]}.local}, where {\ttfamily \mbox{[}board-\/hostname\mbox{]}} is preconfigured hostname, {\ttfamily esp32-\/mdns} by default.
+\item You can also browse for {\ttfamily \+\_\+http.\+\_\+tcp} on the same network to find the advertised service
+\item Note that for purpose of CI tests, configuration options of {\ttfamily MDNS\+\_\+\+RESOLVE\+\_\+\+TEST\+\_\+\+SERVICES} and {\ttfamily MDNS\+\_\+\+ADD\+\_\+\+MAC\+\_\+\+TO\+\_\+\+HOSTNAME} are available, but disabled by default. If enabled, then the hostname suffix of last 3 bytes from device MAC address is added, e.\+g. {\ttfamily esp32-\/mdns-\/80\+FFFF}, and a query for test service is issued.
+\end{DoxyItemize}
+
+(To exit the serial monitor, type {\ttfamily Ctrl-\/\mbox{]}}.)
+
+See the Getting Started Guide for full steps to configure and use ESP-\/\+IDF to build projects.\hypertarget{README.md_autotoc_md1424}{}\doxysubsubsection{\texorpdfstring{Hardware Required}{Hardware Required}}\label{README.md_autotoc_md1424}
+This test-\/app can be executed on any ESP32 board, the only required interface is Wi\+Fi and connection to a local network and tls server. 

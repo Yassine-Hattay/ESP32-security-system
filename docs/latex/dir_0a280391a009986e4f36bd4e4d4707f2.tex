@@ -1,0 +1,62 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+schedule Directory Reference}
+\hypertarget{dir_0a280391a009986e4f36bd4e4d4707f2}{}\label{dir_0a280391a009986e4f36bd4e4d4707f2}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_schedule Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_schedule Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_a0beb91e02ba8f48a96d376af5c155aa}{include}}
+\item 
+directory \mbox{\hyperlink{dir_749b5cb687e42cf6a2414ad99004c590}{src}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\href{https://components.espressif.com/components/espressif/esp_schedule}{\texttt{ }}
+
+This component is used internally by ESP Rain\+Maker to implement schedules.
+
+\begin{quote}
+Note\+: By default, the time is w.\+r.\+t. UTC. If the timezone has been set, then the time is w.\+r.\+t. the specified timezone. \end{quote}
+\hypertarget{README.md_autotoc_md1253}{}\doxysubsection{\texorpdfstring{Test code\+:}{Test code\+:}}\label{README.md_autotoc_md1253}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#include\ <esp\_schedule.h>}
+\DoxyCodeLine{}
+\DoxyCodeLine{void\ app\_schedule\_trigger\_cb(esp\_schedule\_handle\_t\ handle,\ void\ *priv\_data)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ printf("{}priv\_data:\ \%.*s\(\backslash\)n"{},\ (char\ *)priv\_data);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{static\ char\ *priv\_data\_global\ =\ "{}from\ app"{};}
+\DoxyCodeLine{}
+\DoxyCodeLine{void\ app\_schedule\_set()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ esp\_schedule\_config\_t\ schedule\_config\ =\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .name\ =\ "{}test"{},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .trigger.type\ =\ ESP\_SCHEDULE\_TYPE\_DAYS\_OF\_WEEK,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .trigger.hours\ =\ 13,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .trigger.minutes\ =\ 30,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .trigger.day.repeat\_days\ =\ ESP\_SCHEDULE\_DAY\_MONDAY\ |\ ESP\_SCHEDULE\_DAY\_THURSDAY,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .trigger\_cb\ =\ app\_schedule\_trigger\_cb,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ .priv\_data\ =\ priv\_data\_global,}
+\DoxyCodeLine{\ \ \ \ \};}
+\DoxyCodeLine{\ \ \ \ esp\_schedule\_create(\&schedule\_config);}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{void\ app\_schedule\_init()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ uint8\_t\ schedule\_count;}
+\DoxyCodeLine{\ \ \ \ esp\_schedule\_handle\_t\ *schedule\_list\ =\ esp\_schedule\_init(true,\ NULL,\ \&schedule\_count);}
+\DoxyCodeLine{\ \ \ \ if\ (schedule\_count\ >\ 0\ \&\&\ schedule\_list\ !=\ NULL)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ESP\_LOGI(TAG,\ "{}Found\ \%d\ schedule(s)\ in\ NVS."{},\ schedule\_count);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ for\ (size\_t\ i\ =\ 0;\ i\ <\ schedule\_count;\ i++)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ esp\_schedule\_config\_t\ schedule\_config;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ esp\_schedule\_get(schedule\_list[i],\ \&schedule\_config);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ schedule\_config.trigger\_cb\ =\ app\_schedule\_trigger\_cb;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ schedule\_config.priv\_data\ =\ priv\_data\_global;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ esp\_schedule\_edit(schedule\_list[i],\ \&schedule\_config);}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 

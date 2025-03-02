@@ -1,0 +1,100 @@
+\doxysection{MB\+\_\+\+FS\+\_\+\+Interfaces.\+h}
+\hypertarget{_m_b___f_s___interfaces_8h_source}{}\label{_m_b___f_s___interfaces_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/extras/MB\_FS\_Interfaces.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/extras/MB\_FS\_Interfaces.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{/*\ Convert\ specific\ definitions\ to\ MB\_FS\ definitions\ */}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#ifndef\ MB\_FS\_INTERFACES\_H}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ MB\_FS\_INTERFACES\_H}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ push}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wdeprecated-\/declarations"{}}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ include\ definitions\ file}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}./ESP\_Mail\_FS.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ 1.\ ESP\_MAIL\_DEFAULT\_FLASH\_FS\ -\/>\ MBFS\_FLASH\_FS}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#if\ defined\ ESP\_MAIL\_DEFAULT\_FLASH\_FS}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ MBFS\_FLASH\_FS\ ESP\_MAIL\_DEFAULT\_FLASH\_FS}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ 2.\ ESP\_MAIL\_DEFAULT\_SD\_FS\ -\/>\ MBFS\_SD\_FS}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#if\ defined\ ESP\_MAIL\_DEFAULT\_SD\_FS}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ MBFS\_SD\_FS\ ESP\_MAIL\_DEFAULT\_SD\_FS}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ 3.\ ESP\_MAIL\_CARD\_TYPE\_SD\ -\/>\ MBFS\_CARD\_TYPE\_SD}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_CARD\_TYPE\_SD)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ MBFS\_CARD\_TYPE\_SD\ }\textcolor{comment}{/*\ \ */}\textcolor{preprocessor}{\ ESP\_MAIL\_CARD\_TYPE\_SD}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ 4.\ ESP\_MAIL\_CARD\_TYPE\_SD\_MMC\ -\/>\ MBFS\_CARD\_TYPE\_SD\_MMC}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_CARD\_TYPE\_SD\_MMC)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ MBFS\_CARD\_TYPE\_SD\_MMC\ }\textcolor{comment}{/*\ \ */}\textcolor{preprocessor}{\ ESP\_MAIL\_CARD\_TYPE\_SD\_MMC}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ 5.\ ESP\_MAIL\_FORMAT\_FLASH\_IF\_MOUNT\_FAILED\ -\/>\ MBFS\_FORMAT\_FLASH}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_FORMAT\_FLASH\_IF\_MOUNT\_FAILED)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ MBFS\_FORMAT\_FLASH\ }\textcolor{comment}{/*\ \ */}\textcolor{preprocessor}{\ ESP\_MAIL\_FORMAT\_FLASH\_IF\_MOUNT\_FAILED}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#if\ defined(MBFS\_SD\_FS)\ ||\ defined(MBFS\_FLASH\_FS)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ MBFS\_USE\_FILE\_STORAGE}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ Only\ SdFat\ library\ from\ Bill\ Greiman}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ \&\&\ defined(SD\_FAT\_VERSION)\ \&\&\ defined(SD\_FAT\_VERSION\_STR)\ \&\&\ defined(MBFS\_SD\_FS)\ \&\&\ defined(MBFS\_CARD\_TYPE\_SD)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ MBFS\_ESP32\_SDFAT\_ENABLED}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifndef\ ESP\_MAIL\_USE\_SDFAT}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_USE\_SDFAT}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ Only\ SdFat\ library\ from\ Bill\ Greiman}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#if\ !defined(ESP32)\ \&\&\ !defined(ESP8266)\ \&\&\ !defined(ARDUINO\_ARCH\_RP2040)\ \&\&\ defined(SD\_FAT\_VERSION)\ \&\&\ defined(SD\_FAT\_VERSION\_STR)\ \&\&\ defined(MBFS\_SD\_FS)\ \&\&\ defined(MBFS\_CARD\_TYPE\_SD)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ MBFS\_SDFAT\_ENABLED}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#ifndef\ ESP\_MAIL\_USE\_SDFAT}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ESP\_MAIL\_USE\_SDFAT}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ For\ MB\_String}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#if\ defined(ESP\_MAIL\_USE\_PSRAM)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ MB\_STRING\_USE\_PSRAM}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#if\ defined(MBFS\_SD\_FS)}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#if\ !defined(ESP\_MAIL\_SD\_FILE)}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#if\ defined(MBFS\_ESP32\_SDFAT\_ENABLED)}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ MBFS\_SD\_FILE\ SdFile}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#if\ defined(ESP32)\ ||\ defined(ESP8266)\ ||\ defined(ARDUINO\_ARCH\_RP2040)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ MBFS\_SD\_FILE\ fs::File}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ MBFS\_SD\_FILE\ File}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ MBFS\_SD\_FILE\ ESP\_MAIL\_SD\_FILE}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#ifndef\ MB\_STRING\_INCLUDE\_CLASS}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ MB\_STRING\_INCLUDE\_CLASS\ "{}MB\_String.h"{}}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MB\_FS\_INTERFACES\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,47 @@
+\doxysection{esp\+\_\+modem\+\_\+buffer.\+hpp}
+\hypertarget{esp__modem__buffer_8hpp_source}{}\label{esp__modem__buffer_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_buffer.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_buffer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }esp\_modem\ \{}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}\ (\mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}\ \textcolor{keyword}{const}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}\ \&operator=(\mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}\ \textcolor{keyword}{const}\ \&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}(\mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}\ \&\&other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ data\ =\ std::move(other.data);}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ size\ =\ other.size;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ consumed\ =\ 0;}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}\ \&operator=(\mbox{\hyperlink{structesp__modem_1_1unique__buffer_a6888b51001f18b513761747e02908a10}{unique\_buffer}}\ \&\&other)\ \textcolor{keyword}{noexcept}}
+\DoxyCodeLine{00026\ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\&other\ ==\ \textcolor{keyword}{this})\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ data\ =\ std::move(other.data);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ size\ =\ other.size;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ consumed\ =\ 0;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00034\ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \ \ \ \ [[nodiscard]]\ uint8\_t\ *get()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data.get();}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ std::unique\_ptr<uint8\_t[]>\ data;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size\{\};}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ consumed\{\};}
+\DoxyCodeLine{00043\ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \}}
+
+\end{DoxyCode}

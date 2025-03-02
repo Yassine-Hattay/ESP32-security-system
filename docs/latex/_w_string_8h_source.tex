@@ -1,0 +1,428 @@
+\doxysection{WString.\+h}
+\hypertarget{_w_string_8h_source}{}\label{_w_string_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/WString.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/WString.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ WString.h\ -\/\ String\ library\ for\ Wiring\ \&\ Arduino}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ ...mostly\ rewritten\ by\ Paul\ Stoffregen...}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ Copyright\ (c)\ 2009-\/10\ Hernando\ Barragan.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ Copyright\ 2011,\ Paul\ Stoffregen,\ paul@pjrc.com}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifndef\ String\_class\_h}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ String\_class\_h}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <pgmspace.h>}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <ctype.h>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ A\ pure\ abstract\ class\ forward\ used\ as\ a\ means\ to\ proide\ a\ unique\ pointer\ type}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ but\ really\ is\ never\ defined.}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\_\_FlashStringHelper;}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ FPSTR(str\_pointer)\ (reinterpret\_cast<const\ \_\_FlashStringHelper\ *>(str\_pointer))}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ F(string\_literal)\ \ (FPSTR(PSTR(string\_literal)))}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ An\ inherited\ class\ for\ holding\ the\ result\ of\ a\ concatenation.\ \ These}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ result\ objects\ are\ assumed\ to\ be\ writable\ by\ subsequent\ concatenations.}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{class\ }StringSumHelper;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ The\ string\ class}}
+\DoxyCodeLine{00044\ \textcolor{keyword}{class\ }String\ \{}
+\DoxyCodeLine{00045\ \ \ \textcolor{comment}{//\ use\ a\ function\ pointer\ to\ allow\ for\ "{}if\ (s)"{}\ without\ the}}
+\DoxyCodeLine{00046\ \ \ \textcolor{comment}{//\ complications\ of\ an\ operator\ bool().\ for\ more\ information,\ see:}}
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ http://www.artima.com/cppsource/safebool.html}}
+\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{typedef}\ void\ (String::*StringIfHelperType)()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00049\ \ \ \textcolor{keywordtype}{void}\ StringIfHelper()\textcolor{keyword}{\ const\ }\{\}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{//\ constructors}}
+\DoxyCodeLine{00053\ \ \ \textcolor{comment}{//\ creates\ a\ copy\ of\ the\ initial\ value.}}
+\DoxyCodeLine{00054\ \ \ \textcolor{comment}{//\ if\ the\ initial\ value\ is\ null\ or\ invalid,\ or\ if\ memory\ allocation}}
+\DoxyCodeLine{00055\ \ \ \textcolor{comment}{//\ fails,\ the\ string\ will\ be\ marked\ as\ invalid\ (i.e.\ "{}if\ (s)"{}\ will}}
+\DoxyCodeLine{00056\ \ \ \textcolor{comment}{//\ be\ false).}}
+\DoxyCodeLine{00057\ \ \ String(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00058\ \ \ String(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ length);}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#ifdef\ \_\_GXX\_EXPERIMENTAL\_CXX0X\_\_}}
+\DoxyCodeLine{00060\ \ \ String(\textcolor{keyword}{const}\ uint8\_t\ *cstr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ length)\ :\ String(reinterpret\_cast<const\ char\ *>(cstr),\ length)\ \{\}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00062\ \ \ String(\textcolor{keyword}{const}\ String\ \&str);}
+\DoxyCodeLine{00063\ \ \ String(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *str)\ :\ String(reinterpret\_cast<const\ char\ *>(str))\ \{\}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifdef\ \_\_GXX\_EXPERIMENTAL\_CXX0X\_\_}}
+\DoxyCodeLine{00065\ \ \ String(String\ \&\&rval);}
+\DoxyCodeLine{00066\ \ \ String(StringSumHelper\ \&\&rval);}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00068\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{char}\ c);}
+\DoxyCodeLine{00069\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10);}
+\DoxyCodeLine{00070\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10);}
+\DoxyCodeLine{00071\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10);}
+\DoxyCodeLine{00072\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{long},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10);}
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10);}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{float},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ decimalPlaces\ =\ 2);}
+\DoxyCodeLine{00075\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{double},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ decimalPlaces\ =\ 2);}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10);}
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{explicit}\ String(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ base\ =\ 10);}
+\DoxyCodeLine{00078\ \ \ \string~String(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{//\ memory\ management}}
+\DoxyCodeLine{00081\ \ \ \textcolor{comment}{//\ return\ true\ on\ success,\ false\ on\ failure\ (in\ which\ case,\ the\ string}}
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ is\ left\ unchanged).\ \ reserve(0),\ if\ successful,\ will\ validate\ an}}
+\DoxyCodeLine{00083\ \ \ \textcolor{comment}{//\ invalid\ string\ (i.e.,\ "{}if\ (s)"{}\ will\ be\ true\ afterwards)}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{bool}\ reserve(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00085\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ length(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{if}\ (buffer())\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ len();}
+\DoxyCodeLine{00088\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ clear(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ setLen(0);}
+\DoxyCodeLine{00094\ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ isEmpty(\textcolor{keywordtype}{void})\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ length()\ ==\ 0;}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{comment}{//\ creates\ a\ copy\ of\ the\ assigned\ value.\ \ if\ the\ value\ is\ null\ or}}
+\DoxyCodeLine{00100\ \ \ \textcolor{comment}{//\ invalid,\ or\ if\ the\ memory\ allocation\ fails,\ the\ string\ will\ be}}
+\DoxyCodeLine{00101\ \ \ \textcolor{comment}{//\ marked\ as\ invalid\ ("{}if\ (s)"{}\ will\ be\ false).}}
+\DoxyCodeLine{00102\ \ \ String\ \&operator=(\textcolor{keyword}{const}\ String\ \&rhs);}
+\DoxyCodeLine{00103\ \ \ String\ \&operator=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr);}
+\DoxyCodeLine{00104\ \ \ String\ \&operator=(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *str)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this}\ =\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(str);}
+\DoxyCodeLine{00106\ \ \ \}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifdef\ \_\_GXX\_EXPERIMENTAL\_CXX0X\_\_}}
+\DoxyCodeLine{00108\ \ \ String\ \&operator=(String\ \&\&rval);}
+\DoxyCodeLine{00109\ \ \ String\ \&operator=(StringSumHelper\ \&\&rval);}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \textcolor{comment}{//\ concatenate\ (works\ w/\ built-\/in\ types,\ same\ as\ assignment)}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ returns\ true\ on\ success,\ false\ on\ failure\ (in\ which\ case,\ the\ string}}
+\DoxyCodeLine{00115\ \ \ \textcolor{comment}{//\ is\ left\ unchanged).\ \ if\ the\ argument\ is\ null\ or\ invalid,\ the}}
+\DoxyCodeLine{00116\ \ \ \textcolor{comment}{//\ concatenation\ is\ considered\ unsuccessful.}}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keyword}{const}\ String\ \&str);}
+\DoxyCodeLine{00118\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr);}
+\DoxyCodeLine{00119\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ length);}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keyword}{const}\ uint8\_t\ *cstr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ length)\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{return}\ concat(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(cstr),\ length);}
+\DoxyCodeLine{00122\ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{char}\ c);}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ c);}
+\DoxyCodeLine{00125\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{long}\ num);}
+\DoxyCodeLine{00128\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ num);}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{float}\ num);}
+\DoxyCodeLine{00130\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{double}\ num);}
+\DoxyCodeLine{00131\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ num);}
+\DoxyCodeLine{00132\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ num);}
+\DoxyCodeLine{00133\ \ \ \textcolor{keywordtype}{bool}\ concat(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *str)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{return}\ concat(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(str));}
+\DoxyCodeLine{00135\ \ \ \}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \textcolor{comment}{//\ if\ there's\ not\ enough\ memory\ for\ the\ concatenated\ value,\ the\ string}}
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{//\ will\ be\ left\ unchanged\ (but\ this\ isn't\ signaled\ in\ any\ way)}}
+\DoxyCodeLine{00139\ \ \ String\ \&operator+=(\textcolor{keyword}{const}\ String\ \&rhs)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ concat(rhs);}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00142\ \ \ \}}
+\DoxyCodeLine{00143\ \ \ String\ \&operator+=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ concat(cstr);}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00146\ \ \ \}}
+\DoxyCodeLine{00147\ \ \ String\ \&operator+=(\textcolor{keywordtype}{char}\ c)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ concat(c);}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00150\ \ \ \}}
+\DoxyCodeLine{00151\ \ \ String\ \&operator+=(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ num)\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ concat(num);}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00154\ \ \ \}}
+\DoxyCodeLine{00155\ \ \ String\ \&operator+=(\textcolor{keywordtype}{int}\ num)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ concat(num);}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00158\ \ \ \}}
+\DoxyCodeLine{00159\ \ \ String\ \&operator+=(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ num)\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ concat(num);}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00162\ \ \ \}}
+\DoxyCodeLine{00163\ \ \ String\ \&operator+=(\textcolor{keywordtype}{long}\ num)\ \{}
+\DoxyCodeLine{00164\ \ \ \ \ concat(num);}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00166\ \ \ \}}
+\DoxyCodeLine{00167\ \ \ String\ \&operator+=(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ num)\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ concat(num);}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00170\ \ \ \}}
+\DoxyCodeLine{00171\ \ \ String\ \&operator+=(\textcolor{keywordtype}{float}\ num)\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ concat(num);}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00174\ \ \ \}}
+\DoxyCodeLine{00175\ \ \ String\ \&operator+=(\textcolor{keywordtype}{double}\ num)\ \{}
+\DoxyCodeLine{00176\ \ \ \ \ concat(num);}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00178\ \ \ \}}
+\DoxyCodeLine{00179\ \ \ String\ \&operator+=(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ num)\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ concat(num);}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00182\ \ \ \}}
+\DoxyCodeLine{00183\ \ \ String\ \&operator+=(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ num)\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ concat(num);}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{return}\ (*\textcolor{keyword}{this});}
+\DoxyCodeLine{00186\ \ \ \}}
+\DoxyCodeLine{00187\ \ \ String\ \&operator+=(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *str)\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this}\ +=\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(str);}
+\DoxyCodeLine{00189\ \ \ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keyword}{const}\ String\ \&rhs);}
+\DoxyCodeLine{00192\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr);}
+\DoxyCodeLine{00193\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{char}\ c);}
+\DoxyCodeLine{00194\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ num);}
+\DoxyCodeLine{00195\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00196\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ num);}
+\DoxyCodeLine{00197\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{long}\ num);}
+\DoxyCodeLine{00198\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ num);}
+\DoxyCodeLine{00199\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{float}\ num);}
+\DoxyCodeLine{00200\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{double}\ num);}
+\DoxyCodeLine{00201\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ num);}
+\DoxyCodeLine{00202\ \ \ \textcolor{keyword}{friend}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ num);}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \textcolor{comment}{//\ comparison\ (only\ works\ w/\ Strings\ and\ "{}strings"{})}}
+\DoxyCodeLine{00205\ \ \ \textcolor{keyword}{operator}\ StringIfHelperType()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordflow}{return}\ buffer()\ ?\ \&String::StringIfHelper\ :\ 0;}
+\DoxyCodeLine{00207\ \ \ \}}
+\DoxyCodeLine{00208\ \ \ \textcolor{keywordtype}{int}\ compareTo(\textcolor{keyword}{const}\ String\ \&s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00209\ \ \ \textcolor{keywordtype}{bool}\ equals(\textcolor{keyword}{const}\ String\ \&s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00210\ \ \ \textcolor{keywordtype}{bool}\ equals(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00211\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacedspm_acd29dc39f4582a2da0245381f3025939}{operator==}}(\textcolor{keyword}{const}\ String\ \&rhs)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordflow}{return}\ equals(rhs);}
+\DoxyCodeLine{00213\ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespacedspm_acd29dc39f4582a2da0245381f3025939}{operator==}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordflow}{return}\ equals(cstr);}
+\DoxyCodeLine{00216\ \ \ \}}
+\DoxyCodeLine{00217\ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ String\ \&rhs)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{return}\ !equals(rhs);}
+\DoxyCodeLine{00219\ \ \ \}}
+\DoxyCodeLine{00220\ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{return}\ !equals(cstr);}
+\DoxyCodeLine{00222\ \ \ \}}
+\DoxyCodeLine{00223\ \ \ \textcolor{keywordtype}{bool}\ operator<(\textcolor{keyword}{const}\ String\ \&rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00224\ \ \ \textcolor{keywordtype}{bool}\ operator>(\textcolor{keyword}{const}\ String\ \&rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00225\ \ \ \textcolor{keywordtype}{bool}\ operator<=(\textcolor{keyword}{const}\ String\ \&rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00226\ \ \ \textcolor{keywordtype}{bool}\ operator>=(\textcolor{keyword}{const}\ String\ \&rhs)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00227\ \ \ \textcolor{keywordtype}{bool}\ equalsIgnoreCase(\textcolor{keyword}{const}\ String\ \&s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00228\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ equalsConstantTime(\textcolor{keyword}{const}\ String\ \&s)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordtype}{bool}\ startsWith(\textcolor{keyword}{const}\ String\ \&prefix)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00230\ \ \ \textcolor{keywordtype}{bool}\ startsWith(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *prefix)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>startsWith(String(prefix));}
+\DoxyCodeLine{00232\ \ \ \}}
+\DoxyCodeLine{00233\ \ \ \textcolor{keywordtype}{bool}\ startsWith(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *prefix)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>startsWith(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(prefix));}
+\DoxyCodeLine{00235\ \ \ \}}
+\DoxyCodeLine{00236\ \ \ \textcolor{keywordtype}{bool}\ startsWith(\textcolor{keyword}{const}\ String\ \&prefix,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ offset)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00237\ \ \ \textcolor{keywordtype}{bool}\ endsWith(\textcolor{keyword}{const}\ String\ \&suffix)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00238\ \ \ \textcolor{keywordtype}{bool}\ endsWith(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *suffix)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>endsWith(String(suffix));}
+\DoxyCodeLine{00240\ \ \ \}}
+\DoxyCodeLine{00241\ \ \ \textcolor{keywordtype}{bool}\ endsWith(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *suffix)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>endsWith(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(suffix));}
+\DoxyCodeLine{00243\ \ \ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \textcolor{comment}{//\ character\ access}}
+\DoxyCodeLine{00246\ \ \ \textcolor{keywordtype}{char}\ charAt(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordtype}{void}\ setCharAt(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{char}\ c);}
+\DoxyCodeLine{00248\ \ \ \textcolor{keywordtype}{char}\ operator[](\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00249\ \ \ \textcolor{keywordtype}{char}\ \&operator[](\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00250\ \ \ \textcolor{keywordtype}{void}\ getBytes(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bufsize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00251\ \ \ \textcolor{keywordtype}{void}\ toCharArray(\textcolor{keywordtype}{char}\ *buf,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bufsize,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index\ =\ 0)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00252\ \ \ \ \ getBytes((\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *)buf,\ bufsize,\ index);}
+\DoxyCodeLine{00253\ \ \ \}}
+\DoxyCodeLine{00254\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *c\_str()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{keywordflow}{return}\ buffer();}
+\DoxyCodeLine{00256\ \ \ \}}
+\DoxyCodeLine{00257\ \ \ \textcolor{keywordtype}{char}\ *begin()\ \{}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{return}\ wbuffer();}
+\DoxyCodeLine{00259\ \ \ \}}
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordtype}{char}\ *end()\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{return}\ wbuffer()\ +\ length();}
+\DoxyCodeLine{00262\ \ \ \}}
+\DoxyCodeLine{00263\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *begin()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordflow}{return}\ c\_str();}
+\DoxyCodeLine{00265\ \ \ \}}
+\DoxyCodeLine{00266\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *end()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordflow}{return}\ c\_str()\ +\ length();}
+\DoxyCodeLine{00268\ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \textcolor{comment}{//\ search}}
+\DoxyCodeLine{00271\ \ \ \textcolor{keywordtype}{int}\ indexOf(\textcolor{keywordtype}{char}\ ch)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00272\ \ \ \textcolor{keywordtype}{int}\ indexOf(\textcolor{keywordtype}{char}\ ch,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ fromIndex)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00273\ \ \ \textcolor{keywordtype}{int}\ indexOf(\textcolor{keyword}{const}\ String\ \&str)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00274\ \ \ \textcolor{keywordtype}{int}\ indexOf(\textcolor{keyword}{const}\ String\ \&str,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ fromIndex)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00275\ \ \ \textcolor{keywordtype}{int}\ lastIndexOf(\textcolor{keywordtype}{char}\ ch)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordtype}{int}\ lastIndexOf(\textcolor{keywordtype}{char}\ ch,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ fromIndex)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00277\ \ \ \textcolor{keywordtype}{int}\ lastIndexOf(\textcolor{keyword}{const}\ String\ \&str)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00278\ \ \ \textcolor{keywordtype}{int}\ lastIndexOf(\textcolor{keyword}{const}\ String\ \&str,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ fromIndex)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00279\ \ \ String\ substring(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ beginIndex)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordflow}{return}\ substring(beginIndex,\ len());}
+\DoxyCodeLine{00281\ \ \ \}}
+\DoxyCodeLine{00282\ \ \ String\ substring(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ beginIndex,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ endIndex)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ \textcolor{comment}{//\ modification}}
+\DoxyCodeLine{00285\ \ \ \textcolor{keywordtype}{void}\ replace(\textcolor{keywordtype}{char}\ find,\ \textcolor{keywordtype}{char}\ replace);}
+\DoxyCodeLine{00286\ \ \ \textcolor{keywordtype}{void}\ replace(\textcolor{keyword}{const}\ String\ \&find,\ \textcolor{keyword}{const}\ String\ \&replace);}
+\DoxyCodeLine{00287\ \ \ \textcolor{keywordtype}{void}\ replace(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *find,\ \textcolor{keyword}{const}\ String\ \&replace)\ \{}
+\DoxyCodeLine{00288\ \ \ \ \ this-\/>replace(String(find),\ replace);}
+\DoxyCodeLine{00289\ \ \ \}}
+\DoxyCodeLine{00290\ \ \ \textcolor{keywordtype}{void}\ replace(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *find,\ \textcolor{keyword}{const}\ String\ \&replace)\ \{}
+\DoxyCodeLine{00291\ \ \ \ \ this-\/>replace(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(find),\ replace);}
+\DoxyCodeLine{00292\ \ \ \}}
+\DoxyCodeLine{00293\ \ \ \textcolor{keywordtype}{void}\ replace(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *find,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *replace)\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ this-\/>replace(String(find),\ String(replace));}
+\DoxyCodeLine{00295\ \ \ \}}
+\DoxyCodeLine{00296\ \ \ \textcolor{keywordtype}{void}\ replace(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *find,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *replace)\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ this-\/>replace(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(find),\ String(replace));}
+\DoxyCodeLine{00298\ \ \ \}}
+\DoxyCodeLine{00299\ \ \ \textcolor{keywordtype}{void}\ replace(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *find,\ \textcolor{keyword}{const}\ \_\_FlashStringHelper\ *replace)\ \{}
+\DoxyCodeLine{00300\ \ \ \ \ this-\/>replace(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(find),\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(replace));}
+\DoxyCodeLine{00301\ \ \ \}}
+\DoxyCodeLine{00302\ \ \ \textcolor{keywordtype}{void}\ remove(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00303\ \ \ \textcolor{keywordtype}{void}\ remove(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count);}
+\DoxyCodeLine{00304\ \ \ \textcolor{keywordtype}{void}\ toLowerCase(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00305\ \ \ \textcolor{keywordtype}{void}\ toUpperCase(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordtype}{void}\ trim(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \textcolor{comment}{//\ parsing/conversion}}
+\DoxyCodeLine{00309\ \ \ \textcolor{keywordtype}{long}\ toInt(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00310\ \ \ \textcolor{keywordtype}{float}\ toFloat(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00311\ \ \ \textcolor{keywordtype}{double}\ toDouble(\textcolor{keywordtype}{void})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00314\ \ \ \textcolor{comment}{//\ Contains\ the\ string\ info\ when\ we're\ not\ in\ SSO\ mode}}
+\DoxyCodeLine{00315\ \ \ \textcolor{keyword}{struct\ }\_ptr\ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordtype}{char}\ *buff;}
+\DoxyCodeLine{00317\ \ \ \ \ uint32\_t\ cap;}
+\DoxyCodeLine{00318\ \ \ \ \ uint32\_t\ len;}
+\DoxyCodeLine{00319\ \ \ \};}
+\DoxyCodeLine{00320\ \ \ \textcolor{comment}{//\ This\ allows\ strings\ up\ up\ to\ 11\ (10\ +\ \(\backslash\)0\ termination)\ without\ any\ extra\ space.}}
+\DoxyCodeLine{00321\ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00322\ \ \ \ \ SSOSIZE\ =\ \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct\ }\_ptr)\ +\ 4\ -\/\ 1}
+\DoxyCodeLine{00323\ \ \ \};\ \ \textcolor{comment}{//\ Characters\ to\ allocate\ space\ for\ SSO,\ must\ be\ 12\ or\ more}}
+\DoxyCodeLine{00324\ \ \ \textcolor{keyword}{struct\ }\_sso\ \{}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordtype}{char}\ buff[SSOSIZE];}
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ len\ \ \ :\ 7;\ \ \textcolor{comment}{//\ Ensure\ only\ one\ byte\ is\ allocated\ by\ GCC\ for\ the\ bitfields}}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ isSSO\ :\ 1;}
+\DoxyCodeLine{00328\ \ \ \}\ \_\_attribute\_\_((packed));\ \ \textcolor{comment}{//\ Ensure\ that\ GCC\ doesn't\ expand\ the\ flag\ byte\ to\ a\ 32-\/bit\ word\ for\ alignment\ issues}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#ifdef\ BOARD\_HAS\_PSRAM}}
+\DoxyCodeLine{00330\ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ CAPACITY\_MAX\ =\ 3145728}
+\DoxyCodeLine{00332\ \ \ \};}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00334\ \ \ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00335\ \ \ \ \ CAPACITY\_MAX\ =\ 65535}
+\DoxyCodeLine{00336\ \ \ \};}
+\DoxyCodeLine{00337\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00338\ \ \ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keyword}{struct\ }\_ptr\ ptr;}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keyword}{struct\ }\_sso\ sso;}
+\DoxyCodeLine{00341\ \ \ \};}
+\DoxyCodeLine{00342\ \ \ \textcolor{comment}{//\ Accessor\ functions}}
+\DoxyCodeLine{00343\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{bool}\ isSSO()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordflow}{return}\ sso.isSSO;}
+\DoxyCodeLine{00345\ \ \ \}}
+\DoxyCodeLine{00346\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ len()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keywordflow}{return}\ isSSO()\ ?\ sso.len\ :\ ptr.len;}
+\DoxyCodeLine{00348\ \ \ \}}
+\DoxyCodeLine{00349\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ capacity()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordflow}{return}\ isSSO()\ ?\ (\textcolor{keywordtype}{unsigned}\ int)SSOSIZE\ -\/\ 1\ :\ ptr.cap;}
+\DoxyCodeLine{00351\ \ \ \}\ \ \textcolor{comment}{//\ Size\ of\ max\ string\ not\ including\ terminal\ NUL}}
+\DoxyCodeLine{00352\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ setSSO(\textcolor{keywordtype}{bool}\ set)\ \{}
+\DoxyCodeLine{00353\ \ \ \ \ sso.isSSO\ =\ set;}
+\DoxyCodeLine{00354\ \ \ \}}
+\DoxyCodeLine{00355\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ setLen(\textcolor{keywordtype}{int}\ len)\ \{}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordflow}{if}\ (isSSO())\ \{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ sso.len\ =\ len;}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ sso.buff[len]\ =\ 0;}
+\DoxyCodeLine{00359\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ ptr.len\ =\ len;}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ptr.buff)\ \{}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ ptr.buff[len]\ =\ 0;}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00364\ \ \ \ \ \}}
+\DoxyCodeLine{00365\ \ \ \}}
+\DoxyCodeLine{00366\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ setCapacity(\textcolor{keywordtype}{int}\ cap)\ \{}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keywordflow}{if}\ (!isSSO())\ \{}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ ptr.cap\ =\ cap;}
+\DoxyCodeLine{00369\ \ \ \ \ \}}
+\DoxyCodeLine{00370\ \ \ \}}
+\DoxyCodeLine{00371\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ setBuffer(\textcolor{keywordtype}{char}\ *buff)\ \{}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keywordflow}{if}\ (!isSSO())\ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ ptr.buff\ =\ buff;}
+\DoxyCodeLine{00374\ \ \ \ \ \}}
+\DoxyCodeLine{00375\ \ \ \}}
+\DoxyCodeLine{00376\ \ \ \textcolor{comment}{//\ Buffer\ accessor\ functions}}
+\DoxyCodeLine{00377\ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buffer()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(isSSO()\ ?\ sso.buff\ :\ ptr.buff);}
+\DoxyCodeLine{00379\ \ \ \}}
+\DoxyCodeLine{00380\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{char}\ *wbuffer()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00381\ \ \ \ \ \textcolor{keywordflow}{return}\ isSSO()\ ?\ \textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(sso.buff)\ :\ ptr.buff;}
+\DoxyCodeLine{00382\ \ \ \}\ \ \textcolor{comment}{//\ Writable\ version\ of\ buffer}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00385\ \ \ \textcolor{keywordtype}{void}\ init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00386\ \ \ \textcolor{keywordtype}{void}\ invalidate(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00387\ \ \ \textcolor{keywordtype}{bool}\ changeBuffer(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ maxStrLen);}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \textcolor{comment}{//\ copy\ and\ move}}
+\DoxyCodeLine{00390\ \ \ String\ \&copy(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cstr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ length);}
+\DoxyCodeLine{00391\ \ \ String\ \&copy(\textcolor{keyword}{const}\ \_\_FlashStringHelper\ *pstr,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ length)\ \{}
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{keywordflow}{return}\ copy(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(pstr),\ length);}
+\DoxyCodeLine{00393\ \ \ \}}
+\DoxyCodeLine{00394\ \textcolor{preprocessor}{\#ifdef\ \_\_GXX\_EXPERIMENTAL\_CXX0X\_\_}}
+\DoxyCodeLine{00395\ \ \ \textcolor{keywordtype}{void}\ move(String\ \&rhs);}
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00397\ \};}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \textcolor{keyword}{class\ }StringSumHelper\ :\ \textcolor{keyword}{public}\ String\ \{}
+\DoxyCodeLine{00400\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00401\ \ \ StringSumHelper(\textcolor{keyword}{const}\ String\ \&s)\ :\ String(s)\ \{\}}
+\DoxyCodeLine{00402\ \ \ StringSumHelper(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *p)\ :\ String(p)\ \{\}}
+\DoxyCodeLine{00403\ \ \ StringSumHelper(\textcolor{keywordtype}{char}\ c)\ :\ String(c)\ \{\}}
+\DoxyCodeLine{00404\ \ \ StringSumHelper(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ num)\ :\ String(num)\ \{\}}
+\DoxyCodeLine{00405\ \ \ StringSumHelper(\textcolor{keywordtype}{int}\ num)\ :\ String(num)\ \{\}}
+\DoxyCodeLine{00406\ \ \ StringSumHelper(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ num)\ :\ String(num)\ \{\}}
+\DoxyCodeLine{00407\ \ \ StringSumHelper(\textcolor{keywordtype}{long}\ num)\ :\ String(num)\ \{\}}
+\DoxyCodeLine{00408\ \ \ StringSumHelper(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ num)\ :\ String(num)\ \{\}}
+\DoxyCodeLine{00409\ \ \ StringSumHelper(\textcolor{keywordtype}{float}\ num)\ :\ String(num)\ \{\}}
+\DoxyCodeLine{00410\ \ \ StringSumHelper(\textcolor{keywordtype}{double}\ num)\ :\ String(num)\ \{\}}
+\DoxyCodeLine{00411\ \ \ StringSumHelper(\textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ num)\ :\ String(num)\ \{\}}
+\DoxyCodeLine{00412\ \ \ StringSumHelper(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ num)\ :\ String(num)\ \{\}}
+\DoxyCodeLine{00413\ \};}
+\DoxyCodeLine{00414\ }
+\DoxyCodeLine{00415\ \textcolor{keyword}{inline}\ StringSumHelper\ \&operator+(\textcolor{keyword}{const}\ StringSumHelper\ \&lhs,\ \textcolor{keyword}{const}\ \_\_FlashStringHelper\ *rhs)\ \{}
+\DoxyCodeLine{00416\ \ \ \textcolor{keywordflow}{return}\ lhs\ +\ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const\ }\textcolor{keywordtype}{char}\ *\textcolor{keyword}{>}(rhs);}
+\DoxyCodeLine{00417\ \}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ String\ emptyString;}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ \_\_cplusplus}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ String\_class\_h}}
+
+\end{DoxyCode}

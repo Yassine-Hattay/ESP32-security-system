@@ -1,0 +1,128 @@
+\doxysection{EEPROM.\+h}
+\hypertarget{_e_e_p_r_o_m_8h_source}{}\label{_e_e_p_r_o_m_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/EEPROM/src/EEPROM.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/EEPROM/src/EEPROM.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ EEPROM.h\ -\/ported\ by\ Paolo\ Becchi\ to\ Esp32\ from\ esp8266\ EEPROM}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ -\/Modified\ by\ Elochukwu\ Ifediora\ <ifedioraelochukwuc@gmail.com>}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ -\/Converted\ to\ nvs\ lbernstone@gmail.com}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ Uses\ a\ nvs\ byte\ array\ to\ emulate\ EEPROM}}
+\DoxyCodeLine{00007\ \textcolor{comment}{}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ Copyright\ (c)\ 2014\ Ivan\ Grokhotkov.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ This\ file\ is\ part\ of\ the\ esp8266\ core\ for\ Arduino\ environment.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifndef\ EEPROM\_h}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ EEPROM\_h}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifndef\ EEPROM\_FLASH\_PARTITION\_NAME}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ EEPROM\_FLASH\_PARTITION\_NAME\ "{}eeprom"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ uint32\_t\ nvs\_handle;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }EEPROMClass\ \{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ EEPROMClass(uint32\_t\ sector);}
+\DoxyCodeLine{00038\ \ \ EEPROMClass(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name);}
+\DoxyCodeLine{00039\ \ \ EEPROMClass(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00040\ \ \ \string~EEPROMClass(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \textcolor{keywordtype}{bool}\ begin(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00043\ \ \ uint8\_t\ read(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ write(\textcolor{keywordtype}{int}\ address,\ uint8\_t\ val);}
+\DoxyCodeLine{00045\ \ \ uint16\_t\ length();}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{bool}\ commit();}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{00048\ \ \ \textcolor{keywordtype}{bool}\ isDirty();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ uint8\_t\ *getDataPtr();}
+\DoxyCodeLine{00051\ \ \ uint16\_t\ convert(\textcolor{keywordtype}{bool}\ clear,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *EEPROMname\ =\ \textcolor{stringliteral}{"{}eeprom"{}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *nvsname\ =\ \textcolor{stringliteral}{"{}eeprom"{}});}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>\ T\ \&get(\textcolor{keywordtype}{int}\ address,\ T\ \&t)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{if}\ (address\ <\ 0\ ||\ address\ +\ \textcolor{keyword}{sizeof}(T)\ >\ \_size)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00056\ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ memcpy((uint8\_t\ *)\&t,\ \_data\ +\ address,\ \textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00060\ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}\ T>\ \textcolor{keyword}{const}\ T\ \&put(\textcolor{keywordtype}{int}\ address,\ \textcolor{keyword}{const}\ T\ \&t)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{if}\ (address\ <\ 0\ ||\ address\ +\ \textcolor{keyword}{sizeof}(T)\ >\ \_size)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ memcpy(\_data\ +\ address,\ (\textcolor{keyword}{const}\ uint8\_t\ *)\&t,\ \textcolor{keyword}{sizeof}(T));}
+\DoxyCodeLine{00068\ \ \ \ \ \_dirty\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00070\ \ \ \}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ uint8\_t\ readByte(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00073\ \ \ int8\_t\ readChar(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00074\ \ \ uint8\_t\ readUChar(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00075\ \ \ int16\_t\ readShort(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00076\ \ \ uint16\_t\ readUShort(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00077\ \ \ int32\_t\ readInt(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00078\ \ \ uint32\_t\ readUInt(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00079\ \ \ int32\_t\ readLong(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00080\ \ \ uint32\_t\ readULong(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00081\ \ \ int64\_t\ readLong64(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00082\ \ \ uint64\_t\ readULong64(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00083\ \ \ float\_t\ readFloat(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00084\ \ \ double\_t\ readDouble(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{bool}\ readBool(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{size\_t}\ readString(\textcolor{keywordtype}{int}\ address,\ \textcolor{keywordtype}{char}\ *value,\ \textcolor{keywordtype}{size\_t}\ maxLen);}
+\DoxyCodeLine{00087\ \ \ String\ readString(\textcolor{keywordtype}{int}\ address);}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{size\_t}\ readBytes(\textcolor{keywordtype}{int}\ address,\ \textcolor{keywordtype}{void}\ *value,\ \textcolor{keywordtype}{size\_t}\ maxLen);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ T\ readAll(\textcolor{keywordtype}{int}\ address,\ T\ \&);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{size\_t}\ writeByte(\textcolor{keywordtype}{int}\ address,\ uint8\_t\ value);}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{size\_t}\ writeChar(\textcolor{keywordtype}{int}\ address,\ int8\_t\ value);}
+\DoxyCodeLine{00093\ \ \ \textcolor{keywordtype}{size\_t}\ writeUChar(\textcolor{keywordtype}{int}\ address,\ uint8\_t\ value);}
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{size\_t}\ writeShort(\textcolor{keywordtype}{int}\ address,\ int16\_t\ value);}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{size\_t}\ writeUShort(\textcolor{keywordtype}{int}\ address,\ uint16\_t\ value);}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{size\_t}\ writeInt(\textcolor{keywordtype}{int}\ address,\ int32\_t\ value);}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{size\_t}\ writeUInt(\textcolor{keywordtype}{int}\ address,\ uint32\_t\ value);}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{size\_t}\ writeLong(\textcolor{keywordtype}{int}\ address,\ int32\_t\ value);}
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{size\_t}\ writeULong(\textcolor{keywordtype}{int}\ address,\ uint32\_t\ value);}
+\DoxyCodeLine{00100\ \ \ \textcolor{keywordtype}{size\_t}\ writeLong64(\textcolor{keywordtype}{int}\ address,\ int64\_t\ value);}
+\DoxyCodeLine{00101\ \ \ \textcolor{keywordtype}{size\_t}\ writeULong64(\textcolor{keywordtype}{int}\ address,\ uint64\_t\ value);}
+\DoxyCodeLine{00102\ \ \ \textcolor{keywordtype}{size\_t}\ writeFloat(\textcolor{keywordtype}{int}\ address,\ float\_t\ value);}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{size\_t}\ writeDouble(\textcolor{keywordtype}{int}\ address,\ double\_t\ value);}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{size\_t}\ writeBool(\textcolor{keywordtype}{int}\ address,\ \textcolor{keywordtype}{bool}\ value);}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{size\_t}\ writeString(\textcolor{keywordtype}{int}\ address,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *value);}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{size\_t}\ writeString(\textcolor{keywordtype}{int}\ address,\ String\ value);}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{size\_t}\ writeBytes(\textcolor{keywordtype}{int}\ address,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *value,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00108\ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>\ T\ writeAll(\textcolor{keywordtype}{int}\ address,\ \textcolor{keyword}{const}\ T\ \&);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00111\ \ \ nvs\_handle\ \_handle;}
+\DoxyCodeLine{00112\ \ \ uint8\_t\ *\_data;}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{size\_t}\ \_size;}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{bool}\ \_dirty;}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\_name;}
+\DoxyCodeLine{00116\ \};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#if\ !defined(NO\_GLOBAL\_INSTANCES)\ \&\&\ !defined(NO\_GLOBAL\_EEPROM)}}
+\DoxyCodeLine{00119\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_e_e_p_r_o_m_class}{EEPROMClass}}\ EEPROM;}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

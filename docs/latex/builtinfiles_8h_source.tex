@@ -1,0 +1,64 @@
+\doxysection{builtinfiles.\+h}
+\hypertarget{builtinfiles_8h_source}{}\label{builtinfiles_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/examples/WebServer/builtinfiles.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/examples/WebServer/builtinfiles.h}}
+\mbox{\hyperlink{builtinfiles_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ used\ for\ \$upload.htm}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ uploadContent[]\ PROGMEM\ =}
+\DoxyCodeLine{00010\ \ \ R\textcolor{stringliteral}{"{}==(}}
+\DoxyCodeLine{00011\ \textcolor{stringliteral}{<!doctype\ html>}}
+\DoxyCodeLine{00012\ \textcolor{stringliteral}{<html\ lang='en'>}}
+\DoxyCodeLine{00013\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00014\ \textcolor{stringliteral}{<head>}}
+\DoxyCodeLine{00015\ \textcolor{stringliteral}{\ \ <meta\ charset="{}utf-\/8"{}>}}
+\DoxyCodeLine{00016\ \textcolor{stringliteral}{\ \ <meta\ name="{}viewport"{}\ content="{}width=device-\/width,\ initial-\/scale=1"{}>}}
+\DoxyCodeLine{00017\ \textcolor{stringliteral}{\ \ <title>Upload</title>}}
+\DoxyCodeLine{00018\ \textcolor{stringliteral}{</head>}}
+\DoxyCodeLine{00019\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00020\ \textcolor{stringliteral}{<body\ style="{}width:300px"{}>}}
+\DoxyCodeLine{00021\ \textcolor{stringliteral}{\ \ <h1>Upload</h1>}}
+\DoxyCodeLine{00022\ \textcolor{stringliteral}{\ \ <div><a\ href="{}/"{}>Home</a></div>}}
+\DoxyCodeLine{00023\ \textcolor{stringliteral}{\ \ <hr>}}
+\DoxyCodeLine{00024\ \textcolor{stringliteral}{\ \ <div\ id='zone'\ style='width:16em;height:12em;padding:10px;background-\/color:\#ddd'>Drop\ files\ here...</div>}}
+\DoxyCodeLine{00025\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00026\ \textcolor{stringliteral}{\ \ <script>}}
+\DoxyCodeLine{00027\ \textcolor{stringliteral}{\ \ \ \ //\ allow\ drag\&drop\ of\ file\ objects}}
+\DoxyCodeLine{00028\ \textcolor{stringliteral}{\ \ \ \ function\ dragHelper(e)\ \{}}
+\DoxyCodeLine{00029\ \textcolor{stringliteral}{\ \ \ \ \ \ e.stopPropagation();}}
+\DoxyCodeLine{00030\ \textcolor{stringliteral}{\ \ \ \ \ \ e.preventDefault();}}
+\DoxyCodeLine{00031\ \textcolor{stringliteral}{\ \ \ \ \}}}
+\DoxyCodeLine{00032\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00033\ \textcolor{stringliteral}{\ \ \ \ //\ allow\ drag\&drop\ of\ file\ objects}}
+\DoxyCodeLine{00034\ \textcolor{stringliteral}{\ \ \ \ function\ dropped(e)\ \{}}
+\DoxyCodeLine{00035\ \textcolor{stringliteral}{\ \ \ \ \ \ dragHelper(e);}}
+\DoxyCodeLine{00036\ \textcolor{stringliteral}{\ \ \ \ \ \ var\ fls\ =\ e.dataTransfer.files;}}
+\DoxyCodeLine{00037\ \textcolor{stringliteral}{\ \ \ \ \ \ var\ formData\ =\ new\ FormData();}}
+\DoxyCodeLine{00038\ \textcolor{stringliteral}{\ \ \ \ \ \ for\ (var\ i\ =\ 0;\ i\ <\ fls.length;\ i++)\ \{}}
+\DoxyCodeLine{00039\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ formData.append('file',\ fls[i],\ '/'\ +\ fls[i].name);}}
+\DoxyCodeLine{00040\ \textcolor{stringliteral}{\ \ \ \ \ \ \}}}
+\DoxyCodeLine{00041\ \textcolor{stringliteral}{\ \ \ \ \ \ fetch('/',\ \{\ method:\ 'POST',\ body:\ formData\ \}).then(function\ ()\ \{}}
+\DoxyCodeLine{00042\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ window.alert('done.');}}
+\DoxyCodeLine{00043\ \textcolor{stringliteral}{\ \ \ \ \ \ \});}}
+\DoxyCodeLine{00044\ \textcolor{stringliteral}{\ \ \ \ \}}}
+\DoxyCodeLine{00045\ \textcolor{stringliteral}{\ \ \ \ var\ z\ =\ document.getElementById('zone');}}
+\DoxyCodeLine{00046\ \textcolor{stringliteral}{\ \ \ \ z.addEventListener('dragenter',\ dragHelper,\ false);}}
+\DoxyCodeLine{00047\ \textcolor{stringliteral}{\ \ \ \ z.addEventListener('dragover',\ dragHelper,\ false);}}
+\DoxyCodeLine{00048\ \textcolor{stringliteral}{\ \ \ \ z.addEventListener('drop',\ dropped,\ false);}}
+\DoxyCodeLine{00049\ \textcolor{stringliteral}{\ \ </script>}}
+\DoxyCodeLine{00050\ \textcolor{stringliteral}{</body>}}
+\DoxyCodeLine{00051\ \textcolor{stringliteral}{)=="{};}}
+\DoxyCodeLine{00052\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{00053\ \textcolor{stringliteral}{}\textcolor{comment}{//\ used\ for\ \$upload.htm}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ notFoundContent[]\ PROGMEM\ =\ R\textcolor{stringliteral}{"{}==(}}
+\DoxyCodeLine{00055\ \textcolor{stringliteral}{<html>}}
+\DoxyCodeLine{00056\ \textcolor{stringliteral}{<head>}}
+\DoxyCodeLine{00057\ \textcolor{stringliteral}{\ \ <title>Resource\ not\ found</title>}}
+\DoxyCodeLine{00058\ \textcolor{stringliteral}{</head>}}
+\DoxyCodeLine{00059\ \textcolor{stringliteral}{<body>}}
+\DoxyCodeLine{00060\ \textcolor{stringliteral}{\ \ <p>The\ resource\ was\ not\ found.</p>}}
+\DoxyCodeLine{00061\ \textcolor{stringliteral}{\ \ <p><a\ href="{}/"{}>Start\ again</a></p>}}
+\DoxyCodeLine{00062\ \textcolor{stringliteral}{</body>}}
+\DoxyCodeLine{00063\ \textcolor{stringliteral}{)=="{};}}
+
+\end{DoxyCode}

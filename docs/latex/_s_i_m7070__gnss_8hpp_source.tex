@@ -1,0 +1,55 @@
+\doxysection{SIM7070\+\_\+gnss.\+hpp}
+\hypertarget{_s_i_m7070__gnss_8hpp_source}{}\label{_s_i_m7070__gnss_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/examples/simple\_cmux\_client/components/SIM7070\_gnss/SIM7070\_gnss.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/examples/simple\_cmux\_client/components/SIM7070\_gnss/SIM7070\_gnss.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Created\ on:\ 23.08.2022}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ Author:\ franz}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_dce\_factory.hpp"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}cxx\_include/esp\_modem\_dce\_module.hpp"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}sim70xx\_gps.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_i_m7070__gnss}{SIM7070\_gnss}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classesp__modem_1_1_s_i_m7070}{esp\_modem::SIM7070}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{using\ }SIM7070::SIM7070;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{esp\_modem::command\_result}}\ get\_gnss\_information\_sim70xx(sim70xx\_gps\_t\ \&gps);}
+\DoxyCodeLine{00027\ \};}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_d_c_e__gnss}{DCE\_gnss}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classesp__modem_1_1_d_c_e___t}{esp\_modem::DCE\_T}}<SIM7070\_gnss>\ \{}
+\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{using\ }DCE\_T<\mbox{\hyperlink{class_s_i_m7070__gnss}{SIM7070\_gnss}}>::DCE\_T;}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ ESP\_MODEM\_DECLARE\_DCE\_COMMAND(name,\ return\_type,\ num,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\ \ \ \ template\ <typename\ ...Agrs>\ \(\backslash\)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\ \ \ \ esp\_modem::return\_type\ name(Agrs\&\&...\ args)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ device-\/>name(std::forward<Agrs>(args)...);\ \(\backslash\)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ DECLARE\_ALL\_COMMAND\_APIS(forwards\ name(...)}
+\DoxyCodeLine{00044\ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ device-\/>name(...);}
+\DoxyCodeLine{00046\ \ \ \ \ \}\ )}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \#undef\ ESP\_MODEM\_DECLARE\_DCE\_COMMAND}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{esp\_modem::command\_result}}\ get\_gnss\_information\_sim70xx(sim70xx\_gps\_t\ \&gps);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00059\ std::unique\_ptr<DCE\_gnss>\ create\_SIM7070\_GNSS\_dce(\textcolor{keyword}{const}\ esp\_modem::dce\_config\ *config,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::shared\_ptr<esp\_modem::DTE>\ dte,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ esp\_netif\_t\ *netif);}
+
+\end{DoxyCode}

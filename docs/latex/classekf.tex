@@ -1,0 +1,449 @@
+\doxysection{ekf Class Reference}
+\hypertarget{classekf}{}\label{classekf}\index{ekf@{ekf}}
+
+
+{\ttfamily \#include $<$ekf.\+h$>$}
+
+Inheritance diagram for ekf\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classekf}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classekf_a48b8f056f76ddf4a0d3520cc4ef8bade}{ekf}} (int x, int w)
+\item 
+virtual \mbox{\hyperlink{classekf_a53310949764a49b3bcd3308a61035ea6}{\texorpdfstring{$\sim$}{\string~}ekf}} ()
+\item 
+virtual void \mbox{\hyperlink{classekf_a42ee022dba96611bf76d0d29bf964323}{Process}} (float \texorpdfstring{$\ast$}{*}u, float dt)
+\item 
+virtual void \mbox{\hyperlink{classekf_ace6dffc4003cb67f3021d7cb4e884c82}{Init}} ()=0
+\item 
+void \mbox{\hyperlink{classekf_a8f28807c86b11b95cc95bd514e65ea61}{Runge\+Kutta}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&x, float \texorpdfstring{$\ast$}{*}u, float dt)
+\item 
+virtual \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a09a763aeb193404116274d2885c42172}{State\+Xdot}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&x, float \texorpdfstring{$\ast$}{*}u)
+\item 
+virtual void \mbox{\hyperlink{classekf_a21cccadc5b6e3150a55b8964526e206f}{Linearize\+FG}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&x, float \texorpdfstring{$\ast$}{*}u)=0
+\item 
+virtual void \mbox{\hyperlink{classekf_a6588ad6c3eae0d1a177b35ea75b5a4f3}{Covariance\+Prediction}} (float dt)
+\item 
+virtual void \mbox{\hyperlink{classekf_a7df41e0ecb82824766219aa5f9b0baef}{Update}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&H, float \texorpdfstring{$\ast$}{*}measured, float \texorpdfstring{$\ast$}{*}expected, float \texorpdfstring{$\ast$}{*}R)
+\item 
+virtual void \mbox{\hyperlink{classekf_abd6f35d1ea69828aa0f757762fac9498}{Update\+Ref}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&H, float \texorpdfstring{$\ast$}{*}measured, float \texorpdfstring{$\ast$}{*}expected, float \texorpdfstring{$\ast$}{*}R)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a535f152864f2732a9888d4f959bd21fa}{quat2rotm}} (float q\mbox{[}4\mbox{]})
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a148bfefd351013bb66d84b160ce31ee3}{rotm2quat}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&R)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_aabe55260916190d327990bcb152b4c00}{quat2eul}} (const float q\mbox{[}4\mbox{]})
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a6e279ffd67d217145d7891a44ea0d9e8}{eul2rotm}} (float xyz\mbox{[}3\mbox{]})
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a744bf24c20081158a4327aba7d922547}{rotm2eul}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&rotm)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a17fb9f1cd3507611560518882bc530fe}{d\+Fdq}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&vector, \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&quat)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_a3affa0048058ee2485dcb28d718be907}{d\+Fdq\+\_\+inv}} (\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&vector, \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&quat)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_aeca3bb4b4c62c2e5aa7728abb652d7b5}{Skew\+Sym4x4}} (float \texorpdfstring{$\ast$}{*}w)
+\item 
+static \mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \mbox{\hyperlink{classekf_ac8d09350d77dfdc0525b1fd72333fa3e}{q\+Product}} (float \texorpdfstring{$\ast$}{*}q)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classekf_a672e2e271d7379a892ae554bc85bb501}{NUMX}}
+\item 
+int \mbox{\hyperlink{classekf_a0ab2d70220897d9d46c69779a7b328b3}{NUMW}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_aafa437baa4fffcaf7f23a208b5f3c0ef}{X}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_a398d5183c29186005345fcd8c64527c6}{F}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_a74b97ee7d2233618504b3e75f63590f7}{G}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_ad3322abbbf7592fb5bd465f77852d1ca}{P}}
+\item 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \& \mbox{\hyperlink{classekf_abff61d16eab399042a4812117ca2834d}{Q}}
+\item 
+float \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classekf_a5cc7771e316d6688d793eb577ef7233f}{HP}}
+\item 
+float \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classekf_ae2753a0e5f01f1aaab26f845bf285f94}{Km}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The ekf is a base class for Extended Kalman Filter. It contains main matrix operations and define the processing flow. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classekf_a48b8f056f76ddf4a0d3520cc4ef8bade}\index{ekf@{ekf}!ekf@{ekf}}
+\index{ekf@{ekf}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{ekf()}{ekf()}}
+{\footnotesize\ttfamily \label{classekf_a48b8f056f76ddf4a0d3520cc4ef8bade} 
+ekf\+::ekf (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{w}{}\end{DoxyParamCaption})}
+
+Constructor of EKF. THe constructor allocate main memory for the matrixes. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & -\/ amount of states in EKF. x\mbox{[}n\mbox{]} = F\texorpdfstring{$\ast$}{*}x\mbox{[}n-\/1\mbox{]} + G\texorpdfstring{$\ast$}{*}u + W. Size of matrix F \\
+\hline
+\mbox{\texttt{ in}}  & {\em w} & -\/ amount of control measurements and noise inputs. Size of matrix G \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classekf_a53310949764a49b3bcd3308a61035ea6}\index{ekf@{ekf}!````~ekf@{\texorpdfstring{$\sim$}{\string~}ekf}}
+\index{````~ekf@{\texorpdfstring{$\sim$}{\string~}ekf}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ekf()}{\string~ekf()}}
+{\footnotesize\ttfamily \label{classekf_a53310949764a49b3bcd3308a61035ea6} 
+ekf\+::\texorpdfstring{$\sim$}{\string~}ekf (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Distructor of EKF 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classekf_a6588ad6c3eae0d1a177b35ea75b5a4f3}\index{ekf@{ekf}!CovariancePrediction@{CovariancePrediction}}
+\index{CovariancePrediction@{CovariancePrediction}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{CovariancePrediction()}{CovariancePrediction()}}
+{\footnotesize\ttfamily \label{classekf_a6588ad6c3eae0d1a177b35ea75b5a4f3} 
+void ekf\+::\+Covariance\+Prediction (\begin{DoxyParamCaption}\item[{float}]{dt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Calculates covariance prediction matrux P. Update matrix P 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em dt} & time interval from last update \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classekf_a17fb9f1cd3507611560518882bc530fe}\index{ekf@{ekf}!dFdq@{dFdq}}
+\index{dFdq@{dFdq}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{dFdq()}{dFdq()}}
+{\footnotesize\ttfamily \label{classekf_a17fb9f1cd3507611560518882bc530fe} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::d\+Fdq (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{vector}{, }\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{quat}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Df/dq\+: Derivative of vector by quaternion. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vector} & input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em quat} & quaternion\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item Derivative matrix 3x4 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classekf_a3affa0048058ee2485dcb28d718be907}\index{ekf@{ekf}!dFdq\_inv@{dFdq\_inv}}
+\index{dFdq\_inv@{dFdq\_inv}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{dFdq\_inv()}{dFdq\_inv()}}
+{\footnotesize\ttfamily \label{classekf_a3affa0048058ee2485dcb28d718be907} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::d\+Fdq\+\_\+inv (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{vector}{, }\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{quat}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Df/dq\+: Derivative of vector by inverted quaternion. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em vector} & input vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em quat} & quaternion\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item Derivative matrix 3x4 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classekf_a6e279ffd67d217145d7891a44ea0d9e8}\index{ekf@{ekf}!eul2rotm@{eul2rotm}}
+\index{eul2rotm@{eul2rotm}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{eul2rotm()}{eul2rotm()}}
+{\footnotesize\ttfamily \label{classekf_a6e279ffd67d217145d7891a44ea0d9e8} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::eul2rotm (\begin{DoxyParamCaption}\item[{float}]{xyz}{\mbox{[}3\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Convert Euler angels to rotation matrix. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em xyz} & Euler angels\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item rotation matrix 3x3 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classekf_ace6dffc4003cb67f3021d7cb4e884c82}\index{ekf@{ekf}!Init@{Init}}
+\index{Init@{Init}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily \label{classekf_ace6dffc4003cb67f3021d7cb4e884c82} 
+virtual void ekf\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Initialization of EKF. The method should be called befare the first use of the filter. 
+
+Implemented in \mbox{\hyperlink{classekf__imu13states_af9d689b4d151401d6a654390ac34599e}{ekf\+\_\+imu13states}}.
+
+\Hypertarget{classekf_a21cccadc5b6e3150a55b8964526e206f}\index{ekf@{ekf}!LinearizeFG@{LinearizeFG}}
+\index{LinearizeFG@{LinearizeFG}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{LinearizeFG()}{LinearizeFG()}}
+{\footnotesize\ttfamily \label{classekf_a21cccadc5b6e3150a55b8964526e206f} 
+virtual void ekf\+::\+Linearize\+FG (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{u}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Calculation of system state matrices F and G 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & state vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em u} & control measurement \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classekf__imu13states_aa45e9518c23a0fb627e9018d75195008}{ekf\+\_\+imu13states}}.
+
+\Hypertarget{classekf_a42ee022dba96611bf76d0d29bf964323}\index{ekf@{ekf}!Process@{Process}}
+\index{Process@{Process}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{Process()}{Process()}}
+{\footnotesize\ttfamily \label{classekf_a42ee022dba96611bf76d0d29bf964323} 
+void ekf\+::\+Process (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{u}{, }\item[{float}]{dt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Main processing method of the EKF.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em u} & -\/ input measurements \\
+\hline
+\mbox{\texttt{ in}}  & {\em dt} & -\/ time difference from the last call in seconds \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classekf_ac8d09350d77dfdc0525b1fd72333fa3e}\index{ekf@{ekf}!qProduct@{qProduct}}
+\index{qProduct@{qProduct}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{qProduct()}{qProduct()}}
+{\footnotesize\ttfamily \label{classekf_ac8d09350d77dfdc0525b1fd72333fa3e} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::q\+Product (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{q}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Make right quaternion-\/product matrices. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em q} & source quaternion\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item right quaternion-\/product matrix 4x4 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classekf_aabe55260916190d327990bcb152b4c00}\index{ekf@{ekf}!quat2eul@{quat2eul}}
+\index{quat2eul@{quat2eul}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{quat2eul()}{quat2eul()}}
+{\footnotesize\ttfamily \label{classekf_aabe55260916190d327990bcb152b4c00} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::quat2eul (\begin{DoxyParamCaption}\item[{const float}]{q}{\mbox{[}4\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Convert quaternion to Euler angels. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em q} & quaternion\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item Euler angels 3x1 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classekf_a535f152864f2732a9888d4f959bd21fa}\index{ekf@{ekf}!quat2rotm@{quat2rotm}}
+\index{quat2rotm@{quat2rotm}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{quat2rotm()}{quat2rotm()}}
+{\footnotesize\ttfamily \label{classekf_a535f152864f2732a9888d4f959bd21fa} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::quat2rotm (\begin{DoxyParamCaption}\item[{float}]{q}{\mbox{[}4\mbox{]}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Convert quaternion to rotation matrix. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em q} & quaternion\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item rotation matrix 3x3 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classekf_a744bf24c20081158a4327aba7d922547}\index{ekf@{ekf}!rotm2eul@{rotm2eul}}
+\index{rotm2eul@{rotm2eul}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{rotm2eul()}{rotm2eul()}}
+{\footnotesize\ttfamily \label{classekf_a744bf24c20081158a4327aba7d922547} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::rotm2eul (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{rotm}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Convert rotation matrix to Euler angels. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em rotm} & rotation matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item Euler angels 3x1 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classekf_a148bfefd351013bb66d84b160ce31ee3}\index{ekf@{ekf}!rotm2quat@{rotm2quat}}
+\index{rotm2quat@{rotm2quat}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{rotm2quat()}{rotm2quat()}}
+{\footnotesize\ttfamily \label{classekf_a148bfefd351013bb66d84b160ce31ee3} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::rotm2quat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{R}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Convert rotation matrix to quaternion. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em R} & rotation matrix\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item quaternion 4x1 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classekf_a8f28807c86b11b95cc95bd514e65ea61}\index{ekf@{ekf}!RungeKutta@{RungeKutta}}
+\index{RungeKutta@{RungeKutta}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{RungeKutta()}{RungeKutta()}}
+{\footnotesize\ttfamily \label{classekf_a8f28807c86b11b95cc95bd514e65ea61} 
+void ekf\+::\+Runge\+Kutta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{u}{, }\item[{float}]{dt}{}\end{DoxyParamCaption})}
+
+Runge-\/\+Kutta state update method. The method calculates derivatives of input vector x and control measurements u
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & state vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em u} & control measurement \\
+\hline
+\mbox{\texttt{ in}}  & {\em dt} & time interval from last update in seconds \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classekf_aeca3bb4b4c62c2e5aa7728abb652d7b5}\index{ekf@{ekf}!SkewSym4x4@{SkewSym4x4}}
+\index{SkewSym4x4@{SkewSym4x4}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{SkewSym4x4()}{SkewSym4x4()}}
+{\footnotesize\ttfamily \label{classekf_aeca3bb4b4c62c2e5aa7728abb652d7b5} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::\+Skew\+Sym4x4 (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{w}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Make skew-\/symmetric matrix of vector. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em w} & source vector\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item skew-\/symmetric matrix 4x4 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{classekf_a09a763aeb193404116274d2885c42172}\index{ekf@{ekf}!StateXdot@{StateXdot}}
+\index{StateXdot@{StateXdot}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{StateXdot()}{StateXdot()}}
+{\footnotesize\ttfamily \label{classekf_a09a763aeb193404116274d2885c42172} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} ekf\+::\+State\+Xdot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{u}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Derivative of state vector X The default calculation\+: x\+Dot = F\texorpdfstring{$\ast$}{*}x + G\texorpdfstring{$\ast$}{*}u It\textquotesingle{}s possible to implement optimized version 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & state vector \\
+\hline
+\mbox{\texttt{ in}}  & {\em u} & control measurement \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+x\+Dot -\/ derivative of input vector x and u 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{classekf__imu13states_af497d6d258b35c5e602f9816cd515267}{ekf\+\_\+imu13states}}.
+
+\Hypertarget{classekf_a7df41e0ecb82824766219aa5f9b0baef}\index{ekf@{ekf}!Update@{Update}}
+\index{Update@{Update}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{classekf_a7df41e0ecb82824766219aa5f9b0baef} 
+void ekf\+::\+Update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{H}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{measured}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{expected}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{R}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Update of current state by measured values. Optimized method for non correlated values Calculate Kalman gain and update matrix P and vector X. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em H} & derivative matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em measured} & array of measured values \\
+\hline
+\mbox{\texttt{ in}}  & {\em expected} & array of expected values \\
+\hline
+\mbox{\texttt{ in}}  & {\em R} & measurement noise covariance values \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classekf_abd6f35d1ea69828aa0f757762fac9498}\index{ekf@{ekf}!UpdateRef@{UpdateRef}}
+\index{UpdateRef@{UpdateRef}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{UpdateRef()}{UpdateRef()}}
+{\footnotesize\ttfamily \label{classekf_abd6f35d1ea69828aa0f757762fac9498} 
+void ekf\+::\+Update\+Ref (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}} \&}]{H}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{measured}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{expected}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{R}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Update of current state by measured values. This method just as a reference for research purpose. Not used in real calculations. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em H} & derivative matrix \\
+\hline
+\mbox{\texttt{ in}}  & {\em measured} & array of measured values \\
+\hline
+\mbox{\texttt{ in}}  & {\em expected} & array of expected values \\
+\hline
+\mbox{\texttt{ in}}  & {\em R} & measurement noise covariance values \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classekf_a398d5183c29186005345fcd8c64527c6}\index{ekf@{ekf}!F@{F}}
+\index{F@{F}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{F}{F}}
+{\footnotesize\ttfamily \label{classekf_a398d5183c29186005345fcd8c64527c6} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}}\& ekf\+::F}
+
+Linearized system matrices F, where x\+Dot\mbox{[}n\mbox{]} = F\texorpdfstring{$\ast$}{*}x\mbox{[}n\mbox{]} + G\texorpdfstring{$\ast$}{*}u + W \Hypertarget{classekf_a74b97ee7d2233618504b3e75f63590f7}\index{ekf@{ekf}!G@{G}}
+\index{G@{G}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{G}{G}}
+{\footnotesize\ttfamily \label{classekf_a74b97ee7d2233618504b3e75f63590f7} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}}\& ekf\+::G}
+
+Linearized system matrices G, where x\+Dot\mbox{[}n\mbox{]} = F\texorpdfstring{$\ast$}{*}x\mbox{[}n\mbox{]} + G\texorpdfstring{$\ast$}{*}u + W \Hypertarget{classekf_a5cc7771e316d6688d793eb577ef7233f}\index{ekf@{ekf}!HP@{HP}}
+\index{HP@{HP}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{HP}{HP}}
+{\footnotesize\ttfamily \label{classekf_a5cc7771e316d6688d793eb577ef7233f} 
+float\texorpdfstring{$\ast$}{*} ekf\+::\+HP}
+
+Matrix for intermidieve calculations \Hypertarget{classekf_ae2753a0e5f01f1aaab26f845bf285f94}\index{ekf@{ekf}!Km@{Km}}
+\index{Km@{Km}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{Km}{Km}}
+{\footnotesize\ttfamily \label{classekf_ae2753a0e5f01f1aaab26f845bf285f94} 
+float\texorpdfstring{$\ast$}{*} ekf\+::\+Km}
+
+Matrix for intermidieve calculations \Hypertarget{classekf_a0ab2d70220897d9d46c69779a7b328b3}\index{ekf@{ekf}!NUMW@{NUMW}}
+\index{NUMW@{NUMW}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{NUMW}{NUMW}}
+{\footnotesize\ttfamily \label{classekf_a0ab2d70220897d9d46c69779a7b328b3} 
+int ekf\+::\+NUMW}
+
+x\+Dot\mbox{[}n\mbox{]} = F\texorpdfstring{$\ast$}{*}x\mbox{[}n\mbox{]} + G\texorpdfstring{$\ast$}{*}u + W The size of G matrix \Hypertarget{classekf_a672e2e271d7379a892ae554bc85bb501}\index{ekf@{ekf}!NUMX@{NUMX}}
+\index{NUMX@{NUMX}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{NUMX}{NUMX}}
+{\footnotesize\ttfamily \label{classekf_a672e2e271d7379a892ae554bc85bb501} 
+int ekf\+::\+NUMX}
+
+x\+Dot\mbox{[}n\mbox{]} = F\texorpdfstring{$\ast$}{*}x\mbox{[}n\mbox{]} + G\texorpdfstring{$\ast$}{*}u + W Number of states, X is the state vector (size of F matrix) \Hypertarget{classekf_ad3322abbbf7592fb5bd465f77852d1ca}\index{ekf@{ekf}!P@{P}}
+\index{P@{P}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{P}{P}}
+{\footnotesize\ttfamily \label{classekf_ad3322abbbf7592fb5bd465f77852d1ca} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}}\& ekf\+::P}
+
+Covariance matrix and state vector \Hypertarget{classekf_abff61d16eab399042a4812117ca2834d}\index{ekf@{ekf}!Q@{Q}}
+\index{Q@{Q}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{Q}{Q}}
+{\footnotesize\ttfamily \label{classekf_abff61d16eab399042a4812117ca2834d} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}}\& ekf\+::Q}
+
+\doxylink{struct_input}{Input} noise and measurement noise variances \Hypertarget{classekf_aafa437baa4fffcaf7f23a208b5f3c0ef}\index{ekf@{ekf}!X@{X}}
+\index{X@{X}!ekf@{ekf}}
+\doxysubsubsection{\texorpdfstring{X}{X}}
+{\footnotesize\ttfamily \label{classekf_aafa437baa4fffcaf7f23a208b5f3c0ef} 
+\mbox{\hyperlink{classdspm_1_1_mat}{dspm\+::\+Mat}}\& ekf\+::X}
+
+System state vector 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/dsp/modules/kalman/ekf/include/ekf.\+h\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/dsp/modules/kalman/ekf/common/ekf.\+cpp\end{DoxyCompactItemize}

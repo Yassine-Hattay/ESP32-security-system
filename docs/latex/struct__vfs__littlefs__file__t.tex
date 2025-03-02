@@ -1,0 +1,53 @@
+\doxysection{\+\_\+vfs\+\_\+littlefs\+\_\+file\+\_\+t Struct Reference}
+\hypertarget{struct__vfs__littlefs__file__t}{}\label{struct__vfs__littlefs__file__t}\index{\_vfs\_littlefs\_file\_t@{\_vfs\_littlefs\_file\_t}}
+
+
+a file descriptor That\textquotesingle{}s also a singly linked list used for keeping tracks of all opened file descriptor  
+
+
+
+
+{\ttfamily \#include $<$littlefs\+\_\+api.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct__vfs__littlefs__file__t_a0631a37137d7e31d03d89ad87316376d}\label{struct__vfs__littlefs__file__t_a0631a37137d7e31d03d89ad87316376d} 
+\mbox{\hyperlink{structlfs__file}{lfs\+\_\+file\+\_\+t}} {\bfseries file}
+\item 
+\Hypertarget{struct__vfs__littlefs__file__t_a5b5b296932dabbfede913d12935b42d1}\label{struct__vfs__littlefs__file__t_a5b5b296932dabbfede913d12935b42d1} 
+uint32\+\_\+t {\bfseries hash}
+\item 
+struct \mbox{\hyperlink{struct__vfs__littlefs__file__t}{\+\_\+vfs\+\_\+littlefs\+\_\+file\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct__vfs__littlefs__file__t_a458cba14ac081714125c378fbc5f850a}{next}}
+\item 
+\Hypertarget{struct__vfs__littlefs__file__t_a23a89c93cdfa636943771cf268f21224}\label{struct__vfs__littlefs__file__t_a23a89c93cdfa636943771cf268f21224} 
+char \texorpdfstring{$\ast$}{*} {\bfseries path}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+a file descriptor That\textquotesingle{}s also a singly linked list used for keeping tracks of all opened file descriptor 
+
+Shortcomings/potential issues of 32-\/bit hash (when CONFIG\+\_\+\+LITTLEFS\+\_\+\+USE\+\_\+\+ONLY\+\_\+\+HASH) listed here\+:
+\begin{DoxyItemize}
+\item unlink -\/ If a different file is open that generates a hash collision, it will report an error that it cannot unlink an open file.
+\item rename -\/ If a different file is open that generates a hash collision with src or dst, it will report an error that it cannot rename an open file. Potential consequences\+:
+\end{DoxyItemize}
+
+A file cannot be deleted while a collision-\/geneating file is open. Worst-\/case, if the other file is always open during the lifecycle of your app, it\textquotesingle{}s collision file cannot be deleted, which in the worst-\/case could cause storage-\/capacity issues.
+\begin{DoxyEnumerate}
+\item Same as (1), but for renames 
+\end{DoxyEnumerate}
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct__vfs__littlefs__file__t_a458cba14ac081714125c378fbc5f850a}\index{\_vfs\_littlefs\_file\_t@{\_vfs\_littlefs\_file\_t}!next@{next}}
+\index{next@{next}!\_vfs\_littlefs\_file\_t@{\_vfs\_littlefs\_file\_t}}
+\doxysubsubsection{\texorpdfstring{next}{next}}
+{\footnotesize\ttfamily \label{struct__vfs__littlefs__file__t_a458cba14ac081714125c378fbc5f850a} 
+struct \mbox{\hyperlink{struct__vfs__littlefs__file__t}{\+\_\+vfs\+\_\+littlefs\+\_\+file\+\_\+t}}\texorpdfstring{$\ast$}{*} \+\_\+vfs\+\_\+littlefs\+\_\+file\+\_\+t\+::next}
+
+Pointer to next file in Singly Linked List 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/joltwallet\+\_\+\+\_\+littlefs/src/littlefs\+\_\+api.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,117 @@
+\doxysection{esp\+\_\+zigbee\+\_\+zcl\+\_\+occupancy\+\_\+sensing.\+h}
+\hypertarget{esp__zigbee__zcl__occupancy__sensing_8h_source}{}\label{esp__zigbee__zcl__occupancy__sensing_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_occupancy\_sensing.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_occupancy\_sensing.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022-\/2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_type.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00017\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_OCCUPANCY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0000,\ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_OCCUPANCY\_SENSOR\_TYPE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0001,\ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_OCCUPANCY\_SENSOR\_TYPE\_BITMAP\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0002,\ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_PIR\_OCC\_TO\_UNOCC\_DELAY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0010,\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_DELAY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0011,\ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_THRESHOLD\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0012,\ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_ULTRASONIC\_OCCUPIED\_TO\_UNOCCUPIED\_DELAY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0020,}
+\DoxyCodeLine{00024\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_DELAY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0021,}
+\DoxyCodeLine{00025\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_THRESHOLD\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0022,}
+\DoxyCodeLine{00026\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_PHYSICAL\_CONTACT\_OCCUPIED\_TO\_UNOCCUPIED\_DELAY\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0030,}
+\DoxyCodeLine{00027\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_PHYSICAL\_CONTACT\_UNOCCUPIED\_TO\_OCCUPIED\_DELAY\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0031,}
+\DoxyCodeLine{00028\ \ \ ESP\_ZB\_ZCL\_ATTR\_OCCUPANCY\_SENSING\_PHYSICAL\_CONTACT\_UNOCCUPIED\_TO\_OCCUPIED\_THRESHOLD\_ID\ \ \ \ \ \ \ \ =\ 0x0032,}
+\DoxyCodeLine{00029\ \}esp\_zb\_zcl\_occupancy\_sensing\_attr\_t;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_CLUSTER\_REVISION\_DEFAULT\ ((uint16\_t)0x0002u)}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_OCC\_TO\_UNOCC\_DELAY\_MIN\_VALUE\ ((uint16\_t)0x0000)}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_OCC\_TO\_UNOCC\_DELAY\_MAX\_VALUE\ ((uint16\_t)0xfffe)}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_OCC\_TO\_UNOCC\_DELAY\_DEFAULT\_VALUE\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_OCC\_TO\_UNOCC\_DELAY\_MIN\_VALUE}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_DELAY\_MIN\_VALUE\ ((uint16\_t)0x0000)}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_DELAY\_MAX\_VALUE\ ((uint16\_t)0xfffe)}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_DELAY\_DEFAULT\_VALUE\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_DELAY\_MIN\_VALUE}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_THRESHOLD\_MIN\_VALUE\ ((uint8\_t)0x01)}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_THRESHOLD\_MAX\_VALUE\ ((uint8\_t)0xfe)}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_THRESHOLD\_DEFAULT\_VALUE\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PIR\_UNOCC\_TO\_OCC\_THRESHOLD\_MIN\_VALUE}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_OCCUPIED\_TO\_UNOCCUPIED\_DELAY\_MIN\_VALUE\ ((uint16\_t)0x0000)}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_OCCUPIED\_TO\_UNOCCUPIED\_DELAY\_MAX\_VALUE\ ((uint16\_t)0xfffe)}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_OCCUPIED\_TO\_UNOCCUPIED\_DELAY\_DEFAULT\_VALUE\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_OCCUPIED\_TO\_UNOCCUPIED\_DELAY\_MIN\_VALUE}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_DELAY\_MIN\_VALUE\ ((uint16\_t)0x0000)}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_DELAY\_MAX\_VALUE\ ((uint16\_t)0xfffe)}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_DELAY\_DEFAULT\_VALUE\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_DELAY\_MIN\_VALUE}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_THRESHOLD\_MIN\_VALUE\ ((uint8\_t)0x01)}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_THRESHOLD\_MAX\_VALUE\ ((uint8\_t)0xfe)}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_THRESHOLD\_DEFAULT\_VALUE\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_ULTRASONIC\_UNOCCUPIED\_TO\_OCCUPIED\_THRESHOLD\_MIN\_VALUE}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PHYSICAL\_CONTACT\_OCCUPIED\_TO\_UNOCCUPIED\_DELAY\_DEFAULT\_VALUE\ ((uint16\_t)0x0000)}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PHYSICAL\_CONTACT\_OCCUPIED\_TO\_UNOCCUPIED\_DELAY\_NO\_REPORTING\_VALUE\ ((uint16\_t)0xffff)}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PHYSICAL\_CONTACT\_UNOCCUPIED\_TO\_OCCUPIED\_DELAY\_DEFAULT\_VALUE\ ((uint16\_t)0x0000)}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PHYSICAL\_CONTACT\_UNOCCUPIED\_TO\_OCCUPIED\_DELAY\_NO\_REPORTING\_VALUE\ ((uint16\_t)0xffff)}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PHYSICAL\_CONTACT\_UNOCCUPIED\_TO\_OCCUPIED\_THRESHOLD\_MIN\_VALUE\ ((uint8\_t)0x01)}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_PHYSICAL\_CONTACT\_UNOCCUPIED\_TO\_OCCUPIED\_THRESHOLD\_MAX\_VALUE\ ((uint8\_t)0xfe)}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00107\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_OCCUPANCY\_UNOCCUPIED\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_OCCUPANCY\_OCCUPIED\ \ \ =\ 1\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00109\ \}esp\_zb\_zcl\_occupancy\_sensing\_occupancy\_t;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00112\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_OCCUPANCY\_SENSOR\_TYPE\_PIR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ }
+\DoxyCodeLine{00113\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_OCCUPANCY\_SENSOR\_TYPE\_ULTRASONIC\ \ \ \ \ \ \ \ \ =\ 1,\ \ \ \ }
+\DoxyCodeLine{00114\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_OCCUPANCY\_SENSOR\_TYPE\_PIR\_AND\_ULTRASONIC\ =\ 2,\ \ \ \ }
+\DoxyCodeLine{00115\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_OCCUPANCY\_SENSOR\_TYPE\_RESERVED\ \ \ \ \ \ \ \ \ \ \ =\ 3\ \ \ \ \ }
+\DoxyCodeLine{00116\ \}esp\_zb\_zcl\_occupancy\_sensing\_occupancy\_sensor\_type\_t;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00119\ \ \ ESP\_ZB\_ZCL\_CUSTOM\_OCCUPANCY\_SENSING\_REPORING\_MODE\_TYPE\_REGULAR\_REPORTING\ \ \ \ =\ 0,}
+\DoxyCodeLine{00120\ \ \ ESP\_ZB\_ZCL\_CUSTOM\_OCCUPANCY\_SENSING\_REPORING\_MODE\_TYPE\_LOW\_POWER\_REPORTING\ \ =\ 1}
+\DoxyCodeLine{00121\ \}esp\_zb\_zcl\_custom\_reporting\_mode\_type\_t;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00124\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_CUSTOM\_DEBUG\_MODE\_TYPE\_SHORT\ \ \ \ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{00125\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_CUSTOM\_DEBUG\_MODE\_TYPE\_ENHANCED\ \ \ \ \ \ =\ 1,}
+\DoxyCodeLine{00126\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_CUSTOM\_DEBUG\_MODE\_TYPE\_DEBUG\ \ \ \ \ \ \ \ \ =\ 2}
+\DoxyCodeLine{00127\ \}esp\_zb\_zcl\_custom\_debug\_mode\_type\_t;}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00130\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_CUSTOM\_LEARN\_NOT\_YET\_PERFORMED\ \ \ \ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{00131\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_CUSTOM\_LEARN\_IN\_PROGRESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1,}
+\DoxyCodeLine{00132\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_CUSTOM\_LEARN\_FINISHED\_WITH\_A\_FAILURE\ \ \ =\ 2,}
+\DoxyCodeLine{00133\ \ \ ESP\_ZB\_ZCL\_OCCUPANCY\_SENSING\_CUSTOM\_LEARN\_FINISHED\_SUCCSESSFULLY\ \ \ \ =\ 3}
+\DoxyCodeLine{00134\ \}esp\_zb\_zcl\_custom\_learn\_type\_t;}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00137\ \}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

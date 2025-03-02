@@ -1,0 +1,106 @@
+\doxysection{MB\+\_\+\+Time Class Reference}
+\hypertarget{class_m_b___time}{}\label{class_m_b___time}\index{MB\_Time@{MB\_Time}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_m_b___time_a6529712fda475f4e1f59f3dbd9839285}\label{class_m_b___time_a6529712fda475f4e1f59f3dbd9839285} 
+void {\bfseries clear} ()
+\item 
+\Hypertarget{class_m_b___time_acec08896ff0ce419e0efb2a0ebe49c01}\label{class_m_b___time_acec08896ff0ce419e0efb2a0ebe49c01} 
+void {\bfseries read\+NTPTime} (unsigned long wait\+Ms, bool debug\+Progress)
+\item 
+\Hypertarget{class_m_b___time_a9a8cb46850f6d0b0b82bbd33837c9410}\label{class_m_b___time_a9a8cb46850f6d0b0b82bbd33837c9410} 
+int {\bfseries set\+Timestamp} (time\+\_\+t ts, float gmt\+Offset)
+\item 
+time\+\_\+t \mbox{\hyperlink{class_m_b___time_a32de62500486f5ddcc631ba0742a9d1b}{get\+Timestamp}} (int year, int mon, int date, int hour, int mins, int sec)
+\item 
+time\+\_\+t \mbox{\hyperlink{class_m_b___time_a5854b564338740dcd3ca43b83048c5fc}{get\+Timestamp}} (const char \texorpdfstring{$\ast$}{*}time\+String, bool gmt=false)
+\item 
+uint64\+\_\+t \mbox{\hyperlink{class_m_b___time_a68c4d34bd5bbf8315533c370b47249d3}{get\+Current\+Timestamp}} ()
+\item 
+String \mbox{\hyperlink{class_m_b___time_a13c684b90c625d8240b42fdd6ec3efd4}{get\+Date\+Time\+String}} ()
+\item 
+\Hypertarget{class_m_b___time_ae699eeb69901ab3a3e82060ccda9293d}\label{class_m_b___time_ae699eeb69901ab3a3e82060ccda9293d} 
+String {\bfseries get\+Date\+Time\+String} (time\+\_\+t ts, const char \texorpdfstring{$\ast$}{*}format)
+\item 
+\Hypertarget{class_m_b___time_ad79a7199706f99aa8f31975d6ec13ab6}\label{class_m_b___time_ad79a7199706f99aa8f31975d6ec13ab6} 
+void {\bfseries begin} (float gmt\+Offset, float daylight\+Offset, const char \texorpdfstring{$\ast$}{*}servers)
+\item 
+bool \mbox{\hyperlink{class_m_b___time_a6f5f129729051640a92920268be0d6c6}{time\+Ready}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_m_b___time_a68c4d34bd5bbf8315533c370b47249d3}\index{MB\_Time@{MB\_Time}!getCurrentTimestamp@{getCurrentTimestamp}}
+\index{getCurrentTimestamp@{getCurrentTimestamp}!MB\_Time@{MB\_Time}}
+\doxysubsubsection{\texorpdfstring{getCurrentTimestamp()}{getCurrentTimestamp()}}
+{\footnotesize\ttfamily \label{class_m_b___time_a68c4d34bd5bbf8315533c370b47249d3} 
+uint64\+\_\+t MB\+\_\+\+Time\+::get\+Current\+Timestamp (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the current timestamp.
+
+\begin{DoxyReturn}{Returns}
+uint64\+\_\+t The value of current timestamp. 
+\end{DoxyReturn}
+\Hypertarget{class_m_b___time_a13c684b90c625d8240b42fdd6ec3efd4}\index{MB\_Time@{MB\_Time}!getDateTimeString@{getDateTimeString}}
+\index{getDateTimeString@{getDateTimeString}!MB\_Time@{MB\_Time}}
+\doxysubsubsection{\texorpdfstring{getDateTimeString()}{getDateTimeString()}}
+{\footnotesize\ttfamily \label{class_m_b___time_a13c684b90c625d8240b42fdd6ec3efd4} 
+String MB\+\_\+\+Time\+::get\+Date\+Time\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the current rfc822 date time string that valid for Email. \begin{DoxyReturn}{Returns}
+String The current date time string. 
+\end{DoxyReturn}
+\Hypertarget{class_m_b___time_a5854b564338740dcd3ca43b83048c5fc}\index{MB\_Time@{MB\_Time}!getTimestamp@{getTimestamp}}
+\index{getTimestamp@{getTimestamp}!MB\_Time@{MB\_Time}}
+\doxysubsubsection{\texorpdfstring{getTimestamp()}{getTimestamp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_m_b___time_a5854b564338740dcd3ca43b83048c5fc} 
+time\+\_\+t MB\+\_\+\+Time\+::get\+Timestamp (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{time\+String}{, }\item[{bool}]{gmt}{ = {\ttfamily false}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the timestamp from the RFC 2822 time string. e.\+g. Mon, 02 May 2022 00\+:30\+:00 +0000 or 02 May 2022 00\+:30\+:00 +0000
+
+
+\begin{DoxyParams}{Parameters}
+{\em gmt} & Return the GMT time. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+timestamp of time string. 
+\end{DoxyReturn}
+\Hypertarget{class_m_b___time_a32de62500486f5ddcc631ba0742a9d1b}\index{MB\_Time@{MB\_Time}!getTimestamp@{getTimestamp}}
+\index{getTimestamp@{getTimestamp}!MB\_Time@{MB\_Time}}
+\doxysubsubsection{\texorpdfstring{getTimestamp()}{getTimestamp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_m_b___time_a32de62500486f5ddcc631ba0742a9d1b} 
+time\+\_\+t MB\+\_\+\+Time\+::get\+Timestamp (\begin{DoxyParamCaption}\item[{int}]{year}{, }\item[{int}]{mon}{, }\item[{int}]{date}{, }\item[{int}]{hour}{, }\item[{int}]{mins}{, }\item[{int}]{sec}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the timestamp from the year, month, date, hour, minute, and second provided.
+
+
+\begin{DoxyParams}{Parameters}
+{\em year} & The year. \\
+\hline
+{\em mon} & The month from 1 to 12. \\
+\hline
+{\em date} & The dates. \\
+\hline
+{\em hour} & The hours. \\
+\hline
+{\em mins} & The minutes. \\
+\hline
+{\em sec} & The seconds. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+time\+\_\+t The value of timestamp. 
+\end{DoxyReturn}
+\Hypertarget{class_m_b___time_a6f5f129729051640a92920268be0d6c6}\index{MB\_Time@{MB\_Time}!timeReady@{timeReady}}
+\index{timeReady@{timeReady}!MB\_Time@{MB\_Time}}
+\doxysubsubsection{\texorpdfstring{timeReady()}{timeReady()}}
+{\footnotesize\ttfamily \label{class_m_b___time_a6f5f129729051640a92920268be0d6c6} 
+bool MB\+\_\+\+Time\+::time\+Ready (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+get the clock ready state 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/extras/MB\+\_\+\+Time.\+h\end{DoxyCompactItemize}

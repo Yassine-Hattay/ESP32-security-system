@@ -1,0 +1,111 @@
+\doxysection{esp\+\_\+zigbee\+\_\+zcl\+\_\+ota.\+h}
+\hypertarget{esp__zigbee__zcl__ota_8h_source}{}\label{esp__zigbee__zcl__ota_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_ota.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zigbee-\/lib/include/zcl/esp\_zigbee\_zcl\_ota.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022-\/2023\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}esp\_zigbee\_type.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_SERVER\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0000,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_FILE\_OFFSET\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0001,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_FILE\_VERSION\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0002,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_STACK\_VERSION\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0003,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_DOWNLOADED\_FILE\_VERSION\_ID\ \ \ \ =\ 0x0004,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_DOWNLOADED\_STACK\_VERSION\_ID\ \ \ =\ 0x0005,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_IMAGE\_STATUS\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0006,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_MANUFACTURE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0007,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_IMAGE\_TYPE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0008,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_MIN\_BLOCK\_REQUE\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0009,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_IMAGE\_STAMP\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x000a,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_UPGRADE\_ACTIVATION\_POLICY\_ID\ \ =\ 0x000b,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_UPGRADE\_TIMEOUT\_POLICY\_ID\ \ \ \ \ =\ 0x000c,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \textcolor{comment}{/*\ Server\ variables\ and\ Custom\ data\ */}}
+\DoxyCodeLine{00031\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_SERVER\_ENDPOINT\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0xfff3,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_SERVER\_ADDR\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xfff2,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_CLIENT\_DATA\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xfff1,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ ESP\_ZB\_ZCL\_ATTR\_OTA\_UPGRADE\_SERVER\_DATA\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xfff0,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \}\ esp\_zb\_zcl\_ota\_upgrade\_attr\_t;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_SERVER\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ 0xff,\ 0xff,\ 0xff,\ 0xff,\ 0xff,\ 0xff,\ 0xff,\ 0xff\ \}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_FILE\_OFFSET\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffffffff}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_FILE\_VERSION\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffffffff}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STACK\_VERSION\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffff}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_DOWNLOADED\_FILE\_VERSION\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffffffff}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_DOWNLOADED\_STACK\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffff}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_MANUFACTURER\_CODE\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x131B}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_IMAGE\_TYPE\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffbf}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_MANUFACTURER\_SPECIFIC\_IMAGE\_TYPE\_MIN\_VALUE\ \ \ \ \ \ \ \ \ \ \ 0x0000}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_MANUFACTURER\_SPECIFIC\_IMAGE\_TYPE\_MAX\_VALUE\ \ \ \ \ \ \ \ \ \ \ 0xffbf}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_CLI\_SECURITY\_CREDENTIALS\_IMAGE\_TYPE\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ 0xffc0}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_CLI\_CONFIG\_IMAGE\_TYPE\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffc1}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_SERVER\_LOG\_IMAGE\_TYPE\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffc2}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_PICTURE\_IMAGE\_TYPE\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffc3}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_WILD\_CARD\_IMAGE\_TYPE\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffff}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_IMAGE\_STATUS\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_OTA\_UPGRADE\_MIN\_BLOCK\_PERIOD\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0000}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_IMAGE\_STAMP\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffffffff}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_SERVER\_ENDPOINT\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xff}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_SERVER\_ADDR\_DEF\_VALUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xffff}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_QUERY\_TIMER\_COUNT\_DEF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (24*60)}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00103\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_START\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0000,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00104\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_APPLY\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0001,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00105\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_RECEIVE\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0002,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00106\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_FINISH\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0003,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_ABORT\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0004,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_CHECK\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0005,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00109\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_OK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0006,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00110\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0007,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00111\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_IMAGE\_STATUS\_NORMAL\ \ \ \ \ \ \ =\ 0x0008,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_BUSY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0009,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_STATUS\_SERVER\_NOT\_FOUND\ \ \ =\ 0x000A\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00114\ \}\ esp\_zb\_zcl\_ota\_upgrade\_status\_t;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00118\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_SERVER\_STARTED\ \ \ =\ 0x00,\ \ \ }
+\DoxyCodeLine{00119\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_SERVER\_ABORTED\ \ \ =\ 0x01,\ \ \ }
+\DoxyCodeLine{00120\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_SERVER\_END\ \ \ \ \ \ \ =\ 0x02,\ \ \ }
+\DoxyCodeLine{00121\ \}\ esp\_zb\_ota\_upgrade\_server\_status\_t;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00124\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ esp\_zb\_zcl\_ota\_upgrade\_file\_header\_fc\_e\ \{}
+\DoxyCodeLine{00125\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_FILE\_HEADER\_FC\_CREDENTIAL\_VER\ \ \ \ \ \ =\ 1\ <<\ 0,\ }
+\DoxyCodeLine{00126\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_FILE\_HEADER\_FC\_DEVICE\_SPECIFIC\ \ \ \ \ =\ 1\ <<\ 1,\ }
+\DoxyCodeLine{00127\ \ \ ESP\_ZB\_ZCL\_OTA\_UPGRADE\_FILE\_HEADER\_FC\_HW\_VER\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,\ }
+\DoxyCodeLine{00128\ \}\ esp\_zb\_zcl\_ota\_upgrade\_file\_header\_fc\_t;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00131\ \}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

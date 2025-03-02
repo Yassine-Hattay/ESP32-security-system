@@ -1,0 +1,105 @@
+\doxysection{esp32-\/hal-\/ledc.h}
+\hypertarget{esp32-hal-ledc_8h_source}{}\label{esp32-hal-ledc_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/ledc.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/ledc.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2023\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ \_ESP32\_HAL\_LEDC\_H\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ \_ESP32\_HAL\_LEDC\_H\_}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#if\ SOC\_LEDC\_SUPPORTED}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}freertos/semphr.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}hal/ledc\_types.h"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00032\ \ \ NOTE\_C,}
+\DoxyCodeLine{00033\ \ \ NOTE\_Cs,}
+\DoxyCodeLine{00034\ \ \ NOTE\_D,}
+\DoxyCodeLine{00035\ \ \ NOTE\_Eb,}
+\DoxyCodeLine{00036\ \ \ NOTE\_E,}
+\DoxyCodeLine{00037\ \ \ NOTE\_F,}
+\DoxyCodeLine{00038\ \ \ NOTE\_Fs,}
+\DoxyCodeLine{00039\ \ \ NOTE\_G,}
+\DoxyCodeLine{00040\ \ \ NOTE\_Gs,}
+\DoxyCodeLine{00041\ \ \ NOTE\_A,}
+\DoxyCodeLine{00042\ \ \ NOTE\_Bb,}
+\DoxyCodeLine{00043\ \ \ NOTE\_B,}
+\DoxyCodeLine{00044\ \ \ NOTE\_MAX}
+\DoxyCodeLine{00045\ \}\ note\_t;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ void\ (*voidFuncPtr)(void);}
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ void\ (*voidFuncPtrArg)(\textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00051\ \ \ uint8\_t\ pin;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Pin\ assigned\ to\ channel}}
+\DoxyCodeLine{00052\ \ \ uint8\_t\ channel;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Channel\ number}}
+\DoxyCodeLine{00053\ \ \ uint8\_t\ channel\_resolution;\ \ \textcolor{comment}{//\ Resolution\ of\ channel}}
+\DoxyCodeLine{00054\ \ \ voidFuncPtr\ fn;}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ *arg;}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#ifndef\ SOC\_LEDC\_SUPPORT\_FADE\_STOP}}
+\DoxyCodeLine{00057\ \ \ SemaphoreHandle\_t\ lock;\ \ \textcolor{comment}{//xSemaphoreCreateBinary}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ \}\ ledc\_channel\_handle\_t;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00066\ ledc\_clk\_cfg\_t\ ledcGetClockSource(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{bool}\ ledcSetClockSource(ledc\_clk\_cfg\_t\ source);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{bool}\ ledcAttach(uint8\_t\ pin,\ uint32\_t\ freq,\ uint8\_t\ resolution);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{bool}\ ledcAttachChannel(uint8\_t\ pin,\ uint32\_t\ freq,\ uint8\_t\ resolution,\ uint8\_t\ channel);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{bool}\ ledcWrite(uint8\_t\ pin,\ uint32\_t\ duty);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{bool}\ ledcWriteChannel(uint8\_t\ channel,\ uint32\_t\ duty);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00130\ uint32\_t\ ledcWriteTone(uint8\_t\ pin,\ uint32\_t\ freq);}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00142\ uint32\_t\ ledcWriteNote(uint8\_t\ pin,\ note\_t\ note,\ uint8\_t\ octave);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00151\ uint32\_t\ ledcRead(uint8\_t\ pin);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00160\ uint32\_t\ ledcReadFreq(uint8\_t\ pin);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00169\ \textcolor{keywordtype}{bool}\ ledcDetach(uint8\_t\ pin);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00181\ uint32\_t\ ledcChangeFrequency(uint8\_t\ pin,\ uint32\_t\ freq,\ uint8\_t\ resolution);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00191\ \textcolor{keywordtype}{bool}\ ledcOutputInvert(uint8\_t\ pin,\ \textcolor{keywordtype}{bool}\ out\_invert);}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{comment}{//Fade\ functions}}
+\DoxyCodeLine{00204\ \textcolor{keywordtype}{bool}\ ledcFade(uint8\_t\ pin,\ uint32\_t\ start\_duty,\ uint32\_t\ target\_duty,\ \textcolor{keywordtype}{int}\ max\_fade\_time\_ms);}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00217\ \textcolor{keywordtype}{bool}\ ledcFadeWithInterrupt(uint8\_t\ pin,\ uint32\_t\ start\_duty,\ uint32\_t\ target\_duty,\ \textcolor{keywordtype}{int}\ max\_fade\_time\_ms,\ \textcolor{keywordtype}{void}\ (*userFunc)(\textcolor{keywordtype}{void}));}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00231\ \textcolor{keywordtype}{bool}\ ledcFadeWithInterruptArg(uint8\_t\ pin,\ uint32\_t\ start\_duty,\ uint32\_t\ target\_duty,\ \textcolor{keywordtype}{int}\ max\_fade\_time\_ms,\ \textcolor{keywordtype}{void}\ (*userFunc)(\textcolor{keywordtype}{void}\ *),\ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00234\ \}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_LEDC\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_ESP32\_HAL\_LEDC\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

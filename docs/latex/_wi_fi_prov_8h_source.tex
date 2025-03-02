@@ -1,0 +1,76 @@
+\doxysection{Wi\+Fi\+Prov.\+h}
+\hypertarget{_wi_fi_prov_8h_source}{}\label{_wi_fi_prov_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFiProv/src/WiFiProv.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WiFiProv/src/WiFiProv.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ \ WiFiProv.h\ -\/\ Base\ class\ for\ provisioning\ support}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ \ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#if\ SOC\_WIFI\_SUPPORTED\ \&\&\ CONFIG\_NETWORK\_PROV\_NETWORK\_TYPE\_WIFI}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ "{}WiFi.h"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}HardwareSerial.h"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}network\_provisioning/manager.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//Select\ the\ scheme\ using\ which\ you\ want\ to\ provision}}
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00031\ \ \ NETWORK\_PROV\_SCHEME\_SOFTAP,}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#if\ CONFIG\_BLUEDROID\_ENABLED}}
+\DoxyCodeLine{00033\ \ \ NETWORK\_PROV\_SCHEME\_BLE,}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00035\ \ \ NETWORK\_PROV\_SCHEME\_MAX}
+\DoxyCodeLine{00036\ \}\ prov\_scheme\_t;}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00039\ \ \ NETWORK\_PROV\_SCHEME\_HANDLER\_NONE,}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#if\ CONFIG\_BLUEDROID\_ENABLED}}
+\DoxyCodeLine{00041\ \ \ NETWORK\_PROV\_SCHEME\_HANDLER\_FREE\_BTDM,}
+\DoxyCodeLine{00042\ \ \ NETWORK\_PROV\_SCHEME\_HANDLER\_FREE\_BLE,}
+\DoxyCodeLine{00043\ \ \ NETWORK\_PROV\_SCHEME\_HANDLER\_FREE\_BT,}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ \ \ NETWORK\_PROV\_SCHEME\_HANDLER\_MAX}
+\DoxyCodeLine{00046\ \}\ scheme\_handler\_t;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{//Provisioning\ class}}
+\DoxyCodeLine{00049\ \textcolor{keyword}{class\ }WiFiProvClass\ \{}
+\DoxyCodeLine{00050\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordtype}{bool}\ provInitDone\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{bool}\ provisioned\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ initProvision(}
+\DoxyCodeLine{00056\ \ \ \ \ prov\_scheme\_t\ prov\_scheme\ =\ NETWORK\_PROV\_SCHEME\_SOFTAP,\ scheme\_handler\_t\ scheme\_handler\ =\ NETWORK\_PROV\_SCHEME\_HANDLER\_NONE,\ \textcolor{keywordtype}{bool}\ reset\_provisioned\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00057\ \ \ );}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ beginProvision(}
+\DoxyCodeLine{00059\ \ \ \ \ prov\_scheme\_t\ prov\_scheme\ =\ NETWORK\_PROV\_SCHEME\_SOFTAP,\ scheme\_handler\_t\ scheme\_handler\ =\ NETWORK\_PROV\_SCHEME\_HANDLER\_NONE,}
+\DoxyCodeLine{00060\ \ \ \ \ network\_prov\_security\_t\ security\ =\ NETWORK\_PROV\_SECURITY\_1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pop\ =\ \textcolor{stringliteral}{"{}abcd1234"{}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *service\_name\ =\ NULL,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *service\_key\ =\ NULL,}
+\DoxyCodeLine{00061\ \ \ \ \ uint8\_t\ *uuid\ =\ NULL,\ \textcolor{keywordtype}{bool}\ reset\_provisioned\ =\ \textcolor{keyword}{false}}
+\DoxyCodeLine{00062\ \ \ );}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{void}\ endProvision();}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{bool}\ disableAutoStop(uint32\_t\ cleanup\_delay);}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{void}\ printQR(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *pop,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *transport,\ Print\ \&out\ =\ Serial);}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{extern}\ WiFiProvClass\ WiFiProv;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_WIFI\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

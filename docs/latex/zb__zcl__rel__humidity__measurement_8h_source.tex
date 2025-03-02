@@ -1,0 +1,137 @@
+\doxysection{zb\+\_\+zcl\+\_\+rel\+\_\+humidity\+\_\+measurement.\+h}
+\hypertarget{zb__zcl__rel__humidity__measurement_8h_source}{}\label{zb__zcl__rel__humidity__measurement_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_rel\_humidity\_measurement.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_rel\_humidity\_measurement.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Relative\ Humidity\ Measurement\ cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_REL\_HUMIDITY\_MEASUREMENT\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_REL\_HUMIDITY\_MEASUREMENT\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_common.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_commands.h"{}}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ Cluster\ ZB\_ZCL\_WATER\_CONTENT\_MEASUREMENT\ */}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{enum}\ zb\_zcl\_rel\_humidity\_measurement\_attr\_e}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00065\ \ \ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_VALUE\_ID\ \ \ \ \ =\ 0x0000,}
+\DoxyCodeLine{00067\ \ \ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MIN\_VALUE\_ID\ =\ 0x0001,}
+\DoxyCodeLine{00069\ \ \ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MAX\_VALUE\_ID\ =\ 0x0002,}
+\DoxyCodeLine{00075\ \ \ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_TOLERANCE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0003,}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_WATER\_CONTENT\_MEASUREMENT\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0002u)}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_VALUE\_UNKNOWN\ \ \ \ \ \ \ \ 0xFFFF}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MIN\_VALUE\_MIN\_VALUE\ \ 0x0000}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MIN\_VALUE\_MAX\_VALUE\ \ 0x270F}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MIN\_VALUE\_UNDEFINED\ \ 0xFFFF}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MAX\_VALUE\_MIN\_VALUE\ \ 0x0001}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MAX\_VALUE\_MAX\_VALUE\ \ 0x2710}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MAX\_VALUE\_UNDEFINED\ \ 0xFFFF}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_REL\_HUMIDITY\_MEASUREMENT\_VALUE\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0xFFFF)}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_REL\_HUMIDITY\_MEASUREMENT\_MIN\_VALUE\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0xFFFF)}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_REL\_HUMIDITY\_MEASUREMENT\_MAX\_VALUE\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0xFFFF)}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_VALUE\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_VALUE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U16,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY\ |\ ZB\_ZCL\_ATTR\_ACCESS\_REPORTING,\ \ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MIN\_VALUE\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MIN\_VALUE\_ID,\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U16,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MAX\_VALUE\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MAX\_VALUE\_ID,\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U16,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_REL\_HUMIDITY\_MEASUREMENT\_REPORT\_ATTR\_COUNT\ 1}}
+\DoxyCodeLine{00145\ \ \textcolor{comment}{/*\ Relative\ Humidity\ Measurement\ cluster\ internals\ */}\ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_REL\_HUMIDITY\_MEASUREMENT\_ATTRIB\_LIST(attr\_list,\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\ \ \ \ value,\ min\_value,\ max\_value)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_WATER\_CONTENT\_MEASUREMENT)\ \(\backslash\)}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_VALUE\_ID,\ (value))\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MIN\_VALUE\_ID,\ (min\_value))\ \ \(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_REL\_HUMIDITY\_MEASUREMENT\_MAX\_VALUE\_ID,\ (max\_value))\ \ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00163\ \ \textcolor{comment}{/*\ Relative\ Humidity\ Measurement\ cluster\ attributes\ */}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00169\ \ \textcolor{comment}{/*\ Relative\ Humidity\ Measurement\ cluster\ commands\ */}}
+\DoxyCodeLine{00171\ \ \textcolor{comment}{/*\ ZCL\ Relative\ Humidity\ Measurement\ cluster\ definitions\ */}}
+\DoxyCodeLine{00173\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ */}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{keywordtype}{void}\ zb\_zcl\_rel\_humidity\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}\ zb\_zcl\_rel\_humidity\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_REL\_HUMIDITY\_MEASUREMENT\_SERVER\_ROLE\_INIT\ zb\_zcl\_rel\_humidity\_init\_server}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_REL\_HUMIDITY\_MEASUREMENT\_CLIENT\_ROLE\_INIT\ zb\_zcl\_rel\_humidity\_init\_client}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_REL\_HUMIDITY\_MEASUREMENT\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

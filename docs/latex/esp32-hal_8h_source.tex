@@ -1,0 +1,177 @@
+\doxysection{esp32-\/hal.h}
+\hypertarget{esp32-hal_8h_source}{}\label{esp32-hal_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ Arduino.h\ -\/\ Main\ include\ file\ for\ the\ Arduino\ SDK}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ Copyright\ (c)\ 2005-\/2013\ Arduino\ Team.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ HAL\_ESP32\_HAL\_H\_}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ HAL\_ESP32\_HAL\_H\_}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}esp\_system.h"{}}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ "{}esp\_sleep.h"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}freertos/queue.h"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}freertos/semphr.h"{}}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ "{}freertos/event\_groups.h"{}}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifndef\ F\_CPU}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ F\_CPU\ (CONFIG\_ESP\_DEFAULT\_CPU\_FREQ\_MHZ\ *\ 1000000U)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#if\ CONFIG\_ARDUINO\_ISR\_IRAM}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ ARDUINO\_ISR\_ATTR\ IRAM\_ATTR}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ARDUINO\_ISR\_FLAG\ ESP\_INTR\_FLAG\_IRAM}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ ARDUINO\_ISR\_ATTR}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ARDUINO\_ISR\_FLAG\ (0)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#ifndef\ ARDUINO\_RUNNING\_CORE}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ ARDUINO\_RUNNING\_CORE\ CONFIG\_ARDUINO\_RUNNING\_CORE}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifndef\ ARDUINO\_EVENT\_RUNNING\_CORE}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ ARDUINO\_EVENT\_RUNNING\_CORE\ CONFIG\_ARDUINO\_EVENT\_RUNNING\_CORE}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#if\ CONFIG\_IDF\_TARGET\_ESP32\ ||\ CONFIG\_IDF\_TARGET\_ESP32S2\ ||\ CONFIG\_IDF\_TARGET\_ESP32S3}}
+\DoxyCodeLine{00065\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ BOOT\_PIN\ =\ 0;}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C2\ ||\ CONFIG\_IDF\_TARGET\_ESP32C3\ ||\ CONFIG\_IDF\_TARGET\_ESP32C6\ ||\ CONFIG\_IDF\_TARGET\_ESP32H2\ ||\ CONFIG\_IDF\_TARGET\_ESP32C61}}
+\DoxyCodeLine{00067\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ BOOT\_PIN\ =\ 9;}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32P4}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ BOOT\_PIN\ =\ 35;}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C5}}
+\DoxyCodeLine{00071\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ BOOT\_PIN\ =\ 28;}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#error\ BOOT\_PIN\ not\ defined\ for\ this\ chip!}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ BOOT\_PIN\ BOOT\_PIN}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{//forward\ declaration\ from\ freertos/portmacro.h}}
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ vPortYield(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ yield(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ optimistic\_yield(u)}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ ESP\_REG(addr)\ *((volatile\ uint32\_t\ *)(addr))}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#define\ NOP()\ \ \ \ \ \ \ \ \ asm\ volatile("{}nop"{})}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/log.h"{}}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/matrix.h"{}}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/uart.h"{}}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/gpio.h"{}}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/touch.h"{}}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/touch-\/ng.h"{}}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/dac.h"{}}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/adc.h"{}}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/spi.h"{}}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/i2c.h"{}}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/ledc.h"{}}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/rmt.h"{}}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/sigmadelta.h"{}}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/timer.h"{}}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/bt.h"{}}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/psram.h"{}}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/rgb-\/led.h"{}}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal-\/cpu.h"{}}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keywordtype}{void}\ analogWrite(uint8\_t\ pin,\ \textcolor{keywordtype}{int}\ value);}
+\DoxyCodeLine{00105\ \textcolor{keywordtype}{void}\ analogWriteFrequency(uint8\_t\ pin,\ uint32\_t\ freq);}
+\DoxyCodeLine{00106\ \textcolor{keywordtype}{void}\ analogWriteResolution(uint8\_t\ pin,\ uint8\_t\ bits);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{comment}{//returns\ chip\ temperature\ in\ Celsius}}
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{float}\ temperatureRead();}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{//allows\ user\ to\ bypass\ SPI\ RAM\ test\ routine}}
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{bool}\ testSPIRAM(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#if\ CONFIG\_AUTOSTART\_ARDUINO}}
+\DoxyCodeLine{00115\ \textcolor{comment}{//enable/disable\ WDT\ for\ Arduino's\ setup\ and\ loop\ functions}}
+\DoxyCodeLine{00116\ \textcolor{keywordtype}{void}\ enableLoopWDT();}
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}\ disableLoopWDT();}
+\DoxyCodeLine{00118\ \textcolor{comment}{//feed\ WDT\ for\ the\ loop\ task}}
+\DoxyCodeLine{00119\ \textcolor{keywordtype}{void}\ feedLoopWDT();}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{comment}{//enable/disable\ WDT\ for\ the\ IDLE\ task\ on\ Core\ 0\ (SYSTEM)}}
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{void}\ enableCore0WDT();}
+\DoxyCodeLine{00124\ \textcolor{keywordtype}{void}\ disableCore0WDT();}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_FREERTOS\_UNICORE}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//enable/disable\ WDT\ for\ the\ IDLE\ task\ on\ Core\ 1\ (Arduino)}}
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{void}\ enableCore1WDT();}
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{void}\ disableCore1WDT();}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{//if\ xCoreID\ <\ 0\ or\ CPU\ is\ unicore,\ it\ will\ use\ xTaskCreate,\ else\ xTaskCreatePinnedToCore}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//allows\ to\ easily\ handle\ all\ possible\ situations\ without\ repetitive\ code}}
+\DoxyCodeLine{00133\ BaseType\_t\ xTaskCreateUniversal(}
+\DoxyCodeLine{00134\ \ \ TaskFunction\_t\ pxTaskCode,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\textcolor{keyword}{const}\ pcName,\ \textcolor{keyword}{const}\ uint32\_t\ usStackDepth,\ \textcolor{keywordtype}{void}\ *\textcolor{keyword}{const}\ pvParameters,\ UBaseType\_t\ uxPriority,}
+\DoxyCodeLine{00135\ \ \ TaskHandle\_t\ *\textcolor{keyword}{const}\ pxCreatedTask,\ \textcolor{keyword}{const}\ BaseType\_t\ xCoreID}
+\DoxyCodeLine{00136\ );}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ micros();}
+\DoxyCodeLine{00139\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ millis();}
+\DoxyCodeLine{00140\ \textcolor{keywordtype}{void}\ delay(uint32\_t);}
+\DoxyCodeLine{00141\ \textcolor{keywordtype}{void}\ delayMicroseconds(uint32\_t\ us);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#if\ !CONFIG\_ESP32\_PHY\_AUTO\_INIT}}
+\DoxyCodeLine{00144\ \textcolor{keywordtype}{void}\ arduino\_phy\_init();}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#if\ !CONFIG\_AUTOSTART\_ARDUINO}}
+\DoxyCodeLine{00148\ \textcolor{keywordtype}{void}\ initArduino();}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00152\ \ \ \textcolor{keywordtype}{int}\ core;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ core\ which\ triggered\ panic}}
+\DoxyCodeLine{00153\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *reason;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ exception\ string}}
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *pc;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ instruction\ address\ that\ triggered\ the\ exception}}
+\DoxyCodeLine{00155\ \ \ \textcolor{keywordtype}{bool}\ backtrace\_corrupt;\ \ \ \ \ \ \textcolor{comment}{//\ if\ backtrace\ is\ corrupt}}
+\DoxyCodeLine{00156\ \ \ \textcolor{keywordtype}{bool}\ backtrace\_continues;\ \ \ \ \textcolor{comment}{//\ if\ backtrace\ continues,\ but\ did\ not\ fit}}
+\DoxyCodeLine{00157\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ backtrace\_len;\ \ \textcolor{comment}{//\ number\ of\ backtrace\ addresses}}
+\DoxyCodeLine{00158\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ backtrace[60];\ \ \textcolor{comment}{//\ backtrace\ addresses\ array}}
+\DoxyCodeLine{00159\ \}\ \mbox{\hyperlink{structarduino__panic__info__t}{arduino\_panic\_info\_t}};}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{keyword}{typedef}\ void\ (*arduino\_panic\_handler\_t)(\mbox{\hyperlink{structarduino__panic__info__t}{arduino\_panic\_info\_t}}\ *info,\ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{void}\ set\_arduino\_panic\_handler(arduino\_panic\_handler\_t\ handler,\ \textcolor{keywordtype}{void}\ *arg);}
+\DoxyCodeLine{00164\ arduino\_panic\_handler\_t\ get\_arduino\_panic\_handler(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00165\ \textcolor{keywordtype}{void}\ *get\_arduino\_panic\_handler\_arg(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00168\ \}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ HAL\_ESP32\_HAL\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,189 @@
+\doxysection{esp\+\_\+secure\+\_\+cert\+\_\+tlv\+\_\+private.\+h}
+\hypertarget{esp__secure__cert__tlv__private_8h_source}{}\label{esp__secure__cert__tlv__private_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_secure\_cert\_mgr/private\_include/esp\_secure\_cert\_tlv\_private.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_secure\_cert\_mgr/private\_include/esp\_secure\_cert\_tlv\_private.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}esp\_secure\_cert\_config.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}esp\_secure\_cert\_tlv\_config.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ESP\_SECURE\_CERT\_DS\_PERIPHERAL}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}rsa\_sign\_alt.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_TLV\_PARTITION\_TYPE\ \ \ \ \ \ 0x3F\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Custom\ partition\ type\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_TLV\_PARTITION\_NAME\ \ \ \ \ \ "{}esp\_secure\_cert"{}\ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Name\ of\ the\ custom\ esp\_secure\_cert\ partition\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_TLV\_MAGIC\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0xBA5EBA11}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_HMAC\_KEY\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ (0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ The\ hmac\_key\_id\ value\ that\ shall\ be\ used\ for\ HMAC\ based\ ecdsa\ key\ generation\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_DERIVED\_ECDSA\_KEY\_SIZE\ \ \ (32)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ The\ key\ size\ in\ bytes\ of\ the\ derived\ ecdsa\ key\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_KEY\_DERIVATION\_ITERATION\_COUNT\ \ (2048)\ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ The\ iteration\ count\ for\ ecdsa\ key\ derivation\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_TLV\_FLAG\_HMAC\_ENCRYPTION\ \ \ \ \ \ \ \ \ \ \ \ (2\ <<\ 6)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_TLV\_FLAG\_HMAC\_ECDSA\_KEY\_DERIVATION\ \ (1\ <<\ 6)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_TLV\_FLAG\_KEY\_ECDSA\_PERIPHERAL\ \ \ \ \ \ \ (1\ <<\ 3)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_TLV\_KEY\_FLAGS\_BIT\_MASK\ \ \ \ \ \ \ \ \ \ \ \ \ \ (BIT5\ |\ BIT4\ |\ BIT3)}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_IS\_TLV\_ENCRYPTED(flags)\ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \ \ ((flags\ \&\ (BIT7\ |\ BIT6))\ ==\ ESP\_SECURE\_CERT\_TLV\_FLAG\_HMAC\_ENCRYPTION)}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_HMAC\_ECDSA\_KEY\_DERIVATION(flags)\ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ ((flags\ \&\ (BIT7\ |\ BIT6))\ ==\ ESP\_SECURE\_CERT\_TLV\_FLAG\_HMAC\_ECDSA\_KEY\_DERIVATION)}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_KEY\_ECDSA\_PERIPHERAL(flags)\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ ((flags\ \&\ ESP\_SECURE\_CERT\_TLV\_KEY\_FLAGS\_BIT\_MASK)\ ==\ ESP\_SECURE\_CERT\_TLV\_FLAG\_KEY\_ECDSA\_PERIPHERAL)}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{comment}{/*\ secure\ cert\ partition\ of\ cust\_flash\ type\ in\ this\ case\ is\ of\ 8\ KB\ size,}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ out\ of\ which\ 3-\/3.1\ KB\ size\ is\ utilized.}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ Header\ for\ each\ tlv}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__secure__cert__tlv__header}{esp\_secure\_cert\_tlv\_header}}\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ uint32\_t\ magic;}
+\DoxyCodeLine{00068\ \ \ \ \ uint8\_t\ flags;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ flags\ byte\ that\ identifies\ different\ characteristics\ for\ the\ TLV\ */}}
+\DoxyCodeLine{00069\ \ \ \ \ uint8\_t\ reserved[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reserved\ bytes\ for\ future\ use,\ the\ value\ currently\ should\ be\ 0x0\ */}}
+\DoxyCodeLine{00070\ \ \ \ \ uint8\_t\ type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Type\ of\ tlv\ structure,\ this\ shall\ be\ typecasted}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ to\ esp\_secure\_cert\_tlv\_type\_t\ for\ further\ use\ */}}
+\DoxyCodeLine{00072\ \ \ \ \ uint8\_t\ subtype;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Subtype\ of\ TLV\ structure,\ this\ acts\ as\ an\ index\ for\ the\ type\ */}}
+\DoxyCodeLine{00073\ \ \ \ \ uint16\_t\ length;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Length\ of\ the\ data\ */}}
+\DoxyCodeLine{00074\ \ \ \ \ uint8\_t\ value[0];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Actual\ data\ in\ form\ of\ byte\ array\ */}}
+\DoxyCodeLine{00075\ \}\ \_\_attribute\_\_((packed))\ esp\_secure\_cert\_tlv\_header\_t;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ Footer\ for\ each\ tlv}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00080\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__secure__cert__tlv__footer}{esp\_secure\_cert\_tlv\_footer}}\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ uint32\_t\ crc;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ crc\ of\ the\ data\ */}}
+\DoxyCodeLine{00082\ \}\ esp\_secure\_cert\_tlv\_footer\_t;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{\_Static\_assert}(\textcolor{keyword}{sizeof}(esp\_secure\_cert\_tlv\_header\_t)\ ==\ 12,\ \textcolor{stringliteral}{"{}TLV\ header\ size\ should\ be\ 12\ bytes"{}});}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{\_Static\_assert}(\textcolor{keyword}{sizeof}(esp\_secure\_cert\_tlv\_footer\_t)\ ==\ 4,\ \textcolor{stringliteral}{"{}TLV\ footer\ size\ should\ be\ 4\ bytes"{}});}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ *\ Note:}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ *\ The\ data\ stored\ in\ a\ cust\ flash\ partition\ should\ be\ as\ follows:}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ tlv\_header1\ -\/>\ data\_1\ -\/>\ tlv\_footer1\ -\/>\ tlv\_header2...}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structesp__secure__cert__tlv__sec__cfg}{esp\_secure\_cert\_tlv\_sec\_cfg}}\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ uint8\_t\ priv\_key\_efuse\_id;\ \textcolor{comment}{/*\ eFuse\ key\ id\ in\ which\ the\ private\ key\ is\ stored\ */}}
+\DoxyCodeLine{00099\ \ \ \ \ uint8\_t\ reserved[39];\ \ \ \ \ \ \ \textcolor{comment}{/*\ Reserving\ 39\ bytes\ for\ future\ use\ */}}
+\DoxyCodeLine{00100\ \}\ \_\_attribute\_\_((packed))\ esp\_secure\_cert\_tlv\_sec\_cfg\_t;}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{keyword}{\_Static\_assert}(\textcolor{keyword}{sizeof}(esp\_secure\_cert\_tlv\_sec\_cfg\_t)\ ==\ 40,\ \textcolor{stringliteral}{"{}TLV\ sec\ cfg\ size\ should\ be\ 40\ bytes"{}});}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ *\ Map\ the\ entire\ esp\_secure\_cert\ partition}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ and\ return\ the\ virtual\ address.}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ @note}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ *\ The\ mapping\ is\ done\ only\ once\ and\ function\ shall}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ *\ simply\ return\ same\ address\ in\ case\ of\ successive\ calls.}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ **/}}
+\DoxyCodeLine{00112\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *esp\_secure\_cert\_get\_mapped\_addr(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *\ Find\ the\ offset\ of\ tlv\ structure\ of\ given\ type\ in\ the\ esp\_secure\_cert\ partition}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ Note:\ This\ API\ also\ validates\ the\ crc\ of\ the\ respective\ tlv\ before\ returning\ the\ offset}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *\ @input}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *\ esp\_secure\_cert\_addr\ \ \ \ \ Memory\ mapped\ address\ of\ the\ esp\_secure\_cert\ partition}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ of\ the\ tlv\ structure.}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for\ calculating\ current\ crc\ for\ esp\_secure\_cert}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ *\ tlv\_address\ \ \ \ \ \ \ \ \ \ \ \ \ \ Void\ pointer\ to\ store\ tlv\ address}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00126\ esp\_err\_t\ esp\_secure\_cert\_find\_tlv(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *esp\_secure\_cert\_addr,\ esp\_secure\_cert\_tlv\_type\_t\ type,\ uint8\_t\ subtype,\ \textcolor{keywordtype}{void}\ **tlv\_address);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ *\ \ Get\ the\ flash\ address\ of\ the\ data\ of\ a\ TLV\ entry}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ *\ Note:\ This\ API\ also\ validates\ the\ crc\ of\ the\ respective\ tlv\ before\ returning\ the\ offset.\ The\ offset\ is\ not\ the\ physical\ address\ but\ the\ address\ where\ it\ is\ mapped\ in\ the\ memory\ space.}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ *\ @input}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *\ \ \ \ \ type\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Type\ of\ the\ TLV\ entry}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ \ \ \ \ subtype\ \ \ \ \ \ \ \ \ \ \ \ \ \ Subtype\ of\ the\ TLV\ entry\ (index)}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ \ \ \ \ buffer\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pointer\ to\ the\ buffer\ to\ store\ the\ data\ address}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *\ \ \ \ \ len\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pointer\ to\ store\ the\ length\ of\ the\ data}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *\ Note:\ If\ tlv\ type\ =\ ESP\_SECURE\_CERT\_TLV\_END\ then\ the\ address\ returned\ shall\ be\ the\ end\ address\ of\ current\ tlv\ formatted\ data.}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ *\ If\ tlv\ subtype\ =\ ESP\_SECURE\_CERT\_SUBTYPE\_MAX\ then\ the\ the\ address\ of\ tlv\ of\ given\ type\ and\ highest\ subtype\ found\ shall\ be\ returned.}}
+\DoxyCodeLine{00140\ \textcolor{comment}{\ *\ @return}}
+\DoxyCodeLine{00141\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ \ \ \ \ \ -\/\ ESP\_OK\ \ \ \ On\ success}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *\ \ \ \ \ \ -\/\ ESP\_FAIL/other\ relevant\ esp\ error\ code}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ On\ failure}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00146\ esp\_err\_t\ esp\_secure\_cert\_tlv\_get\_addr(esp\_secure\_cert\_tlv\_type\_t\ type,\ esp\_secure\_cert\_tlv\_subtype\_t\ subtype,\ \textcolor{keywordtype}{char}\ **buffer,\ uint32\_t\ *len);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00149\ \textcolor{comment}{\ *\ Identify\ if\ esp\_secure\_cert\ partition\ of\ type\ TLV\ is\ present.}}
+\DoxyCodeLine{00150\ \textcolor{comment}{\ *\ @return}}
+\DoxyCodeLine{00151\ \textcolor{comment}{\ *\ \ \ \ \ \ \ -\/\ 1\ on\ if\ the\ partition\ is\ identified\ as\ TLV}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ *\ \ \ \ \ \ \ -\/\ 0\ on\ failure}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00154\ \textcolor{keywordtype}{bool}\ esp\_secure\_cert\_is\_tlv\_partition(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ESP\_SECURE\_CERT\_DS\_PERIPHERAL}}
+\DoxyCodeLine{00157\ \textcolor{comment}{/*\ @info}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ *\ \ \ \ \ \ \ This\ function\ returns\ the\ flash\ esp\_ds\_context\ which\ can\ then\ be}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ *\ \ \ \ \ \ \ directly\ provided\ to\ an\ esp-\/tls\ connection\ through\ its\ config\ structure.}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ *\ \ \ \ \ \ \ The\ memory\ for\ the\ context\ is\ dynamically\ allocated.}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ *\ \ \ \ \ \ \ The\ internal\ structures\ are\ however\ directly\ accessed\ from\ flash.}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ *\ \ \ \ \ \ \ e.g.\ esp\_ds\_data}}
+\DoxyCodeLine{00163\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ *\ @params}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ *\ \ \ \ \ \ -\/\ ds\_ctx\ \ \ \ The\ pointer\ to\ the\ DS\ context}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ *\ @return}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ *\ \ \ \ \ \ -\/\ ESP\_OK\ \ \ \ On\ success}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ *\ \ \ \ \ \ -\/\ ESP\_FAIL/other\ relevant\ esp\ error\ code}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ On\ failure}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00171\ esp\_ds\_data\_ctx\_t\ *esp\_secure\_cert\_tlv\_get\_ds\_ctx(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ *@info}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ *\ \ \ \ \ \ Free\ the\ ds\ context}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}\ esp\_secure\_cert\_tlv\_free\_ds\_ctx(esp\_ds\_data\_ctx\_t\ *ds\_ctx);}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#if\ SOC\_HMAC\_SUPPORTED}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#define\ HMAC\_ENCRYPTION\_MESSAGE\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (32)}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ HMAC\_ENCRYPTION\_IV\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (16)}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ HMAC\_ENCRYPTION\_TAG\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (16)}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ HMAC\_ENCRYPTION\_AES\_GCM\_KEY\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (32)}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ *\ @info}}
+\DoxyCodeLine{00188\ \textcolor{comment}{\ *\ Calculate\ the\ IV\ for\ the\ hmac\ based\ encryption}}
+\DoxyCodeLine{00189\ \textcolor{comment}{\ *\ iv\ \ \ \ \ \ \ The\ pointer\ to\ the\ buffer\ to\ which\ IV\ should\ be\ written}}
+\DoxyCodeLine{00190\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ The\ buffer\ must\ be\ a\ writable\ buffer\ of\ size\ HMAC\_ENCRYPTION\_IV\_LEN}}
+\DoxyCodeLine{00191\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00192\ esp\_err\_t\ esp\_secure\_cert\_calculate\_hmac\_encryption\_iv(uint8\_t\ *iv);}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00195\ \textcolor{comment}{\ *\ @info}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ *\ Calculate\ the\ IV\ for\ the\ hmac\ based\ encryption}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ *\ aes\_key\ \ The\ pointer\ to\ the\ buffer\ to\ which\ IV\ should\ be\ written}}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ The\ buffer\ must\ be\ a\ writable}}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ buffer\ of\ size\ HMAC\_ENCRYPTION\_AES\_GCM\_KEY\_LEN}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00201\ esp\_err\_t\ esp\_secure\_cert\_calculate\_hmac\_encryption\_key(uint8\_t\ *aes\_key);}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

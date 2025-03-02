@@ -1,0 +1,854 @@
+\doxysection{zb\+\_\+zcl\+\_\+prepayment.\+h}
+\hypertarget{zb__zcl__prepayment_8h_source}{}\label{zb__zcl__prepayment_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_prepayment.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_prepayment.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Prepayment\ cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_PREPAYMENT\_H\_}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_PREPAYMENT\_H\_}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zboss\_api\_core.h"{}}\ \textcolor{comment}{/*\ ZBOSS\ core\ API\ types\ */}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_PREPAYMENT\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0001u)}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00076\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_attr\_sets\_e}
+\DoxyCodeLine{00077\ \{}
+\DoxyCodeLine{00081\ \ \ ZB\_ZCL\_PREPAYMENT\_SET\_PREPAYMENT\_INFORMATION\ =\ 0x00,}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00087\ \ \ ZB\_ZCL\_PREPAYMENT\_SET\_TOP\_UP,}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ ZB\_ZCL\_PREPAYMENT\_SET\_DEBT,}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ ZB\_ZCL\_PREPAYMENT\_SET\_ALARM\ =\ 0x04,}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00100\ \ \ ZB\_ZCL\_PREPAYMENT\_SET\_HISTORICAL\_COST\_CONSUMPTION\_INFORMATION,}
+\DoxyCodeLine{00101\ \}\ zb\_zcl\_prepayment\_attr\_sets\_t;}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00108\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_prepayment\_information\_attr\_set\_e}
+\DoxyCodeLine{00109\ \{}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00114\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PAYMENT\_CONTROL\_CONFIGURATION\ =\ 0x0000,\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00119\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CREDIT\_REMAINING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00124\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_EMERGENCY\_CREDIT\_REMAINING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00129\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CREDIT\_STATUS,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00132\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CREDIT\_REMAINING\_TIMESTAMP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00137\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_ACCUMULATED\_DEBT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00143\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_OVERALL\_DEBT\_CAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00149\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_EMERGENCY\_CREDIT\_LIMIT\ =\ 0x0010,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00155\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_EMERGENCY\_CREDIT\_THRESHOLD,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00160\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOTAL\_CREDIT\_ADDED\ =\ 0x0020,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00165\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_MAX\_CREDIT\_LIMIT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00171\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_MAX\_CREDIT\_PER\_TOP\_UP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00176\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_FRIENDLY\_CREDIT\_WARNING\ =\ 0x0030,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00181\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_LOW\_CREDIT\_WARNING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00186\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_IHD\_LOW\_CREDIT\_WARNING,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00193\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_INTERRUPT\_SUSPEND\_TIME,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00198\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_REMAINING\_FRIENDLY\_CREDIT\_TIMES,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00201\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_NEXT\_FRIENDLY\_CREDIT\_PERIOD,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00206\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CUT\_OFF\_VALUE\ =\ 0x0040,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00211\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOKEN\_CARRIER\_ID\ =\ 0x0080,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00212\ \}\ zb\_zcl\_prepayment\_prepayment\_information\_attr\_set\_t;}
+\DoxyCodeLine{00213\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ \&\&\ DOXYGEN\_SE\_SECTION\ */}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_PREPAYMENT\_PAYMENT\_CONTROL\_CONFIGURATION(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PAYMENT\_CONTROL\_CONFIGURATION,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_16BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\}}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ internals\_doc\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_PREPAYMENT\_ATTRIB\_LIST(attr\_list,\ payment\_control\_configuration)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_PREPAYMENT)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_PREPAYMENT\_PAYMENT\_CONTROL\_CONFIGURATION,\ (payment\_control\_configuration))\ \(\backslash\)}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00239\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_attrs\_s}
+\DoxyCodeLine{00240\ \{}
+\DoxyCodeLine{00243\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ payment\_control\_configuration;}
+\DoxyCodeLine{00244\ \}\ zb\_zcl\_prepayment\_attrs\_t;}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_PREPAYMENT\_ATTR\_LIST(attr\_list,\ attrs)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_DECLARE\_PREPAYMENT\_ATTRIB\_LIST(attr\_list,\ \&attrs.payment\_control\_configuration)}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00258\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_payment\_control\_configuration\_attr\_e}
+\DoxyCodeLine{00259\ \{}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00264\ \ \ PREPAYMENT\_DISCONNECTION\_ENABLED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00269\ \ \ PREPAYMENT\_PREPAYMENT\_ENABLED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00274\ \ \ PREPAYMENT\_CREDIT\_MANAGEMENT\_ENABLED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00277\ \ \ PREPAYMENT\_CREDIT\_DISPLAY\_ENABLED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00282\ \ \ PREPAYMENT\_ACCOUNT\_BASE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5,}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00287\ \ \ PREPAYMENT\_CONTACTOR\_FITTED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7,}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00292\ \ \ PREPAYMENT\_STANDING\_CHARGE\_CONFIGURATION\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 8,}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00297\ \ \ PREPAYMENT\_EMERGENCY\_STANDING\_CHARGE\_CONFIGURATION\ =\ 1\ <<\ 9,}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00302\ \ \ PREPAYMENT\_DEBT\_CONFIGURATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 10,}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00307\ \ \ PREPAYMENT\_EMERGENCY\_DEBT\_CONFIGURATION\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 11,}
+\DoxyCodeLine{00308\ \}\ zb\_zcl\_prepayment\_payment\_control\_configuration\_attr\_t;}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00315\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_credit\_status\_attr\_e}
+\DoxyCodeLine{00316\ \{}
+\DoxyCodeLine{00317\ \ \ \ \ ZB\_ZCL\_PREPAYMENT\_CREDIT\_STATUS\_CREDIT\_OK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ }
+\DoxyCodeLine{00318\ \ \ \ \ ZB\_ZCL\_PREPAYMENT\_CREDIT\_STATUS\_LOW\_CREDIT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,\ \ }
+\DoxyCodeLine{00319\ \ \ \ \ ZB\_ZCL\_PREPAYMENT\_CREDIT\_STATUS\_EMERGENCY\_CREDIT\_ENABLED\ \ \ =\ 1\ <<\ 2,\ \ }
+\DoxyCodeLine{00320\ \ \ \ \ ZB\_ZCL\_PREPAYMENT\_CREDIT\_STATUS\_EMERGENCY\_CREDIT\_AVAILABLE\ =\ 1\ <<\ 3,\ \ }
+\DoxyCodeLine{00321\ \ \ \ \ ZB\_ZCL\_PREPAYMENT\_CREDIT\_STATUS\_EMERGENCY\_CREDIT\_SELECTED\ \ =\ 1\ <<\ 4,\ \ }
+\DoxyCodeLine{00322\ \ \ \ \ ZB\_ZCL\_PREPAYMENT\_CREDIT\_STATUS\_EMERGENCY\_CREDIT\_IN\_USE\ \ \ \ =\ 1\ <<\ 5,\ \ }
+\DoxyCodeLine{00323\ \ \ \ \ ZB\_ZCL\_PREPAYMENT\_CREDIT\_STATUS\_CREDIT\_EXHAUSTED\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6,\ \ }
+\DoxyCodeLine{00324\ \}\ zb\_zcl\_prepayment\_credit\_status\_attr\_t;}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00331\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_top\_up\_attr\_set\_e}
+\DoxyCodeLine{00332\ \{}
+\DoxyCodeLine{00337\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_DATE\_1\ =\ 0x0100,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00342\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_AMOUNT\_1,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00347\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_ORIGINATING\_DEVICE\_1,\ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00353\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_CODE\_1,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00354\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_DATE\_2\ =\ 0x0110,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00355\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_AMOUNT\_2,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00356\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_ORIGINATING\_DEVICE\_2,\ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00357\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_CODE\_2,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00358\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_DATE\_3\ =\ 0x0120,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00359\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_AMOUNT\_3,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00360\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_ORIGINATING\_DEVICE\_3,\ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00361\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_CODE\_3,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00362\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_DATE\_4\ =\ 0x0130,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00363\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_AMOUNT\_4,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00364\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_ORIGINATING\_DEVICE\_4,\ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00365\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_CODE\_4,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00366\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_DATE\_5\ =\ 0x0140,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00367\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_AMOUNT\_5,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00368\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_ORIGINATING\_DEVICE\_5,\ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00369\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_TOP\_UP\_TOP\_UP\_CODE\_5,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00370\ \}\ zb\_zcl\_prepayment\_top\_up\_attr\_set\_t;}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00376\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_debt\_attr\_set\_e}
+\DoxyCodeLine{00377\ \{}
+\DoxyCodeLine{00383\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_LABEL\_1\ =\ 0x0210,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00390\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_AMOUNT\_1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00395\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_METHOD\_1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00400\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_START\_TIME\_1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00405\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_COLLECTION\_TIME\_1,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00410\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_FREQUENCY\_1\ =\ 0x0216,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00417\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_AMOUNT\_1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00422\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_TOP\_UP\_PERCENTAGE\_1\ =\ 0x0219,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00423\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_LABEL\_2\ =\ 0x0220,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00424\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_AMOUNT\_2,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00425\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_METHOD\_2,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00426\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_START\_TIME\_2,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00427\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_COLLECTION\_TIME\_2,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00428\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_FREQUENCY\_2\ =\ 0x0226,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00429\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_AMOUNT\_2,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00430\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_TOP\_UP\_PERCENTAGE\_2\ =\ 0x0229,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00431\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_LABEL\_3\ =\ 0x0230,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00432\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_AMOUNT\_3,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00433\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_METHOD\_3,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00434\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_START\_TIME\_3,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00435\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_COLLECTION\_TIME\_3,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00436\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_FREQUENCY\_3\ =0x0236,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00437\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_AMOUNT\_3,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00438\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_DEBT\_RECOVERY\_TOP\_UP\_PERCENTAGE\_3\ =\ 0x0239,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00439\ \}\ zb\_zcl\_prepayment\_debt\_attr\_set\_t;}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00444\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_debt\_recovery\_method\_e}
+\DoxyCodeLine{00445\ \{}
+\DoxyCodeLine{00446\ \ \ ZB\_ZCL\_PREPAYMENT\_TIME\_BASED\ =\ 0x00,\ \ }
+\DoxyCodeLine{00447\ \ \ ZB\_ZCL\_PREPAYMENT\_PERCENTAGE\_BASED,\ \ \ }
+\DoxyCodeLine{00448\ \ \ ZB\_ZCL\_PREPAYMENT\_CATCH\_UP\_BASED\ \ \ \ \ \ }
+\DoxyCodeLine{00449\ \}\ zb\_zcl\_prepayment\_debt\_recovery\_method\_t;}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00455\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_recovery\_frequency\_e}
+\DoxyCodeLine{00456\ \{}
+\DoxyCodeLine{00457\ \ \ ZB\_ZCL\_PREPAYMENT\_PER\_HOUR\ =\ 0x00,\ \ }
+\DoxyCodeLine{00458\ \ \ ZB\_ZCL\_PREPAYMENT\_PER\_DAY,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00459\ \ \ ZB\_ZCL\_PREPAYMENT\_PER\_WEEK,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00460\ \ \ ZB\_ZCL\_PREPAYMENT\_PER\_MONTH,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00461\ \ \ ZB\_ZCL\_PREPAYMENT\_PER\_QUARTER\ \ \ \ \ \ \ }
+\DoxyCodeLine{00462\ \}\ zb\_zcl\_prepayment\_recovery\_frequency\_t;}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00469\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_alarms\_attr\_set\_e}
+\DoxyCodeLine{00470\ \{}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00475\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREPAYMENT\_ALARM\_STATUS\ =\ 0x0400,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00481\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREPAY\_GENERIC\_ALARM\_MASK,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00484\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREPAY\_SWITCH\_ALARM\_MASK,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00487\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREPAY\_EVENT\_ALARM\_MASK\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00488\ \}\ zb\_zcl\_prepayment\_alarms\_attr\_set\_t;}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00494\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_prepayment\_alarm\_status\_indicators\_e}
+\DoxyCodeLine{00495\ \{}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00498\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_LOW\_CREDIT\_WARNING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00501\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_TOP\_UP\_CODE\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00506\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_TOP\_UP\_CODE\_ALREADY\_USED\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00509\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_TOP\_UP\_CODE\_INVALID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 3,}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00514\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_FRIENDLY\_CREDIT\_IN\_USE\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00520\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_FRIENDLY\_CREDIT\_PERIOD\_END\_WARNING\ =\ 1\ <<\ 5,}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00523\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_EC\_AVAILABLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6,}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00529\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_UNAUTHORISED\_ENERGY\_USE\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 7,}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00534\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_DISCONNECTED\_SUPPLY\_DUE\_TO\_CREDIT\ \ =\ 1\ <<\ 8,}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00539\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_DISCONNECTED\_SUPPLY\_DUE\_TO\_TAMPER\ \ =\ 1\ <<\ 9,}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00542\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_DISCONNECTED\_SUPPLY\_DUE\_TO\_HES\ \ \ \ \ =\ 1\ <<\ 10,}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00545\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_PHYSICAL\_ATTACK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 11,}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00548\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_ELECTRONIC\_ATTACK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 12,}
+\DoxyCodeLine{00549\ }
+\DoxyCodeLine{00551\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_MANUFACTURE\_ALARM\_CODE\_A\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 13,}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00554\ \ \ ZB\_ZCL\_PREPAYMENT\_ALARM\_MANUFACTURE\_ALARM\_CODE\_B\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 14}
+\DoxyCodeLine{00555\ \}\ zb\_zcl\_prepayment\_prepayment\_alarm\_status\_indicators\_t;}
+\DoxyCodeLine{00556\ }
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00561\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_prepay\_generic\_alarm\_group\_e}
+\DoxyCodeLine{00562\ \{}
+\DoxyCodeLine{00563\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_LOW\_CREDIT\ =\ 0x00,}
+\DoxyCodeLine{00564\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_NO\_CREDIT,}
+\DoxyCodeLine{00565\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_CREDIT\_EXHAUSTED,}
+\DoxyCodeLine{00566\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_EMERGENCY\_CREDIT\_ENABLED,}
+\DoxyCodeLine{00567\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_EMERGENCY\_CREDIT\_EXHAUSTED,}
+\DoxyCodeLine{00568\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_IHD\_LOW\_CREDIT\_WARNING,}
+\DoxyCodeLine{00569\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_EVENT\_LOG\_CLEARED}
+\DoxyCodeLine{00570\ \}\ zb\_zcl\_prepayment\_prepay\_generic\_alarm\_group\_t;}
+\DoxyCodeLine{00571\ }
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00576\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_prepay\_switch\_alarm\_group\_e}
+\DoxyCodeLine{00577\ \{}
+\DoxyCodeLine{00578\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_SUPPLY\_ON\ =\ 0x10,}
+\DoxyCodeLine{00579\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_SUPPLY\_ARM,}
+\DoxyCodeLine{00580\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_SUPPLY\_OFF,}
+\DoxyCodeLine{00581\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_DISCONNECTION\_FAILURE,}
+\DoxyCodeLine{00582\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_DISCONNECTION\_TAMPER\_DETECTED,}
+\DoxyCodeLine{00583\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_DISCONNECTED\_DUE\_TO\_CUT\_OFF\_VALUE,}
+\DoxyCodeLine{00584\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_REMOTE\_DISCONNECTED}
+\DoxyCodeLine{00585\ \}\ zb\_zcl\_prepayment\_prepay\_switch\_alarm\_group\_t;}
+\DoxyCodeLine{00586\ }
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00591\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_prepay\_event\_alarm\_group\_e}
+\DoxyCodeLine{00592\ \{}
+\DoxyCodeLine{00593\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_PHYSICAL\_ATTACK\_ON\_PREPAY\_METER\ =\ 0x20,}
+\DoxyCodeLine{00594\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_ELECTRONIC\_ATTACK\_ON\_PREPAY\_METER,}
+\DoxyCodeLine{00595\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_DISCOUNT\_APPLIED,}
+\DoxyCodeLine{00596\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_CREDIT\_ADJUSTMENT,}
+\DoxyCodeLine{00597\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_CREDIT\_ADJUSTMENT\_FAIL,}
+\DoxyCodeLine{00598\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_DEBT\_ADJUSTMENT,}
+\DoxyCodeLine{00599\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_DEBT\_ADJUSTMENT\_FAIL,}
+\DoxyCodeLine{00600\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_MODE\_CHANGE,}
+\DoxyCodeLine{00601\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_TOP\_UP\_CODE\_ERROR,}
+\DoxyCodeLine{00602\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_TOP\_UP\_ALREADY\_USED,}
+\DoxyCodeLine{00603\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_TOP\_UP\_CODE\_INVALID,}
+\DoxyCodeLine{00604\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_FRIENDLY\_CREDIT\_IN\_USE,}
+\DoxyCodeLine{00605\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_FRIENDLY\_CREDIT\_PERIOD\_END\_WARNING,}
+\DoxyCodeLine{00606\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_FRIENDLY\_CREDIT\_PERIOD\_END,}
+\DoxyCodeLine{00607\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_ERROR\_REG\_CLEAR\ =\ 0x30,}
+\DoxyCodeLine{00608\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_ALARM\_REG\_CLEAR,}
+\DoxyCodeLine{00609\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_PREPAY\_CLUSTER\_NOT\_FOUND,}
+\DoxyCodeLine{00610\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_MODE\_CREDIT\_2\_PREPAY\ =\ 0x41,}
+\DoxyCodeLine{00611\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_MODE\_PREPAY\_2\_CREDIT,}
+\DoxyCodeLine{00612\ \ \ ZB\_ZCL\_PREPAYMENT\_GROUP\_MODE\_DEFAULT}
+\DoxyCodeLine{00613\ \}\ zb\_zcl\_prepayment\_prepay\_event\_alarm\_group\_t;}
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00619\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_historical\_cost\_consumption\_information\_set\_e}
+\DoxyCodeLine{00620\ \{}
+\DoxyCodeLine{00625\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_HISTORICAL\_COST\_CONSUMPTION\_FORMATING\ =\ 0x0500,\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00630\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CONSUMPTION\_UNIT\_OF\_MEASUREMENT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00631\ }
+\DoxyCodeLine{00635\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CURRENCY\_SCALING\_FACTOR,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00640\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CURRENCY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00645\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CURRENT\_DAY\_COST\_CONSUMPTION\_DELIVERED\ =\ 0x051C,\ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00650\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CURRENT\_DAY\_COST\_CONSUMPTION\_RECEIVED,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00651\ }
+\DoxyCodeLine{00656\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_DELIVERED,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00662\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_RECEIVED,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00663\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_DELIVERED\_2,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00664\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_RECEIVED\_2,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00665\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_DELIVERED\_3,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00666\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_RECEIVED\_3,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00667\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_DELIVERED\_4,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00668\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_RECEIVED\_4,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00669\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_DELIVERED\_5,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00670\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_RECEIVED\_5,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00671\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_DELIVERED\_6,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00672\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_RECEIVED\_6,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00673\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_DELIVERED\_7,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00674\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_RECEIVED\_7,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00675\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_DELIVERED\_8,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00676\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_DAY\_COST\_CONSUMPTION\_RECEIVED\_8,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00677\ }
+\DoxyCodeLine{00682\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CURRENT\_WEEK\_COST\_CONSUMPTION\_DELIVERED\ =\ 0x0530,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00687\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CURRENT\_WEEK\_COST\_CONSUMPTION\_RECEIVED,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00688\ }
+\DoxyCodeLine{00693\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_DELIVERED,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00694\ }
+\DoxyCodeLine{00699\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_RECEIVED,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00700\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_DELIVERED\_2,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00701\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_RECEIVED\_2,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00702\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_DELIVERED\_3,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00703\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_RECEIVED\_3,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00704\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_DELIVERED\_4,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00705\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_RECEIVED\_4,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00706\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_DELIVERED\_5,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00707\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_WEEK\_COST\_CONSUMPTION\_RECEIVED\_5,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00713\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CURRENT\_MONTH\_COST\_CONSUMPTION\_DELIVERED\ =\ 0x0540,\ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00714\ }
+\DoxyCodeLine{00719\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_CURRENT\_MONTH\_COST\_CONSUMPTION\_RECEIVED,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00726\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00733\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00734\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_2,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00735\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_2,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00736\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_3,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00737\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_3,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00738\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_4,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00739\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_4,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00740\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_5,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00741\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_5,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00742\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_6,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00743\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_6,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00744\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_7,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00745\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_7,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00746\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_8,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00747\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_8,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00748\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_9,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00749\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_9,\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00750\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_10,\ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00751\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_10,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00752\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_11,\ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00753\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_11,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00754\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_12,\ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00755\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_12,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00756\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_DELIVERED\_13,\ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00757\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_PREVIOUS\_MONTH\_COST\_CONSUMPTION\_RECEIVED\_13,\ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00762\ \ \ ZB\_ZCL\_ATTR\_PREPAYMENT\_HISTORICAL\_FREEZE\_TIME\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00763\ \}\ zb\_zcl\_prepayment\_historical\_cost\_consumption\_information\_set\_t;}
+\DoxyCodeLine{00764\ }
+\DoxyCodeLine{00765\ }
+\DoxyCodeLine{00769\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_currency\_scaling\_factor\_e}
+\DoxyCodeLine{00770\ \{}
+\DoxyCodeLine{00771\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_DOT\_000001\ =\ 0x00,}
+\DoxyCodeLine{00772\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_DOT\_00001,}
+\DoxyCodeLine{00773\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_DOT\_0001,}
+\DoxyCodeLine{00774\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_DOT\_001,}
+\DoxyCodeLine{00775\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_DOT\_01,}
+\DoxyCodeLine{00776\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_DOT\_1,}
+\DoxyCodeLine{00777\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_1,}
+\DoxyCodeLine{00778\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_10,}
+\DoxyCodeLine{00779\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_100,}
+\DoxyCodeLine{00780\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_1000,}
+\DoxyCodeLine{00781\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_10000,}
+\DoxyCodeLine{00782\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_100000,}
+\DoxyCodeLine{00783\ \ \ ZB\_ZCL\_PREPAYMENT\_SCALE\_1000000}
+\DoxyCodeLine{00784\ \}\ zb\_zcl\_prepayment\_currency\_scaling\_factor\_t;}
+\DoxyCodeLine{00785\ \ \textcolor{comment}{/*\ ZB\_ZCL\_PREPAYMENT\_ATTRS\ */}}
+\DoxyCodeLine{00787\ }
+\DoxyCodeLine{00791\ }
+\DoxyCodeLine{00795\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_cli\_cmd\_e}
+\DoxyCodeLine{00796\ \{}
+\DoxyCodeLine{00800\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_SELECT\_AVAILABLE\_EMERGENCY\_CREDIT\ =\ 0x00,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00801\ }
+\DoxyCodeLine{00805\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_CHANGE\_DEBT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00806\ }
+\DoxyCodeLine{00810\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_EMERGENCY\_CREDIT\_SETUP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00811\ }
+\DoxyCodeLine{00815\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_CONSUMER\_TOP\_UP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00816\ }
+\DoxyCodeLine{00820\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_CREDIT\_ADJUSTMENT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00821\ }
+\DoxyCodeLine{00825\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_CHANGE\_PAYMENT\_MODE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00826\ }
+\DoxyCodeLine{00828\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_GET\_PREPAY\_SNAPSHOT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00829\ }
+\DoxyCodeLine{00833\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_GET\_TOP\_UP\_LOG,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00834\ }
+\DoxyCodeLine{00838\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_SET\_LOW\_CREDIT\_WARNING\_LEVEL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00839\ }
+\DoxyCodeLine{00841\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_GET\_DEBT\_REPAYMENT\_LOG,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00842\ }
+\DoxyCodeLine{00846\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_SET\_MAXIMUM\_CREDIT\_LIMIT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00847\ }
+\DoxyCodeLine{00851\ \ \ ZB\_ZCL\_PREPAYMENT\_CLI\_CMD\_SET\_OVERALL\_DEBT\_CAP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00852\ \}\ zb\_zcl\_prepayment\_cli\_cmd\_t;}
+\DoxyCodeLine{00853\ }
+\DoxyCodeLine{00857\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_originating\_device\_e}
+\DoxyCodeLine{00858\ \{}
+\DoxyCodeLine{00859\ \ \ ZB\_ZCL\_PREPAYMENT\_ORIGINATING\_DEVICE\_ESI\ =\ 0x00,}
+\DoxyCodeLine{00860\ \ \ ZB\_ZCL\_PREPAYMENT\_ORIGINATING\_DEVICE\_METERING,}
+\DoxyCodeLine{00861\ \ \ ZB\_ZCL\_PREPAYMENT\_ORIGINATING\_DEVICE\_IHD}
+\DoxyCodeLine{00862\ \}\ zb\_zcl\_prepayment\_originating\_device\_t;}
+\DoxyCodeLine{00863\ }
+\DoxyCodeLine{00867\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_select\_available\_emergency\_credit\_payload\_s}
+\DoxyCodeLine{00868\ \{}
+\DoxyCodeLine{00872\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ command\_issue\_date;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00873\ }
+\DoxyCodeLine{00877\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ originating\_device;\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00878\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_select\_available\_emergency\_credit\_payload\_t;}
+\DoxyCodeLine{00879\ }
+\DoxyCodeLine{00883\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_debt\_amount\_type\_e}
+\DoxyCodeLine{00884\ \{}
+\DoxyCodeLine{00885\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_AMOUNT\_TYPE\_1\_ABSOLUTE\ =\ 0x00,}
+\DoxyCodeLine{00886\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_AMOUNT\_TYPE\_1\_INCREMENTAL,}
+\DoxyCodeLine{00887\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_AMOUNT\_TYPE\_2\_ABSOLUTE,}
+\DoxyCodeLine{00888\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_AMOUNT\_TYPE\_2\_INCREMENTAL,}
+\DoxyCodeLine{00889\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_AMOUNT\_TYPE\_3\_ABSOLUTE,}
+\DoxyCodeLine{00890\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_AMOUNT\_TYPE\_3\_INCREMENTAL}
+\DoxyCodeLine{00891\ \}\ zb\_zcl\_prepayment\_debt\_amount\_type\_t;}
+\DoxyCodeLine{00892\ }
+\DoxyCodeLine{00896\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_change\_debt\_command\_payload\_s}
+\DoxyCodeLine{00897\ \{}
+\DoxyCodeLine{00898\ }
+\DoxyCodeLine{00903\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ issuer\_event\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00904\ }
+\DoxyCodeLine{00908\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ debt\_label[13];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00913\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ debt\_amount;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00914\ }
+\DoxyCodeLine{00918\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ debt\_recovery\_method;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00923\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ debt\_amount\_type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00924\ }
+\DoxyCodeLine{00928\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ debt\_recovery\_start\_time;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00929\ }
+\DoxyCodeLine{00933\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ debt\_recovery\_collection\_time;\ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00934\ }
+\DoxyCodeLine{00938\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ debt\_recovery\_frequency;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00939\ }
+\DoxyCodeLine{00943\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ debt\_recovery\_amount;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00944\ }
+\DoxyCodeLine{00948\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ debt\_recovery\_balance\_percentage;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00949\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_change\_debt\_command\_payload\_t;}
+\DoxyCodeLine{00950\ }
+\DoxyCodeLine{00951\ }
+\DoxyCodeLine{00955\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_emergency\_credit\_setup\_payload\_s}
+\DoxyCodeLine{00956\ \{}
+\DoxyCodeLine{00961\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ issuer\_event\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00962\ }
+\DoxyCodeLine{00967\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ start\_time;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00968\ }
+\DoxyCodeLine{00973\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ emergency\_credit\_limit;\ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00974\ }
+\DoxyCodeLine{00980\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ emergency\_credit\_threshold;\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00981\ }
+\DoxyCodeLine{00982\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_emergency\_credit\_setup\_payload\_t;}
+\DoxyCodeLine{00983\ }
+\DoxyCodeLine{00984\ }
+\DoxyCodeLine{00989\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_consumer\_top\_up\_payload\_s}
+\DoxyCodeLine{00990\ \{}
+\DoxyCodeLine{00995\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ originating\_device;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00996\ }
+\DoxyCodeLine{01000\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ top\_up\_code[26];\ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01001\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_consumer\_top\_up\_payload\_t;}
+\DoxyCodeLine{01002\ }
+\DoxyCodeLine{01003\ }
+\DoxyCodeLine{01007\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_credit\_type\_e}
+\DoxyCodeLine{01008\ \{}
+\DoxyCodeLine{01009\ \ \ ZB\_ZCL\_PREPAYMENT\_CREDIT\_INCREMENTAL\ =\ 0x00,}
+\DoxyCodeLine{01010\ \ \ ZB\_ZCL\_PREPAYMENT\_CREDIT\_ABSOLUTE}
+\DoxyCodeLine{01011\ \}\ zb\_zcl\_prepayment\_credit\_type\_t;}
+\DoxyCodeLine{01012\ }
+\DoxyCodeLine{01016\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_credit\_adjustment\_payload\_s}
+\DoxyCodeLine{01017\ \{}
+\DoxyCodeLine{01022\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ issuer\_event\_id;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01023\ }
+\DoxyCodeLine{01028\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ start\_time;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01029\ }
+\DoxyCodeLine{01033\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ credit\_adjustment\_type;\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01034\ }
+\DoxyCodeLine{01038\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ credit\_adjustment\_value;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01039\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_credit\_adjustment\_payload\_t;}
+\DoxyCodeLine{01040\ }
+\DoxyCodeLine{01041\ }
+\DoxyCodeLine{01045\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_change\_payment\_mode\_payload\_s}
+\DoxyCodeLine{01046\ \{}
+\DoxyCodeLine{01050\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ provider\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01051\ }
+\DoxyCodeLine{01056\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ issuer\_event\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01057\ }
+\DoxyCodeLine{01062\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ implementation\_date;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01063\ }
+\DoxyCodeLine{01067\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ proposed\_payment\_control\_configuration;\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01068\ }
+\DoxyCodeLine{01075\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ cut\_off\_value;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01076\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_change\_payment\_mode\_payload\_t;}
+\DoxyCodeLine{01077\ }
+\DoxyCodeLine{01078\ }
+\DoxyCodeLine{01082\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_get\_prepay\_snapshot\_payload\_s}
+\DoxyCodeLine{01083\ \{}
+\DoxyCodeLine{01084\ }
+\DoxyCodeLine{01088\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ earliest\_start\_time;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01089\ }
+\DoxyCodeLine{01093\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ latest\_end\_time;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01094\ }
+\DoxyCodeLine{01099\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ snapshot\_offset;\ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01100\ }
+\DoxyCodeLine{01102\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ snapshot\_cause;\ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01103\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_get\_prepay\_snapshot\_payload\_t;}
+\DoxyCodeLine{01104\ }
+\DoxyCodeLine{01105\ }
+\DoxyCodeLine{01109\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_get\_top\_up\_log\_payload\_s}
+\DoxyCodeLine{01110\ \{}
+\DoxyCodeLine{01111\ }
+\DoxyCodeLine{01115\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ latest\_end\_time;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01116\ }
+\DoxyCodeLine{01121\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ records\_number;\ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01122\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_get\_top\_up\_log\_payload\_t;}
+\DoxyCodeLine{01123\ }
+\DoxyCodeLine{01127\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_zcl\_prepayment\_set\_low\_credit\_warning\_level\_payload\_t;}
+\DoxyCodeLine{01128\ }
+\DoxyCodeLine{01129\ }
+\DoxyCodeLine{01133\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_debt\_type\_e}
+\DoxyCodeLine{01134\ \{}
+\DoxyCodeLine{01135\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_TYPE\_DEBT\_1\ =\ 0x00,}
+\DoxyCodeLine{01136\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_TYPE\_DEBT\_2,}
+\DoxyCodeLine{01137\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_TYPE\_DEBT\_3,}
+\DoxyCodeLine{01138\ \ \ ZB\_ZCL\_PREPAYMENT\_DEBT\_TYPE\_ALL\_DEBTS\ =\ 0xFF}
+\DoxyCodeLine{01139\ \}\ zb\_zcl\_prepayment\_debt\_type\_t;}
+\DoxyCodeLine{01140\ }
+\DoxyCodeLine{01141\ }
+\DoxyCodeLine{01145\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_get\_debt\_repayment\_log\_payload\_s}
+\DoxyCodeLine{01146\ \{}
+\DoxyCodeLine{01150\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ latest\_end\_time;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01151\ }
+\DoxyCodeLine{01155\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ debts\_number;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01156\ }
+\DoxyCodeLine{01160\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ debt\_type;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01161\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_get\_debt\_repayment\_log\_payload\_t;}
+\DoxyCodeLine{01162\ }
+\DoxyCodeLine{01163\ }
+\DoxyCodeLine{01167\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_set\_maximum\_credit\_limit\_payload\_s}
+\DoxyCodeLine{01168\ \{}
+\DoxyCodeLine{01169\ }
+\DoxyCodeLine{01173\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ provider\_id;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01174\ }
+\DoxyCodeLine{01179\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ issuer\_event\_id;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01180\ }
+\DoxyCodeLine{01184\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ implementation\_date;\ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01185\ }
+\DoxyCodeLine{01190\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ max\_credit\_level;\ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01191\ }
+\DoxyCodeLine{01196\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ max\_credit\_per\_top\_up;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01197\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_set\_maximum\_credit\_limit\_payload\_t;}
+\DoxyCodeLine{01198\ }
+\DoxyCodeLine{01199\ }
+\DoxyCodeLine{01203\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_set\_overall\_debt\_cap\_payload\_s}
+\DoxyCodeLine{01204\ \{}
+\DoxyCodeLine{01205\ }
+\DoxyCodeLine{01209\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ provider\_id;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01210\ }
+\DoxyCodeLine{01215\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ issuer\_event\_id;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01216\ }
+\DoxyCodeLine{01221\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ implementation\_date;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01222\ }
+\DoxyCodeLine{01227\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ overall\_debt\_cap;\ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01228\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_set\_overall\_debt\_cap\_payload\_t;}
+\DoxyCodeLine{01229\ }
+\DoxyCodeLine{01230\ }
+\DoxyCodeLine{01234\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_srv\_cmd\_e}
+\DoxyCodeLine{01235\ \{}
+\DoxyCodeLine{01236\ }
+\DoxyCodeLine{01241\ \ \ ZB\_ZCL\_PREPAYMENT\_SRV\_CMD\_PUBLISH\_PREPAY\_SNAPSHOT\ \ \ \ \ \ =\ 0x01,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01242\ }
+\DoxyCodeLine{01249\ \ \ ZB\_ZCL\_PREPAYMENT\_SRV\_CMD\_CHANGE\_PAYMENT\_MODE\_RESPONSE,\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01250\ }
+\DoxyCodeLine{01252\ \ \ ZB\_ZCL\_PREPAYMENT\_SRV\_CMD\_CONSUMER\_TOP\_UP\_RESPONSE,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01253\ }
+\DoxyCodeLine{01259\ \ \ ZB\_ZCL\_PREPAYMENT\_SRV\_CMD\_PUBLISH\_TOP\_UP\_LOG\ \ \ \ \ \ \ \ \ \ \ =\ 0x05,\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01260\ }
+\DoxyCodeLine{01262\ \ \ ZB\_ZCL\_PREPAYMENT\_SRV\_CMD\_PUBLISH\_DEBT\_LOG\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01263\ \}\ zb\_zcl\_prepayment\_srv\_cmd\_t;}
+\DoxyCodeLine{01264\ }
+\DoxyCodeLine{01265\ }
+\DoxyCodeLine{01269\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_snapshot\_payload\_cause\_e}
+\DoxyCodeLine{01270\ \{}
+\DoxyCodeLine{01271\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_GENERAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,}
+\DoxyCodeLine{01272\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_END\_OF\_BILLING\_PERIOD\ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,}
+\DoxyCodeLine{01273\ \ \ \textcolor{comment}{/*\ 1\ <<\ 2\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01274\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_TARIFF\_INFORMATION\_CHANGE\ \ \ \ \ \ =\ 1\ <<\ 3,}
+\DoxyCodeLine{01275\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_PRICE\_MATRIX\_CHANGE\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,}
+\DoxyCodeLine{01276\ \ \ \textcolor{comment}{/*\ 1\ <<\ 5\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01277\ \ \ \textcolor{comment}{/*\ 1\ <<\ 6\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01278\ \ \ \textcolor{comment}{/*\ 1\ <<\ 7\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01279\ \ \ \textcolor{comment}{/*\ 1\ <<\ 8\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01280\ \ \ \textcolor{comment}{/*\ 1\ <<\ 9\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01281\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_MANUALLY\_TRIGGERED\_FROM\_CLIENT\ =\ 1\ <<\ 10,}
+\DoxyCodeLine{01282\ \ \ \textcolor{comment}{/*\ 1\ <<\ 11\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01283\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_TENANCY\_CHANGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 12,}
+\DoxyCodeLine{01284\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_SUPPLIER\_CHANGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 13,}
+\DoxyCodeLine{01285\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_METER\_MODE\_CHANGE\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 14,}
+\DoxyCodeLine{01286\ \ \ \textcolor{comment}{/*\ 1\ <<\ 15\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01287\ \ \ \textcolor{comment}{/*\ 1\ <<\ 16\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01288\ \ \ \textcolor{comment}{/*\ 1\ <<\ 17\ is\ reserved\ for\ metering\ cluster\ */}}
+\DoxyCodeLine{01289\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_TOP\_UP\_ADDITION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 18,}
+\DoxyCodeLine{01290\ \ \ ZB\_ZCL\_PREPAYMENT\_CAUSE\_DEBT\_AND\_CREDIT\_ADDITION\ \ \ \ \ \ \ =\ 1\ <<\ 19}
+\DoxyCodeLine{01291\ \}\ zb\_zcl\_prepayment\_snapshot\_payload\_cause\_t;}
+\DoxyCodeLine{01292\ }
+\DoxyCodeLine{01293\ }
+\DoxyCodeLine{01297\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_snapshot\_payload\_type\_e}
+\DoxyCodeLine{01298\ \{}
+\DoxyCodeLine{01299\ \ \ ZB\_ZCL\_PREPAYMENT\_SNAPSHOT\_PAYLOAD\_TYPE\_DEBT\_AND\_CREDIT\_STATUS\ =\ 0x00,}
+\DoxyCodeLine{01300\ \}\ zb\_zcl\_prepayment\_snapshot\_payload\_type\_t;}
+\DoxyCodeLine{01301\ }
+\DoxyCodeLine{01302\ }
+\DoxyCodeLine{01306\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_snapshot\_payload\_s}
+\DoxyCodeLine{01307\ \{}
+\DoxyCodeLine{01308\ \ \ \textcolor{comment}{/*\ It\ is\ a\ part\ of\ zb\_zcl\_prepayment\_publish\_prepay\_snapshot\_payload\_t\ */}}
+\DoxyCodeLine{01309\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ snapshot\_payload\_type;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01310\ }
+\DoxyCodeLine{01311\ \ \ ZB\_PACKED\_PRE\ \textcolor{keyword}{union}}
+\DoxyCodeLine{01312\ \ \ \{}
+\DoxyCodeLine{01313\ \ \ \ \ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01314\ \ \ \ \ \{}
+\DoxyCodeLine{01320\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ accumulated\_debt;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01321\ }
+\DoxyCodeLine{01327\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ type\_1\_debt\_remaining;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01328\ }
+\DoxyCodeLine{01334\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ type\_2\_debt\_remaining;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01335\ }
+\DoxyCodeLine{01341\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ type\_3\_debt\_remaining;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01342\ }
+\DoxyCodeLine{01347\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ emergency\_credit\_remaining;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01348\ }
+\DoxyCodeLine{01353\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ credit\_remaining;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01354\ \ \ \ \ \}\ ZB\_PACKED\_STRUCT\ debt\_credit\_status;}
+\DoxyCodeLine{01355\ \ \ \}\ ZB\_PACKED\_STRUCT\ u;}
+\DoxyCodeLine{01356\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_snapshot\_payload\_t;}
+\DoxyCodeLine{01357\ }
+\DoxyCodeLine{01361\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_publish\_prepay\_snapshot\_payload\_s}
+\DoxyCodeLine{01362\ \{}
+\DoxyCodeLine{01363\ }
+\DoxyCodeLine{01365\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ snapshot\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01366\ }
+\DoxyCodeLine{01370\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ snapshot\_time;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01371\ }
+\DoxyCodeLine{01378\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ total\_snapshots\_found;\ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01379\ }
+\DoxyCodeLine{01384\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ command\_index;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01385\ }
+\DoxyCodeLine{01390\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ total\_number\_of\_commands;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01391\ }
+\DoxyCodeLine{01393\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ snapshot\_cause;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01394\ }
+\DoxyCodeLine{01395\ \ \ zb\_zcl\_prepayment\_snapshot\_payload\_t\ snapshot\_payload;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01396\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_publish\_prepay\_snapshot\_payload\_t;}
+\DoxyCodeLine{01397\ }
+\DoxyCodeLine{01398\ }
+\DoxyCodeLine{01402\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_friendly\_credit\_bitmap\_e}
+\DoxyCodeLine{01403\ \{}
+\DoxyCodeLine{01404\ \ \ PREPAYMENT\_FRIENDLY\_CREDIT\_ENABLED\ =\ 0,}
+\DoxyCodeLine{01405\ \}\ zb\_zcl\_prepayment\_friendly\_credit\_bitmap\_t;}
+\DoxyCodeLine{01406\ }
+\DoxyCodeLine{01407\ }
+\DoxyCodeLine{01411\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_payment\_mode\_response\_payload\_s}
+\DoxyCodeLine{01412\ \{}
+\DoxyCodeLine{01413\ }
+\DoxyCodeLine{01417\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ friendly\_credit;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01418\ }
+\DoxyCodeLine{01422\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ friendly\_credit\_calendar\_id;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01423\ }
+\DoxyCodeLine{01428\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ emergency\_credit\_limit;\ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01429\ }
+\DoxyCodeLine{01435\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ emergency\_credit\_threshold;\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01436\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_payment\_mode\_response\_payload\_t;}
+\DoxyCodeLine{01437\ }
+\DoxyCodeLine{01438\ }
+\DoxyCodeLine{01442\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_prepayment\_result\_type\_e}
+\DoxyCodeLine{01443\ \{}
+\DoxyCodeLine{01444\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_ACCEPTED\ =\ 0x00,}
+\DoxyCodeLine{01445\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_REJECTED\_INVALID\_TOP\_UP,}
+\DoxyCodeLine{01446\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_REJECTED\_DUPLICATE\_TOP\_UP,}
+\DoxyCodeLine{01447\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_REJECTED\_ERROR,}
+\DoxyCodeLine{01448\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_REJECTED\_MAX\_CREDIT\_REACHED,}
+\DoxyCodeLine{01449\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_REJECTED\_KAYPAD\_LOCK,}
+\DoxyCodeLine{01450\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_REJECTED\_TOP\_UP\_VALUE\_TOO\_LARGE,}
+\DoxyCodeLine{01451\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_ACCEPTED\_SUPPLY\_ENABLED\ =\ 0x10,}
+\DoxyCodeLine{01452\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_ACCEPTED\_SUPPLY\_DISABLED,}
+\DoxyCodeLine{01453\ \ \ ZB\_ZCL\_PREPAYMENT\_RESULT\_ACCEPTED\_SUPPLY\_ARMED}
+\DoxyCodeLine{01454\ \}\ zb\_zcl\_prepayment\_result\_type\_t;}
+\DoxyCodeLine{01455\ }
+\DoxyCodeLine{01456\ }
+\DoxyCodeLine{01460\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_consumer\_top\_up\_response\_payload\_s}
+\DoxyCodeLine{01461\ \{}
+\DoxyCodeLine{01462\ }
+\DoxyCodeLine{01466\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ result\_type;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01467\ }
+\DoxyCodeLine{01473\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ top\_up\_value;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01474\ }
+\DoxyCodeLine{01476\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ source\_of\_top\_up;\ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01477\ }
+\DoxyCodeLine{01481\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ credit\_remaining;\ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01482\ }
+\DoxyCodeLine{01483\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_consumer\_top\_up\_response\_payload\_t;}
+\DoxyCodeLine{01484\ }
+\DoxyCodeLine{01485\ }
+\DoxyCodeLine{01489\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_top\_up\_payload\_details\_s}
+\DoxyCodeLine{01490\ \{}
+\DoxyCodeLine{01491\ }
+\DoxyCodeLine{01493\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ top\_up\_code[26];\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01494\ }
+\DoxyCodeLine{01498\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ top\_up\_amount;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01499\ }
+\DoxyCodeLine{01501\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ top\_up\_time;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01502\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ top\_up\_code\_plus\_1[26];\ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01503\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ top\_up\_amount\_plus\_1;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01504\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ top\_up\_time\_plus\_1;\ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01505\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ top\_up\_code\_plus\_n[26];\ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01506\ \ \ \mbox{\hyperlink{group__base__types_ga3e246660ea2ec9a12a7503af33a9bb47}{zb\_int32\_t}}\ top\_up\_amount\_plus\_n;\ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01507\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ top\_up\_time\_plus\_n;\ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01508\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_top\_up\_payload\_details\_t;}
+\DoxyCodeLine{01509\ }
+\DoxyCodeLine{01510\ }
+\DoxyCodeLine{01514\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_publish\_top\_up\_log\_payload\_s}
+\DoxyCodeLine{01515\ \{}
+\DoxyCodeLine{01516\ }
+\DoxyCodeLine{01521\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ command\_index;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01522\ }
+\DoxyCodeLine{01527\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ commands\_total\_number;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01528\ }
+\DoxyCodeLine{01530\ \ \ zb\_zcl\_prepayment\_top\_up\_payload\_details\_t\ top\_up\_payload;\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{01531\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_publish\_top\_up\_log\_payload\_t;}
+\DoxyCodeLine{01532\ }
+\DoxyCodeLine{01533\ }
+\DoxyCodeLine{01537\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_debt\_payload\_record\_s}
+\DoxyCodeLine{01538\ \{}
+\DoxyCodeLine{01539\ }
+\DoxyCodeLine{01541\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ collection\_time;\ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01542\ }
+\DoxyCodeLine{01546\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ amount\_collected;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01547\ }
+\DoxyCodeLine{01551\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ debt\_type;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01552\ }
+\DoxyCodeLine{01556\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ outstanding\_debt;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01557\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_debt\_payload\_record\_t;}
+\DoxyCodeLine{01558\ }
+\DoxyCodeLine{01559\ }
+\DoxyCodeLine{01563\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_prepayment\_publish\_debt\_log\_payload\_s}
+\DoxyCodeLine{01564\ \{}
+\DoxyCodeLine{01565\ }
+\DoxyCodeLine{01567\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ command\_index;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01568\ }
+\DoxyCodeLine{01572\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ commands\_total\_number;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01573\ }
+\DoxyCodeLine{01577\ \ \ zb\_zcl\_prepayment\_debt\_payload\_record\_t\ *debt\_payload;\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{01578\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_prepayment\_publish\_debt\_log\_payload\_t;}
+\DoxyCodeLine{01579\ }
+\DoxyCodeLine{01580\ }
+\DoxyCodeLine{01582\ }
+\DoxyCodeLine{01583\ \textcolor{keywordtype}{void}\ zb\_zcl\_prepayment\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01584\ \textcolor{keywordtype}{void}\ zb\_zcl\_prepayment\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01585\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_PREPAYMENT\_SERVER\_ROLE\_INIT\ zb\_zcl\_prepayment\_init\_server}}
+\DoxyCodeLine{01586\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_PREPAYMENT\_CLIENT\_ROLE\_INIT\ zb\_zcl\_prepayment\_init\_client}}
+\DoxyCodeLine{01587\ \ \ \textcolor{comment}{/*\ internals\_doc\ */}}
+\DoxyCodeLine{01589\ \ \textcolor{comment}{/*\ ZB\_ZCL\_PREPAYMENT\_COMMANDS\ */}}
+\DoxyCodeLine{01591\ \ \textcolor{comment}{/*\ ZB\_ZCL\_PREPAYMENT\ */}}
+\DoxyCodeLine{01593\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ */}}
+\DoxyCodeLine{01595\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_PREPAYMENT\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

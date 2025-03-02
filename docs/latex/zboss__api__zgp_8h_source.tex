@@ -1,0 +1,1420 @@
+\doxysection{zboss\+\_\+api\+\_\+zgp.\+h}
+\hypertarget{zboss__api__zgp_8h_source}{}\label{zboss__api__zgp_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_zgp.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zboss\_api\_zgp.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ common\ definitions\ for\ ZGP\ profile}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZBOSS\_API\_ZGP\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZBOSS\_API\_ZGP\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zb\_config.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zb\_address.h"{}}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}zboss\_api\_buf.h"{}}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ "{}zb\_types.h"{}}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00050\ \textcolor{comment}{/*********\ Type\ declarations\ specific\ to\ ZGP\ profile\ ****************/}}
+\DoxyCodeLine{00051\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ZGP\_ENDPOINT\ 242}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00061\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_gad92827029bcf6416f63924a700706d00}{zb\_zgp\_app\_id\_e}}}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{group__zgp__common_ggad92827029bcf6416f63924a700706d00ab9f8eb08696ff114421a120da928e8d7}{ZB\_ZGP\_APP\_ID\_0000}}\ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00064\ \ \ \mbox{\hyperlink{group__zgp__common_ggad92827029bcf6416f63924a700706d00a048f2bfc7cfd38ecac79299d2c3abdcf}{ZB\_ZGP\_APP\_ID\_0001}}\ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00065\ \ \ \mbox{\hyperlink{group__zgp__common_ggad92827029bcf6416f63924a700706d00acd4d40c939dd2db4cb96b2f1b03205a6}{ZB\_ZGP\_APP\_ID\_0010}}\ \ \ \ =\ 0x02,\ }
+\DoxyCodeLine{00066\ \ \ \mbox{\hyperlink{group__zgp__common_ggad92827029bcf6416f63924a700706d00a70d75d4e4b49cc5a5dd75843a8563fd8}{ZB\_ZGP\_APP\_ID\_INVALID}}\ =\ 0x07,\ }
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ \mbox{\hyperlink{group__zgp__common_gad1255cd22e78a1b76091120ce380143d}{zb\_zgp\_app\_id\_t}};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionzb__zgpd__addr__u}{zb\_zgpd\_addr\_u}}}
+\DoxyCodeLine{00075\ \{}
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \mbox{\hyperlink{unionzb__zgpd__addr__u_a063b41f1ec5972fdfd9218f9eb8b71c0}{src\_id}};\ \ \ \ }
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ \ \mbox{\hyperlink{unionzb__zgpd__addr__u_a120454f530f5b0f33b0460ba3ec2cec0}{ieee\_addr}};\ }
+\DoxyCodeLine{00078\ \}\ ZB\_PACKED\_STRUCT}
+\DoxyCodeLine{00079\ zb\_zgpd\_addr\_t;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{enum}\ zb\_zgp\_endpoint\_e}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ ZB\_ZGP\_COMMUNICATION\_ENDPOINT,}
+\DoxyCodeLine{00084\ \ \ ZB\_ZGP\_ALL\_ENDPOINTS\ =\ 255}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzb__zgpd__id__s}{zb\_zgpd\_id\_s}}}
+\DoxyCodeLine{00093\ \{}
+\DoxyCodeLine{00094\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structzb__zgpd__id__s_a66081c894e6dbc1248d1c8ff1d757b23}{app\_id}};\ \ }
+\DoxyCodeLine{00095\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structzb__zgpd__id__s_aba7cfd516762e9ac784deedbc0532424}{endpoint}};}
+\DoxyCodeLine{00096\ \ \ zb\_zgpd\_addr\_t\ \ \ \ \ \mbox{\hyperlink{structzb__zgpd__id__s_a15c58668fafaa0945b8c19908b8ed737}{addr}};\ \ \ \ }
+\DoxyCodeLine{00097\ \}\ ZB\_PACKED\_STRUCT}
+\DoxyCodeLine{00098\ zb\_zgpd\_id\_t;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ ZGP\_ATTR\_OPT\_GET\_REMAINING\_LEN(opt)\ ((opt)\ \&\ 0xFU)}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ ZGP\_ATTR\_OPT\_GET\_REPORTED(opt)\ \ \ \ \ \ (((opt)\ >>\ 4U)\ \&\ 0x1U)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ ZGP\_ATTR\_OPT\_GET\_VAL\_PRESENT(opt)\ \ \ (((opt)\ >>\ 5U)\ \&\ 0x1U)}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ ZB\_APP\_DESCR\_ATTR\_VAL\_SIZE\ 8U}}
+\DoxyCodeLine{00105\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__attr__record__s}{zgp\_attr\_record\_s}}}
+\DoxyCodeLine{00106\ \{}
+\DoxyCodeLine{00107\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ id;}
+\DoxyCodeLine{00108\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ data\_type;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ zb\_bitfield\_t\ remaining\_len:4;}}
+\DoxyCodeLine{00112\ \textcolor{comment}{}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ \ 7344\ The\ Reported\ sub-\/field\ is\ a\ Boolean\ flag\ which\ indicates\ if\ the\ attribute\ as\ identified\ by\ the\ AttributeID}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ \ 7345\ field\ is\ reported\ by\ the\ GPD\ in\ operation,\ or\ if\ it\ is\ background\ data\ required\ for\ processing\ of\ a\ report-\/}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ \ 7346\ ed\ attribute\ only\ conveyed\ once\ at\ commissioning\ time.}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ \ 7350\ If\ Reported\ =\ 0b1,\ Attribute\ Offset\ within\ Report\ field\ is\ present,\ otherwise\ it\ is\ absent}}
+\DoxyCodeLine{00117\ \textcolor{comment}{}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ zb\_bitfield\_t\ reported:1;}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ zb\_bitfield\_t\ attr\_val\_present:1;}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ zb\_bitfield\_t\ reserved:2;}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00122\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ options;}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ 7358\ The\ Attribute\ Offset\ within\ Report\ field,\ when\ present,\ carries\ the\ start\ position\ (in\ bytes)\ of\ the\ data}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ 7359\ point\ identified\ by\ the\ AttributeID\ of\ the\ ClusterID\ in\ the\ report\ payload.\ The\ Attribute\ Offset\ within}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ 7360\ Report\ =\ 0x00\ corresponds\ to\ the\ octet\ immediately\ following\ the\ Report\ identifier\ field\ in\ the\ pay-\/}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ 7361\ load\ of\ the\ GPD\ Compact\ Attribute\ Reporting\ command.}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{00130\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ offset;}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ 7362\ The\ Attribute\ value\ field,\ when\ present,\ carries\ the\ actual\ fixed\ value\ of\ that\ attribute;\ *the\ length\ and}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ \ 7363\ type\ of\ this\ field\ are\ determined\ by\ the\ AttributeID\ of\ the\ ClusterID\ (in\ case\ of\ manufacturer-\/specific}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ \ 7364\ attributes\ or\ clusters,\ corresponding\ to\ the\ ManufacturerID).}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{00137\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ value[ZB\_APP\_DESCR\_ATTR\_VAL\_SIZE];}
+\DoxyCodeLine{00138\ \}zgp\_attr\_record\_t;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__data__point__desc__options__s}{zgp\_data\_point\_desc\_options\_s}}}
+\DoxyCodeLine{00141\ \{}
+\DoxyCodeLine{00142\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ attr\_records\_num:3;}
+\DoxyCodeLine{00143\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ cluster\_type:1;\ \textcolor{comment}{/*\ server\ ==\ 1,\ client\ ==\ 0\ */}}
+\DoxyCodeLine{00144\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ manuf\_id\_present:1;}
+\DoxyCodeLine{00145\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ reserved:3;}
+\DoxyCodeLine{00146\ \}zgp\_data\_point\_desc\_options\_t;}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ ZB\_APP\_DESCR\_ATTR\_REC\_SIZE\ 4U}}
+\DoxyCodeLine{00149\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__data__point__desc__s}{zgp\_data\_point\_desc\_s}}}
+\DoxyCodeLine{00150\ \{}
+\DoxyCodeLine{00151\ \ \ zgp\_data\_point\_desc\_options\_t\ options;}
+\DoxyCodeLine{00152\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cluster\_id;}
+\DoxyCodeLine{00153\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ manuf\_id;}
+\DoxyCodeLine{00154\ \ \ zgp\_attr\_record\_t\ attr\_records\_data[ZB\_APP\_DESCR\_ATTR\_REC\_SIZE];\ \textcolor{comment}{/*\ contains\ array\ of\ not\ parsed\ zgp\_attr\_record\_t\ */}}
+\DoxyCodeLine{00155\ \}zgp\_data\_point\_desc\_t;}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__report__desc__options__s}{zgp\_report\_desc\_options\_s}}}
+\DoxyCodeLine{00158\ \{}
+\DoxyCodeLine{00159\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ timeout\_present:1;}
+\DoxyCodeLine{00160\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ reserved:7;}
+\DoxyCodeLine{00161\ \}\ ZB\_PACKED\_STRUCT\ zgp\_report\_desc\_options\_t;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__report__desc__s}{zgp\_report\_desc\_s}}}
+\DoxyCodeLine{00164\ \{}
+\DoxyCodeLine{00165\ \ \ zgp\_report\_desc\_options\_t\ \ options;}
+\DoxyCodeLine{00166\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ timeout;}
+\DoxyCodeLine{00167\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ point\_descs\_data\_len;}
+\DoxyCodeLine{00168\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ point\_descs\_data[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga6da0d07f83118a92c382e035d288054a}{ZB\_ZGP\_APP\_DESCR\_REPORT\_DATA\_SIZE}}];\ \textcolor{comment}{/*\ contains\ array\ of\ not\ parsed\ zgp\_data\_point\_desc\_t\ */}}
+\DoxyCodeLine{00169\ \}ZB\_PACKED\_STRUCT\ zgp\_report\_desc\_t;}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{/*\ 11/23/2022\ [VK]}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ *\ It\ is\ required\ to\ parse\ GP\ Pairing\ Configuration\ with}}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ *\ Application\ Description\ correctly\ and\ should\ be\ used\ in\ RAM\ ONLY.}}
+\DoxyCodeLine{00174\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00175\ \textcolor{comment}{\ *\ We\ should\ pass\ a\ report\ ID\ to\ zgp\_sink\_handle\_gp\_pairing\_configuration()}}
+\DoxyCodeLine{00176\ \textcolor{comment}{\ *\ after\ zgp\_parse\_gp\_pairing\_configuration\_app\_descr()\ to\ put\ report\ descriptors}}
+\DoxyCodeLine{00177\ \textcolor{comment}{\ *\ to\ a\ ZGPD\ entry\ by\ it.}}
+\DoxyCodeLine{00178\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00179\ \textcolor{comment}{\ *\ Default\ struct\ zgp\_report\_desc\_t\ is\ used\ to\ store\ in\ NVRAM\ and\ should\ NOT\ contain\ report\_id.}}
+\DoxyCodeLine{00180\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00181\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__report__desc__pairing__config__s}{zgp\_report\_desc\_pairing\_config\_s}}}
+\DoxyCodeLine{00182\ \{}
+\DoxyCodeLine{00183\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ report\_id;}
+\DoxyCodeLine{00184\ \ \ zgp\_report\_desc\_options\_t\ \ options;}
+\DoxyCodeLine{00185\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ timeout;}
+\DoxyCodeLine{00186\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ point\_descs\_data\_len;}
+\DoxyCodeLine{00187\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ point\_descs\_data[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga6da0d07f83118a92c382e035d288054a}{ZB\_ZGP\_APP\_DESCR\_REPORT\_DATA\_SIZE}}];\ \textcolor{comment}{/*\ contains\ array\ of\ not\ parsed\ zgp\_data\_point\_desc\_t\ */}}
+\DoxyCodeLine{00188\ \}\ ZB\_PACKED\_STRUCT\ zgp\_report\_desc\_pairing\_config\_t;}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ SIZE\_BY\_APP\_ID(app\_id)\ (((app\_id)\ ==\ ZB\_ZGP\_APP\_ID\_0000)\ ?\ 4U\ :\ 8U)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ ZGPD\_ID\_SIZE(zgpd\_id)\ SIZE\_BY\_APP\_ID((zgpd\_id)-\/>app\_id)}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_IDS\_ARE\_EQUAL(id1,\ id2)\ \(\backslash\)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ (((id1)-\/>app\_id\ ==\ (id2)-\/>app\_id)\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ \ (((id1)-\/>app\_id\ ==\ ZB\_ZGP\_APP\_ID\_0000)\ ?\ \(\backslash\)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ \ ((id1)-\/>addr.src\_id\ ==\ (id2)-\/>addr.src\_id)\ :\ \(\backslash\)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\ \ \ \ (!ZB\_MEMCMP(\&(id1)-\/>addr.ieee\_addr,\ \&(id2)-\/>addr.ieee\_addr,\ sizeof(zb\_ieee\_addr\_t))\ \&\&\(\backslash\)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \ ((id1)-\/>endpoint\ ==\ (id2)-\/>endpoint))))}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \textcolor{comment}{/*\ From\ ZGP\ spec,\ A.\ 1.4.1.4:}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ *\ ZGPD\ ID\ value\ of\ 0x00000000\ indicates\ unspecified.}}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ *\ ...\ 0xffffffff\ indicates\ all.}}
+\DoxyCodeLine{00203\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_SRC\_ID\_UNSPECIFIED\ 0x00000000U}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_SRC\_ID\_ALL\ \ \ \ \ \ \ \ \ (zb\_uint32\_t)(\string~0u)}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ ZB\_INIT\_ZGPD\_ID(zgpd\_id)\ \(\backslash\)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\ \ (zgpd\_id)-\/>app\_id\ =\ ZB\_ZGP\_APP\_ID\_0000;\ \(\backslash\)}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\ \ (zgpd\_id)-\/>addr.src\_id\ =\ ZB\_ZGP\_SRC\_ID\_UNSPECIFIED;\ \(\backslash\)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_IS\_SPECIFIED(zgpd\_id)\ \(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\ \ (((zgpd\_id)-\/>app\_id\ !=\ ZB\_ZGP\_APP\_ID\_0000)\ \(\backslash\)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\ \ ||\ ((zgpd\_id)-\/>addr.src\_id\ !=\ ZB\_ZGP\_SRC\_ID\_UNSPECIFIED))}}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ ZB\_MAKE\_ZGPD\_ID(zgpd\_id,\ s\_app\_id,\ s\_endpoint,\ s\_addr)\(\backslash\)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\ \ \{\(\backslash\)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ \ \ (zgpd\_id).app\_id\ =\ (s\_app\_id);\(\backslash\)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\ \ \ \ (zgpd\_id).endpoint\ =\ (s\_endpoint);\(\backslash\)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ \ \ (zgpd\_id).addr\ =\ (s\_addr);\(\backslash\)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00227\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_gac144421baa8a73beec71489facf73b95}{zb\_zgp\_security\_level\_e}}}
+\DoxyCodeLine{00228\ \{}
+\DoxyCodeLine{00229\ \ \ \mbox{\hyperlink{group__zgp__common_ggac144421baa8a73beec71489facf73b95ab3f14218788df60e6290de9e85f71ff1}{ZB\_ZGP\_SEC\_LEVEL\_NO\_SECURITY}}\ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ }
+\DoxyCodeLine{00230\ \ \ \mbox{\hyperlink{group__zgp__common_ggac144421baa8a73beec71489facf73b95acfdb3cfe04dbebc28150cebbf5eefefb}{ZB\_ZGP\_SEC\_LEVEL\_REDUCED}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{00231\ \ \ \mbox{\hyperlink{group__zgp__common_ggac144421baa8a73beec71489facf73b95ae74712a30c2c1ad5fe9a7bd5502df0c9}{ZB\_ZGP\_SEC\_LEVEL\_FULL\_NO\_ENC}}\ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \ }
+\DoxyCodeLine{00232\ \ \ \mbox{\hyperlink{group__zgp__common_ggac144421baa8a73beec71489facf73b95aaacf14f7474e443dca7bf99a3f25970c}{ZB\_ZGP\_SEC\_LEVEL\_FULL\_WITH\_ENC}}\ \ \ \ \ \ \ \ \ =\ 0x03,\ \ }
+\DoxyCodeLine{00234\ \};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00239\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_ga42326c5fd4f7cb927682827652adcb71}{zb\_zgp\_security\_level\_protection\_with\_gp\_link\_key\_e}}}
+\DoxyCodeLine{00240\ \{}
+\DoxyCodeLine{00241\ \ \ \mbox{\hyperlink{group__zgp__common_gga42326c5fd4f7cb927682827652adcb71a3b5395a47c18ed683a574547ea58b425}{ZB\_ZGP\_SEC\_LEVEL\_PROTECTION\_WITHOUT\_GP\_LINK\_KEY}}\ =\ 0x00,\ \ }
+\DoxyCodeLine{00242\ \ \ \mbox{\hyperlink{group__zgp__common_gga42326c5fd4f7cb927682827652adcb71a63f50f056e7df3ae01e4bced931350d6}{ZB\_ZGP\_SEC\_LEVEL\_PROTECTION\_WITH\_GP\_LINK\_KEY}}\ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{00243\ \};}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00248\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_gae860103c4f10b985d64df5b613c2ab47}{zb\_zgp\_security\_level\_involve\_tc\_e}}}
+\DoxyCodeLine{00249\ \{}
+\DoxyCodeLine{00250\ \ \ \mbox{\hyperlink{group__zgp__common_ggae860103c4f10b985d64df5b613c2ab47afe9741d53f51d24f91c8ff4cf6a7986a}{ZB\_ZGP\_SEC\_LEVEL\_PROTECTION\_DO\_NOT\_INVOLVE\_TC}}\ =\ 0x00,\ \ }
+\DoxyCodeLine{00251\ \ \ \mbox{\hyperlink{group__zgp__common_ggae860103c4f10b985d64df5b613c2ab47a0628acf521a79ff70dfc3f108ece482d}{ZB\_ZGP\_SEC\_LEVEL\_PROTECTION\_INVOLVE\_TC}}\ \ \ \ \ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{00252\ \};}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00261\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_ga3fadeed60888b84121875be7972efddf}{zb\_zgp\_security\_key\_type\_e}}}
+\DoxyCodeLine{00262\ \{}
+\DoxyCodeLine{00263\ \ \ \mbox{\hyperlink{group__zgp__common_gga3fadeed60888b84121875be7972efddfaf0d18fad08da4f1299586cb0cad8221a}{ZB\_ZGP\_SEC\_KEY\_TYPE\_NO\_KEY}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ }
+\DoxyCodeLine{00264\ \ \ \mbox{\hyperlink{group__zgp__common_gga3fadeed60888b84121875be7972efddfa71330d369f80d42cf3ba1a2a9dfc58bf}{ZB\_ZGP\_SEC\_KEY\_TYPE\_NWK}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,\ \ }
+\DoxyCodeLine{00265\ \ \ \mbox{\hyperlink{group__zgp__common_gga3fadeed60888b84121875be7972efddfac135f125740fab28ef7a71a95b2a0624}{ZB\_ZGP\_SEC\_KEY\_TYPE\_GROUP}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \ }
+\DoxyCodeLine{00266\ \ \ \mbox{\hyperlink{group__zgp__common_gga3fadeed60888b84121875be7972efddfa5e222a1934f3aec935623a6d80d71a04}{ZB\_ZGP\_SEC\_KEY\_TYPE\_GROUP\_NWK\_DERIVED}}\ \ =\ 0x03,\ \ }
+\DoxyCodeLine{00267\ \ \ \mbox{\hyperlink{group__zgp__common_gga3fadeed60888b84121875be7972efddfa6e81bcb5ae3163510672cd7905e24b38}{ZB\_ZGP\_SEC\_KEY\_TYPE\_ZGPD\_INDIVIDUAL}}\ \ \ \ =\ 0x04,\ \ }
+\DoxyCodeLine{00268\ \ \ \mbox{\hyperlink{group__zgp__common_gga3fadeed60888b84121875be7972efddfae01942279ceeb97df173d4ce1bf76a40}{ZB\_ZGP\_SEC\_KEY\_TYPE\_DERIVED\_INDIVIDUAL}}\ =\ 0x07,\ \ }
+\DoxyCodeLine{00269\ \};}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00272\ \textcolor{comment}{/********\ ZGP\ Device\ Type\ declarations\ and\ configuration\ ************/}}
+\DoxyCodeLine{00273\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00278\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_gab7740b39355422ccac733499867bb56a}{zb\_zgpd\_dev\_id\_e}}}
+\DoxyCodeLine{00279\ \{}
+\DoxyCodeLine{00280\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa82c5d1f36d1b674319abeb4ab0c715bb}{ZB\_ZGP\_SIMPLE\_GEN\_1\_STATE\_SWITCH\_DEV\_ID}}\ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00281\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa3b5cc198b1eea52a056cc9da27884ab7}{ZB\_ZGP\_SIMPLE\_GEN\_2\_STATE\_SWITCH\_DEV\_ID}}\ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00282\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aad6b1ba6f8190e7eb73956fbb7a1d4f57}{ZB\_ZGP\_ON\_OFF\_SWITCH\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ }
+\DoxyCodeLine{00283\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aaa885395fd006a94ffd26859e258a687a}{ZB\_ZGP\_LEVEL\_CONTROL\_SWITCH\_DEV\_ID}}\ \ \ \ \ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_LVL\_CTRL\_SWITCH\_DEV\_ID\ ZB\_ZGP\_LEVEL\_CONTROL\_SWITCH\_DEV\_ID}}
+\DoxyCodeLine{00285\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa648e2878f0f77271c441745a14409bcb}{ZB\_ZGP\_SIMPLE\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x04,\ }
+\DoxyCodeLine{00286\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa55511225e9b8727b80d0fe41621ff4dd}{ZB\_ZGP\_ADVANCED\_GEN\_1\_STATE\_SWITCH\_DEV\_ID}}\ =\ 0x05,\ }
+\DoxyCodeLine{00287\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aae27f573b74a415808c8f71cfc9f34fc7}{ZB\_ZGP\_ADVANCED\_GEN\_2\_STATE\_SWITCH\_DEV\_ID}}\ =\ 0x06,\ }
+\DoxyCodeLine{00288\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa965e63ef977f32b8aae91d038166b803}{ZB\_ZGP\_GEN\_8\_CONT\_SWITCH\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ =\ 0x07,\ }
+\DoxyCodeLine{00289\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa772dde14c9862ad6328c0ed308626d66}{ZB\_ZGP\_COLOR\_DIMMER\_SWITCH\_DEV\_ID}}\ \ \ \ \ \ \ \ \ =\ 0x10,\ }
+\DoxyCodeLine{00290\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa78abef85ecb02fcc95c53501fa2a83cb}{ZB\_ZGP\_LIGHT\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x11,\ }
+\DoxyCodeLine{00291\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa192bc8675b3f180a92db4fe062253f9a}{ZB\_ZGP\_OCCUPANCY\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x12,\ }
+\DoxyCodeLine{00292\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa7685c67c89a2b7d4d8bbab3f078a439e}{ZB\_ZGP\_DOOR\_LOCK\_CONTROLLER\_DEV\_ID}}\ \ \ \ \ \ \ \ =\ 0x20,\ }
+\DoxyCodeLine{00293\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa65e766459d14630af01674484877148f}{ZB\_ZGP\_TEMPERATURE\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ =\ 0x30,\ }
+\DoxyCodeLine{00294\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa320ef4545db13df2e3fadb5ef746b280}{ZB\_ZGP\_PRESSURE\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x31,\ }
+\DoxyCodeLine{00295\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa1d1b23ca9b0226f65b70f2e01b5a1a15}{ZB\_ZGP\_FLOW\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x32,\ }
+\DoxyCodeLine{00296\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa78c331f5550de9f8653844c2cd1810cd}{ZB\_ZGP\_ENVIRONMENT\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ =\ 0x33,\ }
+\DoxyCodeLine{00297\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa71b0f9769c8ecc2a00e793a910f444ee}{ZB\_ZGP\_MANUF\_SPECIFIC\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xfe,\ }
+\DoxyCodeLine{00306\ \ \ \mbox{\hyperlink{group__zgp__common_ggab7740b39355422ccac733499867bb56aa0fe4c83938c0e6f9b4edae1238db9eac}{ZB\_ZGP\_UNDEFINED\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xff,\ }
+\DoxyCodeLine{00307\ \}}
+\DoxyCodeLine{00308\ \mbox{\hyperlink{group__zgp__common_ga991e2c9aae1b6a5830ba7732c982b437}{zb\_zgpd\_dev\_id\_t}};}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00313\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_ga97660d5fe16fc3b02aa355755dd3518e}{zb\_zgpd\_manuf\_specific\_dev\_id\_e}}}
+\DoxyCodeLine{00314\ \{}
+\DoxyCodeLine{00315\ \ \ \textcolor{comment}{/*\ TODO:\ ZB\_ZGP\_MS\_DOOR\_SENSOR\_DEV\_ID\ is\ deprecated.\ Remove\ it\ when\ there\ will\ be}}
+\DoxyCodeLine{00316\ \textcolor{comment}{\ \ \ *\ no\ testing\ devices\ using\ this\ type.\ GreanPeak\ door\ sensors\ use}}
+\DoxyCodeLine{00317\ \textcolor{comment}{\ \ \ *\ ZB\_ZGP\_MS\_DOOR\_WINDOW\_SENSOR\_DEV\_ID\ now.\ */}}
+\DoxyCodeLine{00318\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea8117f7411ef3cfdcc79ea9eac8ee9582}{ZB\_ZGP\_MS\_DOOR\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ }
+\DoxyCodeLine{00319\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518eaf3657e0987bdb7d125e842d27ab3c7bd}{ZB\_ZGP\_MS\_DOOR\_WINDOW\_SENSOR\_DEV\_ID}}\ \ \ \ \ =\ 0x01,\ }
+\DoxyCodeLine{00320\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea0140bc2bdf900c77a7c6265a32ab2857}{ZB\_ZGP\_MS\_LEAKAGE\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ =\ 0x02,\ }
+\DoxyCodeLine{00321\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea91fca06fbf8afcf402203ca35bbb60f5}{ZB\_ZGP\_MS\_HUMIDITY\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ =\ 0x03,\ }
+\DoxyCodeLine{00322\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea3ca0ca02e5fae480c127768eebb77313}{ZB\_ZGP\_MS\_MOTION\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ =\ 0x05,\ }
+\DoxyCodeLine{00323\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea0d436b32a4083681ab7e39a25e68a17e}{ZB\_ZGP\_MS\_MOVEMENT\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ =\ 0x07,\ }
+\DoxyCodeLine{00324\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea81885fc4c07d3c25eea806b6990c4fbd}{ZB\_ZGP\_MS\_SMART\_PLUG\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0X08,\ }
+\DoxyCodeLine{00325\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea5a4fcc3a2cc5f27a8982df42c2a00746}{ZB\_ZGP\_MS\_KEY\_FOB\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0A,\ }
+\DoxyCodeLine{00326\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea08c0329fd3ba2f946d39813b64740e1a}{ZB\_ZGP\_MS\_SMOKE\_DETECTOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ =\ 0x0b,\ }
+\DoxyCodeLine{00327\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea5bda862c39e4764f727a17a5c12a8738}{ZB\_ZGP\_MS\_BED\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0c,\ }
+\DoxyCodeLine{00328\ \ \ \mbox{\hyperlink{group__zgp__common_gga97660d5fe16fc3b02aa355755dd3518ea0482dae1a078f48f82e456679323b7f5}{ZB\_ZGP\_MS\_PARKING\_SENSOR\_DEV\_ID}}\ \ \ \ \ \ \ \ \ =\ 0xc0,\ }
+\DoxyCodeLine{00329\ \}}
+\DoxyCodeLine{00330\ \mbox{\hyperlink{group__zgp__common_ga2074baf9c571eb1cf8530007b54f20bd}{zb\_zgpd\_manuf\_specific\_dev\_id\_t}};}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00337\ \textcolor{comment}{/***********************\ Sink\ definitions\ ***************************/}}
+\DoxyCodeLine{00338\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_ZGP\_SINK\ ||\ defined\ DOXYGEN}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00347\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zgp\_to\_zb\_cmd\_mapping\_s}
+\DoxyCodeLine{00348\ \{}
+\DoxyCodeLine{00349\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zgp\_cmd\_id;\ \ }
+\DoxyCodeLine{00350\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_cmd\_id;\ \ \ }
+\DoxyCodeLine{00351\ \}}
+\DoxyCodeLine{00352\ zgp\_to\_zb\_cmd\_mapping\_t;}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#ifdef\ ZB\_ZGP\_SINK\_SUPPORT\_LEGACY\_MATCH\_INFO}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00359\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zgps\_cluster\_rec\_s}
+\DoxyCodeLine{00360\ \{}
+\DoxyCodeLine{00361\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cluster\_id;\ \ \ }
+\DoxyCodeLine{00373\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ options;}
+\DoxyCodeLine{00374\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ cmd\_ids[ZB\_ZGP\_MATCH\_TBL\_MAX\_CMDS\_FOR\_MATCH];\ }
+\DoxyCodeLine{00375\ \}}
+\DoxyCodeLine{00376\ zgps\_dev\_cluster\_rec\_t;}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#define\ GET\_CLUSTER\_ROLE(cluster)\ \(\backslash\)}}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\ \ (cluster-\/>options\ \&\ 0x03U)}}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00386\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{union\ }zgps\_device\_id\_u}
+\DoxyCodeLine{00387\ \{}
+\DoxyCodeLine{00388\ \ \ \textcolor{comment}{/*\ dev\_id.zgpd\_dev\_id\ matches\ with\ ZGPD\ Device\ ID\ from\ Commissioning\ frame\ @see\ zb\_zgpd\_dev\_id\_t\ */}}
+\DoxyCodeLine{00389\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ zgpd\_dev\_id;}
+\DoxyCodeLine{00390\ \ \ \textcolor{comment}{/*\ match\ with\ app\_info.manuf\_model\_id.\ */}}
+\DoxyCodeLine{00391\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ zgpd\_manuf\_model;}
+\DoxyCodeLine{00392\ \}}
+\DoxyCodeLine{00393\ zgps\_device\_id\_t;}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00396\ \textcolor{comment}{\ *\ @deprecated}}
+\DoxyCodeLine{00397\ \textcolor{comment}{\ *\ Match\ info\ is\ deprecated\ in\ favor\ of\ @ref\ zb\_zgps\_mapping\_entry\_t.\ Matching\ information\ functionality\ will\ be\ removed\ in\ August\ 2023.}}
+\DoxyCodeLine{00398\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00399\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zgps\_dev\_match\_rec\_s}
+\DoxyCodeLine{00400\ \{}
+\DoxyCodeLine{00401\ \ \ \textcolor{comment}{/*\ Cluster\ idxes\ possible\ for\ that\ device\ id.\ Not\ used\ slots\ must\ be\ filled\ by\ ZB\_ZCL\_CLUSTER\_IDX\_UNDEFINED.}}
+\DoxyCodeLine{00402\ \textcolor{comment}{\ \ \ \ \ Cluster\ idx\ -\/\ index\ in\ zgps\_dev\_cluster\_rec\_t\ clusters\_tbl[].}}
+\DoxyCodeLine{00403\ \textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{00404\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \ \ \ clusters[ZB\_ZGP\_TBL\_MAX\_CLUSTERS];}
+\DoxyCodeLine{00405\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \ \ \ manuf\_id;}
+\DoxyCodeLine{00406\ \ \ \textcolor{comment}{/*\ match\ with\ device\ info\ from\ Commissioning\ frame:}}
+\DoxyCodeLine{00407\ \textcolor{comment}{\ \ \ \ \ if\ zgpd\_dev\_id\ !=\ ZB\_ZGP\_MANUF\_SPECIFIC\_DEV\_ID,\ match\ by\ GPD\ Device\ id}}
+\DoxyCodeLine{00408\ \textcolor{comment}{\ \ \ \ \ if\ zgpd\_dev\_id\ ==\ ZB\_ZGP\_MANUF\_SPECIFIC\_DEV\_ID,\ match\ by\ app\_info.manuf\_model\_id}}
+\DoxyCodeLine{00409\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{00410\ \ \ zgps\_device\_id\_t\ \ \ \ \ \ dev\_id;}
+\DoxyCodeLine{00411\ \}}
+\DoxyCodeLine{00412\ ZB\_PACKED\_STRUCT\ zgps\_dev\_match\_rec\_t;}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\#define\ IS\_STANDART\_ZGPS\_DEVICE(dev\_match\_rec)\ \(\backslash\)}}
+\DoxyCodeLine{00415\ \textcolor{preprocessor}{\ \ (dev\_match\_rec-\/>manuf\_id\ ==\ ZB\_ZGPD\_MANUF\_ID\_UNSPEC)}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ DOXYGEN\_INTERNAL\_DOC\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00420\ \textcolor{comment}{\ \ Using\ of\ match\ table.}}
+\DoxyCodeLine{00421\ \textcolor{comment}{}}
+\DoxyCodeLine{00422\ \textcolor{comment}{\ \ Match\ table\ is\ a\ static\ const\ data\ declared\ in\ the\ application.}}
+\DoxyCodeLine{00423\ \textcolor{comment}{}}
+\DoxyCodeLine{00424\ \textcolor{comment}{\ \ During\ GPD\ commissioning,\ using\ information\ from\ Commissioning\ frame,\ ZBOSS\ seeks\ for\ matched\ entry\ in\ match\_tbl.}}
+\DoxyCodeLine{00425\ \textcolor{comment}{\ \ Match\ is\ done\ by\ device\ id\ or\ model\ id\ -\/\ see\ calls\ to\ zb\_zgps\_get\_dev\_matching\_tbl\_index()}}
+\DoxyCodeLine{00426\ \textcolor{comment}{\ \ Entry\ index\ is\ written\ into\ the\ Sink\ table.}}
+\DoxyCodeLine{00427\ \textcolor{comment}{}}
+\DoxyCodeLine{00428\ \textcolor{comment}{\ \ Command\ translation\ (without\ details\ about\ attr\ reporting):}}
+\DoxyCodeLine{00429\ \textcolor{comment}{\ \ -\/\ get\ Sink\ table\ entry\ by\ GPD\ address}}
+\DoxyCodeLine{00430\ \textcolor{comment}{\ \ -\/\ get\ matxh\_tbl\ entry\ by\ index\ in\ Sink\ table.}}
+\DoxyCodeLine{00431\ \textcolor{comment}{\ \ -\/\ scan\ entire\ match\_tbl[]:\ use\ match\_tbl[i].clusters\ as\ an\ index\ in\ clusters\_tbl.}}
+\DoxyCodeLine{00432\ \textcolor{comment}{\ \ -\/\ in\ each\ clusters\_tbl\ entry\ scan\ clusters\_tbl[i].cmd\_ids[]\ for\ matching\ GPD\ command}}
+\DoxyCodeLine{00433\ \textcolor{comment}{\ \ -\/\ seek\ for\ appropriate\ clister\ in\ out\ local\ Simple\ desc\ (decide\ which\ EP\ to\ map\ to)}}
+\DoxyCodeLine{00434\ \textcolor{comment}{\ \ -\/\ map\ GPD\ command\ to\ ZCL\ command\ by\ scanning\ cmd\_mapping[]}}
+\DoxyCodeLine{00435\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00447\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zgps\_match\_info\_s}
+\DoxyCodeLine{00448\ \{}
+\DoxyCodeLine{00449\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ match\_tbl\_size;}
+\DoxyCodeLine{00450\ \ \ \textcolor{comment}{/*\ clusters\ list\ to\ be\ matched\ by\ device\ id\ or\ manufacturer\ id\ got\ from\ Commissioning\ frame.\ */}}
+\DoxyCodeLine{00451\ \ \ \textcolor{keyword}{const}\ ZB\_CODE\ zgps\_dev\_match\_rec\_t\ \ \ \ *match\_tbl;}
+\DoxyCodeLine{00452\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cmd\_mappings\_count;}
+\DoxyCodeLine{00453\ \ \ \textcolor{keyword}{const}\ ZB\_CODE\ zgp\_to\_zb\_cmd\_mapping\_t\ *cmd\_mapping;}
+\DoxyCodeLine{00454\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ clusters\_tbl\_size;}
+\DoxyCodeLine{00455\ \ \ \textcolor{comment}{/*\ clusters\ table\ used\ to\ translate\ ZB\_GPDF\_CMD\_ATTR\_REPORT\ /\ ZB\_GPDF\_CMD\_MANUF\_SPEC\_ATTR\_REPORT\ */}}
+\DoxyCodeLine{00456\ \ \ \textcolor{keyword}{const}\ ZB\_CODE\ zgps\_dev\_cluster\_rec\_t\ \ *clusters\_tbl;}
+\DoxyCodeLine{00457\ \}}
+\DoxyCodeLine{00458\ zb\_zgps\_match\_info\_t;}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_ZGP\_SINK\_SUPPORT\_LEGACY\_MATCH\_INFO\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00460\ }
+\DoxyCodeLine{00461\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00462\ \textcolor{comment}{\ \ Using\ of\ Mapping\ Table.}}
+\DoxyCodeLine{00463\ \textcolor{comment}{}}
+\DoxyCodeLine{00464\ \textcolor{comment}{\ \ Mapping\ table\ functionality\ is\ ZBOSS\ custom\ implementation\ of\ Translation\ table,\ described\ in\ specification.}}
+\DoxyCodeLine{00465\ \textcolor{comment}{\ \ Currently\ ZBOSS\ handles\ GPD\ commands\ mapping,\ which\ MAY\ be\ placed\ in\ mapping\ table,\ provided\ by\ application.\ \ }}
+\DoxyCodeLine{00466\ \textcolor{comment}{}}
+\DoxyCodeLine{00467\ \textcolor{comment}{\ \ Mapping\ Table\ is\ a\ specific\ mapping\ rules\ declared\ in\ the\ application.}}
+\DoxyCodeLine{00468\ \textcolor{comment}{\ \ The\ specific\ mapping\ supersedes\ the\ generic\ one.}}
+\DoxyCodeLine{00469\ \textcolor{comment}{}}
+\DoxyCodeLine{00470\ \textcolor{comment}{\ \ The\ application\ MAY\ or\ MAY\ not\ to\ declare\ Mapping\ Table.}}
+\DoxyCodeLine{00471\ \textcolor{comment}{\ \ If\ application\ declares\ Mapping\ Table\ it\ SHOULD\ persist\ this\ data\ by\ its\ own.}}
+\DoxyCodeLine{00472\ \textcolor{comment}{}}
+\DoxyCodeLine{00473\ \textcolor{comment}{\ \ Mapping\ Table\ entries\ SHALL\ be\ added\ upon\ successful\ completion\ of\ proximity\ and\ multi-\/hop\ commissioning,}}
+\DoxyCodeLine{00474\ \textcolor{comment}{\ \ and\ upon\ reception\ of\ GP\ Pairing\ Configuration\ leading\ to\ Sink\ Table\ entry\ creation\ (as\ described\ in\ A.3.5.2.5);}}
+\DoxyCodeLine{00475\ \textcolor{comment}{\ \ those\ entries\ SHALL\ then\ contain\ the\ ApplicationID\ and\ GPD\ ID\ type\ and\ value\ of\ the\ GPD\ ID\ (and\ GPD\ Endpoint,}}
+\DoxyCodeLine{00476\ \textcolor{comment}{\ \ matching\ or\ 0x00\ or\ 0xff,\ if\ ApplicationID\ =\ 0b010)\ for\ which\ they\ are\ created;}}
+\DoxyCodeLine{00477\ \textcolor{comment}{\ \ mapping\ the\ GPD\ commands\ to\ their\ ZCL\ equivalents.}}
+\DoxyCodeLine{00478\ \textcolor{comment}{}}
+\DoxyCodeLine{00479\ \textcolor{comment}{\ \ Supported\ features:}}
+\DoxyCodeLine{00480\ \textcolor{comment}{}}
+\DoxyCodeLine{00481\ \textcolor{comment}{\ \ -\/\ There\ SHOULD\ be\ only\ one\ entry\ in\ the\ GPD\ Command\ Mapping\ Table\ for\ each}}
+\DoxyCodeLine{00482\ \textcolor{comment}{\ \ \ \ (GPD\ ID,\ GPD\ Endpoint,\ GPD\ Command,\ EndPoint,\ Zigbee\ Profile,\ Zigbee\ Cluster)\ tuple.}}
+\DoxyCodeLine{00483\ \textcolor{comment}{\ \ -\/\ For\ a\ single\ GPD\ ID\ (and\ GPD\ Endpoint,\ if\ ApplicationID\ =\ 0b010),\ there\ MAY\ be\ multiple}}
+\DoxyCodeLine{00484\ \textcolor{comment}{\ \ \ \ entries,\ e.g.\ for\ multiple\ GPD\ commands.}}
+\DoxyCodeLine{00485\ \textcolor{comment}{\ \ -\/\ For\ a\ single\ GPD\ ID\ (and\ GPD\ Endpoint,\ if\ ApplicationID\ =\ 0b010),}}
+\DoxyCodeLine{00486\ \textcolor{comment}{\ \ \ \ the\ same\ GPD\ Command\ could\ result\ in\ different\ mapped\ Zigbee\ CommandIDs,}}
+\DoxyCodeLine{00487\ \textcolor{comment}{\ \ \ \ for\ different\ EndPoint,\ Profile\ and\ Cluster\ values.}}
+\DoxyCodeLine{00488\ \textcolor{comment}{\ \ -\/\ For\ a\ single\ GPD\ ID,\ if\ ApplicationID\ =\ 0b010,\ there\ MAY\ be\ multiple\ entries,}}
+\DoxyCodeLine{00489\ \textcolor{comment}{\ \ \ \ for\ multiple\ GPD\ Endpoints,\ even\ for\ identical\ GPD\ commands.}}
+\DoxyCodeLine{00490\ \textcolor{comment}{}}
+\DoxyCodeLine{00491\ \textcolor{comment}{\ \ GPD\ Command:}}
+\DoxyCodeLine{00492\ \textcolor{comment}{\ \ -\/\ If\ the\ GPD\ Command\ field\ is\ set\ to\ 0xAF,\ all\ of\ the\ following\ GPD\ sensor\ report\ commands:\ 0xA0\ -\/\ 0xA3\ are\ supported.}}
+\DoxyCodeLine{00493\ \textcolor{comment}{\ \ -\/\ If\ the\ GPD\ Command\ field\ is\ set\ to\ 0xFF,\ it\ indicates\ all\ GPD\ commands.}}
+\DoxyCodeLine{00494\ \textcolor{comment}{}}
+\DoxyCodeLine{00495\ \textcolor{comment}{\ \ Zigbee\ Endpoint:}}
+\DoxyCodeLine{00496\ \textcolor{comment}{\ \ -\/\ If\ the\ EndPoint\ field\ is\ set\ to\ 0xfd,\ there\ are\ no\ paired\ endpoints.}}
+\DoxyCodeLine{00497\ \textcolor{comment}{\ \ -\/\ If\ the\ EndPoint\ field\ is\ set\ to\ 0xff,\ all\ matching\ endpoints\ are\ paired.}}
+\DoxyCodeLine{00498\ \textcolor{comment}{\ \ -\/\ If\ the\ EndPoint\ field\ is\ set\ to\ 0xfc,\ the\ raw\ GPD\ command\ is\ passed\ up\ to\ the\ application,}}
+\DoxyCodeLine{00499\ \textcolor{comment}{\ \ \ \ and\ no\ mapping\ is\ performed\ in\ the\ GPEP.}}
+\DoxyCodeLine{00500\ \textcolor{comment}{}}
+\DoxyCodeLine{00501\ \textcolor{comment}{\ \ Zigbee\ Cluster:}}
+\DoxyCodeLine{00502\ \textcolor{comment}{\ \ -\/\ If\ the\ Zigbee\ Cluster\ field\ is\ set\ to\ 0xffff,\ the\ ClusterID\ from\ the\ triggering\ GPD\ command\ is\ to\ be\ used.}}
+\DoxyCodeLine{00503\ \textcolor{comment}{\ \ -\/\ If\ the\ Zigbee\ Cluster\ field\ is\ set\ to\ value\ other\ than\ 0xffff,\ then\ for\ GPD\ command\ carrying}}
+\DoxyCodeLine{00504\ \textcolor{comment}{\ \ \ \ a\ ClusterID\ field\ (as\ e.g.\ for\ the\ GPD\ commands\ 0xA0\ -\/\ 0xA3),\ the\ two\ ClusterID\ values\ SHALL\ exactly\ match.}}
+\DoxyCodeLine{00505\ \textcolor{comment}{}}
+\DoxyCodeLine{00506\ \textcolor{comment}{\ \ ZCL\ Payload\ Length:}}
+\DoxyCodeLine{00507\ \textcolor{comment}{\ \ -\/\ If\ the\ Length\ sub-\/field\ of\ the\ Zigbee\ Command\ payload\ field\ is\ set\ to\ 0x00,}}
+\DoxyCodeLine{00508\ \textcolor{comment}{\ \ \ \ the\ Payload\ sub-\/field\ is\ not\ present,\ and\ the\ Zigbee\ command\ is\ sent\ without\ payload.}}
+\DoxyCodeLine{00509\ \textcolor{comment}{\ \ -\/\ If\ the\ Length\ sub-\/field\ of\ the\ Zigbee\ Command\ payload\ field\ is\ set\ to\ 0xff,}}
+\DoxyCodeLine{00510\ \textcolor{comment}{\ \ \ \ the\ Payload\ sub-\/field\ is\ not\ present,\ and\ the\ payload\ from\ the\ triggering\ GPD\ command}}
+\DoxyCodeLine{00511\ \textcolor{comment}{\ \ \ \ is\ to\ be\ copied\ verbatim\ into\ the\ Zigbee\ command.}}
+\DoxyCodeLine{00512\ \textcolor{comment}{\ \ -\/\ If\ the\ Length\ sub-\/field\ of\ the\ Zigbee\ Command\ payload\ field\ is\ set\ to\ 0xfe,}}
+\DoxyCodeLine{00513\ \textcolor{comment}{\ \ \ \ the\ Payload\ sub-\/field\ is\ not\ present,\ and\ the\ payload\ from\ the\ triggering\ GPD\ command\ needs\ to\ be\ parsed.}}
+\DoxyCodeLine{00514\ \textcolor{comment}{\ \ -\/\ For\ all\ other\ values\ of\ the\ Length\ sub-\/field,\ the\ Payload\ sub-\/field\ is\ present,}}
+\DoxyCodeLine{00515\ \textcolor{comment}{\ \ \ \ has\ a\ length\ as\ defined\ in\ the\ Length\ sub-\/field\ and\ specifies\ the\ payload\ to\ be\ used.}}
+\DoxyCodeLine{00516\ \textcolor{comment}{}}
+\DoxyCodeLine{00517\ \textcolor{comment}{\ \ Not\ supported\ features:}}
+\DoxyCodeLine{00518\ \textcolor{comment}{\ \ -\/\ The\ Additional\ information\ block\ field\ is\ not\ supported\ yet.}}
+\DoxyCodeLine{00519\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00521\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_ZCL\_CMD\_ID\_UNDEFINED\ (0xff)}}
+\DoxyCodeLine{00522\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_ZCL\_CLUSTER\_ID\_UNDEFINED\ (0xffff)}}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_UNDEFINED\ (0xff)}}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00526\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_MAPPING\_ENTRY\_ENDPOINT\_PASS\_RAW\_GPDF\_TO\_APP\ (0xfc)}}
+\DoxyCodeLine{00527\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_MAPPING\_ENTRY\_ENDPOINT\_NO\_PAIRS\ \ \ \ \ \ \ \ \ \ \ \ \ (0xfd)}}
+\DoxyCodeLine{00528\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_MAPPING\_ENTRY\_ENDPOINT\_ALL\_ARE\_MATCHED\ \ \ \ \ \ (0xff)}}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_MAPPING\_ENTRY\_NO\_PAYLOAD\ \ \ \ \ (0x00)}}
+\DoxyCodeLine{00531\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_MAPPING\_ENTRY\_GPDF\_PAYLOAD\ \ \ (0xff)}}
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_MAPPING\_ENTRY\_PARSED\_PAYLOAD\ (0xfe)}}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00534\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_MAPPING\_ENTRY\_OPTIONS(app\_id,\ add\_info\_present)\ \(\backslash\)}}
+\DoxyCodeLine{00535\ \textcolor{preprocessor}{\ \ (((((add\_info\_present)\ \&\ 0x01)\ <<\ 3))\ |\ ((app\_id)\ \&\ 0x07))}}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00537\ \textcolor{comment}{/*\ }}
+\DoxyCodeLine{00538\ \textcolor{comment}{\ *\ A.3.6.2.2\ GPD\ application\ functionality\ translation}}
+\DoxyCodeLine{00539\ \textcolor{comment}{\ *\ Figure\ 80\ –\ Format\ of\ the\ Options\ field\ of\ the\ GPD\ Command\ Translation\ Table\ entry}}
+\DoxyCodeLine{00540\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00541\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_MAPPING\_ENTRY\_OPTIONS\_IS\_ADDITIONAL\_INFO\_PRESENT(options)\ \(\backslash\)}}
+\DoxyCodeLine{00542\ \textcolor{preprocessor}{\ \ (((options)\ >>\ 3)\ \&\ 0x01)}}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00548\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zgps\_mapping\_entry\_additional\_info\_option\_selector\_s}
+\DoxyCodeLine{00549\ \{}
+\DoxyCodeLine{00550\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ option\_length:4;}
+\DoxyCodeLine{00551\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ option\_id:4;}
+\DoxyCodeLine{00552\ \}\ ZB\_PACKED\_STRUCT\ zb\_zgps\_mapping\_entry\_additional\_info\_option\_selector\_t;}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00557\ \textcolor{keyword}{enum}\ zb\_zgps\_mapping\_entry\_8bit\_vector\_option\_ids\_e}
+\DoxyCodeLine{00558\ \{}
+\DoxyCodeLine{00559\ \ \ ZB\_ZGPS\_MAPPING\_ENTRY\_8BIT\_VECTOR\_OPTION\_ID\_GENERIC\_SWITCH\_COMMAND\_EXECUTION\ =\ 0U}
+\DoxyCodeLine{00560\ \};}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00565\ \textcolor{keyword}{enum}\ zb\_zgps\_mapping\_entry\_compact\_attr\_report\_option\_ids\_e}
+\DoxyCodeLine{00566\ \{}
+\DoxyCodeLine{00567\ \ \ ZB\_ZGPS\_MAPPING\_ENTRY\_COMPACT\_ATTR\_REPORT\_REPORTABLE\ =\ 0U}
+\DoxyCodeLine{00568\ \};}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00574\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zgps\_mapping\_entry\_generic\_switch\_option\_data\_s}
+\DoxyCodeLine{00575\ \{}
+\DoxyCodeLine{00576\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ contact\_status;}
+\DoxyCodeLine{00577\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ contact\_bitmask;}
+\DoxyCodeLine{00578\ \}\ ZB\_PACKED\_STRUCT\ zb\_zgps\_mapping\_entry\_generic\_switch\_option\_data\_t;}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00583\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zgps\_mapping\_entry\_generic\_switch\_option\_s}
+\DoxyCodeLine{00584\ \{}
+\DoxyCodeLine{00585\ \ \ zb\_zgps\_mapping\_entry\_additional\_info\_option\_selector\_t\ selector;}
+\DoxyCodeLine{00586\ \ \ zb\_zgps\_mapping\_entry\_generic\_switch\_option\_data\_t\ \ \ \ \ \ data;}
+\DoxyCodeLine{00587\ \}\ ZB\_PACKED\_STRUCT\ zb\_zgps\_mapping\_entry\_generic\_switch\_option\_t;}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00594\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zgps\_mapping\_entry\_additional\_info\_option\_record\_s}
+\DoxyCodeLine{00595\ \{}
+\DoxyCodeLine{00596\ \ \ zb\_zgps\_mapping\_entry\_additional\_info\_option\_selector\_t\ selector;}
+\DoxyCodeLine{00597\ \}\ ZB\_PACKED\_STRUCT\ zb\_zgps\_mapping\_entry\_additional\_info\_option\_record\_t;}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00603\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zgps\_mapping\_entry\_additional\_info\_s}
+\DoxyCodeLine{00604\ \{}
+\DoxyCodeLine{00605\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ length;}
+\DoxyCodeLine{00606\ \}\ ZB\_PACKED\_STRUCT\ zb\_zgps\_mapping\_entry\_additional\_info\_t;}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00611\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zgps\_mapping\_entry\_s}
+\DoxyCodeLine{00612\ \{}
+\DoxyCodeLine{00613\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ options;\ \ \ }
+\DoxyCodeLine{00614\ \ \ zb\_zgpd\_addr\_t\ gpd\_id;\ }
+\DoxyCodeLine{00615\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ gpd\_endpoint;}
+\DoxyCodeLine{00616\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ gpd\_command;\ }
+\DoxyCodeLine{00617\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ endpoint;\ \ }
+\DoxyCodeLine{00618\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ profile;\ \ \ }
+\DoxyCodeLine{00619\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cluster;\ \ \ }
+\DoxyCodeLine{00620\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ zcl\_command;\ }
+\DoxyCodeLine{00621\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ zcl\_payload\_length;\ \ }
+\DoxyCodeLine{00622\ \}\ ZB\_PACKED\_STRUCT\ zb\_zgps\_mapping\_entry\_t;}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00624\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_GET\_MAPPING\_ENTRY\_ZCL\_PAYLOAD\_PTR(entry)\ (\&entry-\/>zcl\_payload\_length+sizeof(entry-\/>zcl\_payload\_length))}}
+\DoxyCodeLine{00625\ }
+\DoxyCodeLine{00627\ \textcolor{keywordtype}{void}\ zb\_zgps\_set\_mapping\_table(\textcolor{keyword}{const}\ zb\_zgps\_mapping\_entry\_t\ **\ table,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ *\ table\_size);\ \textcolor{comment}{/*\ DOXYGEN\_INTERNAL\_DOC\ */}}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00637\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_SET\_MAPPING\_TABLE(table\_ptr,\ table\_size\_ptr)\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00638\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00639\ \textcolor{preprocessor}{\ \ zb\_zgps\_set\_mapping\_table((table\_ptr),\ (table\_size\_ptr));\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00640\ \textcolor{preprocessor}{\}}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ zgp\_sink\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00642\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_ENABLE\_ZGP\_SINK\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00643\ }
+\DoxyCodeLine{00644\ \textcolor{preprocessor}{\#ifdef\ ZB\_ENABLE\_ZGP\_DIRECT}}
+\DoxyCodeLine{00645\ \textcolor{keyword}{enum}\ zb\_zgp\_data\_handle\_e}
+\DoxyCodeLine{00646\ \{}
+\DoxyCodeLine{00647\ \ \ ZB\_ZGP\_HANDLE\_DEFAULT\_HANDLE,}
+\DoxyCodeLine{00648\ \ \ ZB\_ZGP\_HANDLE\_REMOVE\_CHANNEL\_CONFIG,}
+\DoxyCodeLine{00649\ \ \ ZB\_ZGP\_HANDLE\_REMOVE\_COMMISSIONING\_REPLY,}
+\DoxyCodeLine{00650\ \ \ ZB\_ZGP\_HANDLE\_ADD\_COMMISSIONING\_REPLY,}
+\DoxyCodeLine{00651\ \ \ ZB\_ZGP\_HANDLE\_ADD\_CHANNEL\_CONFIG,}
+\DoxyCodeLine{00652\ \ \ ZB\_ZGP\_HANDLE\_REMOVE\_AFTER\_FAILED\_COMM,}
+\DoxyCodeLine{00653\ \ \ ZB\_ZGP\_HANDLE\_REMOVE\_BY\_USER\_REQ,}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00662\ \ \ ZB\_ZGP\_HANDLE\_APP\_DATA,}
+\DoxyCodeLine{00663\ \};}
+\DoxyCodeLine{00664\ }
+\DoxyCodeLine{00665\ \textcolor{preprocessor}{\#define\ ZB\_GP\_TX\_QUEUE\_ENTRY\_LIFETIME\_NONE\ ZB\_MIN\_TIME\_VAL}}
+\DoxyCodeLine{00666\ \textcolor{preprocessor}{\#define\ ZB\_GP\_TX\_QUEUE\_ENTRY\_LIFETIME\_INF\ \ ZB\_MAX\_TIME\_VAL}}
+\DoxyCodeLine{00667\ }
+\DoxyCodeLine{00668\ \textcolor{preprocessor}{\#define\ ZB\_GP\_DATA\_REQ\_USE\_GP\_TX\_QUEUE\ \ \ 0x01U}}
+\DoxyCodeLine{00669\ \textcolor{preprocessor}{\#define\ ZB\_GP\_DATA\_REQ\_USE\_CSMA\_CA\_BIT\ \ \ 0x02U}}
+\DoxyCodeLine{00670\ \textcolor{preprocessor}{\#define\ ZB\_GP\_DATA\_REQ\_USE\_MAC\_ACK\_BIT\ \ \ 0x04U}}
+\DoxyCodeLine{00671\ \textcolor{preprocessor}{\#define\ ZB\_GP\_DATA\_REQ\_MAINT\_FRAME\_TYPE\ \ 0x08U}}
+\DoxyCodeLine{00672\ }
+\DoxyCodeLine{00673\ \textcolor{preprocessor}{\#define\ ZB\_GP\_DATA\_REQ\_FRAME\_TYPE(tx\_opt)\ \(\backslash\)}}
+\DoxyCodeLine{00674\ \textcolor{preprocessor}{\ \ ((tx\_opt\ >>\ 3)\ \&\ 0x03)}}
+\DoxyCodeLine{00675\ }
+\DoxyCodeLine{00676\ \textcolor{preprocessor}{\#define\ ZB\_GP\_DATA\_REQ\_ACTION\_REMOVE\_GPDF\ ZB\_FALSE}}
+\DoxyCodeLine{00677\ \textcolor{preprocessor}{\#define\ ZB\_GP\_DATA\_REQ\_ACTION\_ADD\_GPDF\ \ \ \ ZB\_TRUE}}
+\DoxyCodeLine{00678\ }
+\DoxyCodeLine{00679\ \textcolor{preprocessor}{\#define\ ZB\_CGP\_DATA\_REQ\_USE\_CSMA\_CA\_BIT\ 0x01}}
+\DoxyCodeLine{00680\ \textcolor{preprocessor}{\#define\ ZB\_CGP\_DATA\_REQ\_USE\_MAC\_ACK\_BIT\ 0X02}}
+\DoxyCodeLine{00681\ }
+\DoxyCodeLine{00682\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_ENABLE\_ZGP\_DIRECT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00685\ \textcolor{comment}{/***********************\ Proxy\ definitions\ **************************/}}
+\DoxyCodeLine{00686\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00696\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_gac0c4151823f61326a3c3bf77fad8a75f}{zgp\_communication\_mode\_e}}}
+\DoxyCodeLine{00697\ \{}
+\DoxyCodeLine{00698\ \ \ ZGP\_COMMUNICATION\_MODE\_FULL\_UNICAST\ =\ 0,}
+\DoxyCodeLine{00699\ \ \ \textcolor{comment}{/*Groupcast\ -\/\ one\ of\ the\ communication\ modes\ used\ for\ tunneling\ GPD\ commands\ between\ the}}
+\DoxyCodeLine{00700\ \textcolor{comment}{\ \ proxies\ and\ sinks.\ In\ Zigbee\ terms,\ it\ is\ the\ APS\ level\ multicast,\ with\ NWK\ level\ broadcast\ to\ the}}
+\DoxyCodeLine{00701\ \textcolor{comment}{\ \ RxOnWhenIdle=TRUE\ (0xfffd)\ broadcast\ address.*/}}
+\DoxyCodeLine{00702\ \ \ ZGP\_COMMUNICATION\_MODE\_GROUPCAST\_DERIVED\ =\ 1,}
+\DoxyCodeLine{00703\ \ \ ZGP\_COMMUNICATION\_MODE\_GROUPCAST\_PRECOMMISSIONED\ =\ 2,}
+\DoxyCodeLine{00704\ \ \ ZGP\_COMMUNICATION\_MODE\_LIGHTWEIGHT\_UNICAST\ =\ 3}
+\DoxyCodeLine{00705\ \}\ \mbox{\hyperlink{group__zgp__common_ga5a9ed118c2e8146378eb4b9fae594a1a}{zgp\_communication\_mode\_t}};}
+\DoxyCodeLine{00706\ }
+\DoxyCodeLine{00707\ \textcolor{comment}{/*\ A.3.3.2.4\ gpsCommissioningExitMode\ attribute\ */}}
+\DoxyCodeLine{00708\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zgp\_commissioning\_exit\_mode\_e}
+\DoxyCodeLine{00709\ \{}
+\DoxyCodeLine{00710\ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_COMMISSIONING\_WINDOW\_EXPIRATION\ \ =\ (1<<0),}
+\DoxyCodeLine{00711\ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_PAIRING\_SUCCESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (1<<1),}
+\DoxyCodeLine{00712\ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_GP\_PROXY\_COMMISSIONING\_MODE\_EXIT\ =\ (1<<2),}
+\DoxyCodeLine{00713\ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_CWE\_OR\_PS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_COMMISSIONING\_WINDOW\_EXPIRATION\ |}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_PAIRING\_SUCCESS),}
+\DoxyCodeLine{00715\ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_CWE\_OR\_PCM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_COMMISSIONING\_WINDOW\_EXPIRATION\ |}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_GP\_PROXY\_COMMISSIONING\_MODE\_EXIT),}
+\DoxyCodeLine{00717\ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ALL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_COMMISSIONING\_WINDOW\_EXPIRATION\ |}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_PAIRING\_SUCCESS\ |}
+\DoxyCodeLine{00719\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZGP\_COMMISSIONING\_EXIT\_MODE\_ON\_GP\_PROXY\_COMMISSIONING\_MODE\_EXIT)}
+\DoxyCodeLine{00720\ \}\ zgp\_commissioning\_exit\_mode\_t;}
+\DoxyCodeLine{00721\ }
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00724\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00725\ \textcolor{comment}{/********************\ Commissioning\ definitions\ *********************/}}
+\DoxyCodeLine{00726\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00736\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_gaca902fd72446aebaca9d8be4ab9d06a5}{zb\_zgp\_comm\_status\_e}}}
+\DoxyCodeLine{00737\ \{}
+\DoxyCodeLine{00739\ \ \ \mbox{\hyperlink{group__zgp__common_ggaca902fd72446aebaca9d8be4ab9d06a5a092ea991bcce3c10803e13fc00642891}{ZB\_ZGP\_COMMISSIONING\_COMPLETED}},}
+\DoxyCodeLine{00744\ \ \ \mbox{\hyperlink{group__zgp__common_ggaca902fd72446aebaca9d8be4ab9d06a5a77bbc84f90e803136647c35e719cb192}{ZB\_ZGP\_COMMISSIONING\_FAILED}},}
+\DoxyCodeLine{00746\ \ \ \mbox{\hyperlink{group__zgp__common_ggaca902fd72446aebaca9d8be4ab9d06a5a497a3e473fcd31aeb25b146861858294}{ZB\_ZGP\_COMMISSIONING\_TIMED\_OUT}},}
+\DoxyCodeLine{00749\ \ \ \mbox{\hyperlink{group__zgp__common_ggaca902fd72446aebaca9d8be4ab9d06a5afb93c9d951c603ff99b7ec625fcb86b1}{ZB\_ZGP\_COMMISSIONING\_NO\_MATCH\_ERROR}},}
+\DoxyCodeLine{00753\ \ \ \mbox{\hyperlink{group__zgp__common_ggaca902fd72446aebaca9d8be4ab9d06a5abfd7a25ec399f4bc2fdca3000653156c}{ZB\_ZGP\_COMMISSIONING\_INTERNAL\_ERROR}},}
+\DoxyCodeLine{00757\ \ \ \mbox{\hyperlink{group__zgp__common_ggaca902fd72446aebaca9d8be4ab9d06a5a9833ff3f22c32188a47dfd869c4f2b43}{ZB\_ZGP\_COMMISSIONING\_EXTERNAL\_ERROR}},}
+\DoxyCodeLine{00759\ \ \ \mbox{\hyperlink{group__zgp__common_ggaca902fd72446aebaca9d8be4ab9d06a5ac9e0e0ce9cd1cb8592aa9912e584a8fd}{ZB\_ZGP\_COMMISSIONING\_CANCELLED\_BY\_USER}},}
+\DoxyCodeLine{00761\ \ \ \mbox{\hyperlink{group__zgp__common_ggaca902fd72446aebaca9d8be4ab9d06a5a751f3cd4ab752790cf059ec5c941c6c2}{ZB\_ZGP\_ZGPD\_DECOMMISSIONED}},}
+\DoxyCodeLine{00762\ \}}
+\DoxyCodeLine{00763\ \mbox{\hyperlink{group__zgp__common_ga1d67b03dd26b4c43aa970d9495d3d23f}{zb\_zgp\_comm\_status\_t}};}
+\DoxyCodeLine{00764\ }
+\DoxyCodeLine{00768\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_gab9cf4dc59106e78e3803df8c55fa4fd1}{zb\_zgp\_mode\_change\_reason\_e}}}
+\DoxyCodeLine{00769\ \{}
+\DoxyCodeLine{00770\ \ \ ZB\_ZGP\_MODE\_CHANGE\_TRIGGERED\_BY\_COMMAND\ =\ 1,\ \textcolor{comment}{/*\ GP\ Sink\ Commissioning\ Mode\ Command\ */}}
+\DoxyCodeLine{00771\ \ \ ZB\_ZGP\_MODE\_CHANGE\_TRIGGERED\_BY\_USER,\ \ \textcolor{comment}{/*\ Application\ decided\ to\ change\ the\ mode\ */}}
+\DoxyCodeLine{00772\ \ \ ZB\_ZGP\_MODE\_CHANGE\_ON\_FIRST\_PARING\_EXIT,\ \textcolor{comment}{/*\ The\ device\ joined\ and\ the\ gpsCommissioningExitMode\ attribute\ has\ "{}On\ First\ Pairing\ success"{}\ bit\ seted\ */}}
+\DoxyCodeLine{00773\ \ \ ZB\_ZGP\_MODE\_CHANGE\_TIMEOUT,\ \textcolor{comment}{/*\ It\ is\ possible\ if\ timeout\ is\ set\ and\ expired\ \ "{}On\ CommissioningWindow\ expiration"{}\ bit\ is\ set\ Timeout\ parameter\ to\ user\ API\ gps\_commissioning\_start().*/}}
+\DoxyCodeLine{00774\ \}}
+\DoxyCodeLine{00775\ \mbox{\hyperlink{group__zgp__common_gafe8a30a0f6891cae747f2fb318010177}{zb\_zgp\_mode\_change\_reason\_t}};}
+\DoxyCodeLine{00776\ }
+\DoxyCodeLine{00778\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_ga7fff6aa39d6741786f5db9ea75ceb8ea}{zb\_zgp\_mode\_e}}}
+\DoxyCodeLine{00779\ \{}
+\DoxyCodeLine{00780\ \ \ \mbox{\hyperlink{group__zgp__common_gga7fff6aa39d6741786f5db9ea75ceb8eaa6cbbf497ee8cd8713dda790d562e812a}{ZB\_ZGP\_OPERATIONAL\_MODE}},\ \ \ }
+\DoxyCodeLine{00781\ \ \ \mbox{\hyperlink{group__zgp__common_gga7fff6aa39d6741786f5db9ea75ceb8eaa6f5716deaea6c9e0f1e59e8a85a3d843}{ZB\_ZGP\_COMMISSIONING\_MODE}}\ \ }
+\DoxyCodeLine{00782\ \}}
+\DoxyCodeLine{00783\ \mbox{\hyperlink{group__zgp__common_ga52fc150fe142f06b58d1bef4dfb16a55}{zb\_zgp\_mode\_t}};}
+\DoxyCodeLine{00784\ }
+\DoxyCodeLine{00788\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzb__zgp__gpd__cmds__list__s}{zb\_zgp\_gpd\_cmds\_list\_s}}}
+\DoxyCodeLine{00789\ \{}
+\DoxyCodeLine{00790\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{structzb__zgp__gpd__cmds__list__s_a28bb13e7e105e2ea2bcc70b100903828}{num}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00791\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{structzb__zgp__gpd__cmds__list__s_a190f375af2df676745d6f27f2070b4a8}{cmds}}[ZB\_ZGP\_MAX\_PAIRED\_CONF\_GPD\_COMMANDS];\ \ \ }
+\DoxyCodeLine{00792\ \}}
+\DoxyCodeLine{00793\ \mbox{\hyperlink{group__zgp__common_ga25e993af2e99b7887752699810fe9c9e}{zb\_zgp\_gpd\_cmds\_list\_t}};}
+\DoxyCodeLine{00794\ }
+\DoxyCodeLine{00798\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzb__zgp__cluster__list__s}{zb\_zgp\_cluster\_list\_s}}}
+\DoxyCodeLine{00799\ \{}
+\DoxyCodeLine{00800\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{structzb__zgp__cluster__list__s_a97f72c1b034619334aad431ea9e29182}{server\_cl\_num}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00801\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{structzb__zgp__cluster__list__s_ab6779c9777931ea55081d1602af59e37}{client\_cl\_num}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00802\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \mbox{\hyperlink{structzb__zgp__cluster__list__s_acbb3ff4c70bec0513338b181948c52dc}{server\_clusters}}[ZB\_ZGP\_MAX\_PAIRED\_CONF\_CLUSTERS];\ \ \ }
+\DoxyCodeLine{00803\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \mbox{\hyperlink{structzb__zgp__cluster__list__s_a2e7780f6e26c502a9e30ef3d5359e245}{client\_clusters}}[ZB\_ZGP\_MAX\_PAIRED\_CONF\_CLUSTERS];\ \ \ }
+\DoxyCodeLine{00804\ \}}
+\DoxyCodeLine{00805\ \mbox{\hyperlink{group__zgp__common_ga918cb1d6dbfb16bd51b94b2dc344c77f}{zb\_zgp\_cluster\_list\_t}};}
+\DoxyCodeLine{00806\ }
+\DoxyCodeLine{00807\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_ZGP\_SINK\ ||\ defined\ DOXYGEN}}
+\DoxyCodeLine{00808\ }
+\DoxyCodeLine{00831\ \textcolor{keyword}{typedef}\ void\ (ZB\_CODE\ *\ zb\_zgp\_comm\_req\_cb\_t)(}
+\DoxyCodeLine{00832\ \ \ \ \ zb\_zgpd\_id\_t\ \ \ \ *zgpd\_id,}
+\DoxyCodeLine{00833\ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ device\_id,}
+\DoxyCodeLine{00834\ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ manuf\_id,}
+\DoxyCodeLine{00835\ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ manuf\_model\_id,}
+\DoxyCodeLine{00836\ \ \ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ \ \ ieee\_addr);}
+\DoxyCodeLine{00837\ }
+\DoxyCodeLine{00839\ }
+\DoxyCodeLine{00843\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zgp\_raw\_report\_desc\_s}
+\DoxyCodeLine{00844\ \{}
+\DoxyCodeLine{00845\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ len;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00846\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ data[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga6da0d07f83118a92c382e035d288054a}{ZB\_ZGP\_APP\_DESCR\_REPORT\_DATA\_SIZE}}];\ \ }
+\DoxyCodeLine{00847\ \}\ zgp\_raw\_report\_desc\_t;}
+\DoxyCodeLine{00848\ }
+\DoxyCodeLine{00852\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zgp\_approve\_comm\_params\_s}
+\DoxyCodeLine{00853\ \{}
+\DoxyCodeLine{00854\ \ \ zb\_zgpd\_id\_t\ \ \ \ \ \ \ \ \ \ \ \ zgpd\_id;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00855\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ device\_id;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00856\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ manuf\_id;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00857\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ manuf\_model\_id;\ \ \ }
+\DoxyCodeLine{00858\ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ \ \ \ \ \ \ \ \ \ ieee\_addr;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00859\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ pairing\_endpoint;\ }
+\DoxyCodeLine{00860\ \ \ \mbox{\hyperlink{group__zgp__common_ga25e993af2e99b7887752699810fe9c9e}{zb\_zgp\_gpd\_cmds\_list\_t}}\ \ gpd\_cmds\_list;\ \ \ \ }
+\DoxyCodeLine{00861\ \ \ \mbox{\hyperlink{group__zgp__common_ga918cb1d6dbfb16bd51b94b2dc344c77f}{zb\_zgp\_cluster\_list\_t}}\ \ \ cluster\_list;\ \ \ \ \ }
+\DoxyCodeLine{00862\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_of\_reports;\ \ \ }
+\DoxyCodeLine{00864\ \ \ zgp\_raw\_report\_desc\_t\ \ \ reports[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga0d681e625f5e867e8e0519bca8fdd479}{ZB\_ZGP\_APP\_DESCR\_REPORTS\_NUM}}];\ \ }
+\DoxyCodeLine{00865\ \ \ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pairing\_configuration;\ \ }
+\DoxyCodeLine{00866\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ actions;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00867\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ num\_of\_endpoints;\ }
+\DoxyCodeLine{00873\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ paired\_endpoints[ZB\_ZGP\_MAX\_PAIRED\_ENDPOINTS];}
+\DoxyCodeLine{00874\ \}\ zgp\_approve\_comm\_params\_t;}
+\DoxyCodeLine{00875\ }
+\DoxyCodeLine{00881\ }
+\DoxyCodeLine{00899\ \textcolor{keyword}{typedef}\ void\ (ZB\_CODE\ *\ zb\_zgp\_app\_cfm\_cb\_t)(}
+\DoxyCodeLine{00900\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ cmd\_id,}
+\DoxyCodeLine{00901\ \ \ \mbox{\hyperlink{group__base__types_gaa9116cd889644bec092c543d680b5bf2}{zb\_int16\_t}}\ \ \ \ status,}
+\DoxyCodeLine{00902\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ *data\_ptr,}
+\DoxyCodeLine{00903\ \ \ zb\_zgpd\_id\_t\ *zgpd\_id,}
+\DoxyCodeLine{00904\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ handle);}
+\DoxyCodeLine{00905\ }
+\DoxyCodeLine{00908\ }
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00914\ }
+\DoxyCodeLine{00929\ \textcolor{keyword}{typedef}\ void\ (ZB\_CODE\ *\ zb\_zgp\_app\_comm\_ind\_cb\_t)(}
+\DoxyCodeLine{00930\ \ \ zb\_zgpd\_id\_t\ *zgpd\_id,}
+\DoxyCodeLine{00931\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ param);}
+\DoxyCodeLine{00932\ }
+\DoxyCodeLine{00933\ }
+\DoxyCodeLine{00935\ }
+\DoxyCodeLine{00940\ \textcolor{preprocessor}{\#ifdef\ ZB\_ZGP\_SINK\_SUPPORT\_LEGACY\_MATCH\_INFO}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00942\ \textcolor{keywordtype}{void}\ zb\_zgps\_set\_match\_info(\textcolor{keyword}{const}\ zb\_zgps\_match\_info\_t\ *info);\ \textcolor{comment}{/*\ DOXYGEN\_INTERNAL\_DOC\ */}}
+\DoxyCodeLine{00954\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_SET\_MATCH\_INFO(info)\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00955\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00956\ \textcolor{preprocessor}{\ \ zb\_zgps\_set\_match\_info((info));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00957\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00958\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_ZGP\_SINK\_SUPPORT\_LEGACY\_MATCH\_INFO\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00959\ }
+\DoxyCodeLine{00961\ \textcolor{keywordtype}{void}\ zb\_zgps\_register\_comm\_req\_cb(zb\_zgp\_comm\_req\_cb\_t\ cb);\ \textcolor{comment}{/*\ DOXYGEN\_INTERNAL\_DOC\ */}}
+\DoxyCodeLine{00973\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_REGISTER\_COMM\_REQ\_CB(cb)\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00974\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00975\ \textcolor{preprocessor}{\ \ zb\_zgps\_register\_comm\_req\_cb((cb));\ \(\backslash\)}}
+\DoxyCodeLine{00976\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00977\ }
+\DoxyCodeLine{00979\ \textcolor{keywordtype}{void}\ zb\_zgps\_register\_app\_cic\_cb(zb\_zgp\_app\_comm\_ind\_cb\_t\ cb);\ \textcolor{comment}{/*\ DOXYGEN\_INTERNAL\_DOC\ */}}
+\DoxyCodeLine{00987\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_REGISTER\_APP\_CIC\_CB(cb)\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00988\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{00989\ \textcolor{preprocessor}{\ \ zb\_zgps\_register\_app\_cic\_cb((cb));\ \(\backslash\)}}
+\DoxyCodeLine{00990\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00991\ }
+\DoxyCodeLine{00998\ }
+\DoxyCodeLine{01004\ \textcolor{keywordtype}{void}\ zb\_zgps\_register\_app\_cfm\_cb(zb\_zgp\_app\_cfm\_cb\_t\ cb);}
+\DoxyCodeLine{01005\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_REGISTER\_APP\_CFM\_CB(cb)\ \(\backslash\)}}
+\DoxyCodeLine{01006\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01007\ \textcolor{preprocessor}{\ \ zb\_zgps\_register\_app\_cfm\_cb((cb));\ \(\backslash\)}}
+\DoxyCodeLine{01008\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01009\ }
+\DoxyCodeLine{01012\ }
+\DoxyCodeLine{01017\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_ENABLE\_ZGP\_SINK\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01018\ }
+\DoxyCodeLine{01019\ \textcolor{keyword}{enum}\ zb\_zgpd\_switch\_type\_e}
+\DoxyCodeLine{01020\ \{}
+\DoxyCodeLine{01021\ \ \ ZB\_GPD\_SWITCH\_TYPE\_BUTTON\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,\ \textcolor{comment}{/*\ 0b01\ */}}
+\DoxyCodeLine{01022\ \ \ ZB\_GPD\_SWITCH\_TYPE\_ROCKER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,\ \textcolor{comment}{/*\ 0b10\ */}}
+\DoxyCodeLine{01023\ \};}
+\DoxyCodeLine{01024\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{01025\ \textcolor{comment}{/*********************\ GPDF\ command\ IDs\ *****************************/}}
+\DoxyCodeLine{01026\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{01027\ }
+\DoxyCodeLine{01030\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_ga929b6b74c7bc1f0177043eb835fd7826}{zb\_zgpd\_cmd\_id\_e}}}
+\DoxyCodeLine{01031\ \{}
+\DoxyCodeLine{01032\ \ \ \textcolor{comment}{/*\ identify\ */}}
+\DoxyCodeLine{01033\ \ \ ZB\_GPDF\_CMD\_IDENTIFY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,}
+\DoxyCodeLine{01034\ \ \ \textcolor{comment}{/*\ 0x01\ -\/\ 0x0F:\ Reserved\ */}}
+\DoxyCodeLine{01035\ \ \ \textcolor{comment}{/*\ scenes\ */}}
+\DoxyCodeLine{01036\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x10,}
+\DoxyCodeLine{01037\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x11,}
+\DoxyCodeLine{01038\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x12,}
+\DoxyCodeLine{01039\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x13,}
+\DoxyCodeLine{01040\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x14,}
+\DoxyCodeLine{01041\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x15,}
+\DoxyCodeLine{01042\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x16,}
+\DoxyCodeLine{01043\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x17,}
+\DoxyCodeLine{01044\ \ \ \textcolor{comment}{/*\ @note\ recall\ scene\ 8-\/11\ are\ got\ from\ LCGW.\ But\ GPPB\ specification}}
+\DoxyCodeLine{01045\ \textcolor{comment}{\ \ \ *\ does\ not\ define\ recall\ scenes\ 8-\/11.\ Only\ 8\ scenes\ are}}
+\DoxyCodeLine{01046\ \textcolor{comment}{\ \ \ *\ supported.\ See\ Table\ 49\ Payloadless\ GPDF\ commands\ 6236\ sent\ by}}
+\DoxyCodeLine{01047\ \textcolor{comment}{\ \ \ *\ GPD\ */}}
+\DoxyCodeLine{01048\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x18,}
+\DoxyCodeLine{01049\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x19,}
+\DoxyCodeLine{01050\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE10\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1A,}
+\DoxyCodeLine{01051\ \ \ ZB\_GPDF\_CMD\_RECALL\_SCENE11\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1B,}
+\DoxyCodeLine{01052\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_STORE\_SCENE0\ ZB\_GPDF\_CMD\_RECALL\_SCENE8}}
+\DoxyCodeLine{01053\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_STORE\_SCENE1\ ZB\_GPDF\_CMD\_RECALL\_SCENE9}}
+\DoxyCodeLine{01054\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_STORE\_SCENE2\ ZB\_GPDF\_CMD\_RECALL\_SCENE10}}
+\DoxyCodeLine{01055\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_STORE\_SCENE3\ ZB\_GPDF\_CMD\_RECALL\_SCENE11}}
+\DoxyCodeLine{01056\ \ \ ZB\_GPDF\_CMD\_STORE\_SCENE4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1C,}
+\DoxyCodeLine{01057\ \ \ ZB\_GPDF\_CMD\_STORE\_SCENE5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1D,}
+\DoxyCodeLine{01058\ \ \ ZB\_GPDF\_CMD\_STORE\_SCENE6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1E,}
+\DoxyCodeLine{01059\ \ \ ZB\_GPDF\_CMD\_STORE\_SCENE7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x1F,}
+\DoxyCodeLine{01060\ \ \ \textcolor{comment}{/*\ on/off\ */}}
+\DoxyCodeLine{01061\ \ \ ZB\_GPDF\_CMD\_OFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x20,}
+\DoxyCodeLine{01062\ \ \ ZB\_GPDF\_CMD\_ON\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x21,}
+\DoxyCodeLine{01063\ \ \ ZB\_GPDF\_CMD\_TOGGLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x22,}
+\DoxyCodeLine{01064\ \ \ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{01065\ \ \ ZB\_GPDF\_CMD\_RELEASE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x23,}
+\DoxyCodeLine{01066\ \ \ \textcolor{comment}{/*\ 0x24\ -\/\ 0x2F:\ Reserved\ */}}
+\DoxyCodeLine{01067\ \ \ \textcolor{comment}{/*\ level\ control\ */}}
+\DoxyCodeLine{01068\ \ \ ZB\_GPDF\_CMD\_MOVE\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x30,}
+\DoxyCodeLine{01069\ \ \ ZB\_GPDF\_CMD\_MOVE\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x31,}
+\DoxyCodeLine{01070\ \ \ ZB\_GPDF\_CMD\_STEP\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x32,}
+\DoxyCodeLine{01071\ \ \ ZB\_GPDF\_CMD\_STEP\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x33,}
+\DoxyCodeLine{01072\ \ \ ZB\_GPDF\_CMD\_LC\_STOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x34,}
+\DoxyCodeLine{01073\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_LVL\_CTRL\_STOP\ ZB\_GPDF\_CMD\_LC\_STOP}}
+\DoxyCodeLine{01074\ \ \ ZB\_GPDF\_CMD\_MOVE\_UP\_W\_ONOFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x35,}
+\DoxyCodeLine{01075\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_MOVE\_UP\_WITH\_ON\_OFF\ ZB\_GPDF\_CMD\_MOVE\_UP\_W\_ONOFF}}
+\DoxyCodeLine{01076\ \ \ ZB\_GPDF\_CMD\_MOVE\_DOWN\_W\_ONOFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x36,}
+\DoxyCodeLine{01077\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_MOVE\_DOWN\_WITH\_ON\_OFF\ ZB\_GPDF\_CMD\_MOVE\_DOWN\_W\_ONOFF}}
+\DoxyCodeLine{01078\ \ \ ZB\_GPDF\_CMD\_STEP\_UP\_W\_ONOFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x37,}
+\DoxyCodeLine{01079\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_MOVE\_STEP\_ON\ ZB\_GPDF\_CMD\_STEP\_UP\_W\_ONOFF}}
+\DoxyCodeLine{01080\ \ \ ZB\_GPDF\_CMD\_STEP\_DOWN\_W\_ONOFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x38,}
+\DoxyCodeLine{01081\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_MOVE\_STEP\_OFF\ ZB\_GPDF\_CMD\_STEP\_DOWN\_W\_ONOFF}}
+\DoxyCodeLine{01082\ \ \ \textcolor{comment}{/*\ 0x39\ -\/\ 0x3F:\ Reserved\ */}}
+\DoxyCodeLine{01083\ \ \ \textcolor{comment}{/*\ Color\ Control\ */}}
+\DoxyCodeLine{01084\ \ \ ZB\_GPDF\_CMD\_MOVE\_HUE\_STOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x40,}
+\DoxyCodeLine{01085\ \ \ ZB\_GPDF\_CMD\_MOVE\_HUE\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x41,}
+\DoxyCodeLine{01086\ \ \ ZB\_GPDF\_CMD\_MOVE\_HUE\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x42,}
+\DoxyCodeLine{01087\ \ \ ZB\_GPDF\_CMD\_STEP\_HUE\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x43,}
+\DoxyCodeLine{01088\ \ \ ZB\_GPDF\_CMD\_STEP\_HUE\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x44,}
+\DoxyCodeLine{01089\ \ \ ZB\_GPDF\_CMD\_MOVE\_SATURATION\_STOP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x45,}
+\DoxyCodeLine{01090\ \ \ ZB\_GPDF\_CMD\_MOVE\_SATURATION\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x46,}
+\DoxyCodeLine{01091\ \ \ ZB\_GPDF\_CMD\_MOVE\_SATURATION\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x47,}
+\DoxyCodeLine{01092\ \ \ ZB\_GPDF\_CMD\_STEP\_SATURATION\_UP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x48,}
+\DoxyCodeLine{01093\ \ \ ZB\_GPDF\_CMD\_STEP\_SATURATION\_DOWN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x49,}
+\DoxyCodeLine{01094\ \ \ ZB\_GPDF\_CMD\_MOVE\_COLOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x4A,}
+\DoxyCodeLine{01095\ \ \ ZB\_GPDF\_CMD\_STEP\_COLOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x4B,}
+\DoxyCodeLine{01096\ \ \ \textcolor{comment}{/*\ 0x4C\ -\/\ 0x4F:\ Reserved\ */}}
+\DoxyCodeLine{01097\ \ \ \textcolor{comment}{/*\ Door\ Lock\ */}}
+\DoxyCodeLine{01098\ \ \ ZB\_GPDF\_CMD\_LOCK\_DOOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x50,}
+\DoxyCodeLine{01099\ \ \ ZB\_GPDF\_CMD\_UNLOCK\_DOOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x51,}
+\DoxyCodeLine{01100\ \ \ \textcolor{comment}{/*\ 0x52\ -\/\ 0x5F:\ Reserved\ */}}
+\DoxyCodeLine{01101\ \ \ \textcolor{comment}{/*\ Simple\ Generic\ Switch\ */}}
+\DoxyCodeLine{01102\ \ \ ZB\_GPDF\_CMD\_PRESS\_1\_OF\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x60,}
+\DoxyCodeLine{01103\ \ \ ZB\_GPDF\_CMD\_RELEASE\_1\_OF\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x61,}
+\DoxyCodeLine{01104\ \ \ ZB\_GPDF\_CMD\_PRESS\_1\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x62,}
+\DoxyCodeLine{01105\ \ \ ZB\_GPDF\_CMD\_RELEASE\_1\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x63,}
+\DoxyCodeLine{01106\ \ \ ZB\_GPDF\_CMD\_PRESS\_2\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x64,}
+\DoxyCodeLine{01107\ \ \ ZB\_GPDF\_CMD\_RELEASE\_2\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x65,}
+\DoxyCodeLine{01108\ \ \ ZB\_GPDF\_CMD\_SHORT\_PRESS\_1\_OF\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x66,}
+\DoxyCodeLine{01109\ \ \ ZB\_GPDF\_CMD\_SHORT\_PRESS\_1\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x67,}
+\DoxyCodeLine{01110\ \ \ ZB\_GPDF\_CMD\_SHORT\_PRESS\_2\_OF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x68,}
+\DoxyCodeLine{01111\ }
+\DoxyCodeLine{01112\ \ \ ZB\_GPDF\_CMD\_8BIT\_VECTOR\_PRESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x69,}
+\DoxyCodeLine{01113\ \ \ ZB\_GPDF\_CMD\_8BIT\_VECTOR\_RELEASE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x6A,}
+\DoxyCodeLine{01114\ \ \ \textcolor{comment}{/*\ 0x6b-\/0x6f:\ Reserved\ */}}
+\DoxyCodeLine{01115\ \ \ \textcolor{comment}{/*\ 0x70-\/0x9f:\ Reserved\ */}}
+\DoxyCodeLine{01116\ \ \ ZB\_GPDF\_CMD\_ATTR\_REPORT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA0,}
+\DoxyCodeLine{01117\ \ \ ZB\_GPDF\_CMD\_MANUF\_SPEC\_ATTR\_REPORT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA1,}
+\DoxyCodeLine{01118\ \ \ ZB\_GPDF\_CMD\_MULTI\_CLUSTER\_ATTR\_REPORT\ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA2,}
+\DoxyCodeLine{01119\ \ \ ZB\_GPDF\_CMD\_MANUF\_SPEC\_MULTI\_CLUSTER\_ATTR\_REPORT\ =\ 0xA3,}
+\DoxyCodeLine{01120\ \ \ ZB\_GPDF\_CMD\_REQUEST\_ATTRIBUTES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA4,}
+\DoxyCodeLine{01121\ \ \ ZB\_GPDF\_CMD\_READ\_ATTR\_RESP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA5,}
+\DoxyCodeLine{01122\ }
+\DoxyCodeLine{01123\ \ \ ZB\_GPDF\_CMD\_ZCL\_TUNNELING\_FROM\_ZGPD\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA6,}
+\DoxyCodeLine{01124\ \ \ \textcolor{comment}{/*\ 0xA7:\ Reserved\ */}}
+\DoxyCodeLine{01125\ \ \ ZB\_GPDF\_CMD\_COMPACT\_ATTR\_REPORTING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xA8,}
+\DoxyCodeLine{01126\ \ \ \textcolor{comment}{/*\ 0xA9\ -\/\ 0xAE:\ Reserved\ */}}
+\DoxyCodeLine{01127\ \ \ ZB\_GPDF\_CMD\_ATTR\_REPORT\_ANY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xAF,}
+\DoxyCodeLine{01128\ \ \ \textcolor{comment}{/*\ Manufacturer-\/defined\ GPD\ commands\ (payload\ is\ manufacturer-\/specific)\ */}}
+\DoxyCodeLine{01129\ \ \ ZB\_GPDF\_CMD\_MANUF\_DEFINED\_B0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xB0,}
+\DoxyCodeLine{01130\ \ \ \textcolor{comment}{/*\ 0xB1\ -\/\ 0xBE:\ Manufacturer-\/defined\ GPD\ commands\ (payload\ is\ manufacturer-\/specific)\ */}}
+\DoxyCodeLine{01131\ \ \ ZB\_GPDF\_CMD\_MANUF\_DEFINED\_BF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xBF,}
+\DoxyCodeLine{01132\ \ \ \textcolor{comment}{/*\ 0xC0\ -\/\ 0xDF:\ Reserved\ */}}
+\DoxyCodeLine{01133\ \ \ \textcolor{comment}{/*\ commissioning\ from\ ZGPD\ */}}
+\DoxyCodeLine{01134\ \ \ ZB\_GPDF\_CMD\_COMMISSIONING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE0,}
+\DoxyCodeLine{01135\ \ \ ZB\_GPDF\_CMD\_DECOMMISSIONING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE1,}
+\DoxyCodeLine{01136\ \ \ ZB\_GPDF\_CMD\_SUCCESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE2,}
+\DoxyCodeLine{01137\ \ \ ZB\_GPDF\_CMD\_CHANNEL\_REQUEST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE3,}
+\DoxyCodeLine{01138\ \ \ ZB\_GPDF\_CMD\_APPLICATION\_DESCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xE4,}
+\DoxyCodeLine{01139\ \ \ \textcolor{comment}{/*\ 0xE5\ -\/\ 0xEF:\ Reserved\ */}}
+\DoxyCodeLine{01140\ \ \ \textcolor{comment}{/*\ GPDF\ commands\ sent\ to\ GPD\ */}}
+\DoxyCodeLine{01141\ \ \ ZB\_GPDF\_CMD\_COMMISSIONING\_REPLY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF0,}
+\DoxyCodeLine{01142\ \ \ ZB\_GPDF\_CMD\_WRITE\_ATTRIBUTES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF1,}
+\DoxyCodeLine{01143\ \ \ ZB\_GPDF\_CMD\_READ\_ATTRIBUTES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF2,}
+\DoxyCodeLine{01144\ \ \ ZB\_GPDF\_CMD\_CHANNEL\_CONFIGURATION\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF3,}
+\DoxyCodeLine{01145\ \ \ \textcolor{comment}{/*\ 0xF4\ -\/\ 0xF5:\ Reserved\ for\ other\ commands\ sent\ to\ the\ GPD\ */}}
+\DoxyCodeLine{01146\ \ \ ZB\_GPDF\_CMD\_ZCL\_TUNNELING\_TO\_ZGPD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0xF6,}
+\DoxyCodeLine{01147\ \ \ \textcolor{comment}{/*\ 0xF7\ -\/\ 0xFF:\ Reserved\ for\ other\ commands\ sent\ to\ the\ GPD\ */}}
+\DoxyCodeLine{01148\ \};}
+\DoxyCodeLine{01149\ }
+\DoxyCodeLine{01150\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_IS\_SCENE\_CMD(\_cmd\_id)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01151\ \textcolor{preprocessor}{\ \ ((\_cmd\_id)\ >=\ ZB\_GPDF\_CMD\_RECALL\_SCENE0\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{01152\ \textcolor{preprocessor}{\ \ \ (\_cmd\_id)\ <=\ ZB\_GPDF\_CMD\_STORE\_SCENE7)}}
+\DoxyCodeLine{01153\ }
+\DoxyCodeLine{01154\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_IS\_RECALL\_SCENE(\_cmd\_id)\ \(\backslash\)}}
+\DoxyCodeLine{01155\ \textcolor{preprocessor}{\ \ ((\_cmd\_id)\ >=\ ZB\_GPDF\_CMD\_RECALL\_SCENE0\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{01156\ \textcolor{preprocessor}{\ \ \ (\_cmd\_id)\ <=\ ZB\_GPDF\_CMD\_RECALL\_SCENE7)}}
+\DoxyCodeLine{01157\ }
+\DoxyCodeLine{01158\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CMD\_IS\_STORE\_SCENE(\_cmd\_id)\ \(\backslash\)}}
+\DoxyCodeLine{01159\ \textcolor{preprocessor}{\ \ ((\_cmd\_id)\ >=\ ZB\_GPDF\_CMD\_STORE\_SCENE0\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{01160\ \textcolor{preprocessor}{\ \ \ (\_cmd\_id)\ <=\ ZB\_GPDF\_CMD\_STORE\_SCENE7)}}
+\DoxyCodeLine{01161\ }
+\DoxyCodeLine{01163\ }
+\DoxyCodeLine{01164\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{01165\ \textcolor{comment}{/****************\ Macros\ for\ sending\ GPDF\ packets\ *******************/}}
+\DoxyCodeLine{01166\ \textcolor{comment}{/********************************************************************/}}
+\DoxyCodeLine{01167\ }
+\DoxyCodeLine{01173\ }
+\DoxyCodeLine{01174\ }
+\DoxyCodeLine{01180\ \textcolor{preprocessor}{\#define\ ZB\_START\_GPDF\_PACKET(zbbuf)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01181\ \textcolor{preprocessor}{\ \ \ zb\_buf\_reuse(zbbuf)}}
+\DoxyCodeLine{01182\ }
+\DoxyCodeLine{01189\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_PUT\_UINT8(ptr,\ val)\ \(\backslash\)}}
+\DoxyCodeLine{01190\ \textcolor{preprocessor}{\ \ (\ *(ptr)\ =\ (val),\ (ptr)++\ )}}
+\DoxyCodeLine{01191\ }
+\DoxyCodeLine{01198\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_PUT\_UINT16(ptr,\ val)\ \(\backslash\)}}
+\DoxyCodeLine{01199\ \textcolor{preprocessor}{\ \ (\ ZB\_HTOLE16((ptr),\ (val)),\ (ptr)\ +=\ 2\ )}}
+\DoxyCodeLine{01200\ }
+\DoxyCodeLine{01201\ }
+\DoxyCodeLine{01208\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_PUT\_UINT32(ptr,\ val)\ \(\backslash\)}}
+\DoxyCodeLine{01209\ \textcolor{preprocessor}{\ \ (\ ZB\_HTOLE32((ptr),\ (val)),\ (ptr)\ +=\ 4\ )}}
+\DoxyCodeLine{01210\ }
+\DoxyCodeLine{01211\ }
+\DoxyCodeLine{01218\ \textcolor{keywordtype}{void}\ zb\_finish\_gpdf\_packet(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf\_ref,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}**\ ptr);}
+\DoxyCodeLine{01219\ \textcolor{preprocessor}{\#define\ ZB\_FINISH\_GPDF\_PACKET(zbbuf,\ ptr)\ zb\_finish\_gpdf\_packet(zbbuf,\ \&ptr)}}
+\DoxyCodeLine{01220\ }
+\DoxyCodeLine{01221\ }
+\DoxyCodeLine{01226\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_CHANNEL\_REQ\_NEXT\_RX\_CHANNEL(par)\ \(\backslash\)}}
+\DoxyCodeLine{01227\ \textcolor{preprocessor}{\ \ ((par)\ \&\ 0x0FU)}}
+\DoxyCodeLine{01228\ }
+\DoxyCodeLine{01229\ }
+\DoxyCodeLine{01230\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_gpdf\_comm\_app\_info\_options\_s}
+\DoxyCodeLine{01231\ \{}
+\DoxyCodeLine{01232\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ manuf\_id\_present:1;}
+\DoxyCodeLine{01233\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ manuf\_model\_id\_present:1;}
+\DoxyCodeLine{01234\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ gpd\_cmds\_present:1;}
+\DoxyCodeLine{01235\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ cluster\_list\_present:1;}
+\DoxyCodeLine{01236\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ switch\_info\_present:1;}
+\DoxyCodeLine{01237\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ app\_descr\_flw:1;}
+\DoxyCodeLine{01238\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ reserved:2;}
+\DoxyCodeLine{01239\ \}zb\_gpdf\_comm\_app\_info\_options\_t;}
+\DoxyCodeLine{01240\ }
+\DoxyCodeLine{01241\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_gpdf\_comm\_switch\_gen\_cfg\_s}
+\DoxyCodeLine{01242\ \{}
+\DoxyCodeLine{01243\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ num\_of\_contacts:4;}
+\DoxyCodeLine{01244\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ switch\_type:2;}
+\DoxyCodeLine{01245\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ reserved:2;}
+\DoxyCodeLine{01246\ \}ZB\_PACKED\_STRUCT\ zb\_gpdf\_comm\_switch\_gen\_cfg\_t;}
+\DoxyCodeLine{01247\ }
+\DoxyCodeLine{01248\ \textcolor{comment}{/*\ DEPRECATED:\ Typo\ in\ structure\ field\ was\ fixes\ -\/}}
+\DoxyCodeLine{01249\ \textcolor{comment}{\ *\ old\ name,\ with\ the\ typo,\ will\ be\ removed\ in\ the\ next\ Major\ release\ */}}
+\DoxyCodeLine{01250\ \textcolor{preprocessor}{\#define\ num\_of\_contacs\ num\_of\_contacts}}
+\DoxyCodeLine{01251\ }
+\DoxyCodeLine{01252\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_gpdf\_comm\_switch\_info\_s}
+\DoxyCodeLine{01253\ \{}
+\DoxyCodeLine{01254\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ len;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01255\ \ \ zb\_gpdf\_comm\_switch\_gen\_cfg\_t\ configuration;}
+\DoxyCodeLine{01256\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ current\_contact\_status;}
+\DoxyCodeLine{01257\ \}zb\_gpdf\_comm\_switch\_info\_t;}
+\DoxyCodeLine{01258\ }
+\DoxyCodeLine{01259\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_gpdf\_comm\_app\_info\_s}
+\DoxyCodeLine{01260\ \{}
+\DoxyCodeLine{01261\ \ \ zb\_gpdf\_comm\_app\_info\_options\_t\ options;}
+\DoxyCodeLine{01262\ }
+\DoxyCodeLine{01263\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ manuf\_id;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01264\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ manuf\_model\_id;\ \ \ }
+\DoxyCodeLine{01265\ \ \ \mbox{\hyperlink{group__zgp__common_ga25e993af2e99b7887752699810fe9c9e}{zb\_zgp\_gpd\_cmds\_list\_t}}\ \ \ \ \ \ gpd\_cmds\_list;\ \ \ \ }
+\DoxyCodeLine{01266\ \ \ \mbox{\hyperlink{group__zgp__common_ga918cb1d6dbfb16bd51b94b2dc344c77f}{zb\_zgp\_cluster\_list\_t}}\ \ \ \ \ \ \ cluster\_list;\ \ \ \ \ }
+\DoxyCodeLine{01267\ \ \ zb\_gpdf\_comm\_switch\_info\_t\ \ switch\_info;\ \ \ \ \ \ }
+\DoxyCodeLine{01268\ \}zb\_gpdf\_comm\_app\_info\_t;}
+\DoxyCodeLine{01269\ }
+\DoxyCodeLine{01274\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_gpdf\_comm\_params\_s}
+\DoxyCodeLine{01275\ \{}
+\DoxyCodeLine{01276\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zgpd\_device\_id;\ \ \ \ }
+\DoxyCodeLine{01277\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ options;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01278\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ext\_options;\ \ \ \ \ \ \ }
+\DoxyCodeLine{01279\ \ \ zb\_gpdf\_comm\_app\_info\_t\ app\_info;\ }
+\DoxyCodeLine{01280\ \}}
+\DoxyCodeLine{01281\ zb\_gpdf\_comm\_params\_t;}
+\DoxyCodeLine{01282\ }
+\DoxyCodeLine{01287\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_gpdf\_comm\_reply\_s}
+\DoxyCodeLine{01288\ \{}
+\DoxyCodeLine{01289\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ options;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01290\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ pan\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01291\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ security\_key[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga92a8e23285e51765375f7dc5350fd780}{ZB\_CCM\_KEY\_SIZE}}];\ }
+\DoxyCodeLine{01292\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ key\_mic[ZB\_CCM\_M];\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01293\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ frame\_counter;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01294\ \}}
+\DoxyCodeLine{01295\ zb\_gpdf\_comm\_reply\_t;}
+\DoxyCodeLine{01296\ }
+\DoxyCodeLine{01297\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_REPLY\_PAN\_ID\_PRESENT(options)\ ((options)\ \&\ 0x01U)}}
+\DoxyCodeLine{01298\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_REPLY\_SEC\_KEY\_PRESENT(options)\ (((options)\ >>\ 1U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01299\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_REPLY\_SEC\_KEY\_ENCRYPTED(options)\ (((options)\ >>\ 2U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01300\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_REPLY\_SEC\_LEVEL(options)\ (((options)\ >>\ 3U)\ \&\ 0x03U)}}
+\DoxyCodeLine{01301\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_REPLY\_SEC\_KEY\_TYPE(options)\ (((options)\ >>\ 5U)\ \&\ 0x07U)}}
+\DoxyCodeLine{01302\ }
+\DoxyCodeLine{01307\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_FLD(sn\_cap,\ rx\_cap,\ ms\_ext,\ pan\_id\_req,\ \(\backslash\)}}
+\DoxyCodeLine{01308\ \textcolor{preprocessor}{\ \ \ \ sec\_key\_req,\ fixed\_loc,\ ext\_opt)\ \(\backslash\)}}
+\DoxyCodeLine{01309\ \textcolor{preprocessor}{\ \ (\ \ \ (sn\_cap)\ \(\backslash\)}}
+\DoxyCodeLine{01310\ \textcolor{preprocessor}{\ \ \ |\ ((rx\_cap)\ \ \ \ \ \ <<\ 1U)\ \(\backslash\)}}
+\DoxyCodeLine{01311\ \textcolor{preprocessor}{\ \ \ |\ ((ms\_ext)\ \ \ \ \ \ <<\ 2U)\ \(\backslash\)}}
+\DoxyCodeLine{01312\ \textcolor{preprocessor}{\ \ \ |\ ((pan\_id\_req)\ \ <<\ 4U)\ \(\backslash\)}}
+\DoxyCodeLine{01313\ \textcolor{preprocessor}{\ \ \ |\ ((sec\_key\_req)\ <<\ 5U)\ \(\backslash\)}}
+\DoxyCodeLine{01314\ \textcolor{preprocessor}{\ \ \ |\ ((fixed\_loc)\ \ \ <<\ 6U)\ \(\backslash\)}}
+\DoxyCodeLine{01315\ \textcolor{preprocessor}{\ \ \ |\ ((ext\_opt)\ \ \ \ \ <<\ 7U)\ )}}
+\DoxyCodeLine{01316\ }
+\DoxyCodeLine{01321\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_EXT\_OPT\_PRESENT(options)\ \(\backslash\)}}
+\DoxyCodeLine{01322\ \textcolor{preprocessor}{\ \ ((options)\ >>\ 7U)}}
+\DoxyCodeLine{01323\ }
+\DoxyCodeLine{01328\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_SEC\_KEY\_REQ(options)\ \(\backslash\)}}
+\DoxyCodeLine{01329\ \textcolor{preprocessor}{\ \ (((options)\ >>\ 5U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01330\ }
+\DoxyCodeLine{01335\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_PAN\_ID\_REQ(options)\ \(\backslash\)}}
+\DoxyCodeLine{01336\ \textcolor{preprocessor}{\ \ (((options)\ >>\ 4U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01337\ }
+\DoxyCodeLine{01342\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_SEQ\_NUM\_CAPS(options)\ \(\backslash\)}}
+\DoxyCodeLine{01343\ \textcolor{preprocessor}{\ \ ((options)\ \&\ 0x01U)}}
+\DoxyCodeLine{01344\ }
+\DoxyCodeLine{01349\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_RX\_CAPABILITY(options)\ \(\backslash\)}}
+\DoxyCodeLine{01350\ \textcolor{preprocessor}{\ \ (((options)\ >>\ 1U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01351\ }
+\DoxyCodeLine{01356\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_FIX\_LOC(options)\ \(\backslash\)}}
+\DoxyCodeLine{01357\ \textcolor{preprocessor}{\ \ (((options)\ >>\ 6U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01358\ }
+\DoxyCodeLine{01363\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_APP\_INF\_PRESENT(options)\ \(\backslash\)}}
+\DoxyCodeLine{01364\ \textcolor{preprocessor}{\ \ (((options)\ >>\ 2U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01365\ }
+\DoxyCodeLine{01370\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_EXT\_OPT\_FLD(sec\_cap,\ key\_type,\ key\_present,\ \(\backslash\)}}
+\DoxyCodeLine{01371\ \textcolor{preprocessor}{\ \ \ \ key\_enc,\ out\_counter)\ \(\backslash\)}}
+\DoxyCodeLine{01372\ \textcolor{preprocessor}{\ \ (\ \ \ (sec\_cap)\ \(\backslash\)}}
+\DoxyCodeLine{01373\ \textcolor{preprocessor}{\ \ \ |\ ((key\_type)\ \ \ \ <<\ 2U)\ \(\backslash\)}}
+\DoxyCodeLine{01374\ \textcolor{preprocessor}{\ \ \ |\ ((key\_present)\ <<\ 5U)\ \(\backslash\)}}
+\DoxyCodeLine{01375\ \textcolor{preprocessor}{\ \ \ |\ ((key\_enc)\ \ \ \ \ <<\ 6U)\ \(\backslash\)}}
+\DoxyCodeLine{01376\ \textcolor{preprocessor}{\ \ \ |\ ((out\_counter)\ <<\ 7U))}}
+\DoxyCodeLine{01377\ }
+\DoxyCodeLine{01382\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_ZGPD\_KEY\_PRESENT(ext\_options)\ \(\backslash\)}}
+\DoxyCodeLine{01383\ \textcolor{preprocessor}{\ \ (((ext\_options)\ >>\ 5U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01384\ }
+\DoxyCodeLine{01389\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_ZGPD\_KEY\_ENCRYPTED(ext\_options)\ \(\backslash\)}}
+\DoxyCodeLine{01390\ \textcolor{preprocessor}{\ \ (((ext\_options)\ >>\ 6U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01391\ }
+\DoxyCodeLine{01396\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_ZGPD\_OUT\_COUNTER\_PRESENT(ext\_options)\ \(\backslash\)}}
+\DoxyCodeLine{01397\ \textcolor{preprocessor}{\ \ ((ext\_options)\ >>\ 7U)}}
+\DoxyCodeLine{01398\ }
+\DoxyCodeLine{01403\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_SEC\_LEVEL\_CAPS(ext\_options)\ \(\backslash\)}}
+\DoxyCodeLine{01404\ \textcolor{preprocessor}{\ \ ((ext\_options)\ \&\ 0x03U)}}
+\DoxyCodeLine{01405\ }
+\DoxyCodeLine{01410\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_OPT\_SEC\_KEY\_TYPE(ext\_options)\ \(\backslash\)}}
+\DoxyCodeLine{01411\ \textcolor{preprocessor}{\ \ ((ext\_options\ >>\ 2U)\ \&\ 0x07U)}}
+\DoxyCodeLine{01412\ }
+\DoxyCodeLine{01417\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_MS\_EXT\_FLD(\_manuf\_id,\ \_manuf\_model\_id,\ \_gp\_cmd\_list,\ \_clstr\_reports)\ \(\backslash\)}}
+\DoxyCodeLine{01418\ \textcolor{preprocessor}{\ \ (\ \ \ (\_manuf\_id)\ \(\backslash\)}}
+\DoxyCodeLine{01419\ \textcolor{preprocessor}{\ \ \ |\ ((\_manuf\_model\_id)\ <<\ 1U)\ \(\backslash\)}}
+\DoxyCodeLine{01420\ \textcolor{preprocessor}{\ \ \ |\ ((\_gp\_cmd\_list)\ \ \ \ <<\ 2U)\ \(\backslash\)}}
+\DoxyCodeLine{01421\ \textcolor{preprocessor}{\ \ \ |\ ((\_clstr\_reports)\ \ <<\ 3U))}}
+\DoxyCodeLine{01422\ }
+\DoxyCodeLine{01427\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_COMM\_REPLY\_OPT\_FLD(pan\_id\_present,\ key\_present,\ \(\backslash\)}}
+\DoxyCodeLine{01428\ \textcolor{preprocessor}{\ \ \ \ key\_enc,\ sec\_level,\ key\_type)\ \(\backslash\)}}
+\DoxyCodeLine{01429\ \textcolor{preprocessor}{\ \ (\ \ \ (pan\_id\_present)\ \(\backslash\)}}
+\DoxyCodeLine{01430\ \textcolor{preprocessor}{\ \ \ |\ ((key\_present)\ <<\ 1U)\ \(\backslash\)}}
+\DoxyCodeLine{01431\ \textcolor{preprocessor}{\ \ \ |\ ((key\_enc)\ \ \ \ \ <<\ 2U)\ \(\backslash\)}}
+\DoxyCodeLine{01432\ \textcolor{preprocessor}{\ \ \ |\ ((sec\_level)\ \ \ <<\ 3U)\ \(\backslash\)}}
+\DoxyCodeLine{01433\ \textcolor{preprocessor}{\ \ \ |\ ((key\_type)\ \ \ \ <<\ 5U))}}
+\DoxyCodeLine{01434\ }
+\DoxyCodeLine{01437\ }
+\DoxyCodeLine{01438\ }
+\DoxyCodeLine{01444\ }
+\DoxyCodeLine{01448\ \textcolor{preprocessor}{\#define\ ZB\_SEND\_COMMISSIONING\_GPDF\_WITHOUT\_SEC(buf,\ device\_id,\ sn\_cap,\ rx\_cap)\ \(\backslash\)}}
+\DoxyCodeLine{01449\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01450\ \textcolor{preprocessor}{\ \ zb\_uint8\_t*\ ptr\ =\ (zb\_uint8\_t*)ZB\_START\_GPDF\_PACKET(buf);\ \(\backslash\)}}
+\DoxyCodeLine{01451\ \textcolor{preprocessor}{\ \ (void)zb\_buf\_alloc\_left(buf,\ 3U,\ ptr);\ \(\backslash\)}}
+\DoxyCodeLine{01452\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT8(ptr,\ ZB\_GPDF\_CMD\_COMMISSIONING);\ \(\backslash\)}}
+\DoxyCodeLine{01453\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT8(ptr,\ device\_id);\ \(\backslash\)}}
+\DoxyCodeLine{01454\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT8(ptr,\ ZB\_GPDF\_COMM\_OPT\_FLD(sn\_cap,\ rx\_cap,\ 0U,\ 0U,\ 0U,\ 0U,\ 0U));\ \(\backslash\)}}
+\DoxyCodeLine{01455\ \textcolor{preprocessor}{\ \ ZB\_SEND\_GPDF\_CMD(ZB\_REF\_FROM\_BUF(buf));\ \(\backslash\)}}
+\DoxyCodeLine{01456\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01457\ }
+\DoxyCodeLine{01462\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_gpdf\_attr\_report\_fld\_s}
+\DoxyCodeLine{01463\ \{}
+\DoxyCodeLine{01464\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ attr\_id;\ \ \ }
+\DoxyCodeLine{01465\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ attr\_type;\ \ }
+\DoxyCodeLine{01466\ \ \ \textcolor{keywordtype}{void}*\ data\_p;\ \ \ \ \ }
+\DoxyCodeLine{01467\ \}}
+\DoxyCodeLine{01468\ zb\_gpdf\_attr\_report\_fld\_t;}
+\DoxyCodeLine{01469\ }
+\DoxyCodeLine{01477\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_ATTR\_REPORTING\_CMD\_INIT(buf,\ cluster\_id,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{01478\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01479\ \textcolor{preprocessor}{\ \ ptr\ =\ ZB\_START\_GPDF\_PACKET(buf);\ \(\backslash\)}}
+\DoxyCodeLine{01480\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT8(ptr,\ ZB\_GPDF\_CMD\_ATTR\_REPORT);\ \(\backslash\)}}
+\DoxyCodeLine{01481\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT16(ptr,\ \&cluster\_id);\ \(\backslash\)}}
+\DoxyCodeLine{01482\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01483\ }
+\DoxyCodeLine{01492\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_ATTR\_REPORTING\_CMD\_NEXT(ptr,\ attr)\ \(\backslash\)}}
+\DoxyCodeLine{01493\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01494\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT16(ptr,\ \&attr.attr\_id);\ \(\backslash\)}}
+\DoxyCodeLine{01495\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT8(ptr,\ attr.attr\_type);\ \(\backslash\)}}
+\DoxyCodeLine{01496\ \textcolor{preprocessor}{\ \ ptr\ =\ zb\_zcl\_put\_value\_to\_packet(ptr,\ attr.attr\_type,\ (zb\_uint8\_t\ *)attr.data\_p);\ \(\backslash\)}}
+\DoxyCodeLine{01497\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01498\ }
+\DoxyCodeLine{01505\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_ATTR\_REPORTING\_CMD\_FINISH(buf,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{01506\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01507\ \textcolor{preprocessor}{\ \ ZB\_FINISH\_GPDF\_PACKET(buf,\ ptr);\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01508\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01509\ }
+\DoxyCodeLine{01515\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_REQUEST\_ATTR\_IS\_MULTI\_RECORD(opts)\ \(\backslash\)}}
+\DoxyCodeLine{01516\ \textcolor{preprocessor}{\ \ (opts\ \&\ 0x01U)}}
+\DoxyCodeLine{01517\ }
+\DoxyCodeLine{01523\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_WRITE\_ATTR\_IS\_MULTI\_RECORD\ \(\backslash\)}}
+\DoxyCodeLine{01524\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_REQUEST\_ATTR\_IS\_MULTI\_RECORD}}
+\DoxyCodeLine{01525\ }
+\DoxyCodeLine{01531\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_REQUEST\_ATTR\_MANUF\_FIELD\_PRESENT(opts)\ \(\backslash\)}}
+\DoxyCodeLine{01532\ \textcolor{preprocessor}{\ \ ((opts\ >>\ 1U)\ \&\ 0x01U)}}
+\DoxyCodeLine{01533\ }
+\DoxyCodeLine{01539\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_WRITE\_ATTR\_MANUF\_FIELD\_PRESENT\ \(\backslash\)}}
+\DoxyCodeLine{01540\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_REQUEST\_ATTR\_MANUF\_FIELD\_PRESENT}}
+\DoxyCodeLine{01541\ }
+\DoxyCodeLine{01547\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_REQUEST\_ATTR\_OPTIONS\_FLD(multi\_record,\ manuf\_present)\ \(\backslash\)}}
+\DoxyCodeLine{01548\ \textcolor{preprocessor}{\ \ ((multi\_record)\ |\ (manuf\_present\ <<\ 1U))}}
+\DoxyCodeLine{01549\ }
+\DoxyCodeLine{01555\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_WRITE\_ATTR\_OPTIONS\_FLD\ \(\backslash\)}}
+\DoxyCodeLine{01556\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_REQUEST\_ATTR\_OPTIONS\_FLD}}
+\DoxyCodeLine{01557\ }
+\DoxyCodeLine{01566\ \textcolor{preprocessor}{\#define\ ZB\_GPDF\_REQUEST\_ATTR\_PARSE\_RECORD(rec,\ cluster\_id,\ attr\_count,\ attrs)\ \(\backslash\)}}
+\DoxyCodeLine{01567\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01568\ \textcolor{preprocessor}{\ \ ZB\_LETOH16((cluster\_id),\ (rec));\ \(\backslash\)}}
+\DoxyCodeLine{01569\ \textcolor{preprocessor}{\ \ *(attr\_count)\ =\ (rec)[2]/sizeof(zb\_uint16\_t);\ \(\backslash\)}}
+\DoxyCodeLine{01570\ \textcolor{preprocessor}{\ \ *(attrs)\ =\ (zb\_uint16\_t\ *)(void\ *)(\&(rec)[3]);\ \(\backslash\)}}
+\DoxyCodeLine{01571\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01572\ }
+\DoxyCodeLine{01580\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_WRITE\_ATTR\_CMD\_INIT(buf,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{01581\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01582\ \textcolor{preprocessor}{\ \ ptr\ =\ ZB\_START\_GPDF\_PACKET(buf);\ \(\backslash\)}}
+\DoxyCodeLine{01583\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT8(ptr,\ ZB\_GPDF\_WRITE\_ATTR\_OPTIONS\_FLD(0,0));\ \(\backslash\)}}
+\DoxyCodeLine{01584\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01585\ }
+\DoxyCodeLine{01593\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_WRITE\_ATTR\_MANUF\_CMD\_INIT(buf,\ manuf\_id,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{01594\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01595\ \textcolor{preprocessor}{\ \ ptr\ =\ ZB\_START\_GPDF\_PACKET(buf);\ \(\backslash\)}}
+\DoxyCodeLine{01596\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT8(ptr,\ ZB\_GPDF\_WRITE\_ATTR\_OPTIONS\_FLD(0,1));\ \(\backslash\)}}
+\DoxyCodeLine{01597\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT16(ptr,\ \&(manuf\_id));\ \(\backslash\)}}
+\DoxyCodeLine{01598\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01599\ }
+\DoxyCodeLine{01610\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_WRITE\_ATTR\_NEW\_CLUSTER\_RECORD(ptr,\ cluster\_id,\ record\_list\_len)\ \(\backslash\)}}
+\DoxyCodeLine{01611\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01612\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT16(ptr,\ \&cluster\_id);\ \(\backslash\)}}
+\DoxyCodeLine{01613\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT8(ptr,\ (record\_list\_len));\ \(\backslash\)}}
+\DoxyCodeLine{01614\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01615\ }
+\DoxyCodeLine{01626\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_WRITE\_ATTR\_CMD\_NEXT\_ATTR(ptr,\ attr\_id,\ attr\_type,\ value)\ \(\backslash\)}}
+\DoxyCodeLine{01627\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01628\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT16(ptr,\ \&attr\_id);\ \(\backslash\)}}
+\DoxyCodeLine{01629\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT8(ptr,\ attr\_type);\ \(\backslash\)}}
+\DoxyCodeLine{01630\ \textcolor{preprocessor}{\ \ ptr\ =\ zb\_zcl\_put\_value\_to\_packet(ptr,\ attr\_type,\ (zb\_uint8\_t\ *)(value));\ \(\backslash\)}}
+\DoxyCodeLine{01631\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01632\ }
+\DoxyCodeLine{01639\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_WRITE\_ATTR\_CMD\_FINISH(buf,\ ptr)\ \(\backslash\)}}
+\DoxyCodeLine{01640\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01641\ \textcolor{preprocessor}{\ \ ZB\_FINISH\_GPDF\_PACKET(buf,\ ptr);\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{01642\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01643\ }
+\DoxyCodeLine{01644\ \textcolor{comment}{/*\ [AV]\ tmm\ it'll\ be\ better\ to\ name\ macros\ like\ this\ once}}
+\DoxyCodeLine{01645\ \textcolor{comment}{\ \ \ and\ don't\ rename\ them\ like\ \#def\ macro\_write\_init(...)\ macro\_read\_init(...),}}
+\DoxyCodeLine{01646\ \textcolor{comment}{\ \ \ because\ there\ is\ no\ difference}}
+\DoxyCodeLine{01647\ \textcolor{comment}{*/}}
+\DoxyCodeLine{01648\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_CLUSTER\_CMD\_INIT(\_buf,\ \_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{01649\ \textcolor{preprocessor}{\ \ ZB\_ZGPD\_WRITE\_ATTR\_CMD\_INIT(\_buf,\ \_ptr)}}
+\DoxyCodeLine{01650\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_CLUSTER\_CMD\_MANUF\_INIT(\_buf,\ \_manuf\_id,\ \_ptr)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{01651\ \textcolor{preprocessor}{\ \ ZB\_ZGPD\_WRITE\_ATTR\_MANUF\_CMD\_INIT(\_buf,\ \_manuf\_id,\ \_ptr)}}
+\DoxyCodeLine{01652\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_NEW\_CLUSTER\_RECORD(\_ptr,\ \_cluster\_id,\ \_record\_list\_len)\ \(\backslash\)}}
+\DoxyCodeLine{01653\ \textcolor{preprocessor}{\ \ ZB\_ZGPD\_WRITE\_ATTR\_NEW\_CLUSTER\_RECORD(\_ptr,\ \_cluster\_id,\ \_record\_list\_len)}}
+\DoxyCodeLine{01654\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_READ\_ATTR\_CMD\_NEXT\_ATTR(\_ptr,\ \_attr\_id)\ \(\backslash\)}}
+\DoxyCodeLine{01655\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01656\ \textcolor{preprocessor}{\ \ ZB\_GPDF\_PUT\_UINT16(\_ptr,\ \&\_attr\_id);\ \(\backslash\)}}
+\DoxyCodeLine{01657\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01658\ \textcolor{preprocessor}{\#define\ ZB\_ZGPD\_CLUSTER\_CMD\_FINISH(\_buf,\ \_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{01659\ \textcolor{preprocessor}{\{\ \(\backslash\)}}
+\DoxyCodeLine{01660\ \textcolor{preprocessor}{\ \ ZB\_FINISH\_GPDF\_PACKET(\_buf,\ \_ptr);\ \(\backslash\)}}
+\DoxyCodeLine{01661\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{01662\ }
+\DoxyCodeLine{01663\ \textcolor{preprocessor}{\#ifdef\ ZB\_ENABLE\_ZGP\_DIRECT}}
+\DoxyCodeLine{01664\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zgps\_send\_cmd\_params\_s}
+\DoxyCodeLine{01665\ \{}
+\DoxyCodeLine{01666\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ cmd\_id;}
+\DoxyCodeLine{01667\ \ \ zb\_zgpd\_id\_t\ \ \ zgpd\_id;}
+\DoxyCodeLine{01668\ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ ieee\_addr;}
+\DoxyCodeLine{01669\ \ \ \mbox{\hyperlink{group__time_ga4a9b11432472914ec75400482181483a}{zb\_time\_t}}\ \ \ \ \ \ lifetime;}
+\DoxyCodeLine{01670\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ tx\_options;}
+\DoxyCodeLine{01671\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ handle;}
+\DoxyCodeLine{01672\ \}}
+\DoxyCodeLine{01673\ zb\_zgps\_send\_cmd\_params\_t;}
+\DoxyCodeLine{01674\ }
+\DoxyCodeLine{01706\ \textcolor{keywordtype}{void}\ zb\_zgps\_send\_data(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{01707\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_ENABLE\_ZGP\_DIRECT\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01710\ }
+\DoxyCodeLine{01715\ }
+\DoxyCodeLine{01748\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_gaa0ffa2237ee2dc5ead0a923cc46b187d}{zb\_zgps\_start\_commissioning}}(\mbox{\hyperlink{group__time_ga4a9b11432472914ec75400482181483a}{zb\_time\_t}}\ timeout);}
+\DoxyCodeLine{01749\ }
+\DoxyCodeLine{01765\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_ga5de7f1188465c13a21577febb4a24646}{zb\_zgps\_start\_commissioning\_on\_ep}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ ep,\ \mbox{\hyperlink{group__time_ga4a9b11432472914ec75400482181483a}{zb\_time\_t}}\ timeout);}
+\DoxyCodeLine{01766\ }
+\DoxyCodeLine{01778\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_gaf9ef655972eaee945837db642da1eb6c}{zb\_zgps\_stop\_commissioning}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01779\ }
+\DoxyCodeLine{01796\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_ga547c02fc2e064f4a92d59b5569245d3e}{zb\_zgps\_accept\_commissioning}}(\mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ accept);}
+\DoxyCodeLine{01797\ }
+\DoxyCodeLine{01814\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_ga59bda9cd512c8ed58ae5b97a9564e7d9}{zb\_zgps\_delete\_zgpd}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ buf\_ref,\ zb\_zgpd\_id\_t\ *zgpd\_id);}
+\DoxyCodeLine{01815\ }
+\DoxyCodeLine{01820\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_ga59797b0925fcee561b4584ee9e99d468}{zb\_zgps\_delete\_all\_zgpd}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01821\ }
+\DoxyCodeLine{01825\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_ga25b218c25cacaee98472a9e010187fb8}{zb\_zgps\_get\_diag\_data}}(zb\_zgpd\_id\_t\ *zgpd\_id,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *lqi,\ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ *rssi);}
+\DoxyCodeLine{01826\ }
+\DoxyCodeLine{01828\ }
+\DoxyCodeLine{01833\ }
+\DoxyCodeLine{01847\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_FILL\_GPS\_SECURITY\_LEVEL(sec\_lvl,\ with\_link\_key,\ involve\_tc)\(\backslash\)}}
+\DoxyCodeLine{01848\ \textcolor{preprocessor}{\ \ (((sec\_lvl)\ \&\ 3U)\ |\ ((!!(with\_link\_key))\ <<\ 2U)\ |\ ((!!(involve\_tc))\ <<\ 3U))}}
+\DoxyCodeLine{01849\ }
+\DoxyCodeLine{01850\ }
+\DoxyCodeLine{01860\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_gaee0f632b6b4d57ab625a9898083261e6}{zb\_zgps\_set\_security\_level}}(\mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ level);}
+\DoxyCodeLine{01861\ }
+\DoxyCodeLine{01869\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{group__zgp__sink_gaddc847725e14ca637869f6fdd76a4469}{zb\_zgps\_get\_security\_level}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01870\ }
+\DoxyCodeLine{01878\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_gafdfb6d0679c3f6973efaabd2a7d68466}{zb\_zgp\_set\_shared\_security\_key\_type}}(\mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ key\_type);}
+\DoxyCodeLine{01879\ }
+\DoxyCodeLine{01887\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_gabe7f0ab976e394233dfcf97b8b743f0b}{zb\_zgp\_set\_shared\_security\_key}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *key);}
+\DoxyCodeLine{01888\ }
+\DoxyCodeLine{01896\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_gafedc8399235be05c20919c738baa9420}{zb\_zgps\_set\_commissioning\_exit\_mode}}(\mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ cem);}
+\DoxyCodeLine{01897\ }
+\DoxyCodeLine{01907\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_gadce17ce6ab11af41179e9085254f60c4}{zb\_zgps\_set\_communication\_mode}}(\mbox{\hyperlink{group__zgp__common_ga5a9ed118c2e8146378eb4b9fae594a1a}{zgp\_communication\_mode\_t}}\ mode);}
+\DoxyCodeLine{01908\ }
+\DoxyCodeLine{01934\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ \mbox{\hyperlink{group__zgp__sink_ga87ad3e7a6609cce8d97e96f019e8483d}{zb\_zgp\_convert\_8bit\_vector}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ vector\_8bit\_cmd\_id,\ \ \ \ \ \ \textcolor{comment}{/*\ press\ or\ release\ cmd\ */}}
+\DoxyCodeLine{01935\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ switch\_type,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ see\ zb\_zgpd\_switch\_type\_e\ */}}
+\DoxyCodeLine{01936\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ num\_of\_contacts,}
+\DoxyCodeLine{01937\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ contact\_status,}
+\DoxyCodeLine{01938\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *zgp\_cmd\_out);}
+\DoxyCodeLine{01939\ }
+\DoxyCodeLine{01951\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zgp__sink_ga5e19e6ec79ab0f99dde1453db554da61}{zb\_zgp\_gpdf\_raw\_indication}}(\mbox{\hyperlink{group__buf_ga6178e55e31bb460a37b0a71a0e7a5f95}{zb\_bufid\_t}}\ buf\_ref);}
+\DoxyCodeLine{01952\ }
+\DoxyCodeLine{01953\ \textcolor{preprocessor}{\#ifdef\ ZB\_ENABLE\_ZGP\_DIRECT}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01963\ }
+\DoxyCodeLine{01964\ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ zb\_zgp\_set\_skip\_gpdf(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ skip);}
+\DoxyCodeLine{01965\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_zgp\_get\_skip\_gpdf(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01966\ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ zb\_zgp\_sync\_pib(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{01967\ }
+\DoxyCodeLine{01968\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_ENABLE\_ZGP\_DIRECT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01969\ }
+\DoxyCodeLine{01971\ }
+\DoxyCodeLine{01972\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZGPD\_ROLE}}
+\DoxyCodeLine{01973\ }
+\DoxyCodeLine{01974\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zgp\_proxy\_comm\_mode\_action\_e}
+\DoxyCodeLine{01975\ \{}
+\DoxyCodeLine{01976\ \ \ ZGP\_PROXY\_COMM\_MODE\_LEAVE,}
+\DoxyCodeLine{01977\ \ \ ZGP\_PROXY\_COMM\_MODE\_ENTER}
+\DoxyCodeLine{01978\ \}\ zgp\_proxy\_comm\_mode\_action\_t;}
+\DoxyCodeLine{01979\ }
+\DoxyCodeLine{01980\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zgp\_proxy\_comm\_mode\_ch\_present\_e}
+\DoxyCodeLine{01981\ \{}
+\DoxyCodeLine{01982\ \ \ ZGP\_PROXY\_COMM\_MODE\_CHANNEL\_PRESENT,}
+\DoxyCodeLine{01983\ \ \ ZGP\_PROXY\_COMM\_MODE\_CHANNEL\_NOT\_PRESENT}
+\DoxyCodeLine{01984\ \}\ zgp\_proxy\_comm\_mode\_ch\_present\_t;}
+\DoxyCodeLine{01985\ }
+\DoxyCodeLine{01986\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zgp\_proxy\_comm\_mode\_communication\_e}
+\DoxyCodeLine{01987\ \{}
+\DoxyCodeLine{01988\ \ \ ZGP\_PROXY\_COMM\_MODE\_BROADCAST,}
+\DoxyCodeLine{01989\ \ \ ZGP\_PROXY\_COMM\_MODE\_UNICAST}
+\DoxyCodeLine{01990\ \}\ zgp\_proxy\_comm\_mode\_communication\_t;}
+\DoxyCodeLine{01991\ }
+\DoxyCodeLine{02000\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_FILL\_PROXY\_COMM\_MODE\_OPTIONS(action,\ exit\_mode,\ ch\_present,\ communication)\ \(\backslash\)}}
+\DoxyCodeLine{02001\ \textcolor{preprocessor}{\ \ ((!!(action))\ |\ (((exit\_mode)\ \&\ 7)\ <<\ 1)\ |\ ((!!(ch\_present))\ <<\ 4)\ |\ (((communication)\&3)\ <<\ 5))}}
+\DoxyCodeLine{02002\ }
+\DoxyCodeLine{02014\ \textcolor{keywordtype}{void}\ zb\_zgp\_cluster\_proxy\_commissioning\_mode\_req(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ param,}
+\DoxyCodeLine{02015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ options,}
+\DoxyCodeLine{02016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ comm\_wind,}
+\DoxyCodeLine{02017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ channel,}
+\DoxyCodeLine{02018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02019\ }
+\DoxyCodeLine{02030\ \textcolor{keywordtype}{void}\ zgp\_cluster\_send\_proxy\_commissioning\_mode\_enter\_req(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ param,}
+\DoxyCodeLine{02031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ exit\_mode,}
+\DoxyCodeLine{02032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ comm\_window,}
+\DoxyCodeLine{02033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02034\ }
+\DoxyCodeLine{02043\ \textcolor{keywordtype}{void}\ zgp\_cluster\_send\_proxy\_commissioning\_mode\_leave\_req(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02044\ }
+\DoxyCodeLine{02062\ \textcolor{preprocessor}{\#define\ ZB\_ZGP\_FILL\_GP\_PAIRING\_OPTIONS(app\_id,\ add\_sink,\ remove\_gpd,\ comm\_mode,\(\backslash\)}}
+\DoxyCodeLine{02063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gpd\_fixed,\ gpd\_mac\_sec\_num\_cap,\ sec\_lvl,\(\backslash\)}}
+\DoxyCodeLine{02064\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sec\_key\_type,\ frame\_cnt\_prsnt,\(\backslash\)}}
+\DoxyCodeLine{02065\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gpd\_sec\_key\_prsnt,\ assigned\_alias\_prsnt,\ \(\backslash\)}}
+\DoxyCodeLine{02066\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ frwrd\_radius\_prsnt)\(\backslash\)}}
+\DoxyCodeLine{02067\ \textcolor{preprocessor}{\ \ (((app\_id)\ \&\ 7)\ |\ ((!!(add\_sink))\ <<\ 3)\ |\ ((!!(remove\_gpd))\ <<\ 4)\ |\ (((comm\_mode)\ \&\ 3)\ <<\ 5)\ |\ (((!!(add\_sink))\ ?\ (!!(gpd\_fixed))\ :\ 0)\ <<\ 7)\ |\ (((!!(add\_sink))\ ?\ (!!(gpd\_mac\_sec\_num\_cap))\ :\ 0)\ <<\ 8)\ |\ (((!!(add\_sink))\ ?\ ((sec\_lvl)\ \&\ 3)\ :\ 0)\ <<\ 9)\ |\ (((!!(add\_sink))\ ?\ ((sec\_key\_type)\ \&\ 7)\ :\ 0)\ <<\ 11)\ |\ ((!!(frame\_cnt\_prsnt))\ <<\ 14)\ |\ (((!!(add\_sink))\ ?\ (!!(gpd\_sec\_key\_prsnt))\ :\ 0)\ <<\ 15)\ |\ (((!!(add\_sink))\ ?\ (!!(assigned\_alias\_prsnt))\ :\ 0)\ <<\ 16)\ |\ (((!!(add\_sink))\ ?\ (!!(frwrd\_radius\_prsnt))\ :\ 0)\ <<\ 17))}}
+\DoxyCodeLine{02068\ }
+\DoxyCodeLine{02087\ \textcolor{keywordtype}{void}\ zb\_zgp\_cluster\_gp\_pairing\_req(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ param,}
+\DoxyCodeLine{02088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ dst\_addr,}
+\DoxyCodeLine{02089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ dst\_addr\_mode,}
+\DoxyCodeLine{02090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ options,}
+\DoxyCodeLine{02091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zgpd\_addr\_t\ gpd\_id,}
+\DoxyCodeLine{02092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ endpoint,}
+\DoxyCodeLine{02093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ dev\_id,}
+\DoxyCodeLine{02094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ sec\_frame\_counter,}
+\DoxyCodeLine{02095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ *key,}
+\DoxyCodeLine{02096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ assigned\_alias,}
+\DoxyCodeLine{02097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ frwd\_radius,}
+\DoxyCodeLine{02098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ group\_id,}
+\DoxyCodeLine{02099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ \ cb);}
+\DoxyCodeLine{02100\ }
+\DoxyCodeLine{02115\ \textcolor{keywordtype}{void}\ zgp\_cluster\_send\_gp\_sink\_table\_request(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ buf\_ref,}
+\DoxyCodeLine{02116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ dst\_addr,}
+\DoxyCodeLine{02117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ dst\_addr\_mode,}
+\DoxyCodeLine{02118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ options,}
+\DoxyCodeLine{02119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zgpd\_id\_t\ *zgpd\_id,}
+\DoxyCodeLine{02120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ index,}
+\DoxyCodeLine{02121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02122\ }
+\DoxyCodeLine{02137\ \textcolor{keywordtype}{void}\ zgp\_cluster\_send\_gp\_proxy\_table\_request(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ buf\_ref,}
+\DoxyCodeLine{02138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ dst\_addr,}
+\DoxyCodeLine{02139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ dst\_addr\_mode,}
+\DoxyCodeLine{02140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ options,}
+\DoxyCodeLine{02141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zgpd\_id\_t\ *zgpd\_id,}
+\DoxyCodeLine{02142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ index,}
+\DoxyCodeLine{02143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02144\ }
+\DoxyCodeLine{02145\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__pair__group__list__s}{zgp\_pair\_group\_list\_s}}}
+\DoxyCodeLine{02146\ \{}
+\DoxyCodeLine{02147\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ sink\_group;}
+\DoxyCodeLine{02148\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ alias;}
+\DoxyCodeLine{02149\ \}}
+\DoxyCodeLine{02150\ ZB\_PACKED\_STRUCT\ zgp\_pair\_group\_list\_t;}
+\DoxyCodeLine{02151\ }
+\DoxyCodeLine{02152\ \textcolor{comment}{/*\ >>\ Data\ structures\ for\ Application\ Description\ */}}
+\DoxyCodeLine{02153\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zgp\_app\_descr\_status\_e}
+\DoxyCodeLine{02154\ \{}
+\DoxyCodeLine{02155\ \ \ ZGP\_APP\_TBL\_ENT\_STATUS\_FREE\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0,}
+\DoxyCodeLine{02156\ \ \ ZGP\_APP\_TBL\_ENT\_STATUS\_INIT\_WITH\_SW\_INFO\ =\ 1,}
+\DoxyCodeLine{02157\ \ \ ZGP\_APP\_TBL\_ENT\_STATUS\_INIT\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 2,}
+\DoxyCodeLine{02158\ \ \ ZGP\_APP\_TBL\_ENT\_STATUS\_APP\_DESCR\_PROCESS\ =\ 3,}
+\DoxyCodeLine{02159\ \ \ ZGP\_APP\_TBL\_ENT\_STATUS\_COMPLETE\ \ \ \ \ \ \ \ \ \ =\ 4}
+\DoxyCodeLine{02160\ \}\ zgp\_app\_descr\_status\_t;}
+\DoxyCodeLine{02161\ }
+\DoxyCodeLine{02162\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__app__tbl__ent__options__s}{zgp\_app\_tbl\_ent\_options\_s}}}
+\DoxyCodeLine{02163\ \{}
+\DoxyCodeLine{02164\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ ieee\_addr\_present:1;}
+\DoxyCodeLine{02165\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ switch\_info\_present:1;}
+\DoxyCodeLine{02166\ \ \ \mbox{\hyperlink{group__base__types_gaec671cd77968c7e812e14a921ffbb1a6}{zb\_bitfield\_t}}\ reserved:6;}
+\DoxyCodeLine{02167\ \}ZB\_PACKED\_STRUCT\ zgp\_app\_tbl\_ent\_options\_t;}
+\DoxyCodeLine{02168\ }
+\DoxyCodeLine{02169\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__app__tbl__ent__info__s}{zgp\_app\_tbl\_ent\_info\_s}}}
+\DoxyCodeLine{02170\ \{}
+\DoxyCodeLine{02171\ \ \ zb\_zgpd\_addr\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addr;}
+\DoxyCodeLine{02172\ \ \ zgp\_app\_tbl\_ent\_options\_t\ \ \ \ \ options;}
+\DoxyCodeLine{02173\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ total\_reports\_num;}
+\DoxyCodeLine{02174\ \ \ zb\_gpdf\_comm\_switch\_gen\_cfg\_t\ switch\_info\_configuration;}
+\DoxyCodeLine{02175\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reserved;}
+\DoxyCodeLine{02176\ \}ZB\_PACKED\_STRUCT\ zgp\_app\_tbl\_ent\_info\_t;}
+\DoxyCodeLine{02177\ }
+\DoxyCodeLine{02178\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__app__tbl__ent__s}{zgp\_app\_tbl\_ent\_s}}}
+\DoxyCodeLine{02179\ \{}
+\DoxyCodeLine{02180\ \ \ zgp\_app\_tbl\_ent\_info\_t\ info;}
+\DoxyCodeLine{02181\ \ \ zgp\_report\_desc\_t\ \ \ \ \ \ reports[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga0d681e625f5e867e8e0519bca8fdd479}{ZB\_ZGP\_APP\_DESCR\_REPORTS\_NUM}}];}
+\DoxyCodeLine{02182\ \}ZB\_PACKED\_STRUCT\ zgp\_app\_tbl\_ent\_t;}
+\DoxyCodeLine{02183\ }
+\DoxyCodeLine{02184\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__runtime__app__tbl__ent__s}{zgp\_runtime\_app\_tbl\_ent\_s}}}
+\DoxyCodeLine{02185\ \{}
+\DoxyCodeLine{02186\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ status;\ \textcolor{comment}{/*\ zgp\_app\_descr\_status\_t\ */}}
+\DoxyCodeLine{02187\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ receive\_reports[ZB\_SIZE\_OF\_BIT\_VECTOR(\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga0d681e625f5e867e8e0519bca8fdd479}{ZB\_ZGP\_APP\_DESCR\_REPORTS\_NUM}})];}
+\DoxyCodeLine{02188\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ reply\_buf;}
+\DoxyCodeLine{02189\ \ \ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ \ need\_reply;}
+\DoxyCodeLine{02190\ \ \ zgp\_app\_tbl\_ent\_t\ base;}
+\DoxyCodeLine{02191\ \}zgp\_runtime\_app\_tbl\_ent\_t;}
+\DoxyCodeLine{02192\ }
+\DoxyCodeLine{02193\ \textcolor{comment}{/*\ <<\ Data\ structures\ for\ Application\ Description\ */}}
+\DoxyCodeLine{02194\ }
+\DoxyCodeLine{02195\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structzgp__tbl__ent__s}{zgp\_tbl\_ent\_s}}}
+\DoxyCodeLine{02196\ \{}
+\DoxyCodeLine{02197\ \ \ zb\_zgpd\_addr\_t\ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_a958b228eb6d465a8e6142e98cd848b6c}{zgpd\_id}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02198\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_a527568a42659b294fa4cb00f72dfcd99}{options}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02199\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_a7b0ee0d46417a3da21406ea33128bbf8}{zgpd\_assigned\_alias}};\ }
+\DoxyCodeLine{02201\ }
+\DoxyCodeLine{02202\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ \ \ \ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_a97ae88250c9a94994038e70f0aebca6a}{security\_counter}};\ }
+\DoxyCodeLine{02203\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_a9f924c9f39b702a72cf2c4b1bc77c2d9}{zgpd\_key}}[\mbox{\hyperlink{group___z_b___c_o_n_f_i_g_ga92a8e23285e51765375f7dc5350fd780}{ZB\_CCM\_KEY\_SIZE}}];\ }
+\DoxyCodeLine{02204\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_a8e609dff64cf8aaa12d86acadd47fd4d}{endpoint}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02205\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_ace0089e87d73db50cd37c58da07f87b8}{sec\_options}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02206\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_a16c4065a34c539a268124744f7305e27}{groupcast\_radius}};\ \ \ \ }
+\DoxyCodeLine{02207\ }
+\DoxyCodeLine{02208\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ is\_sink;}
+\DoxyCodeLine{02209\ }
+\DoxyCodeLine{02210\ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{02211\ \ \ \{}
+\DoxyCodeLine{02212\ \ \ \ \ \textcolor{keyword}{struct\ }zgp\_proxy\_tbl\_ent\_s}
+\DoxyCodeLine{02213\ \ \ \ \ \{}
+\DoxyCodeLine{02214\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ ext\_options;}
+\DoxyCodeLine{02215\ \ \ \ \ \ \ \textcolor{keyword}{struct\ }zgp\_lwsink\_addr\_list\_s}
+\DoxyCodeLine{02216\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{02217\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group___z_b___n_w_k___a_d_d_r_ga2e5c125720ee343e95470acbd9c4ca33}{zb\_address\_ieee\_ref\_t}}\ addr\_ref;}
+\DoxyCodeLine{02218\ \ \ \ \ \ \ \}\ lwsaddr[ZB\_ZGP\_MAX\_LW\_UNICAST\_ADDR\_PER\_GPD];}
+\DoxyCodeLine{02219\ \ \ \ \ \ \ zgp\_pair\_group\_list\_t\ sgrp[ZB\_ZGP\_MAX\_SINK\_GROUP\_PER\_GPD];}
+\DoxyCodeLine{02220\ \ \ \ \ \}\ proxy;}
+\DoxyCodeLine{02221\ \ \ \ \ \textcolor{keyword}{struct\ }zgp\_sink\_tbl\_ent\_s}
+\DoxyCodeLine{02222\ \ \ \ \ \{}
+\DoxyCodeLine{02223\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_a71a5def62d69175a3e8989ad3c4c2e9d}{device\_id}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{02224\ \ \ \ \ \ \ zgp\_pair\_group\_list\_t\ sgrp[ZB\_ZGP\_MAX\_SINK\_GROUP\_PER\_GPD];}
+\DoxyCodeLine{02225\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{structzgp__tbl__ent__s_a8cd7e2099da401cc3f23ef628dcf9219}{match\_dev\_tbl\_idx}};\ }
+\DoxyCodeLine{02231\ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga041a680dc6128c00ef10f4d42ebd1b4b}{zb\_ieee\_addr\_t}}\ \ \ \mbox{\hyperlink{structzgp__tbl__ent__s_a8876250b9bfa1e29164dfbf788af61e5}{ieee\_addr}};}
+\DoxyCodeLine{02232\ \ \ \ \ \}\ sink;}
+\DoxyCodeLine{02233\ \ \ \}\ u;}
+\DoxyCodeLine{02234\ \}\ zgp\_tbl\_ent\_t;}
+\DoxyCodeLine{02235\ }
+\DoxyCodeLine{02236\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_ZGP\_SINK\ ||\ defined\ ZGP\_COMMISSIONING\_TOOL}}
+\DoxyCodeLine{02237\ \textcolor{keyword}{typedef}\ zgp\_tbl\_ent\_t\ zb\_zgp\_sink\_tbl\_ent\_t;}
+\DoxyCodeLine{02238\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ defined\ ZB\_ENABLE\_ZGP\_SINK\ ||\ defined\ ZGP\_COMMISSIONING\_TOOL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02239\ \textcolor{preprocessor}{\#ifdef\ ZB\_ENABLE\_ZGP\_PROXY}}
+\DoxyCodeLine{02240\ \textcolor{keyword}{typedef}\ zgp\_tbl\_ent\_t\ zb\_zgp\_proxy\_tbl\_ent\_t;}
+\DoxyCodeLine{02241\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_ENABLE\_ZGP\_PROXY\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02242\ }
+\DoxyCodeLine{02243\ \textcolor{preprocessor}{\#if\ defined\ ZB\_ENABLE\_ZGP\_SINK\ ||\ defined\ \ ZGP\_COMMISSIONING\_TOOL}}
+\DoxyCodeLine{02244\ \textcolor{comment}{/*\ TODO:\ update\ description\ */}}
+\DoxyCodeLine{02259\ \textcolor{keywordtype}{void}\ zgp\_cluster\_send\_pairing\_configuration(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ buf\_ref,}
+\DoxyCodeLine{02260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \ \ \ \ dst\_addr,}
+\DoxyCodeLine{02261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr\_mode,}
+\DoxyCodeLine{02262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ actions,}
+\DoxyCodeLine{02263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zgp\_sink\_tbl\_ent\_t\ *ent,}
+\DoxyCodeLine{02264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ num\_paired\_endpoints,}
+\DoxyCodeLine{02265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ *paired\_endpoints,}
+\DoxyCodeLine{02266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ app\_info,}
+\DoxyCodeLine{02267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \ \ \ \ manuf\_id,}
+\DoxyCodeLine{02268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ \ \ \ \ \ \ \ \ \ model\_id,}
+\DoxyCodeLine{02269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ num\_gpd\_commands,}
+\DoxyCodeLine{02270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ \ \ \ \ \ \ \ \ *gpd\_commands,}
+\DoxyCodeLine{02271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__zgp__common_ga918cb1d6dbfb16bd51b94b2dc344c77f}{zb\_zgp\_cluster\_list\_t}}\ *cluster\_list,}
+\DoxyCodeLine{02272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_gpdf\_comm\_switch\_info\_t\ *switch\_info,}
+\DoxyCodeLine{02273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ \ \ \ \ \ \ \ \ \ cb);}
+\DoxyCodeLine{02274\ }
+\DoxyCodeLine{02292\ \textcolor{keywordtype}{void}\ zgp\_cluster\_send\_pairing\_configuration\_app\_descr(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ buf\_ref,}
+\DoxyCodeLine{02293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ dst\_addr,}
+\DoxyCodeLine{02294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_addr\_mode,}
+\DoxyCodeLine{02295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ actions,}
+\DoxyCodeLine{02296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ app\_info,}
+\DoxyCodeLine{02297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zgp\_sink\_tbl\_ent\_t\ *ent,}
+\DoxyCodeLine{02298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zgp\_runtime\_app\_tbl\_ent\_t\ *app\_tbl\_ent,}
+\DoxyCodeLine{02299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ num\_paired\_endpoints,}
+\DoxyCodeLine{02300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *paired\_endpoints,}
+\DoxyCodeLine{02301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ report\_idx,}
+\DoxyCodeLine{02302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02303\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ defined\ ZB\_ENABLE\_ZGP\_SINK\ ||\ defined\ \ ZGP\_COMMISSIONING\_TOOL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02304\ }
+\DoxyCodeLine{02305\ \textcolor{preprocessor}{\#ifdef\ ZGP\_COMMISSIONING\_TOOL}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02319\ \textcolor{keywordtype}{void}\ zgp\_cluster\_send\_gp\_sink\_commissioning\_mode(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ buf\_ref,}
+\DoxyCodeLine{02320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ \ \ dst\_addr,}
+\DoxyCodeLine{02321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ dst\_addr\_mode,}
+\DoxyCodeLine{02322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ options,}
+\DoxyCodeLine{02323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \ \ \ endpoint,}
+\DoxyCodeLine{02324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{02325\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZGP\_COMMISSIONING\_TOOL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02326\ }
+\DoxyCodeLine{02327\ \textcolor{keywordtype}{void}\ zgp\_gp\_set\_shared\_security\_key\_type(\textcolor{keyword}{enum}\ \mbox{\hyperlink{group__zgp__common_ga3fadeed60888b84121875be7972efddf}{zb\_zgp\_security\_key\_type\_e}}\ type);}
+\DoxyCodeLine{02328\ \textcolor{preprocessor}{\#define\ ZGP\_GP\_SET\_SHARED\_SECURITY\_KEY\_TYPE(type)\ zgp\_gp\_set\_shared\_security\_key\_type(type)}}
+\DoxyCodeLine{02329\ }
+\DoxyCodeLine{02330\ \textcolor{preprocessor}{\#ifdef\ ZGP\_CLUSTER\_TEST}}
+\DoxyCodeLine{02331\ \textcolor{comment}{/*\ Application\ specific\ zcl\ command\ handler\ for\ test\ purposes\ */}}
+\DoxyCodeLine{02332\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ (*zgp\_cluster\_app\_zcl\_cmd\_handler\_t)(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ buf\_ref);}
+\DoxyCodeLine{02333\ }
+\DoxyCodeLine{02339\ \textcolor{keywordtype}{void}\ zgp\_cluster\_set\_app\_zcl\_cmd\_handler(zgp\_cluster\_app\_zcl\_cmd\_handler\_t\ handler);}
+\DoxyCodeLine{02340\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZGP\_CLUSTER\_TEST\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02341\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ !ZB\_ZGPD\_ROLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{02342\ }
+\DoxyCodeLine{02343\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZBOSS\_API\_ZGP\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

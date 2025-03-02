@@ -1,0 +1,158 @@
+\doxysection{Wire.\+h}
+\hypertarget{_wire_8h_source}{}\label{_wire_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Wire/src/Wire.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Wire/src/Wire.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ TwoWire.h\ -\/\ TWI/I2C\ library\ for\ Arduino\ \&\ Wiring}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ Copyright\ (c)\ 2006\ Nicholas\ Zambetti.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ Modified\ 2012\ by\ Todd\ Krein\ (todd@krein.org)\ to\ implement\ repeated\ starts}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ Modified\ December\ 2014\ by\ Ivan\ Grokhotkov\ (ivan@esp8266.com)\ -\/\ esp8266\ support}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ \ Modified\ April\ 2015\ by\ Hrsto\ Gochkov\ (ficeto@ficeto.com)\ -\/\ alternative\ esp8266\ support}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ Modified\ November\ 2017\ by\ Chuck\ Todd\ <stickbreaker\ on\ GitHub>\ to\ use\ ISR\ and\ increase\ stability.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ Modified\ Nov\ 2021\ by\ Hristo\ Gochkov\ <Me-\/No-\/Dev>\ to\ support\ ESP-\/IDF\ API}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifndef\ TwoWire\_h}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ TwoWire\_h}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#if\ SOC\_I2C\_SUPPORTED}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <esp32-\/hal.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <esp32-\/hal-\/log.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#if\ !CONFIG\_DISABLE\_HAL\_LOCKS}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ "{}freertos/semphr.h"{}}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ "{}HardwareI2C.h"{}}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ "{}Stream.h"{}}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ WIRE\_HAS\_BUFFER\_SIZE\ means\ Wire\ has\ setBufferSize()}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ WIRE\_HAS\_BUFFER\_SIZE\ 1}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ WIRE\_HAS\_END\ means\ Wire\ has\ end()}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ WIRE\_HAS\_END\ 1}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#ifndef\ I2C\_BUFFER\_LENGTH}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ I2C\_BUFFER\_LENGTH\ 128\ \ }\textcolor{comment}{//\ Default\ size,\ if\ none\ is\ set\ using\ Wire::setBuffersize(size\_t)}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#if\ SOC\_I2C\_SUPPORT\_SLAVE}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{typedef}\ void\ (*user\_onRequest)(void);}
+\DoxyCodeLine{00052\ \textcolor{keyword}{typedef}\ void\ (*user\_onReceive)(uint8\_t\ *,\ int);}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_I2C\_SUPPORT\_SLAVE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{keyword}{class\ }TwoWire\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_hardware_i2_c}{HardwareI2C}}\ \{}
+\DoxyCodeLine{00056\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00057\ \ \ uint8\_t\ num;}
+\DoxyCodeLine{00058\ \ \ int8\_t\ sda;}
+\DoxyCodeLine{00059\ \ \ int8\_t\ scl;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{size\_t}\ bufferSize;}
+\DoxyCodeLine{00062\ \ \ uint8\_t\ *rxBuffer;}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordtype}{size\_t}\ rxIndex;}
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{size\_t}\ rxLength;}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ uint8\_t\ *txBuffer;}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{size\_t}\ txLength;}
+\DoxyCodeLine{00068\ \ \ uint16\_t\ txAddress;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ uint32\_t\ \_timeOutMillis;}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ nonStop;}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#if\ !CONFIG\_DISABLE\_HAL\_LOCKS}}
+\DoxyCodeLine{00073\ \ \ TaskHandle\_t\ currentTaskHandle;}
+\DoxyCodeLine{00074\ \ \ SemaphoreHandle\_t\ lock;}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00076\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#if\ SOC\_I2C\_SUPPORT\_SLAVE}}
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{bool}\ is\_slave;}
+\DoxyCodeLine{00079\ \ \ void\ (*user\_onRequest)(void);}
+\DoxyCodeLine{00080\ \ \ void\ (*user\_onReceive)(int);}
+\DoxyCodeLine{00081\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ onRequestService(uint8\_t,\ \textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{00082\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ onReceiveService(uint8\_t,\ uint8\_t\ *,\ \textcolor{keywordtype}{size\_t},\ \textcolor{keywordtype}{bool},\ \textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_I2C\_SUPPORT\_SLAVE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{bool}\ initPins(\textcolor{keywordtype}{int}\ sdaPin,\ \textcolor{keywordtype}{int}\ sclPin);}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{bool}\ allocateWireBuffer();}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{void}\ freeWireBuffer();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00089\ \ \ TwoWire(uint8\_t\ bus\_num);}
+\DoxyCodeLine{00090\ \ \ \string~TwoWire();}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{bool}\ begin()\ override\ final\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{return}\ begin(-\/1,\ -\/1);}
+\DoxyCodeLine{00094\ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{bool}\ begin(uint8\_t\ address)\ \textcolor{keyword}{override}\ \textcolor{keyword}{final}\ \{}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#if\ SOC\_I2C\_SUPPORT\_SLAVE}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{return}\ begin(address,\ -\/1,\ -\/1,\ 0);}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00100\ \ \ \ \ log\_e(\textcolor{stringliteral}{"{}I2C\ slave\ is\ not\ supported\ on\ "{}}\ CONFIG\_IDF\_TARGET);}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00103\ \ \ \}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{bool}\ end()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{bool}\ setClock(uint32\_t\ freq)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{void}\ beginTransmission(uint8\_t\ address)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00110\ \ \ uint8\_t\ endTransmission(\textcolor{keywordtype}{bool}\ stopBit)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00111\ \ \ uint8\_t\ endTransmission()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{size\_t}\ requestFrom(uint8\_t\ address,\ \textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{bool}\ stopBit)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00114\ \ \ \textcolor{keywordtype}{size\_t}\ requestFrom(uint8\_t\ address,\ \textcolor{keywordtype}{size\_t}\ len)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{void}\ onReceive(\textcolor{keywordtype}{void}\ (*)(\textcolor{keywordtype}{int}))\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00117\ \ \ \textcolor{keywordtype}{void}\ onRequest(\textcolor{keywordtype}{void}\ (*)(\textcolor{keywordtype}{void}))\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{comment}{//call\ setPins()\ first,\ so\ that\ begin()\ can\ be\ called\ without\ arguments\ from\ libraries}}
+\DoxyCodeLine{00120\ \ \ \textcolor{keywordtype}{bool}\ setPins(\textcolor{keywordtype}{int}\ sda,\ \textcolor{keywordtype}{int}\ scl);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \textcolor{keywordtype}{bool}\ begin(\textcolor{keywordtype}{int}\ sda,\ \textcolor{keywordtype}{int}\ scl,\ uint32\_t\ frequency\ =\ 0);\ \ \textcolor{comment}{//\ returns\ true,\ if\ successful\ init\ of\ i2c\ bus}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#if\ SOC\_I2C\_SUPPORT\_SLAVE}}
+\DoxyCodeLine{00124\ \ \ \textcolor{keywordtype}{bool}\ begin(uint8\_t\ slaveAddr,\ \textcolor{keywordtype}{int}\ sda,\ \textcolor{keywordtype}{int}\ scl,\ uint32\_t\ frequency);}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_I2C\_SUPPORT\_SLAVE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{keywordtype}{size\_t}\ setBufferSize(\textcolor{keywordtype}{size\_t}\ bSize);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{void}\ setTimeOut(uint16\_t\ timeOutMillis);\ \ \textcolor{comment}{//\ default\ timeout\ of\ i2c\ transactions\ is\ 50ms}}
+\DoxyCodeLine{00130\ \ \ uint16\_t\ getTimeOut();}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ uint32\_t\ getClock();}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00135\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *,\ \textcolor{keywordtype}{size\_t})\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00136\ \ \ \textcolor{keywordtype}{int}\ available()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00137\ \ \ \textcolor{keywordtype}{int}\ read()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00138\ \ \ \textcolor{keywordtype}{int}\ peek()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00139\ \ \ \textcolor{keywordtype}{void}\ flush()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#if\ SOC\_I2C\_SUPPORT\_SLAVE}}
+\DoxyCodeLine{00142\ \ \ \textcolor{keywordtype}{size\_t}\ slaveWrite(\textcolor{keyword}{const}\ uint8\_t\ *,\ \textcolor{keywordtype}{size\_t});}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_I2C\_SUPPORT\_SLAVE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00144\ \};}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{extern}\ TwoWire\ Wire;}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#if\ SOC\_HP\_I2C\_NUM\ >\ 1}}
+\DoxyCodeLine{00148\ \textcolor{keyword}{extern}\ TwoWire\ Wire1;}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_HP\_I2C\_NUM\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_I2C\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ TwoWire\_h\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,170 @@
+\doxysection{Matter\+Fan.\+h}
+\hypertarget{_matter_fan_8h_source}{}\label{_matter_fan_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Matter/src/MatterEndpoints/MatterFan.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/Matter/src/MatterEndpoints/MatterFan.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <sdkconfig.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ESP\_MATTER\_ENABLE\_DATA\_MODEL}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <Matter.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <MatterEndPoint.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <app-\/common/zap-\/generated/cluster-\/objects.h>}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{using\ namespace\ }chip::app::Clusters::FanControl;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ Matter\ Fan\ endpoint\ with\ On/Off,\ Mode\ and\ Speed\ control}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }MatterFan\ :\ \textcolor{keyword}{public}\ MatterEndPoint\ \{}
+\DoxyCodeLine{00028\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \textcolor{comment}{//\ Fan\ feature\ constants}}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MAX\_SPEED\ =\ 100;\ \ \textcolor{comment}{//\ maximum\ High\ speed}}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ MIN\_SPEED\ =\ 1;\ \ \ \ \textcolor{comment}{//\ minimum\ Low\ speed}}
+\DoxyCodeLine{00032\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ OFF\_SPEED\ =\ 0;\ \ \ \ \textcolor{comment}{//\ speed\ set\ by\ Matter\ when\ FAN\_MODE\_OFF}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \textcolor{comment}{//\ Default\ Fan\ Modes:\ ON,\ SMART,\ HIGH\ and\ OFF}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \textcolor{comment}{//\ Other\ mode\ will\ depend\ on\ what\ is\ the\ configured\ Fan\ Mode\ Sequence}}
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{enum}\ FanMode\_t\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ FAN\_MODE\_OFF\ =\ (uint8\_t)FanModeEnum::kOff,}
+\DoxyCodeLine{00039\ \ \ \ \ FAN\_MODE\_LOW\ =\ (uint8\_t)FanModeEnum::kLow,}
+\DoxyCodeLine{00040\ \ \ \ \ FAN\_MODE\_MEDIUM\ =\ (uint8\_t)FanModeEnum::kMedium,}
+\DoxyCodeLine{00041\ \ \ \ \ FAN\_MODE\_HIGH\ =\ (uint8\_t)FanModeEnum::kHigh,}
+\DoxyCodeLine{00042\ \ \ \ \ FAN\_MODE\_ON\ =\ (uint8\_t)FanModeEnum::kOn,}
+\DoxyCodeLine{00043\ \ \ \ \ FAN\_MODE\_AUTO\ =\ (uint8\_t)FanModeEnum::kAuto,}
+\DoxyCodeLine{00044\ \ \ \ \ FAN\_MODE\_SMART\ =\ (uint8\_t)FanModeEnum::kSmart}
+\DoxyCodeLine{00045\ \ \ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ Menu\ will\ always\ have\ ON,\ OFF,\ HIGH\ and\ SMART.}}
+\DoxyCodeLine{00048\ \ \ \textcolor{comment}{//\ AUTO\ will\ show\ up\ only\ when\ a\ AUTO\ SEQ\ is\ CONFIGURED}}
+\DoxyCodeLine{00049\ \ \ \textcolor{comment}{//\ LOW\ and\ MEDIUM\ depend\ on\ the\ SEQ\ MODE\ configuration}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{enum}\ FanModeSequence\_t\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ FAN\_MODE\_SEQ\_OFF\_LOW\_MED\_HIGH\ =\ (uint8\_t)FanModeSequenceEnum::kOffLowMedHigh,}
+\DoxyCodeLine{00052\ \ \ \ \ FAN\_MODE\_SEQ\_OFF\_LOW\_HIGH\ =\ (uint8\_t)FanModeSequenceEnum::kOffLowHigh,}
+\DoxyCodeLine{00053\ \ \ \ \ FAN\_MODE\_SEQ\_OFF\_LOW\_MED\_HIGH\_AUTO\ =\ (uint8\_t)FanModeSequenceEnum::kOffLowMedHighAuto,}
+\DoxyCodeLine{00054\ \ \ \ \ FAN\_MODE\_SEQ\_OFF\_LOW\_HIGH\_AUTO\ =\ (uint8\_t)FanModeSequenceEnum::kOffLowHighAuto,}
+\DoxyCodeLine{00055\ \ \ \ \ FAN\_MODE\_SEQ\_OFF\_HIGH\_AUTO\ =\ (uint8\_t)FanModeSequenceEnum::kOffHighAuto,}
+\DoxyCodeLine{00056\ \ \ \ \ FAN\_MODE\_SEQ\_OFF\_HIGH\ =\ (uint8\_t)FanModeSequenceEnum::kOffHigh}
+\DoxyCodeLine{00057\ \ \ \};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ MatterFan();}
+\DoxyCodeLine{00060\ \ \ \string~MatterFan();}
+\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ begin(uint8\_t\ percent\ =\ 0,\ FanMode\_t\ fanMode\ =\ FAN\_MODE\_OFF,\ FanModeSequence\_t\ fanModeSeq\ =\ FAN\_MODE\_SEQ\_OFF\_HIGH);}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ end();\ \ \textcolor{comment}{//\ this\ will\ just\ stop\ processing\ Matter\ events}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{comment}{//\ returns\ a\ friendly\ string\ for\ the\ Fan\ Mode}}
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *getFanModeString(uint8\_t\ mode)\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{return}\ fanModeString[mode];}
+\DoxyCodeLine{00067\ \ \ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{//\ Fan\ Control\ of\ current\ On/Off\ state}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ setOnOff(\textcolor{keywordtype}{bool}\ newState,\ \textcolor{keywordtype}{bool}\ performUpdate\ =\ \textcolor{keyword}{true});\ \ \textcolor{comment}{//\ sets\ Fan\ On/Off\ state}}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{bool}\ getOnOff();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ current\ Fan\ state}}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{bool}\ toggle(\textcolor{keywordtype}{bool}\ performUpdate\ =\ \textcolor{keyword}{true});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ toggle\ Fun\ On/Off\ state}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{comment}{//\ Fan\ Control\ of\ current\ speed\ percent}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keywordtype}{bool}\ setSpeedPercent(uint8\_t\ newPercent,\ \textcolor{keywordtype}{bool}\ performUpdate\ =\ \textcolor{keyword}{true});\ \ \textcolor{comment}{//\ returns\ true\ if\ successful}}
+\DoxyCodeLine{00078\ \ \ uint8\_t\ getSpeedPercent()\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ current\ Fan\ Speed\ Percent}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{return}\ currentPercent;}
+\DoxyCodeLine{00080\ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \textcolor{comment}{//\ Fan\ Control\ of\ current\ Fan\ Mode}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{bool}\ setMode(FanMode\_t\ newMode,\ \textcolor{keywordtype}{bool}\ performUpdate\ =\ \textcolor{keyword}{true});\ \ \textcolor{comment}{//\ returns\ true\ if\ successful}}
+\DoxyCodeLine{00085\ \ \ FanMode\_t\ getMode()\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ returns\ current\ Fan\ Mode}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{return}\ currentFanMode;}
+\DoxyCodeLine{00087\ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ used\ to\ update\ the\ state\ of\ the\ Fan\ using\ the\ current\ Matter\ Fan\ internal\ state}}
+\DoxyCodeLine{00089\ \ \ \textcolor{comment}{//\ It\ is\ necessary\ to\ set\ a\ user\ callback\ function\ using\ onChange()\ to\ handle\ the\ physical\ Fan\ motor\ state}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ updateAccessory()\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{if}\ (\_onChangeCB\ !=\ NULL)\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \_onChangeCB(currentFanMode,\ currentPercent);}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \ \ \textcolor{comment}{//\ returns\ current\ Fan\ speed\ percent}}
+\DoxyCodeLine{00098\ \ \ \textcolor{keyword}{operator}\ uint8\_t()\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{return}\ getSpeedPercent();}
+\DoxyCodeLine{00100\ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \textcolor{comment}{//\ User\ Callback\ for\ whenever\ the\ Fan\ Mode\ (state)\ is\ changed\ by\ the\ Matter\ Controller}}
+\DoxyCodeLine{00103\ \ \ \textcolor{keyword}{using\ }EndPointModeCB\ =\ std::function<bool(FanMode\_t)>;}
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{void}\ onChangeMode(EndPointModeCB\ onChangeCB)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \_onChangeModeCB\ =\ onChangeCB;}
+\DoxyCodeLine{00106\ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \textcolor{comment}{//\ User\ Callback\ for\ whenever\ the\ Fan\ Speed\ Percentage\ value\ [0..100]\ is\ changed\ by\ the\ Matter\ Controller}}
+\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{using\ }EndPointSpeedCB\ =\ std::function<bool(uint8\_t)>;}
+\DoxyCodeLine{00110\ \ \ \textcolor{keywordtype}{void}\ onChangeSpeedPercent(EndPointSpeedCB\ onChangeCB)\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \_onChangeSpeedCB\ =\ onChangeCB;}
+\DoxyCodeLine{00112\ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \textcolor{comment}{//\ User\ Callback\ for\ whenever\ any\ parameter\ is\ changed\ by\ the\ Matter\ Controller}}
+\DoxyCodeLine{00115\ \ \ \textcolor{keyword}{using\ }EndPointCB\ =\ std::function<bool(FanMode\_t,\ uint8\_t)>;}
+\DoxyCodeLine{00116\ \ \ \textcolor{keywordtype}{void}\ onChange(EndPointCB\ onChangeCB)\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \_onChangeCB\ =\ onChangeCB;}
+\DoxyCodeLine{00118\ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \textcolor{comment}{//\ sets\ Fan\ speed\ percent}}
+\DoxyCodeLine{00121\ \ \ \textcolor{keywordtype}{void}\ operator=(uint8\_t\ speedPercent)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ setSpeedPercent(speedPercent);}
+\DoxyCodeLine{00123\ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{comment}{//\ this\ function\ is\ called\ by\ Matter\ internal\ event\ processor.\ It\ could\ be\ overwritten\ by\ the\ application,\ if\ necessary.}}
+\DoxyCodeLine{00126\ \ \ \textcolor{keywordtype}{bool}\ attributeChangeCB(uint16\_t\ endpoint\_id,\ uint32\_t\ cluster\_id,\ uint32\_t\ attribute\_id,\ esp\_matter\_attr\_val\_t\ *val);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00129\ \ \ \textcolor{keywordtype}{bool}\ started\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00130\ \ \ uint8\_t\ validFanModes\ =\ 0;\ \ \textcolor{comment}{//\ bitmap\ for\ valid\ Fan\ Modes\ -\/\ index\ of\ fanModeSequence[]}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ uint8\_t\ currentPercent\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ current\ speed\ percent}}
+\DoxyCodeLine{00133\ \ \ FanMode\_t\ currentFanMode\ =\ FAN\_MODE\_OFF;\ \ \textcolor{comment}{//\ current\ Fan\ Mode}}
+\DoxyCodeLine{00134\ \ \ EndPointModeCB\ \_onChangeModeCB\ =\ NULL;}
+\DoxyCodeLine{00135\ \ \ EndPointSpeedCB\ \_onChangeSpeedCB\ =\ NULL;}
+\DoxyCodeLine{00136\ \ \ EndPointCB\ \_onChangeCB\ =\ NULL;}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \textcolor{comment}{//\ bitmap\ for\ Fan\ Sequence\ Modes\ (OFF,\ LOW,\ MEDIUM,\ HIGH,\ AUTO)}}
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeOff\ =\ 0x01;}
+\DoxyCodeLine{00140\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeLow\ =\ 0x02;}
+\DoxyCodeLine{00141\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeMedium\ =\ 0x04;}
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeHigh\ =\ 0x08;}
+\DoxyCodeLine{00143\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeOn\ =\ 0x10;}
+\DoxyCodeLine{00144\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeAuto\ =\ 0x20;}
+\DoxyCodeLine{00145\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeSmart\ =\ 0x40;}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \textcolor{comment}{//\ bitmap\ for\ common\ modes:\ ON,\ OFF,\ HIGH\ and\ SMART}}
+\DoxyCodeLine{00148\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqCommonModes\ =\ fanSeqModeOff\ |\ fanSeqModeOn\ |\ fanSeqModeHigh\ |\ fanSeqModeSmart;}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeOffLowMedHigh\ =\ fanSeqCommonModes\ |\ fanSeqModeLow\ |\ fanSeqModeMedium;}
+\DoxyCodeLine{00151\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeOffLowHigh\ =\ fanSeqCommonModes\ |\ fanSeqModeLow;}
+\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeOffLowMedHighAuto\ =\ fanSeqCommonModes\ |\ fanSeqModeLow\ |\ fanSeqModeMedium\ |\ fanSeqModeAuto;}
+\DoxyCodeLine{00153\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeOffLowHighAuto\ =\ fanSeqCommonModes\ |\ fanSeqModeLow\ |\ fanSeqModeAuto;}
+\DoxyCodeLine{00154\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeOffHighAuto\ =\ fanSeqCommonModes\ |\ fanSeqModeAuto;}
+\DoxyCodeLine{00155\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanSeqModeOffHigh\ =\ fanSeqCommonModes;}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \textcolor{comment}{//\ bitmap\ for\ valid\ Fan\ Modes\ based\ on\ order\ defined\ in\ Zap\ Generated\ Cluster\ Enums}}
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ uint8\_t\ fanModeSequence[6];}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \textcolor{comment}{//\ string\ helper\ for\ the\ FAN\ MODE}}
+\DoxyCodeLine{00161\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fanModeString[7];}
+\DoxyCodeLine{00162\ \};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_ESP\_MATTER\_ENABLE\_DATA\_MODEL\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

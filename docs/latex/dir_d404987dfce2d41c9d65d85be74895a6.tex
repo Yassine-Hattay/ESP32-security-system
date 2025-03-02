@@ -1,0 +1,76 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/serial-\/flasher/examples/stm32\+\_\+example Directory Reference}
+\hypertarget{dir_d404987dfce2d41c9d65d85be74895a6}{}\label{dir_d404987dfce2d41c9d65d85be74895a6}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/serial-\/flasher/examples/stm32\_example Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/serial-\/flasher/examples/stm32\_example Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_af50480310d06b272258eee21c43bd7b}{Inc}}
+\item 
+directory \mbox{\hyperlink{dir_43529b4a91f67fa3440b610513eb9f3f}{Src}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{README.md_autotoc_md1077}{}\doxysubsection{\texorpdfstring{Overview}{Overview}}\label{README.md_autotoc_md1077}
+Example demonstrates how to flash ESP32 from another STM32 (host MCU) using esp\+\_\+serial\+\_\+flash component API. STM32\+F4-\/\+Discovery board is used in this example, as STM32\+F407\+VG has FLASH memory large enough to fit the whole hello-\/world example of ESP32. Binaries to be flashed from host MCU to ESP32 can be found in {\ttfamily binaries} directory and converted into C-\/arrays during build process. USART1 is dedicated for communication with ESP32, whereas, USART2 can be used for debug purposes by attaching UART-\/to-\/\+USB bridge.
+
+Following steps are performed in order to re-\/program target\textquotesingle{}s memory\+:
+
+
+\begin{DoxyEnumerate}
+\item Peripherals are initialized.
+\item Host puts slave device into boot mode tries to connect by calling {\ttfamily esp\+\_\+loader\+\_\+connect()}.
+\item Then {\ttfamily esp\+\_\+loader\+\_\+flash\+\_\+start()} is called to enter flashing mode and erase amount of memory to be flashed.
+\item {\ttfamily esp\+\_\+loader\+\_\+flash\+\_\+write()} function is called repeatedly until the whole binary image is transfered.
+\end{DoxyEnumerate}
+
+Note\+: In addition, to steps mentioned above, {\ttfamily esp\+\_\+loader\+\_\+change\+\_\+transmission\+\_\+rate} is called after connection is established in order to increase flashing speed. Bootloader is also capable of detecting baud rate during connection phase, and can be changed before calling {\ttfamily esp\+\_\+loader\+\_\+connect}. However, it is recommended to start at lower speed and then use dedicated command to increase baud rate. This does not apply for ESP8266, as its bootloader does not support this command, therefore, baud rate can only be changed before connection phase in this case.\hypertarget{README.md_autotoc_md1078}{}\doxysubsection{\texorpdfstring{Hardware Required}{Hardware Required}}\label{README.md_autotoc_md1078}
+
+\begin{DoxyItemize}
+\item STM32\+F4-\/\+Discovery board.
+\item A development board with ESP32 SoC (e.\+g. ESP-\/\+WROVER-\/\+KIT, ESP32-\/\+Dev\+KitC, etc.).
+\item One or two USB cables for power supply and programming.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1079}{}\doxysubsection{\texorpdfstring{Hardware connection}{Hardware connection}}\label{README.md_autotoc_md1079}
+Table below shows connection between STM32 and ESP32.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ STM32 (host)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32 (slave)    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ STM32 (host)   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32 (slave)    }\\\cline{1-2}
+\endhead
+\PBS\centering PB5   &\PBS\centering IO0    \\\cline{1-2}
+\PBS\centering PB4   &\PBS\centering RST    \\\cline{1-2}
+\PBS\centering PB6   &\PBS\centering RX0    \\\cline{1-2}
+\PBS\centering PB7   &\PBS\centering TX0   \\\cline{1-2}
+\end{longtabu}
+
+
+Optionally, UART-\/to-\/\+USB bridge can be connected to PD5(\+RX) and PD6(\+TX) for debug purposes.\hypertarget{README.md_autotoc_md1080}{}\doxysubsection{\texorpdfstring{Build and flash}{Build and flash}}\label{README.md_autotoc_md1080}
+To compile the example\+:
+
+Create and navigate to {\ttfamily build} directory\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{mkdir\ build\ \&\&\ cd\ build}
+
+\end{DoxyCode}
+ Run cmake (with appropriate parameters) and build\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\ -\/DTOOLCHAIN\_PREFIX="{}/path\_to\_toolchain"{}\ -\/DSTM32Cube\_DIR="{}path\_to\_stm32Cube"{}\ -\/DSTM32\_CHIP="{}STM32F407VG"{}\ -\/DPORT="{}STM32"{}\ ..\ \&\&\ cmake\ -\/-\/build\ .}
+
+\end{DoxyCode}
+
+
+Binaries to be flashed are placed in separate folder (binaries.\+c) for each possible target and converted to C-\/array. Without explicitly enabling MD5 check, flash integrity verification is disabled by default.
+
+For more details regarding to esp\+\_\+serial\+\_\+flasher configuration and STM32 support, please refer to top level README.md.
+
+Note\+: CMake 3.\+13 or later is required.\hypertarget{README.md_autotoc_md1081}{}\doxysubsection{\texorpdfstring{STM32\+Cube\+Mx configuration}{STM32\+Cube\+Mx configuration}}\label{README.md_autotoc_md1081}
+Following configuration was used to generate STM32 {\ttfamily cmake} based project\+:
+\begin{DoxyItemize}
+\item Project tab\+: Toolchain/\+IDE -\/ Other toolchain (GPDSC)
+\item Code Generator tab\+: Add necessary files as reference in the toolchain project configuration file 
+\end{DoxyItemize}

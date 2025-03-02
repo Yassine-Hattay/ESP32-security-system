@@ -1,0 +1,76 @@
+\doxysection{Color\+Format.\+h}
+\hypertarget{_color_format_8h_source}{}\label{_color_format_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/ColorFormat.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/ColorFormat.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ \ \ \ Copyright\ (c)\ 2021\ Project\ CHIP\ Authors}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ \ \ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ \ \ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ \ \ \ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ \ \ \ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ \ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ \ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00023\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_rgb_color__t}{RgbColor\_t}}\ \{}
+\DoxyCodeLine{00027\ \ \ uint8\_t\ r;}
+\DoxyCodeLine{00028\ \ \ uint8\_t\ g;}
+\DoxyCodeLine{00029\ \ \ uint8\_t\ b;}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_hsv_color__t}{HsvColor\_t}}\ \{}
+\DoxyCodeLine{00033\ \ \ uint16\_t\ h;}
+\DoxyCodeLine{00034\ \ \ uint8\_t\ s;}
+\DoxyCodeLine{00035\ \ \ uint8\_t\ v;}
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_xy_color__t}{XyColor\_t}}\ \{}
+\DoxyCodeLine{00039\ \ \ uint16\_t\ x;}
+\DoxyCodeLine{00040\ \ \ uint16\_t\ y;}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_ct_color__t}{CtColor\_t}}\ \{}
+\DoxyCodeLine{00044\ \ \ uint16\_t\ ctMireds;}
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_rgb_color__t}{RgbColor\_t}}\ espRgbColor\_t;}
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_hsv_color__t}{HsvColor\_t}}\ espHsvColor\_t;}
+\DoxyCodeLine{00049\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_xy_color__t}{XyColor\_t}}\ espXyColor\_t;}
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_ct_color__t}{CtColor\_t}}\ espCtColor\_t;}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ espRgbColor\_t\ espXYToRgbColor(uint8\_t\ Level,\ uint16\_t\ current\_X,\ uint16\_t\ current\_Y);}
+\DoxyCodeLine{00053\ espRgbColor\_t\ espXYColorToRgb(uint8\_t\ Level,\ espXyColor\_t\ xy);}
+\DoxyCodeLine{00054\ espXyColor\_t\ espRgbColorToXYColor(espRgbColor\_t\ rgb);}
+\DoxyCodeLine{00055\ espXyColor\_t\ espRgbToXYColor(uint8\_t\ r,\ uint8\_t\ g,\ uint8\_t\ b);}
+\DoxyCodeLine{00056\ espRgbColor\_t\ espHsvColorToRgbColor(espHsvColor\_t\ hsv);}
+\DoxyCodeLine{00057\ espRgbColor\_t\ espHsvToRgbColor(uint16\_t\ h,\ uint8\_t\ s,\ uint8\_t\ v);}
+\DoxyCodeLine{00058\ espRgbColor\_t\ espCTColorToRgbColor(espCtColor\_t\ ct);}
+\DoxyCodeLine{00059\ espRgbColor\_t\ espCTToRgbColor(uint16\_t\ ct);}
+\DoxyCodeLine{00060\ espHsvColor\_t\ espRgbColorToHsvColor(espRgbColor\_t\ rgb);}
+\DoxyCodeLine{00061\ espHsvColor\_t\ espRgbToHsvColor(uint8\_t\ r,\ uint8\_t\ g,\ uint8\_t\ b);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ espHsvColor\_t\ HSV\_BLACK,\ HSV\_WHITE,\ HSV\_RED,\ HSV\_YELLOW,\ HSV\_GREEN,\ HSV\_CYAN,\ HSV\_BLUE,\ HSV\_MAGENTA;}
+\DoxyCodeLine{00064\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ espCtColor\_t\ COOL\_WHITE\_COLOR\_TEMPERATURE,\ DAYLIGHT\_WHITE\_COLOR\_TEMPERATURE,\ WHITE\_COLOR\_TEMPERATURE,\ SOFT\_WHITE\_COLOR\_TEMPERATURE,}
+\DoxyCodeLine{00065\ \ \ WARM\_WHITE\_COLOR\_TEMPERATURE;}
+\DoxyCodeLine{00066\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ espRgbColor\_t\ RGB\_BLACK,\ RGB\_WHITE,\ RGB\_RED,\ RGB\_YELLOW,\ RGB\_GREEN,\ RGB\_CYAN,\ RGB\_BLUE,\ RGB\_MAGENTA;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00069\ \}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

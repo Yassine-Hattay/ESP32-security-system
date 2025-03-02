@@ -1,0 +1,292 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/joltwallet\+\_\+\+\_\+littlefs Directory Reference}
+\hypertarget{dir_220d3974027dd1b557b8afc6837c1d85}{}\label{dir_220d3974027dd1b557b8afc6837c1d85}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_a43a22093dacab9fdd767107d3489696}{example}}
+\item 
+directory \mbox{\hyperlink{dir_5ff77be5850ceb487b41cf03d2b3e45a}{include}}
+\item 
+directory \mbox{\hyperlink{dir_bb3b3c5146e943c675cad9f11a617f46}{src}}
+\item 
+directory \mbox{\hyperlink{dir_9bf3e4c8027c454695b04a6989cc01e3}{test}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Little\+FS for ESP-\/\+IDF.\hypertarget{README.md_autotoc_md1476}{}\doxysubsection{\texorpdfstring{What is Little\+FS?}{What is Little\+FS?}}\label{README.md_autotoc_md1476}
+\href{https://github.com/ARMmbed/littlefs}{\texttt{ Little\+FS}} is a small fail-\/safe filesystem for microcontrollers. We ported Little\+FS to esp-\/idf (specifically, the ESP32) because SPIFFS was too slow, and FAT was too fragile.\hypertarget{README.md_autotoc_md1477}{}\doxysubsection{\texorpdfstring{How to Use}{How to Use}}\label{README.md_autotoc_md1477}
+\hypertarget{README.md_autotoc_md1478}{}\doxysubsubsection{\texorpdfstring{ESP-\/\+IDF}{ESP-\/\+IDF}}\label{README.md_autotoc_md1478}
+There are two ways to add this component to your project
+
+
+\begin{DoxyEnumerate}
+\item As a ESP-\/\+IDF managed component\+: In your project directory run
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ add-\/dependency\ joltwallet/littlefs==1.16.4}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyEnumerate}
+\item As a submodule\+: In your project, add this as a submodule to your {\ttfamily components/} directory.
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ submodule\ add\ https://github.com/joltwallet/esp\_littlefs.git}
+\DoxyCodeLine{git\ submodule\ update\ -\/-\/init\ -\/-\/recursive}
+
+\end{DoxyCode}
+
+
+The library can be configured via {\ttfamily idf.\+py menuconfig} under {\ttfamily Component config-\/\texorpdfstring{$>$}{>}Little\+FS}.\hypertarget{README.md_autotoc_md1479}{}\doxysubsubsubsubsection{\texorpdfstring{Example}{Example}}\label{README.md_autotoc_md1479}
+User @wreyford has kindly provided a \href{https://github.com/wreyford/demo_esp_littlefs}{\texttt{ demo repo}} showing the use of {\ttfamily esp\+\_\+littlefs}. A modified copy exists in the {\ttfamily example/} directory.\hypertarget{README.md_autotoc_md1480}{}\doxysubsubsection{\texorpdfstring{Platform\+IO}{Platform\+IO}}\label{README.md_autotoc_md1480}
+Add to the following line to your project\textquotesingle{}s {\ttfamily platformio.\+ini} file\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{lib\_deps\ =\ https://github.com/joltwallet/esp\_littlefs.git}
+
+\end{DoxyCode}
+
+
+Example {\ttfamily platformio.\+ini} file\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[env]}
+\DoxyCodeLine{platform\ =\ espressif32}
+\DoxyCodeLine{framework\ =\ espidf}
+\DoxyCodeLine{monitor\_speed\ =\ 115200}
+\DoxyCodeLine{}
+\DoxyCodeLine{[common]}
+\DoxyCodeLine{lib\_deps\ =\ https://github.com/joltwallet/esp\_littlefs.git}
+\DoxyCodeLine{}
+\DoxyCodeLine{[env:nodemcu-\/32s]}
+\DoxyCodeLine{board\ =\ nodemcu-\/32s}
+\DoxyCodeLine{board\_build.filesystem\ =\ littlefs}
+\DoxyCodeLine{board\_build.partitions\ =\ min\_littlefs.csv}
+\DoxyCodeLine{lib\_deps\ =\ \$\{common.lib\_deps\}}
+
+\end{DoxyCode}
+
+
+Example {\ttfamily min\+\_\+littlefs.\+cvs} flash partition layout\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Name,\ \ \ Type,\ SubType,\ \ Offset,\ \ Size,\ Flags}
+\DoxyCodeLine{nvs,\ \ \ \ \ \ data,\ nvs,\ \ \ \ \ \ 0x9000,\ \ 0x5000,}
+\DoxyCodeLine{otadata,\ \ data,\ ota,\ \ \ \ \ \ 0xe000,\ \ 0x2000,}
+\DoxyCodeLine{app0,\ \ \ \ \ app,\ \ ota\_0,\ \ \ \ 0x10000,\ 0x1E0000,}
+\DoxyCodeLine{app1,\ \ \ \ \ app,\ \ ota\_1,\ \ \ \ 0x1F0000,0x1E0000,}
+\DoxyCodeLine{littlefs,\ data,\ spiffs,\ \ \ 0x3D0000,0x20000,}
+\DoxyCodeLine{coredump,\ data,\ coredump,\ 0x3F0000,0x10000,}
+
+\end{DoxyCode}
+
+
+\href{https://github.com/platformio/platform-espressif32/issues/479}{\texttt{ Currently, it is required}} to modify {\ttfamily CMake\+List.\+txt}. Add the following 2 lines to the your project\textquotesingle{}s {\ttfamily CMake\+List.\+txt}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{get\_filename\_component(configName\ "{}\$\{CMAKE\_BINARY\_DIR\}"{}\ NAME)}
+\DoxyCodeLine{list(APPEND\ EXTRA\_COMPONENT\_DIRS\ "{}\$\{CMAKE\_SOURCE\_DIR\}/.pio/libdeps/\$\{configName\}/esp\_littlefs"{})}
+
+\end{DoxyCode}
+
+
+Example {\ttfamily CMake\+List.\+txt}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake\_minimum\_required(VERSION\ 3.16.0)}
+\DoxyCodeLine{include(\$ENV\{IDF\_PATH\}/tools/cmake/project.cmake)}
+\DoxyCodeLine{}
+\DoxyCodeLine{get\_filename\_component(configName\ "{}\$\{CMAKE\_BINARY\_DIR\}"{}\ NAME)}
+\DoxyCodeLine{list(APPEND\ EXTRA\_COMPONENT\_DIRS\ "{}\$\{CMAKE\_SOURCE\_DIR\}/.pio/libdeps/\$\{configName\}/esp\_littlefs"{})}
+\DoxyCodeLine{}
+\DoxyCodeLine{project(my\_project\_name\_here)}
+
+\end{DoxyCode}
+
+
+To configure Little\+FS from Platform\+IO, run the following command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$\ pio\ run\ -\/t\ menuconfig}
+
+\end{DoxyCode}
+ An entry {\ttfamily Component config-\/\texorpdfstring{$>$}{>}Little\+FS} should be available for configuration. If not, check your {\ttfamily CMake\+List.\+txt} configuration.\hypertarget{README.md_autotoc_md1481}{}\doxysubsection{\texorpdfstring{Documentation}{Documentation}}\label{README.md_autotoc_md1481}
+See the official \href{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/storage/spiffs.html}{\texttt{ ESP-\/\+IDF SPIFFS documentation}}, basically all the functionality is the same; just replace {\ttfamily spiffs} with {\ttfamily littlefs} in all function calls.
+
+Also see the comments in {\ttfamily \doxylink{esp__littlefs_8h_source}{include/esp\+\_\+littlefs.\+h}}
+
+Slight differences between this configuration and SPIFFS\textquotesingle{}s configuration is in the {\ttfamily \doxylink{structesp__vfs__littlefs__conf__t}{esp\+\_\+vfs\+\_\+littlefs\+\_\+conf\+\_\+t}}\+:
+
+
+\begin{DoxyEnumerate}
+\item {\ttfamily max\+\_\+files} field doesn\textquotesingle{}t exist since we removed the file limit, thanks to @X-\/Ryl669
+\item {\ttfamily partition\+\_\+label} is not allowed to be {\ttfamily NULL}. You must specify the partition name from your partition table. This is because there isn\textquotesingle{}t a define {\ttfamily littlefs} partition subtype in {\ttfamily esp-\/idf}. The subtype doesn\textquotesingle{}t matter.
+\begin{DoxyItemize}
+\item Alternatively, you can specify an {\ttfamily esp\+\_\+partition\+\_\+t\texorpdfstring{$\ast$}{*}} to a {\ttfamily partition} and set {\ttfamily partition\+\_\+label=NULL}.
+\end{DoxyItemize}
+\item {\ttfamily grow\+\_\+on\+\_\+mount} will expand an existing filesystem to fill the partition. Defaults to {\ttfamily false}.
+\begin{DoxyItemize}
+\item Little\+FS filesystems can only grow, they cannot shrink.
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{README.md_autotoc_md1482}{}\doxysubsubsubsection{\texorpdfstring{Filesystem Image Creation}{Filesystem Image Creation}}\label{README.md_autotoc_md1482}
+At compile time, a filesystem image can be created and flashed to the device by adding the following to your project\textquotesingle{}s {\ttfamily CMake\+Lists.\+txt} file\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{littlefs\_create\_partition\_image(partition\_name\ path\_to\_folder\_containing\_files\ FLASH\_IN\_PROJECT)}
+
+\end{DoxyCode}
+
+
+If {\ttfamily FLASH\+\_\+\+IN\+\_\+\+PROJECT} is not specified, the image will still be generated, but you will have to flash it manually using {\ttfamily esptool.\+py}, {\ttfamily parttool.\+py}, or a custom build system target.
+
+For example, if your partition table looks like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#\ Name,\ \ \ Type,\ SubType,\ \ Offset,\ \ Size,\ Flags}
+\DoxyCodeLine{nvs,\ \ \ \ \ \ data,\ nvs,\ \ \ \ \ \ 0x9000,\ \ 0x6000,}
+\DoxyCodeLine{phy\_init,\ data,\ phy,\ \ \ \ \ \ 0xf000,\ \ 0x1000,}
+\DoxyCodeLine{factory,\ \ app,\ \ factory,\ \ 0x10000,\ 1M,}
+\DoxyCodeLine{graphics,\ \ data,\ spiffs,\ \ \ \ \ \ \ \ \ ,\ \ 0xF0000,\ }
+
+\end{DoxyCode}
+
+
+and your project has a folder called {\ttfamily device\+\_\+graphics/}, your call should be\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{littlefs\_create\_partition\_image(graphics\ device\_graphics\ FLASH\_IN\_PROJECT)}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1483}{}\doxysubsection{\texorpdfstring{Performance}{Performance}}\label{README.md_autotoc_md1483}
+Here are some naive benchmarks to give a vague indicator on performance. Tests were performed with the following configuration\+:
+
+
+\begin{DoxyItemize}
+\item ESP-\/\+IDF\+: v4.\+4
+\item Target\+: ESP32
+\item CPU Clock\+: 160MHz
+\item Flash SPI Freq\+: 80MHz
+\item Flash SPI Mode\+: QIO
+\end{DoxyItemize}
+
+In these tests, FAT has a cache size of 4096, and SPIFFS has a cahce size of 256 bytes.\hypertarget{README.md_autotoc_md1484}{}\doxysubsubsubsubsection{\texorpdfstring{Formatting a 512KB partition}{Formatting a 512KB partition}}\label{README.md_autotoc_md1484}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FAT:\ \ \ \ \ \ \ \ \ 549,494\ us}
+\DoxyCodeLine{SPIFFS:\ \ \ 10,715,425\ us}
+\DoxyCodeLine{LittleFS:\ \ \ \ 110,997\ us}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1485}{}\doxysubsubsubsubsection{\texorpdfstring{Writing 5 88KB files}{Writing 5 88KB files}}\label{README.md_autotoc_md1485}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FAT:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 7,124,812\ us}
+\DoxyCodeLine{SPIFFS*:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 99,138,905\ us}
+\DoxyCodeLine{LittleFS\ (cache=128):\ \ \ \ \ \ \ \ \ \ \ 8,261,920\ us}
+\DoxyCodeLine{LittleFS\ (cache=512\ default):\ \ \ 6,356,247\ us}
+\DoxyCodeLine{LittleFS\ (cache=4096):\ \ \ \ \ \ \ \ \ \ 6,026,592\ us}
+\DoxyCodeLine{*Only\ wrote\ 374,784\ bytes\ instead\ of\ the\ benchmark\ 440,000,\ so\ this\ value\ is\ extrapolated}
+
+\end{DoxyCode}
+
+
+In the above test, SPIFFS drastically slows down as the filesystem fills up. Below is the specific breakdown of file write times for SPIFFS. Not sure what happens on the last file write.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{SPIFFS:}
+\DoxyCodeLine{}
+\DoxyCodeLine{88000\ bytes\ written\ in\ 2190635\ us}
+\DoxyCodeLine{88000\ bytes\ written\ in\ 2190321\ us}
+\DoxyCodeLine{88000\ bytes\ written\ in\ 5133605\ us}
+\DoxyCodeLine{88000\ bytes\ written\ in\ 16570667\ us}
+\DoxyCodeLine{22784\ bytes\ written\ in\ 73053677\ us}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1486}{}\doxysubsubsubsubsection{\texorpdfstring{Reading 5 88KB files}{Reading 5 88KB files}}\label{README.md_autotoc_md1486}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FAT:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 5,685,230\ us}
+\DoxyCodeLine{SPIFFS*:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 5,162,289\ us}
+\DoxyCodeLine{LittleFS\ (cache=128):\ \ \ \ \ \ \ \ \ \ \ 6,284,142\ us}
+\DoxyCodeLine{LittleFS\ (cache=512\ default):\ \ \ 5,874,931\ us}
+\DoxyCodeLine{LittleFS\ (cache=4096):\ \ \ \ \ \ \ \ \ \ 5,731,385\ us}
+\DoxyCodeLine{*Only\ read\ 374,784\ bytes\ instead\ of\ the\ benchmark\ 440,000,\ so\ this\ value\ is\ extrapolated}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1487}{}\doxysubsubsubsubsection{\texorpdfstring{Deleting 5 88KB files}{Deleting 5 88KB files}}\label{README.md_autotoc_md1487}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{FAT:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 680,358\ us}
+\DoxyCodeLine{SPIFFS*:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1,653,500\ us}
+\DoxyCodeLine{LittleFS\ (cache=128):\ \ \ \ \ \ \ \ \ \ \ \ \ \ 86,090\ us}
+\DoxyCodeLine{LittleFS\ (cache=512\ default):\ \ \ \ \ \ 53,705\ us}
+\DoxyCodeLine{LittleFS\ (cache=4096):\ \ \ \ \ \ \ \ \ \ \ \ \ 27,709\ us}
+\DoxyCodeLine{*The\ 5th\ file\ was\ smaller,\ did\ not\ extrapolate\ value.}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1488}{}\doxysubsection{\texorpdfstring{Tips, Tricks, and Gotchas}{Tips, Tricks, and Gotchas}}\label{README.md_autotoc_md1488}
+
+\begin{DoxyItemize}
+\item Little\+FS operates on blocks, and blocks have a size of 4096 bytes on the ESP32.
+\item A freshly formatted Little\+FS will have 2 blocks in use, making it seem like 8KB are in use.
+\item The esp32 has \href{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/spi_flash/spi_flash_concurrency.html\#concurrency-constraints-for-flash-on-spi1}{\texttt{ flash concurrency constraints}}. When using UART (either for data transfer or generic logging) at the same time, you {\itshape MUST} enable the following option in KConfig\+: {\ttfamily menuconfig \texorpdfstring{$>$}{>} Component config \texorpdfstring{$>$}{>} Driver config \texorpdfstring{$>$}{>} UART \texorpdfstring{$>$}{>} UART ISR in IRAM}.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1489}{}\doxysubsection{\texorpdfstring{Running Unit Tests}{Running Unit Tests}}\label{README.md_autotoc_md1489}
+To flash the unit-\/tester app and the unit-\/tests, clone or symbolicly link this component to {\ttfamily \$IDF\+\_\+\+PATH/tools/unit-\/test-\/app/components/littlefs}. Make sure the folder name is {\ttfamily littlefs}, not {\ttfamily esp\+\_\+littlefs}. Then, run the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd\ \$IDF\_PATH/tools/unit-\/test-\/app}
+\DoxyCodeLine{idf.py\ menuconfig\ \ \#\ See\ notes}
+\DoxyCodeLine{idf.py\ -\/T\ littlefs\ -\/p\ YOUR\_PORT\_HERE\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+In {\ttfamily menuconfig}\+:
+
+
+\begin{DoxyItemize}
+\item Set the partition table to {\ttfamily components/littlefs/partition\+\_\+table\+\_\+unit\+\_\+test\+\_\+app.\+csv}
+\item Double check your crystal frequency {\ttfamily ESP32\+\_\+\+XTAL\+\_\+\+FREQ\+\_\+\+SEL}; my board doesn\textquotesingle{}t work with autodetect.
+\end{DoxyItemize}
+
+To test on an encrypted partition, add the {\ttfamily encrypted} flag to the {\ttfamily flash\+\_\+test} partition in {\ttfamily partition\+\_\+table\+\_\+unit\+\_\+test\+\_\+app.\+csv}. I.\+e.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{flash\_test,\ \ data,\ spiffs,\ \ \ \ ,\ \ \ \ \ \ \ \ 512K,\ encrypted}
+
+\end{DoxyCode}
+
+
+Also make sure that {\ttfamily CONFIG\+\_\+\+SECURE\+\_\+\+FLASH\+\_\+\+ENC\+\_\+\+ENABLED=y} in {\ttfamily menuconfig}.
+
+The unit tester can then be flashed via the command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/T\ littlefs\ -\/p\ YOUR\_PORT\_HERE\ encrypted-\/flash\ monitor}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md1490}{}\doxysubsection{\texorpdfstring{Breaking Changes}{Breaking Changes}}\label{README.md_autotoc_md1490}
+
+\begin{DoxyItemize}
+\item July 22, 2020 -\/ Changed attribute type for file timestamp from {\ttfamily 0} to {\ttfamily 0x74} (\textquotesingle{}t\textquotesingle{} ascii value).
+\item May 3, 2023 -\/ All logging tags have been changed to a unified {\ttfamily esp\+\_\+littlefs}.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md1491}{}\doxysubsection{\texorpdfstring{Acknowledgement}{Acknowledgement}}\label{README.md_autotoc_md1491}
+This code base was heavily modeled after the SPIFFS esp-\/idf component. 

@@ -1,0 +1,185 @@
+\doxysection{utils.\+h}
+\hypertarget{utils_8h_source}{}\label{utils_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/utils.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_libsodium/libsodium/src/libsodium/include/sodium/utils.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ sodium\_utils\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ sodium\_utils\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}export.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ SODIUM\_C99}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#\ if\ defined(\_\_cplusplus)\ ||\ !defined(\_\_STDC\_VERSION\_\_)\ ||\ \_\_STDC\_VERSION\_\_\ <\ 199901L}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#\ \ define\ SODIUM\_C99(X)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#\ else}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#\ \ define\ SODIUM\_C99(X)\ X}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#\ endif}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ SODIUM\_EXPORT}
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ sodium\_memzero(\textcolor{keywordtype}{void}\ *\ \textcolor{keyword}{const}\ pnt,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ SODIUM\_EXPORT}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}\ sodium\_stackzero(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ WARNING:\ sodium\_memcmp()\ must\ be\ used\ to\ verify\ if\ two\ secret\ keys}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ are\ equal,\ in\ constant\ time.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ It\ returns\ 0\ if\ the\ keys\ are\ equal,\ and\ -\/1\ if\ they\ differ.}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ This\ function\ is\ not\ designed\ for\ lexicographical\ comparisons.}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00033\ SODIUM\_EXPORT}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{int}\ sodium\_memcmp(\textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ \textcolor{keyword}{const}\ b1\_,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *\ \textcolor{keyword}{const}\ b2\_,\ \textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((warn\_unused\_result));}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ sodium\_compare()\ returns\ -\/1\ if\ b1\_\ <\ b2\_,\ 1\ if\ b1\_\ >\ b2\_\ and\ 0\ if\ b1\_\ ==\ b2\_}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ *\ It\ is\ suitable\ for\ lexicographical\ comparisons,\ or\ to\ compare\ nonces}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ and\ counters\ stored\ in\ little-\/endian\ format.}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ However,\ it\ is\ slower\ than\ sodium\_memcmp().}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00043\ SODIUM\_EXPORT}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{int}\ sodium\_compare(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *b1\_,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *b2\_,}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ len)\ \_\_attribute\_\_\ ((warn\_unused\_result));}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ SODIUM\_EXPORT}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{int}\ sodium\_is\_zero(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nlen);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ SODIUM\_EXPORT}
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ sodium\_increment(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *n,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ nlen);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ SODIUM\_EXPORT}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{void}\ sodium\_add(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *a,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *b,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ SODIUM\_EXPORT}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ sodium\_sub(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *a,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *b,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ SODIUM\_EXPORT}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{char}\ *sodium\_bin2hex(\textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ hex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ hex\_maxlen,}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ bin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ bin\_len)}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ SODIUM\_EXPORT}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{int}\ sodium\_hex2bin(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ bin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ bin\_maxlen,}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ hex,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ hex\_len,}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ ignore,\ \textcolor{keywordtype}{size\_t}\ *\ \textcolor{keyword}{const}\ bin\_len,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **\ \textcolor{keyword}{const}\ hex\_end)}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ sodium\_base64\_VARIANT\_ORIGINAL\ \ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ sodium\_base64\_VARIANT\_ORIGINAL\_NO\_PADDING\ 3}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ sodium\_base64\_VARIANT\_URLSAFE\ \ \ \ \ \ \ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ sodium\_base64\_VARIANT\_URLSAFE\_NO\_PADDING\ \ 7}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ Computes\ the\ required\ length\ to\ encode\ BIN\_LEN\ bytes\ as\ a\ base64\ string}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ using\ the\ given\ variant.\ The\ computed\ length\ includes\ a\ trailing\ \(\backslash\)0.}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ sodium\_base64\_ENCODED\_LEN(BIN\_LEN,\ VARIANT)\ \(\backslash\)}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\ \ \ \ (((BIN\_LEN)\ /\ 3U)\ *\ 4U\ +\ \(\backslash\)}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\ \ \ \ ((((BIN\_LEN)\ -\/\ ((BIN\_LEN)\ /\ 3U)\ *\ 3U)\ |\ (((BIN\_LEN)\ -\/\ ((BIN\_LEN)\ /\ 3U)\ *\ 3U)\ >>\ 1))\ \&\ 1U)\ *\ \(\backslash\)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\ \ \ \ \ (4U\ -\/\ (\string~((((VARIANT)\ \&\ 2U)\ >>\ 1)\ -\/\ 1U)\ \&\ (3U\ -\/\ ((BIN\_LEN)\ -\/\ ((BIN\_LEN)\ /\ 3U)\ *\ 3U))))\ +\ 1U)}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ SODIUM\_EXPORT}
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{size\_t}\ sodium\_base64\_encoded\_len(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ bin\_len,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ variant);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ SODIUM\_EXPORT}
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{char}\ *sodium\_bin2base64(\textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ b64,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ b64\_maxlen,}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ bin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ bin\_len,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ variant)\ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ SODIUM\_EXPORT}
+\DoxyCodeLine{00094\ \textcolor{keywordtype}{int}\ sodium\_base642bin(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ bin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ bin\_maxlen,}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ b64,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ b64\_len,}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\ \textcolor{keyword}{const}\ ignore,\ \textcolor{keywordtype}{size\_t}\ *\ \textcolor{keyword}{const}\ bin\_len,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ **\ \textcolor{keyword}{const}\ b64\_end,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ variant)}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(1)));}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ SODIUM\_EXPORT}
+\DoxyCodeLine{00101\ \textcolor{keywordtype}{int}\ sodium\_mlock(\textcolor{keywordtype}{void}\ *\ \textcolor{keyword}{const}\ addr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ SODIUM\_EXPORT}
+\DoxyCodeLine{00105\ \textcolor{keywordtype}{int}\ sodium\_munlock(\textcolor{keywordtype}{void}\ *\ \textcolor{keyword}{const}\ addr,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ len)}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{comment}{/*\ WARNING:\ sodium\_malloc()\ and\ sodium\_allocarray()\ are\ not\ general-\/purpose}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ *\ allocation\ functions.}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ *\ They\ return\ a\ pointer\ to\ a\ region\ filled\ with\ 0xd0\ bytes,\ immediately}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ *\ followed\ by\ a\ guard\ page.}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ *\ As\ a\ result,\ accessing\ a\ single\ byte\ after\ the\ requested\ allocation\ size}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ *\ will\ intentionally\ trigger\ a\ segmentation\ fault.}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ *\ A\ canary\ and\ an\ additional\ guard\ page\ placed\ before\ the\ beginning\ of\ the}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ region\ may\ also\ kill\ the\ process\ if\ a\ buffer\ underflow\ is\ detected.}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *\ The\ memory\ layout\ is:}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ [unprotected\ region\ size\ (read\ only)][guard\ page\ (no\ access)][unprotected\ pages\ (read/write)][guard\ page\ (no\ access)]}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *\ With\ the\ layout\ of\ the\ unprotected\ pages\ being:}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *\ [optional\ padding][16-\/bytes\ canary][user\ region]}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ However:}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ -\/\ These\ functions\ are\ significantly\ slower\ than\ standard\ functions}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ -\/\ Each\ allocation\ requires\ 3\ or\ 4\ additional\ pages}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ -\/\ The\ returned\ address\ will\ not\ be\ aligned\ if\ the\ allocation\ size\ is\ not}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ \ \ a\ multiple\ of\ the\ required\ alignment.\ For\ this\ reason,\ these\ functions}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ *\ \ \ are\ designed\ to\ store\ data,\ such\ as\ secret\ keys\ and\ messages.}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ *\ sodium\_malloc()\ can\ be\ used\ to\ allocate\ any\ libsodium\ data\ structure.}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *\ The\ crypto\_generichash\_state\ structure\ is\ packed\ and\ its\ length\ is}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ either\ 357\ or\ 361\ bytes.\ For\ this\ reason,\ when\ using\ sodium\_malloc()\ to}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ allocate\ a\ crypto\_generichash\_state\ structure,\ padding\ must\ be\ added\ in}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *\ order\ to\ ensure\ proper\ alignment.\ crypto\_generichash\_statebytes()}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ *\ returns\ the\ rounded\ up\ structure\ size,\ and\ should\ be\ preferred\ to\ sizeof():}}
+\DoxyCodeLine{00138\ \textcolor{comment}{\ *\ state\ =\ sodium\_malloc(crypto\_generichash\_statebytes());}}
+\DoxyCodeLine{00139\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ SODIUM\_EXPORT}
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{void}\ *sodium\_malloc(\textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ size)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((malloc));}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ SODIUM\_EXPORT}
+\DoxyCodeLine{00146\ \textcolor{keywordtype}{void}\ *sodium\_allocarray(\textcolor{keywordtype}{size\_t}\ count,\ \textcolor{keywordtype}{size\_t}\ size)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((malloc));}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ SODIUM\_EXPORT}
+\DoxyCodeLine{00150\ \textcolor{keywordtype}{void}\ sodium\_free(\textcolor{keywordtype}{void}\ *ptr);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ SODIUM\_EXPORT}
+\DoxyCodeLine{00153\ \textcolor{keywordtype}{int}\ sodium\_mprotect\_noaccess(\textcolor{keywordtype}{void}\ *ptr)\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ SODIUM\_EXPORT}
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{int}\ sodium\_mprotect\_readonly(\textcolor{keywordtype}{void}\ *ptr)\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ SODIUM\_EXPORT}
+\DoxyCodeLine{00159\ \textcolor{keywordtype}{int}\ sodium\_mprotect\_readwrite(\textcolor{keywordtype}{void}\ *ptr)\ \_\_attribute\_\_\ ((nonnull));}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ SODIUM\_EXPORT}
+\DoxyCodeLine{00162\ \textcolor{keywordtype}{int}\ sodium\_pad(\textcolor{keywordtype}{size\_t}\ *padded\_buflen\_p,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *buf,}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ unpadded\_buflen,\ \textcolor{keywordtype}{size\_t}\ blocksize,\ \textcolor{keywordtype}{size\_t}\ max\_buflen)}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(2)));}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ SODIUM\_EXPORT}
+\DoxyCodeLine{00167\ \textcolor{keywordtype}{int}\ sodium\_unpad(\textcolor{keywordtype}{size\_t}\ *unpadded\_buflen\_p,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *buf,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ padded\_buflen,\ \textcolor{keywordtype}{size\_t}\ blocksize)}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \_\_attribute\_\_\ ((nonnull(2)));}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/\ */}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keywordtype}{int}\ \_sodium\_alloc\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00176\ \}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

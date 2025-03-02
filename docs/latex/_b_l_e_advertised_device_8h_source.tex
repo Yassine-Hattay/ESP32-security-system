@@ -1,0 +1,133 @@
+\doxysection{BLEAdvertised\+Device.\+h}
+\hypertarget{_b_l_e_advertised_device_8h_source}{}\label{_b_l_e_advertised_device_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/BLEAdvertisedDevice.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/BLE/src/BLEAdvertisedDevice.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ BLEAdvertisedDevice.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Jul\ 3,\ 2017}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ kolban}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ COMPONENTS\_CPP\_UTILS\_BLEADVERTISEDDEVICE\_H\_}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ COMPONENTS\_CPP\_UTILS\_BLEADVERTISEDDEVICE\_H\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#if\ SOC\_BLE\_SUPPORTED}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ defined(CONFIG\_BLUEDROID\_ENABLED)}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <esp\_gattc\_api.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}BLEAddress.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}BLEScan.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}BLEUUID.h"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00024\ \ \ BLE\_UNKNOWN\_FRAME,}
+\DoxyCodeLine{00025\ \ \ BLE\_EDDYSTONE\_UUID\_FRAME,}
+\DoxyCodeLine{00026\ \ \ BLE\_EDDYSTONE\_URL\_FRAME,}
+\DoxyCodeLine{00027\ \ \ BLE\_EDDYSTONE\_TLM\_FRAME,}
+\DoxyCodeLine{00028\ \ \ BLE\_FRAME\_MAX}
+\DoxyCodeLine{00029\ \}\ ble\_frame\_type\_t;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }BLEScan;}
+\DoxyCodeLine{00038\ \textcolor{keyword}{class\ }BLEAdvertisedDevice\ \{}
+\DoxyCodeLine{00039\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ BLEAdvertisedDevice();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ BLEAddress\ getAddress();}
+\DoxyCodeLine{00043\ \ \ uint16\_t\ getAppearance();}
+\DoxyCodeLine{00044\ \ \ String\ getManufacturerData();}
+\DoxyCodeLine{00045\ \ \ String\ getName();}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{int}\ getRSSI();}
+\DoxyCodeLine{00047\ \ \ BLEScan\ *getScan();}
+\DoxyCodeLine{00048\ \ \ String\ getServiceData();}
+\DoxyCodeLine{00049\ \ \ String\ getServiceData(\textcolor{keywordtype}{int}\ i);}
+\DoxyCodeLine{00050\ \ \ BLEUUID\ getServiceDataUUID();}
+\DoxyCodeLine{00051\ \ \ BLEUUID\ getServiceDataUUID(\textcolor{keywordtype}{int}\ i);}
+\DoxyCodeLine{00052\ \ \ BLEUUID\ getServiceUUID();}
+\DoxyCodeLine{00053\ \ \ BLEUUID\ getServiceUUID(\textcolor{keywordtype}{int}\ i);}
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{int}\ getServiceDataCount();}
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{int}\ getServiceDataUUIDCount();}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{int}\ getServiceUUIDCount();}
+\DoxyCodeLine{00057\ \ \ int8\_t\ getTXPower();}
+\DoxyCodeLine{00058\ \ \ uint8\_t\ *getPayload();}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{size\_t}\ getPayloadLength();}
+\DoxyCodeLine{00060\ \ \ esp\_ble\_addr\_type\_t\ getAddressType();}
+\DoxyCodeLine{00061\ \ \ ble\_frame\_type\_t\ getFrameType();}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{void}\ setAddressType(esp\_ble\_addr\_type\_t\ type);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{bool}\ isAdvertisingService(BLEUUID\ uuid);}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{bool}\ haveAppearance();}
+\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{bool}\ haveManufacturerData();}
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{bool}\ haveName();}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{bool}\ haveRSSI();}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{bool}\ haveServiceData();}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{bool}\ haveServiceUUID();}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ haveTXPower();}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ String\ toString();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }BLEScan;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ parseAdvertisement(uint8\_t\ *payload,\ \textcolor{keywordtype}{size\_t}\ total\_len\ =\ 62);}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{void}\ setPayload(uint8\_t\ *payload,\ \textcolor{keywordtype}{size\_t}\ total\_len\ =\ 62);}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{void}\ setAddress(BLEAddress\ address);}
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{void}\ setAdFlag(uint8\_t\ adFlag);}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{void}\ setAdvertizementResult(uint8\_t\ *payload);}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{void}\ setAppearance(uint16\_t\ appearance);}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{void}\ setManufacturerData(String\ manufacturerData);}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{void}\ setName(String\ name);}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{void}\ setRSSI(\textcolor{keywordtype}{int}\ rssi);}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{void}\ setScan(BLEScan\ *pScan);}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{void}\ setServiceData(String\ data);}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{void}\ setServiceDataUUID(BLEUUID\ uuid);}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{void}\ setServiceUUID(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *serviceUUID);}
+\DoxyCodeLine{00091\ \ \ \textcolor{keywordtype}{void}\ setServiceUUID(BLEUUID\ serviceUUID);}
+\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{void}\ setTXPower(int8\_t\ txPower);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ m\_haveAppearance;}
+\DoxyCodeLine{00095\ \ \ \textcolor{keywordtype}{bool}\ m\_haveManufacturerData;}
+\DoxyCodeLine{00096\ \ \ \textcolor{keywordtype}{bool}\ m\_haveName;}
+\DoxyCodeLine{00097\ \ \ \textcolor{keywordtype}{bool}\ m\_haveRSSI;}
+\DoxyCodeLine{00098\ \ \ \textcolor{keywordtype}{bool}\ m\_haveTXPower;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ BLEAddress\ m\_address\ =\ BLEAddress((uint8\_t\ *)\textcolor{stringliteral}{"{}\(\backslash\)0\(\backslash\)0\(\backslash\)0\(\backslash\)0\(\backslash\)0\(\backslash\)0"{}});}
+\DoxyCodeLine{00101\ \ \ uint8\_t\ m\_adFlag;}
+\DoxyCodeLine{00102\ \ \ uint16\_t\ m\_appearance;}
+\DoxyCodeLine{00103\ \ \ \textcolor{keywordtype}{int}\ m\_deviceType;}
+\DoxyCodeLine{00104\ \ \ String\ m\_manufacturerData;}
+\DoxyCodeLine{00105\ \ \ String\ m\_name;}
+\DoxyCodeLine{00106\ \ \ BLEScan\ *m\_pScan;}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{int}\ m\_rssi;}
+\DoxyCodeLine{00108\ \ \ std::vector<BLEUUID>\ m\_serviceUUIDs;}
+\DoxyCodeLine{00109\ \ \ int8\_t\ m\_txPower;}
+\DoxyCodeLine{00110\ \ \ std::vector<String>\ m\_serviceData;}
+\DoxyCodeLine{00111\ \ \ std::vector<BLEUUID>\ m\_serviceDataUUIDs;}
+\DoxyCodeLine{00112\ \ \ uint8\_t\ *m\_payload;}
+\DoxyCodeLine{00113\ \ \ \textcolor{keywordtype}{size\_t}\ m\_payloadLength\ =\ 0;}
+\DoxyCodeLine{00114\ \ \ esp\_ble\_addr\_type\_t\ m\_addressType;}
+\DoxyCodeLine{00115\ \};}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00124\ \textcolor{keyword}{class\ }BLEAdvertisedDeviceCallbacks\ \{}
+\DoxyCodeLine{00125\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00126\ \ \ \textcolor{keyword}{virtual}\ \string~BLEAdvertisedDeviceCallbacks()\ \{\}}
+\DoxyCodeLine{00133\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onResult(BLEAdvertisedDevice\ advertisedDevice)\ =\ 0;}
+\DoxyCodeLine{00134\ \};}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#ifdef\ SOC\_BLE\_50\_SUPPORTED}}
+\DoxyCodeLine{00137\ \textcolor{keyword}{class\ }BLEExtAdvertisingCallbacks\ \{}
+\DoxyCodeLine{00138\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00139\ \ \ \textcolor{keyword}{virtual}\ \string~BLEExtAdvertisingCallbacks()\ \{\}}
+\DoxyCodeLine{00146\ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ onResult(esp\_ble\_gap\_ext\_adv\_report\_t\ report)\ =\ 0;}
+\DoxyCodeLine{00147\ \};}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ SOC\_BLE\_50\_SUPPORTED}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_BLUEDROID\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_BLE\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ COMPONENTS\_CPP\_UTILS\_BLEADVERTISEDDEVICE\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

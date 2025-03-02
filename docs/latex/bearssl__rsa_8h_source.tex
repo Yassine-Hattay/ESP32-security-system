@@ -1,0 +1,378 @@
+\doxysection{bearssl\+\_\+rsa.\+h}
+\hypertarget{bearssl__rsa_8h_source}{}\label{bearssl__rsa_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_rsa.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/bssl/bearssl\_rsa.h}}
+\mbox{\hyperlink{bearssl__rsa_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2016\ Thomas\ Pornin\ <pornin@bolet.org>}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ "{}Software"{}),\ to\ deal\ in\ the\ Software\ without\ restriction,\ including}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ distribute,\ sublicense,\ and/or\ sell\ copies\ of\ the\ Software,\ and\ to}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ the\ following\ conditions:}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ }}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ }}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ MERCHANTABILITY,\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ }}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER\ IN\ AN}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ SOFTWARE.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ "{}../ESP\_SSLClient\_FS.h"{}}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(USE\_LIB\_SSL\_ENGINE)}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#ifndef\ BR\_BEARSSL\_RSA\_H\_\_}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ BR\_BEARSSL\_RSA\_H\_\_}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl__hash_8h}{bearssl\_hash.h}}"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bearssl__rand_8h}{bearssl\_rand.h}}"{}}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structbr__rsa__public__key_a3d73ffff37329e2e1c9efdae8ddfa53f}{n}};}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__rsa__public__key_acae4c476eba789845538804d565d3f55}{nlen}};}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structbr__rsa__public__key_acc109cf04cf03328927471bae376731c}{e}};}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__rsa__public__key_a25c48aea2fbaf14e669dc9cf1827cbc9}{elen}};}
+\DoxyCodeLine{00174\ \}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}};}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00185\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00187\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structbr__rsa__private__key_a283fea483aeeab2fb03021ce54e1b5ce}{n\_bitlen}};}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structbr__rsa__private__key_a591f80a155fc42e1d79e8169fad15d4a}{p}};}
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__rsa__private__key_ab6fd51db3cd1ca46172091640c2258aa}{plen}};}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structbr__rsa__private__key_ac30acdf290d3dc4a686af6b03c245581}{q}};}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__rsa__private__key_aebb01978bb7b68f16669460b9f3cbcb2}{qlen}};}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structbr__rsa__private__key_a1a9343cde32431aca1a7d3b2a367cf97}{dp}};}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__rsa__private__key_aa1abb815bf9961340ca48f96fdd7a879}{dplen}};}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structbr__rsa__private__key_ab236059c4f4ad886af9411b790c0d700}{dq}};}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__rsa__private__key_a2c53fb346f8b1deb36a5c448ec504dbc}{dqlen}};}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structbr__rsa__private__key_aef2776053e415528d6c61ef6bfe69580}{iq}};}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structbr__rsa__private__key_aa3bcdfee6999d70f8ea1bafd2b9cec63}{iqlen}};}
+\DoxyCodeLine{00208\ \}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}};}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00234\ \textcolor{keyword}{typedef}\ uint32\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_a016776655703f032ef525cf4ff42397c}{br\_rsa\_public}})(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00282\ \textcolor{keyword}{typedef}\ uint32\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_a9ee06c1a4ae5af9e900d877a87ec8b17}{br\_rsa\_pkcs1\_vrfy}})(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_out);}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00331\ \textcolor{keyword}{typedef}\ uint32\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_ac266b33ce9fe0a9787041bc237f0ed9b}{br\_rsa\_pss\_vrfy}})(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,\ }
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *hash,\ \textcolor{keywordtype}{size\_t}\ salt\_len,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00379\ \textcolor{keyword}{typedef}\ size\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_a7ff287a5e61fe907f12413bac82cf87e}{br\_rsa\_oaep\_encrypt}})(}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rnd,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,}
+\DoxyCodeLine{00381\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keywordtype}{void}\ *dst,\ \textcolor{keywordtype}{size\_t}\ dst\_max\_len,}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ src\_len);}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00399\ \textcolor{keyword}{typedef}\ uint32\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_a77085d6f13d25d5e211e6954ff30ff6a}{br\_rsa\_private}})(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00437\ \textcolor{keyword}{typedef}\ uint32\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_a24180c531a5c88c08cf7e32e96aa2eca}{br\_rsa\_pkcs1\_sign}})(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,}
+\DoxyCodeLine{00438\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{00439\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00483\ \textcolor{keyword}{typedef}\ uint32\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_a6305dab409b30fd9e844a21f5d2dfe82}{br\_rsa\_pss\_sign}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rng,}
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_value,\ \textcolor{keywordtype}{size\_t}\ salt\_len,}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00491\ \textcolor{preprocessor}{\#define\ BR\_HASH\_OID\_SHA1\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00492\ \textcolor{preprocessor}{\ \ \ \ ((const\ unsigned\ char\ *)"{}\(\backslash\)x05\(\backslash\)x2B\(\backslash\)x0E\(\backslash\)x03\(\backslash\)x02\(\backslash\)x1A"{})}}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00497\ \textcolor{preprocessor}{\#define\ BR\_HASH\_OID\_SHA224\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00498\ \textcolor{preprocessor}{\ \ \ \ ((const\ unsigned\ char\ *)"{}\(\backslash\)x09\(\backslash\)x60\(\backslash\)x86\(\backslash\)x48\(\backslash\)x01\(\backslash\)x65\(\backslash\)x03\(\backslash\)x04\(\backslash\)x02\(\backslash\)x04"{})}}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00503\ \textcolor{preprocessor}{\#define\ BR\_HASH\_OID\_SHA256\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\ \ \ \ ((const\ unsigned\ char\ *)"{}\(\backslash\)x09\(\backslash\)x60\(\backslash\)x86\(\backslash\)x48\(\backslash\)x01\(\backslash\)x65\(\backslash\)x03\(\backslash\)x04\(\backslash\)x02\(\backslash\)x01"{})}}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{\#define\ BR\_HASH\_OID\_SHA384\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\ \ \ \ ((const\ unsigned\ char\ *)"{}\(\backslash\)x09\(\backslash\)x60\(\backslash\)x86\(\backslash\)x48\(\backslash\)x01\(\backslash\)x65\(\backslash\)x03\(\backslash\)x04\(\backslash\)x02\(\backslash\)x02"{})}}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00515\ \textcolor{preprocessor}{\#define\ BR\_HASH\_OID\_SHA512\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00516\ \textcolor{preprocessor}{\ \ \ \ ((const\ unsigned\ char\ *)"{}\(\backslash\)x09\(\backslash\)x60\(\backslash\)x86\(\backslash\)x48\(\backslash\)x01\(\backslash\)x65\(\backslash\)x03\(\backslash\)x04\(\backslash\)x02\(\backslash\)x03"{})}}
+\DoxyCodeLine{00517\ }
+\DoxyCodeLine{00555\ \textcolor{keyword}{typedef}\ uint32\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_a775a9e7056927e1d41866eec92d190c2}{br\_rsa\_oaep\_decrypt}})(}
+\DoxyCodeLine{00556\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{00557\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{00558\ }
+\DoxyCodeLine{00559\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00560\ \textcolor{comment}{\ *\ RSA\ "{}i32"{}\ engine.\ Integers\ are\ internally\ represented\ as\ arrays\ of}}
+\DoxyCodeLine{00561\ \textcolor{comment}{\ *\ 32-\/bit\ integers,\ and\ the\ core\ multiplication\ primitive\ is\ the}}
+\DoxyCodeLine{00562\ \textcolor{comment}{\ *\ 32x32-\/>64\ multiplication.}}
+\DoxyCodeLine{00563\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00575\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_ac352f411eca5ec01119c537be37d3656}{br\_rsa\_i32\_public}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00576\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00591\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a9889bf6982e3cf9829138131be3c626f}{br\_rsa\_i32\_pkcs1\_vrfy}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00592\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_out);}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00609\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a9797c7d2aa9b89a9abdc4b9e01bd1067}{br\_rsa\_i32\_pss\_vrfy}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00610\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,\ }
+\DoxyCodeLine{00611\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *hash,\ \textcolor{keywordtype}{size\_t}\ salt\_len,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00622\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a1022010003c6d57134a077a04007c00b}{br\_rsa\_i32\_private}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,}
+\DoxyCodeLine{00623\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{00624\ }
+\DoxyCodeLine{00637\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_ad7c1d1ddec99983263e387a0dfee8d55}{br\_rsa\_i32\_pkcs1\_sign}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,}
+\DoxyCodeLine{00638\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{00639\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{00640\ }
+\DoxyCodeLine{00655\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a42280e6d1e39367d98a89af390f72331}{br\_rsa\_i32\_pss\_sign}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rng,}
+\DoxyCodeLine{00656\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,}
+\DoxyCodeLine{00657\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_value,\ \textcolor{keywordtype}{size\_t}\ salt\_len,}
+\DoxyCodeLine{00658\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00660\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00661\ \textcolor{comment}{\ *\ RSA\ "{}i31"{}\ engine.\ Similar\ to\ i32,\ but\ only\ 31\ bits\ are\ used\ per\ 32-\/bit}}
+\DoxyCodeLine{00662\ \textcolor{comment}{\ *\ word.\ This\ uses\ slightly\ more\ stack\ space\ (about\ 4\%\ more)\ and\ code}}
+\DoxyCodeLine{00663\ \textcolor{comment}{\ *\ space,\ but\ it\ quite\ faster.}}
+\DoxyCodeLine{00664\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00676\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a66b7b887dee035f0a7e9c9f069607324}{br\_rsa\_i31\_public}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00677\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{00678\ }
+\DoxyCodeLine{00692\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a040cfd6374d2d5ba134e089f99116d4b}{br\_rsa\_i31\_pkcs1\_vrfy}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00693\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{00694\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_out);}
+\DoxyCodeLine{00695\ }
+\DoxyCodeLine{00710\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_ad16d4cf5173707740d3d8996abb7fe44}{br\_rsa\_i31\_pss\_vrfy}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00711\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,\ }
+\DoxyCodeLine{00712\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *hash,\ \textcolor{keywordtype}{size\_t}\ salt\_len,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00723\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_ac81516db5646d1e323333623180ca737}{br\_rsa\_i31\_private}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,}
+\DoxyCodeLine{00724\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{00725\ }
+\DoxyCodeLine{00738\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_ab4294ed643d96474d3bca79aa5e650fe}{br\_rsa\_i31\_pkcs1\_sign}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,}
+\DoxyCodeLine{00739\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{00740\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00756\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a0453f8fd928908f4457e7c0c8e1aa641}{br\_rsa\_i31\_pss\_sign}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rng,}
+\DoxyCodeLine{00757\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,}
+\DoxyCodeLine{00758\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_value,\ \textcolor{keywordtype}{size\_t}\ salt\_len,}
+\DoxyCodeLine{00759\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{00760\ }
+\DoxyCodeLine{00761\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00762\ \textcolor{comment}{\ *\ RSA\ "{}i62"{}\ engine.\ Similar\ to\ i31,\ but\ internal\ multiplication\ use}}
+\DoxyCodeLine{00763\ \textcolor{comment}{\ *\ 64x64-\/>128\ multiplications.\ This\ is\ available\ only\ on\ architecture}}
+\DoxyCodeLine{00764\ \textcolor{comment}{\ *\ that\ offer\ such\ an\ opcode.}}
+\DoxyCodeLine{00765\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00766\ }
+\DoxyCodeLine{00781\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_aaa865f120975ed6ddf1d3dab08ca1c5a}{br\_rsa\_i62\_public}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00782\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{00783\ }
+\DoxyCodeLine{00801\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_af4c246e8c57c031fb2803967765dee04}{br\_rsa\_i62\_pkcs1\_vrfy}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00802\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{00803\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_out);}
+\DoxyCodeLine{00804\ }
+\DoxyCodeLine{00823\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a507516c2b4238e824703565668ba47b9}{br\_rsa\_i62\_pss\_vrfy}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00824\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,\ }
+\DoxyCodeLine{00825\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *hash,\ \textcolor{keywordtype}{size\_t}\ salt\_len,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{00826\ }
+\DoxyCodeLine{00840\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_ae0b0d182b913b50de9863e82c6caef04}{br\_rsa\_i62\_private}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,}
+\DoxyCodeLine{00841\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{00842\ }
+\DoxyCodeLine{00859\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a9d71305804fa9038ced239be59559b12}{br\_rsa\_i62\_pkcs1\_sign}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,}
+\DoxyCodeLine{00860\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{00861\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{00862\ }
+\DoxyCodeLine{00881\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a53496f4c44bc2038e50f22fa041a1cbf}{br\_rsa\_i62\_pss\_sign}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rng,}
+\DoxyCodeLine{00882\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,}
+\DoxyCodeLine{00883\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_value,\ \textcolor{keywordtype}{size\_t}\ salt\_len,}
+\DoxyCodeLine{00884\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{00885\ }
+\DoxyCodeLine{00892\ \mbox{\hyperlink{bearssl__rsa_8h_a016776655703f032ef525cf4ff42397c}{br\_rsa\_public}}\ \mbox{\hyperlink{bearssl__rsa_8h_a6f5c8547d3d6b6b49588d8f7d05a3bcc}{br\_rsa\_i62\_public\_get}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00893\ }
+\DoxyCodeLine{00900\ \mbox{\hyperlink{bearssl__rsa_8h_a9ee06c1a4ae5af9e900d877a87ec8b17}{br\_rsa\_pkcs1\_vrfy}}\ \mbox{\hyperlink{bearssl__rsa_8h_a93198c035a3951982f8a5cda79ef362d}{br\_rsa\_i62\_pkcs1\_vrfy\_get}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00908\ \mbox{\hyperlink{bearssl__rsa_8h_ac266b33ce9fe0a9787041bc237f0ed9b}{br\_rsa\_pss\_vrfy}}\ \mbox{\hyperlink{bearssl__rsa_8h_ac264b0412f00705aa37b2e776bf2dff7}{br\_rsa\_i62\_pss\_vrfy\_get}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00916\ \mbox{\hyperlink{bearssl__rsa_8h_a77085d6f13d25d5e211e6954ff30ff6a}{br\_rsa\_private}}\ \mbox{\hyperlink{bearssl__rsa_8h_a399ad7529be433ec208042eeaf22534b}{br\_rsa\_i62\_private\_get}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00917\ }
+\DoxyCodeLine{00924\ \mbox{\hyperlink{bearssl__rsa_8h_a24180c531a5c88c08cf7e32e96aa2eca}{br\_rsa\_pkcs1\_sign}}\ \mbox{\hyperlink{bearssl__rsa_8h_a7bb17eeae232d6a22e73a1ec4fcd6308}{br\_rsa\_i62\_pkcs1\_sign\_get}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00925\ }
+\DoxyCodeLine{00932\ \mbox{\hyperlink{bearssl__rsa_8h_a6305dab409b30fd9e844a21f5d2dfe82}{br\_rsa\_pss\_sign}}\ \mbox{\hyperlink{bearssl__rsa_8h_afb98434b39db1707e908fb0908e17835}{br\_rsa\_i62\_pss\_sign\_get}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00933\ }
+\DoxyCodeLine{00940\ \mbox{\hyperlink{bearssl__rsa_8h_a7ff287a5e61fe907f12413bac82cf87e}{br\_rsa\_oaep\_encrypt}}\ \mbox{\hyperlink{bearssl__rsa_8h_a4fc7d6b7ebe1fb1e20df95b8a8a0ca1f}{br\_rsa\_i62\_oaep\_encrypt\_get}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00941\ }
+\DoxyCodeLine{00948\ \mbox{\hyperlink{bearssl__rsa_8h_a775a9e7056927e1d41866eec92d190c2}{br\_rsa\_oaep\_decrypt}}\ \mbox{\hyperlink{bearssl__rsa_8h_a2d54ee6a0c2521dcbf72e53c27bcdfa3}{br\_rsa\_i62\_oaep\_decrypt\_get}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00949\ }
+\DoxyCodeLine{00950\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00951\ \textcolor{comment}{\ *\ RSA\ "{}i15"{}\ engine.\ Integers\ are\ represented\ as\ 15-\/bit\ integers,\ so}}
+\DoxyCodeLine{00952\ \textcolor{comment}{\ *\ the\ code\ uses\ only\ 32-\/bit\ multiplication\ (no\ 64-\/bit\ result),\ which}}
+\DoxyCodeLine{00953\ \textcolor{comment}{\ *\ is\ vastly\ faster\ (and\ constant-\/time)\ on\ the\ ARM\ Cortex\ M0/M0+.}}
+\DoxyCodeLine{00954\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00955\ }
+\DoxyCodeLine{00966\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_abae12d9326f85deebe73b30d8587bea5}{br\_rsa\_i15\_public}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00967\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{00968\ }
+\DoxyCodeLine{00982\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a523c19243ff86b7721d296673cc65743}{br\_rsa\_i15\_pkcs1\_vrfy}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{00983\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{00984\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_out);}
+\DoxyCodeLine{00985\ }
+\DoxyCodeLine{01000\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a914a7fc59895d3efe6f1d4f97c6675a3}{br\_rsa\_i15\_pss\_vrfy}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,\ \textcolor{keywordtype}{size\_t}\ xlen,}
+\DoxyCodeLine{01001\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,\ }
+\DoxyCodeLine{01002\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *hash,\ \textcolor{keywordtype}{size\_t}\ salt\_len,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk);}
+\DoxyCodeLine{01003\ }
+\DoxyCodeLine{01013\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a060e9e9aca1fe6bfa700c76eda09ebe0}{br\_rsa\_i15\_private}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x,}
+\DoxyCodeLine{01014\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{01015\ }
+\DoxyCodeLine{01028\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a0a5650ab032e3492f83f6f3263c74f76}{br\_rsa\_i15\_pkcs1\_sign}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_oid,}
+\DoxyCodeLine{01029\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash,\ \textcolor{keywordtype}{size\_t}\ hash\_len,}
+\DoxyCodeLine{01030\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{01031\ }
+\DoxyCodeLine{01046\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_afea802ccce6b31cf8f38c5811662d65c}{br\_rsa\_i15\_pss\_sign}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rng,}
+\DoxyCodeLine{01047\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_data,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *hf\_mgf1,}
+\DoxyCodeLine{01048\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *hash\_value,\ \textcolor{keywordtype}{size\_t}\ salt\_len,}
+\DoxyCodeLine{01049\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *x);}
+\DoxyCodeLine{01050\ }
+\DoxyCodeLine{01059\ \mbox{\hyperlink{bearssl__rsa_8h_a016776655703f032ef525cf4ff42397c}{br\_rsa\_public}}\ \mbox{\hyperlink{bearssl__rsa_8h_af697a17ed3b1a0537e154b850ebbdfcd}{br\_rsa\_public\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01060\ }
+\DoxyCodeLine{01069\ \mbox{\hyperlink{bearssl__rsa_8h_a77085d6f13d25d5e211e6954ff30ff6a}{br\_rsa\_private}}\ \mbox{\hyperlink{bearssl__rsa_8h_a3a3334ff0b0072e59d8bf5477bc9c9ed}{br\_rsa\_private\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01070\ }
+\DoxyCodeLine{01079\ \mbox{\hyperlink{bearssl__rsa_8h_a9ee06c1a4ae5af9e900d877a87ec8b17}{br\_rsa\_pkcs1\_vrfy}}\ \mbox{\hyperlink{bearssl__rsa_8h_ad0f63d3969b5c2877836e8bc62cf60d8}{br\_rsa\_pkcs1\_vrfy\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01080\ }
+\DoxyCodeLine{01089\ \mbox{\hyperlink{bearssl__rsa_8h_ac266b33ce9fe0a9787041bc237f0ed9b}{br\_rsa\_pss\_vrfy}}\ \mbox{\hyperlink{bearssl__rsa_8h_a1f5dbeb2c866557539d8c106df9c70be}{br\_rsa\_pss\_vrfy\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01090\ }
+\DoxyCodeLine{01099\ \mbox{\hyperlink{bearssl__rsa_8h_a24180c531a5c88c08cf7e32e96aa2eca}{br\_rsa\_pkcs1\_sign}}\ \mbox{\hyperlink{bearssl__rsa_8h_a53c33b40a9e69de7f0920f960b3fe0f3}{br\_rsa\_pkcs1\_sign\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01100\ }
+\DoxyCodeLine{01109\ \mbox{\hyperlink{bearssl__rsa_8h_a6305dab409b30fd9e844a21f5d2dfe82}{br\_rsa\_pss\_sign}}\ \mbox{\hyperlink{bearssl__rsa_8h_a4d7a997feecc9eaf7ed6683955ad761c}{br\_rsa\_pss\_sign\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01110\ }
+\DoxyCodeLine{01119\ \mbox{\hyperlink{bearssl__rsa_8h_a7ff287a5e61fe907f12413bac82cf87e}{br\_rsa\_oaep\_encrypt}}\ \mbox{\hyperlink{bearssl__rsa_8h_a92e55eb2959f5c91e86a08fec7063906}{br\_rsa\_oaep\_encrypt\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01120\ }
+\DoxyCodeLine{01129\ \mbox{\hyperlink{bearssl__rsa_8h_a775a9e7056927e1d41866eec92d190c2}{br\_rsa\_oaep\_decrypt}}\ \mbox{\hyperlink{bearssl__rsa_8h_a45b81ba38527f30a820f35e7139fd8fa}{br\_rsa\_oaep\_decrypt\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01130\ }
+\DoxyCodeLine{01158\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_af9346eacc5c9e1c92649d5a8c6ff173e}{br\_rsa\_ssl\_decrypt}}(\mbox{\hyperlink{bearssl__rsa_8h_a77085d6f13d25d5e211e6954ff30ff6a}{br\_rsa\_private}}\ core,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,}
+\DoxyCodeLine{01159\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{01160\ }
+\DoxyCodeLine{01177\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__rsa_8h_af50673071dd6c52f916e6097f716c386}{br\_rsa\_i15\_oaep\_encrypt}}(}
+\DoxyCodeLine{01178\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rnd,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,}
+\DoxyCodeLine{01179\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{01180\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,}
+\DoxyCodeLine{01181\ \ \ \ \ \textcolor{keywordtype}{void}\ *dst,\ \textcolor{keywordtype}{size\_t}\ dst\_max\_len,}
+\DoxyCodeLine{01182\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ src\_len);}
+\DoxyCodeLine{01183\ }
+\DoxyCodeLine{01197\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a87d081c95ae1340736954f99a20788b5}{br\_rsa\_i15\_oaep\_decrypt}}(}
+\DoxyCodeLine{01198\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{01199\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{01200\ }
+\DoxyCodeLine{01217\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__rsa_8h_a9e72f9605b3bdea9173a36be4511a29b}{br\_rsa\_i31\_oaep\_encrypt}}(}
+\DoxyCodeLine{01218\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rnd,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,}
+\DoxyCodeLine{01219\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{01220\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,}
+\DoxyCodeLine{01221\ \ \ \ \ \textcolor{keywordtype}{void}\ *dst,\ \textcolor{keywordtype}{size\_t}\ dst\_max\_len,}
+\DoxyCodeLine{01222\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ src\_len);}
+\DoxyCodeLine{01223\ }
+\DoxyCodeLine{01237\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_ac73f15d91f0a256781999eabbc0a0f01}{br\_rsa\_i31\_oaep\_decrypt}}(}
+\DoxyCodeLine{01238\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{01239\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{01240\ }
+\DoxyCodeLine{01257\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__rsa_8h_af73eee51b7ef69068c9392d5e995ce50}{br\_rsa\_i32\_oaep\_encrypt}}(}
+\DoxyCodeLine{01258\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rnd,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,}
+\DoxyCodeLine{01259\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{01260\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,}
+\DoxyCodeLine{01261\ \ \ \ \ \textcolor{keywordtype}{void}\ *dst,\ \textcolor{keywordtype}{size\_t}\ dst\_max\_len,}
+\DoxyCodeLine{01262\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ src\_len);}
+\DoxyCodeLine{01263\ }
+\DoxyCodeLine{01277\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a2f3971fbb6053759fb95ed7ebfc274da}{br\_rsa\_i32\_oaep\_decrypt}}(}
+\DoxyCodeLine{01278\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{01279\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{01280\ }
+\DoxyCodeLine{01301\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__rsa_8h_a5397823ac7e6e5840f46d249cbb55566}{br\_rsa\_i62\_oaep\_encrypt}}(}
+\DoxyCodeLine{01302\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rnd,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,}
+\DoxyCodeLine{01303\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{01304\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,}
+\DoxyCodeLine{01305\ \ \ \ \ \textcolor{keywordtype}{void}\ *dst,\ \textcolor{keywordtype}{size\_t}\ dst\_max\_len,}
+\DoxyCodeLine{01306\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *src,\ \textcolor{keywordtype}{size\_t}\ src\_len);}
+\DoxyCodeLine{01307\ }
+\DoxyCodeLine{01325\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a7a255ca9e14d83df4ae48cb27b7e8cf7}{br\_rsa\_i62\_oaep\_decrypt}}(}
+\DoxyCodeLine{01326\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__hash_8h_ae38c1b9d539537cc16fc84388b922d86}{br\_hash\_class}}\ *dig,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *label,\ \textcolor{keywordtype}{size\_t}\ label\_len,}
+\DoxyCodeLine{01327\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ *len);}
+\DoxyCodeLine{01328\ }
+\DoxyCodeLine{01340\ \textcolor{preprocessor}{\#define\ BR\_RSA\_KBUF\_PRIV\_SIZE(size)\ \ \ \ (5\ *\ (((size)\ +\ 15)\ >>\ 4))}}
+\DoxyCodeLine{01341\ }
+\DoxyCodeLine{01353\ \textcolor{preprocessor}{\#define\ BR\_RSA\_KBUF\_PUB\_SIZE(size)\ \ \ \ \ (4\ +\ (((size)\ +\ 7)\ >>\ 3))}}
+\DoxyCodeLine{01354\ }
+\DoxyCodeLine{01393\ \textcolor{keyword}{typedef}\ uint32\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_abe16eb51e581ad88bc8f50051969f266}{br\_rsa\_keygen}})(}
+\DoxyCodeLine{01394\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rng\_ctx,}
+\DoxyCodeLine{01395\ \ \ \ \ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{void}\ *kbuf\_priv,}
+\DoxyCodeLine{01396\ \ \ \ \ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,\ \textcolor{keywordtype}{void}\ *kbuf\_pub,}
+\DoxyCodeLine{01397\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ size,\ uint32\_t\ pubexp);}
+\DoxyCodeLine{01398\ }
+\DoxyCodeLine{01413\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a2038f367af4f1c53be22cba760a32f5e}{br\_rsa\_i15\_keygen}}(}
+\DoxyCodeLine{01414\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rng\_ctx,}
+\DoxyCodeLine{01415\ \ \ \ \ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{void}\ *kbuf\_priv,}
+\DoxyCodeLine{01416\ \ \ \ \ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,\ \textcolor{keywordtype}{void}\ *kbuf\_pub,}
+\DoxyCodeLine{01417\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ size,\ uint32\_t\ pubexp);}
+\DoxyCodeLine{01418\ }
+\DoxyCodeLine{01433\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a96b765d466d640c322271c21ca40216a}{br\_rsa\_i31\_keygen}}(}
+\DoxyCodeLine{01434\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rng\_ctx,}
+\DoxyCodeLine{01435\ \ \ \ \ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{void}\ *kbuf\_priv,}
+\DoxyCodeLine{01436\ \ \ \ \ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,\ \textcolor{keywordtype}{void}\ *kbuf\_pub,}
+\DoxyCodeLine{01437\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ size,\ uint32\_t\ pubexp);}
+\DoxyCodeLine{01438\ }
+\DoxyCodeLine{01457\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a9af94eb9850599fc395e3f9134eef435}{br\_rsa\_i62\_keygen}}(}
+\DoxyCodeLine{01458\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{bearssl__rand_8h_a249aef3beeba050eea56048e6a479fba}{br\_prng\_class}}\ **rng\_ctx,}
+\DoxyCodeLine{01459\ \ \ \ \ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ \textcolor{keywordtype}{void}\ *kbuf\_priv,}
+\DoxyCodeLine{01460\ \ \ \ \ \mbox{\hyperlink{structbr__rsa__public__key}{br\_rsa\_public\_key}}\ *pk,\ \textcolor{keywordtype}{void}\ *kbuf\_pub,}
+\DoxyCodeLine{01461\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ size,\ uint32\_t\ pubexp);}
+\DoxyCodeLine{01462\ }
+\DoxyCodeLine{01469\ \mbox{\hyperlink{bearssl__rsa_8h_abe16eb51e581ad88bc8f50051969f266}{br\_rsa\_keygen}}\ \mbox{\hyperlink{bearssl__rsa_8h_a6a56ae035645a3cead2c89990664a1fc}{br\_rsa\_i62\_keygen\_get}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01470\ }
+\DoxyCodeLine{01479\ \mbox{\hyperlink{bearssl__rsa_8h_abe16eb51e581ad88bc8f50051969f266}{br\_rsa\_keygen}}\ \mbox{\hyperlink{bearssl__rsa_8h_a3f0e8788b805bd78cb3ca84b33e5bbe7}{br\_rsa\_keygen\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01480\ }
+\DoxyCodeLine{01495\ \textcolor{keyword}{typedef}\ size\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_a9a30757ef7b79641b27a3431bfe8874e}{br\_rsa\_compute\_modulus}})(\textcolor{keywordtype}{void}\ *n,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{01496\ }
+\DoxyCodeLine{01506\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__rsa_8h_a9ba7b6f414c70aa2ce0437e910217daa}{br\_rsa\_i15\_compute\_modulus}}(\textcolor{keywordtype}{void}\ *n,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{01507\ }
+\DoxyCodeLine{01517\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__rsa_8h_a7c1ce8eac67f8103dba7de9ed961dccf}{br\_rsa\_i31\_compute\_modulus}}(\textcolor{keywordtype}{void}\ *n,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{01518\ }
+\DoxyCodeLine{01527\ \mbox{\hyperlink{bearssl__rsa_8h_a9a30757ef7b79641b27a3431bfe8874e}{br\_rsa\_compute\_modulus}}\ \mbox{\hyperlink{bearssl__rsa_8h_a9f2a3b4960034283183588d53d68b51d}{br\_rsa\_compute\_modulus\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01528\ }
+\DoxyCodeLine{01550\ \textcolor{keyword}{typedef}\ uint32\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_ab497818a6f2585fea9387b01f4a922e1}{br\_rsa\_compute\_pubexp}})(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{01551\ }
+\DoxyCodeLine{01559\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a77238f40db189250f90dda7462b0a008}{br\_rsa\_i15\_compute\_pubexp}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{01560\ }
+\DoxyCodeLine{01568\ uint32\_t\ \mbox{\hyperlink{bearssl__rsa_8h_a46cb658ac235bb8af2ae5fe90eb5fac3}{br\_rsa\_i31\_compute\_pubexp}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk);}
+\DoxyCodeLine{01569\ }
+\DoxyCodeLine{01578\ \mbox{\hyperlink{bearssl__rsa_8h_ab497818a6f2585fea9387b01f4a922e1}{br\_rsa\_compute\_pubexp}}\ \mbox{\hyperlink{bearssl__rsa_8h_a391a384a9e26548d49f19df60e9b5065}{br\_rsa\_compute\_pubexp\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01579\ }
+\DoxyCodeLine{01615\ \textcolor{keyword}{typedef}\ size\_t\ (*\mbox{\hyperlink{bearssl__rsa_8h_ac7e80273a3a9edc13468c6e479f40f28}{br\_rsa\_compute\_privexp}})(\textcolor{keywordtype}{void}\ *d,}
+\DoxyCodeLine{01616\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ uint32\_t\ pubexp);}
+\DoxyCodeLine{01617\ }
+\DoxyCodeLine{01628\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__rsa_8h_a0848962e49d52203e3eb96d73172ed59}{br\_rsa\_i15\_compute\_privexp}}(\textcolor{keywordtype}{void}\ *d,}
+\DoxyCodeLine{01629\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ uint32\_t\ pubexp);}
+\DoxyCodeLine{01630\ }
+\DoxyCodeLine{01641\ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{bearssl__rsa_8h_ac2a223bcba74b6234425560c9d1063c8}{br\_rsa\_i31\_compute\_privexp}}(\textcolor{keywordtype}{void}\ *d,}
+\DoxyCodeLine{01642\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbr__rsa__private__key}{br\_rsa\_private\_key}}\ *sk,\ uint32\_t\ pubexp);}
+\DoxyCodeLine{01643\ }
+\DoxyCodeLine{01652\ \mbox{\hyperlink{bearssl__rsa_8h_ac7e80273a3a9edc13468c6e479f40f28}{br\_rsa\_compute\_privexp}}\ \mbox{\hyperlink{bearssl__rsa_8h_aaede1ff499ca9a3bd69c33a6757ed1d3}{br\_rsa\_compute\_privexp\_get\_default}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{01653\ }
+\DoxyCodeLine{01654\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{01655\ \}}
+\DoxyCodeLine{01656\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01657\ }
+\DoxyCodeLine{01658\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01659\ }
+\DoxyCodeLine{01660\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

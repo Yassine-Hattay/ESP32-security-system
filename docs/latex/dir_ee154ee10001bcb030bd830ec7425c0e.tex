@@ -1,0 +1,59 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+NTPClient Directory Reference}
+\hypertarget{dir_ee154ee10001bcb030bd830ec7425c0e}{}\label{dir_ee154ee10001bcb030bd830ec7425c0e}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/NTPClient Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/NTPClient Directory Reference}}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file {\bfseries NTPClient.\+h}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\href{https://github.com/arduino-libraries/NTPClient/actions/workflows/check-arduino.yml}{\texttt{ }} \href{https://github.com/arduino-libraries/NTPClient/actions/workflows/compile-examples.yml}{\texttt{ }} \href{https://github.com/arduino-libraries/NTPClient/actions/workflows/spell-check.yml}{\texttt{ }}
+
+Connect to an NTP server, here is how\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <NTPClient.h>}}
+\DoxyCodeLine{\textcolor{comment}{//\ change\ next\ line\ to\ use\ with\ another\ board/shield}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <ESP8266WiFi.h>}}
+\DoxyCodeLine{\textcolor{comment}{//\#include\ <WiFi.h>\ //\ for\ WiFi\ shield}}
+\DoxyCodeLine{\textcolor{comment}{//\#include\ <WiFi101.h>\ //\ for\ WiFi\ 101\ shield\ or\ MKR1000}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <WiFiUdp.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *ssid\ \ \ \ \ =\ \textcolor{stringliteral}{"{}<SSID>"{}};}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *password\ =\ \textcolor{stringliteral}{"{}<PASSWORD>"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{WiFiUDP\ ntpUDP;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ By\ default\ 'pool.ntp.org'\ is\ used\ with\ 60\ seconds\ update\ interval\ and}}
+\DoxyCodeLine{\textcolor{comment}{//\ no\ offset}}
+\DoxyCodeLine{\mbox{\hyperlink{class_n_t_p_client}{NTPClient}}\ timeClient(ntpUDP);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ You\ can\ specify\ the\ time\ server\ pool\ and\ the\ offset,\ (in\ seconds)}}
+\DoxyCodeLine{\textcolor{comment}{//\ additionally\ you\ can\ specify\ the\ update\ interval\ (in\ milliseconds).}}
+\DoxyCodeLine{\textcolor{comment}{//\ NTPClient\ timeClient(ntpUDP,\ "{}europe.pool.ntp.org"{},\ 3600,\ 60000);}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setup()\{}
+\DoxyCodeLine{\ \ Serial.begin(115200);}
+\DoxyCodeLine{\ \ WiFi.begin(ssid,\ password);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{while}\ (\ WiFi.status()\ !=\ WL\_CONNECTED\ )\ \{}
+\DoxyCodeLine{\ \ \ \ delay\ (\ 500\ );}
+\DoxyCodeLine{\ \ \ \ Serial.print\ (\ \textcolor{stringliteral}{"{}."{}}\ );}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ timeClient.begin();}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ loop()\ \{}
+\DoxyCodeLine{\ \ timeClient.update();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ Serial.println(timeClient.getFormattedTime());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ delay(1000);}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md468}{}\doxysubsection{\texorpdfstring{Function documentation}{Function documentation}}\label{README.md_autotoc_md468}
+{\ttfamily get\+Epoch\+Time} returns the Unix epoch, which are the seconds elapsed since 00\+:00\+:00 UTC on 1 January 1970 (leap seconds are ignored, every day is treated as having 86400 seconds). {\bfseries{Attention}}\+: If you have set a time offset this time offset will be added to your epoch timestamp. 

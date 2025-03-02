@@ -1,0 +1,142 @@
+\doxysection{esp\+\_\+modbus\+\_\+common.\+h}
+\hypertarget{esp__modbus__common_8h_source}{}\label{esp__modbus__common_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/common/include/esp\_modbus\_common.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/common/include/esp\_modbus\_common.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2016-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ \_MB\_IFACE\_COMMON\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ \_MB\_IFACE\_COMMON\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <inttypes.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ needs\ to\ be\ included\ for\ default\ system\ types\ (such\ as\ PRIxx)}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}driver/uart.h"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ UART\ types}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#if\ CONFIG\_FMB\_EXT\_TYPE\_SUPPORT}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}mb\_endianness\_utils.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00019\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#if\ \_\_has\_include("{}esp\_check.h"{})}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}esp\_check.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}esp\_log.h"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MB\_RETURN\_ON\_FALSE(a,\ err\_code,\ tag,\ format,\ ...)\ ESP\_RETURN\_ON\_FALSE(a,\ err\_code,\ tag,\ format\ \_\_VA\_OPT\_\_(,)\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ if\ cannot\ include\ esp\_check\ then\ use\ custom\ check\ macro}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ MB\_RETURN\_ON\_FALSE(a,\ err\_code,\ tag,\ format,\ ...)\ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\ \ \ \ if\ (!(a))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ ESP\_LOGE(tag,\ "{}\%s(\%"{}\ PRIu32\ "{}):\ "{}\ format,\ \_\_FUNCTION\_\_,\ \_\_LINE\_\_\ \_\_VA\_OPT\_\_(,)\ \_\_VA\_ARGS\_\_);\ \(\backslash\)}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ err\_code;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\}\ while(0)}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ MB\_CONTROLLER\_STACK\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ (CONFIG\_FMB\_CONTROLLER\_STACK\_SIZE)\ \ \ }\textcolor{comment}{//\ Stack\ size\ for\ Modbus\ controller}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ MB\_CONTROLLER\_PRIORITY\ \ \ \ \ \ \ \ \ \ \ \ \ \ (CONFIG\_FMB\_PORT\_TASK\_PRIO\ -\/\ 1)\ \ \ \ }\textcolor{comment}{//\ priority\ of\ MB\ controller\ task}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ Default\ port\ defines}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ MB\_DEVICE\_ADDRESS\ \ \ (1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Default\ slave\ device\ address\ in\ Modbus}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ MB\_DEVICE\_SPEED\ \ \ \ \ (115200)\ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Default\ Modbus\ speed\ for\ now\ hard\ defined}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ MB\_UART\_PORT\ \ \ \ \ \ \ \ (UART\_NUM\_MAX\ -\/\ 1)\ \ }\textcolor{comment}{//\ Default\ UART\ port\ number}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ MB\_PAR\_INFO\_TOUT\ \ \ \ (10)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Timeout\ for\ get\ parameter\ info}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ MB\_PARITY\_NONE\ \ \ \ \ \ (UART\_PARITY\_DISABLE)}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ The\ Macros\ below\ handle\ the\ endianness\ while\ transfer\ N\ byte\ data\ into\ buffer\ (convert\ from\ network\ byte\ order)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ \_XFER\_2\_RD(dst,\ src)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\ \ \ \ *(uint8\_t\ *)(dst)++\ =\ *(uint8\_t\ *)(src\ +\ 1);\ \(\backslash\)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\ \ \ \ *(uint8\_t\ *)(dst)++\ =\ *(uint8\_t\ *)(src\ +\ 0);\ \(\backslash\)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\ \ \ \ (src)\ +=\ 2;\ \(\backslash\)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ \_XFER\_2\_WR(dst,\ src)\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\ \ \ \ *(uint8\_t\ *)(dst\ +\ 1)\ =\ *(uint8\_t\ *)(src)++;\ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ *(uint8\_t\ *)(dst\ +\ 0)\ =\ *(uint8\_t\ *)(src)++;\ \(\backslash\)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00067\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ MB\_PORT\_SERIAL\_MASTER\ =\ 0x00,\ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ MB\_PORT\_SERIAL\_SLAVE,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ MB\_PORT\_TCP\_MASTER,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ MB\_PORT\_TCP\_SLAVE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ MB\_PORT\_COUNT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ MB\_PORT\_INACTIVE\ =\ 0xFF}
+\DoxyCodeLine{00074\ \}\ mb\_port\_type\_t;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00080\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ MB\_EVENT\_NO\_EVENTS\ =\ 0x00,}
+\DoxyCodeLine{00082\ \ \ \ \ MB\_EVENT\_HOLDING\_REG\_WR\ =\ BIT0,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ MB\_EVENT\_HOLDING\_REG\_RD\ =\ BIT1,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ MB\_EVENT\_INPUT\_REG\_RD\ =\ BIT3,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ MB\_EVENT\_COILS\_WR\ =\ BIT4,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ MB\_EVENT\_COILS\_RD\ =\ BIT5,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ MB\_EVENT\_DISCRETE\_RD\ =\ BIT6,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ MB\_EVENT\_STACK\_STARTED\ =\ BIT7\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00089\ \}\ mb\_event\_group\_t;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ MB\_PARAM\_HOLDING\ =\ 0x00,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ MB\_PARAM\_INPUT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ MB\_PARAM\_COIL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ MB\_PARAM\_DISCRETE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ MB\_PARAM\_COUNT,}
+\DoxyCodeLine{00100\ \ \ \ \ MB\_PARAM\_UNKNOWN\ =\ 0xFF}
+\DoxyCodeLine{00101\ \}\ mb\_param\_type\_t;}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00106\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ MB\_MODE\_RTU,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ \ \ MB\_MODE\_ASCII,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00109\ \ \ \ \ MB\_MODE\_TCP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00110\ \ \ \ \ MB\_MODE\_UDP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00111\ \}\ mb\_mode\_type\_t;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ MB\_IPV4\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00118\ \ \ \ \ MB\_IPV6\ =\ 1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00119\ \}\ mb\_tcp\_addr\_type\_t;}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00124\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ Serial\ communication\ structure}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ mb\_mode\_type\_t\ \mbox{\hyperlink{unionmb__communication__info__t_a5e0512dcbf13fccbbd9cbdf38b98f627}{mode}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ uint8\_t\ \mbox{\hyperlink{unionmb__communication__info__t_a48254ddd63c12f9837cf273d0e8c62e9}{slave\_addr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ uart\_port\_t\ \mbox{\hyperlink{unionmb__communication__info__t_a03b9fa8e1bb814a8f8c9aeb3461df7e9}{port}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ uint32\_t\ \mbox{\hyperlink{unionmb__communication__info__t_abb0c0fdedaca5df0b2427a8ac9b60b57}{baudrate}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ uart\_parity\_t\ \mbox{\hyperlink{unionmb__communication__info__t_a2e327b801085047d3819711b05abf4eb}{parity}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{unionmb__communication__info__t_a3616781a10b12c53ff2e3a7c054bc7f8}{dummy\_port}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00133\ \ \ \ \ \};\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{comment}{//\ TCP/UDP\ communication\ structure}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ mb\_mode\_type\_t\ \mbox{\hyperlink{unionmb__communication__info__t_a7b2e3872f836f628b4921fc1d2213300}{ip\_mode}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ uint8\_t\ \mbox{\hyperlink{unionmb__communication__info__t_ad39acca6a9e032ecf38be5bb69479a5c}{slave\_uid}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ uint16\_t\ \mbox{\hyperlink{unionmb__communication__info__t_a65b54bb4c1bc80a5fdd5557cb86577e1}{ip\_port}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ mb\_tcp\_addr\_type\_t\ \mbox{\hyperlink{unionmb__communication__info__t_ae266baaed9321378fef8db532332fe19}{ip\_addr\_type}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{unionmb__communication__info__t_a7812c657f7929c28c7f97179a72ecd48}{ip\_addr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{unionmb__communication__info__t_adf9b57acde0ca2291c7171f1fb04305a}{ip\_netif\_ptr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00142\ \ \ \ \ \};\ }
+\DoxyCodeLine{00143\ \}\ \mbox{\hyperlink{unionmb__communication__info__t}{mb\_communication\_info\_t}};}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00148\ \textcolor{keyword}{typedef}\ esp\_err\_t\ (*iface\_init)(\textcolor{keywordtype}{void}**);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00149\ \textcolor{keyword}{typedef}\ esp\_err\_t\ (*iface\_destroy)(void);\ \ \ \ \ \ \ }
+\DoxyCodeLine{00150\ \textcolor{keyword}{typedef}\ esp\_err\_t\ (*iface\_setup)(\textcolor{keywordtype}{void}*);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00151\ \textcolor{keyword}{typedef}\ esp\_err\_t\ (*iface\_start)(void);\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_MB\_IFACE\_COMMON\_H}}
+
+\end{DoxyCode}

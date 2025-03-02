@@ -1,0 +1,73 @@
+\doxysection{rtc\+\_\+store.\+h}
+\hypertarget{rtc__store_8h_source}{}\label{rtc__store_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_diag\_data\_store/src/rtc\_store/rtc\_store.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_diag\_data\_store/src/rtc\_store/rtc\_store.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2021\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <esp\_err.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <esp\_event.h>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00020\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ SHA\_SIZE\ \ (CONFIG\_APP\_RETRIEVE\_LEN\_ELF\_SHA\ /\ 2)}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00029\ \ \ \ \ uint8\_t\ gen\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ generated\ on\ each\ hard\ reset}}
+\DoxyCodeLine{00030\ \ \ \ \ uint8\_t\ boot\_cnt;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ updated\ on\ each\ soft\ reboot}}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{char}\ sha\_sum[SHA\_SIZE];\ \ \ \ \ \textcolor{comment}{//\ elf\ shasum}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{bool}\ valid;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00033\ \}\ \mbox{\hyperlink{structrtc__store__meta__header__t}{rtc\_store\_meta\_header\_t}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00041\ \mbox{\hyperlink{structrtc__store__meta__header__t}{rtc\_store\_meta\_header\_t}}\ *rtc\_store\_get\_meta\_record\_by\_index(uint8\_t\ idx);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00048\ \mbox{\hyperlink{structrtc__store__meta__header__t}{rtc\_store\_meta\_header\_t}}\ *rtc\_store\_get\_meta\_record\_current();}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structrtc__store__non__critical__data__hdr__t_a54a541fac105c7b54a35ea28fd0ad46e}{dg}};\ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structrtc__store__non__critical__data__hdr__t_acbe8a1487e83efae3e4aa724bea7080b}{len}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \}\ \mbox{\hyperlink{structrtc__store__non__critical__data__hdr__t}{rtc\_store\_non\_critical\_data\_hdr\_t}};}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00066\ esp\_err\_t\ rtc\_store\_critical\_data\_write(\textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{int}\ rtc\_store\_critical\_data\_read(uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00087\ esp\_err\_t\ rtc\_store\_critical\_data\_release(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{int}\ rtc\_store\_critical\_data\_read\_and\_release(uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00115\ esp\_err\_t\ rtc\_store\_non\_critical\_data\_write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *dg,\ \textcolor{keywordtype}{void}\ *data,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00125\ \textcolor{keywordtype}{int}\ rtc\_store\_non\_critical\_data\_read(uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00134\ esp\_err\_t\ rtc\_store\_non\_critical\_data\_release(\textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00144\ \textcolor{keywordtype}{int}\ rtc\_store\_non\_critical\_data\_read\_and\_release(uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00151\ esp\_err\_t\ rtc\_store\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{void}\ rtc\_store\_deinit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00163\ uint32\_t\ rtc\_store\_get\_crc(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00170\ esp\_err\_t\ rtc\_store\_discard\_data(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00173\ \}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

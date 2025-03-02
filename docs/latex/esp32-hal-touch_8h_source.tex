@@ -1,0 +1,109 @@
+\doxysection{esp32-\/hal-\/touch.h}
+\hypertarget{esp32-hal-touch_8h_source}{}\label{esp32-hal-touch_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/touch.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/touch.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ Arduino.h\ -\/\ Main\ include\ file\ for\ the\ Arduino\ SDK}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ Copyright\ (c)\ 2005-\/2013\ Arduino\ Team.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ MAIN\_ESP32\_HAL\_TOUCH\_H\_}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ MAIN\_ESP32\_HAL\_TOUCH\_H\_}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#if\ SOC\_TOUCH\_SENSOR\_SUPPORTED}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#if\ SOC\_TOUCH\_SENSOR\_VERSION\ <=\ 2\ \ }\textcolor{comment}{//\ ESP32\ ESP32S2\ ESP32S3}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00028\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal.h"{}}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#if\ !SOC\_TOUCH\_SENSOR\_SUPPORTED}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#error\ Touch\ IDF\ driver\ Not\ supported!}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#if\ SOC\_TOUCH\_SENSOR\_VERSION\ ==\ 1\ \ }\textcolor{comment}{//\ ESP32}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ uint16\_t\ touch\_value\_t;}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#elif\ SOC\_TOUCH\_SENSOR\_VERSION\ ==\ 2\ \ }\textcolor{comment}{//\ ESP32S2\ ESP32S3}}
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ uint32\_t\ touch\_value\_t;}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ Set\ cycles\ that\ measurement\ operation\ takes}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ The\ result\ from\ touchRead,\ threshold\ and\ detection}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ accuracy\ depend\ on\ these\ values.\ Defaults\ are}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ 0x1000\ for\ measure\ and\ 0x1000\ for\ sleep.}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ With\ default\ values\ touchRead\ takes\ 0.5ms}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ touchSetCycles(uint16\_t\ measure,\ uint16\_t\ sleep);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *\ Read\ touch\ pad\ (for\ ESP32\ values\ close\ to\ 0\ mean\ touch\ detected\ /}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *\ for\ ESP32-\/S2/S3\ higher\ values\ mean\ touch\ detected)}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ *\ You\ can\ use\ this\ method\ to\ chose\ a\ good\ threshold\ value}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *\ to\ use\ as\ value\ for\ touchAttachInterrupt}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{00058\ touch\_value\_t\ touchRead(uint8\_t\ pin);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ Set\ function\ to\ be\ called\ if\ touch\ pad\ value\ falls\ (ESP32)}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ below\ the\ given\ threshold\ /\ rises\ (ESP32-\/S2/S3)\ by\ given\ increment\ (threshold).}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *\ Use\ touchRead\ to\ determine\ a\ proper\ threshold\ between\ touched\ and\ untouched\ state}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ */}}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}\ touchAttachInterrupt(uint8\_t\ pin,\ \textcolor{keywordtype}{void}\ (*userFunc)(\textcolor{keywordtype}{void}),\ touch\_value\_t\ threshold);}
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ touchAttachInterruptArg(uint8\_t\ pin,\ \textcolor{keywordtype}{void}\ (*userFunc)(\textcolor{keywordtype}{void}\ *),\ \textcolor{keywordtype}{void}\ *arg,\ touch\_value\_t\ threshold);}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{void}\ touchDetachInterrupt(uint8\_t\ pin);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ Specific\ functions\ to\ ESP32}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ Tells\ the\ driver\ if\ it\ shall\ activate\ the\ ISR\ if\ the\ sensor\ is\ Lower\ or\ Higher\ than\ the\ Threshold}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *\ Default\ if\ Lower.}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ **/}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#if\ SOC\_TOUCH\_SENSOR\_VERSION\ ==\ 1\ \ }\textcolor{comment}{//\ Only\ for\ ESP32\ SoC}}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ touchInterruptSetThresholdDirection(\textcolor{keywordtype}{bool}\ mustbeLower);}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *\ Specific\ functions\ to\ ESP32-\/S2\ and\ ESP32-\/S3}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ *\ Returns\ true\ when\ the\ latest\ ISR\ status\ for\ the\ Touchpad\ is\ that\ it\ is\ touched\ (Active)}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ *\ and\ false\ when\ the\ Touchpad\ is\ untoouched\ (Inactive)}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ *\ This\ function\ can\ be\ used\ in\ conjunction\ with\ ISR\ User\ callback\ in\ order\ to\ take\ action}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ *\ as\ soon\ as\ the\ touchpad\ is\ touched\ and/or\ released}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ **/}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#if\ SOC\_TOUCH\_SENSOR\_VERSION\ ==\ 2\ \ }\textcolor{comment}{//\ Only\ for\ ESP32S2\ and\ ESP32S3}}
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ returns\ true\ if\ touch\ pad\ has\ been\ and\ continues\ pressed\ and\ false\ otherwise}}
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{bool}\ touchInterruptGetLastStatus(uint8\_t\ pin);}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ *\ Setup\ touch\ pad\ wake\ up\ from\ deep\ sleep\ with\ given\ threshold.}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ **/}}
+\DoxyCodeLine{00095\ \textcolor{keywordtype}{void}\ touchSleepWakeUpEnable(uint8\_t\ pin,\ touch\_value\_t\ threshold);}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_TOUCH\_SENSOR\_VERSION\ <=\ 2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_TOUCH\_SENSOR\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ MAIN\_ESP32\_HAL\_TOUCH\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

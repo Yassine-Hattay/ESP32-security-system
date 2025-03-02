@@ -1,0 +1,518 @@
+\doxysection{SMTPSession Class Reference}
+\hypertarget{class_s_m_t_p_session}{}\label{class_s_m_t_p_session}\index{SMTPSession@{SMTPSession}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_s_m_t_p_session_a098c04e7955a168face83307119917ab}\label{class_s_m_t_p_session_a098c04e7955a168face83307119917ab} 
+{\bfseries SMTPSession} (\mbox{\hyperlink{class_client}{Client}} \texorpdfstring{$\ast$}{*}client)
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_ad270859efdd03e099feb223b59682df9}{set\+TCPTimeout}} (unsigned long timeout\+Sec)
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a5f6b6483b8af60aab097940effced4e7}{set\+Client}} (\mbox{\hyperlink{class_client}{Client}} \texorpdfstring{$\ast$}{*}client)
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a0119d9a8d82ec01c6e4564116bab118d}{set\+GSMClient}} (\mbox{\hyperlink{class_client}{Client}} \texorpdfstring{$\ast$}{*}client, void \texorpdfstring{$\ast$}{*}modem, const char \texorpdfstring{$\ast$}{*}pin, const char \texorpdfstring{$\ast$}{*}apn, const char \texorpdfstring{$\ast$}{*}user, const char \texorpdfstring{$\ast$}{*}password)
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a50c035c14e4a0ca0673f5db64dd3eada}{set\+Ethernet\+Client}} (\mbox{\hyperlink{class_client}{Client}} \texorpdfstring{$\ast$}{*}client, uint8\+\_\+t mac\+Address\mbox{[}6\mbox{]}, int cs\+Pin, int reset\+Pin, \mbox{\hyperlink{structesp__mail__client__static__address}{ESP\+\_\+\+Mail\+\_\+\+Static\+IP}} \texorpdfstring{$\ast$}{*}static\+IP=nullptr)
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a18ffcb3640b05602369114d1efd093e9}{network\+Connection\+Request\+Callback}} (Network\+Connection\+Request\+Callback network\+Connection\+CB)
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a2391e627534c5f849deb8a6d288a2dc0}{network\+Status\+Request\+Callback}} (Network\+Status\+Request\+Callback network\+Status\+CB)
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a0bbc105d2c1be6e7b5aef0860af6fafb}{set\+Network\+Status}} (bool \mbox{\hyperlink{class_s_m_t_p_session_a25c7d6dde36a35f61ad3c0d4b6c41503}{status}})
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a77d85f81bc97ca4594070098437957ea}{set\+SSLBuffer\+Size}} (int rx=-\/1, int tx=-\/1)
+\item 
+bool \mbox{\hyperlink{class_s_m_t_p_session_a5b397221de91f30c5361e844dd6902c9}{connect}} (\mbox{\hyperlink{structesp__mail__session__config__t}{Session\+\_\+\+Config}} \texorpdfstring{$\ast$}{*}session\+\_\+config, bool login=true)
+\item 
+{\footnotesize template$<$typename T1 = const char \texorpdfstring{$\ast$}{*}, typename T2 = const char \texorpdfstring{$\ast$}{*}$>$ }\\bool \mbox{\hyperlink{class_s_m_t_p_session_a720bda3351aedd84fcba3370a4fc4083}{login\+With\+Password}} (T1 email, T2 password)
+\item 
+{\footnotesize template$<$typename T1 = const char \texorpdfstring{$\ast$}{*}, typename T2 = const char \texorpdfstring{$\ast$}{*}$>$ }\\bool \mbox{\hyperlink{class_s_m_t_p_session_a0e92219ef8fb1aae1f2d37e6456bd812}{login\+With\+Access\+Token}} (T1 email, T2 token)
+\item 
+bool \mbox{\hyperlink{class_s_m_t_p_session_a9e622cc0a7421ec610988acb2baa4d85}{is\+Authenticated}} ()
+\item 
+bool \mbox{\hyperlink{class_s_m_t_p_session_a2ed98e63584befca339f90f50d93929f}{is\+Logged\+In}} ()
+\item 
+int \mbox{\hyperlink{class_s_m_t_p_session_aa877b1335b414129a753084a1793d8a9}{custom\+Connect}} (\mbox{\hyperlink{structesp__mail__session__config__t}{Session\+\_\+\+Config}} \texorpdfstring{$\ast$}{*}session\+\_\+config, smtp\+Response\+Callback \mbox{\hyperlink{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a}{callback}}, int command\+ID=-\/1)
+\item 
+bool \mbox{\hyperlink{class_s_m_t_p_session_ac1b3ce3a3b29204b4627a6e5737b645c}{close\+Session}} ()
+\item 
+bool \mbox{\hyperlink{class_s_m_t_p_session_a74b2a5e5713c52b80bd864e8c69189d7}{connected}} ()
+\item 
+{\footnotesize template$<$typename T = const char \texorpdfstring{$\ast$}{*}$>$ }\\int \mbox{\hyperlink{class_s_m_t_p_session_a3c03e97e9589b52d97221e23b1640b70}{send\+Custom\+Command}} (T cmd, smtp\+Response\+Callback \mbox{\hyperlink{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a}{callback}}, int command\+ID=-\/1)
+\item 
+{\footnotesize template$<$typename T = const char \texorpdfstring{$\ast$}{*}$>$ }\\bool \mbox{\hyperlink{class_s_m_t_p_session_a1035df3a37bee49be6b4fbc0789a1516}{send\+Custom\+Data}} (T data)
+\item 
+bool \mbox{\hyperlink{class_s_m_t_p_session_a28676db0d68b178003890cc508695618}{send\+Custom\+Data}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t size)
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a45b3d8fe8b3de9ca54c0e62d5e1567c5}{debug}} (int level)
+\item 
+String \mbox{\hyperlink{class_s_m_t_p_session_a8b0bbdfd9c1d86c5a3c48da994ec142a}{error\+Reason}} ()
+\item 
+int \mbox{\hyperlink{class_s_m_t_p_session_a63b07e34f46a5097f90af3a1ec553c51}{status\+Code}} ()
+\item 
+String \mbox{\hyperlink{class_s_m_t_p_session_a9357dd2171c232b7f7c674b25b3567b8}{status\+Message}} ()
+\item 
+int \mbox{\hyperlink{class_s_m_t_p_session_a1251d861ef7b98488ab2bc51d4f26e84}{error\+Code}} ()
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a}{callback}} (smtp\+Status\+Callback smtp\+Callback)
+\item 
+\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\+\_\+\+Status}} \mbox{\hyperlink{class_s_m_t_p_session_a25c7d6dde36a35f61ad3c0d4b6c41503}{status}} ()
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_a6ecfee39eb4a23b4e7075e0af58313c2}{set\+System\+Time}} (time\+\_\+t ts, float gmt\+Offset=0)
+\item 
+void \mbox{\hyperlink{class_s_m_t_p_session_ac05ceefd50a9e0dbcb02884a68ae34e4}{keep\+Alive}} (int tcp\+Keep\+Idle\+Seconds, int tcp\+Keep\+Interval\+Seconds, int tcp\+Keep\+Count)
+\item 
+bool \mbox{\hyperlink{class_s_m_t_p_session_a1200764bcf42a5247cc6d48738cd88a1}{is\+Keep\+Alive}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_s_m_t_p_session_a964da517ef1de50e43f3746adb5865a4}\label{class_s_m_t_p_session_a964da517ef1de50e43f3746adb5865a4} 
+\mbox{\hyperlink{class_sending_result}{Sending\+Result}} {\bfseries sending\+Result}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_s_m_t_p_session_a4c1dbac5bbc184c2b555a837b795b208}\label{class_s_m_t_p_session_a4c1dbac5bbc184c2b555a837b795b208} 
+class {\bfseries ESP\+\_\+\+Mail\+\_\+\+Client}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a}\index{SMTPSession@{SMTPSession}!callback@{callback}}
+\index{callback@{callback}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{callback()}{callback()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a60a23a40ae89bf570a8ccef68dc1c21a} 
+void SMTPSession\+::callback (\begin{DoxyParamCaption}\item[{smtp\+Status\+Callback}]{smtp\+Callback}{}\end{DoxyParamCaption})}
+
+Set the Email sending status callback function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em smtp\+Callback} & The callback function that accept the smtp\+Status\+Callback param. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_ac1b3ce3a3b29204b4627a6e5737b645c}\index{SMTPSession@{SMTPSession}!closeSession@{closeSession}}
+\index{closeSession@{closeSession}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{closeSession()}{closeSession()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_ac1b3ce3a3b29204b4627a6e5737b645c} 
+bool SMTPSession\+::close\+Session (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Close the SMTP session. \Hypertarget{class_s_m_t_p_session_a5b397221de91f30c5361e844dd6902c9}\index{SMTPSession@{SMTPSession}!connect@{connect}}
+\index{connect@{connect}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a5b397221de91f30c5361e844dd6902c9} 
+bool SMTPSession\+::connect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structesp__mail__session__config__t}{Session\+\_\+\+Config}} \texorpdfstring{$\ast$}{*}}]{session\+\_\+config}{, }\item[{bool}]{login}{ = {\ttfamily true}}\end{DoxyParamCaption})}
+
+Begin the SMTP server connection.
+
+
+\begin{DoxyParams}{Parameters}
+{\em session\+\_\+config} & The pointer to Session\+\_\+\+Config structured data that keeps the server and log in details. \\
+\hline
+{\em login} & The bool option for login after server connection. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The boolean value indicates the success of operation. 
+\end{DoxyReturn}
+\Hypertarget{class_s_m_t_p_session_a74b2a5e5713c52b80bd864e8c69189d7}\index{SMTPSession@{SMTPSession}!connected@{connected}}
+\index{connected@{connected}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{connected()}{connected()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a74b2a5e5713c52b80bd864e8c69189d7} 
+bool SMTPSession\+::connected (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get TCP connection status.
+
+\begin{DoxyReturn}{Returns}
+The boolean value indicates the connection status. 
+\end{DoxyReturn}
+\Hypertarget{class_s_m_t_p_session_aa877b1335b414129a753084a1793d8a9}\index{SMTPSession@{SMTPSession}!customConnect@{customConnect}}
+\index{customConnect@{customConnect}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{customConnect()}{customConnect()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_aa877b1335b414129a753084a1793d8a9} 
+int SMTPSession\+::custom\+Connect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structesp__mail__session__config__t}{Session\+\_\+\+Config}} \texorpdfstring{$\ast$}{*}}]{session\+\_\+config}{, }\item[{smtp\+Response\+Callback}]{callback}{, }\item[{int}]{command\+ID}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})}
+
+Begin the SMTP server connection without authentication.
+
+
+\begin{DoxyParams}{Parameters}
+{\em session\+\_\+config} & The pointer to Session\+\_\+\+Config structured data that keeps the server and log in details. \\
+\hline
+{\em callback} & The callback function that accepts the SMTP\+\_\+\+Response as parameter. \\
+\hline
+{\em command\+ID} & The command identifier number that will pass to the callback. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The int value of status code.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+If command\+ID was not set or set to -\/1, the command identifier will be auto increased started from zero. 
+\end{DoxyNote}
+\Hypertarget{class_s_m_t_p_session_a45b3d8fe8b3de9ca54c0e62d5e1567c5}\index{SMTPSession@{SMTPSession}!debug@{debug}}
+\index{debug@{debug}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{debug()}{debug()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a45b3d8fe8b3de9ca54c0e62d5e1567c5} 
+void SMTPSession\+::debug (\begin{DoxyParamCaption}\item[{int}]{level}{}\end{DoxyParamCaption})}
+
+Set to enable the debug.
+
+
+\begin{DoxyParams}{Parameters}
+{\em level} & The level to enable the debug message level = 0, no debugging level = 1, basic level debugging \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_a1251d861ef7b98488ab2bc51d4f26e84}\index{SMTPSession@{SMTPSession}!errorCode@{errorCode}}
+\index{errorCode@{errorCode}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{errorCode()}{errorCode()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a1251d861ef7b98488ab2bc51d4f26e84} 
+int SMTPSession\+::error\+Code (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get the operating status error code.
+
+\begin{DoxyReturn}{Returns}
+The int value of operating status error code.
+\end{DoxyReturn}
+The negative value indicated error. See \doxylink{_e_s_p___mail___error_8h_source}{src/\+ESP\+\_\+\+Mail\+\_\+\+Error.\+h} and \doxylink{_m_b___f_s_8h_source}{extras/\+MB\+\_\+\+FS.\+h} \Hypertarget{class_s_m_t_p_session_a8b0bbdfd9c1d86c5a3c48da994ec142a}\index{SMTPSession@{SMTPSession}!errorReason@{errorReason}}
+\index{errorReason@{errorReason}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{errorReason()}{errorReason()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a8b0bbdfd9c1d86c5a3c48da994ec142a} 
+String SMTPSession\+::error\+Reason (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get the error details when sending the Email
+
+\begin{DoxyReturn}{Returns}
+The string of error details. 
+\end{DoxyReturn}
+\Hypertarget{class_s_m_t_p_session_a9e622cc0a7421ec610988acb2baa4d85}\index{SMTPSession@{SMTPSession}!isAuthenticated@{isAuthenticated}}
+\index{isAuthenticated@{isAuthenticated}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{isAuthenticated()}{isAuthenticated()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a9e622cc0a7421ec610988acb2baa4d85} 
+bool SMTPSession\+::is\+Authenticated (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Return the SASL authentication status. \begin{DoxyReturn}{Returns}
+The boolean value indicates SASL authentication status. 
+\end{DoxyReturn}
+\Hypertarget{class_s_m_t_p_session_a1200764bcf42a5247cc6d48738cd88a1}\index{SMTPSession@{SMTPSession}!isKeepAlive@{isKeepAlive}}
+\index{isKeepAlive@{isKeepAlive}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{isKeepAlive()}{isKeepAlive()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a1200764bcf42a5247cc6d48738cd88a1} 
+bool SMTPSession\+::is\+Keep\+Alive (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get TCP Keep\+Alive status.
+
+\begin{DoxyReturn}{Returns}
+Boolean status of TCP Keep\+Alive. 
+\end{DoxyReturn}
+\Hypertarget{class_s_m_t_p_session_a2ed98e63584befca339f90f50d93929f}\index{SMTPSession@{SMTPSession}!isLoggedIn@{isLoggedIn}}
+\index{isLoggedIn@{isLoggedIn}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{isLoggedIn()}{isLoggedIn()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a2ed98e63584befca339f90f50d93929f} 
+bool SMTPSession\+::is\+Logged\+In (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Return the log status. \begin{DoxyReturn}{Returns}
+The boolean value indicates log in status. 
+\end{DoxyReturn}
+\Hypertarget{class_s_m_t_p_session_ac05ceefd50a9e0dbcb02884a68ae34e4}\index{SMTPSession@{SMTPSession}!keepAlive@{keepAlive}}
+\index{keepAlive@{keepAlive}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{keepAlive()}{keepAlive()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_ac05ceefd50a9e0dbcb02884a68ae34e4} 
+void SMTPSession\+::keep\+Alive (\begin{DoxyParamCaption}\item[{int}]{tcp\+Keep\+Idle\+Seconds}{, }\item[{int}]{tcp\+Keep\+Interval\+Seconds}{, }\item[{int}]{tcp\+Keep\+Count}{}\end{DoxyParamCaption})}
+
+Setup TCP Keep\+Alive for internal TCP client.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tcp\+Keep\+Idle\+Seconds} & lw\+IP TCP Keepalive idle in seconds. \\
+\hline
+{\em tcp\+Keep\+Interval\+Seconds} & lw\+IP TCP Keepalive interval in seconds. \\
+\hline
+{\em tcp\+Keep\+Count} & lw\+IP TCP Keepalive count.\\
+\hline
+\end{DoxyParams}
+For the TCP (Keep\+Alive) options, see \href{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/lwip.html\#tcp-options}{\texttt{ https\+://docs.\+espressif.\+com/projects/esp-\/idf/en/latest/esp32/api-\/guides/lwip.\+html\#tcp-\/options}}.
+
+If value of one of these parameters is zero, the TCP Keep\+Alive will be disabled.
+
+You can check the server connecting status, by exexuting $<$\+SMTPSession$>$.\doxylink{class_s_m_t_p_session_a74b2a5e5713c52b80bd864e8c69189d7}{connected()} which will return true when connection to the server is still alive. \Hypertarget{class_s_m_t_p_session_a0e92219ef8fb1aae1f2d37e6456bd812}\index{SMTPSession@{SMTPSession}!loginWithAccessToken@{loginWithAccessToken}}
+\index{loginWithAccessToken@{loginWithAccessToken}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{loginWithAccessToken()}{loginWithAccessToken()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a0e92219ef8fb1aae1f2d37e6456bd812} 
+template$<$typename T1 = const char \texorpdfstring{$\ast$}{*}, typename T2 = const char \texorpdfstring{$\ast$}{*}$>$ \\
+bool SMTPSession\+::login\+With\+Access\+Token (\begin{DoxyParamCaption}\item[{T1}]{email}{, }\item[{T2}]{token}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Log in to SMTP server using Email and access token.
+
+
+\begin{DoxyParams}{Parameters}
+{\em email} & The SMTP server account email. \\
+\hline
+{\em token} & The Access token to log in. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The boolean value which indicates the success of operation. 
+\end{DoxyReturn}
+\Hypertarget{class_s_m_t_p_session_a720bda3351aedd84fcba3370a4fc4083}\index{SMTPSession@{SMTPSession}!loginWithPassword@{loginWithPassword}}
+\index{loginWithPassword@{loginWithPassword}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{loginWithPassword()}{loginWithPassword()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a720bda3351aedd84fcba3370a4fc4083} 
+template$<$typename T1 = const char \texorpdfstring{$\ast$}{*}, typename T2 = const char \texorpdfstring{$\ast$}{*}$>$ \\
+bool SMTPSession\+::login\+With\+Password (\begin{DoxyParamCaption}\item[{T1}]{email}{, }\item[{T2}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Log in to SMTP server using Email and password.
+
+
+\begin{DoxyParams}{Parameters}
+{\em email} & The SMTP server account email. \\
+\hline
+{\em password} & The SMTP server account password. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The boolean value which indicates the success of operation. 
+\end{DoxyReturn}
+\Hypertarget{class_s_m_t_p_session_a18ffcb3640b05602369114d1efd093e9}\index{SMTPSession@{SMTPSession}!networkConnectionRequestCallback@{networkConnectionRequestCallback}}
+\index{networkConnectionRequestCallback@{networkConnectionRequestCallback}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{networkConnectionRequestCallback()}{networkConnectionRequestCallback()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a18ffcb3640b05602369114d1efd093e9} 
+void SMTPSession\+::network\+Connection\+Request\+Callback (\begin{DoxyParamCaption}\item[{Network\+Connection\+Request\+Callback}]{network\+Connection\+CB}{}\end{DoxyParamCaption})}
+
+Assign the callback function to handle the network connection for custom \doxylink{class_client}{Client}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em network\+Connection\+CB} & The function that handles the network connection. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_a2391e627534c5f849deb8a6d288a2dc0}\index{SMTPSession@{SMTPSession}!networkStatusRequestCallback@{networkStatusRequestCallback}}
+\index{networkStatusRequestCallback@{networkStatusRequestCallback}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{networkStatusRequestCallback()}{networkStatusRequestCallback()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a2391e627534c5f849deb8a6d288a2dc0} 
+void SMTPSession\+::network\+Status\+Request\+Callback (\begin{DoxyParamCaption}\item[{Network\+Status\+Request\+Callback}]{network\+Status\+CB}{}\end{DoxyParamCaption})}
+
+Assign the callback function to handle the network connection status acknowledgement.
+
+
+\begin{DoxyParams}{Parameters}
+{\em network\+Status\+CB} & The function that handle the network connection status acknowledgement. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_a3c03e97e9589b52d97221e23b1640b70}\index{SMTPSession@{SMTPSession}!sendCustomCommand@{sendCustomCommand}}
+\index{sendCustomCommand@{sendCustomCommand}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{sendCustomCommand()}{sendCustomCommand()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a3c03e97e9589b52d97221e23b1640b70} 
+template$<$typename T = const char \texorpdfstring{$\ast$}{*}$>$ \\
+int SMTPSession\+::send\+Custom\+Command (\begin{DoxyParamCaption}\item[{T}]{cmd}{, }\item[{smtp\+Response\+Callback}]{callback}{, }\item[{int}]{command\+ID}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Send the custom SMTP command and get the result via callback.
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & The command string. \\
+\hline
+{\em callback} & The function that accepts the SMTP\+\_\+\+Response as parameter. \\
+\hline
+{\em command\+ID} & The command identifier number that will pass to the callback. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The integer value of response code.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+smtp.\+connect or smtp.\+custom\+Connect is needed to call once prior to call this function.
+\end{DoxyNote}
+If command\+ID was not set or set to -\/1, the command identifier will be auto increased started from zero. \Hypertarget{class_s_m_t_p_session_a1035df3a37bee49be6b4fbc0789a1516}\index{SMTPSession@{SMTPSession}!sendCustomData@{sendCustomData}}
+\index{sendCustomData@{sendCustomData}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{sendCustomData()}{sendCustomData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a1035df3a37bee49be6b4fbc0789a1516} 
+template$<$typename T = const char \texorpdfstring{$\ast$}{*}$>$ \\
+bool SMTPSession\+::send\+Custom\+Data (\begin{DoxyParamCaption}\item[{T}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Send the custom SMTP command data string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The string data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The boolean value which indicates the success of operation.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Should be used after calling send\+Custom\+Command("{}\+DATA"{}); 
+\end{DoxyNote}
+\Hypertarget{class_s_m_t_p_session_a28676db0d68b178003890cc508695618}\index{SMTPSession@{SMTPSession}!sendCustomData@{sendCustomData}}
+\index{sendCustomData@{sendCustomData}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{sendCustomData()}{sendCustomData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a28676db0d68b178003890cc508695618} 
+bool SMTPSession\+::send\+Custom\+Data (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Send the custom SMTP command data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & The byte data. \\
+\hline
+{\em size} & The data size. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The boolean value which indicates the success of operation.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Should be used after calling send\+Custom\+Command("{}\+DATA"{}); 
+\end{DoxyNote}
+\Hypertarget{class_s_m_t_p_session_a5f6b6483b8af60aab097940effced4e7}\index{SMTPSession@{SMTPSession}!setClient@{setClient}}
+\index{setClient@{setClient}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{setClient()}{setClient()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a5f6b6483b8af60aab097940effced4e7} 
+void SMTPSession\+::set\+Client (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_client}{Client}} \texorpdfstring{$\ast$}{*}}]{client}{}\end{DoxyParamCaption})}
+
+Assign custom \doxylink{class_client}{Client} from Arduino Clients.
+
+
+\begin{DoxyParams}{Parameters}
+{\em client} & The pointer to Arduino \doxylink{class_client}{Client} derived class e.\+g. Wi\+Fi\+Client, Ethernet\+Client or GSMClient. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_a50c035c14e4a0ca0673f5db64dd3eada}\index{SMTPSession@{SMTPSession}!setEthernetClient@{setEthernetClient}}
+\index{setEthernetClient@{setEthernetClient}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{setEthernetClient()}{setEthernetClient()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a50c035c14e4a0ca0673f5db64dd3eada} 
+void SMTPSession\+::set\+Ethernet\+Client (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_client}{Client}} \texorpdfstring{$\ast$}{*}}]{client}{, }\item[{uint8\+\_\+t}]{mac\+Address}{\mbox{[}6\mbox{]}, }\item[{int}]{cs\+Pin}{, }\item[{int}]{reset\+Pin}{, }\item[{\mbox{\hyperlink{structesp__mail__client__static__address}{ESP\+\_\+\+Mail\+\_\+\+Static\+IP}} \texorpdfstring{$\ast$}{*}}]{static\+IP}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+Assign external Ethernet \doxylink{class_client}{Client}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em client} & The pointer to Ethernet client object. \\
+\hline
+{\em mac\+Address} & The Ethernet MAC address. \\
+\hline
+{\em cs\+Pin} & The Ethernet module SPI chip select pin. \\
+\hline
+{\em reset\+Pin} & The Ethernet module reset pin. \\
+\hline
+{\em static\+IP} & (Optional) The pointer to ESP\+\_\+\+Mail\+\_\+\+Static\+IP object which has these \doxylink{class_i_p_address}{IPAddress} in its constructor i.\+e. ip\+Address, net\+Mask, default\+Gateway, dns\+Server and optional. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_a0119d9a8d82ec01c6e4564116bab118d}\index{SMTPSession@{SMTPSession}!setGSMClient@{setGSMClient}}
+\index{setGSMClient@{setGSMClient}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{setGSMClient()}{setGSMClient()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a0119d9a8d82ec01c6e4564116bab118d} 
+void SMTPSession\+::set\+GSMClient (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_client}{Client}} \texorpdfstring{$\ast$}{*}}]{client}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{modem}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{pin}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{apn}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{user}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{password}{}\end{DoxyParamCaption})}
+
+Assign Tiny\+Gsm Clients.
+
+
+\begin{DoxyParams}{Parameters}
+{\em client} & The pointer to Tiny\+Gsm\+Client. \\
+\hline
+{\em modem} & The pointer to Tiny\+Gsm modem object. Modem should be initialized and/or set mode before transfering data. \\
+\hline
+{\em pin} & The SIM pin. \\
+\hline
+{\em apn} & The GPRS APN (Access Point Name). \\
+\hline
+{\em user} & The GPRS user. \\
+\hline
+{\em password} & The GPRS password. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_a0bbc105d2c1be6e7b5aef0860af6fafb}\index{SMTPSession@{SMTPSession}!setNetworkStatus@{setNetworkStatus}}
+\index{setNetworkStatus@{setNetworkStatus}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{setNetworkStatus()}{setNetworkStatus()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a0bbc105d2c1be6e7b5aef0860af6fafb} 
+void SMTPSession\+::set\+Network\+Status (\begin{DoxyParamCaption}\item[{bool}]{status}{}\end{DoxyParamCaption})}
+
+Set the network status acknowledgement.
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & The network status. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_a77d85f81bc97ca4594070098437957ea}\index{SMTPSession@{SMTPSession}!setSSLBufferSize@{setSSLBufferSize}}
+\index{setSSLBufferSize@{setSSLBufferSize}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{setSSLBufferSize()}{setSSLBufferSize()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a77d85f81bc97ca4594070098437957ea} 
+void SMTPSession\+::set\+SSLBuffer\+Size (\begin{DoxyParamCaption}\item[{int}]{rx}{ = {\ttfamily -\/1}, }\item[{int}]{tx}{ = {\ttfamily -\/1}}\end{DoxyParamCaption})}
+
+Set the Bear\+SSL IO buffer size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em rx} & The Bear\+SSL receive buffer size in bytes. \\
+\hline
+{\em tx} & The Bear\+SSL trasmit buffer size in bytes. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_a6ecfee39eb4a23b4e7075e0af58313c2}\index{SMTPSession@{SMTPSession}!setSystemTime@{setSystemTime}}
+\index{setSystemTime@{setSystemTime}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{setSystemTime()}{setSystemTime()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a6ecfee39eb4a23b4e7075e0af58313c2} 
+void SMTPSession\+::set\+System\+Time (\begin{DoxyParamCaption}\item[{time\+\_\+t}]{ts}{, }\item[{float}]{gmt\+Offset}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+Set the current timestamp.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ts} & The current timestamp. \\
+\hline
+{\em gmt\+Offset} & The GMT offset. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_ad270859efdd03e099feb223b59682df9}\index{SMTPSession@{SMTPSession}!setTCPTimeout@{setTCPTimeout}}
+\index{setTCPTimeout@{setTCPTimeout}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{setTCPTimeout()}{setTCPTimeout()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_ad270859efdd03e099feb223b59682df9} 
+void SMTPSession\+::set\+TCPTimeout (\begin{DoxyParamCaption}\item[{unsigned long}]{timeout\+Sec}{}\end{DoxyParamCaption})}
+
+Set the tcp timeout.
+
+
+\begin{DoxyParams}{Parameters}
+{\em timeout\+Sec} & The tcp timeout in seconds. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_s_m_t_p_session_a25c7d6dde36a35f61ad3c0d4b6c41503}\index{SMTPSession@{SMTPSession}!status@{status}}
+\index{status@{status}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{status()}{status()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a25c7d6dde36a35f61ad3c0d4b6c41503} 
+\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\+\_\+\+Status}} SMTPSession\+::status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get the status of message fetching and searching.
+
+\begin{DoxyReturn}{Returns}
+The \doxylink{class_s_m_t_p___status}{SMTP\+\_\+\+Status} object contains the sending status. 
+\end{DoxyReturn}
+\Hypertarget{class_s_m_t_p_session_a63b07e34f46a5097f90af3a1ec553c51}\index{SMTPSession@{SMTPSession}!statusCode@{statusCode}}
+\index{statusCode@{statusCode}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{statusCode()}{statusCode()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a63b07e34f46a5097f90af3a1ec553c51} 
+int SMTPSession\+::status\+Code (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get the SMTP server response status code.
+
+\begin{DoxyReturn}{Returns}
+The int value of SMTP server response status code.
+\end{DoxyReturn}
+See RFC 5321 standard\textquotesingle{}s documentation. \Hypertarget{class_s_m_t_p_session_a9357dd2171c232b7f7c674b25b3567b8}\index{SMTPSession@{SMTPSession}!statusMessage@{statusMessage}}
+\index{statusMessage@{statusMessage}!SMTPSession@{SMTPSession}}
+\doxysubsubsection{\texorpdfstring{statusMessage()}{statusMessage()}}
+{\footnotesize\ttfamily \label{class_s_m_t_p_session_a9357dd2171c232b7f7c674b25b3567b8} 
+String SMTPSession\+::status\+Message (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Get the SMTP server response status message.
+
+\begin{DoxyReturn}{Returns}
+The int value of SMTP server response status message. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/ESP\+\_\+\+Mail\+\_\+\+Client.\+h\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client/src/ESP\+\_\+\+Mail\+\_\+\+SMTP.\+h\end{DoxyCompactItemize}

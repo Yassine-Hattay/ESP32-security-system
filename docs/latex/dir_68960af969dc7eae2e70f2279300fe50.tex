@@ -1,0 +1,315 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Web\+Server/examples/\+Web\+Server Directory Reference}
+\hypertarget{dir_68960af969dc7eae2e70f2279300fe50}{}\label{dir_68960af969dc7eae2e70f2279300fe50}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/examples/WebServer Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/WebServer/examples/WebServer Directory Reference}}
+\doxysubsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{builtinfiles_8h}{builtinfiles.\+h}}
+\begin{DoxyCompactList}\small\item\em This file is part of the \doxylink{class_web_server}{Web\+Server} example for the ESP8266\+Web\+Server. \end{DoxyCompactList}\item 
+file {\bfseries secrets.\+h}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This example shows different techniques on how to use and extend the \doxylink{class_web_server}{Web\+Server} for specific purposes
+
+It is a small project in it\textquotesingle{}s own and has some files to use on the web server to show how to use simple REST based services.
+
+This example requires some space for a filesystem and runs fine on supported So\+Cs with 4 MByte or more flash by selecting the proper partition table\+:
+
+
+\begin{DoxyItemize}
+\item For using SPIFFS(\+Little\+FS)\+: {\ttfamily Default 4MB with spiffs (1.\+2\+MB APP/1.\+5\+MB SPIFFS)}
+\item For using FATFS\+: {\ttfamily Default 4MB with ffat (1.\+2\+MB APP/1.\+5\+MB FATFS)}
+\end{DoxyItemize}
+
+It features
+
+
+\begin{DoxyItemize}
+\item Setup a web server
+\item redirect when accessing the url with servername only
+\item get real time by using builtin NTP functionality
+\item send HTML responses from Sketch (see \doxylink{builtinfiles_8h}{builtinfiles.\+h})
+\item use a Little\+FS file system on the data partition for static files
+\item use http ETag Header for client side caching of static files
+\item use custom ETag calculation for static files
+\item extended File\+Server\+Handler for uploading and deleting static files
+\item uploading files using drag \& drop
+\item serve APIs using REST services (/api/list, /api/sysinfo)
+\item define HTML response when no file/api/handler was found
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md612}{}\doxysubsection{\texorpdfstring{Supported Targets}{Supported Targets}}\label{README.md_autotoc_md612}
+Currently, this example supports the following targets.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{6}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Supported Targets   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32-\/\+S2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32-\/\+S3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32-\/\+C3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32-\/\+C6    }\\\cline{1-6}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Supported Targets   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32-\/\+S2   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32-\/\+S3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32-\/\+C3   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ ESP32-\/\+C6    }\\\cline{1-6}
+\endhead
+&yes   &yes   &yes   &yes   &yes   \\\cline{1-6}
+\end{longtabu}
+\hypertarget{README.md_autotoc_md613}{}\doxysubsection{\texorpdfstring{Use the Example}{Use the Example}}\label{README.md_autotoc_md613}
+How to install the Arduino IDE\+: \href{https://github.com/espressif/arduino-esp32/tree/master/docs/arduino-ide}{\texttt{ Install Arduino IDE}}.
+
+
+\begin{DoxyItemize}
+\item In the file {\ttfamily \doxylink{secrets_8h_source}{secrets.\+h}} you can add the home Wi-\/\+Fi network name ans password.
+\item Compile and upload to the device.
+\item Have a look into the monitoring output.
+\item Open \href{http://webserver}{\texttt{ http\+://webserver}} or \href{http://(ip-address)}{\texttt{ http\+://(ip-\/address)}} using a browser.
+\item You will be redirected to \href{http://webserver/$upload.htm}{\texttt{ http\+://webserver/\$upload.\+htm}} as there are no files yet in the file system.
+\item Drag the files from the data folder onto the drop area shown in the browser.
+\item See below for more details
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md614}{}\doxysubsection{\texorpdfstring{Implementing a web server}{Implementing a web server}}\label{README.md_autotoc_md614}
+The \doxylink{class_web_server}{Web\+Server} library offers a simple path to implement a web server on a ESP32 based board.
+
+The advantage on using the \doxylink{class_web_server}{Web\+Server} instead of the plain simple \doxylink{class_network_server}{Network\+Server} is that the \doxylink{class_web_server}{Web\+Server} takes much care about the http protocol conventions and features and allows easily access to parameters. It offers plug-\/in capabilities by registering specific functionalities that will be outlined below.\hypertarget{README.md_autotoc_md615}{}\doxysubsubsection{\texorpdfstring{Initialization}{Initialization}}\label{README.md_autotoc_md615}
+In the setup() function in the webserver.\+ino sketch file the following steps are implemented to make the webserver available on the local network.
+
+
+\begin{DoxyItemize}
+\item Create a webserver listening to port 80 for HTTP requests.
+\item Initialize the access to the filesystem in the free flash memory.
+\item Connect to the local Wi-\/\+Fi network. Here is only a straight-\/forward implementation hard-\/coding network name and passphrase. You may consider to use something like the Wi\+Fi\+Manager library in real applications.
+\item Register the device in DNS using a known hostname.
+\item Registering several plug-\/ins (see below).
+\item Starting the web server.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md616}{}\doxysubsubsection{\texorpdfstring{Running}{Running}}\label{README.md_autotoc_md616}
+In the loop() function the web server will be given time to receive and send network packages by calling {\ttfamily server.\+handle\+Client();}.\hypertarget{README.md_autotoc_md617}{}\doxysubsection{\texorpdfstring{Registering simple functions to implement RESTful services}{Registering simple functions to implement RESTful services}}\label{README.md_autotoc_md617}
+Registering function is the simplest integration mechanism available to add functionality. The server offers the {\ttfamily on(path, function)} methods that take the URL and the function as parameters.
+
+There are 2 functions implemented that get registered to handle incoming GET requests for given URLs.
+
+The JSON data format is used often for such services as it is the "{}natural"{} data format of the browser using javascript.
+
+When the {\bfseries{handle\+Sys\+Info()}} function is registered and a browser requests for \href{http://webserver/api/sysinfo}{\texttt{ http\+://webserver/api/sysinfo}} the function will be called and can collect the requested information.
+
+\begin{quote}
+\`{}\`{}\`{}\+CPP server.\+on("{}/api/sysinfo"{}, handle\+Sys\+Info); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{</blockquote>}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{The\ result\ in\ this\ case\ is\ a\ JSON\ object\ that\ is\ assembled\ in\ the\ result\ String\ variable\ and\ the\ returned\ as\ a\ response\ to\ the\ client\ also\ giving\ the\ information\ about\ the\ data\ format.}
+\DoxyCodeLine{}
+\DoxyCodeLine{You\ can\ try\ this\ request\ in\ a\ browser\ by\ opening\ <http://webserver/api/sysinfo>\ in\ the\ address\ bar.}
+\DoxyCodeLine{}
+\DoxyCodeLine{<blockquote>\&zwj;}
+
+\end{DoxyCode}
+ CPP server.\+on("{}/api/sysinfo"{}, handle\+List); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{</blockquote>}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{The\ function\ **handleList()**\ is\ registered\ the\ same\ way\ to\ return\ the\ list\ of\ files\ in\ the\ file\ system\ also\ returning\ a\ JSON\ object\ including\ name,\ size\ and\ the\ last\ modification\ timestamp.}
+\DoxyCodeLine{}
+\DoxyCodeLine{You\ can\ try\ this\ request\ in\ a\ browser\ by\ opening\ <http://webserver/api/list>\ in\ the\ address\ bar.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Registering\ a\ function\ to\ send\ out\ some\ static\ content\ from\ a\ String}
+\DoxyCodeLine{}
+\DoxyCodeLine{This\ is\ an\ example\ of\ registering\ a\ inline\ function\ in\ the\ web\ server.}
+\DoxyCodeLine{The\ 2.\ parameter\ of\ the\ on()\ method\ is\ a\ so\ called\ CPP\ lambda\ function\ (without\ a\ name)}
+\DoxyCodeLine{that\ actually\ has\ only\ one\ line\ of\ functionality\ by\ sending\ a\ string\ as\ result\ to\ the\ client.}
+\DoxyCodeLine{}
+\DoxyCodeLine{<blockquote>\&zwj;}
+
+\end{DoxyCode}
+ cpp server.\+on("{}/\$upload.\+htm"{}, \mbox{[}\mbox{]}() \{ server.\+send(200, "{}text/html"{}, FPSTR(upload\+Content)); \}); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{</blockquote>}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{Here\ the\ text\ from\ a\ static\ String\ with\ html\ code\ is\ returned\ instead\ of\ a\ file\ from\ the\ filesystem.}
+\DoxyCodeLine{The\ content\ of\ this\ string\ can\ be\ found\ in\ the\ file\ \`{}builtinfiles.h`.\ It\ contains\ a\ small\ html+javascript\ implementation}
+\DoxyCodeLine{that\ allows\ uploading\ new\ files\ into\ the\ empty\ filesystem.}
+\DoxyCodeLine{}
+\DoxyCodeLine{Just\ open\ <http://webserver/\$upload.htm>\ and\ drag\ some\ files\ from\ the\ data\ folder\ on\ the\ drop\ area.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Registering\ a\ function\ to\ handle\ requests\ to\ the\ server\ without\ a\ path}
+\DoxyCodeLine{}
+\DoxyCodeLine{Often\ servers\ are\ addressed\ by\ using\ the\ base\ URL\ like\ <http://webserver/>\ where\ no\ further\ path\ details\ is\ given.}
+\DoxyCodeLine{Of\ course\ we\ like\ the\ user\ to\ be\ redirected\ to\ something\ usable.\ Therefore\ the\ \`{}handleRoot()`\ function\ is\ registered:}
+\DoxyCodeLine{}
+\DoxyCodeLine{<blockquote>\&zwj;}
+
+\end{DoxyCode}
+ cpp server.\+on("{}/\$upload.\+htm"{}, handle\+Root); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{</blockquote>}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{The\ \`{}handleRoot()`\ function\ checks\ the\ filesystem\ for\ the\ file\ named\ **/index.htm**\ and\ creates\ a\ redirect\ to\ this\ file\ when\ the\ file\ exists.}
+\DoxyCodeLine{Otherwise\ the\ redirection\ goes\ to\ the\ built-\/in\ **/\$upload.htm**\ web\ page.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ Using\ the\ serveStatic\ plug-\/in}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ **serveStatic**\ plug\ in\ is\ part\ of\ the\ library\ and\ handles\ delivering\ files\ from\ the\ filesystem\ to\ the\ client.\ It\ can\ be\ customized\ in\ some\ ways.}
+\DoxyCodeLine{}
+\DoxyCodeLine{<blockquote>\&zwj;}
+
+\end{DoxyCode}
+ cpp server.\+enable\+CORS(true); server.\+enable\+ETag(true); server.\+serve\+Static("{}/"{}, Little\+FS, "{}/"{}); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{</blockquote>}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{\#\#\#\ Cross-\/Origin\ Resource\ Sharing\ (CORS)}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ \`{}enableCORS(true)`\ function\ adds\ a\ \`{}Access-\/Control-\/Allow-\/Origin:\ *`\ http-\/header\ to\ all\ responses\ to\ the\ client}
+\DoxyCodeLine{to\ inform\ that\ it\ is\ allowed\ to\ call\ URLs\ and\ services\ on\ this\ server\ from\ other\ web\ sites.}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ feature\ is\ disabled\ by\ default\ (in\ the\ current\ version)\ and\ when\ you\ like\ to\ disable\ this\ then\ you\ should\ call\ \`{}enableCORS(false)`\ during\ setup.}
+\DoxyCodeLine{}
+\DoxyCodeLine{*\ Web\ sites\ providing\ high\ sensitive\ information\ like\ online\ banking\ this\ is\ disabled\ most\ of\ the\ times.}
+\DoxyCodeLine{*\ Web\ sites\ providing\ advertising\ information\ or\ reusable\ scripts\ /\ images\ this\ is\ enabled.}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\#\ enabling\ ETag\ support}
+\DoxyCodeLine{}
+\DoxyCodeLine{To\ enable\ this\ in\ the\ embedded\ web\ server\ the\ \`{}enableETag()`\ can\ be\ used.}
+\DoxyCodeLine{(next\ to\ enableCORS)}
+\DoxyCodeLine{}
+\DoxyCodeLine{In\ the\ simplest\ version\ just\ call\ \`{}enableETag(true)`\ to\ enable\ the\ internal\ ETag\ generation\ that\ calcs\ the\ hint\ using\ a\ md5\ checksum\ in\ base64\ encoded\ form.\ This\ is\ an\ simple\ approach\ that\ adds\ some\ time\ for\ calculation\ on\ every\ request\ but\ avoids\ network\ traffic.}
+\DoxyCodeLine{}
+\DoxyCodeLine{The\ headers\ will\ look\ like:}
+\DoxyCodeLine{}
+\DoxyCodeLine{@icode\ \ txt}
+\DoxyCodeLine{If-\/None-\/Match:\ "{}GhZka3HevoaEBbtQOgOqlA=="{}}
+\DoxyCodeLine{ETag:\ "{}GhZka3HevoaEBbtQOgOqlA=="{}}
+
+\end{DoxyCode}
+
+
+\#\#\# ETag support customization
+
+The enable\+ETag() function has an optional second optional parameter to provide a function for ETag calculation of files.
+
+The function enables e\+Tags for all files by using calculating a value from the last write timestamp\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ cpp}
+\DoxyCodeLine{server.enableETag(true,\ [](FS\ \&fs,\ const\ String\ \&path)\ -\/>\ String\ \{}
+\DoxyCodeLine{\ \ File\ f\ =\ fs.open(path,\ "{}r"{});}
+\DoxyCodeLine{\ \ String\ eTag\ =\ String(f.getLastWrite(),\ 16);\ \ //\ use\ file\ modification\ timestamp\ to\ create\ ETag}
+\DoxyCodeLine{\ \ f.close();}
+\DoxyCodeLine{\ \ return\ (eTag);}
+\DoxyCodeLine{\});}
+
+\end{DoxyCode}
+
+
+The headers will look like\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ txt}
+\DoxyCodeLine{ETag:\ "{}63bbaeb5"{}}
+\DoxyCodeLine{If-\/None-\/Match:\ "{}63bbaeb5"{}}
+
+\end{DoxyCode}
+
+
+\#\# Registering a full-\/featured handler as plug-\/in
+
+The example also implements the class {\ttfamily File\+Server\+Handler} derived from the class {\ttfamily \doxylink{class_request_handler}{Request\+Handler}} to plug in functionality that can handle more complex requests without giving a fixed URL. It implements uploading and deleting files in the file system that is not implemented by the standard server.\+serve\+Static functionality.
+
+This class has to implements several functions and works in a more detailed way\+:
+
+
+\begin{DoxyItemize}
+\item The {\ttfamily can\+Handle()} method can inspect the given http method and url to decide weather the Request\+File\+Handler can handle the incoming request or not.
+
+In this case the Request\+File\+Handler will return true when the request method is an POST for upload or a DELETE for deleting files.
+
+The regular GET requests will be ignored and therefore handled by the also registered server.\+serve\+Static handler.
+\item The function {\ttfamily handle()} then implements the real deletion of the file.
+\item The {\ttfamily can\+Upload()}and {\ttfamily upload()} methods work similar while the {\ttfamily upload()} method is called multiple times to create, append data and close the new file.
+\end{DoxyItemize}
+
+\#\# \doxylink{class_file}{File} upload
+
+By opening \href{http://webserver/$upload.htm}{\texttt{ http\+://webserver/\$upload.\+htm}} you can easily upload files by dragging them over the drop area.
+
+Just take the files from the data folder to create some files that can explore the server functionality.
+
+Files will be uploaded to the root folder of the file system. and you will see it next time using \href{http://webserver/files.htm}{\texttt{ http\+://webserver/files.\+htm}}.
+
+The filesize that is uploaded is not known when the upload mechanism in function File\+Server\+Handler\+::upload gets started.
+
+Uploading a file that fits into the available filesystem space can be found in the Serial output\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ txt}
+\DoxyCodeLine{starting\ upload\ file\ /file.txt...}
+\DoxyCodeLine{finished.}
+\DoxyCodeLine{1652\ bytes\ uploaded.}
+
+\end{DoxyCode}
+
+
+Uploading a file that doesn\textquotesingle{}t fit can be detected while uploading when writing to the filesystem fails. However upload cannot be aborted by the current handler implementation.
+
+The solution implemented here is to delete the partially uploaded file and wait for the upload ending. The following can be found in the Serial output\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ txt}
+\DoxyCodeLine{starting\ upload\ file\ /huge.jpg...}
+\DoxyCodeLine{./components/esp\_littlefs/src/littlefs/lfs.c:584:error:\ No\ more\ free\ space\ 531}
+\DoxyCodeLine{\ \ write\ error!}
+\DoxyCodeLine{finished.}
+
+\end{DoxyCode}
+
+
+You can see on the Serial output that one filesystem write error is reported.
+
+Please be patient and wait for the upload ending even when writing to the filesystem is disabled it maybe take more than a minute.
+
+\#\# Registering a special handler for "{}file not found"{}
+
+Any other incoming request that was not handled by the registered plug-\/ins above can be detected by registering
+
+\begin{quote}
+cpp // handle cases when file is not found server.\+on\+Not\+Found(\mbox{[}\mbox{]}() \{ // standard not found in browser. server.\+send(404, "{}text/html"{}, FPSTR(not\+Found\+Content)); \}); 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{</blockquote>}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{This\ allows\ sending\ back\ an\ "{}friendly"{}\ result\ for\ the\ browser.\ Here\ a\ simple\ html\ page\ is\ created\ from\ a\ static\ string.}
+\DoxyCodeLine{You\ can\ easily\ change\ the\ html\ code\ in\ the\ file\ \`{}builtinfiles.h`.}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\#\#\ customizations}
+\DoxyCodeLine{}
+\DoxyCodeLine{You\ may\ like\ to\ change\ the\ hostname\ and\ the\ timezone\ in\ the\ lines:}
+\DoxyCodeLine{}
+\DoxyCodeLine{<blockquote>\&zwj;}
+
+\end{DoxyCode}
+ cpp \#define HOSTNAME "{}webserver"{} \#define TIMEZONE "{}\+CET-\/1\+CEST,\+M3.\+5.\+0,\+M10.\+5.\+0/3"{} \`{}\`{}\`{} \end{quote}
+
+
+\end{quote}
+\hypertarget{README.md_autotoc_md618}{}\doxysubsection{\texorpdfstring{Troubleshooting}{Troubleshooting}}\label{README.md_autotoc_md618}
+Have a look in the Serial output for some additional runtime information.\hypertarget{README.md_autotoc_md619}{}\doxysubsection{\texorpdfstring{Changes}{Changes}}\label{README.md_autotoc_md619}
+
+\begin{DoxyItemize}
+\item 2024-\/08-\/02 -- Fixing for board implementation 3.\+0.\+4 ff.
+\item 2024-\/08-\/02 -- Support for FAT
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md620}{}\doxysubsection{\texorpdfstring{Contribute}{Contribute}}\label{README.md_autotoc_md620}
+To know how to contribute to this project, see \href{https://github.com/espressif/arduino-esp32/blob/master/CONTRIBUTING.rst}{\texttt{ How to contribute.}}
+
+If you have any {\bfseries{feedback}} or {\bfseries{issue}} to report on this example/library, please open an issue or fix it by creating a new PR. Contributions are more than welcome!
+
+Before creating a new issue, be sure to try Troubleshooting and check if the same issue was already created by someone else.\hypertarget{README.md_autotoc_md621}{}\doxysubsection{\texorpdfstring{Resources}{Resources}}\label{README.md_autotoc_md621}
+
+\begin{DoxyItemize}
+\item Official ESP32 Forum\+: \href{https://esp32.com}{\texttt{ Link}}
+\item Arduino-\/\+ESP32 Official Repository\+: \href{https://github.com/espressif/arduino-esp32}{\texttt{ espressif/arduino-\/esp32}}
+\item ESP32 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item ESP32-\/\+S2 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-s2_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item ESP32-\/\+S3 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-s3_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item ESP32-\/\+C3 Datasheet\+: \href{https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf}{\texttt{ Link to datasheet}}
+\item Official ESP-\/\+IDF documentation\+: \href{https://idf.espressif.com}{\texttt{ ESP-\/\+IDF}} 
+\end{DoxyItemize}

@@ -1,0 +1,51 @@
+\doxysection{ekf\+\_\+imu13states.\+h}
+\hypertarget{ekf__imu13states_8h_source}{}\label{ekf__imu13states_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/kalman/ekf\_imu13states/include/ekf\_imu13states.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/kalman/ekf\_imu13states/include/ekf\_imu13states.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2020-\/2021\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ \_ekf\_imu13states\_H\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ \_ekf\_imu13states\_H\_}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}ekf.h"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{class\ }ekf\_imu13states:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classekf_a48b8f056f76ddf4a0d3520cc4ef8bade}{ekf}}\ \{}
+\DoxyCodeLine{00032\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ ekf\_imu13states();}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~ekf\_imu13states();}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf__imu13states_af9d689b4d151401d6a654390ac34599e}{Init}}();}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ Method\ calculates\ Xdot\ values\ depends\ on\ U}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ U\ -\/\ gyroscope\ values\ in\ radian\ per\ seconds\ (rad/sec)}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf__imu13states_af497d6d258b35c5e602f9816cd515267}{StateXdot}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&x,\ \textcolor{keywordtype}{float}\ *u);}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf__imu13states_aa45e9518c23a0fb627e9018d75195008}{LinearizeFG}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&x,\ \textcolor{keywordtype}{float}\ *u);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf__imu13states_a78292836f30dfd6439ee3bdda30ed20f}{Test}}();}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf__imu13states_a7f315abd38007e57247edc0967d688f7}{TestFull}}(\textcolor{keywordtype}{bool}\ enable\_att);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf__imu13states_a6f9c0942bd5f15b48bf0994f9ff1de46}{mag0}};}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf__imu13states_a6310344a4fe79a1b43b12ba1a4a77f8f}{accel0}};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classekf__imu13states_ae89c38a1cea846bbff4d29be0f889694}{NUMU}};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf__imu13states_a84709d79f66591f90fea7c532d73ba14}{UpdateRefMeasurement}}(\textcolor{keywordtype}{float}\ *accel\_data,\ \textcolor{keywordtype}{float}\ *magn\_data,\ \textcolor{keywordtype}{float}\ R[6]);}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf__imu13states_ad56f37dbe6dece11f6ff670e478099b1}{UpdateRefMeasurementMagn}}(\textcolor{keywordtype}{float}\ *accel\_data,\ \textcolor{keywordtype}{float}\ *magn\_data,\ \textcolor{keywordtype}{float}\ R[6]);}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf__imu13states_a84709d79f66591f90fea7c532d73ba14}{UpdateRefMeasurement}}(\textcolor{keywordtype}{float}\ *accel\_data,\ \textcolor{keywordtype}{float}\ *magn\_data,\ \textcolor{keywordtype}{float}\ *attitude,\ \textcolor{keywordtype}{float}\ R[10]);}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_ekf\_imu13states\_H\_}}
+
+\end{DoxyCode}

@@ -1,0 +1,795 @@
+\doxysection{lfs.\+h}
+\hypertarget{lfs_8h_source}{}\label{lfs_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/lfs.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/lfs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ The\ little\ filesystem}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2022,\ The\ littlefs\ authors.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2017,\ Arm\ Limited.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ LFS\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ LFS\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}lfs\_util.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00014\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ Software\ library\ version}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ Major\ (top-\/nibble),\ incremented\ on\ backwards\ incompatible\ changes}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ Minor\ (bottom-\/nibble),\ incremented\ on\ feature\ additions}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ LFS\_VERSION\ 0x0002000a}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ LFS\_VERSION\_MAJOR\ (0xffff\ \&\ (LFS\_VERSION\ >>\ 16))}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ LFS\_VERSION\_MINOR\ (0xffff\ \&\ (LFS\_VERSION\ >>\ \ 0))}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ Version\ of\ On-\/disk\ data\ structures}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ Major\ (top-\/nibble),\ incremented\ on\ backwards\ incompatible\ changes}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ Minor\ (bottom-\/nibble),\ incremented\ on\ feature\ additions}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ LFS\_DISK\_VERSION\ 0x00020001}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ LFS\_DISK\_VERSION\_MAJOR\ (0xffff\ \&\ (LFS\_DISK\_VERSION\ >>\ 16))}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ LFS\_DISK\_VERSION\_MINOR\ (0xffff\ \&\ (LFS\_DISK\_VERSION\ >>\ \ 0))}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Type\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ uint32\_t\ lfs\_size\_t;}
+\DoxyCodeLine{00040\ \textcolor{keyword}{typedef}\ uint32\_t\ lfs\_off\_t;}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ int32\_t\ \ lfs\_ssize\_t;}
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ int32\_t\ \ lfs\_soff\_t;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{typedef}\ uint32\_t\ lfs\_block\_t;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ Maximum\ name\ size\ in\ bytes,\ may\ be\ redefined\ to\ reduce\ the\ size\ of\ the}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ info\ struct.\ Limited\ to\ <=\ 1022.\ Stored\ in\ superblock\ and\ must\ be}}
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ respected\ by\ other\ littlefs\ drivers.}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#ifndef\ LFS\_NAME\_MAX}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ LFS\_NAME\_MAX\ 255}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ Maximum\ size\ of\ a\ file\ in\ bytes,\ may\ be\ redefined\ to\ limit\ to\ support\ other}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ drivers.\ Limited\ on\ disk\ to\ <=\ 2147483647.\ Stored\ in\ superblock\ and\ must\ be}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ respected\ by\ other\ littlefs\ drivers.}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#ifndef\ LFS\_FILE\_MAX}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ LFS\_FILE\_MAX\ 2147483647}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ Maximum\ size\ of\ custom\ attributes\ in\ bytes,\ may\ be\ redefined,\ but\ there\ is}}
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ no\ real\ benefit\ to\ using\ a\ smaller\ LFS\_ATTR\_MAX.\ Limited\ to\ <=\ 1022.\ Stored}}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ in\ superblock\ and\ must\ be\ respected\ by\ other\ littlefs\ drivers.}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#ifndef\ LFS\_ATTR\_MAX}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ LFS\_ATTR\_MAX\ 1022}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ Possible\ error\ codes,\ these\ are\ negative\ to\ allow}}
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ valid\ positive\ return\ values}}
+\DoxyCodeLine{00070\ \textcolor{keyword}{enum}\ lfs\_error\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ LFS\_ERR\_OK\ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \textcolor{comment}{//\ No\ error}}
+\DoxyCodeLine{00072\ \ \ \ \ LFS\_ERR\_IO\ \ \ \ \ \ \ \ \ \ =\ -\/5,\ \ \ \textcolor{comment}{//\ Error\ during\ device\ operation}}
+\DoxyCodeLine{00073\ \ \ \ \ LFS\_ERR\_CORRUPT\ \ \ \ \ =\ -\/84,\ \ \textcolor{comment}{//\ Corrupted}}
+\DoxyCodeLine{00074\ \ \ \ \ LFS\_ERR\_NOENT\ \ \ \ \ \ \ =\ -\/2,\ \ \ \textcolor{comment}{//\ No\ directory\ entry}}
+\DoxyCodeLine{00075\ \ \ \ \ LFS\_ERR\_EXIST\ \ \ \ \ \ \ =\ -\/17,\ \ \textcolor{comment}{//\ Entry\ already\ exists}}
+\DoxyCodeLine{00076\ \ \ \ \ LFS\_ERR\_NOTDIR\ \ \ \ \ \ =\ -\/20,\ \ \textcolor{comment}{//\ Entry\ is\ not\ a\ dir}}
+\DoxyCodeLine{00077\ \ \ \ \ LFS\_ERR\_ISDIR\ \ \ \ \ \ \ =\ -\/21,\ \ \textcolor{comment}{//\ Entry\ is\ a\ dir}}
+\DoxyCodeLine{00078\ \ \ \ \ LFS\_ERR\_NOTEMPTY\ \ \ \ =\ -\/39,\ \ \textcolor{comment}{//\ Dir\ is\ not\ empty}}
+\DoxyCodeLine{00079\ \ \ \ \ LFS\_ERR\_BADF\ \ \ \ \ \ \ \ =\ -\/9,\ \ \ \textcolor{comment}{//\ Bad\ file\ number}}
+\DoxyCodeLine{00080\ \ \ \ \ LFS\_ERR\_FBIG\ \ \ \ \ \ \ \ =\ -\/27,\ \ \textcolor{comment}{//\ File\ too\ large}}
+\DoxyCodeLine{00081\ \ \ \ \ LFS\_ERR\_INVAL\ \ \ \ \ \ \ =\ -\/22,\ \ \textcolor{comment}{//\ Invalid\ parameter}}
+\DoxyCodeLine{00082\ \ \ \ \ LFS\_ERR\_NOSPC\ \ \ \ \ \ \ =\ -\/28,\ \ \textcolor{comment}{//\ No\ space\ left\ on\ device}}
+\DoxyCodeLine{00083\ \ \ \ \ LFS\_ERR\_NOMEM\ \ \ \ \ \ \ =\ -\/12,\ \ \textcolor{comment}{//\ No\ more\ memory\ available}}
+\DoxyCodeLine{00084\ \ \ \ \ LFS\_ERR\_NOATTR\ \ \ \ \ \ =\ -\/61,\ \ \textcolor{comment}{//\ No\ data/attr\ available}}
+\DoxyCodeLine{00085\ \ \ \ \ LFS\_ERR\_NAMETOOLONG\ =\ -\/36,\ \ \textcolor{comment}{//\ File\ name\ too\ long}}
+\DoxyCodeLine{00086\ \};}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ File\ types}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{enum}\ lfs\_type\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ file\ types}}
+\DoxyCodeLine{00091\ \ \ \ \ LFS\_TYPE\_REG\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x001,}
+\DoxyCodeLine{00092\ \ \ \ \ LFS\_TYPE\_DIR\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x002,}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{comment}{//\ internally\ used\ types}}
+\DoxyCodeLine{00095\ \ \ \ \ LFS\_TYPE\_SPLICE\ \ \ \ \ \ \ \ \ =\ 0x400,}
+\DoxyCodeLine{00096\ \ \ \ \ LFS\_TYPE\_NAME\ \ \ \ \ \ \ \ \ \ \ =\ 0x000,}
+\DoxyCodeLine{00097\ \ \ \ \ LFS\_TYPE\_STRUCT\ \ \ \ \ \ \ \ \ =\ 0x200,}
+\DoxyCodeLine{00098\ \ \ \ \ LFS\_TYPE\_USERATTR\ \ \ \ \ \ \ =\ 0x300,}
+\DoxyCodeLine{00099\ \ \ \ \ LFS\_TYPE\_FROM\ \ \ \ \ \ \ \ \ \ \ =\ 0x100,}
+\DoxyCodeLine{00100\ \ \ \ \ LFS\_TYPE\_TAIL\ \ \ \ \ \ \ \ \ \ \ =\ 0x600,}
+\DoxyCodeLine{00101\ \ \ \ \ LFS\_TYPE\_GLOBALS\ \ \ \ \ \ \ \ =\ 0x700,}
+\DoxyCodeLine{00102\ \ \ \ \ LFS\_TYPE\_CRC\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x500,}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ internally\ used\ type\ specializations}}
+\DoxyCodeLine{00105\ \ \ \ \ LFS\_TYPE\_CREATE\ \ \ \ \ \ \ \ \ =\ 0x401,}
+\DoxyCodeLine{00106\ \ \ \ \ LFS\_TYPE\_DELETE\ \ \ \ \ \ \ \ \ =\ 0x4ff,}
+\DoxyCodeLine{00107\ \ \ \ \ LFS\_TYPE\_SUPERBLOCK\ \ \ \ \ =\ 0x0ff,}
+\DoxyCodeLine{00108\ \ \ \ \ LFS\_TYPE\_DIRSTRUCT\ \ \ \ \ \ =\ 0x200,}
+\DoxyCodeLine{00109\ \ \ \ \ LFS\_TYPE\_CTZSTRUCT\ \ \ \ \ \ =\ 0x202,}
+\DoxyCodeLine{00110\ \ \ \ \ LFS\_TYPE\_INLINESTRUCT\ \ \ =\ 0x201,}
+\DoxyCodeLine{00111\ \ \ \ \ LFS\_TYPE\_SOFTTAIL\ \ \ \ \ \ \ =\ 0x600,}
+\DoxyCodeLine{00112\ \ \ \ \ LFS\_TYPE\_HARDTAIL\ \ \ \ \ \ \ =\ 0x601,}
+\DoxyCodeLine{00113\ \ \ \ \ LFS\_TYPE\_MOVESTATE\ \ \ \ \ \ =\ 0x7ff,}
+\DoxyCodeLine{00114\ \ \ \ \ LFS\_TYPE\_CCRC\ \ \ \ \ \ \ \ \ \ \ =\ 0x500,}
+\DoxyCodeLine{00115\ \ \ \ \ LFS\_TYPE\_FCRC\ \ \ \ \ \ \ \ \ \ \ =\ 0x5ff,}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{comment}{//\ internal\ chip\ sources}}
+\DoxyCodeLine{00118\ \ \ \ \ LFS\_FROM\_NOOP\ \ \ \ \ \ \ \ \ \ \ =\ 0x000,}
+\DoxyCodeLine{00119\ \ \ \ \ LFS\_FROM\_MOVE\ \ \ \ \ \ \ \ \ \ \ =\ 0x101,}
+\DoxyCodeLine{00120\ \ \ \ \ LFS\_FROM\_USERATTRS\ \ \ \ \ \ =\ 0x102,}
+\DoxyCodeLine{00121\ \};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ File\ open\ flags}}
+\DoxyCodeLine{00124\ \textcolor{keyword}{enum}\ lfs\_open\_flags\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{//\ open\ flags}}
+\DoxyCodeLine{00126\ \ \ \ \ LFS\_O\_RDONLY\ =\ 1,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Open\ a\ file\ as\ read\ only}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00128\ \ \ \ \ LFS\_O\_WRONLY\ =\ 2,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Open\ a\ file\ as\ write\ only}}
+\DoxyCodeLine{00129\ \ \ \ \ LFS\_O\_RDWR\ \ \ =\ 3,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Open\ a\ file\ as\ read\ and\ write}}
+\DoxyCodeLine{00130\ \ \ \ \ LFS\_O\_CREAT\ \ =\ 0x0100,\ \ \ \ \textcolor{comment}{//\ Create\ a\ file\ if\ it\ does\ not\ exist}}
+\DoxyCodeLine{00131\ \ \ \ \ LFS\_O\_EXCL\ \ \ =\ 0x0200,\ \ \ \ \textcolor{comment}{//\ Fail\ if\ a\ file\ already\ exists}}
+\DoxyCodeLine{00132\ \ \ \ \ LFS\_O\_TRUNC\ \ =\ 0x0400,\ \ \ \ \textcolor{comment}{//\ Truncate\ the\ existing\ file\ to\ zero\ size}}
+\DoxyCodeLine{00133\ \ \ \ \ LFS\_O\_APPEND\ =\ 0x0800,\ \ \ \ \textcolor{comment}{//\ Move\ to\ end\ of\ file\ on\ every\ write}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{comment}{//\ internally\ used\ flags}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00138\ \ \ \ \ LFS\_F\_DIRTY\ \ \ =\ 0x010000,\ \textcolor{comment}{//\ File\ does\ not\ match\ storage}}
+\DoxyCodeLine{00139\ \ \ \ \ LFS\_F\_WRITING\ =\ 0x020000,\ \textcolor{comment}{//\ File\ has\ been\ written\ since\ last\ flush}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00141\ \ \ \ \ LFS\_F\_READING\ =\ 0x040000,\ \textcolor{comment}{//\ File\ has\ been\ read\ since\ last\ flush}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00143\ \ \ \ \ LFS\_F\_ERRED\ \ \ =\ 0x080000,\ \textcolor{comment}{//\ An\ error\ occurred\ during\ write}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00145\ \ \ \ \ LFS\_F\_INLINE\ \ =\ 0x100000,\ \textcolor{comment}{//\ Currently\ inlined\ in\ directory\ entry}}
+\DoxyCodeLine{00146\ \};}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{comment}{//\ File\ seek\ flags}}
+\DoxyCodeLine{00149\ \textcolor{keyword}{enum}\ lfs\_whence\_flags\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ LFS\_SEEK\_SET\ =\ 0,\ \ \ \textcolor{comment}{//\ Seek\ relative\ to\ an\ absolute\ position}}
+\DoxyCodeLine{00151\ \ \ \ \ LFS\_SEEK\_CUR\ =\ 1,\ \ \ \textcolor{comment}{//\ Seek\ relative\ to\ the\ current\ file\ position}}
+\DoxyCodeLine{00152\ \ \ \ \ LFS\_SEEK\_END\ =\ 2,\ \ \ \textcolor{comment}{//\ Seek\ relative\ to\ the\ end\ of\ the\ file}}
+\DoxyCodeLine{00153\ \};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{//\ Configuration\ provided\ during\ initialization\ of\ the\ littlefs}}
+\DoxyCodeLine{00157\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}}\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{comment}{//\ Opaque\ user\ provided\ context\ that\ can\ be\ used\ to\ pass}}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{comment}{//\ information\ to\ the\ block\ device\ operations}}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{void}\ *context;}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{comment}{//\ Read\ a\ region\ in\ a\ block.\ Negative\ error\ codes\ are\ propagated}}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{//\ to\ the\ user.}}
+\DoxyCodeLine{00164\ \ \ \ \ int\ (*read)(\textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *c,\ lfs\_block\_t\ block,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ lfs\_off\_t\ off,\ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{comment}{//\ Program\ a\ region\ in\ a\ block.\ The\ block\ must\ have\ previously}}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{comment}{//\ been\ erased.\ Negative\ error\ codes\ are\ propagated\ to\ the\ user.}}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{comment}{//\ May\ return\ LFS\_ERR\_CORRUPT\ if\ the\ block\ should\ be\ considered\ bad.}}
+\DoxyCodeLine{00170\ \ \ \ \ int\ (*prog)(\textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *c,\ lfs\_block\_t\ block,}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ lfs\_off\_t\ off,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ Erase\ a\ block.\ A\ block\ must\ be\ erased\ before\ being\ programmed.}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{comment}{//\ The\ state\ of\ an\ erased\ block\ is\ undefined.\ Negative\ error\ codes}}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{comment}{//\ are\ propagated\ to\ the\ user.}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{comment}{//\ May\ return\ LFS\_ERR\_CORRUPT\ if\ the\ block\ should\ be\ considered\ bad.}}
+\DoxyCodeLine{00177\ \ \ \ \ int\ (*erase)(\textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *c,\ lfs\_block\_t\ block);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{comment}{//\ Sync\ the\ state\ of\ the\ underlying\ block\ device.\ Negative\ error\ codes}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{comment}{//\ are\ propagated\ to\ the\ user.}}
+\DoxyCodeLine{00181\ \ \ \ \ int\ (*sync)(\textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *c);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#ifdef\ LFS\_THREADSAFE}}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{//\ Lock\ the\ underlying\ block\ device.\ Negative\ error\ codes}}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{comment}{//\ are\ propagated\ to\ the\ user.}}
+\DoxyCodeLine{00186\ \ \ \ \ int\ (*lock)(\textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *c);}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{comment}{//\ Unlock\ the\ underlying\ block\ device.\ Negative\ error\ codes}}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{comment}{//\ are\ propagated\ to\ the\ user.}}
+\DoxyCodeLine{00190\ \ \ \ \ int\ (*unlock)(\textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *c);}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ Minimum\ size\ of\ a\ block\ read\ in\ bytes.\ All\ read\ operations\ will\ be\ a}}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{comment}{//\ multiple\ of\ this\ value.}}
+\DoxyCodeLine{00195\ \ \ \ \ lfs\_size\_t\ read\_size;}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{comment}{//\ Minimum\ size\ of\ a\ block\ program\ in\ bytes.\ All\ program\ operations\ will\ be}}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{comment}{//\ a\ multiple\ of\ this\ value.}}
+\DoxyCodeLine{00199\ \ \ \ \ lfs\_size\_t\ prog\_size;}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//\ Size\ of\ an\ erasable\ block\ in\ bytes.\ This\ does\ not\ impact\ ram\ consumption}}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{comment}{//\ and\ may\ be\ larger\ than\ the\ physical\ erase\ size.\ However,\ non-\/inlined}}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{comment}{//\ files\ take\ up\ at\ minimum\ one\ block.\ Must\ be\ a\ multiple\ of\ the\ read\ and}}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{comment}{//\ program\ sizes.}}
+\DoxyCodeLine{00205\ \ \ \ \ lfs\_size\_t\ block\_size;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ erasable\ blocks\ on\ the\ device.\ Defaults\ to\ block\_count\ stored}}
+\DoxyCodeLine{00208\ \ \ \ \ \textcolor{comment}{//\ on\ disk\ when\ zero.}}
+\DoxyCodeLine{00209\ \ \ \ \ lfs\_size\_t\ block\_count;}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ erase\ cycles\ before\ littlefs\ evicts\ metadata\ logs\ and\ moves}}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{comment}{//\ the\ metadata\ to\ another\ block.\ Suggested\ values\ are\ in\ the}}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{comment}{//\ range\ 100-\/1000,\ with\ large\ values\ having\ better\ performance\ at\ the\ cost}}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{comment}{//\ of\ less\ consistent\ wear\ distribution.}}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{comment}{//\ Set\ to\ -\/1\ to\ disable\ block-\/level\ wear-\/leveling.}}
+\DoxyCodeLine{00217\ \ \ \ \ int32\_t\ block\_cycles;}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{comment}{//\ Size\ of\ block\ caches\ in\ bytes.\ Each\ cache\ buffers\ a\ portion\ of\ a\ block\ in}}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{comment}{//\ RAM.\ The\ littlefs\ needs\ a\ read\ cache,\ a\ program\ cache,\ and\ one\ additional}}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{comment}{//\ cache\ per\ file.\ Larger\ caches\ can\ improve\ performance\ by\ storing\ more}}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{comment}{//\ data\ and\ reducing\ the\ number\ of\ disk\ accesses.\ Must\ be\ a\ multiple\ of\ the}}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{comment}{//\ read\ and\ program\ sizes,\ and\ a\ factor\ of\ the\ block\ size.}}
+\DoxyCodeLine{00224\ \ \ \ \ lfs\_size\_t\ cache\_size;}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{comment}{//\ Size\ of\ the\ lookahead\ buffer\ in\ bytes.\ A\ larger\ lookahead\ buffer}}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{comment}{//\ increases\ the\ number\ of\ blocks\ found\ during\ an\ allocation\ pass.\ The}}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{comment}{//\ lookahead\ buffer\ is\ stored\ as\ a\ compact\ bitmap,\ so\ each\ byte\ of\ RAM}}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{comment}{//\ can\ track\ 8\ blocks.}}
+\DoxyCodeLine{00230\ \ \ \ \ lfs\_size\_t\ lookahead\_size;}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{comment}{//\ Threshold\ for\ metadata\ compaction\ during\ lfs\_fs\_gc\ in\ bytes.\ Metadata}}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{comment}{//\ pairs\ that\ exceed\ this\ threshold\ will\ be\ compacted\ during\ lfs\_fs\_gc.}}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{comment}{//\ Defaults\ to\ \string~88\%\ block\_size\ when\ zero,\ though\ the\ default\ may\ change}}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{comment}{//\ in\ the\ future.}}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{comment}{//\ Note\ this\ only\ affects\ lfs\_fs\_gc.\ Normal\ compactions\ still\ only\ occur}}
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{comment}{//\ when\ full.}}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{comment}{//\ Set\ to\ -\/1\ to\ disable\ metadata\ compaction\ during\ lfs\_fs\_gc.}}
+\DoxyCodeLine{00241\ \ \ \ \ lfs\_size\_t\ compact\_thresh;}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{comment}{//\ Optional\ statically\ allocated\ read\ buffer.\ Must\ be\ cache\_size.}}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{comment}{//\ By\ default\ lfs\_malloc\ is\ used\ to\ allocate\ this\ buffer.}}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordtype}{void}\ *read\_buffer;}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{comment}{//\ Optional\ statically\ allocated\ program\ buffer.\ Must\ be\ cache\_size.}}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{comment}{//\ By\ default\ lfs\_malloc\ is\ used\ to\ allocate\ this\ buffer.}}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keywordtype}{void}\ *prog\_buffer;}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{comment}{//\ Optional\ statically\ allocated\ lookahead\ buffer.\ Must\ be\ lookahead\_size.}}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{comment}{//\ By\ default\ lfs\_malloc\ is\ used\ to\ allocate\ this\ buffer.}}
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordtype}{void}\ *lookahead\_buffer;}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{comment}{//\ Optional\ upper\ limit\ on\ length\ of\ file\ names\ in\ bytes.\ No\ downside\ for}}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{comment}{//\ larger\ names\ except\ the\ size\ of\ the\ info\ struct\ which\ is\ controlled\ by}}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{comment}{//\ the\ LFS\_NAME\_MAX\ define.\ Defaults\ to\ LFS\_NAME\_MAX\ or\ name\_max\ stored\ on}}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{comment}{//\ disk\ when\ zero.}}
+\DoxyCodeLine{00259\ \ \ \ \ lfs\_size\_t\ name\_max;}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{comment}{//\ Optional\ upper\ limit\ on\ files\ in\ bytes.\ No\ downside\ for\ larger\ files}}
+\DoxyCodeLine{00262\ \ \ \ \ \textcolor{comment}{//\ but\ must\ be\ <=\ LFS\_FILE\_MAX.\ Defaults\ to\ LFS\_FILE\_MAX\ or\ file\_max\ stored}}
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{comment}{//\ on\ disk\ when\ zero.}}
+\DoxyCodeLine{00264\ \ \ \ \ lfs\_size\_t\ file\_max;}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{comment}{//\ Optional\ upper\ limit\ on\ custom\ attributes\ in\ bytes.\ No\ downside\ for}}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{comment}{//\ larger\ attributes\ size\ but\ must\ be\ <=\ LFS\_ATTR\_MAX.\ Defaults\ to}}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{comment}{//\ LFS\_ATTR\_MAX\ or\ attr\_max\ stored\ on\ disk\ when\ zero.}}
+\DoxyCodeLine{00269\ \ \ \ \ lfs\_size\_t\ attr\_max;}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{comment}{//\ Optional\ upper\ limit\ on\ total\ space\ given\ to\ metadata\ pairs\ in\ bytes.\ On}}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{comment}{//\ devices\ with\ large\ blocks\ (e.g.\ 128kB)\ setting\ this\ to\ a\ low\ size\ (2-\/8kB)}}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{comment}{//\ can\ help\ bound\ the\ metadata\ compaction\ time.\ Must\ be\ <=\ block\_size.}}
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{comment}{//\ Defaults\ to\ block\_size\ when\ zero.}}
+\DoxyCodeLine{00275\ \ \ \ \ lfs\_size\_t\ metadata\_max;}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{comment}{//\ Optional\ upper\ limit\ on\ inlined\ files\ in\ bytes.\ Inlined\ files\ live\ in}}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{comment}{//\ metadata\ and\ decrease\ storage\ requirements,\ but\ may\ be\ limited\ to}}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{comment}{//\ improve\ metadata-\/related\ performance.\ Must\ be\ <=\ cache\_size,\ <=}}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{comment}{//\ attr\_max,\ and\ <=\ block\_size/8.\ Defaults\ to\ the\ largest\ possible}}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{comment}{//\ inline\_max\ when\ zero.}}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{comment}{//\ Set\ to\ -\/1\ to\ disable\ inlined\ files.}}
+\DoxyCodeLine{00284\ \ \ \ \ lfs\_size\_t\ inline\_max;}
+\DoxyCodeLine{00285\ }
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#ifdef\ LFS\_MULTIVERSION}}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{comment}{//\ On-\/disk\ version\ to\ use\ when\ writing\ in\ the\ form\ of\ 16-\/bit\ major\ version}}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{comment}{//\ +\ 16-\/bit\ minor\ version.\ This\ limiting\ metadata\ to\ what\ is\ supported\ by}}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{comment}{//\ older\ minor\ versions.\ Note\ that\ some\ features\ will\ be\ lost.\ Defaults\ to\ }}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{comment}{//\ to\ the\ most\ recent\ minor\ version\ when\ zero.}}
+\DoxyCodeLine{00291\ \ \ \ \ uint32\_t\ disk\_version;}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00293\ \};}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{comment}{//\ File\ info\ structure}}
+\DoxyCodeLine{00296\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__info}{lfs\_info}}\ \{}
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{comment}{//\ Type\ of\ the\ file,\ either\ LFS\_TYPE\_REG\ or\ LFS\_TYPE\_DIR}}
+\DoxyCodeLine{00298\ \ \ \ \ uint8\_t\ type;}
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{comment}{//\ Size\ of\ the\ file,\ only\ valid\ for\ REG\ files.\ Limited\ to\ 32-\/bits.}}
+\DoxyCodeLine{00301\ \ \ \ \ lfs\_size\_t\ size;}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//\ Name\ of\ the\ file\ stored\ as\ a\ null-\/terminated\ string.\ Limited\ to}}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{comment}{//\ LFS\_NAME\_MAX+1,\ which\ can\ be\ changed\ by\ redefining\ LFS\_NAME\_MAX\ to}}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{comment}{//\ reduce\ RAM.\ LFS\_NAME\_MAX\ is\ stored\ in\ superblock\ and\ must\ be}}
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{comment}{//\ respected\ by\ other\ littlefs\ drivers.}}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keywordtype}{char}\ name[LFS\_NAME\_MAX+1];}
+\DoxyCodeLine{00308\ \};}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{comment}{//\ Filesystem\ info\ structure}}
+\DoxyCodeLine{00311\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__fsinfo}{lfs\_fsinfo}}\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \textcolor{comment}{//\ On-\/disk\ version.}}
+\DoxyCodeLine{00313\ \ \ \ \ uint32\_t\ disk\_version;}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{comment}{//\ Size\ of\ a\ logical\ block\ in\ bytes.}}
+\DoxyCodeLine{00316\ \ \ \ \ lfs\_size\_t\ block\_size;}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ logical\ blocks\ in\ filesystem.}}
+\DoxyCodeLine{00319\ \ \ \ \ lfs\_size\_t\ block\_count;}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{comment}{//\ Upper\ limit\ on\ the\ length\ of\ file\ names\ in\ bytes.}}
+\DoxyCodeLine{00322\ \ \ \ \ lfs\_size\_t\ name\_max;}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{comment}{//\ Upper\ limit\ on\ the\ size\ of\ files\ in\ bytes.}}
+\DoxyCodeLine{00325\ \ \ \ \ lfs\_size\_t\ file\_max;}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{comment}{//\ Upper\ limit\ on\ the\ size\ of\ custom\ attributes\ in\ bytes.}}
+\DoxyCodeLine{00328\ \ \ \ \ lfs\_size\_t\ attr\_max;}
+\DoxyCodeLine{00329\ \};}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \textcolor{comment}{//\ Custom\ attribute\ structure,\ used\ to\ describe\ custom\ attributes}}
+\DoxyCodeLine{00332\ \textcolor{comment}{//\ committed\ atomically\ during\ file\ writes.}}
+\DoxyCodeLine{00333\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__attr}{lfs\_attr}}\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{comment}{//\ 8-\/bit\ type\ of\ attribute,\ provided\ by\ user\ and\ used\ to}}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{comment}{//\ identify\ the\ attribute}}
+\DoxyCodeLine{00336\ \ \ \ \ uint8\_t\ type;}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{comment}{//\ Pointer\ to\ buffer\ containing\ the\ attribute}}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordtype}{void}\ *buffer;}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{comment}{//\ Size\ of\ attribute\ in\ bytes,\ limited\ to\ LFS\_ATTR\_MAX}}
+\DoxyCodeLine{00342\ \ \ \ \ lfs\_size\_t\ size;}
+\DoxyCodeLine{00343\ \};}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{comment}{//\ Optional\ configuration\ provided\ during\ lfs\_file\_opencfg}}
+\DoxyCodeLine{00346\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__file__config}{lfs\_file\_config}}\ \{}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{comment}{//\ Optional\ statically\ allocated\ file\ buffer.\ Must\ be\ cache\_size.}}
+\DoxyCodeLine{00348\ \ \ \ \ \textcolor{comment}{//\ By\ default\ lfs\_malloc\ is\ used\ to\ allocate\ this\ buffer.}}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keywordtype}{void}\ *buffer;}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{comment}{//\ Optional\ list\ of\ custom\ attributes\ related\ to\ the\ file.\ If\ the\ file}}
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{comment}{//\ is\ opened\ with\ read\ access,\ these\ attributes\ will\ be\ read\ from\ disk}}
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{comment}{//\ during\ the\ open\ call.\ If\ the\ file\ is\ opened\ with\ write\ access,\ the}}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{comment}{//\ attributes\ will\ be\ written\ to\ disk\ every\ file\ sync\ or\ close.\ This}}
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{comment}{//\ write\ occurs\ atomically\ with\ update\ to\ the\ file's\ contents.}}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{comment}{//\ Custom\ attributes\ are\ uniquely\ identified\ by\ an\ 8-\/bit\ type\ and\ limited}}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{comment}{//\ to\ LFS\_ATTR\_MAX\ bytes.\ When\ read,\ if\ the\ stored\ attribute\ is\ smaller}}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{comment}{//\ than\ the\ buffer,\ it\ will\ be\ padded\ with\ zeros.\ If\ the\ stored\ attribute}}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{comment}{//\ is\ larger,\ then\ it\ will\ be\ silently\ truncated.\ If\ the\ attribute\ is\ not}}
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{comment}{//\ found,\ it\ will\ be\ created\ implicitly.}}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__attr}{lfs\_attr}}\ *attrs;}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ custom\ attributes\ in\ the\ list}}
+\DoxyCodeLine{00365\ \ \ \ \ lfs\_size\_t\ attr\_count;}
+\DoxyCodeLine{00366\ \};}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00370\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__cache}{lfs\_cache}}\ \{}
+\DoxyCodeLine{00371\ \ \ \ \ lfs\_block\_t\ block;}
+\DoxyCodeLine{00372\ \ \ \ \ lfs\_off\_t\ off;}
+\DoxyCodeLine{00373\ \ \ \ \ lfs\_size\_t\ size;}
+\DoxyCodeLine{00374\ \ \ \ \ uint8\_t\ *buffer;}
+\DoxyCodeLine{00375\ \}\ lfs\_cache\_t;}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__mdir}{lfs\_mdir}}\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ lfs\_block\_t\ pair[2];}
+\DoxyCodeLine{00379\ \ \ \ \ uint32\_t\ rev;}
+\DoxyCodeLine{00380\ \ \ \ \ lfs\_off\_t\ off;}
+\DoxyCodeLine{00381\ \ \ \ \ uint32\_t\ etag;}
+\DoxyCodeLine{00382\ \ \ \ \ uint16\_t\ count;}
+\DoxyCodeLine{00383\ \ \ \ \ \textcolor{keywordtype}{bool}\ erased;}
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keywordtype}{bool}\ split;}
+\DoxyCodeLine{00385\ \ \ \ \ lfs\_block\_t\ tail[2];}
+\DoxyCodeLine{00386\ \}\ lfs\_mdir\_t;}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{comment}{//\ littlefs\ directory\ type}}
+\DoxyCodeLine{00389\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__dir}{lfs\_dir}}\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__dir}{lfs\_dir}}\ *next;}
+\DoxyCodeLine{00391\ \ \ \ \ uint16\_t\ id;}
+\DoxyCodeLine{00392\ \ \ \ \ uint8\_t\ type;}
+\DoxyCodeLine{00393\ \ \ \ \ lfs\_mdir\_t\ m;}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ lfs\_off\_t\ pos;}
+\DoxyCodeLine{00396\ \ \ \ \ lfs\_block\_t\ head[2];}
+\DoxyCodeLine{00397\ \}\ lfs\_dir\_t;}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \textcolor{comment}{//\ littlefs\ file\ type}}
+\DoxyCodeLine{00400\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__file}{lfs\_file}}\ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__file}{lfs\_file}}\ *next;}
+\DoxyCodeLine{00402\ \ \ \ \ uint16\_t\ id;}
+\DoxyCodeLine{00403\ \ \ \ \ uint8\_t\ type;}
+\DoxyCodeLine{00404\ \ \ \ \ lfs\_mdir\_t\ m;}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__file_1_1lfs__ctz}{lfs\_ctz}}\ \{}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ lfs\_block\_t\ head;}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ lfs\_size\_t\ size;}
+\DoxyCodeLine{00409\ \ \ \ \ \}\ ctz;}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00411\ \ \ \ \ uint32\_t\ flags;}
+\DoxyCodeLine{00412\ \ \ \ \ lfs\_off\_t\ pos;}
+\DoxyCodeLine{00413\ \ \ \ \ lfs\_block\_t\ block;}
+\DoxyCodeLine{00414\ \ \ \ \ lfs\_off\_t\ off;}
+\DoxyCodeLine{00415\ \ \ \ \ lfs\_cache\_t\ cache;}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__file__config}{lfs\_file\_config}}\ *cfg;}
+\DoxyCodeLine{00418\ \}\ lfs\_file\_t;}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__superblock}{lfs\_superblock}}\ \{}
+\DoxyCodeLine{00421\ \ \ \ \ uint32\_t\ version;}
+\DoxyCodeLine{00422\ \ \ \ \ lfs\_size\_t\ block\_size;}
+\DoxyCodeLine{00423\ \ \ \ \ lfs\_size\_t\ block\_count;}
+\DoxyCodeLine{00424\ \ \ \ \ lfs\_size\_t\ name\_max;}
+\DoxyCodeLine{00425\ \ \ \ \ lfs\_size\_t\ file\_max;}
+\DoxyCodeLine{00426\ \ \ \ \ lfs\_size\_t\ attr\_max;}
+\DoxyCodeLine{00427\ \}\ lfs\_superblock\_t;}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__gstate}{lfs\_gstate}}\ \{}
+\DoxyCodeLine{00430\ \ \ \ \ uint32\_t\ tag;}
+\DoxyCodeLine{00431\ \ \ \ \ lfs\_block\_t\ pair[2];}
+\DoxyCodeLine{00432\ \}\ lfs\_gstate\_t;}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \textcolor{comment}{//\ The\ littlefs\ filesystem\ type}}
+\DoxyCodeLine{00435\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs}{lfs}}\ \{}
+\DoxyCodeLine{00436\ \ \ \ \ lfs\_cache\_t\ rcache;}
+\DoxyCodeLine{00437\ \ \ \ \ lfs\_cache\_t\ pcache;}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00439\ \ \ \ \ lfs\_block\_t\ root[2];}
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs_1_1lfs__mlist}{lfs\_mlist}}\ \{}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs_1_1lfs__mlist}{lfs\_mlist}}\ *next;}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ uint16\_t\ id;}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ uint8\_t\ type;}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ lfs\_mdir\_t\ m;}
+\DoxyCodeLine{00445\ \ \ \ \ \}\ *mlist;}
+\DoxyCodeLine{00446\ \ \ \ \ uint32\_t\ seed;}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \ \ \ \ lfs\_gstate\_t\ gstate;}
+\DoxyCodeLine{00449\ \ \ \ \ lfs\_gstate\_t\ gdisk;}
+\DoxyCodeLine{00450\ \ \ \ \ lfs\_gstate\_t\ gdelta;}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs_1_1lfs__lookahead}{lfs\_lookahead}}\ \{}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ lfs\_block\_t\ start;}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ lfs\_block\_t\ size;}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ lfs\_block\_t\ next;}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ lfs\_block\_t\ ckpoint;}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ uint8\_t\ *buffer;}
+\DoxyCodeLine{00458\ \ \ \ \ \}\ lookahead;}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg;}
+\DoxyCodeLine{00461\ \ \ \ \ lfs\_size\_t\ block\_count;}
+\DoxyCodeLine{00462\ \ \ \ \ lfs\_size\_t\ name\_max;}
+\DoxyCodeLine{00463\ \ \ \ \ lfs\_size\_t\ file\_max;}
+\DoxyCodeLine{00464\ \ \ \ \ lfs\_size\_t\ attr\_max;}
+\DoxyCodeLine{00465\ \ \ \ \ lfs\_size\_t\ inline\_max;}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \textcolor{preprocessor}{\#ifdef\ LFS\_MIGRATE}}
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keyword}{struct\ }lfs1\ *lfs1;}
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00470\ \}\ lfs\_t;}
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00476\ \textcolor{comment}{//\ Format\ a\ block\ device\ with\ the\ littlefs}}
+\DoxyCodeLine{00477\ \textcolor{comment}{//}}
+\DoxyCodeLine{00478\ \textcolor{comment}{//\ Requires\ a\ littlefs\ object\ and\ config\ struct.\ This\ clobbers\ the\ littlefs}}
+\DoxyCodeLine{00479\ \textcolor{comment}{//\ object,\ and\ does\ not\ leave\ the\ filesystem\ mounted.\ The\ config\ struct\ must}}
+\DoxyCodeLine{00480\ \textcolor{comment}{//\ be\ zeroed\ for\ defaults\ and\ backwards\ compatibility.}}
+\DoxyCodeLine{00481\ \textcolor{comment}{//}}
+\DoxyCodeLine{00482\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00483\ \textcolor{keywordtype}{int}\ lfs\_format(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *config);}
+\DoxyCodeLine{00484\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \textcolor{comment}{//\ Mounts\ a\ littlefs}}
+\DoxyCodeLine{00487\ \textcolor{comment}{//}}
+\DoxyCodeLine{00488\ \textcolor{comment}{//\ Requires\ a\ littlefs\ object\ and\ config\ struct.\ Multiple\ filesystems}}
+\DoxyCodeLine{00489\ \textcolor{comment}{//\ may\ be\ mounted\ simultaneously\ with\ multiple\ littlefs\ objects.\ Both}}
+\DoxyCodeLine{00490\ \textcolor{comment}{//\ lfs\ and\ config\ must\ be\ allocated\ while\ mounted.\ The\ config\ struct\ must}}
+\DoxyCodeLine{00491\ \textcolor{comment}{//\ be\ zeroed\ for\ defaults\ and\ backwards\ compatibility.}}
+\DoxyCodeLine{00492\ \textcolor{comment}{//}}
+\DoxyCodeLine{00493\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00494\ \textcolor{keywordtype}{int}\ lfs\_mount(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *config);}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \textcolor{comment}{//\ Unmounts\ a\ littlefs}}
+\DoxyCodeLine{00497\ \textcolor{comment}{//}}
+\DoxyCodeLine{00498\ \textcolor{comment}{//\ Does\ nothing\ besides\ releasing\ any\ allocated\ resources.}}
+\DoxyCodeLine{00499\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00500\ \textcolor{keywordtype}{int}\ lfs\_unmount(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}});}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00505\ \textcolor{comment}{//\ Removes\ a\ file\ or\ directory}}
+\DoxyCodeLine{00506\ \textcolor{comment}{//}}
+\DoxyCodeLine{00507\ \textcolor{comment}{//\ If\ removing\ a\ directory,\ the\ directory\ must\ be\ empty.}}
+\DoxyCodeLine{00508\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00509\ \textcolor{keywordtype}{int}\ lfs\_remove(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00511\ }
+\DoxyCodeLine{00512\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00513\ \textcolor{comment}{//\ Rename\ or\ move\ a\ file\ or\ directory}}
+\DoxyCodeLine{00514\ \textcolor{comment}{//}}
+\DoxyCodeLine{00515\ \textcolor{comment}{//\ If\ the\ destination\ exists,\ it\ must\ match\ the\ source\ in\ type.}}
+\DoxyCodeLine{00516\ \textcolor{comment}{//\ If\ the\ destination\ is\ a\ directory,\ the\ directory\ must\ be\ empty.}}
+\DoxyCodeLine{00517\ \textcolor{comment}{//}}
+\DoxyCodeLine{00518\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00519\ \textcolor{keywordtype}{int}\ lfs\_rename(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *oldpath,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *newpath);}
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00522\ \textcolor{comment}{//\ Find\ info\ about\ a\ file\ or\ directory}}
+\DoxyCodeLine{00523\ \textcolor{comment}{//}}
+\DoxyCodeLine{00524\ \textcolor{comment}{//\ Fills\ out\ the\ info\ structure,\ based\ on\ the\ specified\ file\ or\ directory.}}
+\DoxyCodeLine{00525\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00526\ \textcolor{keywordtype}{int}\ lfs\_stat(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__info}{lfs\_info}}\ *info);}
+\DoxyCodeLine{00527\ }
+\DoxyCodeLine{00528\ \textcolor{comment}{//\ Get\ a\ custom\ attribute}}
+\DoxyCodeLine{00529\ \textcolor{comment}{//}}
+\DoxyCodeLine{00530\ \textcolor{comment}{//\ Custom\ attributes\ are\ uniquely\ identified\ by\ an\ 8-\/bit\ type\ and\ limited}}
+\DoxyCodeLine{00531\ \textcolor{comment}{//\ to\ LFS\_ATTR\_MAX\ bytes.\ When\ read,\ if\ the\ stored\ attribute\ is\ smaller\ than}}
+\DoxyCodeLine{00532\ \textcolor{comment}{//\ the\ buffer,\ it\ will\ be\ padded\ with\ zeros.\ If\ the\ stored\ attribute\ is\ larger,}}
+\DoxyCodeLine{00533\ \textcolor{comment}{//\ then\ it\ will\ be\ silently\ truncated.\ If\ no\ attribute\ is\ found,\ the\ error}}
+\DoxyCodeLine{00534\ \textcolor{comment}{//\ LFS\_ERR\_NOATTR\ is\ returned\ and\ the\ buffer\ is\ filled\ with\ zeros.}}
+\DoxyCodeLine{00535\ \textcolor{comment}{//}}
+\DoxyCodeLine{00536\ \textcolor{comment}{//\ Returns\ the\ size\ of\ the\ attribute,\ or\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00537\ \textcolor{comment}{//\ Note,\ the\ returned\ size\ is\ the\ size\ of\ the\ attribute\ on\ disk,\ irrespective}}
+\DoxyCodeLine{00538\ \textcolor{comment}{//\ of\ the\ size\ of\ the\ buffer.\ This\ can\ be\ used\ to\ dynamically\ allocate\ a\ buffer}}
+\DoxyCodeLine{00539\ \textcolor{comment}{//\ or\ check\ for\ existence.}}
+\DoxyCodeLine{00540\ lfs\_ssize\_t\ lfs\_getattr(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ uint8\_t\ type,\ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00542\ }
+\DoxyCodeLine{00543\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00544\ \textcolor{comment}{//\ Set\ custom\ attributes}}
+\DoxyCodeLine{00545\ \textcolor{comment}{//}}
+\DoxyCodeLine{00546\ \textcolor{comment}{//\ Custom\ attributes\ are\ uniquely\ identified\ by\ an\ 8-\/bit\ type\ and\ limited}}
+\DoxyCodeLine{00547\ \textcolor{comment}{//\ to\ LFS\_ATTR\_MAX\ bytes.\ If\ an\ attribute\ is\ not\ found,\ it\ will\ be}}
+\DoxyCodeLine{00548\ \textcolor{comment}{//\ implicitly\ created.}}
+\DoxyCodeLine{00549\ \textcolor{comment}{//}}
+\DoxyCodeLine{00550\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00551\ \textcolor{keywordtype}{int}\ lfs\_setattr(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ uint8\_t\ type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00553\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00556\ \textcolor{comment}{//\ Removes\ a\ custom\ attribute}}
+\DoxyCodeLine{00557\ \textcolor{comment}{//}}
+\DoxyCodeLine{00558\ \textcolor{comment}{//\ If\ an\ attribute\ is\ not\ found,\ nothing\ happens.}}
+\DoxyCodeLine{00559\ \textcolor{comment}{//}}
+\DoxyCodeLine{00560\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00561\ \textcolor{keywordtype}{int}\ lfs\_removeattr(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ uint8\_t\ type);}
+\DoxyCodeLine{00562\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00567\ \textcolor{preprocessor}{\#ifndef\ LFS\_NO\_MALLOC}}
+\DoxyCodeLine{00568\ \textcolor{comment}{//\ Open\ a\ file}}
+\DoxyCodeLine{00569\ \textcolor{comment}{//}}
+\DoxyCodeLine{00570\ \textcolor{comment}{//\ The\ mode\ that\ the\ file\ is\ opened\ in\ is\ determined\ by\ the\ flags,\ which}}
+\DoxyCodeLine{00571\ \textcolor{comment}{//\ are\ values\ from\ the\ enum\ lfs\_open\_flags\ that\ are\ bitwise-\/ored\ together.}}
+\DoxyCodeLine{00572\ \textcolor{comment}{//}}
+\DoxyCodeLine{00573\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00574\ \textcolor{keywordtype}{int}\ lfs\_file\_open(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file,}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ flags);}
+\DoxyCodeLine{00576\ }
+\DoxyCodeLine{00577\ \textcolor{comment}{//\ if\ LFS\_NO\_MALLOC\ is\ defined,\ lfs\_file\_open()\ will\ fail\ with\ LFS\_ERR\_NOMEM}}
+\DoxyCodeLine{00578\ \textcolor{comment}{//\ thus\ use\ lfs\_file\_opencfg()\ with\ config.buffer\ set.}}
+\DoxyCodeLine{00579\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \textcolor{comment}{//\ Open\ a\ file\ with\ extra\ configuration}}
+\DoxyCodeLine{00582\ \textcolor{comment}{//}}
+\DoxyCodeLine{00583\ \textcolor{comment}{//\ The\ mode\ that\ the\ file\ is\ opened\ in\ is\ determined\ by\ the\ flags,\ which}}
+\DoxyCodeLine{00584\ \textcolor{comment}{//\ are\ values\ from\ the\ enum\ lfs\_open\_flags\ that\ are\ bitwise-\/ored\ together.}}
+\DoxyCodeLine{00585\ \textcolor{comment}{//}}
+\DoxyCodeLine{00586\ \textcolor{comment}{//\ The\ config\ struct\ provides\ additional\ config\ options\ per\ file\ as\ described}}
+\DoxyCodeLine{00587\ \textcolor{comment}{//\ above.\ The\ config\ struct\ must\ remain\ allocated\ while\ the\ file\ is\ open,\ and}}
+\DoxyCodeLine{00588\ \textcolor{comment}{//\ the\ config\ struct\ must\ be\ zeroed\ for\ defaults\ and\ backwards\ compatibility.}}
+\DoxyCodeLine{00589\ \textcolor{comment}{//}}
+\DoxyCodeLine{00590\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00591\ \textcolor{keywordtype}{int}\ lfs\_file\_opencfg(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file,}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path,\ \textcolor{keywordtype}{int}\ flags,}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__file__config}{lfs\_file\_config}}\ *config);}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \textcolor{comment}{//\ Close\ a\ file}}
+\DoxyCodeLine{00596\ \textcolor{comment}{//}}
+\DoxyCodeLine{00597\ \textcolor{comment}{//\ Any\ pending\ writes\ are\ written\ out\ to\ storage\ as\ though}}
+\DoxyCodeLine{00598\ \textcolor{comment}{//\ sync\ had\ been\ called\ and\ releases\ any\ allocated\ resources.}}
+\DoxyCodeLine{00599\ \textcolor{comment}{//}}
+\DoxyCodeLine{00600\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00601\ \textcolor{keywordtype}{int}\ lfs\_file\_close(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file);}
+\DoxyCodeLine{00602\ }
+\DoxyCodeLine{00603\ \textcolor{comment}{//\ Synchronize\ a\ file\ on\ storage}}
+\DoxyCodeLine{00604\ \textcolor{comment}{//}}
+\DoxyCodeLine{00605\ \textcolor{comment}{//\ Any\ pending\ writes\ are\ written\ out\ to\ storage.}}
+\DoxyCodeLine{00606\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00607\ \textcolor{keywordtype}{int}\ lfs\_file\_sync(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file);}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00609\ \textcolor{comment}{//\ Read\ data\ from\ file}}
+\DoxyCodeLine{00610\ \textcolor{comment}{//}}
+\DoxyCodeLine{00611\ \textcolor{comment}{//\ Takes\ a\ buffer\ and\ size\ indicating\ where\ to\ store\ the\ read\ data.}}
+\DoxyCodeLine{00612\ \textcolor{comment}{//\ Returns\ the\ number\ of\ bytes\ read,\ or\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00613\ lfs\_ssize\_t\ lfs\_file\_read(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file,}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00616\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00617\ \textcolor{comment}{//\ Write\ data\ to\ file}}
+\DoxyCodeLine{00618\ \textcolor{comment}{//}}
+\DoxyCodeLine{00619\ \textcolor{comment}{//\ Takes\ a\ buffer\ and\ size\ indicating\ the\ data\ to\ write.\ The\ file\ will\ not}}
+\DoxyCodeLine{00620\ \textcolor{comment}{//\ actually\ be\ updated\ on\ the\ storage\ until\ either\ sync\ or\ close\ is\ called.}}
+\DoxyCodeLine{00621\ \textcolor{comment}{//}}
+\DoxyCodeLine{00622\ \textcolor{comment}{//\ Returns\ the\ number\ of\ bytes\ written,\ or\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00623\ lfs\_ssize\_t\ lfs\_file\_write(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file,}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00625\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \textcolor{comment}{//\ Change\ the\ position\ of\ the\ file}}
+\DoxyCodeLine{00628\ \textcolor{comment}{//}}
+\DoxyCodeLine{00629\ \textcolor{comment}{//\ The\ change\ in\ position\ is\ determined\ by\ the\ offset\ and\ whence\ flag.}}
+\DoxyCodeLine{00630\ \textcolor{comment}{//\ Returns\ the\ new\ position\ of\ the\ file,\ or\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00631\ lfs\_soff\_t\ lfs\_file\_seek(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file,}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ lfs\_soff\_t\ off,\ \textcolor{keywordtype}{int}\ whence);}
+\DoxyCodeLine{00633\ }
+\DoxyCodeLine{00634\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00635\ \textcolor{comment}{//\ Truncates\ the\ size\ of\ the\ file\ to\ the\ specified\ size}}
+\DoxyCodeLine{00636\ \textcolor{comment}{//}}
+\DoxyCodeLine{00637\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00638\ \textcolor{keywordtype}{int}\ lfs\_file\_truncate(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file,\ lfs\_off\_t\ size);}
+\DoxyCodeLine{00639\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00640\ }
+\DoxyCodeLine{00641\ \textcolor{comment}{//\ Return\ the\ position\ of\ the\ file}}
+\DoxyCodeLine{00642\ \textcolor{comment}{//}}
+\DoxyCodeLine{00643\ \textcolor{comment}{//\ Equivalent\ to\ lfs\_file\_seek(lfs,\ file,\ 0,\ LFS\_SEEK\_CUR)}}
+\DoxyCodeLine{00644\ \textcolor{comment}{//\ Returns\ the\ position\ of\ the\ file,\ or\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00645\ lfs\_soff\_t\ lfs\_file\_tell(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file);}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00647\ \textcolor{comment}{//\ Change\ the\ position\ of\ the\ file\ to\ the\ beginning\ of\ the\ file}}
+\DoxyCodeLine{00648\ \textcolor{comment}{//}}
+\DoxyCodeLine{00649\ \textcolor{comment}{//\ Equivalent\ to\ lfs\_file\_seek(lfs,\ file,\ 0,\ LFS\_SEEK\_SET)}}
+\DoxyCodeLine{00650\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00651\ \textcolor{keywordtype}{int}\ lfs\_file\_rewind(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file);}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00653\ \textcolor{comment}{//\ Return\ the\ size\ of\ the\ file}}
+\DoxyCodeLine{00654\ \textcolor{comment}{//}}
+\DoxyCodeLine{00655\ \textcolor{comment}{//\ Similar\ to\ lfs\_file\_seek(lfs,\ file,\ 0,\ LFS\_SEEK\_END)}}
+\DoxyCodeLine{00656\ \textcolor{comment}{//\ Returns\ the\ size\ of\ the\ file,\ or\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00657\ lfs\_soff\_t\ lfs\_file\_size(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_file\_t\ *file);}
+\DoxyCodeLine{00658\ }
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00661\ }
+\DoxyCodeLine{00662\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00663\ \textcolor{comment}{//\ Create\ a\ directory}}
+\DoxyCodeLine{00664\ \textcolor{comment}{//}}
+\DoxyCodeLine{00665\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00666\ \textcolor{keywordtype}{int}\ lfs\_mkdir(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00667\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00668\ }
+\DoxyCodeLine{00669\ \textcolor{comment}{//\ Open\ a\ directory}}
+\DoxyCodeLine{00670\ \textcolor{comment}{//}}
+\DoxyCodeLine{00671\ \textcolor{comment}{//\ Once\ open\ a\ directory\ can\ be\ used\ with\ read\ to\ iterate\ over\ files.}}
+\DoxyCodeLine{00672\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00673\ \textcolor{keywordtype}{int}\ lfs\_dir\_open(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_dir\_t\ *dir,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *path);}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00675\ \textcolor{comment}{//\ Close\ a\ directory}}
+\DoxyCodeLine{00676\ \textcolor{comment}{//}}
+\DoxyCodeLine{00677\ \textcolor{comment}{//\ Releases\ any\ allocated\ resources.}}
+\DoxyCodeLine{00678\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00679\ \textcolor{keywordtype}{int}\ lfs\_dir\_close(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_dir\_t\ *dir);}
+\DoxyCodeLine{00680\ }
+\DoxyCodeLine{00681\ \textcolor{comment}{//\ Read\ an\ entry\ in\ the\ directory}}
+\DoxyCodeLine{00682\ \textcolor{comment}{//}}
+\DoxyCodeLine{00683\ \textcolor{comment}{//\ Fills\ out\ the\ info\ structure,\ based\ on\ the\ specified\ file\ or\ directory.}}
+\DoxyCodeLine{00684\ \textcolor{comment}{//\ Returns\ a\ positive\ value\ on\ success,\ 0\ at\ the\ end\ of\ directory,}}
+\DoxyCodeLine{00685\ \textcolor{comment}{//\ or\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00686\ \textcolor{keywordtype}{int}\ lfs\_dir\_read(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_dir\_t\ *dir,\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__info}{lfs\_info}}\ *info);}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00688\ \textcolor{comment}{//\ Change\ the\ position\ of\ the\ directory}}
+\DoxyCodeLine{00689\ \textcolor{comment}{//}}
+\DoxyCodeLine{00690\ \textcolor{comment}{//\ The\ new\ off\ must\ be\ a\ value\ previous\ returned\ from\ tell\ and\ specifies}}
+\DoxyCodeLine{00691\ \textcolor{comment}{//\ an\ absolute\ offset\ in\ the\ directory\ seek.}}
+\DoxyCodeLine{00692\ \textcolor{comment}{//}}
+\DoxyCodeLine{00693\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00694\ \textcolor{keywordtype}{int}\ lfs\_dir\_seek(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_dir\_t\ *dir,\ lfs\_off\_t\ off);}
+\DoxyCodeLine{00695\ }
+\DoxyCodeLine{00696\ \textcolor{comment}{//\ Return\ the\ position\ of\ the\ directory}}
+\DoxyCodeLine{00697\ \textcolor{comment}{//}}
+\DoxyCodeLine{00698\ \textcolor{comment}{//\ The\ returned\ offset\ is\ only\ meant\ to\ be\ consumed\ by\ seek\ and\ may\ not\ make}}
+\DoxyCodeLine{00699\ \textcolor{comment}{//\ sense,\ but\ does\ indicate\ the\ current\ position\ in\ the\ directory\ iteration.}}
+\DoxyCodeLine{00700\ \textcolor{comment}{//}}
+\DoxyCodeLine{00701\ \textcolor{comment}{//\ Returns\ the\ position\ of\ the\ directory,\ or\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00702\ lfs\_soff\_t\ lfs\_dir\_tell(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_dir\_t\ *dir);}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00704\ \textcolor{comment}{//\ Change\ the\ position\ of\ the\ directory\ to\ the\ beginning\ of\ the\ directory}}
+\DoxyCodeLine{00705\ \textcolor{comment}{//}}
+\DoxyCodeLine{00706\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00707\ \textcolor{keywordtype}{int}\ lfs\_dir\_rewind(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_dir\_t\ *dir);}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \textcolor{comment}{//\ Find\ on-\/disk\ info\ about\ the\ filesystem}}
+\DoxyCodeLine{00713\ \textcolor{comment}{//}}
+\DoxyCodeLine{00714\ \textcolor{comment}{//\ Fills\ out\ the\ fsinfo\ structure\ based\ on\ the\ filesystem\ found\ on-\/disk.}}
+\DoxyCodeLine{00715\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00716\ \textcolor{keywordtype}{int}\ lfs\_fs\_stat(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__fsinfo}{lfs\_fsinfo}}\ *fsinfo);}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \textcolor{comment}{//\ Finds\ the\ current\ size\ of\ the\ filesystem}}
+\DoxyCodeLine{00719\ \textcolor{comment}{//}}
+\DoxyCodeLine{00720\ \textcolor{comment}{//\ Note:\ Result\ is\ best\ effort.\ If\ files\ share\ COW\ structures,\ the\ returned}}
+\DoxyCodeLine{00721\ \textcolor{comment}{//\ size\ may\ be\ larger\ than\ the\ filesystem\ actually\ is.}}
+\DoxyCodeLine{00722\ \textcolor{comment}{//}}
+\DoxyCodeLine{00723\ \textcolor{comment}{//\ Returns\ the\ number\ of\ allocated\ blocks,\ or\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00724\ lfs\_ssize\_t\ lfs\_fs\_size(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}});}
+\DoxyCodeLine{00725\ }
+\DoxyCodeLine{00726\ \textcolor{comment}{//\ Traverse\ through\ all\ blocks\ in\ use\ by\ the\ filesystem}}
+\DoxyCodeLine{00727\ \textcolor{comment}{//}}
+\DoxyCodeLine{00728\ \textcolor{comment}{//\ The\ provided\ callback\ will\ be\ called\ with\ each\ block\ address\ that\ is}}
+\DoxyCodeLine{00729\ \textcolor{comment}{//\ currently\ in\ use\ by\ the\ filesystem.\ This\ can\ be\ used\ to\ determine\ which}}
+\DoxyCodeLine{00730\ \textcolor{comment}{//\ blocks\ are\ in\ use\ or\ how\ much\ of\ the\ storage\ is\ available.}}
+\DoxyCodeLine{00731\ \textcolor{comment}{//}}
+\DoxyCodeLine{00732\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00733\ \textcolor{keywordtype}{int}\ lfs\_fs\_traverse(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keywordtype}{int}\ (*cb)(\textcolor{keywordtype}{void}*,\ lfs\_block\_t),\ \textcolor{keywordtype}{void}\ *data);}
+\DoxyCodeLine{00734\ }
+\DoxyCodeLine{00735\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00736\ \textcolor{comment}{//\ Attempt\ to\ make\ the\ filesystem\ consistent\ and\ ready\ for\ writing}}
+\DoxyCodeLine{00737\ \textcolor{comment}{//}}
+\DoxyCodeLine{00738\ \textcolor{comment}{//\ Calling\ this\ function\ is\ not\ required,\ consistency\ will\ be\ implicitly}}
+\DoxyCodeLine{00739\ \textcolor{comment}{//\ enforced\ on\ the\ first\ operation\ that\ writes\ to\ the\ filesystem,\ but\ this}}
+\DoxyCodeLine{00740\ \textcolor{comment}{//\ function\ allows\ the\ work\ to\ be\ performed\ earlier\ and\ without\ other}}
+\DoxyCodeLine{00741\ \textcolor{comment}{//\ filesystem\ changes.}}
+\DoxyCodeLine{00742\ \textcolor{comment}{//}}
+\DoxyCodeLine{00743\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00744\ \textcolor{keywordtype}{int}\ lfs\_fs\_mkconsistent(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}});}
+\DoxyCodeLine{00745\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00746\ }
+\DoxyCodeLine{00747\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00748\ \textcolor{comment}{//\ Attempt\ any\ janitorial\ work}}
+\DoxyCodeLine{00749\ \textcolor{comment}{//}}
+\DoxyCodeLine{00750\ \textcolor{comment}{//\ This\ currently:}}
+\DoxyCodeLine{00751\ \textcolor{comment}{//\ 1.\ Calls\ mkconsistent\ if\ not\ already\ consistent}}
+\DoxyCodeLine{00752\ \textcolor{comment}{//\ 2.\ Compacts\ metadata\ >\ compact\_thresh}}
+\DoxyCodeLine{00753\ \textcolor{comment}{//\ 3.\ Populates\ the\ block\ allocator}}
+\DoxyCodeLine{00754\ \textcolor{comment}{//}}
+\DoxyCodeLine{00755\ \textcolor{comment}{//\ Though\ additional\ janitorial\ work\ may\ be\ added\ in\ the\ future.}}
+\DoxyCodeLine{00756\ \textcolor{comment}{//}}
+\DoxyCodeLine{00757\ \textcolor{comment}{//\ Calling\ this\ function\ is\ not\ required,\ but\ may\ allow\ the\ offloading\ of}}
+\DoxyCodeLine{00758\ \textcolor{comment}{//\ expensive\ janitorial\ work\ to\ a\ less\ time-\/critical\ code\ path.}}
+\DoxyCodeLine{00759\ \textcolor{comment}{//}}
+\DoxyCodeLine{00760\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.\ Accomplishing\ nothing\ is\ not}}
+\DoxyCodeLine{00761\ \textcolor{comment}{//\ an\ error.}}
+\DoxyCodeLine{00762\ \textcolor{keywordtype}{int}\ lfs\_fs\_gc(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}});}
+\DoxyCodeLine{00763\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00764\ }
+\DoxyCodeLine{00765\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00766\ \textcolor{comment}{//\ Grows\ the\ filesystem\ to\ a\ new\ size,\ updating\ the\ superblock\ with\ the\ new}}
+\DoxyCodeLine{00767\ \textcolor{comment}{//\ block\ count.}}
+\DoxyCodeLine{00768\ \textcolor{comment}{//}}
+\DoxyCodeLine{00769\ \textcolor{comment}{//\ Note:\ This\ is\ irreversible.}}
+\DoxyCodeLine{00770\ \textcolor{comment}{//}}
+\DoxyCodeLine{00771\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00772\ \textcolor{keywordtype}{int}\ lfs\_fs\_grow(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ lfs\_size\_t\ block\_count);}
+\DoxyCodeLine{00773\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00774\ }
+\DoxyCodeLine{00775\ \textcolor{preprocessor}{\#ifndef\ LFS\_READONLY}}
+\DoxyCodeLine{00776\ \textcolor{preprocessor}{\#ifdef\ LFS\_MIGRATE}}
+\DoxyCodeLine{00777\ \textcolor{comment}{//\ Attempts\ to\ migrate\ a\ previous\ version\ of\ littlefs}}
+\DoxyCodeLine{00778\ \textcolor{comment}{//}}
+\DoxyCodeLine{00779\ \textcolor{comment}{//\ Behaves\ similarly\ to\ the\ lfs\_format\ function.\ Attempts\ to\ mount}}
+\DoxyCodeLine{00780\ \textcolor{comment}{//\ the\ previous\ version\ of\ littlefs\ and\ update\ the\ filesystem\ so\ it\ can\ be}}
+\DoxyCodeLine{00781\ \textcolor{comment}{//\ mounted\ with\ the\ current\ version\ of\ littlefs.}}
+\DoxyCodeLine{00782\ \textcolor{comment}{//}}
+\DoxyCodeLine{00783\ \textcolor{comment}{//\ Requires\ a\ littlefs\ object\ and\ config\ struct.\ This\ clobbers\ the\ littlefs}}
+\DoxyCodeLine{00784\ \textcolor{comment}{//\ object,\ and\ does\ not\ leave\ the\ filesystem\ mounted.\ The\ config\ struct\ must}}
+\DoxyCodeLine{00785\ \textcolor{comment}{//\ be\ zeroed\ for\ defaults\ and\ backwards\ compatibility.}}
+\DoxyCodeLine{00786\ \textcolor{comment}{//}}
+\DoxyCodeLine{00787\ \textcolor{comment}{//\ Returns\ a\ negative\ error\ code\ on\ failure.}}
+\DoxyCodeLine{00788\ \textcolor{keywordtype}{int}\ lfs\_migrate(lfs\_t\ *\mbox{\hyperlink{structlfs}{lfs}},\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00789\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00790\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00791\ }
+\DoxyCodeLine{00792\ }
+\DoxyCodeLine{00793\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00794\ \}\ \textcolor{comment}{/*\ extern\ "{}C"{}\ */}}
+\DoxyCodeLine{00795\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00796\ }
+\DoxyCodeLine{00797\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

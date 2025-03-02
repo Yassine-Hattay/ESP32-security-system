@@ -1,0 +1,388 @@
+\doxysection{Hardware\+Serial.\+h}
+\hypertarget{_hardware_serial_8h_source}{}\label{_hardware_serial_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/HardwareSerial.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/HardwareSerial.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ HardwareSerial.h\ -\/\ Hardware\ serial\ library\ for\ Wiring}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ Copyright\ (c)\ 2006\ Nicholas\ Zambetti.\ \ All\ right\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ version\ 2.1\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ Lesser\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Lesser\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free\ Software}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ Foundation,\ Inc.,\ 51\ Franklin\ St,\ Fifth\ Floor,\ Boston,\ MA\ \ 02110-\/1301\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ Modified\ 28\ September\ 2010\ by\ Mark\ Sproul}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ Modified\ 14\ August\ 2012\ by\ Alarus}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ Modified\ 3\ December\ 2013\ by\ Matthijs\ Kooijman}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ Modified\ 18\ December\ 2014\ by\ Ivan\ Grokhotkov\ (esp8266\ platform\ support)}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ Modified\ 31\ March\ 2015\ by\ Markus\ Sattler\ (rewrite\ the\ code\ for\ UART0\ +\ UART1\ support\ in\ ESP8266)}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ Modified\ 25\ April\ 2015\ by\ Thomas\ Flayols\ (add\ configuration\ different\ from\ 8N1\ in\ ESP8266)}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ Modified\ 13\ October\ 2018\ by\ Jeroen\ Döll\ (add\ baudrate\ detection)}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ Baudrate\ detection\ example\ usage\ (detection\ on\ Serial1):}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ \ void\ setup()\ \{}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ \ Serial.begin(115200);}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ \ \ delay(100);}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ \ \ Serial.println();}}
+\DoxyCodeLine{00031\ \textcolor{comment}{}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ \ Serial1.begin(0,\ SERIAL\_8N1,\ -\/1,\ -\/1,\ true,\ 11000UL);\ \ //\ Passing\ 0\ for\ baudrate\ to\ detect\ it,\ the\ last\ parameter\ is\ a\ timeout\ in\ ms}}
+\DoxyCodeLine{00033\ \textcolor{comment}{}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ \ \ unsigned\ long\ detectedBaudRate\ =\ Serial1.baudRate();}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ \ \ if(detectedBaudRate)\ \{}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ \ \ \ Serial.printf("{}Detected\ baudrate\ is\ \%lu\(\backslash\)n"{},\ detectedBaudRate);}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ \ \ \}\ else\ \{}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ \ \ \ \ Serial.println("{}No\ baudrate\ detected,\ Serial1\ will\ not\ work!"{});}}
+\DoxyCodeLine{00039\ \textcolor{comment}{\ \ \ \ \ \}}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ \}}}
+\DoxyCodeLine{00041\ \textcolor{comment}{}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ Pay\ attention:\ the\ baudrate\ returned\ by\ baudRate()\ may\ be\ rounded,\ eg\ 115200\ returns\ 115201}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#ifndef\ HardwareSerial\_h}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ HardwareSerial\_h}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <inttypes.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#include\ "{}Stream.h"{}}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#include\ "{}esp32-\/hal.h"{}}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#include\ "{}HWCDC.h"{}}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}USBCDC.h"{}}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}freertos/FreeRTOS.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}freertos/task.h"{}}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}freertos/semphr.h"{}}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{enum}\ SerialConfig\ \{}
+\DoxyCodeLine{00061\ \ \ SERIAL\_5N1\ =\ 0x8000010,}
+\DoxyCodeLine{00062\ \ \ SERIAL\_6N1\ =\ 0x8000014,}
+\DoxyCodeLine{00063\ \ \ SERIAL\_7N1\ =\ 0x8000018,}
+\DoxyCodeLine{00064\ \ \ SERIAL\_8N1\ =\ 0x800001c,}
+\DoxyCodeLine{00065\ \ \ SERIAL\_5N2\ =\ 0x8000030,}
+\DoxyCodeLine{00066\ \ \ SERIAL\_6N2\ =\ 0x8000034,}
+\DoxyCodeLine{00067\ \ \ SERIAL\_7N2\ =\ 0x8000038,}
+\DoxyCodeLine{00068\ \ \ SERIAL\_8N2\ =\ 0x800003c,}
+\DoxyCodeLine{00069\ \ \ SERIAL\_5E1\ =\ 0x8000012,}
+\DoxyCodeLine{00070\ \ \ SERIAL\_6E1\ =\ 0x8000016,}
+\DoxyCodeLine{00071\ \ \ SERIAL\_7E1\ =\ 0x800001a,}
+\DoxyCodeLine{00072\ \ \ SERIAL\_8E1\ =\ 0x800001e,}
+\DoxyCodeLine{00073\ \ \ SERIAL\_5E2\ =\ 0x8000032,}
+\DoxyCodeLine{00074\ \ \ SERIAL\_6E2\ =\ 0x8000036,}
+\DoxyCodeLine{00075\ \ \ SERIAL\_7E2\ =\ 0x800003a,}
+\DoxyCodeLine{00076\ \ \ SERIAL\_8E2\ =\ 0x800003e,}
+\DoxyCodeLine{00077\ \ \ SERIAL\_5O1\ =\ 0x8000013,}
+\DoxyCodeLine{00078\ \ \ SERIAL\_6O1\ =\ 0x8000017,}
+\DoxyCodeLine{00079\ \ \ SERIAL\_7O1\ =\ 0x800001b,}
+\DoxyCodeLine{00080\ \ \ SERIAL\_8O1\ =\ 0x800001f,}
+\DoxyCodeLine{00081\ \ \ SERIAL\_5O2\ =\ 0x8000033,}
+\DoxyCodeLine{00082\ \ \ SERIAL\_6O2\ =\ 0x8000037,}
+\DoxyCodeLine{00083\ \ \ SERIAL\_7O2\ =\ 0x800003b,}
+\DoxyCodeLine{00084\ \ \ SERIAL\_8O2\ =\ 0x800003f}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{typedef}\ uart\_mode\_t\ SerialMode;}
+\DoxyCodeLine{00088\ \textcolor{keyword}{typedef}\ uart\_hw\_flowcontrol\_t\ SerialHwFlowCtrl;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00091\ \ \ UART\_NO\_ERROR,}
+\DoxyCodeLine{00092\ \ \ UART\_BREAK\_ERROR,}
+\DoxyCodeLine{00093\ \ \ UART\_BUFFER\_FULL\_ERROR,}
+\DoxyCodeLine{00094\ \ \ UART\_FIFO\_OVF\_ERROR,}
+\DoxyCodeLine{00095\ \ \ UART\_FRAME\_ERROR,}
+\DoxyCodeLine{00096\ \ \ UART\_PARITY\_ERROR}
+\DoxyCodeLine{00097\ \}\ hardwareSerial\_error\_t;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#ifndef\ ARDUINO\_SERIAL\_EVENT\_TASK\_STACK\_SIZE}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ ARDUINO\_SERIAL\_EVENT\_TASK\_STACK\_SIZE\ 2048}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#ifndef\ ARDUINO\_SERIAL\_EVENT\_TASK\_PRIORITY}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ ARDUINO\_SERIAL\_EVENT\_TASK\_PRIORITY\ (configMAX\_PRIORITIES\ -\/\ 1)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifndef\ ARDUINO\_SERIAL\_EVENT\_TASK\_RUNNING\_CORE}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ ARDUINO\_SERIAL\_EVENT\_TASK\_RUNNING\_CORE\ -\/1}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ UART0\ pins\ are\ defined\ by\ default\ by\ the\ bootloader.}}
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ The\ definitions\ for\ SOC\_*\ should\ not\ be\ changed\ unless\ the\ bootloader\ pins}}
+\DoxyCodeLine{00113\ \textcolor{comment}{//\ have\ changed\ and\ you\ know\ what\ you\ are\ doing.}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#ifndef\ SOC\_RX0}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#if\ CONFIG\_IDF\_TARGET\_ESP32}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ SOC\_RX0\ (gpio\_num\_t)3}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32S2\ ||\ CONFIG\_IDF\_TARGET\_ESP32S3}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ SOC\_RX0\ (gpio\_num\_t)44}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C2}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ SOC\_RX0\ (gpio\_num\_t)19}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C3}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ SOC\_RX0\ (gpio\_num\_t)20}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C6}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ SOC\_RX0\ (gpio\_num\_t)17}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32H2}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ SOC\_RX0\ (gpio\_num\_t)23}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32P4}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ SOC\_RX0\ (gpio\_num\_t)38}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#ifndef\ SOC\_TX0}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#if\ CONFIG\_IDF\_TARGET\_ESP32}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ SOC\_TX0\ (gpio\_num\_t)1}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32S2\ ||\ CONFIG\_IDF\_TARGET\_ESP32S3}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ SOC\_TX0\ (gpio\_num\_t)43}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C2}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ SOC\_TX0\ (gpio\_num\_t)20}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C3}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ SOC\_TX0\ (gpio\_num\_t)21}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C6}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ SOC\_TX0\ (gpio\_num\_t)16}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32H2}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ SOC\_TX0\ (gpio\_num\_t)24}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32P4}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ SOC\_TX0\ (gpio\_num\_t)37}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{comment}{//\ Default\ pins\ for\ UART1\ are\ arbitrary,\ and\ defined\ here\ for\ convenience.}}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#if\ SOC\_UART\_HP\_NUM\ >\ 1}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#ifndef\ RX1}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#if\ CONFIG\_IDF\_TARGET\_ESP32}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ RX1\ (gpio\_num\_t)26}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32S2}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#define\ RX1\ (gpio\_num\_t)4}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C2}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ RX1\ (gpio\_num\_t)10}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C3}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ RX1\ (gpio\_num\_t)18}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32S3}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#define\ RX1\ (gpio\_num\_t)15}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C6}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ RX1\ (gpio\_num\_t)4}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32H2}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ RX1\ (gpio\_num\_t)0}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32P4}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#define\ RX1\ (gpio\_num\_t)11}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#ifndef\ TX1}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#if\ CONFIG\_IDF\_TARGET\_ESP32}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ TX1\ (gpio\_num\_t)27}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32S2}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ TX1\ (gpio\_num\_t)5}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C2}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ TX1\ (gpio\_num\_t)18}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C3}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ TX1\ (gpio\_num\_t)19}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32S3}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ TX1\ (gpio\_num\_t)16}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32C6}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ TX1\ (gpio\_num\_t)5}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32H2}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#define\ TX1\ (gpio\_num\_t)1}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32P4}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ TX1\ (gpio\_num\_t)10}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_UART\_HP\_NUM\ >\ 1\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{//\ Default\ pins\ for\ UART2\ are\ arbitrary,\ and\ defined\ here\ for\ convenience.}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#if\ SOC\_UART\_HP\_NUM\ >\ 2}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#ifndef\ RX2}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#if\ CONFIG\_IDF\_TARGET\_ESP32}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ RX2\ (gpio\_num\_t)4}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32S3}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ RX2\ (gpio\_num\_t)19}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#ifndef\ TX2}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#if\ CONFIG\_IDF\_TARGET\_ESP32}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ TX2\ (gpio\_num\_t)25}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#elif\ CONFIG\_IDF\_TARGET\_ESP32S3}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ TX2\ (gpio\_num\_t)20}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_UART\_HP\_NUM\ >\ 2\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{keyword}{typedef}\ std::function<void(\textcolor{keywordtype}{void})>\ OnReceiveCb;}
+\DoxyCodeLine{00216\ \textcolor{keyword}{typedef}\ std::function<void(hardwareSerial\_error\_t)>\ OnReceiveErrorCb;}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{keyword}{class\ }HardwareSerial\ :\ \textcolor{keyword}{public}\ Stream\ \{}
+\DoxyCodeLine{00219\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00220\ \ \ HardwareSerial(uint8\_t\ uart\_nr);}
+\DoxyCodeLine{00221\ \ \ \string~HardwareSerial();}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \textcolor{comment}{//\ setRxTimeout\ sets\ the\ timeout\ after\ which\ onReceive\ callback\ will\ be\ called\ (after\ receiving\ data,\ it\ waits\ for\ this\ time\ of\ UART\ rx\ inactivity\ to\ call\ the\ callback\ fnc)}}
+\DoxyCodeLine{00224\ \ \ \textcolor{comment}{//\ param\ symbols\_timeout\ defines\ a\ timeout\ threshold\ in\ uart\ symbol\ periods.\ Setting\ 0\ symbol\ timeout\ disables\ the\ callback\ call\ by\ timeout.}}
+\DoxyCodeLine{00225\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum\ timeout\ setting\ is\ calculacted\ automatically\ by\ IDF.\ If\ set\ above\ the\ maximum,\ it\ is\ ignored\ and\ an\ error\ is\ printed\ on\ Serial0\ (check\ console).}}
+\DoxyCodeLine{00226\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Examples:\ Maximum\ for\ 11\ bits\ symbol\ is\ 92\ (SERIAL\_8N2,\ SERIAL\_8E1,\ SERIAL\_8O1,\ etc),\ Maximum\ for\ 10\ bits\ symbol\ is\ 101\ (SERIAL\_8N1).}}
+\DoxyCodeLine{00227\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ For\ example\ symbols\_timeout=1\ defines\ a\ timeout\ equal\ to\ transmission\ time\ of\ one\ symbol\ (\string~11\ bit)\ on\ current\ baudrate.}}
+\DoxyCodeLine{00228\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ For\ a\ baudrate\ of\ 9600,\ SERIAL\_8N1\ (10\ bit\ symbol)\ and\ symbols\_timeout\ =\ 3,\ the\ timeout\ would\ be\ 3\ /\ (9600\ /\ 10)\ =\ 3.125\ ms}}
+\DoxyCodeLine{00229\ \ \ \textcolor{keywordtype}{bool}\ setRxTimeout(uint8\_t\ symbols\_timeout);}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \textcolor{comment}{//\ setRxFIFOFull(uint8\_t\ fifoBytes)\ will\ set\ the\ number\ of\ bytes\ that\ will\ trigger\ UART\_INTR\_RXFIFO\_FULL\ interrupt\ and\ fill\ up\ RxRingBuffer}}
+\DoxyCodeLine{00232\ \ \ \textcolor{comment}{//\ This\ affects\ some\ functions\ such\ as\ Serial::available()\ and\ Serial.read()\ because,\ in\ a\ UART\ flow\ of\ receiving\ data,\ Serial\ internal}}
+\DoxyCodeLine{00233\ \ \ \textcolor{comment}{//\ RxRingBuffer\ will\ be\ filled\ only\ after\ these\ number\ of\ bytes\ arrive\ or\ a\ RX\ Timeout\ happens.}}
+\DoxyCodeLine{00234\ \ \ \textcolor{comment}{//\ This\ parameter\ can\ be\ set\ to\ 1\ in\ order\ to\ receive\ byte\ by\ byte,\ but\ it\ will\ also\ consume\ more\ CPU\ time\ as\ the\ ISR\ will\ be\ activates\ often.}}
+\DoxyCodeLine{00235\ \ \ \textcolor{keywordtype}{bool}\ setRxFIFOFull(uint8\_t\ fifoBytes);}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \textcolor{comment}{//\ onReceive\ will\ setup\ a\ callback\ that\ will\ be\ called\ whenever\ an\ UART\ interruption\ occurs\ (UART\_INTR\_RXFIFO\_FULL\ or\ UART\_INTR\_RXFIFO\_TOUT)}}
+\DoxyCodeLine{00238\ \ \ \textcolor{comment}{//\ UART\_INTR\_RXFIFO\_FULL\ interrupt\ triggers\ at\ UART\_FULL\_THRESH\_DEFAULT\ bytes\ received\ (defined\ as\ 120\ bytes\ by\ default\ in\ IDF)}}
+\DoxyCodeLine{00239\ \ \ \textcolor{comment}{//\ UART\_INTR\_RXFIFO\_TOUT\ interrupt\ triggers\ at\ UART\_TOUT\_THRESH\_DEFAULT\ symbols\ passed\ without\ any\ reception\ (defined\ as\ 10\ symbols\ by\ default\ in\ IDF)}}
+\DoxyCodeLine{00240\ \ \ \textcolor{comment}{//\ onlyOnTimeout\ parameter\ will\ define\ how\ onReceive\ will\ behave:}}
+\DoxyCodeLine{00241\ \ \ \textcolor{comment}{//\ Default:\ true\ -\/-\/\ The\ callback\ will\ only\ be\ called\ when\ RX\ Timeout\ happens.}}
+\DoxyCodeLine{00242\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Whole\ stream\ of\ bytes\ will\ be\ ready\ for\ being\ read\ on\ the\ callback\ function\ at\ once.}}
+\DoxyCodeLine{00243\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ option\ may\ lead\ to\ Rx\ Overflow\ depending\ on\ the\ Rx\ Buffer\ Size\ and\ number\ of\ bytes\ received\ in\ the\ streaming}}
+\DoxyCodeLine{00244\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ false\ -\/-\/\ The\ callback\ will\ be\ called\ when\ FIFO\ reaches\ 120\ bytes\ and\ also\ on\ RX\ Timeout.}}
+\DoxyCodeLine{00245\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ The\ stream\ of\ incommig\ bytes\ will\ be\ "{}split"{}\ into\ blocks\ of\ 120\ bytes\ on\ each\ callback.}}
+\DoxyCodeLine{00246\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ This\ option\ avoid\ any\ sort\ of\ Rx\ Overflow,\ but\ leaves\ the\ UART\ packet\ reassembling\ work\ to\ the\ Application.}}
+\DoxyCodeLine{00247\ \ \ \textcolor{keywordtype}{void}\ onReceive(OnReceiveCb\ function,\ \textcolor{keywordtype}{bool}\ onlyOnTimeout\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \textcolor{comment}{//\ onReceive\ will\ be\ called\ on\ error\ events\ (see\ hardwareSerial\_error\_t)}}
+\DoxyCodeLine{00250\ \ \ \textcolor{keywordtype}{void}\ onReceiveError(OnReceiveErrorCb\ function);}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \textcolor{comment}{//\ eventQueueReset\ clears\ all\ events\ in\ the\ queue\ (the\ events\ that\ trigger\ onReceive\ and\ onReceiveError)\ -\/\ maybe\ useful\ in\ some\ use\ cases}}
+\DoxyCodeLine{00253\ \ \ \textcolor{keywordtype}{void}\ eventQueueReset();}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \ \ \textcolor{comment}{//\ When\ pins\ are\ changed,\ it\ will\ detach\ the\ previous\ ones}}
+\DoxyCodeLine{00256\ \ \ \textcolor{comment}{//\ if\ pin\ is\ negative,\ it\ won't\ be\ set/changed\ and\ will\ be\ kept\ as\ is}}
+\DoxyCodeLine{00257\ \ \ \textcolor{comment}{//\ timeout\_ms\ is\ used\ in\ baudrate\ detection\ (ESP32,\ ESP32S2\ only)}}
+\DoxyCodeLine{00258\ \ \ \textcolor{comment}{//\ invert\ will\ invert\ RX/TX\ polarity}}
+\DoxyCodeLine{00259\ \ \ \textcolor{comment}{//\ rxfifo\_full\_thrhd\ if\ the\ UART\ Flow\ Control\ Threshold\ in\ the\ UART\ FIFO\ (max\ 127)}}
+\DoxyCodeLine{00260\ \ \ \textcolor{keywordtype}{void}\ begin(}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ baud,\ uint32\_t\ config\ =\ SERIAL\_8N1,\ int8\_t\ rxPin\ =\ -\/1,\ int8\_t\ txPin\ =\ -\/1,\ \textcolor{keywordtype}{bool}\ invert\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeout\_ms\ =\ 20000UL,}
+\DoxyCodeLine{00262\ \ \ \ \ uint8\_t\ rxfifo\_full\_thrhd\ =\ 112}
+\DoxyCodeLine{00263\ \ \ );}
+\DoxyCodeLine{00264\ \ \ \textcolor{keywordtype}{void}\ end(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00265\ \ \ \textcolor{keywordtype}{void}\ updateBaudRate(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ baud);}
+\DoxyCodeLine{00266\ \ \ \textcolor{keywordtype}{int}\ available(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00267\ \ \ \textcolor{keywordtype}{int}\ availableForWrite(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00268\ \ \ \textcolor{keywordtype}{int}\ peek(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00269\ \ \ \textcolor{keywordtype}{int}\ read(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00270\ \ \ \textcolor{keywordtype}{size\_t}\ read(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00271\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ read(\textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordflow}{return}\ read((uint8\_t\ *)buffer,\ size);}
+\DoxyCodeLine{00273\ \ \ \}}
+\DoxyCodeLine{00274\ \ \ \textcolor{comment}{//\ Overrides\ Stream::readBytes()\ to\ be\ faster\ using\ IDF}}
+\DoxyCodeLine{00275\ \ \ \textcolor{keywordtype}{size\_t}\ readBytes(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ length);}
+\DoxyCodeLine{00276\ \ \ \textcolor{keywordtype}{size\_t}\ readBytes(\textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ length)\ \{}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{return}\ readBytes((uint8\_t\ *)buffer,\ length);}
+\DoxyCodeLine{00278\ \ \ \}}
+\DoxyCodeLine{00279\ \ \ \textcolor{keywordtype}{void}\ flush(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00280\ \ \ \textcolor{keywordtype}{void}\ flush(\textcolor{keywordtype}{bool}\ txOnly);}
+\DoxyCodeLine{00281\ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t);}
+\DoxyCodeLine{00282\ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00283\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *buffer,\ \textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t\ *)buffer,\ size);}
+\DoxyCodeLine{00285\ \ \ \}}
+\DoxyCodeLine{00286\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s)\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t\ *)s,\ strlen(s));}
+\DoxyCodeLine{00288\ \ \ \}}
+\DoxyCodeLine{00289\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ n)\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t)n);}
+\DoxyCodeLine{00291\ \ \ \}}
+\DoxyCodeLine{00292\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{long}\ n)\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t)n);}
+\DoxyCodeLine{00294\ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ n)\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t)n);}
+\DoxyCodeLine{00297\ \ \ \}}
+\DoxyCodeLine{00298\ \ \ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keywordtype}{int}\ n)\ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{return}\ write((uint8\_t)n);}
+\DoxyCodeLine{00300\ \ \ \}}
+\DoxyCodeLine{00301\ \ \ uint32\_t\ baudRate();}
+\DoxyCodeLine{00302\ \ \ \textcolor{keyword}{operator}\ bool()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \textcolor{keywordtype}{void}\ setDebugOutput(\textcolor{keywordtype}{bool});}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \textcolor{keywordtype}{void}\ setRxInvert(\textcolor{keywordtype}{bool});}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \textcolor{comment}{//\ Negative\ Pin\ Number\ will\ keep\ it\ unmodified,\ thus\ this\ function\ can\ set\ individual\ pins}}
+\DoxyCodeLine{00309\ \ \ \textcolor{comment}{//\ setPins()\ can\ be\ called\ after\ or\ before\ begin()}}
+\DoxyCodeLine{00310\ \ \ \textcolor{comment}{//\ When\ pins\ are\ changed,\ it\ will\ detach\ the\ previous\ ones}}
+\DoxyCodeLine{00311\ \ \ \textcolor{keywordtype}{bool}\ setPins(int8\_t\ rxPin,\ int8\_t\ txPin,\ int8\_t\ ctsPin\ =\ -\/1,\ int8\_t\ rtsPin\ =\ -\/1);}
+\DoxyCodeLine{00312\ \ \ \textcolor{comment}{//\ Enables\ or\ disables\ Hardware\ Flow\ Control\ using\ RTS\ and/or\ CTS\ pins\ (must\ use\ setAllPins()\ before)}}
+\DoxyCodeLine{00313\ \ \ \textcolor{comment}{//\ \ \ \ UART\_HW\_FLOWCTRL\_DISABLE\ =\ 0x0\ \ \ disable\ hardware\ flow\ control}}
+\DoxyCodeLine{00314\ \ \ \textcolor{comment}{//\ \ \ \ UART\_HW\_FLOWCTRL\_RTS\ \ \ \ \ =\ 0x1\ \ \ enable\ RX\ hardware\ flow\ control\ (rts)}}
+\DoxyCodeLine{00315\ \ \ \textcolor{comment}{//\ \ \ \ UART\_HW\_FLOWCTRL\_CTS\ \ \ \ \ =\ 0x2\ \ \ enable\ TX\ hardware\ flow\ control\ (cts)}}
+\DoxyCodeLine{00316\ \ \ \textcolor{comment}{//\ \ \ \ UART\_HW\_FLOWCTRL\_CTS\_RTS\ =\ 0x3\ \ \ enable\ hardware\ flow\ control}}
+\DoxyCodeLine{00317\ \ \ \textcolor{keywordtype}{bool}\ setHwFlowCtrlMode(SerialHwFlowCtrl\ mode\ =\ UART\_HW\_FLOWCTRL\_CTS\_RTS,\ uint8\_t\ threshold\ =\ 64);\ \ \textcolor{comment}{//\ 64\ is\ half\ FIFO\ Length}}
+\DoxyCodeLine{00318\ \ \ \textcolor{comment}{//\ Used\ to\ set\ RS485\ modes\ such\ as\ UART\_MODE\_RS485\_HALF\_DUPLEX\ for\ Auto\ RTS\ function\ on\ ESP32}}
+\DoxyCodeLine{00319\ \ \ \textcolor{comment}{//\ \ \ \ UART\_MODE\_UART\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00\ \ \ \ mode:\ regular\ UART\ mode}}
+\DoxyCodeLine{00320\ \ \ \textcolor{comment}{//\ \ \ \ UART\_MODE\_RS485\_HALF\_DUPLEX\ \ \ \ \ \ =\ 0x01\ \ \ \ mode:\ half\ duplex\ RS485\ UART\ mode\ control\ by\ RTS\ pin}}
+\DoxyCodeLine{00321\ \ \ \textcolor{comment}{//\ \ \ \ UART\_MODE\_IRDA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02\ \ \ \ mode:\ IRDA\ UART\ mode}}
+\DoxyCodeLine{00322\ \ \ \textcolor{comment}{//\ \ \ \ UART\_MODE\_RS485\_COLLISION\_DETECT\ =\ 0x03\ \ \ \ mode:\ RS485\ collision\ detection\ UART\ mode\ (used\ for\ test\ purposes)}}
+\DoxyCodeLine{00323\ \ \ \textcolor{comment}{//\ \ \ \ UART\_MODE\_RS485\_APP\_CTRL\ \ \ \ \ \ \ \ \ =\ 0x04\ \ \ \ mode:\ application\ control\ RS485\ UART\ mode\ (used\ for\ test\ purposes)}}
+\DoxyCodeLine{00324\ \ \ \textcolor{keywordtype}{bool}\ setMode(SerialMode\ mode);}
+\DoxyCodeLine{00325\ \ \ \textcolor{keywordtype}{size\_t}\ setRxBufferSize(\textcolor{keywordtype}{size\_t}\ new\_size);}
+\DoxyCodeLine{00326\ \ \ \textcolor{keywordtype}{size\_t}\ setTxBufferSize(\textcolor{keywordtype}{size\_t}\ new\_size);}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00329\ \ \ uint8\_t\ \_uart\_nr;}
+\DoxyCodeLine{00330\ \ \ uart\_t\ *\_uart;}
+\DoxyCodeLine{00331\ \ \ \textcolor{keywordtype}{size\_t}\ \_rxBufferSize;}
+\DoxyCodeLine{00332\ \ \ \textcolor{keywordtype}{size\_t}\ \_txBufferSize;}
+\DoxyCodeLine{00333\ \ \ OnReceiveCb\ \_onReceiveCB;}
+\DoxyCodeLine{00334\ \ \ OnReceiveErrorCb\ \_onReceiveErrorCB;}
+\DoxyCodeLine{00335\ \ \ \textcolor{comment}{//\ \_onReceive\ and\ \_rxTimeout\ have\ be\ consistent\ when\ timeout\ is\ disabled}}
+\DoxyCodeLine{00336\ \ \ \textcolor{keywordtype}{bool}\ \_onReceiveTimeout;}
+\DoxyCodeLine{00337\ \ \ uint8\_t\ \_rxTimeout,\ \_rxFIFOFull;}
+\DoxyCodeLine{00338\ \ \ TaskHandle\_t\ \_eventTask;}
+\DoxyCodeLine{00339\ \textcolor{preprocessor}{\#if\ !CONFIG\_DISABLE\_HAL\_LOCKS}}
+\DoxyCodeLine{00340\ \ \ SemaphoreHandle\_t\ \_lock;}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00343\ \ \ \textcolor{keywordtype}{void}\ \_createEventTask(\textcolor{keywordtype}{void}\ *args);}
+\DoxyCodeLine{00344\ \ \ \textcolor{keywordtype}{void}\ \_destroyEventTask(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00345\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \_uartEventTask(\textcolor{keywordtype}{void}\ *args);}
+\DoxyCodeLine{00346\ \};}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ serialEventRun(\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak));}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#if\ !defined(NO\_GLOBAL\_INSTANCES)\ \&\&\ !defined(NO\_GLOBAL\_SERIAL)}}
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#ifndef\ ARDUINO\_USB\_CDC\_ON\_BOOT}}
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#define\ ARDUINO\_USB\_CDC\_ON\_BOOT\ 0}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#if\ ARDUINO\_USB\_CDC\_ON\_BOOT\ \ }\textcolor{comment}{//Serial\ used\ from\ Native\_USB\_CDC\ |\ HW\_CDC\_JTAG}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#if\ ARDUINO\_USB\_MODE\ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Hardware\ CDC\ mode}}
+\DoxyCodeLine{00356\ \textcolor{comment}{//\ Arduino\ Serial\ is\ the\ HW\ JTAG\ CDC\ device}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#define\ Serial\ HWCDCSerial}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{//\ !ARDUINO\_USB\_MODE\ -\/-\/\ Native\ USB\ Mode}}
+\DoxyCodeLine{00359\ \textcolor{comment}{//\ Arduino\ Serial\ is\ the\ Native\ USB\ CDC\ device}}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#define\ Serial\ USBSerial}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ ARDUINO\_USB\_MODE}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#else\ \ \ }\textcolor{comment}{//\ !ARDUINO\_USB\_CDC\_ON\_BOOT\ -\/-\/\ Serial\ is\ used\ from\ UART0}}
+\DoxyCodeLine{00363\ \textcolor{comment}{//\ if\ not\ using\ CDC\ on\ Boot,\ Arduino\ Serial\ is\ the\ UART0\ device}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#define\ Serial\ Serial0}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ ARDUINO\_USB\_CDC\_ON\_BOOT}}
+\DoxyCodeLine{00366\ \textcolor{comment}{//\ There\ is\ always\ Seria0\ for\ UART0}}
+\DoxyCodeLine{00367\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_hardware_serial}{HardwareSerial}}\ Serial0;}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#if\ SOC\_UART\_HP\_NUM\ >\ 1}}
+\DoxyCodeLine{00369\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_hardware_serial}{HardwareSerial}}\ Serial1;}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#if\ SOC\_UART\_HP\_NUM\ >\ 2}}
+\DoxyCodeLine{00372\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_hardware_serial}{HardwareSerial}}\ Serial2;}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#if\ SOC\_UART\_HP\_NUM\ >\ 3}}
+\DoxyCodeLine{00375\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_hardware_serial}{HardwareSerial}}\ Serial3;}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00377\ \textcolor{preprocessor}{\#if\ SOC\_UART\_HP\_NUM\ >\ 4}}
+\DoxyCodeLine{00378\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{class_hardware_serial}{HardwareSerial}}\ Serial4;}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#endif\ \ }}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ HardwareSerial\_h}}
+
+\end{DoxyCode}

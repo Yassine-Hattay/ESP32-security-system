@@ -1,0 +1,56 @@
+\doxysection{SHA1\+Builder.\+h}
+\hypertarget{_s_h_a1_builder_8h_source}{}\label{_s_h_a1_builder_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/SHA1Builder.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/SHA1Builder.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2024\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ SHA1Builder\_h}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ SHA1Builder\_h}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <WString.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <Stream.h>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}HashBuilder.h"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ SHA1\_HASH\_SIZE\ 20}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_h_a1_builder}{SHA1Builder}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_hash_builder}{HashBuilder}}\ \{}
+\DoxyCodeLine{00026\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ uint32\_t\ total[2];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ number\ of\ bytes\ processed\ \ */}}
+\DoxyCodeLine{00028\ \ \ uint32\_t\ state[5];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ intermediate\ digest\ state\ \ */}}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ buffer[64];\ \ \ \ \ \textcolor{comment}{/*\ data\ block\ being\ processed\ */}}
+\DoxyCodeLine{00030\ \ \ uint8\_t\ hash[SHA1\_HASH\_SIZE];\ \textcolor{comment}{/*\ SHA-\/1\ result\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{void}\ process(\textcolor{keyword}{const}\ uint8\_t\ *data);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{void}\ begin()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \textcolor{keyword}{using\ }HashBuilder::add;}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{void}\ add(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ len)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \textcolor{keyword}{using\ }HashBuilder::addHexString;}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordtype}{void}\ addHexString(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *data)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{bool}\ addStream(\mbox{\hyperlink{class_stream}{Stream}}\ \&stream,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{size\_t}\ maxLen)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{void}\ calculate()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{void}\ getBytes(uint8\_t\ *output)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00046\ \ \ \textcolor{keywordtype}{void}\ getChars(\textcolor{keywordtype}{char}\ *output)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ \ \ String\ toString()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

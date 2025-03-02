@@ -1,0 +1,362 @@
+\doxysection{zb\+\_\+zcl\+\_\+energy\+\_\+mgmt.\+h}
+\hypertarget{zb__zcl__energy__mgmt_8h_source}{}\label{zb__zcl__energy__mgmt_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_energy\_mgmt.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_energy\_mgmt.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Energy\ Management\ cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_H\_}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_H\_}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zboss\_api\_core.h"{}}\ \textcolor{comment}{/*\ ZBOSS\ core\ API\ types\ */}}
+\DoxyCodeLine{00045\ \textcolor{comment}{/*\ Include\ this\ header\ for\ zb\_zcl\_drlc\_event\_status\_t\ import*/}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_drlc.h"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_energy\_management\_srv\_attr\_e}
+\DoxyCodeLine{00067\ \{}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00070\ \ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_LOAD\_CONTROL\_STATE\ =\ 0x0000,\ \ }
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00075\ \ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CURRENT\_EVENT\_ID,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00081\ \ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CURRENT\_EVENT\_STATUS,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00088\ \ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CONFORMANCE\_LEVEL,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00094\ \ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_OFF\_TIME,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00099\ \ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_ON\_TIME,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00104\ \ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_CYCLE\_PERIOD\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ \}\ zb\_zcl\_energy\_management\_srv\_attr\_t;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0001u)}}
+\DoxyCodeLine{00111\ \ \textcolor{comment}{/*\ (DOXYGEN\_ZCL\_SECTION\ \&\&\ DOXYGEN\_SE\_SECTION)\ */}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_LOAD\_CONTROL\_STATE(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_LOAD\_CONTROL\_STATE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CURRENT\_EVENT\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CURRENT\_EVENT\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U32,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CURRENT\_EVENT\_STATUS(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CURRENT\_EVENT\_STATUS,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_8BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CONFORMANCE\_LEVEL(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CONFORMANCE\_LEVEL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U8,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_OFF\_TIME(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_OFF\_TIME,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U16,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_ON\_TIME(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_ON\_TIME,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U16,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_CYCLE\_PERIOD(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_CYCLE\_PERIOD,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_TYPE\_U16,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_ENERGY\_MANAGEMENT\_ATTRIB\_LIST(attr\_list,\ load\_control\_state,\ current\_event\_id,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_event\_status,\ conformance\_level,\ minimum\_off\_time,\ \(\backslash\)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minimum\_on\_time,\ minimum\_cycle\_period)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_ENERGY\_MANAGEMENT)\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_LOAD\_CONTROL\_STATE,\ (load\_control\_state))\ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CURRENT\_EVENT\_ID,\ (current\_event\_id))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CURRENT\_EVENT\_STATUS,\ (current\_event\_status))\ \(\backslash\)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_CONFORMANCE\_LEVEL,\ (conformance\_level))\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_OFF\_TIME,\ (minimum\_off\_time))\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_ON\_TIME,\ (minimum\_on\_time))\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_ENERGY\_MANAGEMENT\_MINIMUM\_CYCLE\_PERIOD,\ (minimum\_cycle\_period))\ \(\backslash\)}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_ENERGY\_MANAGEMENT\_ATTR\_LIST\_INIT\ \ \(\backslash\)}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\ \ (zb\_zcl\_energy\_management\_attr\_t)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\ \ \{\ .load\_control\_state\ =\ 0,\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\ \ \ \ .current\_event\_id\ =\ 0xFFFFFFFF,\ \(\backslash\)}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \ \ .current\_event\_status\ =\ 0,\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\ \ \ \ .conformance\_level\ =\ 0\}}}
+\DoxyCodeLine{00209\ \ \textcolor{comment}{/*\ DOXYGEN\_INTERNAL\_DOC\ */}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00216\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_zcl\_energy\_management\_attr\_s}
+\DoxyCodeLine{00217\ \{}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00222\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ load\_control\_state;}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00227\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ current\_event\_id;}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00232\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ current\_event\_status;}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00237\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ conformance\_level;}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00243\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ minimum\_off\_time;}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00249\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ minimum\_on\_time;}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00255\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ minimum\_cycle\_period;}
+\DoxyCodeLine{00256\ \}\ zb\_zcl\_energy\_management\_attr\_t;}
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_ENERGY\_MANAGEMENT\_ATTR\_LIST(attr\_list,\ attrs)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_DECLARE\_ENERGY\_MANAGEMENT\_ATTRIB\_LIST(attr\_list,\ \&attrs.load\_control\_state,\ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\ \ \ \ \ \ \&attrs.current\_event\_id,\ \&attrs.current\_event\_status,\ \&attrs.conformance\_level,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\ \ \ \ \ \ \&attrs.minimum\_off\_time,\ \&attrs.minimum\_on\_time,\ \&attrs.minimum\_cycle\_period)}}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00272\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_energy\_management\_load\_control\_state\_encoding\_e}
+\DoxyCodeLine{00273\ \{}
+\DoxyCodeLine{00274\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATE\_RELAY\_OPEN\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ }
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATE\_EVENT\_IN\_PROGRESS\ \ \ \ =\ 1\ <<\ 1,\ \ }
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATE\_POWER\_STABILIZING\ \ \ \ =\ 1\ <<\ 2,\ \ }
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATE\_OTHER\_LOAD\_REDUCTION\ =\ 1\ <<\ 3,\ \ }
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATE\_CURRENT\_FLOW\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 4,\ \ }
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATE\_LOAD\_CALL\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5\ \ \ }
+\DoxyCodeLine{00301\ \}\ zb\_zcl\_energy\_management\_load\_control\_state\_encoding\_t;}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00307\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_energy\_management\_current\_event\_status\_encoding\_e}
+\DoxyCodeLine{00308\ \{}
+\DoxyCodeLine{00309\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATUS\_RANDOMIZED\_START\_TIME\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 0,\ \ }
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATUS\_RANDOMIZED\_DURATION\ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 1,\ \ }
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATUS\_EXTENDED\_BITS\_PRESENT\ \ \ \ \ \ \ \ \ =\ 1\ <<\ 2,\ \ }
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATUS\_EVENT\_ACTIVE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 3,\ \ }
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATUS\_DEVICE\_PARTICIPATING\_IN\_EVENT\ =\ 1\ <<\ 4,\ \ }
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATUS\_REDUCING\_LOAD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 5,\ \ }
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_STATUS\_ON\_AT\_END\_OF\_EVENT\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ 6\ \ \ }
+\DoxyCodeLine{00334\ \}\ zb\_zcl\_energy\_management\_current\_event\_status\_encoding\_t;}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \textcolor{comment}{/*\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_ATTRS\ */}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00347\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_energy\_management\_cli\_cmd\_e}
+\DoxyCodeLine{00348\ \{}
+\DoxyCodeLine{00349\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_CLI\_CMD\_MANAGE\_EVENT\ =\ 0x00,\ \ \ }
+\DoxyCodeLine{00354\ \}\ zb\_zcl\_energy\_management\_cli\_cmd\_t;}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00360\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_energy\_management\_manage\_event\_payload\_s}
+\DoxyCodeLine{00361\ \{}
+\DoxyCodeLine{00362\ \ \ \textcolor{comment}{/*\ Mandatory\ fields.\ */}}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00367\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ issuer\_event\_id;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00373\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ device\_class;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00379\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ utility\_enrollment\_group;\ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \ \ \textcolor{comment}{/*\ Optional\ fields\ */}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00386\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ actions\_required;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00387\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_energy\_management\_manage\_event\_payload\_t;}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_MANAGE\_EVENT\_PAYLOAD\_SIZE\_IS\_VALID(size)\ \(\backslash\)}}
+\DoxyCodeLine{00392\ \textcolor{preprocessor}{\ \ ((size)\ >=\ sizeof(zb\_zcl\_energy\_management\_manage\_event\_payload\_t))}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00397\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_energy\_management\_actions\_required\_encoding\_e}
+\DoxyCodeLine{00398\ \{}
+\DoxyCodeLine{00399\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_ACTIONS\_EVENT\_OPT\_OUT\ \ \ \ \ \ \ \ =\ 0,\ \ }
+\DoxyCodeLine{00400\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_ACTIONS\_OPT\_INTO\_EVENT\ \ \ \ \ \ \ =\ 1,\ \ }
+\DoxyCodeLine{00401\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_ACTIONS\_DISABLE\_DUTY\_CYCLING\ =\ 2,\ \ }
+\DoxyCodeLine{00402\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_ACTIONS\_ENABLE\_DUTY\_CYCLING\ \ =\ 3\ \ \ }
+\DoxyCodeLine{00403\ \}\ zb\_zcl\_energy\_management\_actions\_required\_encoding\_t;}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00409\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ zb\_zcl\_energy\_management\_srv\_cmd\_e}
+\DoxyCodeLine{00410\ \{}
+\DoxyCodeLine{00411\ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_SRV\_CMD\_REPORT\_EVENT\_STATUS\ =\ 0x00,\ \ \ \ }
+\DoxyCodeLine{00415\ \}\ zb\_zcl\_energy\_management\_srv\_cmd\_t;}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \textcolor{comment}{/*\ Energy\ mgmt\ cluster\ commands\ list\ :\ only\ for\ information\ -\/\ do\ not\ modify\ */}}
+\DoxyCodeLine{00418\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_ENERGY\_MANAGEMENT\_SERVER\_ROLE\_GENERATED\_CMD\_LIST\ \(\backslash\)}}
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_SRV\_CMD\_REPORT\_EVENT\_STATUS}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_ENERGY\_MANAGEMENT\_CLIENT\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_ENERGY\_MANAGEMENT\_SERVER\_ROLE\_GENERATED\_CMD\_LIST}}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_ENERGY\_MANAGEMENT\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST\ \(\backslash\)}}
+\DoxyCodeLine{00424\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_ENERGY\_MANAGEMENT\_CLI\_CMD\_MANAGE\_EVENT}}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_ENERGY\_MANAGEMENT\_SERVER\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_ENERGY\_MANAGEMENT\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST}}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00433\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_energy\_management\_report\_event\_status\_payload\_s}
+\DoxyCodeLine{00434\ \{}
+\DoxyCodeLine{00435\ \ \ \textcolor{comment}{/*\ Mandatory\ fields.\ */}}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00440\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ issuer\_event\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00445\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ event\_status;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00451\ \ \ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ event\_status\_time;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00454\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ criticality\_level\_applied;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \textcolor{comment}{/*\ Optional\ fields\ */}}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00462\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ cooling\_temperature\_set\_point\_applied;\ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00468\ \ \ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ heating\_temperature\_set\_point\_applied;\ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00474\ \ \ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ average\_load\_adjustment\_percentage\_applied;\ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00475\ }
+\DoxyCodeLine{00479\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ duty\_cycle\_applied;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (O)\ */}}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \textcolor{comment}{/*\ Mandatory\ field\ */}}
+\DoxyCodeLine{00483\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ event\_control;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ (M)\ */}}
+\DoxyCodeLine{00484\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_energy\_management\_report\_event\_status\_payload\_t;}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00488\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_REPORT\_EVENT\_STATUS\_PAYLOAD\_SIZE\_IS\_VALID(size)\ \(\backslash\)}}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\ \ ((size)\ >=\ sizeof(zb\_zcl\_energy\_management\_report\_event\_status\_payload\_t))}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_REPORT\_EVENT\_STATUS\_PAYLOAD\_INIT\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00495\ \textcolor{preprocessor}{(zb\_zcl\_energy\_management\_report\_event\_status\_payload\_t)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00496\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00497\ \textcolor{preprocessor}{\ \ .cooling\_temperature\_set\_point\_applied\ =\ (zb\_uint16\_t)\ 0x8000,\ \ \(\backslash\)}}
+\DoxyCodeLine{00498\ \textcolor{preprocessor}{\ \ .heating\_temperature\_set\_point\_applied\ =\ (zb\_uint16\_t)\ 0x8000,\ \ \(\backslash\)}}
+\DoxyCodeLine{00499\ \textcolor{preprocessor}{\ \ .average\_load\_adjustment\_percentage\_applied\ =\ (zb\_int8\_t)\ 0x80,\ \(\backslash\)}}
+\DoxyCodeLine{00500\ \textcolor{preprocessor}{\ \ .duty\_cycle\_applied\ =\ (zb\_uint8\_t)\ 0xFF,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00501\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00502\ }
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00507\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_MANAGE\_EVENT\_PAYLOAD\_INIT\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00508\ \textcolor{preprocessor}{\ \ (zb\_zcl\_energy\_management\_manage\_event\_payload\_t)\ \ \ \ \ \ \ \{0\}\ \(\backslash\)}}
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{}}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00527\ \textcolor{keywordtype}{void}\ zb\_zcl\_energy\_management\_server\_send\_report\_event\_status(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zcl\_energy\_management\_report\_event\_status\_payload\_t\ *payload,}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{00534\ }
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00549\ \textcolor{keywordtype}{void}\ zb\_zcl\_energy\_management\_client\_send\_manage\_event(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param,\ \mbox{\hyperlink{unionzb__addr__u}{zb\_addr\_u}}\ *dst\_addr,}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__aps__common__constants_gace3d646ee2e1239d6c3110d1818b13e6}{zb\_aps\_addr\_mode\_t}}\ dst\_addr\_mode,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ dst\_ep,}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ src\_ep,}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zb\_zcl\_energy\_management\_manage\_event\_payload\_t\ *payload,}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ cb);}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00556\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_SEND\_CMD\_REPORT\_EVENT\_STATUS(\_param,\ \_dst\_addr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00557\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_addr\_mode,\ \_dst\_ep,\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00558\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_src\_ep,\ \_payload)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00559\ \textcolor{preprocessor}{\ \ zb\_zcl\_energy\_management\_server\_send\_report\_event\_status(\_param,\ \_dst\_addr,\ \_dst\_addr\_mode,\ \ \(\backslash\)}}
+\DoxyCodeLine{00560\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ NULL)}}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00563\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_SEND\_CMD\_MANAGE\_EVENT(\_param,\ \_dst\_addr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00564\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_addr\_mode,\ \_dst\_ep,\ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00565\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_src\_ep,\ \_payload)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00566\ \textcolor{preprocessor}{\ \ zb\_zcl\_energy\_management\_client\_send\_manage\_event(\_param,\ \_dst\_addr,\ \_dst\_addr\_mode,\ \(\backslash\)}}
+\DoxyCodeLine{00567\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \_dst\_ep,\ \_src\_ep,\ \_payload,\ NULL)}}
+\DoxyCodeLine{00568\ \ \textcolor{comment}{/*\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_COMMANDS\ */}}
+\DoxyCodeLine{00570\ \ \textcolor{comment}{/*\ ZCL\ Energy\ Management\ cluster\ definitions\ */}}
+\DoxyCodeLine{00572\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ \&\&\ DOXYGEN\_SE\_SECTION\ */}}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00576\ }
+\DoxyCodeLine{00577\ \textcolor{keywordtype}{void}\ zb\_zcl\_energy\_management\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00578\ \textcolor{keywordtype}{void}\ zb\_zcl\_energy\_management\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00579\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_ENERGY\_MANAGEMENT\_SERVER\_ROLE\_INIT\ zb\_zcl\_energy\_management\_init\_server}}
+\DoxyCodeLine{00580\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_ENERGY\_MANAGEMENT\_CLIENT\_ROLE\_INIT\ zb\_zcl\_energy\_management\_init\_client}}
+\DoxyCodeLine{00581\ }
+\DoxyCodeLine{00582\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_ENERGY\_MANAGEMENT\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

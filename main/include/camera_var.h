@@ -1,3 +1,15 @@
+
+/**
+ * @file camera_var.h
+ * @author Yassine Hattay (hattayyassine519@gmail.com)
+ * @brief 
+ * @version 0.1
+ * @date 2025-03-02
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
+
 #ifndef CAMERA_v_H
 #define CAMERA_v_H
 

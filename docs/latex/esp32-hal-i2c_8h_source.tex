@@ -1,0 +1,53 @@
+\doxysection{esp32-\/hal-\/i2c.h}
+\hypertarget{esp32-hal-i2c_8h_source}{}\label{esp32-hal-i2c_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/i2c.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/cores/esp32/esp32-\/hal-\/i2c.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2016\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ modified\ Nov\ 2017\ by\ Chuck\ Todd\ <StickBreaker>\ to\ support\ Interrupt\ Driven\ I/O}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ modified\ Nov\ 2021\ by\ Hristo\ Gochkov\ <Me-\/No-\/Dev>\ to\ support\ ESP-\/IDF\ API}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifndef\ \_ESP32\_HAL\_I2C\_H\_}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ \_ESP32\_HAL\_I2C\_H\_}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#if\ SOC\_I2C\_SUPPORTED}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00024\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <esp\_err.h>}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ esp\_err\_t\ i2cInit(uint8\_t\ i2c\_num,\ int8\_t\ sda,\ int8\_t\ scl,\ uint32\_t\ clk\_speed);}
+\DoxyCodeLine{00032\ esp\_err\_t\ i2cDeinit(uint8\_t\ i2c\_num);}
+\DoxyCodeLine{00033\ esp\_err\_t\ i2cSetClock(uint8\_t\ i2c\_num,\ uint32\_t\ frequency);}
+\DoxyCodeLine{00034\ esp\_err\_t\ i2cGetClock(uint8\_t\ i2c\_num,\ uint32\_t\ *frequency);}
+\DoxyCodeLine{00035\ esp\_err\_t\ i2cWrite(uint8\_t\ i2c\_num,\ uint16\_t\ address,\ \textcolor{keyword}{const}\ uint8\_t\ *buff,\ \textcolor{keywordtype}{size\_t}\ size,\ uint32\_t\ timeOutMillis);}
+\DoxyCodeLine{00036\ esp\_err\_t\ i2cRead(uint8\_t\ i2c\_num,\ uint16\_t\ address,\ uint8\_t\ *buff,\ \textcolor{keywordtype}{size\_t}\ size,\ uint32\_t\ timeOutMillis,\ \textcolor{keywordtype}{size\_t}\ *readCount);}
+\DoxyCodeLine{00037\ esp\_err\_t\ i2cWriteReadNonStop(}
+\DoxyCodeLine{00038\ \ \ uint8\_t\ i2c\_num,\ uint16\_t\ address,\ \textcolor{keyword}{const}\ uint8\_t\ *wbuff,\ \textcolor{keywordtype}{size\_t}\ wsize,\ uint8\_t\ *rbuff,\ \textcolor{keywordtype}{size\_t}\ rsize,\ uint32\_t\ timeOutMillis,\ \textcolor{keywordtype}{size\_t}\ *readCount}
+\DoxyCodeLine{00039\ );}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{bool}\ i2cIsInit(uint8\_t\ i2c\_num);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00043\ \}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_I2C\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_ESP32\_HAL\_I2C\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

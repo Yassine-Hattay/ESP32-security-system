@@ -1,0 +1,123 @@
+\doxysection{esp\+\_\+modem\+::Fd\+Terminal Class Reference}
+\hypertarget{classesp__modem_1_1_fd_terminal}{}\label{classesp__modem_1_1_fd_terminal}\index{esp\_modem::FdTerminal@{esp\_modem::FdTerminal}}
+Inheritance diagram for esp\+\_\+modem\+::Fd\+Terminal\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classesp__modem_1_1_fd_terminal}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classesp__modem_1_1_fd_terminal_ae77103572052b487785e12c5d2a0a6e6}\label{classesp__modem_1_1_fd_terminal_ae77103572052b487785e12c5d2a0a6e6} 
+{\bfseries Fd\+Terminal} (const \mbox{\hyperlink{structesp__modem__dte__config}{esp\+\_\+modem\+\_\+dte\+\_\+config}} \texorpdfstring{$\ast$}{*}config)
+\item 
+void \mbox{\hyperlink{classesp__modem_1_1_fd_terminal_af1cb7211f25b54d689789eac8ff27643}{start}} () override
+\item 
+void \mbox{\hyperlink{classesp__modem_1_1_fd_terminal_af7ea9544d144e340b5c5fde38fcc9733}{stop}} () override
+\item 
+int \mbox{\hyperlink{classesp__modem_1_1_fd_terminal_a3407d6a6afe5ea5b8f2da19880485477}{write}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len) override
+\begin{DoxyCompactList}\small\item\em Writes data to the terminal. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classesp__modem_1_1_fd_terminal_a9ec34458f0963d9cbf9460a1228f9168}{read}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len) override
+\begin{DoxyCompactList}\small\item\em Read from the terminal. This function doesn\textquotesingle{}t block, but return all available data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classesp__modem_1_1_fd_terminal_a8262ba1d1a16c2ffcaf87880085c9640}{set\+\_\+read\+\_\+cb}} (std\+::function$<$ bool(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)$>$ f) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classesp__modem_1_1_terminal}{esp\+\_\+modem\+::\+Terminal}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries set\+\_\+error\+\_\+cb} (std\+::function$<$ void(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_e_r_m_i_n_a_l_ga9e2467aa5656f359e3dbcc33b28416ea}{terminal\+\_\+error}})$>$ f)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classesp__modem_1_1_terminal}{esp\+\_\+modem\+::\+Terminal}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::function$<$ bool(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)$>$ {\bfseries on\+\_\+read}
+\item 
+std\+::function$<$ void(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_e_r_m_i_n_a_l_ga9e2467aa5656f359e3dbcc33b28416ea}{terminal\+\_\+error}})$>$ {\bfseries on\+\_\+error}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classesp__modem_1_1_fd_terminal_a9ec34458f0963d9cbf9460a1228f9168}\index{esp\_modem::FdTerminal@{esp\_modem::FdTerminal}!read@{read}}
+\index{read@{read}!esp\_modem::FdTerminal@{esp\_modem::FdTerminal}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_fd_terminal_a9ec34458f0963d9cbf9460a1228f9168} 
+int esp\+\_\+modem\+::\+Fd\+Terminal\+::read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Read from the terminal. This function doesn\textquotesingle{}t block, but return all available data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data pointer to store the read payload \\
+\hline
+{\em len} & Maximum data len to read \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+length of data actually read 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classesp__modem_1_1_terminal_a66e832c319e7c8f523043a04d4972a31}{esp\+\_\+modem\+::\+Terminal}}.
+
+\Hypertarget{classesp__modem_1_1_fd_terminal_a8262ba1d1a16c2ffcaf87880085c9640}\index{esp\_modem::FdTerminal@{esp\_modem::FdTerminal}!set\_read\_cb@{set\_read\_cb}}
+\index{set\_read\_cb@{set\_read\_cb}!esp\_modem::FdTerminal@{esp\_modem::FdTerminal}}
+\doxysubsubsection{\texorpdfstring{set\_read\_cb()}{set\_read\_cb()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_fd_terminal_a8262ba1d1a16c2ffcaf87880085c9640} 
+void esp\+\_\+modem\+::\+Fd\+Terminal\+::set\+\_\+read\+\_\+cb (\begin{DoxyParamCaption}\item[{std\+::function$<$ bool(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)$>$}]{f}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classesp__modem_1_1_terminal}{esp\+\_\+modem\+::\+Terminal}}.
+
+\Hypertarget{classesp__modem_1_1_fd_terminal_af1cb7211f25b54d689789eac8ff27643}\index{esp\_modem::FdTerminal@{esp\_modem::FdTerminal}!start@{start}}
+\index{start@{start}!esp\_modem::FdTerminal@{esp\_modem::FdTerminal}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_fd_terminal_af1cb7211f25b54d689789eac8ff27643} 
+void esp\+\_\+modem\+::\+Fd\+Terminal\+::start (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classesp__modem_1_1_terminal}{esp\+\_\+modem\+::\+Terminal}}.
+
+\Hypertarget{classesp__modem_1_1_fd_terminal_af7ea9544d144e340b5c5fde38fcc9733}\index{esp\_modem::FdTerminal@{esp\_modem::FdTerminal}!stop@{stop}}
+\index{stop@{stop}!esp\_modem::FdTerminal@{esp\_modem::FdTerminal}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_fd_terminal_af7ea9544d144e340b5c5fde38fcc9733} 
+void esp\+\_\+modem\+::\+Fd\+Terminal\+::stop (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classesp__modem_1_1_terminal}{esp\+\_\+modem\+::\+Terminal}}.
+
+\Hypertarget{classesp__modem_1_1_fd_terminal_a3407d6a6afe5ea5b8f2da19880485477}\index{esp\_modem::FdTerminal@{esp\_modem::FdTerminal}!write@{write}}
+\index{write@{write}!esp\_modem::FdTerminal@{esp\_modem::FdTerminal}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_fd_terminal_a3407d6a6afe5ea5b8f2da19880485477} 
+int esp\+\_\+modem\+::\+Fd\+Terminal\+::write (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Writes data to the terminal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data pointer \\
+\hline
+{\em len} & Data len \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+length of data written 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classesp__modem_1_1_terminal_aaa6b8fe3a2336b8369740e7ca4aeae00}{esp\+\_\+modem\+::\+Terminal}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/src/esp\+\_\+modem\+\_\+term\+\_\+fs.\+cpp\end{DoxyCompactItemize}

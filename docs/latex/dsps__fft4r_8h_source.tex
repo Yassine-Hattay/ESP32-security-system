@@ -1,0 +1,99 @@
+\doxysection{dsps\+\_\+fft4r.\+h}
+\hypertarget{dsps__fft4r_8h_source}{}\label{dsps__fft4r_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/fft/include/dsps\_fft4r.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/fft/include/dsps\_fft4r.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2018-\/2019\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ \_dsps\_fft4r\_H\_}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ \_dsps\_fft4r\_H\_}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}dsp\_err.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}sdkconfig.h"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}dsps\_fft\_tables.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}dsps\_fft4r\_platform.h"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00024\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{float}\ *dsps\_fft4r\_w\_table\_fc32;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ dsps\_fft4r\_w\_table\_size;}
+\DoxyCodeLine{00030\ \textcolor{keyword}{extern}\ uint8\_t\ dsps\_fft4r\_initialized;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{extern}\ int16\_t\ *dsps\_fft4r\_w\_table\_sc16;}
+\DoxyCodeLine{00033\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ dsps\_fft4r\_w\_table\_sc16\_size;}
+\DoxyCodeLine{00034\ \textcolor{keyword}{extern}\ uint8\_t\ dsps\_fft4r\_sc16\_initialized;}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00057\ esp\_err\_t\ dsps\_fft4r\_init\_fc32(\textcolor{keywordtype}{float}\ *fft\_table\_buff,\ \textcolor{keywordtype}{int}\ max\_fft\_size);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{void}\ dsps\_fft4r\_deinit\_fc32(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00090\ esp\_err\_t\ dsps\_fft4r\_fc32\_ansi\_(\textcolor{keywordtype}{float}\ *data,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{float}\ *table,\ \textcolor{keywordtype}{int}\ table\_size);}
+\DoxyCodeLine{00091\ esp\_err\_t\ dsps\_fft4r\_fc32\_ae32\_(\textcolor{keywordtype}{float}\ *data,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{float}\ *table,\ \textcolor{keywordtype}{int}\ table\_size);}
+\DoxyCodeLine{00092\ esp\_err\_t\ dsps\_fft4r\_fc32\_arp4\_(\textcolor{keywordtype}{float}\ *data,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{float}\ *table,\ \textcolor{keywordtype}{int}\ table\_size);}
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ This\ is\ workaround\ because\ linker\ generates\ permanent\ error\ when\ assembler\ uses}}
+\DoxyCodeLine{00095\ \textcolor{comment}{//\ direct\ access\ to\ the\ table\ pointer}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ dsps\_fft4r\_fc32\_ansi(data,\ N)\ dsps\_fft4r\_fc32\_ansi\_(data,\ N,\ dsps\_fft4r\_w\_table\_fc32,\ dsps\_fft4r\_w\_table\_size)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ dsps\_fft4r\_fc32\_ae32(data,\ N)\ dsps\_fft4r\_fc32\_ae32\_(data,\ N,\ dsps\_fft4r\_w\_table\_fc32,\ dsps\_fft4r\_w\_table\_size)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ dsps\_fft4r\_fc32\_arp4(data,\ N)\ dsps\_fft4r\_fc32\_arp4\_(data,\ N,\ dsps\_fft4r\_w\_table\_fc32,\ dsps\_fft4r\_w\_table\_size/N)}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00115\ esp\_err\_t\ dsps\_bit\_rev4r\_fc32(\textcolor{keywordtype}{float}\ *data,\ \textcolor{keywordtype}{int}\ N);}
+\DoxyCodeLine{00116\ esp\_err\_t\ dsps\_bit\_rev4r\_fc32\_ae32(\textcolor{keywordtype}{float}\ *data,\ \textcolor{keywordtype}{int}\ N);}
+\DoxyCodeLine{00117\ esp\_err\_t\ dsps\_bit\_rev4r\_direct\_fc32\_ansi(\textcolor{keywordtype}{float}\ *data,\ \textcolor{keywordtype}{int}\ N);}
+\DoxyCodeLine{00118\ esp\_err\_t\ dsps\_bit\_rev4r\_sc16\_ansi(int16\_t\ *data,\ \textcolor{keywordtype}{int}\ N);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00144\ esp\_err\_t\ dsps\_cplx2real\_fc32\_ansi\_(\textcolor{keywordtype}{float}\ *data,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{float}\ *table,\ \textcolor{keywordtype}{int}\ table\_size);}
+\DoxyCodeLine{00145\ esp\_err\_t\ dsps\_cplx2real\_fc32\_ae32\_(\textcolor{keywordtype}{float}\ *data,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{float}\ *table,\ \textcolor{keywordtype}{int}\ table\_size);}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ dsps\_cplx2real\_fc32\_ansi(data,\ N)\ dsps\_cplx2real\_fc32\_ansi\_(data,\ N,\ dsps\_fft4r\_w\_table\_fc32,\ dsps\_fft4r\_w\_table\_size)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ dsps\_cplx2real\_fc32\_ae32(data,\ N)\ dsps\_cplx2real\_fc32\_ae32\_(data,\ N,\ dsps\_fft4r\_w\_table\_fc32,\ dsps\_fft4r\_w\_table\_size)}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ esp\_err\_t\ dsps\_gen\_bitrev4r\_table(\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ step,\ \textcolor{keywordtype}{char}\ *name\_ext);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00154\ \}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#if\ CONFIG\_DSP\_OPTIMIZED}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#if\ (dsps\_fft4r\_fc32\_ae32\_enabled\ ==\ 1)}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ dsps\_fft4r\_fc32\ dsps\_fft4r\_fc32\_ae32}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#elif\ (dsps\_fft4r\_fc32\_arp4\_enabled\ ==\ 1)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ dsps\_fft4r\_fc32\ dsps\_fft4r\_fc32\_arp4}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#define\ dsps\_fft4r\_fc32\ dsps\_fft4r\_fc32\_ansi}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ dsps\_fft4r\_fc32\_ae32\_enabled}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#define\ dsps\_fft4r\_sc16\ dsps\_fft4r\_sc16\_ae32}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ dsps\_bit\_rev4r\_fc32\ dsps\_bit\_rev4r\_fc32\_ae32}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#if\ (dsps\_cplx2real\_fc32\_ae32\_enabled\ ==\ 1)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ dsps\_cplx2real\_fc32\ dsps\_cplx2real\_fc32\_ae32}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ dsps\_cplx2real\_fc32\ dsps\_cplx2real\_fc32\_ansi}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ dsps\_cplx2real\_fc32\_ae32\_enabled}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ dsps\_fft4r\_fc32\ dsps\_fft4r\_fc32\_ansi}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ dsps\_fft4r\_sc16\ dsps\_fft4r\_sc16\_ansi}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ dsps\_bit\_rev4r\_fc32\ dsps\_bit\_rev4r\_fc32}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#define\ dsps\_cplx2real\_fc32\ dsps\_cplx2real\_fc32\_ansi}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_dsps\_fft4r\_H\_}}
+
+\end{DoxyCode}

@@ -1,0 +1,505 @@
+\doxysection{zb\+\_\+osif.\+h}
+\hypertarget{zb__osif_8h_source}{}\label{zb__osif_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_osif.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zb\_osif.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ Main\ header\ for\ OS\ and\ platform\ dependent\ stuff}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_OSIF\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#include\ "{}zb\_config.h"{}}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{typedef}\ void\ (*zb\_osif\_timer\_exp\_cb\_t)(\textcolor{keywordtype}{void}\ *user\_data);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#include\ "{}zb\_osif\_platform.h"{}}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#include\ "{}zb\_ringbuffer.h"{}}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#ifndef\ ZB\_PLATFORM\_INIT}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#error\ Define\ ZB\_PLATFORM\_INIT\ in\ you\ platform\ file}}
+\DoxyCodeLine{00100\ \textcolor{comment}{//\#define\ ZB\_PLATFORM\_INIT()}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#ifndef\ ZB\_OSIF\_IS\_EXIT}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_IS\_EXIT()\ ZB\_FALSE}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{/*\ Default\ (C\ standard)\ definition\ of\ MAIN()\ if\ not\ redefined\ in\ zb\_osif\_platform.h\ */}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#ifndef\ MAIN}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ MAIN()\ int\ main(int\ argc,\ char\ *argv[])}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ FAKE\_ARGV}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ ARGV\_UNUSED\ ZVUNUSED(argc)\ ;\ ZVUNUSED(argv)}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ MAIN\_RETURN(v)\ return\ (v)}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#ifndef\ ZB\_SET\_TRACE\_TRANSPORT}}
+\DoxyCodeLine{00116\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ *\ If\ platform\ supports\ choosing\ transport\ at\ runtime}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ *\ (i.e.\ Telink\ can\ choose\ between\ UART\ and\ USB\ debug\ interface)}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ *\ define\ this\ macro.}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ *\ Note\ that\ this\ is\ intended\ to\ be\ called\ before\ ZB\_TRACE\_INIT\ is\ called\ as}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ *\ only\ one\ interface\ will\ be\ configured\ and\ the\ rest\ of\ them\ will\ be\ left\ as\ is}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ *\ so\ that\ it\ would\ be\ usable\ from\ non-\/Zigbee\ purposes\ (application)\ if\ needed.}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#define\ ZB\_SET\_TRACE\_TRANSPORT(transport)}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ If\ platform\ supports\ NCP\ architecture\ and\ the\ ability\ to\ put\ the\ SoC\ to}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ *\ sleep\ state,\ this\ function\ should\ be\ implemented.}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ *\ This\ function\ is\ meant\ to\ be\ called\ from\ zboss\_signal\_handler(),\ after}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ *\ receiving\ ZB\_COMMON\_SIGNAL\_CAN\_SLEEP\ signal.}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ *\ It\ should\ configure\ the\ NCP\ transport\ in\ a\ way\ that\ is\ can\ wake\ up\ the\ MCU}}
+\DoxyCodeLine{00134\ \textcolor{comment}{\ *\ through\ external\ interrupt\ and\ call\ the\ zb\_sleep\_now().}}
+\DoxyCodeLine{00135\ \textcolor{comment}{\ *\ Afterwards,\ it\ should\ recover\ the\ NCP\ transport,\ so\ it\ is\ able\ to\ continue}}
+\DoxyCodeLine{00136\ \textcolor{comment}{\ *\ its\ normal\ operation.}}
+\DoxyCodeLine{00137\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#ifndef\ ZB\_OSIF\_NCP\_TRANSPORT\_PREPARE\_TO\_SLEEP}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_NCP\_TRANSPORT\_PREPARE\_TO\_SLEEP()}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#if\ !defined\ ZB\_KICK\_HW\_WATCHDOG}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ ZB\_KICK\_HW\_WATCHDOG()}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#ifndef\ ZB\_THREADS}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#ifndef\ ZB\_OSIF\_TIME\_LOCK}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_TIME\_LOCK()\ \ \ (void)0}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#ifndef\ ZB\_OSIF\_TIME\_UNLOCK}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_TIME\_UNLOCK()\ \ \ (void)0}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_THREADS\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \textcolor{comment}{/*\ common\ osif\ API\ */}}
+\DoxyCodeLine{00159\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_random\_seed(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00160\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_get\_utc\_time(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#ifdef\ ZB\_RANDOM\_HARDWARE}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00167\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_osif\_random\_hw(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ osif\_get\_time\_ms(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{comment}{/*\ note:\ that\ api\ is\ only\ for\ some\ platforms\ */}}
+\DoxyCodeLine{00173\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ osif\_set\_transmit\_power(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ channel,\ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ power);}
+\DoxyCodeLine{00174\ \textcolor{keywordtype}{void}\ osif\_set\_default\_trasnmit\_powers(\mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ *tx\_powers);}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#if\ defined\ ZB\_MACSPLIT\_TRANSPORT\_SERIAL\ ||\ defined\ ZB\_MUX\_TRANSPORT\_OSIF\_SERIAL\ ||\ defined\ ZB\_NCP\_TRANSPORT\_TYPE\_SERIAL}}
+\DoxyCodeLine{00177\ \textcolor{keywordtype}{void}\ zb\_osif\_serial\_transport\_init();}
+\DoxyCodeLine{00178\ \textcolor{keywordtype}{void}\ zb\_osif\_serial\_transport\_put\_bytes(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga0298efc478ce02314f683b50b86542ed}{zb\_short\_t}}\ len);}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#ifndef\ ZB\_SERIAL\_INT\_DISABLE}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ ZB\_SERIAL\_INT\_DISABLE()\ \ ZB\_OSIF\_GLOBAL\_LOCK()}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_SERIAL\_INT\_DISABLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#ifndef\ ZB\_SERIAL\_INT\_ENABLE}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ ZB\_SERIAL\_INT\_ENABLE()\ \ \ ZB\_OSIF\_GLOBAL\_UNLOCK()}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_SERIAL\_INT\_ENABLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#if\ defined\ ZB\_HAVE\_SERIAL\ ||\ defined\ DOXYGEN}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{comment}{/*\ Serial\ interface\ (trace,\ traffic\ dump,\ serial\ transport)\ */}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ zb\_serial\_port\_t;}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ SERIAL\_PORT\_INVALID\ ((zb\_serial\_port\_t)(-\/1))}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00213\ zb\_serial\_port\_t\ zb\_osif\_mserial\_open(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *portname,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ speed);}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00224\ zb\_serial\_port\_t\ zb\_osif\_mserial\_create\_pty(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *symlink,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ speed);}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00231\ \textcolor{keywordtype}{void}\ zb\_osif\_mserial\_close(zb\_serial\_port\_t\ port\_instance);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00239\ \textcolor{keywordtype}{void}\ zb\_osif\_mserial\_set\_byte\_received\_cb(zb\_serial\_port\_t\ port\_instance,\ \mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ hnd);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{comment}{/*\ errors\ generated\ by\ serial\ transport\ */}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ ZB\_ERROR\_SERIAL\_INIT\_FAILED\ 1U}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#define\ ZB\_ERROR\_SERIAL\_READ\_FAILED\ 2U}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00260\ \textcolor{keywordtype}{void}\ zb\_osif\_mserial\_set\_user\_io\_buffer(zb\_serial\_port\_t\ port\_instance,\ zb\_byte\_array\_t\ *buf\_ptr,\ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ capacity);}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#if\ defined(ZB\_HAVE\_SERIAL\_SINGLE)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00267\ \textcolor{keywordtype}{void}\ zb\_osif\_serial\_init();}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00273\ \textcolor{keywordtype}{void}\ zb\_osif\_serial\_deinit();}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00279\ \textcolor{keywordtype}{void}\ zb\_osif\_set\_uart\_byte\_received\_cb(\mbox{\hyperlink{group__sched_gab19091ce5b60fe0502f7883ab10701b7}{zb\_callback\_t}}\ hnd);}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00285\ \textcolor{keywordtype}{void}\ zb\_osif\_set\_user\_io\_buffer(zb\_byte\_array\_t\ *buf\_ptr,\ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ capacity);}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00291\ \textcolor{keywordtype}{void}\ zb\_osif\_serial\_put\_bytes(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga0298efc478ce02314f683b50b86542ed}{zb\_short\_t}}\ len);}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_HAVE\_SERIAL\_SINGLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#if\ defined(ZB\_HAVE\_ASYNC\_SERIAL)\ ||\ defined(DOXYGEN)}}
+\DoxyCodeLine{00295\ \textcolor{comment}{/*\ Asynchronous\ API\ extension\ for\ serial\ interface.\ */}}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#define\ SERIAL\_SEND\_SUCCESS\ \ \ \ \ \ \ \ \ 0U\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#define\ SERIAL\_SEND\_BUSY\ \ \ \ \ \ \ \ \ \ \ \ 1U\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#define\ SERIAL\_SEND\_TIMEOUT\_EXPIRED\ 2U\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ SERIAL\_SEND\_ERROR\ \ \ \ \ \ \ \ \ \ \ 255U\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00310\ \textcolor{keyword}{typedef}\ void\ (*zb\_mserial\_recv\_data\_cb\_t)(zb\_serial\_port\_t\ port\_instance,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ len);}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00317\ \textcolor{keyword}{typedef}\ void\ (*zb\_serial\_send\_data\_cb\_t)(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ status);}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00326\ \textcolor{keywordtype}{void}\ zb\_osif\_mserial\_recv\_data(zb\_serial\_port\_t\ port\_instance,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ len);}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00334\ \textcolor{keywordtype}{void}\ zb\_osif\_mserial\_set\_cb\_recv\_data(zb\_serial\_port\_t\ port\_instance,\ zb\_mserial\_recv\_data\_cb\_t\ cb);}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00343\ \textcolor{keywordtype}{void}\ zb\_osif\_mserial\_send\_data(zb\_serial\_port\_t\ port\_instance,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_gac96b8582224daba2e85819373dbac2ac}{zb\_ushort\_t}}\ len);}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00351\ \textcolor{keywordtype}{void}\ zb\_osif\_mserial\_set\_cb\_send\_data(zb\_serial\_port\_t\ port\_instance,\ zb\_serial\_send\_data\_cb\_t\ cb);}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_HAVE\_ASYNC\_SERIAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_HAVE\_SERIAL\ ||\ DOXYGEN\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#if\ defined\ ZB\_BINARY\_TRACE\ ||\ defined\ ZB\_HAVE\_SERIAL\ ||\ defined\ ZB\_TRACE\_OVER\_USART\ ||\ defined\ DOXYGEN\ ||\ defined\ ZB\_NSNG}}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00373\ \textcolor{keywordtype}{void}\ zb\_osif\_mserial\_put\_bytes(zb\_serial\_port\_t\ port\_instance,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga0298efc478ce02314f683b50b86542ed}{zb\_short\_t}}\ len);}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \textcolor{preprocessor}{\#if\ defined\ ZB\_SERIAL\_FOR\_TRACE\ \&\&\ !defined\ ZB\_OSIF\_SERIAL\_FLUSH}}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#define\ ZB\_OSIF\_SERIAL\_FLUSH()}}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_SERIAL\_FOR\_TRACE\ \&\&\ !ZB\_OSIF\_SERIAL\_FLUSH\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\#ifdef\ ZB\_TRACE\_OVER\_JTAG}}
+\DoxyCodeLine{00382\ \textcolor{keywordtype}{void}\ zb\_osif\_jtag\_put\_bytes(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga0298efc478ce02314f683b50b86542ed}{zb\_short\_t}}\ len);}
+\DoxyCodeLine{00383\ \textcolor{keywordtype}{void}\ zb\_osif\_jtag\_flush(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00385\ \ \textcolor{comment}{/*\ DOXYGEN\_UART\_SECTION\ */}}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \textcolor{preprocessor}{\#ifdef\ ZB\_TRACE\_OVER\_SIF}}
+\DoxyCodeLine{00392\ \textcolor{keywordtype}{void}\ zb\_osif\_sif\_put\_bytes(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga0298efc478ce02314f683b50b86542ed}{zb\_short\_t}}\ len);}
+\DoxyCodeLine{00393\ \textcolor{keywordtype}{void}\ zb\_osif\_sif\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00394\ \textcolor{keywordtype}{void}\ zb\_osif\_sif\_debug\_trace(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{00395\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \textcolor{preprocessor}{\#ifdef\ ZB\_HAVE\_FILE}}
+\DoxyCodeLine{00398\ \textcolor{comment}{/*\ File\ \ */}}
+\DoxyCodeLine{00399\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_osif\_get\_file\_size(\mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name);}
+\DoxyCodeLine{00400\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_osif\_check\_dir\_exist(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name);}
+\DoxyCodeLine{00401\ \textcolor{keywordtype}{int}\ zb\_osif\_create\_dir(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name);}
+\DoxyCodeLine{00402\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_osif\_check\_file\_exist(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ mode);}
+\DoxyCodeLine{00403\ \textcolor{keywordtype}{void}\ zb\_osif\_file\_copy(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name\_src,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name\_dst);}
+\DoxyCodeLine{00404\ zb\_osif\_file\_t\ *zb\_osif\_file\_open(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *mode);}
+\DoxyCodeLine{00405\ zb\_osif\_file\_t\ *zb\_osif\_init\_trace(\mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name);}
+\DoxyCodeLine{00406\ zb\_osif\_file\_t\ *zb\_osif\_file\_stdout(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00407\ zb\_osif\_file\_t\ *zb\_osif\_file\_stdin(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00408\ \textcolor{keywordtype}{void}\ zb\_osif\_file\_close(zb\_osif\_file\_t\ *f);}
+\DoxyCodeLine{00409\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_remove(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name);}
+\DoxyCodeLine{00410\ \textcolor{keywordtype}{void}\ zb\_osif\_trace\_printf(zb\_osif\_file\_t\ *f,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *format,\ ...);}
+\DoxyCodeLine{00411\ \textcolor{keywordtype}{void}\ zb\_osif\_trace\_vprintf(zb\_osif\_file\_t\ *f,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *format,\ va\_list\ arglist);}
+\DoxyCodeLine{00412\ \textcolor{keywordtype}{void}\ zb\_osif\_trace\_lock(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00413\ \textcolor{keywordtype}{void}\ zb\_osif\_trace\_unlock(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00414\ zb\_osif\_file\_t\ *zb\_osif\_init\_dump(\mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name);}
+\DoxyCodeLine{00415\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_read(zb\_osif\_file\_t\ *f,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ len);}
+\DoxyCodeLine{00416\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_write(zb\_osif\_file\_t\ *f,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ len);}
+\DoxyCodeLine{00417\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_is\_eof(zb\_osif\_file\_t\ *f);}
+\DoxyCodeLine{00418\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_is\_err(zb\_osif\_file\_t\ *f);}
+\DoxyCodeLine{00419\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_flush(zb\_osif\_file\_t\ *f);}
+\DoxyCodeLine{00420\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_seek(zb\_osif\_file\_t\ *f,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ off,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ mode);}
+\DoxyCodeLine{00421\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_get\_size(zb\_osif\_file\_t\ *f);}
+\DoxyCodeLine{00422\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_truncate(zb\_osif\_file\_t\ *f,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ off);}
+\DoxyCodeLine{00423\ \textcolor{keywordtype}{int}\ zb\_osif\_file\_sync(zb\_osif\_file\_t\ *f);}
+\DoxyCodeLine{00424\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}*\ zb\_osif\_file\_get\_name\_by\_path(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *path);}
+\DoxyCodeLine{00425\ \textcolor{keywordtype}{void}\ zb\_osif\_trace\_get\_time(\mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ *sec,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ *msec,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ *usec);}
+\DoxyCodeLine{00426\ zb\_osif\_file\_t\ *zb\_osif\_popen(\mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *arg);}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \textcolor{keywordtype}{int}\ zb\_osif\_stream\_read(zb\_osif\_file\_t\ *stream,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ len);}
+\DoxyCodeLine{00429\ \textcolor{keywordtype}{int}\ zb\_osif\_stream\_write(zb\_osif\_file\_t\ *stream,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ len);}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \textcolor{keyword}{enum}\ zb\_file\_path\_base\_type\_e}
+\DoxyCodeLine{00432\ \{}
+\DoxyCodeLine{00433\ \ \ ZB\_FILE\_PATH\_BASE\_NOT\_SPECIFIED,\ \ \ \ \ \textcolor{comment}{/*\ not\ specified\ base\ type\ -\/\ allows\ to\ use\ default\ base\ path\ */}}
+\DoxyCodeLine{00434\ \ \ ZB\_FILE\_PATH\_BASE\_ROMFS\_BINARIES,\ \ \ \ \textcolor{comment}{/*\ ROM\ FS\ */}\ \ \textcolor{comment}{/*\ elf\ binaries,\ etc\ */}}
+\DoxyCodeLine{00435\ \ \ ZB\_FILE\_PATH\_BASE\_MNTFS\_BINARIES,\ \ \ \ \textcolor{comment}{/*\ RW\ FS\ */}\ \ \ \textcolor{comment}{/*\ prod\ config,\ etc\ */}}
+\DoxyCodeLine{00436\ \ \ ZB\_FILE\_PATH\_BASE\_MNTFS\_USER\_DATA,\ \ \ \textcolor{comment}{/*\ RW\ FS\ */}\ \ \ \textcolor{comment}{/*\ nvram.\ etc\ */}}
+\DoxyCodeLine{00437\ \ \ ZB\_FILE\_PATH\_BASE\_MNTFS\_TRACE\_LOGS,\ \ \textcolor{comment}{/*\ RW\ FS\ */}}
+\DoxyCodeLine{00438\ \ \ ZB\_FILE\_PATH\_BASE\_RAMFS\_UNIX\_SOCKET,\ \textcolor{comment}{/*\ RAM\ FS\ */}}
+\DoxyCodeLine{00439\ \ \ ZB\_FILE\_PATH\_BASE\_RAMFS\_TRACE\_LOGS,\ \ \textcolor{comment}{/*\ RAM\ FS\ */}}
+\DoxyCodeLine{00440\ \ \ ZB\_FILE\_PATH\_BASE\_RAMFS\_TMP\_DATA,\ \ \ \ \textcolor{comment}{/*\ RAM\ FS\ */}}
+\DoxyCodeLine{00441\ }
+\DoxyCodeLine{00442\ \ \ ZB\_FILE\_PATH\_BASE\_MAX\_TYPE}
+\DoxyCodeLine{00443\ \};}
+\DoxyCodeLine{00444\ }
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\#ifndef\ ZB\_TRACE\_LOG\_FILE\_EXTENSION}}
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\#define\ ZB\_TRACE\_LOG\_FILE\_EXTENSION\ "{}"{}}}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_TRACE\_LOG\_FILE\_EXTENSION\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\#define\ ZB\_MAX\_FILE\_PATH\_SIZE\ 256}}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#ifdef\ ZB\_FILE\_PATH\_MGMNT}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\#ifndef\ ZB\_FILE\_PATH\_MAX\_TYPES}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\#define\ ZB\_FILE\_PATH\_MAX\_TYPES\ ZB\_FILE\_PATH\_BASE\_MAX\_TYPE}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }zb\_file\_path\_base\_type\_s}
+\DoxyCodeLine{00457\ \{}
+\DoxyCodeLine{00458\ \ \ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ declared;}
+\DoxyCodeLine{00459\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ base[ZB\_MAX\_FILE\_PATH\_SIZE];}
+\DoxyCodeLine{00460\ \}\ zb\_file\_path\_base\_type\_t;}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00462\ \textcolor{keywordtype}{void}\ zb\_file\_path\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00463\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_file\_path\_declare(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ base\_type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *base);}
+\DoxyCodeLine{00464\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ zb\_file\_path\_get(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ base\_type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *default\_base);}
+\DoxyCodeLine{00465\ \textcolor{keywordtype}{void}\ zb\_file\_path\_get\_with\_postfix(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ base\_type,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *default\_base,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *postfix,\ \textcolor{keywordtype}{char}\ *file\_path);}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\#define\ ZB\_FILE\_PATH\_GET(base\_type,\ default\_base)\ \(\backslash\)}}
+\DoxyCodeLine{00467\ \textcolor{preprocessor}{\ \ zb\_file\_path\_get(base\_type,\ default\_base)}}
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\#define\ ZB\_FILE\_PATH\_GET\_WITH\_POSTFIX(base\_type,\ default\_base,\ postfix,\ file\_path)\ \(\backslash\)}}
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\ \ zb\_file\_path\_get\_with\_postfix(base\_type,\ default\_base,\ postfix,\ file\_path)}}
+\DoxyCodeLine{00470\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00471\ \textcolor{preprocessor}{\#define\ ZB\_FILE\_PATH\_GET(base\_type,\ default\_base)\ default\_base}}
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\#define\ ZB\_FILE\_PATH\_GET\_WITH\_POSTFIX(base\_type,\ default\_base,\ postfix,\ file\_path)\ \(\backslash\)}}
+\DoxyCodeLine{00473\ \textcolor{preprocessor}{\ \ \{\ \(\backslash\)}}
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\ \ \ \ zb\_uint\_t\ sn\_ret;\ \(\backslash\)}}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\ \ \ \ sn\_ret\ =\ snprintf(file\_path,\ ZB\_MAX\_FILE\_PATH\_SIZE,\ "{}\%s"{},\ (default\_base\ postfix));\ \(\backslash\)}}
+\DoxyCodeLine{00476\ \textcolor{preprocessor}{\ \ \ \ ZB\_ASSERT(sn\_ret\ >\ 0);\ \(\backslash\)}}
+\DoxyCodeLine{00477\ \textcolor{preprocessor}{\ \ \ \ ZB\_ASSERT(sn\_ret\ <\ ZB\_MAX\_FILE\_PATH\_SIZE);\ \(\backslash\)}}
+\DoxyCodeLine{00478\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_FILE\_PATH\_MGMNT\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \textcolor{preprocessor}{\#ifdef\ ZB\_USE\_LOGFILE\_ROTATE}}
+\DoxyCodeLine{00482\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_osif\_get\_max\_logfile\_size(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00483\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_set\_max\_logfile\_size(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ val);}
+\DoxyCodeLine{00484\ }
+\DoxyCodeLine{00485\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_osif\_get\_max\_logfiles\_count(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00486\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_set\_max\_logfiles\_count(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ val);}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_file\_rotate(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *file\_path,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *file\_name);}
+\DoxyCodeLine{00489\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_USE\_LOGFILE\_ROTATE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00490\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_HAVE\_FILE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00494\ }
+\DoxyCodeLine{00498\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__zb__platform_gabcf4e45985ae18ec904a789a969df9e7}{zb\_reset}}(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00508\ \textcolor{preprocessor}{\#define\ ZB\_RESET\_SRC\_POWER\_ON\ \ \ 0U}}
+\DoxyCodeLine{00509\ \textcolor{preprocessor}{\#define\ ZB\_RESET\_SRC\_SW\_RESET\ \ \ 1U}}
+\DoxyCodeLine{00510\ \textcolor{preprocessor}{\#define\ ZB\_RESET\_SRC\_RESET\_PIN\ \ 2U}}
+\DoxyCodeLine{00511\ \textcolor{preprocessor}{\#define\ ZB\_RESET\_SRC\_BROWN\_OUT\ \ 3U}}
+\DoxyCodeLine{00512\ \textcolor{preprocessor}{\#define\ ZB\_RESET\_SRC\_CLOCK\_LOSS\ 4U}}
+\DoxyCodeLine{00513\ \textcolor{preprocessor}{\#define\ ZB\_RESET\_SRC\_OTHER\ \ \ \ \ \ 5U}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00521\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ \mbox{\hyperlink{group__zb__platform_ga126105656dfb0ed41307104a445730f2}{zb\_get\_reset\_source}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00525\ \textcolor{preprocessor}{\#if\ defined\ ZB\_USE\_NVRAM\ ||\ defined\ DOXYGEN}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00529\ \textcolor{keywordtype}{void}\ zb\_osif\_nvram\_init(\textcolor{keyword}{const}\ \mbox{\hyperlink{group__base__types_ga29dac05f689954d30186e09978d71609}{zb\_char\_t}}\ *name);}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00535\ \textcolor{keywordtype}{void}\ zb\_osif\_nvram\_deinit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00542\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_get\_nvram\_page\_length(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00549\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ zb\_get\_nvram\_page\_count(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00561\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_nvram\_read\_memory(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ address,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ len,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf);}
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00574\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_nvram\_read(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ pos,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ len\ );}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00589\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_nvram\_read\_test(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ pos,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ len\ );}
+\DoxyCodeLine{00590\ }
+\DoxyCodeLine{00602\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_nvram\_write(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ pos,\ \textcolor{keywordtype}{void}\ *buf,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ len\ );}
+\DoxyCodeLine{00603\ }
+\DoxyCodeLine{00614\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_nvram\_write\_memory(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ address,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ len,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buf);}
+\DoxyCodeLine{00615\ }
+\DoxyCodeLine{00624\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_nvram\_erase\_memory(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ address,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ len);}
+\DoxyCodeLine{00625\ }
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00635\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_nvram\_erase\_async(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ page);}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00637\ \textcolor{keywordtype}{void}\ zb\_osif\_nvram\_wait\_for\_last\_op(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00638\ }
+\DoxyCodeLine{00645\ \textcolor{keywordtype}{void}\ zb\_osif\_nvram\_flush(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00647\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00648\ }
+\DoxyCodeLine{00649\ \textcolor{preprocessor}{\#ifdef\ ZB\_USE\_OSIF\_OTA\_ROUTINES}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00665\ \textcolor{preprocessor}{\#define\ OTA\_UPGRADE\_HEADING\_DATA\ \(\backslash\)}}
+\DoxyCodeLine{00666\ \textcolor{preprocessor}{\ \ (sizeof(zb\_zcl\_ota\_upgrade\_file\_header\_t)\ +\ 2\ }\textcolor{comment}{/*\ fw\ tag\ Id\ */}\textcolor{preprocessor}{\ +\ 4\ }\textcolor{comment}{/*\ fw\ length\ */}\textcolor{preprocessor}{)}}
+\DoxyCodeLine{00667\ }
+\DoxyCodeLine{00673\ \textcolor{preprocessor}{\#define\ OTA\_UPGRADE\_HASH\_SIZE\ 16}}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00680\ \textcolor{preprocessor}{\#define\ OTA\_UPGRADE\_TRAILING\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00681\ \textcolor{preprocessor}{\ \ (2\ }\textcolor{comment}{/*\ hash\ tag\ Id\ */}\textcolor{preprocessor}{\ +\ 4\ }\textcolor{comment}{/*\ hash\ length\ */}\textcolor{preprocessor}{\ +\ OTA\_UPGRADE\_HASH\_SIZE\ }\textcolor{comment}{/*\ Hash\ */}\textcolor{preprocessor}{)}}
+\DoxyCodeLine{00682\ }
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00692\ \textcolor{keywordtype}{void}\ *zb\_osif\_ota\_open\_storage(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00693\ }
+\DoxyCodeLine{00699\ \textcolor{keywordtype}{void}\ zb\_osif\_ota\_close\_storage(\textcolor{keywordtype}{void}\ *dev);}
+\DoxyCodeLine{00700\ }
+\DoxyCodeLine{00711\ \textcolor{keywordtype}{void}\ zb\_osif\_ota\_erase\_fw(\textcolor{keywordtype}{void}\ *dev,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ offset,\ \mbox{\hyperlink{group__base__types_ga0dc85a3fe0739fd92b3af31b935f92de}{zb\_uint\_t}}\ size);}
+\DoxyCodeLine{00712\ }
+\DoxyCodeLine{00718\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_osif\_ota\_get\_erase\_portion(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00731\ \textcolor{keywordtype}{void}\ zb\_osif\_ota\_write(\textcolor{keywordtype}{void}\ *dev,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *data,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ off,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ block\_size,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ image\_size);}
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00742\ \textcolor{keywordtype}{void}\ zb\_osif\_ota\_mark\_fw\_ready(\textcolor{keywordtype}{void}\ *ota\_dev,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ size,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ revision);}
+\DoxyCodeLine{00743\ }
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00750\ \textcolor{keywordtype}{void}\ zb\_osif\_ota\_mark\_fw\_absent(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ }
+\DoxyCodeLine{00759\ \textcolor{keywordtype}{void}\ zb\_osif\_ota\_mark\_fw\_updated(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00760\ }
+\DoxyCodeLine{00768\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_osif\_ota\_verify\_integrity(\textcolor{keywordtype}{void}\ *dev,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ raw\_len);}
+\DoxyCodeLine{00769\ }
+\DoxyCodeLine{00777\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_osif\_ota\_verify\_integrity\_async(\textcolor{keywordtype}{void}\ *dev,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ raw\_len);}
+\DoxyCodeLine{00778\ }
+\DoxyCodeLine{00784\ \textcolor{keywordtype}{void}\ zb\_osif\_ota\_verify\_integrity\_done(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ integrity\_is\_ok);}
+\DoxyCodeLine{00785\ }
+\DoxyCodeLine{00794\ \textcolor{keywordtype}{void}\ zb\_osif\_ota\_read(\textcolor{keywordtype}{void}\ *dev,\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *data,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ addr,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ size);}
+\DoxyCodeLine{00795\ }
+\DoxyCodeLine{00802\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_osif\_ota\_fw\_size\_ok(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ image\_size);}
+\DoxyCodeLine{00803\ }
+\DoxyCodeLine{00812\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *zb\_osif\_ota\_srv\_get\_image(\textcolor{keywordtype}{void}\ *dev,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ offset,\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ len);}
+\DoxyCodeLine{00813\ }
+\DoxyCodeLine{00820\ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *zb\_osif\_ota\_srv\_get\_image\_header(\textcolor{keywordtype}{void}\ *dev);}
+\DoxyCodeLine{00821\ \ \textcolor{comment}{/*\ ota\ */}\ \textcolor{comment}{/*\ ll\ */}}
+\DoxyCodeLine{00824\ }
+\DoxyCodeLine{00825\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_USE\_OSIF\_OTA\_ROUTINES\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00826\ }
+\DoxyCodeLine{00832\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_bootloader\_run\_after\_reboot(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00833\ }
+\DoxyCodeLine{00837\ \textcolor{keywordtype}{void}\ zb\_osif\_bootloader\_report\_successful\_loading(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00838\ }
+\DoxyCodeLine{00839\ }
+\DoxyCodeLine{00840\ \textcolor{preprocessor}{\#if\ defined\ ZB\_PROFILE\_STACK\_USAGE}}
+\DoxyCodeLine{00841\ \textcolor{comment}{/*\ Both\ functions\ are\ platform-\/specific\ */}}
+\DoxyCodeLine{00842\ }
+\DoxyCodeLine{00848\ \textcolor{keywordtype}{void}\ zb\_stack\_profiler\_pre(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00849\ }
+\DoxyCodeLine{00855\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ zb\_stack\_profiler\_usage(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00856\ }
+\DoxyCodeLine{00857\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ ZB\_PROFILE\_STACK\_USAGE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00858\ }
+\DoxyCodeLine{00859\ }
+\DoxyCodeLine{00860\ \textcolor{preprocessor}{\#ifdef\ ZB\_USE\_SLEEP}}
+\DoxyCodeLine{00861\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_osif\_sleep(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ sleep\_tmo);}
+\DoxyCodeLine{00862\ \textcolor{keywordtype}{void}\ zb\_osif\_wake\_up(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00863\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00864\ }
+\DoxyCodeLine{00865\ \textcolor{preprocessor}{\#ifdef\ ZB\_PRODUCTION\_CONFIG}}
+\DoxyCodeLine{00866\ }
+\DoxyCodeLine{00867\ \textcolor{comment}{/*\ Check\ whether\ production\ configuration\ block\ is\ present\ in\ memory\ */}}
+\DoxyCodeLine{00868\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_osif\_prod\_cfg\_check\_presence(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00869\ }
+\DoxyCodeLine{00870\ \textcolor{comment}{/*\ Read\ data\ from\ production\ configuration\ header}}
+\DoxyCodeLine{00871\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00872\ \textcolor{comment}{\ *\ @param\ prod\_cfg\_hdr\ -\/\ pointer\ to\ production\ configuration\ header}}
+\DoxyCodeLine{00873\ \textcolor{comment}{\ *\ @param\ hdr\_len\ -\/\ size\ of\ production\ configuration\ header}}
+\DoxyCodeLine{00874\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00875\ \textcolor{comment}{\ *\ @return\ RET\_OK\ is\ success,\ RET\_ERROR\ otherwise}}
+\DoxyCodeLine{00876\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00877\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_prod\_cfg\_read\_header(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *prod\_cfg\_hdr,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ hdr\_len);}
+\DoxyCodeLine{00878\ }
+\DoxyCodeLine{00879\ \textcolor{comment}{/*\ Read\ data\ from\ production\ configuration\ block}}
+\DoxyCodeLine{00880\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00881\ \textcolor{comment}{\ *\ @param\ buffer\ -\/\ buffer\ to\ read\ into}}
+\DoxyCodeLine{00882\ \textcolor{comment}{\ *\ @param\ len\ -\/\ length\ of\ block\ to\ read}}
+\DoxyCodeLine{00883\ \textcolor{comment}{\ *\ @param\ offset\ -\/\ offset\ to\ read\ from}}
+\DoxyCodeLine{00884\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00885\ \textcolor{comment}{\ *\ @return}}
+\DoxyCodeLine{00886\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00887\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_prod\_cfg\_read(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ *buffer,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ len,\ \mbox{\hyperlink{group__base__types_ga9c6bd81764e3a06f79b17039a921dc99}{zb\_uint16\_t}}\ offset);}
+\DoxyCodeLine{00888\ }
+\DoxyCodeLine{00889\ \textcolor{preprocessor}{\#ifdef\ ZB\_OSIF\_CONFIGURABLE\_TX\_POWER}}
+\DoxyCodeLine{00890\ \textcolor{comment}{/*\ Set\ transmit\ power\ of\ radio\ on\ selected\ channel}}
+\DoxyCodeLine{00891\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00892\ \textcolor{comment}{\ *\ @param\ channel\ -\/\ channel\ on\ which\ radio\ applies\ new\ transmit\ power}}
+\DoxyCodeLine{00893\ \textcolor{comment}{\ *\ @param\ power\ -\/\ transmit\ power\ in\ dBm}}
+\DoxyCodeLine{00894\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00895\ \textcolor{comment}{\ *\ return\ RET\_OK\ if\ power\ was\ set\ successfully,\ RET\_ERROR\ otherwise}}
+\DoxyCodeLine{00896\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00897\ \mbox{\hyperlink{group__base__types_ga7bdda62719777b9e47b1d7204669f897}{zb\_ret\_t}}\ zb\_osif\_set\_transmit\_power(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ channel,\ \mbox{\hyperlink{group__base__types_gaacd0009118f6538be7bc65a004b1b967}{zb\_int8\_t}}\ power);}
+\DoxyCodeLine{00898\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_OSIF\_CONFIGURABLE\_TX\_POWER\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00899\ }
+\DoxyCodeLine{00900\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00902\ \textcolor{comment}{/*\ Wait\ for\ a\ given\ number\ of\ empty\ cycle\ iterations.\ Timeout\ of\ 1\ iteration\ is\ platform-\/specific}}
+\DoxyCodeLine{00903\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00904\ \textcolor{comment}{\ *\ @param\ count\ -\/\ number\ of\ empty\ wait\ cycles}}
+\DoxyCodeLine{00905\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00906\ \textcolor{keywordtype}{void}\ zb\_osif\_busy\_loop\_delay(\mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ count);}
+\DoxyCodeLine{00907\ }
+\DoxyCodeLine{00908\ }
+\DoxyCodeLine{00909\ \textcolor{comment}{/*\ Get\ OSIF\ timer\ counter\ value\ in\ microseconds}}
+\DoxyCodeLine{00910\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00911\ \textcolor{comment}{\ *\ @return\ Timer\ counter\ value\ in\ microseconds}}
+\DoxyCodeLine{00912\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00913\ \mbox{\hyperlink{group__base__types_gae7bea72cb611b7d4f6641c88c4e23b1d}{zb\_uint32\_t}}\ zb\_osif\_get\_timer\_reminder(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00914\ }
+\DoxyCodeLine{00915\ \textcolor{comment}{/*\ Configure\ one\ LED\ to\ be\ dimmable}}
+\DoxyCodeLine{00916\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00917\ \textcolor{comment}{\ *\ @param\ led\_no\ -\/\ Led\ id\ to\ be\ dimmable}}
+\DoxyCodeLine{00918\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00919\ \mbox{\hyperlink{group__base__types_gadaf886a06f921fa559ae42241bf0cdf6}{zb\_bool\_t}}\ zb\_osif\_led\_level\_init(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ led\_no);}
+\DoxyCodeLine{00920\ }
+\DoxyCodeLine{00921\ \textcolor{comment}{/*\ Set\ level\ of\ a\ dimmable\ LED\ (only\ one\ led\ is\ supported)}}
+\DoxyCodeLine{00922\ \textcolor{comment}{\ *\ \ It\ must\ be\ initialized\ first\ with\ zb\_osif\_led\_level\_init(zb\_uint8\_t\ led\_no)}}
+\DoxyCodeLine{00923\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00924\ \textcolor{comment}{\ *\ @param\ level\ -\/\ brightness\ level\ to\ set\ from\ (0\ to\ 255)\ to\ the\ dimmable\ led}}
+\DoxyCodeLine{00925\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00926\ \textcolor{keywordtype}{void}\ zb\_osif\_led\_on\_set\_level(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ level);}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00928\ \textcolor{comment}{/*\ Shut,\ recover\ by\ hard\ reset\ */}}
+\DoxyCodeLine{00929\ ZB\_NORETURN\ \textcolor{keywordtype}{void}\ zb\_osif\_shut\_down(\mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ param);}
+\DoxyCodeLine{00930\ }
+\DoxyCodeLine{00931\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_OSIF\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

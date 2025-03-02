@@ -1,0 +1,31 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/examples/modem\+\_\+psm Directory Reference}
+\hypertarget{dir_e281eac7d8fc69415739a4e91e08f741}{}\label{dir_e281eac7d8fc69415739a4e91e08f741}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/examples/modem\_psm Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/examples/modem\_psm Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_69ad77cb58627e4583639f0f1dfd2ee3}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\hypertarget{README.md_autotoc_md1217}{}\doxysubsection{\texorpdfstring{Overview}{Overview}}\label{README.md_autotoc_md1217}
+This example demonstrates Power Saving Mode(\+PSM) in Sim70\+XX modems along with Deep sleep and Light Sleep modes in esp32. This example enables Power saving mode in Sim70\+XX modem and tries to synchronise the sleep cycle of the modem with esp32. When the modem wakes up from PSM sleep it wakes up the esp32. While the modem is awake esp32 goes to light sleep.
+
+This example is tested on a SIM7080 modem.\hypertarget{README.md_autotoc_md1218}{}\doxysubsection{\texorpdfstring{Supported devices}{Supported devices}}\label{README.md_autotoc_md1218}
+This example is supported only on ESP32, ESP32-\/\+S2 and ESP32-\/\+S3.\hypertarget{README.md_autotoc_md1219}{}\doxysubsection{\texorpdfstring{Configuration}{Configuration}}\label{README.md_autotoc_md1219}
+
+\begin{DoxyItemize}
+\item EXAMPLE\+\_\+\+MODEM\+\_\+\+UART\+\_\+\+TX\+\_\+\+PIN\+: Connect this pin to the UART Tx pin of the modem.
+\item EXAMPLE\+\_\+\+MODEM\+\_\+\+UART\+\_\+\+RX\+\_\+\+PIN\+: Connect this pin to the UART Rx pin of the modem.
+\item EXAMPLE\+\_\+\+MODEM\+\_\+\+PWRKEY\+\_\+\+PIN\+: Connect this pin to the PWRKEY pin of the modem.
+\item EXAMPLE\+\_\+\+MODEM\+\_\+\+STATUS\+\_\+\+PIN\+: Connect this pin to the Status pin of the modem.
+
+The status pin might not be exposed on a modem. It needs to tapped out from the LED indicator marked as STS.
+\item EXAMPLE\+\_\+\+MODEM\+\_\+\+LIGHT\+\_\+\+SLEEP\+\_\+\+DURATION\+: Duration for which the esp32 will go into light sleep, while the modem is awake.
+
+If the esp32 goes into deep sleep while the modem is awake, esp32 will be awaken by the STATUS pin. So it\textquotesingle{}s recommended to go to light sleep while the modem is awake.
+\item EXAMPLE\+\_\+\+MODEM\+\_\+\+T3412\+\_\+\+PERIODIC\+\_\+\+TAU\+: T3412 timer is the duration of one awake and sleep cycle of the modem in PSM.
+\item EXAMPLE\+\_\+\+MODEM\+\_\+\+T3324\+\_\+\+ACTIVE\+\_\+\+TIME\+: T3324 timer is the duration for which the modem stays PSM.
+
+The timeout information is coded in bit format for T3412 and T3324 timer. 
+\end{DoxyItemize}

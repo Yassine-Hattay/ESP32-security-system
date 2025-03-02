@@ -1,0 +1,46 @@
+\doxysection{esp\+\_\+modem\+\_\+command\+\_\+library.\+hpp}
+\hypertarget{esp__modem__command__library_8hpp_source}{}\label{esp__modem__command__library_8hpp_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_command\_library.hpp@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_modem/include/cxx\_include/esp\_modem\_command\_library.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}esp\_modem\_dte.hpp"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}esp\_modem\_dce\_module.hpp"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}esp\_modem\_types.hpp"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}generate/esp\_modem\_command\_declare.inc"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{namespace\ }esp\_modem\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{namespace\ }dce\_commands\ \{}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00034\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___c_o_m_m_a_n_d_gaddb55985530f5be976cf932dca58b9a8}{generic\_command}}(CommandableIf\ *t,\ \textcolor{keyword}{const}\ std::string\ \&command,}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&pass\_phrase,}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \&fail\_phrase,\ uint32\_t\ timeout\_ms);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ESP\_MODEM\_DECLARE\_DCE\_COMMAND(name,\ return\_type,\ num,\ ...)\ \(\backslash\)}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\_type\ name(CommandableIf\ *t,\ \#\#\ \_\_VA\_ARGS\_\_);}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ DECLARE\_ALL\_COMMAND\_APIS(declare\ name(Commandable\ *p,\ ...);)}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \#undef\ ESP\_MODEM\_DECLARE\_DCE\_COMMAND}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00051\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___d_c_e___c_o_m_m_a_n_d_gad6b5c22981f8274fbccaaea57c43628c}{get\_battery\_status\_sim7xxx}}(CommandableIf\ *t,\ \textcolor{keywordtype}{int}\ \&voltage,\ \textcolor{keywordtype}{int}\ \&bcs,\ \textcolor{keywordtype}{int}\ \&bcl);}
+\DoxyCodeLine{00052\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ set\_gnss\_power\_mode\_sim76xx(CommandableIf\ *t,\ \textcolor{keywordtype}{int}\ mode);}
+\DoxyCodeLine{00053\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ power\_down\_sim76xx(CommandableIf\ *t);}
+\DoxyCodeLine{00054\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ power\_down\_sim70xx(CommandableIf\ *t);}
+\DoxyCodeLine{00055\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ set\_network\_bands\_sim76xx(CommandableIf\ *t,\ \textcolor{keyword}{const}\ std::string\ \&mode,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ *bands,\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{00056\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ power\_down\_sim8xx(CommandableIf\ *t);}
+\DoxyCodeLine{00057\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ set\_data\_mode\_alt(CommandableIf\ *t);}
+\DoxyCodeLine{00058\ \mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\_result}}\ set\_pdp\_context(CommandableIf\ *t,\ PdpContext\ \&pdp,\ uint32\_t\ timeout\_ms);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \}\ \textcolor{comment}{//\ dce\_commands}}
+\DoxyCodeLine{00065\ \}\ \textcolor{comment}{//\ esp\_modem}}
+
+\end{DoxyCode}

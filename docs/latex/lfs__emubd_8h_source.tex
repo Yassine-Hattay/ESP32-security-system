@@ -1,0 +1,248 @@
+\doxysection{lfs\+\_\+emubd.\+h}
+\hypertarget{lfs__emubd_8h_source}{}\label{lfs__emubd_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/bd/lfs\_emubd.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/joltwallet\_\_littlefs/src/littlefs/bd/lfs\_emubd.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Emulating\ block\ device,\ wraps\ filebd\ and\ rambd\ while\ providing\ a\ bunch}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ of\ hooks\ for\ testing\ littlefs\ in\ various\ conditions.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2022,\ The\ littlefs\ authors.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2017,\ Arm\ Limited.\ All\ rights\ reserved.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ BSD-\/3-\/Clause}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ LFS\_EMUBD\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ LFS\_EMUBD\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}lfs.h"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}lfs\_util.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}bd/lfs\_rambd.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}bd/lfs\_filebd.h"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ Block\ device\ specific\ tracing}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#ifndef\ LFS\_EMUBD\_TRACE}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifdef\ LFS\_EMUBD\_YES\_TRACE}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ LFS\_EMUBD\_TRACE(...)\ LFS\_TRACE(\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ LFS\_EMUBD\_TRACE(...)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ Mode\ determining\ how\ "{}bad-\/blocks"{}\ behave\ during\ testing.\ This\ simulates}}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ some\ real-\/world\ circumstances\ such\ as\ progs\ not\ sticking\ (prog-\/noop),}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ a\ readonly\ disk\ (erase-\/noop),\ and\ ECC\ failures\ (read-\/error).}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ Not\ that\ read-\/noop\ is\ not\ allowed.\ Read\ \_must\_\ return\ a\ consistent\ (but}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ may\ be\ arbitrary)\ value\ on\ every\ read.}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ lfs\_emubd\_badblock\_behavior\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ LFS\_EMUBD\_BADBLOCK\_PROGERROR\ \ =\ 0,\ \textcolor{comment}{//\ Error\ on\ prog}}
+\DoxyCodeLine{00040\ \ \ \ \ LFS\_EMUBD\_BADBLOCK\_ERASEERROR\ =\ 1,\ \textcolor{comment}{//\ Error\ on\ erase}}
+\DoxyCodeLine{00041\ \ \ \ \ LFS\_EMUBD\_BADBLOCK\_READERROR\ \ =\ 2,\ \textcolor{comment}{//\ Error\ on\ read}}
+\DoxyCodeLine{00042\ \ \ \ \ LFS\_EMUBD\_BADBLOCK\_PROGNOOP\ \ \ =\ 3,\ \textcolor{comment}{//\ Prog\ does\ nothing\ silently}}
+\DoxyCodeLine{00043\ \ \ \ \ LFS\_EMUBD\_BADBLOCK\_ERASENOOP\ \ =\ 4,\ \textcolor{comment}{//\ Erase\ does\ nothing\ silently}}
+\DoxyCodeLine{00044\ \}\ lfs\_emubd\_badblock\_behavior\_t;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ Mode\ determining\ how\ power-\/loss\ behaves\ during\ testing.\ For\ now\ this}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ only\ supports\ a\ noop\ behavior,\ leaving\ the\ data\ on-\/disk\ untouched.}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ lfs\_emubd\_powerloss\_behavior\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ LFS\_EMUBD\_POWERLOSS\_NOOP\ =\ 0,\ \textcolor{comment}{//\ Progs\ are\ atomic}}
+\DoxyCodeLine{00050\ \ \ \ \ LFS\_EMUBD\_POWERLOSS\_OOO\ \ =\ 1,\ \textcolor{comment}{//\ Blocks\ are\ written\ out-\/of-\/order}}
+\DoxyCodeLine{00051\ \}\ lfs\_emubd\_powerloss\_behavior\_t;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ Type\ for\ measuring\ read/program/erase\ operations}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{typedef}\ uint64\_t\ lfs\_emubd\_io\_t;}
+\DoxyCodeLine{00055\ \textcolor{keyword}{typedef}\ int64\_t\ lfs\_emubd\_sio\_t;}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ Type\ for\ measuring\ wear}}
+\DoxyCodeLine{00058\ \textcolor{keyword}{typedef}\ uint32\_t\ lfs\_emubd\_wear\_t;}
+\DoxyCodeLine{00059\ \textcolor{keyword}{typedef}\ int32\_t\ lfs\_emubd\_swear\_t;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ Type\ for\ tracking\ power-\/cycles}}
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ uint32\_t\ lfs\_emubd\_powercycles\_t;}
+\DoxyCodeLine{00063\ \textcolor{keyword}{typedef}\ int32\_t\ lfs\_emubd\_spowercycles\_t;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ Type\ for\ delays\ in\ nanoseconds}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ uint64\_t\ lfs\_emubd\_sleep\_t;}
+\DoxyCodeLine{00067\ \textcolor{keyword}{typedef}\ int64\_t\ lfs\_emubd\_ssleep\_t;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ emubd\ config,\ this\ is\ required\ for\ testing}}
+\DoxyCodeLine{00070\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__emubd__config}{lfs\_emubd\_config}}\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ Minimum\ size\ of\ a\ read\ operation\ in\ bytes.}}
+\DoxyCodeLine{00072\ \ \ \ \ lfs\_size\_t\ read\_size;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ Minimum\ size\ of\ a\ program\ operation\ in\ bytes.}}
+\DoxyCodeLine{00075\ \ \ \ \ lfs\_size\_t\ prog\_size;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ Size\ of\ an\ erase\ operation\ in\ bytes.}}
+\DoxyCodeLine{00078\ \ \ \ \ lfs\_size\_t\ erase\_size;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ erase\ blocks\ on\ the\ device.}}
+\DoxyCodeLine{00081\ \ \ \ \ lfs\_size\_t\ erase\_count;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ 8-\/bit\ erase\ value\ to\ use\ for\ simulating\ erases.\ -\/1\ does\ not\ simulate}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ erases,\ which\ can\ speed\ up\ testing\ by\ avoiding\ the\ extra\ block-\/device}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ operations\ to\ store\ the\ erase\ value.}}
+\DoxyCodeLine{00086\ \ \ \ \ int32\_t\ erase\_value;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ erase\ cycles\ before\ a\ block\ becomes\ "{}bad"{}.\ The\ exact\ behavior}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{comment}{//\ of\ bad\ blocks\ is\ controlled\ by\ badblock\_behavior.}}
+\DoxyCodeLine{00090\ \ \ \ \ uint32\_t\ erase\_cycles;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//\ The\ mode\ determining\ how\ bad-\/blocks\ fail}}
+\DoxyCodeLine{00093\ \ \ \ \ lfs\_emubd\_badblock\_behavior\_t\ badblock\_behavior;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ write\ operations\ (erase/prog)\ before\ triggering\ a\ power-\/loss.}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{//\ power\_cycles=0\ disables\ this.\ The\ exact\ behavior\ of\ power-\/loss\ is}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{comment}{//\ controlled\ by\ a\ combination\ of\ powerloss\_behavior\ and\ powerloss\_cb.}}
+\DoxyCodeLine{00098\ \ \ \ \ lfs\_emubd\_powercycles\_t\ power\_cycles;}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{comment}{//\ The\ mode\ determining\ how\ power-\/loss\ affects\ disk}}
+\DoxyCodeLine{00101\ \ \ \ \ lfs\_emubd\_powerloss\_behavior\_t\ powerloss\_behavior;}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{comment}{//\ Function\ to\ call\ to\ emulate\ power-\/loss.\ The\ exact\ behavior\ of\ power-\/loss}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ is\ up\ to\ the\ runner\ to\ provide.}}
+\DoxyCodeLine{00105\ \ \ \ \ void\ (*powerloss\_cb)(\textcolor{keywordtype}{void}*);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{comment}{//\ Data\ for\ power-\/loss\ callback}}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ *powerloss\_data;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{comment}{//\ True\ to\ track\ when\ power-\/loss\ could\ have\ occured.\ Note\ this\ involves\ }}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{comment}{//\ heavy\ memory\ usage!}}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{bool}\ track\_branches;}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{//\ Path\ to\ file\ to\ use\ as\ a\ mirror\ of\ the\ disk.\ This\ provides\ a\ way\ to\ view}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{comment}{//\ the\ current\ state\ of\ the\ block\ device.}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *disk\_path;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{//\ Artificial\ delay\ in\ nanoseconds,\ there\ is\ no\ purpose\ for\ this\ other}}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{comment}{//\ than\ slowing\ down\ the\ simulation.}}
+\DoxyCodeLine{00120\ \ \ \ \ lfs\_emubd\_sleep\_t\ read\_sleep;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//\ Artificial\ delay\ in\ nanoseconds,\ there\ is\ no\ purpose\ for\ this\ other}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ than\ slowing\ down\ the\ simulation.}}
+\DoxyCodeLine{00124\ \ \ \ \ lfs\_emubd\_sleep\_t\ prog\_sleep;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ Artificial\ delay\ in\ nanoseconds,\ there\ is\ no\ purpose\ for\ this\ other}}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{comment}{//\ than\ slowing\ down\ the\ simulation.}}
+\DoxyCodeLine{00128\ \ \ \ \ lfs\_emubd\_sleep\_t\ erase\_sleep;}
+\DoxyCodeLine{00129\ \};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ A\ reference\ counted\ block}}
+\DoxyCodeLine{00132\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__emubd__block}{lfs\_emubd\_block}}\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ uint32\_t\ rc;}
+\DoxyCodeLine{00134\ \ \ \ \ lfs\_emubd\_wear\_t\ wear;}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ uint8\_t\ data[];}
+\DoxyCodeLine{00137\ \}\ lfs\_emubd\_block\_t;}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ Disk\ mirror}}
+\DoxyCodeLine{00140\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__emubd__disk}{lfs\_emubd\_disk}}\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ uint32\_t\ rc;}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{int}\ fd;}
+\DoxyCodeLine{00143\ \ \ \ \ uint8\_t\ *scratch;}
+\DoxyCodeLine{00144\ \}\ lfs\_emubd\_disk\_t;}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{comment}{//\ emubd\ state}}
+\DoxyCodeLine{00147\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__emubd}{lfs\_emubd}}\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{comment}{//\ array\ of\ copy-\/on-\/write\ blocks}}
+\DoxyCodeLine{00149\ \ \ \ \ lfs\_emubd\_block\_t\ **blocks;}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{comment}{//\ some\ other\ test\ state}}
+\DoxyCodeLine{00152\ \ \ \ \ lfs\_emubd\_io\_t\ readed;}
+\DoxyCodeLine{00153\ \ \ \ \ lfs\_emubd\_io\_t\ proged;}
+\DoxyCodeLine{00154\ \ \ \ \ lfs\_emubd\_io\_t\ erased;}
+\DoxyCodeLine{00155\ \ \ \ \ lfs\_emubd\_powercycles\_t\ power\_cycles;}
+\DoxyCodeLine{00156\ \ \ \ \ lfs\_ssize\_t\ ooo\_block;}
+\DoxyCodeLine{00157\ \ \ \ \ lfs\_emubd\_block\_t\ *ooo\_data;}
+\DoxyCodeLine{00158\ \ \ \ \ lfs\_emubd\_disk\_t\ *disk;}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlfs__emubd__config}{lfs\_emubd\_config}}\ *cfg;}
+\DoxyCodeLine{00161\ \}\ lfs\_emubd\_t;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ Create\ an\ emulating\ block\ device\ using\ the\ geometry\ in\ lfs\_config}}
+\DoxyCodeLine{00167\ \textcolor{keywordtype}{int}\ lfs\_emubd\_create(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__emubd__config}{lfs\_emubd\_config}}\ *bdcfg);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{comment}{//\ Clean\ up\ memory\ associated\ with\ block\ device}}
+\DoxyCodeLine{00171\ \textcolor{keywordtype}{int}\ lfs\_emubd\_destroy(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{comment}{//\ Read\ a\ block}}
+\DoxyCodeLine{00174\ \textcolor{keywordtype}{int}\ lfs\_emubd\_read(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_block\_t\ block,}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ lfs\_off\_t\ off,\ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{comment}{//\ Program\ a\ block}}
+\DoxyCodeLine{00178\ \textcolor{comment}{//}}
+\DoxyCodeLine{00179\ \textcolor{comment}{//\ The\ block\ must\ have\ previously\ been\ erased.}}
+\DoxyCodeLine{00180\ \textcolor{keywordtype}{int}\ lfs\_emubd\_prog(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_block\_t\ block,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ lfs\_off\_t\ off,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}\ *buffer,\ lfs\_size\_t\ size);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{comment}{//\ Erase\ a\ block}}
+\DoxyCodeLine{00184\ \textcolor{comment}{//}}
+\DoxyCodeLine{00185\ \textcolor{comment}{//\ A\ block\ must\ be\ erased\ before\ being\ programmed.\ The}}
+\DoxyCodeLine{00186\ \textcolor{comment}{//\ state\ of\ an\ erased\ block\ is\ undefined.}}
+\DoxyCodeLine{00187\ \textcolor{keywordtype}{int}\ lfs\_emubd\_erase(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_block\_t\ block);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \textcolor{comment}{//\ Sync\ the\ block\ device}}
+\DoxyCodeLine{00190\ \textcolor{keywordtype}{int}\ lfs\_emubd\_sync(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{comment}{//\ A\ CRC\ of\ a\ block\ for\ debugging\ purposes}}
+\DoxyCodeLine{00196\ \textcolor{keywordtype}{int}\ lfs\_emubd\_crc(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ lfs\_block\_t\ block,\ uint32\_t\ *crc);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{comment}{//\ A\ CRC\ of\ the\ entire\ block\ device\ for\ debugging\ purposes}}
+\DoxyCodeLine{00200\ \textcolor{keywordtype}{int}\ lfs\_emubd\_bdcrc(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ uint32\_t\ *crc);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \textcolor{comment}{//\ Get\ total\ amount\ of\ bytes\ read}}
+\DoxyCodeLine{00203\ lfs\_emubd\_sio\_t\ lfs\_emubd\_readed(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{comment}{//\ Get\ total\ amount\ of\ bytes\ programmed}}
+\DoxyCodeLine{00206\ lfs\_emubd\_sio\_t\ lfs\_emubd\_proged(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00207\ }
+\DoxyCodeLine{00208\ \textcolor{comment}{//\ Get\ total\ amount\ of\ bytes\ erased}}
+\DoxyCodeLine{00209\ lfs\_emubd\_sio\_t\ lfs\_emubd\_erased(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{comment}{//\ Manually\ set\ amount\ of\ bytes\ read}}
+\DoxyCodeLine{00212\ \textcolor{keywordtype}{int}\ lfs\_emubd\_setreaded(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_emubd\_io\_t\ readed);}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ Manually\ set\ amount\ of\ bytes\ programmed}}
+\DoxyCodeLine{00215\ \textcolor{keywordtype}{int}\ lfs\_emubd\_setproged(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_emubd\_io\_t\ proged);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \textcolor{comment}{//\ Manually\ set\ amount\ of\ bytes\ erased}}
+\DoxyCodeLine{00218\ \textcolor{keywordtype}{int}\ lfs\_emubd\_seterased(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_emubd\_io\_t\ erased);}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{comment}{//\ Get\ simulated\ wear\ on\ a\ given\ block}}
+\DoxyCodeLine{00221\ lfs\_emubd\_swear\_t\ lfs\_emubd\_wear(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ lfs\_block\_t\ block);}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{comment}{//\ Manually\ set\ simulated\ wear\ on\ a\ given\ block}}
+\DoxyCodeLine{00225\ \textcolor{keywordtype}{int}\ lfs\_emubd\_setwear(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ lfs\_block\_t\ block,\ lfs\_emubd\_wear\_t\ wear);}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \textcolor{comment}{//\ Get\ the\ remaining\ power-\/cycles}}
+\DoxyCodeLine{00229\ lfs\_emubd\_spowercycles\_t\ lfs\_emubd\_powercycles(}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \textcolor{comment}{//\ Manually\ set\ the\ remaining\ power-\/cycles}}
+\DoxyCodeLine{00233\ \textcolor{keywordtype}{int}\ lfs\_emubd\_setpowercycles(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ lfs\_emubd\_powercycles\_t\ power\_cycles);}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \textcolor{comment}{//\ Create\ a\ copy-\/on-\/write\ copy\ of\ the\ state\ of\ this\ block\ device}}
+\DoxyCodeLine{00237\ \textcolor{keywordtype}{int}\ lfs\_emubd\_copy(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \mbox{\hyperlink{structlfs__config}{lfs\_config}}\ *cfg,\ lfs\_emubd\_t\ *copy);}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00241\ \}\ \textcolor{comment}{/*\ extern\ "{}C"{}\ */}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

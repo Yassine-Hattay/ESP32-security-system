@@ -1,0 +1,99 @@
+\doxysection{ekf.\+h}
+\hypertarget{ekf_8h_source}{}\label{ekf_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/kalman/ekf/include/ekf.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/modules/kalman/ekf/include/ekf.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2020-\/2021\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#ifndef\ \_ekf\_h\_}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ \_ekf\_h\_}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <mat.h>}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classekf_a48b8f056f76ddf4a0d3520cc4ef8bade}{ekf}}\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classekf_a48b8f056f76ddf4a0d3520cc4ef8bade}{ekf}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ w);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classekf_a53310949764a49b3bcd3308a61035ea6}{\string~ekf}}();}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf_a42ee022dba96611bf76d0d29bf964323}{Process}}(\textcolor{keywordtype}{float}\ *u,\ \textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf_ace6dffc4003cb67f3021d7cb4e884c82}{Init}}()\ =\ 0;}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classekf_a672e2e271d7379a892ae554bc85bb501}{NUMX}};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classekf_a0ab2d70220897d9d46c69779a7b328b3}{NUMW}};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&\mbox{\hyperlink{classekf_aafa437baa4fffcaf7f23a208b5f3c0ef}{X}};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&\mbox{\hyperlink{classekf_a398d5183c29186005345fcd8c64527c6}{F}};}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&\mbox{\hyperlink{classekf_a74b97ee7d2233618504b3e75f63590f7}{G}};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&\mbox{\hyperlink{classekf_ad3322abbbf7592fb5bd465f77852d1ca}{P}};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&\mbox{\hyperlink{classekf_abff61d16eab399042a4812117ca2834d}{Q}};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf_a8f28807c86b11b95cc95bd514e65ea61}{RungeKutta}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&x,\ \textcolor{keywordtype}{float}\ *u,\ \textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ System\ Dependent\ methods:}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_a09a763aeb193404116274d2885c42172}{StateXdot}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&x,\ \textcolor{keywordtype}{float}\ *u);}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf_a21cccadc5b6e3150a55b8964526e206f}{LinearizeFG}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&x,\ \textcolor{keywordtype}{float}\ *u)\ =\ 0;}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{comment}{//\ System\ independent\ methods}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf_a6588ad6c3eae0d1a177b35ea75b5a4f3}{CovariancePrediction}}(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf_a7df41e0ecb82824766219aa5f9b0baef}{Update}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&H,\ \textcolor{keywordtype}{float}\ *measured,\ \textcolor{keywordtype}{float}\ *expected,\ \textcolor{keywordtype}{float}\ *R);}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classekf_abd6f35d1ea69828aa0f757762fac9498}{UpdateRef}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&H,\ \textcolor{keywordtype}{float}\ *measured,\ \textcolor{keywordtype}{float}\ *expected,\ \textcolor{keywordtype}{float}\ *R);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{float}\ *\mbox{\hyperlink{classekf_a5cc7771e316d6688d793eb577ef7233f}{HP}};}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{float}\ *\mbox{\hyperlink{classekf_ae2753a0e5f01f1aaab26f845bf285f94}{Km}};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{comment}{//\ Additional\ universal\ helper\ methods}}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_a535f152864f2732a9888d4f959bd21fa}{quat2rotm}}(\textcolor{keywordtype}{float}\ q[4]);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_a148bfefd351013bb66d84b160ce31ee3}{rotm2quat}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&R);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_aabe55260916190d327990bcb152b4c00}{quat2eul}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ q[4]);}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_a6e279ffd67d217145d7891a44ea0d9e8}{eul2rotm}}(\textcolor{keywordtype}{float}\ xyz[3]);}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_a744bf24c20081158a4327aba7d922547}{rotm2eul}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&rotm);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_a17fb9f1cd3507611560518882bc530fe}{dFdq}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&vector,\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&quat);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_a3affa0048058ee2485dcb28d718be907}{dFdq\_inv}}(\mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&vector,\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \&quat);}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_aeca3bb4b4c62c2e5aa7728abb652d7b5}{SkewSym4x4}}(\textcolor{keywordtype}{float}\ *w);}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \ \ \ \ \textcolor{comment}{//\ q\ product}}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{comment}{//\ Rl\ =\ [q(1)\ -\/\ q(2)\ -\/\ q(3)\ -\/\ q(4);\ ...}}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ q(2)\ \ q(1)\ -\/\ q(4)\ \ q(3);\ ...}}
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ q(3)\ \ q(4)\ \ q(1)\ -\/\ q(2);\ ...}}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ q(4)\ -\/\ q(3)\ \ q(2)\ \ q(1);\ ...}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00251\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{classdspm_1_1_mat}{dspm::Mat}}\ \mbox{\hyperlink{classekf_ac8d09350d77dfdc0525b1fd72333fa3e}{qProduct}}(\textcolor{keywordtype}{float}\ *q);}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \};}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_ekf\_h\_}}
+
+\end{DoxyCode}

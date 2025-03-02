@@ -1,0 +1,508 @@
+\doxysection{zb\+\_\+zcl\+\_\+door\+\_\+lock.\+h}
+\hypertarget{zb__zcl__door__lock_8h_source}{}\label{zb__zcl__door__lock_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_door\_lock.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/zboss-\/lib/include/zcl/zb\_zcl\_door\_lock.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2012-\/2022\ DSR\ Corporation,\ Denver\ CO,\ USA}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021-\/2022\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ modification,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ 1.\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ 2.\ Redistributions\ in\ binary\ form,\ except\ as\ embedded\ into\ a\ Espressif\ Systems}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ \ integrated\ circuit\ in\ a\ product\ or\ a\ software\ update\ for\ such\ product,}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ \ must\ reproduce\ the\ above\ copyright\ notice,\ this\ list\ of\ conditions\ and}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ \ the\ following\ disclaimer\ in\ the\ documentation\ and/or\ other\ materials}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ 3.\ Neither\ the\ name\ of\ the\ copyright\ holder\ nor\ the\ names\ of\ its\ contributors}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ \ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ 4.\ Any\ software\ provided\ in\ binary\ form\ under\ this\ license\ must\ not\ be\ reverse}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ \ engineered,\ decompiled,\ modified\ and/or\ disassembled.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{comment}{/*\ PURPOSE:\ DOOR\_LOCK\ cluster\ definitions}}
+\DoxyCodeLine{00039\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#ifndef\ ZB\_ZCL\_DOOR\_LOCK\_H}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_H\ 1}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_common.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}zcl/zb\_zcl\_commands.h"{}}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_attr\_e}
+\DoxyCodeLine{00080\ \{}
+\DoxyCodeLine{00082\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0000,}
+\DoxyCodeLine{00084\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0001,}
+\DoxyCodeLine{00086\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ACTUATOR\_ENABLED\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0002,}
+\DoxyCodeLine{00088\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_DOOR\_STATE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0003,}
+\DoxyCodeLine{00090\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_NUM\_OF\_DOOR\_OPEN\_EVENTS\_ID\ \ \ =\ 0x0004,}
+\DoxyCodeLine{00092\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_NUM\_OF\_DOOR\_CLOSED\_EVENTS\_ID\ =\ 0x0005,}
+\DoxyCodeLine{00094\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_OPEN\_PERIOD\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0006,}
+\DoxyCodeLine{00096\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_NUMBER\_OF\_LOG\_RECORDS\_SUPPORTED\_ID\ \ =\ 0x0010,}
+\DoxyCodeLine{00098\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_NUM\_TOTAL\_USERS\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0011,}
+\DoxyCodeLine{00100\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_NUM\_PIN\_USERS\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0012,}
+\DoxyCodeLine{00102\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_NUMBER\_OF\_RFID\_USERS\_SUPPORTED\_ID\ \ \ =\ 0x0013,}
+\DoxyCodeLine{00104\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_NUM\_WEEK\_DAY\_SCHEDULE\_PER\_USER\_ID\ =\ 0x0014,}
+\DoxyCodeLine{00106\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_NUM\_YEAR\_DAY\_SCHEDULE\_PER\_USER\_ID\ =\ 0x0015,}
+\DoxyCodeLine{00108\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_NUM\_HOLIDAY\_SCHEDULE\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0016,}
+\DoxyCodeLine{00110\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_MAX\_PIN\_LEN\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0017,}
+\DoxyCodeLine{00112\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_MIN\_PIN\_LEN\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0018,}
+\DoxyCodeLine{00115\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_MAX\_RFID\_CODE\_LENGTH\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0019,}
+\DoxyCodeLine{00118\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_MIN\_RFID\_CODE\_LENGTH\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x001A,}
+\DoxyCodeLine{00120\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ENABLE\_LOGGING\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0020,}
+\DoxyCodeLine{00123\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LANGUAGE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0021,}
+\DoxyCodeLine{00125\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LED\_SETTINGS\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0022,}
+\DoxyCodeLine{00128\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_AUTO\_RELOCK\_TIME\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0023,}
+\DoxyCodeLine{00131\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_SOUND\_VOLUME\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0024,}
+\DoxyCodeLine{00133\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_OPERATING\_MODE\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0025,}
+\DoxyCodeLine{00135\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_OPERATION\_MODES\_SUPPORTED\_ID\ \ \ \ \ \ =\ 0x0026,}
+\DoxyCodeLine{00141\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_DEFAULT\_CONFIGURATION\_REGISTER\_ID\ \ \ =\ 0x0027,}
+\DoxyCodeLine{00143\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ENABLE\_LOCAL\_PROGRAMMING\_ID\ \ \ \ \ \ \ =\ 0x0028,}
+\DoxyCodeLine{00146\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ENABLE\_ONE\_TOUCH\_LOCKING\_ID\ \ \ \ \ \ \ \ \ =\ 0x0029,}
+\DoxyCodeLine{00149\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ENABLE\_INSIDE\_STATUS\_LED\_ID\ \ \ \ \ \ \ \ \ =\ 0x002A,}
+\DoxyCodeLine{00152\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ENABLE\_PRIVACY\_MODE\_BUTTON\_ID\ \ \ \ \ \ \ =\ 0x002B,}
+\DoxyCodeLine{00155\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_WRONG\_CODE\_ENTRY\_LIMIT\_ID\ \ \ \ \ \ \ \ \ \ \ =\ 0x0030,}
+\DoxyCodeLine{00157\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_USER\_CODE\_TEMPORARY\_DISABLE\_TIME\_ID\ =\ 0x0031,}
+\DoxyCodeLine{00160\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_SEND\_PIN\_OVER\_THE\_AIR\_ID\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0032,}
+\DoxyCodeLine{00162\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_REQUIRE\_PIN\_RF\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0033,}
+\DoxyCodeLine{00165\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_SECURITY\_LEVEL\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0034,}
+\DoxyCodeLine{00167\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ALARM\_MASK\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0040,}
+\DoxyCodeLine{00169\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_KEYPAD\_OPERATION\_EVENT\_MASK\_ID\ \ \ \ \ \ =\ 0x0041,}
+\DoxyCodeLine{00171\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_RF\_OPERATION\_EVENT\_MASK\_ID\ \ \ \ \ \ \ \ \ \ =\ 0x0042,}
+\DoxyCodeLine{00173\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_MANUAL\_OPERATION\_EVENT\_MASK\_ID\ \ \ \ \ \ =\ 0x0043,}
+\DoxyCodeLine{00175\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_RFID\_OPERATION\_EVENT\_MASK\_ID\ \ \ \ \ \ \ \ =\ 0x0044,}
+\DoxyCodeLine{00177\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_KEYPAD\_PROGRAMMING\_EVENT\_MASK\_ID\ \ \ \ =\ 0x0045,}
+\DoxyCodeLine{00179\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_RF\_PROGRAMMING\_EVENT\_MASK\_ID\ \ \ \ \ \ \ \ =\ 0x0046,}
+\DoxyCodeLine{00181\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_RFID\_PROGRAMMING\_EVENT\_MASK\_ID\ \ \ \ \ \ =\ 0x0047,}
+\DoxyCodeLine{00182\ \};}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00188\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_lock\_state\_e}
+\DoxyCodeLine{00189\ \{}
+\DoxyCodeLine{00191\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_NOT\_FULLY\_LOCKED\ \ =\ 0x00,}
+\DoxyCodeLine{00193\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_LOCKED\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00195\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_UNLOCKED\ \ \ \ \ \ \ \ \ \ =\ 0x02,}
+\DoxyCodeLine{00197\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_UNDEFINED\ \ \ \ \ \ \ \ \ =\ 0xff}
+\DoxyCodeLine{00198\ \};}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_CLUSTER\_REVISION\_DEFAULT\ ((zb\_uint16\_t)0x0003u)}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_DEFAULT\_VALUE\ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_UNDEFINED}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00209\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_lock\_type\_e}
+\DoxyCodeLine{00210\ \{}
+\DoxyCodeLine{00212\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_DEADBOLT\ \ \ \ \ =\ 0x00,}
+\DoxyCodeLine{00214\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_MAGNETIC\ \ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00216\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_OTHER\ \ \ \ \ \ \ \ =\ 0x02,}
+\DoxyCodeLine{00218\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_UNDEFINED\ \ \ \ =\ 0xff}
+\DoxyCodeLine{00219\ \};}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_DEFAULT\_VALUE\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_UNDEFINED}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00227\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_actuator\_enabled\_e}
+\DoxyCodeLine{00228\ \{}
+\DoxyCodeLine{00230\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ACTUATOR\_ENABLED\_DISABLED\ \ =\ 0x0b0,}
+\DoxyCodeLine{00232\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ACTUATOR\_ENABLED\_ENABLED\ \ \ =\ 0x0b1}
+\DoxyCodeLine{00233\ \};}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ACTUATOR\_ENABLED\_DEFAULT\_VALUE\ \(\backslash\)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ACTUATOR\_ENABLED\_ENABLED}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00242\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_door\_state\_e}
+\DoxyCodeLine{00243\ \{}
+\DoxyCodeLine{00245\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_DOOR\_STATE\_OPEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,}
+\DoxyCodeLine{00247\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_DOOR\_STATE\_CLOSED\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00249\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_DOOR\_STATE\_ERROR\_JAMMED\ \ \ \ \ \ =\ 0x02,}
+\DoxyCodeLine{00251\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_DOOR\_STATE\_ERROR\_FORCED\_OPEN\ =\ 0x03,}
+\DoxyCodeLine{00253\ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_DOOR\_STATE\_ERROR\_UNSPECIFIED\ =\ 0x04}
+\DoxyCodeLine{00254\ \};}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DECLARE\_DOOR\_LOCK\_ATTRIB\_LIST(attr\_list,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lock\_state,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lock\_type,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ actuator\_enabled)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_START\_DECLARE\_ATTRIB\_LIST\_CLUSTER\_REVISION(attr\_list,\ ZB\_ZCL\_DOOR\_LOCK)\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_ID,\ (lock\_state))\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_ID,\ (lock\_type))\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SET\_ATTR\_DESC(ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ACTUATOR\_ENABLED\_ID,\ (actuator\_enabled))\ \(\backslash\)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_DECLARE\_ATTRIB\_LIST}}
+\DoxyCodeLine{00271\ \ \textcolor{comment}{/*\ Door\ Lock\ cluster\ attributes\ */}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00281\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_cmd\_e}
+\DoxyCodeLine{00282\ \{}
+\DoxyCodeLine{00284\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_LOCK\_DOOR\ \ \ \ \ \ =\ 0x00,}
+\DoxyCodeLine{00286\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_UNLOCK\_DOOR\ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00288\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_TOGGLE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,}
+\DoxyCodeLine{00290\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_UNLOCK\_WITH\_TIMEOUT\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x03,}
+\DoxyCodeLine{00292\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_LOG\_RECORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x04,}
+\DoxyCodeLine{00294\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_PIN\_CODE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x05,}
+\DoxyCodeLine{00296\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_PIN\_CODE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x06,}
+\DoxyCodeLine{00298\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_PIN\_CODE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x07,}
+\DoxyCodeLine{00300\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_ALL\_PIN\_CODES\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x08,}
+\DoxyCodeLine{00302\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_USER\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x09,}
+\DoxyCodeLine{00304\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_USER\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0A,}
+\DoxyCodeLine{00306\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_WEEKDAY\_SCHEDULE\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0B,}
+\DoxyCodeLine{00308\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_WEEKDAY\_SCHEDULE\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0C,}
+\DoxyCodeLine{00310\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_WEEKDAY\_SCHEDULE\ \ \ \ \ \ \ \ \ \ \ =\ 0x0D,}
+\DoxyCodeLine{00312\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_YEAR\_DAY\_SCHEDULE\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0E,}
+\DoxyCodeLine{00314\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_YEAR\_DAY\_SCHEDULE\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0F,}
+\DoxyCodeLine{00316\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_YEAR\_DAY\_SCHEDULE\ \ \ \ \ \ \ \ \ \ =\ 0x10,}
+\DoxyCodeLine{00319\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_HOLIDAY\_SCHEDULE\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x11,}
+\DoxyCodeLine{00321\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_HOLIDAY\_SCHEDULE\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x12,}
+\DoxyCodeLine{00323\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_HOLIDAY\_SCHEDULE\ \ \ \ \ \ \ \ \ \ \ =\ 0x13,}
+\DoxyCodeLine{00325\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_USER\_TYPE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x14,}
+\DoxyCodeLine{00327\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_USER\_TYPE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x15,}
+\DoxyCodeLine{00329\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_RFID\_CODE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x16,}
+\DoxyCodeLine{00331\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_RFID\_CODE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x17,}
+\DoxyCodeLine{00333\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_RFID\_CODE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x18,}
+\DoxyCodeLine{00335\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_ALL\_RFID\_CODES\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x19,}
+\DoxyCodeLine{00336\ \};}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00341\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_cmd\_resp\_e}
+\DoxyCodeLine{00342\ \{}
+\DoxyCodeLine{00344\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_LOCK\_DOOR\_RES\ \ \ \ =\ 0x00,}
+\DoxyCodeLine{00346\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_UNLOCK\_DOOR\_RES\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00348\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_TOGGLE\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x02,}
+\DoxyCodeLine{00351\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_UNLOCK\_WITH\_TIMEOUT\_RESPONSE\ \ \ \ \ =\ 0x03,}
+\DoxyCodeLine{00353\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_LOG\_RECORD\_RESPONSE\ \ \ \ \ \ \ \ \ \ =\ 0x04,}
+\DoxyCodeLine{00355\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_PIN\_CODE\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x05,}
+\DoxyCodeLine{00357\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_PIN\_CODE\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x06,}
+\DoxyCodeLine{00359\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_PIN\_CODE\_RESPONSE\ \ \ \ \ \ \ \ \ \ =\ 0x07,}
+\DoxyCodeLine{00361\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_ALL\_PIN\_CODES\_RESPONSE\ \ \ \ \ =\ 0x08,}
+\DoxyCodeLine{00363\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_USER\_STATUS\_RESPONSE\ \ \ \ \ \ \ \ \ =\ 0x09,}
+\DoxyCodeLine{00365\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_USER\_STATUS\_RESPONSE\ \ \ \ \ \ \ \ \ =\ 0x0A,}
+\DoxyCodeLine{00367\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_WEEKDAY\_SCHEDULE\_RESPONSE\ \ \ \ =\ 0x0B,}
+\DoxyCodeLine{00369\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_WEEKDAY\_SCHEDULE\_RESPONSE\ \ \ \ =\ 0x0C,}
+\DoxyCodeLine{00371\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_WEEKDAY\_SCHEDULE\_RESPONSE\ \ =\ 0x0D,}
+\DoxyCodeLine{00373\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_YEAR\_DAY\_SCHEDULE\_RESPONSE\ \ \ =\ 0x0E,}
+\DoxyCodeLine{00375\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_YEAR\_DAY\_SCHEDULE\_RESPONSE\ \ \ =\ 0x0F,}
+\DoxyCodeLine{00377\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_YEAR\_DAY\_SCHEDULE\_RESPONSE\ =\ 0x10,}
+\DoxyCodeLine{00379\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_HOLIDAY\_SCHEDULE\_RESPONSE\ \ \ \ =\ 0x11,}
+\DoxyCodeLine{00381\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_HOLIDAY\_SCHEDULE\_RESPONSE\ \ \ \ =\ 0x12,}
+\DoxyCodeLine{00383\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_HOLIDAY\_SCHEDULE\_RESPONSE\ \ =\ 0x13,}
+\DoxyCodeLine{00385\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_USER\_TYPE\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ =\ 0x14,}
+\DoxyCodeLine{00387\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_USER\_TYPE\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ =\ 0x15,}
+\DoxyCodeLine{00389\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_SET\_RFID\_CODE\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ =\ 0x16,}
+\DoxyCodeLine{00391\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_GET\_RFID\_CODE\_RESPONSE\ \ \ \ \ \ \ \ \ \ \ =\ 0x17,}
+\DoxyCodeLine{00393\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_RFID\_CODE\_RESPONSE\ \ \ \ \ \ \ \ \ =\ 0x18,}
+\DoxyCodeLine{00395\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_CLEAR\_ALL\_RFID\_CODES\_RESPONSE\ \ \ \ =\ 0x19,}
+\DoxyCodeLine{00398\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_OPERATION\_EVENT\_NOTIFICATION\_ID\ =\ 0x20,}
+\DoxyCodeLine{00401\ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_PROGRAMMING\_EVENT\_NOTIFICATION\ \ \ =\ 0x21,}
+\DoxyCodeLine{00402\ \};}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_operation\_event\_source\_e}
+\DoxyCodeLine{00405\ \{}
+\DoxyCodeLine{00406\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_SOURCE\_KEYPAD\ \ \ \ \ \ \ \ =\ 0x00,}
+\DoxyCodeLine{00407\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_SOURCE\_RF\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00408\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_SOURCE\_MANUAL\ \ \ \ \ \ \ \ =\ 0x02,}
+\DoxyCodeLine{00409\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_SOURCE\_RFID\ \ \ \ \ \ \ \ \ \ =\ 0x03,}
+\DoxyCodeLine{00410\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_SOURCE\_INDETERMINATE\ =\ 0xFF,}
+\DoxyCodeLine{00411\ \};}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00414\ \textcolor{comment}{/*\ Door\ lock\ cluster\ commands\ list\ :\ only\ for\ information\ -\/\ do\ not\ modify\ */}}
+\DoxyCodeLine{00415\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK\_SERVER\_ROLE\_GENERATED\_CMD\_LIST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_LOCK\_DOOR\_RES,\ \ \(\backslash\)}}
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_UNLOCK\_DOOR\_RES}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK\_CLIENT\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK\_SERVER\_ROLE\_GENERATED\_CMD\_LIST}}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_LOCK\_DOOR,\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00423\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_UNLOCK\_DOOR}}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK\_SERVER\_ROLE\_RECEIVED\_CMD\_LIST\ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK\_CLIENT\_ROLE\_GENERATED\_CMD\_LIST}\textcolor{preprocessor}{\ }\textcolor{comment}{/*\ internals\_doc\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00430\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_NUMBER\_OF\_LOG\_RECORDS\_SUPPORTED\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0)}}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00433\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_NUM\_TOTAL\_USERS\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0)}}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00436\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_NUM\_PIN\_USERS\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0)}}
+\DoxyCodeLine{00437\ }
+\DoxyCodeLine{00439\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_NUMBER\_OF\_RFID\_USERS\_SUPPORTED\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0)}}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_NUM\_WEEK\_DAY\_SCHEDULE\_PER\_USER\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0)}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_NUM\_YEAR\_DAY\_SCHEDULE\_PER\_USER\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0)}}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00448\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_NUM\_HOLIDAY\_SCHEDULE\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0)}}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_MAX\_PIN\_LEN\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x08)}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_MIN\_PIN\_LEN\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x04)}}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_MAX\_RFID\_CODE\_LENGTH\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x14)}}
+\DoxyCodeLine{00458\ }
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_MIN\_RFID\_CODE\_LENGTH\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0x08)}}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00463\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_ENABLE\_LOGGING\_DEFAULT\_VALUE\ ((zb\_bool\_t)0)}}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_LANGUAGE\_DEFAULT\_VALUE\ \{0\}}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00469\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_LED\_SETTINGS\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0)}}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_AUTO\_RELOCK\_TIME\_DEFAULT\_VALUE\ ((zb\_uint32\_t)0)}}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_SOUND\_VOLUME\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0)}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00478\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_OPERATING\_MODE\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0)}}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00481\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_MODES\_SUPPORTED\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0001)}}
+\DoxyCodeLine{00482\ }
+\DoxyCodeLine{00484\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_DEFAULT\_CONFIGURATION\_REGISTER\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00487\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_ENABLE\_LOCAL\_PROGRAMMING\_DEFAULT\_VALUE\ ((zb\_bool\_t)0x01)}}
+\DoxyCodeLine{00488\ }
+\DoxyCodeLine{00490\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_ENABLE\_ONE\_TOUCH\_LOCKING\_DEFAULT\_VALUE\ ((zb\_bool\_t)0)}}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00493\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_ENABLE\_INSIDE\_STATUS\_LED\_DEFAULT\_VALUE\ ((zb\_bool\_t)0)}}
+\DoxyCodeLine{00494\ }
+\DoxyCodeLine{00496\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_ENABLE\_PRIVACY\_MODE\_BUTTON\_DEFAULT\_VALUE\ ((zb\_bool\_t)0)}}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00499\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_WRONG\_CODE\_ENTRY\_LIMIT\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0)}}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00502\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_USER\_CODE\_TEMPORARY\_DISABLE\_TIME\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0)}}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00505\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_SEND\_PIN\_OVER\_THE\_AIR\_DEFAULT\_VALUE\ ((zb\_bool\_t)0)}}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00508\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_REQUIRE\_PIN\_RF\_ID\_DEFAULT\_VALUE\ ((zb\_bool\_t)0)}}
+\DoxyCodeLine{00509\ }
+\DoxyCodeLine{00511\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_SECURITY\_LEVEL\_DEFAULT\_VALUE\ ((zb\_uint8\_t)0)}}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00514\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_ALARM\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00517\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_KEYPAD\_OPERATION\_EVENT\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{00518\ }
+\DoxyCodeLine{00520\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_RF\_OPERATION\_EVENT\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{00521\ }
+\DoxyCodeLine{00523\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_MANUAL\_OPERATION\_EVENT\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{00524\ }
+\DoxyCodeLine{00526\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_RFID\_OPERATION\_EVENT\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{00527\ }
+\DoxyCodeLine{00529\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_KEYPAD\_PROGRAMMING\_EVENT\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00532\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_RF\_PROGRAMMING\_EVENT\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00535\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_RFID\_PROGRAMMING\_EVENT\_MASK\_DEFAULT\_VALUE\ ((zb\_uint16\_t)0x0000)}}
+\DoxyCodeLine{00536\ }
+\DoxyCodeLine{00537\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_operation\_event\_code\_e}
+\DoxyCodeLine{00538\ \{}
+\DoxyCodeLine{00539\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_CODE\_UNKNOWN\ \ \ \ \ \ \ =\ 0x00,}
+\DoxyCodeLine{00540\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_CODE\_LOCK\ \ \ \ \ \ \ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00541\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_CODE\_UNLOCK\ \ \ \ \ \ \ \ =\ 0x02,}
+\DoxyCodeLine{00542\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_CODE\_KEY\_LOCK\ \ \ \ \ \ =\ 0x08,}
+\DoxyCodeLine{00543\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_CODE\_KEY\_UNLOCK\ \ \ \ =\ 0x09,}
+\DoxyCodeLine{00544\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_CODE\_MANUAL\_LOCK\ \ \ =\ 0x0D,}
+\DoxyCodeLine{00545\ \ \ ZB\_ZCL\_DOOR\_LOCK\_OPERATION\_EVENT\_CODE\_MANUAL\_UNLOCK\ =\ 0x0E,}
+\DoxyCodeLine{00546\ \};}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_keypad\_operation\_event\_mask\_e}
+\DoxyCodeLine{00549\ \{}
+\DoxyCodeLine{00550\ \ \ ZB\_ZCL\_DOOR\_LOCK\_KEYPAD\_OPERATION\_EVENT\_MASK\_UNKNOWN\ =\ (1l\ <<\ 0),}
+\DoxyCodeLine{00551\ \ \ ZB\_ZCL\_DOOR\_LOCK\_KEYPAD\_OPERATION\_EVENT\_MASK\_LOCK\ \ \ \ =\ (1l\ <<\ 1),}
+\DoxyCodeLine{00552\ \ \ ZB\_ZCL\_DOOR\_LOCK\_KEYPAD\_OPERATION\_EVENT\_MASK\_UNLOCK\ \ =\ (1l\ <<\ 2),}
+\DoxyCodeLine{00553\ \};}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_rf\_operation\_event\_mask\_e}
+\DoxyCodeLine{00556\ \{}
+\DoxyCodeLine{00557\ \ \ ZB\_ZCL\_DOOR\_LOCK\_RF\_OPERATION\_EVENT\_MASK\_UNKNOWN\ =\ (1l\ <<\ 0),}
+\DoxyCodeLine{00558\ \ \ ZB\_ZCL\_DOOR\_LOCK\_RF\_OPERATION\_EVENT\_MASK\_LOCK\ \ \ \ =\ (1l\ <<\ 1),}
+\DoxyCodeLine{00559\ \ \ ZB\_ZCL\_DOOR\_LOCK\_RF\_OPERATION\_EVENT\_MASK\_UNLOCK\ \ =\ (1l\ <<\ 2),}
+\DoxyCodeLine{00560\ \};}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \textcolor{keyword}{enum}\ zb\_zcl\_door\_lock\_manual\_operation\_event\_mask\_e}
+\DoxyCodeLine{00563\ \{}
+\DoxyCodeLine{00564\ \ \ ZB\_ZCL\_DOOR\_LOCK\_MANUAL\_OPERATION\_EVENT\_MASK\_UNKNOWN\ \ \ \ \ \ \ \ \ \ \ =\ (1l\ <<\ 0),}
+\DoxyCodeLine{00565\ \ \ ZB\_ZCL\_DOOR\_LOCK\_MANUAL\_OPERATION\_EVENT\_MASK\_THUMBTURN\_LOCK\ \ \ \ =\ (1l\ <<\ 1),}
+\DoxyCodeLine{00566\ \ \ ZB\_ZCL\_DOOR\_LOCK\_MANUAL\_OPERATION\_EVENT\_MASK\_THUMBTURN\_UNLOCK\ \ =\ (1l\ <<\ 2),}
+\DoxyCodeLine{00567\ \ \ ZB\_ZCL\_DOOR\_LOCK\_MANUAL\_OPERATION\_EVENT\_MASK\_KEY\_LOCK\ \ \ \ \ \ \ \ \ \ =\ (1l\ <<\ 4),}
+\DoxyCodeLine{00568\ \ \ ZB\_ZCL\_DOOR\_LOCK\_MANUAL\_OPERATION\_EVENT\_MASK\_KEY\_UNLOCK\ \ \ \ \ \ \ \ =\ (1l\ <<\ 5),}
+\DoxyCodeLine{00569\ \ \ ZB\_ZCL\_DOOR\_LOCK\_MANUAL\_OPERATION\_EVENT\_MASK\_MANUAL\_LOCK\ \ \ \ \ \ \ =\ (1l\ <<\ 9),}
+\DoxyCodeLine{00570\ \ \ ZB\_ZCL\_DOOR\_LOCK\_MANUAL\_OPERATION\_EVENT\_MASK\_MANUAL\_UNLOCK\ \ \ \ \ =\ (1l\ <<\ 10),}
+\DoxyCodeLine{00571\ \};}
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00583\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_SEND\_LOCK\_DOOR\_REQ(buffer,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00584\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr,\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00585\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr\_mode,\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00586\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00587\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00588\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dis\_default\_resp,\ \(\backslash\)}}
+\DoxyCodeLine{00589\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cb)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00590\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_CMD(\ \ buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00591\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00592\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr\_mode,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00593\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00594\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00595\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_AF\_HA\_PROFILE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00596\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dis\_default\_resp,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00597\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00598\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_LOCK\_DOOR,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00599\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cb)}}
+\DoxyCodeLine{00600\ }
+\DoxyCodeLine{00610\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_SEND\_UNLOCK\_DOOR\_REQ(buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00611\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr,\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00612\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr\_mode,\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00613\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00614\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00615\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dis\_default\_resp,\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00616\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cb)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00617\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_SEND\_CMD(buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00618\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00619\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr\_mode,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00620\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00621\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00622\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_AF\_HA\_PROFILE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00623\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dis\_default\_resp,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00624\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00625\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CMD\_DOOR\_LOCK\_UNLOCK\_DOOR,\ cb)}}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00638\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_SEND\_LOCK\_DOOR\_RES(buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00639\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00640\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr\_mode,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00641\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00642\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00643\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prfl\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00644\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seq\_num,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00645\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ status,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00646\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ aps\_secured)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00647\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00648\ \textcolor{preprocessor}{\ \ zb\_uint8\_t*\ ptr\ =\ ZB\_ZCL\_START\_PACKET(buffer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00649\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_RES\_FRAME\_CONTROL(ptr);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00650\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER(ptr,\ seq\_num,\ ZB\_ZCL\_CMD\_DOOR\_LOCK\_LOCK\_DOOR\_RES);\ \(\backslash\)}}
+\DoxyCodeLine{00651\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(ptr,\ status);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00652\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_N\_SEND\_PACKET\_NEW(buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00653\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00654\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00655\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr\_mode,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00656\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00657\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00658\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prfl\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00659\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00660\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NULL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00661\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ aps\_secured,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00662\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_FALSE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00663\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00664\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00665\ }
+\DoxyCodeLine{00677\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_SEND\_UNLOCK\_DOOR\_RES(buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00678\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00679\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr\_mode,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00680\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00681\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00682\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prfl\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00683\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seq\_num,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00684\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ status,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00685\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ aps\_secured)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00686\ \textcolor{preprocessor}{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00687\ \textcolor{preprocessor}{\ \ zb\_uint8\_t*\ ptr\ =\ ZB\_ZCL\_START\_PACKET(buffer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00688\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_SPECIFIC\_COMMAND\_RES\_FRAME\_CONTROL(ptr);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00689\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_CONSTRUCT\_COMMAND\_HEADER(ptr,\ seq\_num,\ ZB\_ZCL\_CMD\_DOOR\_LOCK\_UNLOCK\_DOOR\_RES);\ \(\backslash\)}}
+\DoxyCodeLine{00690\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_PACKET\_PUT\_DATA8(ptr,\ status);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00691\ \textcolor{preprocessor}{\ \ ZB\_ZCL\_FINISH\_N\_SEND\_PACKET\_NEW(buffer,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00692\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00693\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addr,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00694\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_addr\_mode,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00695\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst\_ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00696\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ep,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00697\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prfl\_id,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00698\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00699\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ NULL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00700\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ aps\_secured,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00701\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ZB\_FALSE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00702\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00703\ \textcolor{preprocessor}{\}}}
+\DoxyCodeLine{00704\ }
+\DoxyCodeLine{00706\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_door\_lock\_read\_lock\_door\_res\_payload\_s}
+\DoxyCodeLine{00707\ \{}
+\DoxyCodeLine{00708\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ status;\ \ \ \ \ \ }
+\DoxyCodeLine{00709\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_door\_lock\_read\_lock\_door\_res\_payload\_t;}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00717\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_READ\_LOCK\_DOOR\_RES(buffer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00718\ \textcolor{preprocessor}{\ \ (\ \ \ (zb\_buf\_len((buffer))\ <\ sizeof(zb\_zcl\_door\_lock\_read\_lock\_door\_res\_payload\_t))\ \ \(\backslash\)}}
+\DoxyCodeLine{00719\ \textcolor{preprocessor}{\ \ \ ?\ \ NULL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00720\ \textcolor{preprocessor}{\ \ \ :\ (zb\_zcl\_door\_lock\_read\_lock\_door\_res\_payload\_t*)zb\_buf\_begin((buffer)))}}
+\DoxyCodeLine{00721\ }
+\DoxyCodeLine{00723\ \textcolor{keyword}{typedef}\ ZB\_PACKED\_PRE\ \textcolor{keyword}{struct\ }zb\_zcl\_door\_lock\_read\_unlock\_door\_res\_payload\_s}
+\DoxyCodeLine{00724\ \{}
+\DoxyCodeLine{00725\ \ \ \mbox{\hyperlink{group__base__types_gab70639e9bf73b53fe4a24b8fd4467082}{zb\_uint8\_t}}\ status;\ \ \ \ \ \ }
+\DoxyCodeLine{00726\ \}\ ZB\_PACKED\_STRUCT\ zb\_zcl\_door\_lock\_read\_unlock\_door\_res\_payload\_t;}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00735\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_READ\_UNLOCK\_DOOR\_RES(buffer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00736\ \textcolor{preprocessor}{\ \ (\ \ \ (zb\_buf\_len((buffer))\ <\ sizeof(zb\_zcl\_door\_lock\_read\_unlock\_door\_res\_payload\_t))\ \ \(\backslash\)}}
+\DoxyCodeLine{00737\ \textcolor{preprocessor}{\ \ \ ?\ \ NULL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00738\ \textcolor{preprocessor}{\ \ \ :\ (zb\_zcl\_door\_lock\_read\_unlock\_door\_res\_payload\_t*)zb\_buf\_begin((buffer)))}}
+\DoxyCodeLine{00739\ \ \textcolor{comment}{/*\ Door\ Lock\ cluster\ commands\ */}}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00747\ }
+\DoxyCodeLine{00748\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_ID(data\_ptr)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00749\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00750\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_STATE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00751\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_TYPE\_8BIT\_ENUM,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00752\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY\ |\ ZB\_ZCL\_ATTR\_ACCESS\_REPORTING\ |\ ZB\_ZCL\_ATTR\_ACCESS\_SCENE,\ \ \(\backslash\)}}
+\DoxyCodeLine{00753\ \textcolor{preprocessor}{\ \ \ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00754\ \textcolor{preprocessor}{\ \ \ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00755\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00756\ }
+\DoxyCodeLine{00757\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00758\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00759\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_LOCK\_TYPE\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00760\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_TYPE\_8BIT\_ENUM,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00761\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00762\ \textcolor{preprocessor}{\ \ \ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00763\ \textcolor{preprocessor}{\ \ \ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00764\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00765\ }
+\DoxyCodeLine{00766\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ACTUATOR\_ENABLED\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00767\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00768\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_ACTUATOR\_ENABLED\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00769\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_TYPE\_BOOL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00770\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_ONLY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00771\ \textcolor{preprocessor}{\ \ \ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00772\ \textcolor{preprocessor}{\ \ \ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00773\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00774\ }
+\DoxyCodeLine{00775\ \textcolor{preprocessor}{\#define\ ZB\_SET\_ATTR\_DESCR\_WITH\_ZB\_ZCL\_ATTR\_DOOR\_LOCK\_RF\_OPERATION\_EVENT\_MASK\_ID(data\_ptr)\ \(\backslash\)}}
+\DoxyCodeLine{00776\ \textcolor{preprocessor}{\ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00777\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_DOOR\_LOCK\_RF\_OPERATION\_EVENT\_MASK\_ID,\ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00778\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_TYPE\_16BITMAP,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00779\ \textcolor{preprocessor}{\ \ \ \ ZB\_ZCL\_ATTR\_ACCESS\_READ\_WRITE\ |\ ZB\_ZCL\_ATTR\_ACCESS\_REPORTING,\ \(\backslash\)}}
+\DoxyCodeLine{00780\ \textcolor{preprocessor}{\ \ \ \ (ZB\_ZCL\_NON\_MANUFACTURER\_SPECIFIC),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00781\ \textcolor{preprocessor}{\ \ \ \ (void*)\ data\_ptr\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00782\ \textcolor{preprocessor}{\ \ \}}}
+\DoxyCodeLine{00783\ }
+\DoxyCodeLine{00785\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_DOOR\_LOCK\_REPORT\_ATTR\_COUNT\ \ 1}}
+\DoxyCodeLine{00786\ \ \textcolor{comment}{/*\ Door\ Lock\ cluster\ internals\ */}}
+\DoxyCodeLine{00789\ \ \textcolor{comment}{/*\ ZCL\ Door\ Lock\ cluster\ definitions\ */}}
+\DoxyCodeLine{00791\ \ \textcolor{comment}{/*\ DOXYGEN\_ZCL\_SECTION\ */}}
+\DoxyCodeLine{00793\ }
+\DoxyCodeLine{00794\ \textcolor{keywordtype}{void}\ zb\_zcl\_door\_lock\_init\_server(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00795\ \textcolor{keywordtype}{void}\ zb\_zcl\_door\_lock\_init\_client(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00796\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK\_SERVER\_ROLE\_INIT\ zb\_zcl\_door\_lock\_init\_server}}
+\DoxyCodeLine{00797\ \textcolor{preprocessor}{\#define\ ZB\_ZCL\_CLUSTER\_ID\_DOOR\_LOCK\_CLIENT\_ROLE\_INIT\ zb\_zcl\_door\_lock\_init\_client}}
+\DoxyCodeLine{00798\ }
+\DoxyCodeLine{00799\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ZB\_ZCL\_DOOR\_LOCK\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

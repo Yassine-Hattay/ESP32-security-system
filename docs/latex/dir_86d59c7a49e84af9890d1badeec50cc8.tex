@@ -1,0 +1,1005 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+ESP-\/\+Mail-\/\+Client Directory Reference}
+\hypertarget{dir_86d59c7a49e84af9890d1badeec50cc8}{}\label{dir_86d59c7a49e84af9890d1badeec50cc8}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_c6d23cfaf3229e0e65f950bed50fb2fd}{src}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+!\mbox{[}ESP Mail\mbox{]}(\href{https://raw.githubusercontent.com/mobizt/ESP-Mail-Client/master/media/images/esp-mail-client.svg}{\texttt{ https\+://raw.\+githubusercontent.\+com/mobizt/\+ESP-\/\+Mail-\/\+Client/master/media/images/esp-\/mail-\/client.\+svg}})
+
+  \href{https://github.com/mobizt/ESP-Mail-Client/stargazers}{\texttt{ }} 
+
+ 
+
+The comprehensive Arduino Email \doxylink{class_client}{Client} Library to send and read Email for Arduino devices.
+
+This library was tested and works well with ESP32s, ESP8266s, SAMD21s and RP2040 Pico based modules.
+
+The library supported external networking devices hat work with Arduino Clients e.\+g. Wi\+Fi\+Client, Ethernet\+Client, and GSMClient.
+
+Minimum 200k flash space device is recommended for library installation and user code.
+
+The minimum ram requirement is based on the applications (SMTP and IMAP). IMAP application may required up to 20k memory while SMTP application required much less memory.\hypertarget{README.md_autotoc_md31}{}\doxysubsubsection{\texorpdfstring{Table of Contents}{Table of Contents}}\label{README.md_autotoc_md31}
+
+\begin{DoxyEnumerate}
+\item Features
+\item Supported Devices
+\item Prerequisites
+\begin{DoxyEnumerate}
+\item Gmail SMTP and IMAP required App Passwords to sign in
+\item Platform\+IO IDE Compile Options
+\item Third party SD library must be removed
+\item Sd\+Fat conflicts in ESP8266 and must be removed
+\item ESP32 and ESP8266 SDKs
+\item RP2040 Arduino SDK
+\end{DoxyEnumerate}
+\item Library Instalation
+\begin{DoxyEnumerate}
+\item Using Library Manager
+\item Manual installation
+\end{DoxyEnumerate}
+\item Memory Options
+\begin{DoxyEnumerate}
+\item Memory Options for ESP8266
+\item Arduino IDE
+\item Platform\+IO IDE
+\item ESP8266 and SRAM/\+PSRAM Chip connection
+\item Memory Options for ESP32
+\item Arduino IDE
+\item Platform\+IO IDE
+\end{DoxyEnumerate}
+\item Library Build Options
+\begin{DoxyEnumerate}
+\item Predefined Options
+\item Optional Options
+\end{DoxyEnumerate}
+\item Usage
+\begin{DoxyEnumerate}
+\item Send Email message
+\item Read Email message
+\item Get Incoming Message Notification and Reading
+\item Sending Custom IMAP commands
+\item Using TCP session Keep\+Alive in ESP8266 and ESP32
+\item Use external Arduino Clients interfaces
+\item TTGO T-\/\+A7670 LTE with Tiny\+GSM
+\item ESP32 and W5500
+\end{DoxyEnumerate}
+\item Sponsors
+\item License
+\end{DoxyEnumerate}\hypertarget{README.md_autotoc_md32}{}\doxysubsubsection{\texorpdfstring{Features}{Features}}\label{README.md_autotoc_md32}
+
+\begin{DoxyItemize}
+\item Supports sending Email with attachments.
+\item Supports reading the message and listening the mailbox changes.
+\item Supports custom SMTP and IMAP commands.
+\item Supports PLAIN, LOGIN and XOAUTH2 authentication mechanisms.
+\item Supports standard ports and user defined ports.
+\item Supports STARTTLS for both SMTP and IMAP.
+\item Supports TCP session reusage.
+\item Supports the content encodings e.\+g. quoted-\/printable and \doxylink{classbase64}{base64}.
+\item Supports the content decodings e.\+g. \doxylink{classbase64}{base64}, UTF-\/8, UTF-\/7, quoted-\/printable, ISO-\/8859-\/1 (latin1) and ISO-\/8859-\/11 (Thai).
+\item Supports embedded contents e.\+g. inline images, attachments, parallel media attachments and RFC822 message.
+\item Supports IMAP MIME data stream callback for external reader.
+\item supports IMAP custom character decoding callback based on the character set.
+\item Support full debuging.
+\item Support on-\/board or native networking (Wi\+Fi and Ethernet) and external networking (Wi\+Fi, Ethernet and GSM) via external basic Wi\+Fi\+Client, Ethernet\+Client and GSMClient.
+\item Supports Tiny\+GSM library integration.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md33}{}\doxysubsubsection{\texorpdfstring{Supported Devices}{Supported Devices}}\label{README.md_autotoc_md33}
+This following devices are supported.
+
+
+\begin{DoxyItemize}
+\item ESP8266 MCUs based boards
+\item ESP32 MCUs based boards
+\item Arduino MKR Wi\+Fi 1010
+\item Arduino MKR 1000 WIFI
+\item Arduino Nano 33 IoT
+\item Arduino MKR Vidor 4000
+\item Raspberry Pi Pico (RP2040)
+\item Arduino UNO R4 Wi\+Fi (Renesas).
+\item LAN8720 Ethernet PHY
+\item TLK110 Ethernet PHY
+\item IP101 Ethernet PHY
+\item ENC28\+J60 SPI Ethernet module
+\item W5100 SPI Ethernet module
+\item W5500 SPI Ethernet module
+\item SIMCom Modules with Tiny\+GSMClient
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md34}{}\doxysubsubsection{\texorpdfstring{Prerequisites}{Prerequisites}}\label{README.md_autotoc_md34}
+\hypertarget{README.md_autotoc_md35}{}\doxysubsubsubsection{\texorpdfstring{Gmail SMTP and IMAP required App Passwords to sign in}{Gmail SMTP and IMAP required App Passwords to sign in}}\label{README.md_autotoc_md35}
+From May 30, 2022, Google no longer supports the use of third-\/party apps or devices which ask you to sign in to your Google\+Account using only your username and password.
+
+This means the Gmail account credentials i.\+e. account Email and account password can\textquotesingle{}t be used to sign in with Google SMTP and IMAP servers. This prevents the third party apps hack to Gmail user account.
+
+To use Gmail with this library, you need to use App Passwords instead.
+
+For setting up the App Passwords, please read \href{https://support.google.com/accounts/answer/185833}{\texttt{ here}}.
+
+After you created App Password, you can use Gmail Email address and App Password created to sign in as the following.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{config.login.email\ =\ \textcolor{stringliteral}{"{}<your\ email>"{}};}
+\DoxyCodeLine{config.login.password\ =\ \textcolor{stringliteral}{"{}<your\ app\ password>"{}};}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md36}{}\doxysubsubsubsection{\texorpdfstring{Platform\+IO IDE Compile Options}{Platform\+IO IDE Compile Options}}\label{README.md_autotoc_md36}
+For Arduino Nano RP2040 Connect board, using Platform\+IO IDE, to prevent the compile error due to wrong headers compilation, please set the lib\+\_\+ldf\+\_\+mode in platformio.\+ini as this.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{lib\_ldf\_mode\ =\ chain+}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md37}{}\doxysubsubsubsection{\texorpdfstring{Third party SD library must be removed}{Third party SD library must be removed}}\label{README.md_autotoc_md37}
+In Arduino IDE, all third party SD libraries installed in libraries folder must be reboved.
+
+The Core SD library was used instead of third party SD libraries.\hypertarget{README.md_autotoc_md38}{}\doxysubsubsubsection{\texorpdfstring{Sd\+Fat conflicts in ESP8266 and must be removed}{Sd\+Fat conflicts in ESP8266 and must be removed}}\label{README.md_autotoc_md38}
+The \href{https://github.com/greiman/SdFat}{\texttt{ Sd\+Fat}} is already implemented as wrapper class in ESP8266 core library.
+
+For Arduino IDE, the Sd\+Fat library should be removed from libraries folder when you compile this library for ESP8266 because of conclicts with core library SDFS.\+h.\hypertarget{README.md_autotoc_md39}{}\doxysubsubsubsection{\texorpdfstring{ESP32 and ESP8266 SDKs}{ESP32 and ESP8266 SDKs}}\label{README.md_autotoc_md39}
+For Espressif\textquotesingle{}s ESP32 and ESP8266 based boards, this library requires Arduino\textquotesingle{}s ESP32 or ESP8266 Core SDK to be installed.
+
+The latest Core SDK is recommended. For ESP8266, the Core SDK version 3.\+x.\+x or later is recommended.
+
+The ESP8266 Core SDK version 2.\+5.\+x and earlier are not supported.
+
+For ESP32, the Core SDK version 2.\+0.\+4 or later is recommended.
+
+The ESP32 Core SDK version 1.\+0.\+4 and earlier are not supported.\hypertarget{README.md_autotoc_md40}{}\doxysubsubsubsection{\texorpdfstring{RP2040 Arduino SDK}{RP2040 Arduino SDK}}\label{README.md_autotoc_md40}
+For Arduino IDE, the Arduino-\/\+Pico SDK can be installed from Boards Manager by searching pico and choose Raspberry Pi Pico/\+RP2040 to install.
+
+For Platform\+IO, the Arduino-\/\+Pico SDK can be installed via platformio.\+ini
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[env:rpipicow]}
+\DoxyCodeLine{platform\ =\ https://github.com/maxgerhardt/platform-\/raspberrypi.git}
+\DoxyCodeLine{board\ =\ rpipicow}
+\DoxyCodeLine{framework\ =\ arduino}
+\DoxyCodeLine{board\_build.core\ =\ earlephilhower}
+\DoxyCodeLine{monitor\_speed\ =\ 115200}
+\DoxyCodeLine{board\_build.filesystem\_size\ =\ 1m}
+
+\end{DoxyCode}
+
+
+See this Arduino-\/\+Pico SDK \href{https://arduino-pico.readthedocs.io/en/latest/}{\texttt{ documentation}} for more information.\hypertarget{README.md_autotoc_md41}{}\doxysubsubsubsection{\texorpdfstring{Library integration causes ESP\+\_\+\+SSLClient compilation issue}{Library integration causes ESP\+\_\+\+SSLClient compilation issue}}\label{README.md_autotoc_md41}
+This library included the {\ttfamily SSL \doxylink{class_client}{Client}} library called \href{https://github.com/mobizt/FirebaseClient/tree/main/src/client/SSLClient}{\texttt{ {\ttfamily ESP\+\_\+\+SSLClient}}}.
+
+When this library was used together with my other libraries e.\+g. \href{https://github.com/mobizt/FirebaseClient}{\texttt{ Firebase\+Client}}, \href{https://github.com/mobizt/Firebase-ESP-Client}{\texttt{ Firebase-\/\+ESP-\/\+Client}}, \href{https://github.com/mobizt/Firebase-ESP32}{\texttt{ Firebase-\/\+ESP32}} and \href{https://github.com/mobizt/Firebase-ESP8266}{\texttt{ Firebase-\/\+ESP8266}} which come with built-\/in {\ttfamily \doxylink{class_e_s_p___s_s_l_client}{ESP\+\_\+\+SSLClient}} library, the Arduino IDE compilation error will be occurred. You have to remove the folder {\ttfamily src/client/\+SSLClient} in the subsequent included library.
+
+For example if {\ttfamily Firebase\+Client.\+h} was included after {\ttfamily \doxylink{_e_s_p___mail___client_8h_source}{ESP\+\_\+\+Mail\+\_\+\+Client.\+h}}, the folder \href{https://github.com/mobizt/FirebaseClient/tree/master/src/client/SSLClient}{\texttt{ {\ttfamily src/client/\+SSLClient}}} in the {\ttfamily Firebase\+Client} library installation folder should be removed.\hypertarget{README.md_autotoc_md42}{}\doxysubsubsubsection{\texorpdfstring{Microsoft\textquotesingle{}s One\+Drive issue}{Microsoft\textquotesingle{}s One\+Drive issue}}\label{README.md_autotoc_md42}
+You cannot install any Arduino libraries in the {\ttfamily Microsoft\textquotesingle{}s One\+Drive} folders. You should remove the Documents folder which contains the Arduino\textquotesingle{}s libraries folder, from the {\ttfamily Microsoft\textquotesingle{}s One\+Drive}.\hypertarget{README.md_autotoc_md43}{}\doxysubsubsection{\texorpdfstring{Library Instalation}{Library Instalation}}\label{README.md_autotoc_md43}
+\hypertarget{README.md_autotoc_md44}{}\doxysubsubsubsection{\texorpdfstring{Using Library Manager}{Using Library Manager}}\label{README.md_autotoc_md44}
+At Arduino IDE, go to menu {\bfseries{Sketch}} -\/\texorpdfstring{$>$}{>} {\bfseries{Include Library}} -\/\texorpdfstring{$>$}{>} {\bfseries{Manage Libraries...}}
+
+In Library Manager Window, search {\bfseries{"{}\+ESP Mail Client"{}}} in the search form then select {\bfseries{"{}\+ESP Mail Client"{}}}.
+
+Click {\bfseries{"{}\+Install"{}}} button.
+
+For Platform\+IO IDE.
+
+Go to {\bfseries{PIO Home}} -\/\texorpdfstring{$>$}{>} {\bfseries{Libraries}} -\/\texorpdfstring{$>$}{>} {\bfseries{Registry}} then search {\bfseries{ESP Mail \doxylink{class_client}{Client}}}.
+
+If you ever installed this library in Global storage in Platform\+IO version prior to v2.\+0.\+0 and you have updated the Platform\+IO to v2.\+0.\+0 and later, the global library installation was not available, the sources files of old library version still be able to search by the library dependency finder (LDF), you needed to remove the library from folder \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}C\+:\textbackslash{}\+Users\textbackslash{}\texorpdfstring{$<$}{<}User\+Name\texorpdfstring{$>$}{>}\textbackslash{}.platformio\textbackslash{}lib\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} to prevent unexpected behavior when compile and run.\hypertarget{README.md_autotoc_md45}{}\doxysubsubsubsection{\texorpdfstring{Manual installation}{Manual installation}}\label{README.md_autotoc_md45}
+Click on {\bfseries{Code}} dropdown at the top of repository, select {\bfseries{Download ZIP}} and save file on your computer.
+
+From Arduino IDE, goto menu {\bfseries{Sketch}} -\/\texorpdfstring{$>$}{>} {\bfseries{Include Library}} -\/\texorpdfstring{$>$}{>} {\bfseries{Add .ZIP Library...}} and choose {\bfseries{ESP-\/\+Mail-\/\+Client-\/master.\+zip}} that previously downloaded.
+
+Rename {\bfseries{ESP-\/\+Mail-\/\+Client-\/master}} folder to {\bfseries{\doxylink{class_e_s_p___mail___client}{ESP\+\_\+\+Mail\+\_\+\+Client}}}.
+
+Go to menu {\bfseries{Files}} -\/\texorpdfstring{$>$}{>} {\bfseries{Examples}} -\/\texorpdfstring{$>$}{>} {\bfseries{ESP Mail \doxylink{class_client}{Client}}} and choose one from examples
+
+In case the library compile status showed here is passing and your code compilation is error, you should check your libary installation, {\ttfamily platform Core SDK} installation and the library usage. You cannot install library in the cloud storage virtual folder or sandbox e.\+g. {\ttfamily Microsoft\textquotesingle{}s One\+Drive}.\hypertarget{README.md_autotoc_md46}{}\doxysubsubsection{\texorpdfstring{Memory Options}{Memory Options}}\label{README.md_autotoc_md46}
+\hypertarget{README.md_autotoc_md47}{}\doxysubsubsubsection{\texorpdfstring{Memory Options for ESP8266}{Memory Options for ESP8266}}\label{README.md_autotoc_md47}
+This section is optional for memory settings in IDE.
+
+When you update the ESP8266 Arduino Core SDK to v3.\+0.\+0, the memory can be configurable from IDE.
+
+You can choose the Heap memory between internal and external memory chip from IDE e.\+g. Arduino IDE and Platform\+IO on VSCode or Atom IDE.\hypertarget{README.md_autotoc_md48}{}\doxysubsubsubsubsection{\texorpdfstring{Arduino IDE}{Arduino IDE}}\label{README.md_autotoc_md48}
+For ESP8266 devices that don\textquotesingle{}t have external SRAM/\+PSRAM chip installed, choose the MMU {\bfseries{option 3}}, 16KB cache + 48KB IRAM and 2nd Heap (shared).
+
+
+
+For ESP8266 devices that have external 23LC1024 SRAM chip installed, choose the MMU {\bfseries{option 5}}, 128K External 23LC1024.
+
+
+
+For ESP8266 devices that have external ESP-\/\+PSRAM64 chip installed, choose the MMU {\bfseries{option 6}}, 1M External 64 MBit PSRAM.\hypertarget{README.md_autotoc_md49}{}\doxysubsubsubsubsection{\texorpdfstring{Platform\+IO IDE}{Platform\+IO IDE}}\label{README.md_autotoc_md49}
+The MMU options can be selected from build\+\_\+flags in your project\textquotesingle{}s platformio.\+ini file
+
+For ESP8266 devices that don\textquotesingle{}t not have external SRAM/\+PSRAM chip installed, add build flag as below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[env:d1\_mini]}
+\DoxyCodeLine{platform\ =\ espressif8266}
+\DoxyCodeLine{build\_flags\ =\ -\/D\ PIO\_FRAMEWORK\_ARDUINO\_MMU\_CACHE16\_IRAM48\_SECHEAP\_SHARED}
+\DoxyCodeLine{board\ =\ d1\_mini}
+\DoxyCodeLine{framework\ =\ arduino}
+\DoxyCodeLine{monitor\_speed\ =\ 115200}
+
+\end{DoxyCode}
+
+
+For ESP8266 devices that have external 23LC1024 SRAM chip installed, add build flag as below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[env:d1\_mini]}
+\DoxyCodeLine{platform\ =\ espressif8266}
+\DoxyCodeLine{;128K\ External\ 23LC1024}
+\DoxyCodeLine{build\_flags\ =\ -\/D\ PIO\_FRAMEWORK\_ARDUINO\_MMU\_EXTERNAL\_128K}
+\DoxyCodeLine{board\ =\ d1\_mini}
+\DoxyCodeLine{framework\ =\ arduino}
+\DoxyCodeLine{monitor\_speed\ =\ 115200}
+
+\end{DoxyCode}
+
+
+For ESP8266 devices that have external ESP-\/\+PSRAM64 chip installed, add build flag as below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{[env:d1\_mini]}
+\DoxyCodeLine{platform\ =\ espressif8266}
+\DoxyCodeLine{;1M\ External\ 64\ MBit\ PSRAM}
+\DoxyCodeLine{build\_flags\ =\ -\/D\ PIO\_FRAMEWORK\_ARDUINO\_MMU\_EXTERNAL\_1024K}
+\DoxyCodeLine{board\ =\ d1\_mini}
+\DoxyCodeLine{framework\ =\ arduino}
+\DoxyCodeLine{monitor\_speed\ =\ 115200}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md50}{}\doxysubsubsubsubsection{\texorpdfstring{ESP8266 and SRAM/\+PSRAM Chip connection}{ESP8266 and SRAM/\+PSRAM Chip connection}}\label{README.md_autotoc_md50}
+Most ESP8266 modules don\textquotesingle{}t have the built-\/in SRAM/\+PSRAM on board. External memory chip connection can be done via SPI port as below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{23LC1024/ESP-\/PSRAM64\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ESP8266}
+\DoxyCodeLine{}
+\DoxyCodeLine{CS\ (Pin\ 1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GPIO15}
+\DoxyCodeLine{SCK\ (Pin\ 6)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GPIO14}
+\DoxyCodeLine{MOSI\ (Pin\ 5)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GPIO13}
+\DoxyCodeLine{MISO\ (Pin\ 2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GPIO12}
+\DoxyCodeLine{/HOLD\ (Pin\ 7\ on\ 23LC1024\ only)\ \ \ \ \ \ 3V3}
+\DoxyCodeLine{Vcc\ (Pin\ 8)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3V3}
+\DoxyCodeLine{Vcc\ (Pin\ 4)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GND}
+
+\end{DoxyCode}
+
+
+Once the external Heap memory was selected in IDE, to allow the library to use the external memory, you can set it in \href{src/ESP_Mail_FS.h}{\texttt{ {\bfseries{ESP\+\_\+\+Mail\+\_\+\+FS.\+h}}}} by define this macro.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ ESP\_MAIL\_USE\_PSRAM}}
+
+\end{DoxyCode}
+
+
+This macro was defined by default when you installed or update the library.\hypertarget{README.md_autotoc_md51}{}\doxysubsubsubsection{\texorpdfstring{Memory Options for ESP32}{Memory Options for ESP32}}\label{README.md_autotoc_md51}
+This section is optional for memory settings in IDE.
+
+In ESP32 module that has PSRAM installed, you can enable it and set the library to use this external memory instead.\hypertarget{README.md_autotoc_md52}{}\doxysubsubsubsubsection{\texorpdfstring{Arduino IDE}{Arduino IDE}}\label{README.md_autotoc_md52}
+To enable PSRAM in ESP32 module.
+
+\hypertarget{README.md_autotoc_md53}{}\doxysubsubsubsubsection{\texorpdfstring{Platform\+IO IDE}{Platform\+IO IDE}}\label{README.md_autotoc_md53}
+In Platform\+IO on VSCode or Atom IDE, add the following build\+\_\+flags in your project\textquotesingle{}s platformio.\+ini file.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{build\_flags\ =\ -\/DBOARD\_HAS\_PSRAM\ -\/mfix-\/esp32-\/psram-\/cache-\/issue}
+
+\end{DoxyCode}
+
+
+As in ESP8266, once the external Heap memory was enabled in IDE, to allow the library to use the external memory, you can set it in \href{src/ESP_Mail_FS.h}{\texttt{ {\bfseries{ESP\+\_\+\+Mail\+\_\+\+FS.\+h}}}} by define this macro.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ ESP\_MAIL\_USE\_PSRAM}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md54}{}\doxysubsubsection{\texorpdfstring{Library Build Options}{Library Build Options}}\label{README.md_autotoc_md54}
+The library build options are defined as preprocessor macros ({\ttfamily \#define name}).
+
+Some options can be disabled to reduce program space.\hypertarget{README.md_autotoc_md55}{}\doxysubsubsubsection{\texorpdfstring{Predefined Options}{Predefined Options}}\label{README.md_autotoc_md55}
+The predefined options that are already set in \href{src/ESP_Mail_FS.h}{\texttt{ {\bfseries{ESP\+\_\+\+Mail\+\_\+\+FS.\+h}}}} are following.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ENABLE\_IMAP\ \textcolor{comment}{//\ For\ IMAP\ class\ compilation}}
+\DoxyCodeLine{ENABLE\_SMTP\ \textcolor{comment}{//\ For\ SMTP\ class\ compilation}}
+\DoxyCodeLine{ENABLE\_NTP\_TIME\ \textcolor{comment}{//\ For\ enabling\ the\ device\ or\ library\ time\ setup\ from\ NTP\ server}}
+\DoxyCodeLine{ENABLE\_ERROR\_STRING\ \textcolor{comment}{//\ For\ enabling\ the\ error\ string\ from\ error\ reason}}
+\DoxyCodeLine{ESP\_MAIL\_USE\_PSRAM\ \textcolor{comment}{//\ For\ enabling\ PSRAM\ support}}
+\DoxyCodeLine{ESP\_MAIL\_DEFAULT\_FLASH\_FS\ \textcolor{comment}{//\ For\ enabling\ Flash\ filesystem\ support}}
+\DoxyCodeLine{ESP\_MAIL\_DEFAULT\_SD\_FS\ \textcolor{comment}{//\ For\ enabling\ SD\ filesystem\ support\ }}
+\DoxyCodeLine{ESP\_MAIL\_CARD\_TYPE\_SD\ or\ ESP\_MAIL\_CARD\_TYPE\_SD\_MMC\ \textcolor{comment}{//\ The\ SD\ card\ type\ for\ SD\ filesystem}}
+
+\end{DoxyCode}
+
+
+The Flash and SD filesystems are predefined.
+
+SD is the default SD filesystem for all devices.
+
+For ESP8266 and Arduino Pico, Little\+FS is the default flash filesystem.
+
+For ESP32 since v2.\+0.\+x, Little\+FS is the default flash filesystem otherwise SPIFFS is the default flash filesystem.
+
+In otherr devices, SPIFFS is the default flash filesystem.
+
+User can change {\ttfamily ESP\+\_\+\+MAIL\+\_\+\+DEFAULT\+\_\+\+FLASH\+\_\+\+FS} and {\ttfamily ESP\+\_\+\+MAIL\+\_\+\+DEFAULT\+\_\+\+SD\+\_\+\+FS} with {\ttfamily ESP\+\_\+\+MAIL\+\_\+\+CARD\+\_\+\+TYPE\+\_\+\+SD} or {\ttfamily ESP\+\_\+\+MAIL\+\_\+\+CARD\+\_\+\+TYPE\+\_\+\+SD\+\_\+\+MMC} defined values for other filesystems.\hypertarget{README.md_autotoc_md56}{}\doxysubsubsubsection{\texorpdfstring{Optional Options}{Optional Options}}\label{README.md_autotoc_md56}
+The following options are not yet defined in \href{src/ESP_Mail_FS.h}{\texttt{ {\bfseries{ESP\+\_\+\+Mail\+\_\+\+FS.\+h}}}} and can be assigned by user.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{SILENT\_MODE\ \textcolor{comment}{//\ For\ silent\ operation\ (no\ debug\ printing\ and\ callback)}}
+\DoxyCodeLine{ESP\_MAIL\_ETHERNET\_MODULE\_LIB\ \`{}\textcolor{stringliteral}{"{}EthernetLibrary.h"{}}\`{}\ \textcolor{comment}{//\ For\ the\ Ethernet\ library\ to\ work\ with\ external\ Ethernet\ module}}
+\DoxyCodeLine{ESP\_MAIL\_ETHERNET\_MODULE\_CLASS\ EthernetClass\ \textcolor{comment}{//\ For\ the\ Ethernet\ class\ object\ of\ Ethernet\ library\ to\ work\ with\ external\ Ethernet\ module}}
+\DoxyCodeLine{ESP\_MAIL\_ETHERNET\_MODULE\_TIMEOUT\ 2000\ \textcolor{comment}{//\ For\ the\ time\ out\ in\ milliseconds\ to\ wait\ external\ Ethernet\ module\ to\ connect\ to\ network}}
+\DoxyCodeLine{ENABLE\_ESP8266\_ENC28J60\_ETH\ \textcolor{comment}{//\ \ For\ ENC28J60\ Ethernet\ module\ support\ in\ ESP8266}}
+\DoxyCodeLine{ENABLE\_ESP8266\_W5500\_ETH\ \textcolor{comment}{//\ For\ W5500\ Ethernet\ module\ support\ in\ ESP8266}}
+\DoxyCodeLine{ENABLE\_ESP8266\_W5100\_ETH\ \textcolor{comment}{//\ For\ W5100\ Ethernet\ module\ support\ in\ ESP8266}}
+\DoxyCodeLine{ESP\_MAIL\_DISABLE\_ONBOARD\_WIFI\ \textcolor{comment}{//\ For\ disabling\ on-\/board\ WiFI\ functionality\ in\ case\ external\ Client\ usage}}
+\DoxyCodeLine{ESP\_MAIL\_DISABLE\_NATIVE\_ETHERNET\ \textcolor{comment}{//\ For\ disabling\ native\ (sdk)\ Ethernet\ functionality\ in\ case\ external\ Client\ usage}}
+\DoxyCodeLine{ESP\_MAIL\_DISABLE\_SSL\ \textcolor{comment}{//\ //\ For\ disabling\ SSL\ connection\ (also\ disabling\ TLS\ using\ STARTTLS)\ in\ MAP\ and\ SMTP\ application\ }}
+\DoxyCodeLine{ESP\_MAIL\_DEBUG\_PORT\ \textcolor{comment}{//\ For\ debug\ port\ assignment\ if\ SILENT\_MODE\ option\ was\ not\ set}}
+
+\end{DoxyCode}
+
+
+You can assign the optional build options using one of the following methods.
+
+
+\begin{DoxyItemize}
+\item By creating user config file {\ttfamily Custom\+\_\+\+ESP\+\_\+\+Mail\+\_\+\+FS.\+h} in library installed folder and define these optional options.
+\item By adding compiler build flags with {\ttfamily -\/D name}.
+\end{DoxyItemize}
+
+In Platform\+IO IDE, using {\ttfamily build\+\_\+flags} in Platform\+IO IDE\textquotesingle{}s platformio.\+ini is more convenient
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{build\_flags\ =\ -\/D\ ESP\_MAIL\_DEBUG\_PORT=Serial}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/D\ DISABLE\_IMAP}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/D\ ESP\_MAIL\_DISABLE\_ONBOARD\_WIFI}
+
+\end{DoxyCode}
+
+
+For external Ethernet module integation used with function {\ttfamily set\+Ethernet\+Client}, both {\ttfamily ESP\+\_\+\+MAIL\+\_\+\+ETHERNET\+\_\+\+MODULE\+\_\+\+LIB} and {\ttfamily ESP\+\_\+\+MAIL\+\_\+\+ETHERNET\+\_\+\+MODULE\+\_\+\+CLASS} should be defined.
+
+{\ttfamily ESP\+\_\+\+MAIL\+\_\+\+ETHERNET\+\_\+\+MODULE\+\_\+\+LIB} is the Ethernet library name with extension (.h) and should be inside {\ttfamily "{}"{}} or {\ttfamily \texorpdfstring{$<$}{<}\texorpdfstring{$>$}{>}} e.\+g. {\ttfamily "{}\+Ethernet.\+h"{}}.
+
+{\ttfamily ESP\+\_\+\+MAIL\+\_\+\+ETHERNET\+\_\+\+MODULE\+\_\+\+CLASS} is the name of static object defined from class e.\+g. {\ttfamily Ethernet}.
+
+{\ttfamily ESP\+\_\+\+MAIL\+\_\+\+ETHERNET\+\_\+\+MODULE\+\_\+\+TIMEOUT} is the time out in milliseconds to wait network connection.
+
+For disabling predefined options instead of editing the \href{src/ESP_Mail_FS.h}{\texttt{ {\bfseries{ESP\+\_\+\+Mail\+\_\+\+FS.\+h}}}} or using {\ttfamily \#undef} in {\ttfamily Custom\+\_\+\+ESP\+\_\+\+Mail\+\_\+\+FS.\+h}, you can define these build flags with these names or macros in {\ttfamily Custom\+\_\+\+ESP\+\_\+\+Mail\+\_\+\+FS.\+h}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{DISABLE\_IMAP\ \textcolor{comment}{//\ For\ excluding\ the\ IMAP\ class\ compilation}}
+\DoxyCodeLine{DISABLE\_SMTP\ \textcolor{comment}{//\ For\ excluding\ the\ SMTP\ class\ compilation}}
+\DoxyCodeLine{DISABLE\_NTP\_TIME\ \textcolor{comment}{//\ For\ disabling\ the\ NTP\ time\ setting}}
+\DoxyCodeLine{DISABLE\_ERROR\_STRING\ \textcolor{comment}{//\ For\ disabling\ the\ error\ string\ from\ error\ reason}}
+\DoxyCodeLine{DISABLE\_PSRAM\ \textcolor{comment}{//\ For\ disabling\ PSRAM\ support}}
+\DoxyCodeLine{DISABLE\_FLASH\ \textcolor{comment}{//\ For\ disabling\ flash\ filesystem\ support}}
+\DoxyCodeLine{DISABLE\_SD\ \textcolor{comment}{//\ For\ disabling\ SD\ filesystem\ support}}
+\DoxyCodeLine{}
+\DoxyCodeLine{DISABLE\_ALL\_OPTIONS\ \textcolor{comment}{//\ For\ disabling\ all\ predefined\ build\ options\ above}}
+
+\end{DoxyCode}
+
+
+Note that, {\ttfamily Custom\+\_\+\+ESP\+\_\+\+Mail\+\_\+\+FS.\+h} for user config should be placed in the library install folder inside src folder.
+
+This {\ttfamily Custom\+\_\+\+ESP\+\_\+\+Mail\+\_\+\+FS.\+h} will not change or overwrite when update the library.\hypertarget{README.md_autotoc_md57}{}\doxysubsubsection{\texorpdfstring{Usage}{Usage}}\label{README.md_autotoc_md57}
+See \href{/examples}{\texttt{ examples folder}} for all usage examples.
+
+See src/\+README.md for the functions descriptions.
+
+The usefull blogs that described how to send and read E-\/mail in detail can be found here.
+
+\href{https://randomnerdtutorials.com/esp32-send-email-smtp-server-arduino-ide/}{\texttt{ ESP32 Send Emails using an SMTP Server\+: HTML, Text, and Attachments (Arduino IDE) by Rui and Sara from randomnerdtutorials.\+com}}
+
+\href{https://www.theengineeringprojects.com/2022/01/receiving-emails-with-esp32-using-imap-server.html}{\texttt{ Receiving Emails with ESP32 using IMAP Server by Alina Mybeth from theengineeringprojects.\+com}}
+
+The following code snippet showed the minimum usage of the library.\hypertarget{README.md_autotoc_md58}{}\doxysubsubsubsection{\texorpdfstring{Send Email message}{Send Email message}}\label{README.md_autotoc_md58}
+The following code will send email with image attachment.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Include\ WiFi\ library}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#if\ defined(ESP32)\ ||\ defined(ARDUINO\_RASPBERRY\_PI\_PICO\_W)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <WiFi.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#elif\ defined(ESP8266)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <ESP8266WiFi.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#elif\ \ \_\_has\_include(<WiFiNINA.h>)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <WiFiNINA.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#elif\ \_\_has\_include(<WiFi101.h>)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <WiFi101.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Include\ ESP\ Mail\ Client\ library\ (this\ library)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <ESP\_Mail\_Client.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Declare\ the\ global\ used\ SMTPSession\ object\ for\ SMTP\ transport}}
+\DoxyCodeLine{\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ smtp;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Declare\ the\ global\ used\ Session\_Config\ for\ user\ defined\ session\ credentials}}
+\DoxyCodeLine{Session\_Config\ config;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Callback\ function\ to\ get\ the\ Email\ sending\ status}}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ smtpCallback(\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}}\ status);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setup()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ Serial.begin(115200);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ WiFi.begin(\textcolor{stringliteral}{"{}<ssid>"{}},\ \textcolor{stringliteral}{"{}<password>"{}});}
+\DoxyCodeLine{\ \ Serial.print(\textcolor{stringliteral}{"{}Connecting\ to\ Wi-\/Fi"{}});}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{while}\ (WiFi.status()\ !=\ WL\_CONNECTED)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ Serial.print(\textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{\ \ \ \ delay(300);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ Serial.println();}
+\DoxyCodeLine{\ \ Serial.print(\textcolor{stringliteral}{"{}Connected\ with\ IP:\ "{}});}
+\DoxyCodeLine{\ \ Serial.println(WiFi.localIP());}
+\DoxyCodeLine{\ \ Serial.println();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ session\ config}}
+\DoxyCodeLine{\ \ config.server.host\_name\ =\ \textcolor{stringliteral}{"{}smtp.office365.com"{}};\ \textcolor{comment}{//\ for\ outlook.com}}
+\DoxyCodeLine{\ \ config.server.port\ =\ 587;\ \textcolor{comment}{//\ for\ TLS\ with\ STARTTLS\ or\ 25\ (Plain/TLS\ with\ STARTTLS)\ or\ 465\ (SSL)}}
+\DoxyCodeLine{\ \ config.login.email\ =\ \textcolor{stringliteral}{"{}your\ Email\ address"{}};\ \textcolor{comment}{//\ set\ to\ empty\ for\ no\ SMTP\ Authentication}}
+\DoxyCodeLine{\ \ config.login.password\ =\ \textcolor{stringliteral}{"{}your\ Email\ password"{}};\ \textcolor{comment}{//\ set\ to\ empty\ for\ no\ SMTP\ Authentication}}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ For\ client\ identity,\ assign\ invalid\ string\ can\ cause\ server\ rejection}}
+\DoxyCodeLine{\ \ config.login.user\_domain\ =\ \textcolor{stringliteral}{"{}client\ domain\ or\ public\ ip"{}};\ \ }
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ Set\ the\ NTP\ config\ time}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ For\ times\ east\ of\ the\ Prime\ Meridian\ use\ 0-\/12}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ For\ times\ west\ of\ the\ Prime\ Meridian\ add\ 12\ to\ the\ offset.}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ Ex.\ American/Denver\ GMT\ would\ be\ -\/6.\ 6\ +\ 12\ =\ 18}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ See\ https://en.wikipedia.org/wiki/Time\_zone\ for\ a\ list\ of\ the\ GMT/UTC\ timezone\ offsets}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ */}}
+\DoxyCodeLine{\ \ config.time.ntp\_server\ =\ \textcolor{stringliteral}{"{}pool.ntp.org,time.nist.gov"{}};}
+\DoxyCodeLine{\ \ config.time.gmt\_offset\ =\ 3;}
+\DoxyCodeLine{\ \ config.time.day\_light\_offset\ =\ 0;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Declare\ the\ SMTP\_Message\ class\ variable\ to\ handle\ to\ message\ being\ transport}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ message;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ message\ headers}}
+\DoxyCodeLine{\ \ message.sender.name\ =\ \textcolor{stringliteral}{"{}My\ Mail"{}};}
+\DoxyCodeLine{\ \ message.sender.email\ =\ \textcolor{stringliteral}{"{}sender\ or\ your\ Email\ address"{}};}
+\DoxyCodeLine{\ \ message.subject\ =\ \textcolor{stringliteral}{"{}Test\ sending\ Email"{}};}
+\DoxyCodeLine{\ \ message.\mbox{\hyperlink{class_s_m_t_p___message_ada962c564f3705ffe60729cfb2eb2f40}{addRecipient}}(\textcolor{stringliteral}{"{}name1"{}},\ \textcolor{stringliteral}{"{}email1"{}});}
+\DoxyCodeLine{\ \ message.\mbox{\hyperlink{class_s_m_t_p___message_ada962c564f3705ffe60729cfb2eb2f40}{addRecipient}}(\textcolor{stringliteral}{"{}name2"{}},\ \textcolor{stringliteral}{"{}email2"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ message.\mbox{\hyperlink{class_s_m_t_p___message_ab8474d3e145865a4f0c987023191b188}{addCc}}(\textcolor{stringliteral}{"{}email3"{}});}
+\DoxyCodeLine{\ \ message.\mbox{\hyperlink{class_s_m_t_p___message_a7962ade3efdb1a8a2e6ffacdc6bbde72}{addBcc}}(\textcolor{stringliteral}{"{}email4"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ message\ content}}
+\DoxyCodeLine{\ \ message.text.content\ =\ \textcolor{stringliteral}{"{}This\ is\ simple\ plain\ text\ message"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//Base64\ data\ of\ image}}
+\DoxyCodeLine{\ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *greenImg\ =\ \textcolor{stringliteral}{"{}iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAoUlEQVR42u"{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}3RAQ0AMAgAoJviyWxtAtNYwzmoQGT/eqwRQoQgRAhChCBECEKECBGCECEI"{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}EYIQIQgRghCECEGIEIQIQYgQhCBECEKEIEQIQoQgBCFCECIEIUIQIgQhCB"{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}GCECEIEYIQIQhBiBCECEGIEIQIQQhChCBECEKEIEQIQhAiBCFCECIEIUIQ"{}}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ghAhCBGCECEIEYIQIUKEIEQIQoQg5LoBBaDPbQYiMoMAAAAASUVORK5CYII="{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Declare\ the\ attachment\ data}}
+\DoxyCodeLine{\ \ SMTP\_Attachment\ att;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ attatchment\ info}}
+\DoxyCodeLine{\ \ att.descr.filename\ =\ \textcolor{stringliteral}{"{}green.png"{}};}
+\DoxyCodeLine{\ \ att.descr.mime\ =\ \textcolor{stringliteral}{"{}image/png"{}};}
+\DoxyCodeLine{\ \ att.blob.data\ =\ (uint8\_t\ *)greenImg;}
+\DoxyCodeLine{\ \ att.blob.size\ =\ strlen(greenImg);}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ transfer\ encoding\ to\ base64}}
+\DoxyCodeLine{\ \ att.descr.transfer\_encoding\ =\ Content\_Transfer\_Encoding::enc\_base64;}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ We\ set\ the\ content\ encoding\ to\ match\ the\ above\ greenImage\ data}}
+\DoxyCodeLine{\ \ att.descr.content\_encoding\ =\ Content\_Transfer\_Encoding::enc\_base64;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Add\ attachment\ to\ the\ message}}
+\DoxyCodeLine{\ \ message.\mbox{\hyperlink{class_s_m_t_p___message_a9de73996f7234f7c4e5422dd5cea8d4b}{addAttachment}}(att);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ debug\ option}}
+\DoxyCodeLine{\ \ smtp.debug(1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ callback\ function\ to\ get\ the\ sending\ results}}
+\DoxyCodeLine{\ \ smtp.callback(smtpCallback);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Connect\ to\ the\ server}}
+\DoxyCodeLine{\ \ smtp.connect(\&config);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Start\ sending\ Email\ and\ close\ the\ session}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (!MailClient.sendMail(\&smtp,\ \&message))}
+\DoxyCodeLine{\ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error\ sending\ Email,\ "{}}\ +\ smtp.errorReason());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ smtpCallback(\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}}\ status)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{\ \ Serial.println(status.info());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (status.success())}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ See\ example\ for\ how\ to\ get\ the\ sending\ result}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md59}{}\doxysubsubsubsection{\texorpdfstring{Read Email message}{Read Email message}}\label{README.md_autotoc_md59}
+The following code will read the latest email message in the "{}\+INBOX"{} mailbox.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Include\ WiFi\ library}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#if\ defined(ESP32)\ ||\ defined(ARDUINO\_RASPBERRY\_PI\_PICO\_W)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <WiFi.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#elif\ defined(ESP8266)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <ESP8266WiFi.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#elif\ \ \_\_has\_include(<WiFiNINA.h>)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <WiFiNINA.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#elif\ \_\_has\_include(<WiFi101.h>)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <WiFi101.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Include\ ESP\ Mail\ Client\ library\ (this\ library)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <ESP\_Mail\_Client.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Declare\ the\ global\ used\ IMAPSession\ object\ for\ IMAP\ transport}}
+\DoxyCodeLine{\mbox{\hyperlink{class_i_m_a_p_session}{IMAPSession}}\ imap;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Declare\ the\ global\ used\ Session\_Config\ for\ user\ defined\ session\ credentials}}
+\DoxyCodeLine{Session\_Config\ config;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Callback\ function\ to\ get\ the\ Email\ reading\ status}}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ imapCallback(\mbox{\hyperlink{class_i_m_a_p___status}{IMAP\_Status}}\ status)}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setup()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ Serial.begin(115200);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ WiFi.begin(\textcolor{stringliteral}{"{}<ssid>"{}},\ \textcolor{stringliteral}{"{}<password>"{}});}
+\DoxyCodeLine{\ \ Serial.print(\textcolor{stringliteral}{"{}Connecting\ to\ Wi-\/Fi"{}});}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{while}\ (WiFi.status()\ !=\ WL\_CONNECTED)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ Serial.print(\textcolor{stringliteral}{"{}."{}});}
+\DoxyCodeLine{\ \ \ \ delay(300);}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\ \ Serial.println();}
+\DoxyCodeLine{\ \ Serial.print(\textcolor{stringliteral}{"{}Connected\ with\ IP:\ "{}});}
+\DoxyCodeLine{\ \ Serial.println(WiFi.localIP());}
+\DoxyCodeLine{\ \ Serial.println();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ session\ config}}
+\DoxyCodeLine{\ \ config.server.host\_name\ =\ \textcolor{stringliteral}{"{}outlook.office365.com"{}};\ \textcolor{comment}{//for\ outlook.com}}
+\DoxyCodeLine{\ \ config.server.port\ =\ 993;\ \textcolor{comment}{//\ for\ SSL\ or\ 143\ for\ Plain\ or\ TLS\ with\ STARTTLS}}
+\DoxyCodeLine{\ \ config.login.email\ =\ \textcolor{stringliteral}{"{}your\ Email\ address"{}};}
+\DoxyCodeLine{\ \ config.login.password\ =\ \textcolor{stringliteral}{"{}your\ Email\ password"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Declare\ the\ IMAP\_Data\ object\ used\ for\ user\ defined\ IMAP\ operating\ options\ }}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ and\ contains\ the\ IMAP\ operating\ result}}
+\DoxyCodeLine{\ \ IMAP\_Data\ imap\_data;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ to\ enable\ the\ message\ content\ which\ will\ be\ stored\ in\ the\ IMAP\_Data\ data}}
+\DoxyCodeLine{\ \ imap\_data.enable.html\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\ \ imap\_data.enable.text\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ debug\ option}}
+\DoxyCodeLine{\ \ imap.\mbox{\hyperlink{class_i_m_a_p_session_a207a62fd4366ee6412079d0c184a9dd4}{debug}}(1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ callback\ function\ to\ get\ message\ information}}
+\DoxyCodeLine{\ \ imap.\mbox{\hyperlink{class_i_m_a_p_session_a92155e5eba08596634241441d8c742ed}{callback}}(imapCallback);}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Connect\ to\ the\ server}}
+\DoxyCodeLine{\ \ imap.\mbox{\hyperlink{class_i_m_a_p_session_ac847cb874c8a7ce3b14e42bfe043dd97}{connect}}(\&config,\ \&imap\_data);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Open\ or\ select\ the\ mailbox\ folder\ to\ read\ the\ message}}
+\DoxyCodeLine{\ \ imap.\mbox{\hyperlink{class_i_m_a_p_session_a267c694656cbfc669a22d0a738595514}{selectFolder}}(\textcolor{stringliteral}{"{}INBOX"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Define\ the\ message\ UID\ (number)\ which\ required\ to\ fetch\ or\ read\ the\ message}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ In\ this\ case\ we\ will\ get\ the\ UID\ from\ the\ max\ message\ number\ (lastest\ message)}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ then\ imap.getUID\ and\ imap.selectedFolder().msgCount()\ should\ be\ called\ after\ }}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ calling\ select\ or\ open\ the\ folder\ (mailbox).}}
+\DoxyCodeLine{\ \ imap\_data.fetch.uid\ =\ imap.\mbox{\hyperlink{class_i_m_a_p_session_afb9dab7ec428e1f6f8de18ebd7da4a09}{getUID}}(imap.\mbox{\hyperlink{class_i_m_a_p_session_a31eb8d21b873e37eb4fc24a5e3b499c5}{selectedFolder}}().msgCount());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Empty\ search\ criteria\ to\ disable\ the\ messsage\ search}}
+\DoxyCodeLine{\ \ imap\_data.search.criteria.clear();}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Read\ the\ Email\ and\ close\ the\ session}}
+\DoxyCodeLine{\ \ MailClient.readMail(\&imap);}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ imapCallback(\mbox{\hyperlink{class_i_m_a_p___status}{IMAP\_Status}}\ status)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ Serial.println(status.info());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (status.success())}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ See\ example\ for\ how\ to\ get\ the\ message\ info\ }}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md60}{}\doxysubsubsubsection{\texorpdfstring{Get Mailbox Changes Notification}{Get Mailbox Changes Notification}}\label{README.md_autotoc_md60}
+See \href{/examples/IMAP/Mailbox_Changes_Notification/Mailbox_Changes_Notification.ino}{\texttt{ Mailbox\+\_\+\+Changes\+\_\+\+Notification.\+ino}} for the example.\hypertarget{README.md_autotoc_md61}{}\doxysubsubsubsection{\texorpdfstring{Sending Custom IMAP commands}{Sending Custom IMAP commands}}\label{README.md_autotoc_md61}
+Can\textquotesingle{}t find what you want from exising IMAP functions, sending custom command was supported.
+
+Please read the RFC 3501 and RFC 9051 documents for the details of IMAP protocol commands.
+
+See \href{/examples/IMAP/Custom_Command}{\texttt{ Custom\+\_\+\+Command examples}} for how to use.\hypertarget{README.md_autotoc_md62}{}\doxysubsubsubsection{\texorpdfstring{Using TCP session Keep\+Alive in ESP8266 and ESP32}{Using TCP session Keep\+Alive in ESP8266 and ESP32}}\label{README.md_autotoc_md62}
+The server connection will be probed at some intervals to maintain connection.
+
+The TCP session Keep\+Alive can be enabled from executing {\ttfamily \texorpdfstring{$<$}{<}\doxylink{class_s_m_t_p_session}{SMTPSession}\texorpdfstring{$>$}{>}.keep\+Alive} or {\ttfamily \texorpdfstring{$<$}{<}\doxylink{class_i_m_a_p_session}{IMAPSession}\texorpdfstring{$>$}{>}.keep\+Alive} with providing TCP options as arguments, i.\+e.,
+
+{\ttfamily tcp\+Keep\+Idle\+Seconds}, {\ttfamily tcp\+Keep\+Interval\+Seconds} and {\ttfamily tcp\+Keep\+Count}.
+
+Ex.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{smtp.keepAlive(5\ \textcolor{comment}{/*\ tcp\ KeepAlive\ idle\ 5\ seconds\ */},\ 5\ \textcolor{comment}{/*\ tcp\ KeeAalive\ interval\ 5\ seconds\ */},\ 1\ \textcolor{comment}{/*\ tcp\ KeepAlive\ count\ 1\ */});}
+\DoxyCodeLine{}
+\DoxyCodeLine{imap.keepAlive(5\ \textcolor{comment}{/*\ tcp\ KeepAlive\ idle\ 5\ seconds\ */},\ 5\ \textcolor{comment}{/*\ tcp\ KeeAalive\ interval\ 5\ seconds\ */},\ 1\ \textcolor{comment}{/*\ tcp\ KeepAlive\ count\ 1\ */});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ If\ one\ of\ three\ arguments\ is\ zero,\ the\ KeepAlive\ will\ be\ disabled.}}
+
+\end{DoxyCode}
+
+
+To check the Keep\+Alive status, use {\ttfamily \texorpdfstring{$<$}{<}\doxylink{class_s_m_t_p_session}{SMTPSession}\texorpdfstring{$>$}{>}.is\+Keep\+Alive} or {\ttfamily \texorpdfstring{$<$}{<}\doxylink{class_i_m_a_p_session}{IMAPSession}\texorpdfstring{$>$}{>}.is\+Keep\+Alive}.
+
+For the TCP (Keep\+Alive) options, see \href{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/lwip.html\#tcp-options}{\texttt{ here}}.
+
+You can check the server connecting status, by executing {\ttfamily \texorpdfstring{$<$}{<}\doxylink{class_s_m_t_p_session}{SMTPSession}\texorpdfstring{$>$}{>}.connected()} or {\ttfamily \texorpdfstring{$<$}{<}\doxylink{class_i_m_a_p_session}{IMAPSession}\texorpdfstring{$>$}{>}.connected()} which will return true when connection to the server is still alive.
+
+The TCP Keep\+Alive was currently available in ESP32 unless in ESP8266, \href{https://github.com/esp8266/Arduino/pull/8940}{\texttt{ this ESP8266 PR \#8940}} should be merged in the \href{https://github.com/esp8266/Arduino/releases}{\texttt{ ESP8266 Arduino Core SDK}}, i.\+e., it will be supported in the ESP8266 core version newer than v3.\+1.\+2.
+
+In ESP8266 core v3.\+1.\+2 and older, the error can be occurred when executing {\ttfamily \texorpdfstring{$<$}{<}\doxylink{class_s_m_t_p_session}{SMTPSession}\texorpdfstring{$>$}{>}.keep\+Alive} or {\ttfamily \texorpdfstring{$<$}{<}\doxylink{class_i_m_a_p_session}{IMAPSession}\texorpdfstring{$>$}{>}.is\+Keep\+Alive} because of object slicing.
+
+The Arduino Pico is currently not support TCP Keep\+Alive until it\textquotesingle{}s implemented in Wi\+Fi\+Client\+Secure library as in ESP8266.
+
+For External \doxylink{class_client}{Client}, this TCP Keep\+Alive option is not appliable and should be managed by external \doxylink{class_client}{Client} library.\hypertarget{README.md_autotoc_md63}{}\doxysubsubsubsection{\texorpdfstring{Use External Arduino Clients for External Networking Devices}{Use External Arduino Clients for External Networking Devices}}\label{README.md_autotoc_md63}
+This library supports external netwoking devices e.\+g. Wi\+Fi modules, Ethernet modules and GSM modules that connected to the Arduino device via communication ports e.\+g. SPI and Serial, through the Arduino Clients (driver) for those networking devices e.\+g. Wi\+Fi\+Client, Ethernet\+Client and GSMClient.
+
+Since v3.\+4.\+0, the Arduino Clients can be used with this library without additional external SSL \doxylink{class_client}{Client} required.
+
+No additional setup needed, only pass the Arduino \doxylink{class_client}{Client} to the function {\ttfamily set\+Client} or pass the Tiny\+GSMClient and Tiny\+GSM modem to the function {\ttfamily set\+GSMClient} or pass the Ethernet client and mac address to the function {\ttfamily set\+Ethernet\+Client}.
+
+Two callback functions are required (except for {\ttfamily set\+GSMClient} and {\ttfamily set\+Ethernet\+Client}) for network connection (with disconnection) and sending connecting status back to the Mail \doxylink{class_client}{Client}.
+
+If device has on-\/board Wi\+Fi and supports native (SDK) Ethernet, these two native networks will be auto detectd and used.
+
+If you don\textquotesingle{}t want to let {\ttfamily ESP Mail \doxylink{class_client}{Client}} library to use the native networking and use external networking devices using Arduino Clients instead, the following build flags or macros should be defined in {\ttfamily Custom\+\_\+\+ESP\+\_\+\+Mail\+\_\+\+FS.\+h}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ESP\_MAIL\_DISABLE\_ONBOARD\_WIFI}
+\DoxyCodeLine{}
+\DoxyCodeLine{ESP\_MAIL\_DISABLE\_NATIVE\_ETHERNET}
+
+\end{DoxyCode}
+
+
+See \href{/examples/SMTP/External_Client}{\texttt{ External Client Examples}} for more external \doxylink{class_client}{Client} usage.\hypertarget{README.md_autotoc_md64}{}\doxysubsubsubsubsection{\texorpdfstring{TTGO T-\/\+A7670 LTE with Tiny\+GSM}{TTGO T-\/\+A7670 LTE with Tiny\+GSM}}\label{README.md_autotoc_md64}
+The following example showed how to use TTGO T-\/\+A7670 with {\ttfamily GSMClient} to connect to SMTP server.
+
+To allow Tiny\+GSM library integration, the following build flag or macro should be defined in {\ttfamily Custom\+\_\+\+ESP\+\_\+\+Mail\+\_\+\+FS.\+h}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TINY\_GSM\_MODEM\_SIM7600}
+
+\end{DoxyCode}
+
+
+See the Tiny\+GSM documentation and example for other SIMCom modules definition.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ For\ TTGO\ T-\/A7670}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ TINY\_GSM\_MODEM\_SIM7600\ }\textcolor{comment}{//\ SIMA7670\ Compatible\ with\ SIM7600\ AT\ instructions}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Set\ serial\ for\ debug\ console\ (to\ the\ Serial\ Monitor,\ default\ speed\ 115200)}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ SerialMon\ Serial}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Set\ serial\ for\ AT\ commands\ (to\ the\ module)}}
+\DoxyCodeLine{\textcolor{comment}{//\ Use\ Hardware\ Serial\ on\ Mega,\ Leonardo,\ Micro}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ SerialAT\ Serial1}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ See\ all\ AT\ commands,\ if\ wanted}}
+\DoxyCodeLine{\textcolor{comment}{//\ \#define\ DUMP\_AT\_COMMANDS}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Define\ the\ serial\ console\ for\ debug\ prints,\ if\ needed}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ TINY\_GSM\_DEBUG\ SerialMon}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ TINY\_GSM\_USE\_GPRS\ true}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ TINY\_GSM\_USE\_WIFI\ false}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ set\ GSM\ PIN,\ if\ any}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ GSM\_PIN\ "{}"{}}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Your\ GPRS\ credentials,\ if\ any}}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ apn[]\ =\ \textcolor{stringliteral}{"{}YourAPN"{}};}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ gprsUser[]\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ gprsPass[]\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ uS\_TO\_S\_FACTOR\ 1000000ULL\ }\textcolor{comment}{//\ Conversion\ factor\ for\ micro\ seconds\ to\ seconds}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ TIME\_TO\_SLEEP\ 600\ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Time\ ESP32\ will\ go\ to\ sleep\ (in\ seconds)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ UART\_BAUD\ 115200}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ PIN\_DTR\ 25}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ PIN\_TX\ 26}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ PIN\_RX\ 27}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ PWR\_PIN\ 4}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ BAT\_ADC\ 35}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ BAT\_EN\ 12}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ PIN\_RI\ 33}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ PIN\_DTR\ 25}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ RESET\ 5}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ SD\_MISO\ 2}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ SD\_MOSI\ 15}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ SD\_SCLK\ 14}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ SD\_CS\ 13}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <ESP\_Mail\_Client.h>}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <TinyGsmClient.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{TinyGsm\ modem(SerialAT);}
+\DoxyCodeLine{}
+\DoxyCodeLine{TinyGsmClient\ gsm\_client(modem);\ \textcolor{comment}{//\ basic\ non-\/secure\ client}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ smtp;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{comment}{//\ Callback\ function\ to\ get\ the\ Email\ sending\ status}}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ smtpCallback(\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}}\ status);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setup()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ SerialMon.begin(115200);}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ debug\ option}}
+\DoxyCodeLine{\ \ smtp.debug(1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ callback\ function\ to\ get\ the\ sending\ results}}
+\DoxyCodeLine{\ \ smtp.callback(smtpCallback);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ delay(10);}
+\DoxyCodeLine{\ \ pinMode(BAT\_EN,\ OUTPUT);}
+\DoxyCodeLine{\ \ digitalWrite(BAT\_EN,\ HIGH);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ A7670\ Reset}}
+\DoxyCodeLine{\ \ pinMode(RESET,\ OUTPUT);}
+\DoxyCodeLine{\ \ digitalWrite(RESET,\ LOW);}
+\DoxyCodeLine{\ \ delay(100);}
+\DoxyCodeLine{\ \ digitalWrite(RESET,\ HIGH);}
+\DoxyCodeLine{\ \ delay(3000);}
+\DoxyCodeLine{\ \ digitalWrite(RESET,\ LOW);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ pinMode(PWR\_PIN,\ OUTPUT);}
+\DoxyCodeLine{\ \ digitalWrite(PWR\_PIN,\ LOW);}
+\DoxyCodeLine{\ \ delay(100);}
+\DoxyCodeLine{\ \ digitalWrite(PWR\_PIN,\ HIGH);}
+\DoxyCodeLine{\ \ delay(1000);}
+\DoxyCodeLine{\ \ digitalWrite(PWR\_PIN,\ LOW);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ DBG(\textcolor{stringliteral}{"{}Wait..."{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ delay(3000);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ SerialAT.begin(UART\_BAUD,\ SERIAL\_8N1,\ PIN\_RX,\ PIN\_TX);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Restart\ takes\ quite\ some\ time}}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ To\ skip\ it,\ call\ init()\ instead\ of\ restart()}}
+\DoxyCodeLine{\ \ DBG(\textcolor{stringliteral}{"{}Initializing\ modem..."{}});}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (!modem.init())}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ DBG(\textcolor{stringliteral}{"{}Failed\ to\ restart\ modem,\ delaying\ 10s\ and\ retrying"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\textcolor{comment}{\ \ 2\ Automatic}}
+\DoxyCodeLine{\textcolor{comment}{\ \ 13\ GSM\ Only}}
+\DoxyCodeLine{\textcolor{comment}{\ \ 14\ WCDMA\ Only}}
+\DoxyCodeLine{\textcolor{comment}{\ \ 38\ LTE\ Only}}
+\DoxyCodeLine{\textcolor{comment}{\ \ */}}
+\DoxyCodeLine{\ \ modem.setNetworkMode(38);}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (modem.waitResponse(10000L)\ !=\ 1)}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ DBG(\textcolor{stringliteral}{"{}\ setNetworkMode\ faill"{}});}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ String\ name\ =\ modem.getModemName();}
+\DoxyCodeLine{\ \ DBG(\textcolor{stringliteral}{"{}Modem\ Name:"{}},\ name);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ String\ modemInfo\ =\ modem.getModemInfo();}
+\DoxyCodeLine{\ \ DBG(\textcolor{stringliteral}{"{}Modem\ Info:"{}},\ modemInfo);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ Session\_Config\ config;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ config.server.host\_name\ =\ SMTP\_HOST;}
+\DoxyCodeLine{\ \ config.server.port\ =\ SMTP\_PORT;}
+\DoxyCodeLine{\ \ config.login.email\ =\ AUTHOR\_EMAIL;}
+\DoxyCodeLine{\ \ config.login.password\ =\ AUTHOR\_PASSWORD;}
+\DoxyCodeLine{\ \ config.login.user\_domain\ =\ F(\textcolor{stringliteral}{"{}127.0.0.1"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Declare\ the\ SMTP\_Message\ class\ variable\ to\ handle\ to\ message\ being\ transport}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ message;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ message\ headers}}
+\DoxyCodeLine{\ \ message.sender.name\ =\ F(\textcolor{stringliteral}{"{}ESP\ Mail"{}});}
+\DoxyCodeLine{\ \ message.sender.email\ =\ AUTHOR\_EMAIL;}
+\DoxyCodeLine{\ \ message.subject\ =\ F(\textcolor{stringliteral}{"{}Test\ sending\ plain\ text\ Email\ using\ GSM\ module"{}});}
+\DoxyCodeLine{\ \ message.\mbox{\hyperlink{class_s_m_t_p___message_ada962c564f3705ffe60729cfb2eb2f40}{addRecipient}}(F(\textcolor{stringliteral}{"{}Someone"{}}),\ RECIPIENT\_EMAIL);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ message\ content}}
+\DoxyCodeLine{\ \ message.text.content\ =\ \textcolor{stringliteral}{"{}This\ is\ simple\ plain\ text\ message"{}};}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ debug\ option}}
+\DoxyCodeLine{\ \ smtp.debug(1);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Set\ the\ callback\ function\ to\ get\ the\ sending\ results}}
+\DoxyCodeLine{\ \ smtp.callback(smtpCallback);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ smtp.setGSMClient(\&gsm\_client,\ \&modem,\ GSM\_PIN,\ apn,\ gprsUser,\ gprsPass);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Connect\ to\ the\ server\ with\ the\ defined\ session\ and\ options}}
+\DoxyCodeLine{\ \ smtp.connect(\&config);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Start\ sending\ Email\ and\ close\ the\ session}}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (!MailClient.sendMail(\&smtp,\ \&message))}
+\DoxyCodeLine{\ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error\ sending\ Email,\ "{}}\ +\ smtp.errorReason());}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ loop()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ smtpCallback(\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}}\ status)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{\ \ Serial.println(status.info());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (status.success())}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ See\ example\ for\ how\ to\ get\ the\ sending\ result}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md65}{}\doxysubsubsubsubsection{\texorpdfstring{ESP32 and W5500}{ESP32 and W5500}}\label{README.md_autotoc_md65}
+The below example will use ESP32 and W5500 and Ethernet client library to connect to SMTP server
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <Ethernet.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <ESP\_Mail\_Client.h>}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ WIZNET\_RESET\_PIN\ 26\ }\textcolor{comment}{//\ Connect\ W5500\ Reset\ pin\ to\ GPIO\ 26\ of\ ESP32}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ WIZNET\_CS\_PIN\ 5\ \ \ \ \ }\textcolor{comment}{//\ Connect\ W5500\ CS\ pin\ to\ GPIO\ 5\ of\ ESP32}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ WIZNET\_MISO\_PIN\ 19\ \ }\textcolor{comment}{//\ Connect\ W5500\ MISO\ pin\ to\ GPIO\ 19\ of\ ESP32}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ WIZNET\_MOSI\_PIN\ 23\ \ }\textcolor{comment}{//\ Connect\ W5500\ MOSI\ pin\ to\ GPIO\ 23\ of\ ESP32}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define\ WIZNET\_SCLK\_PIN\ 18\ \ }\textcolor{comment}{//\ Connect\ W5500\ SCLK\ pin\ to\ GPIO\ 18\ of\ ESP32}}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{uint8\_t\ Eth\_MAC[]\ =\ \{0x02,\ 0xF0,\ 0x0D,\ 0xBE,\ 0xEF,\ 0x01\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{class_s_m_t_p_session}{SMTPSession}}\ smtp;}
+\DoxyCodeLine{}
+\DoxyCodeLine{EthernetClient\ eth\_client;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ smtpCallback(\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}}\ status);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ setup()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ Serial.begin(115200);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ config.server.host\_name\ =\ \textcolor{stringliteral}{"{}smtp.gmail.com"{}};\ \textcolor{comment}{//for\ gmail.com}}
+\DoxyCodeLine{\ \ \ \ config.server.port\ =\ 587;\ \textcolor{comment}{//\ requires\ connection\ upgrade\ via\ STARTTLS}}
+\DoxyCodeLine{\ \ \ \ config.login.email\ =\ \textcolor{stringliteral}{"{}your\ Email\ address"{}};\ \textcolor{comment}{//set\ to\ empty\ for\ no\ SMTP\ Authentication}}
+\DoxyCodeLine{\ \ \ \ config.login.password\ =\ \textcolor{stringliteral}{"{}your\ Email\ password"{}};\ \textcolor{comment}{//set\ to\ empty\ for\ no\ SMTP\ Authentication}}
+\DoxyCodeLine{\ \ \ \ config.login.user\_domain\ =\ \textcolor{stringliteral}{"{}client\ domain\ or\ ip\ e.g.\ mydomain.com"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Declare\ the\ SMTP\_Message\ class\ variable\ to\ handle\ to\ message\ being\ transport}}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_s_m_t_p___message}{SMTP\_Message}}\ message;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Set\ the\ message\ headers}}
+\DoxyCodeLine{\ \ \ \ message.sender.name\ =\ \textcolor{stringliteral}{"{}My\ Mail"{}};}
+\DoxyCodeLine{\ \ \ \ message.sender.email\ =\ \textcolor{stringliteral}{"{}sender\ or\ your\ Email\ address"{}};}
+\DoxyCodeLine{\ \ \ \ message.subject\ =\ \textcolor{stringliteral}{"{}Test\ sending\ Email"{}};}
+\DoxyCodeLine{\ \ \ \ message.\mbox{\hyperlink{class_s_m_t_p___message_ada962c564f3705ffe60729cfb2eb2f40}{addRecipient}}(\textcolor{stringliteral}{"{}name1"{}},\ \textcolor{stringliteral}{"{}email1"{}});}
+\DoxyCodeLine{\ \ \ \ message.\mbox{\hyperlink{class_s_m_t_p___message_ada962c564f3705ffe60729cfb2eb2f40}{addRecipient}}(\textcolor{stringliteral}{"{}name2"{}},\ \textcolor{stringliteral}{"{}email2"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ message.\mbox{\hyperlink{class_s_m_t_p___message_ab8474d3e145865a4f0c987023191b188}{addCc}}(\textcolor{stringliteral}{"{}email3"{}});}
+\DoxyCodeLine{\ \ \ \ message.\mbox{\hyperlink{class_s_m_t_p___message_a7962ade3efdb1a8a2e6ffacdc6bbde72}{addBcc}}(\textcolor{stringliteral}{"{}email4"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Set\ the\ message\ content}}
+\DoxyCodeLine{\ \ \ \ message.text.content\ =\ \textcolor{stringliteral}{"{}This\ is\ simple\ plain\ text\ message"{}};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ smtp.setEthernetClient(\&eth\_client,\ Eth\_MAC,\ WIZNET\_CS\_PIN,\ WIZNET\_RESET\_PIN);\ }
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Set\ debug\ option}}
+\DoxyCodeLine{\ \ \ \ smtp.debug(1);}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Set\ the\ callback\ function\ to\ get\ the\ sending\ results}}
+\DoxyCodeLine{\ \ \ \ smtp.callback(smtpCallback);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Connect\ to\ the\ server\ with\ the\ defined\ session\ and\ options}}
+\DoxyCodeLine{\ \ \ \ smtp.connect(\&config);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Start\ sending\ Email\ and\ close\ the\ session}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (!MailClient.sendMail(\&smtp,\ \&message))}
+\DoxyCodeLine{\ \ \ \ \ \ Serial.println(\textcolor{stringliteral}{"{}Error\ sending\ Email,\ "{}}\ +\ smtp.errorReason());}
+\DoxyCodeLine{\ \ }
+\DoxyCodeLine{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keywordtype}{void}\ smtpCallback(\mbox{\hyperlink{class_s_m_t_p___status}{SMTP\_Status}}\ status)}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ }
+\DoxyCodeLine{\ \ Serial.println(status.info());}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordflow}{if}\ (status.success())}
+\DoxyCodeLine{\ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ See\ example\ for\ how\ to\ get\ the\ sending\ result}}
+\DoxyCodeLine{\ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md66}{}\doxysubsubsection{\texorpdfstring{Sponsors}{Sponsors}}\label{README.md_autotoc_md66}
+Sponsors via \href{https://github.com/sponsors/mobizt}{\texttt{ Github sponsors}}.
+
+Current sponsors
+
+\href{\#sponsors}{\texttt{ }} \href{https://github.com/Jagakatt}{\texttt{ }} \href{\#sponsors}{\texttt{ }}
+
+Past sponsors
+
+     \hypertarget{README.md_autotoc_md67}{}\doxysubsubsubsection{\texorpdfstring{Buy Me a Coffee}{Buy Me a Coffee}}\label{README.md_autotoc_md67}
+Donors via \href{https://www.buymeacoffee.com/Mobizt}{\texttt{ Buy Me a Coffee}}.
+
+Giulio, Stepinside, Liew Wuttipat, Keith Le Breton, Etan Hayik, Nikolaj Nøhr-\/\+Rasmussen, bjdshp, Francis Hsueh, tjozsef, dkalliv, Allan Green, Forrest Milner, Someone, @\+Engine1992, Vasanth, Jason Duhamell and Yochaing.
+
+If you like my works, you can give a star. If you can make benefit from my project or love it, you can sponsoring me or \href{https://www.buymeacoffee.com/Mobizt}{\texttt{ Buy Me a Coffee}}.\hypertarget{README.md_autotoc_md68}{}\doxysubsubsection{\texorpdfstring{License}{License}}\label{README.md_autotoc_md68}
+The MIT License (MIT)
+
+Copyright (c) 2025 K. Suwatchai (Mobizt)
+
+Permission is hereby granted, free of charge, to any person returning a copy of this software and associated documentation files (the "{}\+Software"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "{}\+AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

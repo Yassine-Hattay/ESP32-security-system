@@ -1,0 +1,358 @@
+\doxysection{BSSL\+\_\+\+SSL\+\_\+\+Client.\+h}
+\hypertarget{_b_s_s_l___s_s_l___client_8h_source}{}\label{_b_s_s_l___s_s_l___client_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/client/BSSL\_SSL\_Client.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/ESP-\/Mail-\/Client/src/client/SSLClient/client/BSSL\_SSL\_Client.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifndef\ BSSL\_SSL\_CLIENT\_H}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ BSSL\_SSL\_CLIENT\_H}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wunused-\/function"{}}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#pragma\ GCC\ diagnostic\ ignored\ "{}-\/Wvla"{}}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ "{}../ESP\_SSLClient\_FS.h"{}}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}../ESP\_SSLClient\_Const.h"{}}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#if\ defined(USE\_EMBED\_SSL\_ENGINE)\ \&\&\ !defined(ARDUINO\_ARCH\_RP2040)\ \&\&\ !defined(ARDUINO\_NANO\_RP2040\_CONNECT)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ EMBED\_SSL\_ENGINE\_BASE\_OVERRIDE\ override}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ EMBED\_SSL\_ENGINE\_BASE\_OVERRIDE}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ defined(ESP\_ARDUINO\_VERSION)\ }\textcolor{comment}{/*\ ESP32\ core\ >=\ v2.0.x\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ ESP32\ Client.h\ Arduino\ API\ breaking\ fix\ only\ for\ ESP32\ Arduino\ Core\ v3.1.0}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#if\ ESP\_ARDUINO\_VERSION\ ==\ ESP\_ARDUINO\_VERSION\_VAL(3,\ 1,\ 0)\ }}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ ESP32\_ARDUINO\_CORE\_CLIENT\_CONNECT\_OVERRIDE\ override;}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ESP32\_ARDUINO\_CORE\_CLIENT\_CONNECT\_HAS\_TMO}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ ESP32\_ARDUINO\_CORE\_CLIENT\_CONNECT\_OVERRIDE}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ESP32\_ARDUINO\_CORE\_CLIENT\_CONNECT\_OVERRIDE}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ BSSL\_SSL\_CLIENT\_MIN\_SESSION\_TIMEOUT\_SEC\ 60}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#if\ defined(USE\_LIB\_SSL\_ENGINE)\ ||\ defined(USE\_EMBED\_SSL\_ENGINE)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#if\ defined\ \_\_has\_include}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#if\ \_\_has\_include(<pgmspace.h>)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#include\ <pgmspace.h>}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#if\ defined(USE\_LIB\_SSL\_ENGINE)}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#include\ "{}BSSL\_Helper.h"{}}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#include\ "{}BSSL\_CertStore.h"{}}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{using\ namespace\ }bssl;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#elif\ defined(USE\_EMBED\_SSL\_ENGINE)}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#include\ "{}BearSSLHelpers.h"{}}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#include\ "{}BSSL\_Helper.h"{}}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#include\ "{}CertStoreBearSSL.h"{}}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{using\ namespace\ }BearSSL;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#if\ defined(ESP8266)}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#include\ "{}PolledTimeout.h"{}}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#if\ defined(ESP8266\_CORE\_SDK\_V3\_X\_X)}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#include\ <umm\_malloc/umm\_heap\_select.h>}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#if\ \_\_has\_include(<core\_esp8266\_version.h>)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#include\ <core\_esp8266\_version.h>}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{class\ }BSSL\_SSL\_Client\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_client}{Client}}}
+\DoxyCodeLine{00106\ \{}
+\DoxyCodeLine{00107\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{explicit}\ BSSL\_SSL\_Client(\mbox{\hyperlink{class_client}{Client}}\ *client\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \string~BSSL\_SSL\_Client();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ setClient(\mbox{\hyperlink{class_client}{Client}}\ *client,\ \textcolor{keywordtype}{bool}\ ssl\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordtype}{void}\ setDebugLevel(\textcolor{keywordtype}{int}\ level);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{int}\ connect(\mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip,\ uint16\_t\ port)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{int}\ connect(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host,\ uint16\_t\ port)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#if\ defined(ESP32\_ARDUINO\_CORE\_CLIENT\_CONNECT\_HAS\_TMO)}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{int}\ connect(\mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip,\ uint16\_t\ port,\ int32\_t\ timeout)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{int}\ connect(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host,\ uint16\_t\ port,\ int32\_t\ timeout)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ uint8\_t\ connected()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordtype}{void}\ validate(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host,\ uint16\_t\ port);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordtype}{void}\ validate(\mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip,\ uint16\_t\ port);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{int}\ available()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordtype}{int}\ read()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{int}\ read(uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ write(\textcolor{keyword}{const}\ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ size)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t\ b)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ write\_P(PGM\_P\ buf,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ write(Stream\ \&stream);}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordtype}{int}\ peek()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ peekBytes(uint8\_t\ *buffer,\ \textcolor{keywordtype}{size\_t}\ length);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordtype}{void}\ setInsecure();}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordtype}{void}\ enableSSL(\textcolor{keywordtype}{bool}\ enable);}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordtype}{int}\ connectSSL(\mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip,\ uint16\_t\ port);}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{int}\ connectSSL(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host,\ uint16\_t\ port);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordtype}{void}\ stop()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{void}\ setTimeout(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ timeoutMs);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordtype}{void}\ setHandshakeTimeout(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ timeoutMs);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{void}\ setSessionTimeout(uint32\_t\ seconds);}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{void}\ flush()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{void}\ setBufferSizes(\textcolor{keywordtype}{int}\ recv,\ \textcolor{keywordtype}{int}\ xmit);}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{keyword}{operator}\ bool()\textcolor{keyword}{\ override\ }\{\ \textcolor{keywordflow}{return}\ connected()\ >\ 0;\ \}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{int}\ availableForWrite()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{void}\ setSession(\mbox{\hyperlink{class_bear_s_s_l___session}{BearSSL\_Session}}\ *session);}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{void}\ setKnownKey(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_public_key}{PublicKey}}\ *pk,\ \textcolor{keywordtype}{unsigned}\ usages\ =\ \mbox{\hyperlink{bearssl__x509_8h_ad0585c052f9a73cc7b83f7ab9a1c9b28}{BR\_KEYTYPE\_KEYX}}\ |\ \mbox{\hyperlink{bearssl__x509_8h_a2b2bd4c6ec8d26754645743ca26ba9ac}{BR\_KEYTYPE\_SIGN}});}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordtype}{bool}\ setFingerprint(\textcolor{keyword}{const}\ uint8\_t\ fingerprint[20]);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{bool}\ setFingerprint(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *fpStr);}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{void}\ allowSelfSignedCerts();}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{void}\ setTrustAnchors(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_x509_list}{X509List}}\ *ta);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{void}\ setX509Time(time\_t\ now);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{void}\ setClientRSACert(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_x509_list}{X509List}}\ *chain,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_private_key}{PrivateKey}}\ *sk);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordtype}{void}\ setClientECCert(\textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_x509_list}{X509List}}\ *chain,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_private_key}{PrivateKey}}\ *sk,\ \textcolor{keywordtype}{unsigned}\ allowed\_usages,\ \textcolor{keywordtype}{unsigned}\ cert\_issuer\_key\_type);}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \textcolor{keywordtype}{int}\ getMFLNStatus();}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordtype}{int}\ getLastSSLError(\textcolor{keywordtype}{char}\ *dest,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#if\ defined(ESP\_SSL\_FS\_SUPPORTED)}}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordtype}{void}\ setCertStore(CertStoreBase\ *certStore);}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{bool}\ setCiphers(\textcolor{keyword}{const}\ uint16\_t\ *cipherAry,\ \textcolor{keywordtype}{int}\ cipherCount);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{bool}\ setCiphers(\textcolor{keyword}{const}\ std::vector<uint16\_t>\ \&list);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{bool}\ setCiphersLessSecure();}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordtype}{bool}\ setSSLVersion(uint32\_t\ min,\ uint32\_t\ max);}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{bool}\ probeMaxFragmentLength(\mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip,\ uint16\_t\ port,\ uint16\_t\ len);}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{bool}\ probeMaxFragmentLength(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *hostname,\ uint16\_t\ port,\ uint16\_t\ len);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordtype}{bool}\ probeMaxFragmentLength(\textcolor{keyword}{const}\ String\ \&host,\ uint16\_t\ port,\ uint16\_t\ len);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ peekAvailable()\ EMBED\_SSL\_ENGINE\_BASE\_OVERRIDE;}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *peekBuffer()\ EMBED\_SSL\_ENGINE\_BASE\_OVERRIDE;}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keywordtype}{void}\ peekConsume(\textcolor{keywordtype}{size\_t}\ consume)\ EMBED\_SSL\_ENGINE\_BASE\_OVERRIDE;}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordtype}{void}\ setCACert(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *rootCA);}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{void}\ setCertificate(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *client\_ca);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordtype}{void}\ setPrivateKey(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *private\_key);}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordtype}{bool}\ loadCACert(Stream\ \&stream,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \textcolor{keywordtype}{bool}\ loadCertificate(Stream\ \&stream,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{bool}\ loadPrivateKey(Stream\ \&stream,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{int}\ connect(\mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip,\ uint16\_t\ port,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *rootCABuff,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_cert,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_key);}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordtype}{int}\ connect(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host,\ uint16\_t\ port,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *rootCABuff,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_cert,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_key);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \ \ \ \ BSSL\_SSL\_Client\ \&operator=(\textcolor{keyword}{const}\ BSSL\_SSL\_Client\ \&other);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ value)\ \{\ \textcolor{keywordflow}{return}\ bool()\ ==\ value;\ \}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ value)\ \{\ \textcolor{keywordflow}{return}\ bool()\ !=\ value;\ \}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator==(\textcolor{keyword}{const}\ BSSL\_SSL\_Client\ \&);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \ \ \ \ \textcolor{keywordtype}{bool}\ operator!=(\textcolor{keyword}{const}\ BSSL\_SSL\_Client\ \&rhs)\ \{\ \textcolor{keywordflow}{return}\ !this-\/>operator==(rhs);\ \};}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ getTimeout()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordtype}{void}\ setSecure(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *rootCABuff,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_cert,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *cli\_key);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{comment}{//\ Checks\ for\ support\ of\ Maximum\ Frame\ Length\ Negotiation\ at\ the\ given}}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{comment}{//\ blocksize.\ \ Note\ that,\ per\ spec,\ only\ 512,\ 1024,\ 2048,\ and\ 4096\ are}}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{comment}{//\ supported.\ \ Many\ servers\ today\ do\ not\ support\ this\ negotiation.}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{comment}{//\ TODO\ -\/\ Allow\ for\ fragmentation...but\ not\ very\ critical\ as\ the\ ServerHello}}
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ we\ use\ comes\ to\ <\ 80\ bytes\ which\ has\ no\ reason\ to\ ever\ be\ fragmented.}}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{comment}{//\ TODO\ -\/\ Check\ the\ type\ of\ returned\ extensions\ and\ that\ the\ MFL\ is\ the\ exact}}
+\DoxyCodeLine{00255\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ same\ one\ we\ sent.\ \ Not\ critical\ as\ only\ horribly\ broken\ servers\ would}}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ return\ changed\ or\ add\ their\ own\ extensions.}}
+\DoxyCodeLine{00257\ \ \ \ \ \textcolor{keywordtype}{bool}\ mProbeMaxFragmentLength(\mbox{\hyperlink{class_client}{Client}}\ *probe,\ uint16\_t\ len);}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordtype}{bool}\ mProbeMaxFragmentLength(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *name,\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip,\ uint16\_t\ port,\ uint16\_t\ len);}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordtype}{int}\ mIsClientInitialized(\textcolor{keywordtype}{bool}\ notify);}
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ \ \ \ \ \textcolor{keywordtype}{int}\ mConnectBasicClient(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host,\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip,\ uint16\_t\ port);}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{comment}{//\ Returns\ whether\ or\ not\ the\ engine\ is\ connected,\ without\ polling\ the\ client\ over\ SPI\ or\ other\ (as\ opposed\ to\ connected())}}
+\DoxyCodeLine{00265\ \ \ \ \ \textcolor{keywordtype}{bool}\ mSoftConnected(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *func\_name);}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordtype}{int}\ mConnectSSL(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{keywordtype}{bool}\ mConnectionValidate(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *host,\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ ip,\ uint16\_t\ port);}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordtype}{bool}\ mCheckSessionTimeout();}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordtype}{int}\ mRunUntil(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ target,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ timeout\ =\ 0);}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ mUpdateEngine();}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordtype}{void}\ mPrintClientError(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ ssl\_error,\ \textcolor{keywordtype}{int}\ level,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *func\_name);}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keywordtype}{void}\ mPrintSSLError(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ br\_error\_code,\ \textcolor{keywordtype}{int}\ level,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *func\_name);}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordtype}{void}\ mPrintSSLState(\textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ br\_state,\ \textcolor{keywordtype}{int}\ level,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *func\_name);}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordtype}{bool}\ mIsSecurePort(uint16\_t\ port);}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordtype}{void}\ mBSSLX509InsecureInit(\mbox{\hyperlink{structbssl_1_1br__x509__insecure__context}{bssl::br\_x509\_insecure\_context}}\ *ctx,\ \textcolor{keywordtype}{int}\ \_use\_fingerprint,\ \textcolor{keyword}{const}\ uint8\_t\ \_fingerprint[20],\ \textcolor{keywordtype}{int}\ \_allow\_self\_signed);}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordtype}{void}\ mClearAuthenticationSettings();}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordtype}{void}\ mClear();}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordtype}{bool}\ mInstallClientX509Validator();}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordtype}{void}\ mFreeSSL();}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ uint8\_t\ *mStreamLoad(Stream\ \&stream,\ \textcolor{keywordtype}{size\_t}\ size);}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keywordtype}{void}\ *mallocImpl(\textcolor{keywordtype}{size\_t}\ len,\ \textcolor{keywordtype}{bool}\ clear\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordtype}{void}\ freeImpl(\textcolor{keywordtype}{void}\ *ptr);}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ getReservedLen(\textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//\ store\ whether\ to\ enable\ debug\ logging}}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordtype}{int}\ \_debug\_level\ =\ 0;}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_is\_connected\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{comment}{//\ \ store\ the\ index\ of\ where\ we\ are\ writing\ in\ the\ buffer}}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{comment}{//\ \ so\ we\ can\ send\ our\ records\ all\ at\ once\ to\ prevent}}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{comment}{//\ \ weird\ timing\ issues}}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_write\_idx\ =\ 0;}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \textcolor{comment}{//\ store\ the\ last\ BearSSL\ state\ so\ we\ can\ print\ changes\ to\ the\ console}}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_bssl\_last\_state\ =\ 0;}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_secure\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \mbox{\hyperlink{class_client}{Client}}\ *\_basic\_client\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \ \ std::shared\_ptr<br\_ssl\_client\_context>\ \_sc;}
+\DoxyCodeLine{00321\ \ \ \ \ \mbox{\hyperlink{structbr__ssl__engine__context}{br\_ssl\_engine\_context}}\ *\_eng\ =\ \textcolor{keyword}{nullptr};\ \textcolor{comment}{//\ \&\_sc-\/>eng,\ to\ allow\ for\ client\ or\ server\ contexts}}
+\DoxyCodeLine{00322\ \ \ \ \ std::shared\_ptr<br\_x509\_minimal\_context>\ \_x509\_minimal;}
+\DoxyCodeLine{00323\ \ \ \ \ std::shared\_ptr<struct\ bssl::br\_x509\_insecure\_context>\ \_x509\_insecure;}
+\DoxyCodeLine{00324\ \ \ \ \ std::shared\_ptr<br\_x509\_knownkey\_context>\ \_x509\_knownkey;}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\_iobuf\_in\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\_iobuf\_out\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordtype}{int}\ \_iobuf\_in\_size\ =\ 512;}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordtype}{int}\ \_iobuf\_out\_size\ =\ 512;}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ time\_t\ \_now\ =\ 0;}
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_x509_list}{X509List}}\ *\_ta\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#if\ defined(ESP\_SSL\_FS\_SUPPORTED)}}
+\DoxyCodeLine{00334\ \ \ \ \ CertStoreBase\ *\_certStore\ =\ 0;}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{comment}{//\ Optional\ client\ certificate}}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_x509_list}{X509List}}\ *\_chain\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_private_key}{PrivateKey}}\ *\_sk\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_allowed\_usages\ =\ 0;}
+\DoxyCodeLine{00340\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_cert\_issuer\_key\_type\ =\ 0;}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{comment}{//\ Optional\ storage\ space\ pointer\ for\ session\ parameters}}
+\DoxyCodeLine{00343\ \ \ \ \ \textcolor{comment}{//\ Will\ be\ used\ on\ connect\ and\ updated\ on\ close}}
+\DoxyCodeLine{00344\ \ \ \ \ \mbox{\hyperlink{class_bear_s_s_l___session}{BearSSL\_Session}}\ *\_session\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_use\_insecure\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_use\_fingerprint\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00348\ \ \ \ \ uint8\_t\ \_fingerprint[20];}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_use\_self\_signed\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classbssl_1_1_public_key}{PublicKey}}\ *\_knownkey;}
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \_knownkey\_usages\ =\ 0;}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{comment}{//\ Custom\ cipher\ list\ pointer\ or\ nullptr\ if\ default}}
+\DoxyCodeLine{00354\ \ \ \ \ uint16\_t\ *\_cipher\_list\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00355\ \ \ \ \ uint8\_t\ \_cipher\_cnt\ =\ 0;}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{comment}{//\ TLS\ ciphers\ allowed}}
+\DoxyCodeLine{00358\ \ \ \ \ uint32\_t\ \_tls\_min\ =\ \mbox{\hyperlink{bearssl__ssl_8h_a567d70c012479ebd6e7c7cf66d0a299a}{BR\_TLS10}};}
+\DoxyCodeLine{00359\ \ \ \ \ uint32\_t\ \_tls\_max\ =\ \mbox{\hyperlink{bearssl__ssl_8h_aa032ff7b1be448e731f40b6f5b6d6207}{BR\_TLS12}};}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \mbox{\hyperlink{classbssl_1_1_x509_list}{X509List}}\ *\_esp32\_ta\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00362\ \ \ \ \ \mbox{\hyperlink{classbssl_1_1_x509_list}{X509List}}\ *\_esp32\_chain\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00363\ \ \ \ \ \mbox{\hyperlink{classbssl_1_1_private_key}{PrivateKey}}\ *\_esp32\_sk\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_handshake\_done\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_oom\_err\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *\_recvapp\_buf\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \_recvapp\_len;}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{comment}{//\ Renameing\ from\ \_timeout\ which\ also\ defined\ in\ parent's\ Stream\ class.}}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_timeout\_ms\ =\ 15000;}
+\DoxyCodeLine{00371\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_handshake\_timeout\ =\ 60000;}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_tcp\_session\_timeout\ =\ 0;}
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_session\_ts\ =\ 0;}
+\DoxyCodeLine{00374\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_isSSLEnabled\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00375\ \ \ \ \ String\ \_host;}
+\DoxyCodeLine{00376\ \ \ \ \ uint16\_t\ \_port\ =\ 0;}
+\DoxyCodeLine{00377\ \ \ \ \ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ \_ip;}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_connect\_with\_ip\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00379\ \};}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \textcolor{preprocessor}{\#endif\ }\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

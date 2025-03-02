@@ -1,0 +1,306 @@
+\doxysection{esp\+\_\+modem\+::DTE Class Reference}
+\hypertarget{classesp__modem_1_1_d_t_e}{}\label{classesp__modem_1_1_d_t_e}\index{esp\_modem::DTE@{esp\_modem::DTE}}
+
+
+{\ttfamily \#include $<$esp\+\_\+modem\+\_\+dte.\+hpp$>$}
+
+Inheritance diagram for esp\+\_\+modem\+::DTE\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classesp__modem_1_1_d_t_e}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classesp__modem_1_1_d_t_e_a8bc19a82d38ee2459985fe846a634bbd}{DTE}} (const \mbox{\hyperlink{structesp__modem__dte__config}{esp\+\_\+modem\+\_\+dte\+\_\+config}} \texorpdfstring{$\ast$}{*}config, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$ t)
+\begin{DoxyCompactList}\small\item\em Creates a \doxylink{classesp__modem_1_1_d_t_e}{DTE} instance from the terminal. \end{DoxyCompactList}\item 
+\Hypertarget{classesp__modem_1_1_d_t_e_a907dc63afff77ff7a20529f84a1e68b3}\label{classesp__modem_1_1_d_t_e_a907dc63afff77ff7a20529f84a1e68b3} 
+{\bfseries DTE} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$ t)
+\item 
+\Hypertarget{classesp__modem_1_1_d_t_e_a805a20d5b201516bc5a71cbb6ff991af}\label{classesp__modem_1_1_d_t_e_a805a20d5b201516bc5a71cbb6ff991af} 
+{\bfseries DTE} (const \mbox{\hyperlink{structesp__modem__dte__config}{esp\+\_\+modem\+\_\+dte\+\_\+config}} \texorpdfstring{$\ast$}{*}config, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$ t, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$ s)
+\item 
+\Hypertarget{classesp__modem_1_1_d_t_e_a60e1cd6008f834b451a66976171ca2bd}\label{classesp__modem_1_1_d_t_e_a60e1cd6008f834b451a66976171ca2bd} 
+{\bfseries DTE} (std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$ t, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$ s)
+\item 
+int \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a087ff73903c9170dde2ac4c8176fa466}{write}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len) override
+\begin{DoxyCompactList}\small\item\em Writing to the underlying terminal. \end{DoxyCompactList}\item 
+\Hypertarget{classesp__modem_1_1_d_t_e_a313cb470cec5923394b630412eeb7399}\label{classesp__modem_1_1_d_t_e_a313cb470cec5923394b630412eeb7399} 
+int {\bfseries write} (\mbox{\hyperlink{structesp__modem_1_1_d_t_e___command}{DTE\+\_\+\+Command}} \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a583dcc46045a80bb64bcf8b2e60104f5}{command}})
+\item 
+int \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a86ddfbbd06ea55c0c4b3dcca9bccc50f}{send}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len, int term\+\_\+id=1)
+\begin{DoxyCompactList}\small\item\em send data to the selected terminal, by default (without term\+\_\+id argument) this API works the same as write\+: sends data to the secondary terminal, which is typically used as data terminal (for networking). \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a8f60c6b0a8d77c6a8faa018995b25fbf}{read}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}d, size\+\_\+t len)
+\begin{DoxyCompactList}\small\item\em Reading from the underlying terminal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a7cc32cf3eafd530f782403f542de8f1b}{set\+\_\+read\+\_\+cb}} (std\+::function$<$ bool(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)$>$ f)
+\begin{DoxyCompactList}\small\item\em Sets read callback with valid data and length. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classesp__modem_1_1_d_t_e_aa83e11e19f151842b766023ac814bcc5}{on\+\_\+read}} (got\+\_\+line\+\_\+cb on\+\_\+data) override
+\begin{DoxyCompactList}\small\item\em Sets read callback for manual command processing Note that this API also locks the command API, which can only be used after you remove the callback by dte-\/\texorpdfstring{$>$}{>}on\+\_\+read(nullptr) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a6e1bcf8ef4e3fb49feffc996ee643291}{set\+\_\+error\+\_\+cb}} (std\+::function$<$ void(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_e_r_m_i_n_a_l_ga9e2467aa5656f359e3dbcc33b28416ea}{terminal\+\_\+error}} err)$>$ f)
+\begin{DoxyCompactList}\small\item\em Sets \doxylink{classesp__modem_1_1_d_t_e}{DTE} error callback. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a3881fd61c76eef69555b6ce933dcbe9f}{set\+\_\+mode}} (\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\+\_\+mode}} m)
+\begin{DoxyCompactList}\small\item\em Sets the \doxylink{classesp__modem_1_1_d_t_e}{DTE} to desired mode (Command/\+Data/\+Cmux) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\+\_\+result}} \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a583dcc46045a80bb64bcf8b2e60104f5}{command}} (const std\+::string \&command, got\+\_\+line\+\_\+cb got\+\_\+line, uint32\+\_\+t time\+\_\+ms) override
+\begin{DoxyCompactList}\small\item\em Sends command and provides callback with responding line. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\+\_\+result}} \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a4050dc3a6ba4d5a44e2fba53ea296ef6}{command}} (const std\+::string \&command, got\+\_\+line\+\_\+cb got\+\_\+line, uint32\+\_\+t time\+\_\+ms, char separator) override
+\begin{DoxyCompactList}\small\item\em Sends the command (same as above) but with a specific separator. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classesp__modem_1_1_d_t_e_a76a7747aa878b52247a1cfc97d2726fb}{recover}} ()
+\begin{DoxyCompactList}\small\item\em Allows this \doxylink{classesp__modem_1_1_d_t_e}{DTE} to recover from a generic connection issue. \end{DoxyCompactList}\item 
+\Hypertarget{classesp__modem_1_1_d_t_e_a451196584c4bdf45eff8038a0933948c}\label{classesp__modem_1_1_d_t_e_a451196584c4bdf45eff8038a0933948c} 
+void {\bfseries set\+\_\+command\+\_\+callbacks} ()
+\begin{DoxyCompactList}\small\item\em Set internal command callbacks to the underlying terminal. Here we capture command replies to be processed by supplied command callbacks in struct command\+\_\+cb. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classesp__modem_1_1_commandable_if}{esp\+\_\+modem\+::\+Commandable\+If}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Commandable\+If} (const \mbox{\hyperlink{classesp__modem_1_1_commandable_if}{Commandable\+If}} \&)=delete
+\item 
+\mbox{\hyperlink{classesp__modem_1_1_commandable_if}{Commandable\+If}} \& {\bfseries operator=} (const \mbox{\hyperlink{classesp__modem_1_1_commandable_if}{Commandable\+If}} \&)=delete
+\item 
+{\bfseries Commandable\+If} (\mbox{\hyperlink{classesp__modem_1_1_commandable_if}{Commandable\+If}} \&\&)=delete
+\item 
+\mbox{\hyperlink{classesp__modem_1_1_commandable_if}{Commandable\+If}} \& {\bfseries operator=} (\mbox{\hyperlink{classesp__modem_1_1_commandable_if}{Commandable\+If}} \&\&)=delete
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classesp__modem_1_1_d_t_e_a320483c8eb9d188c7578673f9575c674}\label{classesp__modem_1_1_d_t_e_a320483c8eb9d188c7578673f9575c674} 
+void {\bfseries lock} ()
+\begin{DoxyCompactList}\small\item\em Allows for locking the \doxylink{classesp__modem_1_1_d_t_e}{DTE}. \end{DoxyCompactList}\item 
+\Hypertarget{classesp__modem_1_1_d_t_e_a91edf36b21ad3039b6827b2de6fe61b5}\label{classesp__modem_1_1_d_t_e_a91edf36b21ad3039b6827b2de6fe61b5} 
+void {\bfseries unlock} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classesp__modem_1_1_d_t_e_af1600c849dadedbf4b0f60942291deea}{Scoped$<$ DTE $>$}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classesp__modem_1_1_d_t_e}{DTE} (Data \doxylink{classesp__modem_1_1_terminal}{Terminal} Equipment) class 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classesp__modem_1_1_d_t_e_a8bc19a82d38ee2459985fe846a634bbd}\index{esp\_modem::DTE@{esp\_modem::DTE}!DTE@{DTE}}
+\index{DTE@{DTE}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{DTE()}{DTE()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a8bc19a82d38ee2459985fe846a634bbd} 
+DTE\+::\+DTE (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structesp__modem__dte__config}{esp\+\_\+modem\+\_\+dte\+\_\+config}} \texorpdfstring{$\ast$}{*}}]{config}{, }\item[{std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classesp__modem_1_1_terminal}{Terminal}} $>$}]{t}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Creates a \doxylink{classesp__modem_1_1_d_t_e}{DTE} instance from the terminal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & \doxylink{classesp__modem_1_1_d_t_e}{DTE} config structure \\
+\hline
+{\em t} & unique-\/ptr to \doxylink{classesp__modem_1_1_terminal}{Terminal} \\
+\hline
+{\em s} & unique-\/ptr to secondary \doxylink{classesp__modem_1_1_terminal}{Terminal} \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classesp__modem_1_1_d_t_e_a583dcc46045a80bb64bcf8b2e60104f5}\index{esp\_modem::DTE@{esp\_modem::DTE}!command@{command}}
+\index{command@{command}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{command()}{command()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a583dcc46045a80bb64bcf8b2e60104f5} 
+\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\+\_\+result}} DTE\+::command (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{, }\item[{got\+\_\+line\+\_\+cb}]{got\+\_\+line}{, }\item[{uint32\+\_\+t}]{time\+\_\+ms}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Sends command and provides callback with responding line. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & String parameter representing command \\
+\hline
+{\em got\+\_\+line} & Function to be called after line available as a response \\
+\hline
+{\em time\+\_\+ms} & Time in ms to wait for the answer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK, FAIL, TIMEOUT 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classesp__modem_1_1_commandable_if}{esp\+\_\+modem\+::\+Commandable\+If}}.
+
+\Hypertarget{classesp__modem_1_1_d_t_e_a4050dc3a6ba4d5a44e2fba53ea296ef6}\index{esp\_modem::DTE@{esp\_modem::DTE}!command@{command}}
+\index{command@{command}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{command()}{command()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a4050dc3a6ba4d5a44e2fba53ea296ef6} 
+\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_gac47d24e750cc329387e893697d1f132f}{command\+\_\+result}} DTE\+::command (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{, }\item[{got\+\_\+line\+\_\+cb}]{got\+\_\+line}{, }\item[{uint32\+\_\+t}]{time\+\_\+ms}{, }\item[{char}]{separator}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Sends the command (same as above) but with a specific separator. 
+
+
+
+Implements \mbox{\hyperlink{classesp__modem_1_1_commandable_if_a9af6c6ad4597fb234cfe11e9b6635c0b}{esp\+\_\+modem\+::\+Commandable\+If}}.
+
+\Hypertarget{classesp__modem_1_1_d_t_e_aa83e11e19f151842b766023ac814bcc5}\index{esp\_modem::DTE@{esp\_modem::DTE}!on\_read@{on\_read}}
+\index{on\_read@{on\_read}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{on\_read()}{on\_read()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_aa83e11e19f151842b766023ac814bcc5} 
+void DTE\+::on\+\_\+read (\begin{DoxyParamCaption}\item[{got\+\_\+line\+\_\+cb}]{on\+\_\+data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Sets read callback for manual command processing Note that this API also locks the command API, which can only be used after you remove the callback by dte-\/\texorpdfstring{$>$}{>}on\+\_\+read(nullptr) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em on\+\_\+data} & Function to be called when a command response is available \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classesp__modem_1_1_commandable_if}{esp\+\_\+modem\+::\+Commandable\+If}}.
+
+\Hypertarget{classesp__modem_1_1_d_t_e_a8f60c6b0a8d77c6a8faa018995b25fbf}\index{esp\_modem::DTE@{esp\_modem::DTE}!read@{read}}
+\index{read@{read}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a8f60c6b0a8d77c6a8faa018995b25fbf} 
+int DTE\+::read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{d}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})}
+
+
+
+Reading from the underlying terminal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em d} & Returning the data pointer of the received payload \\
+\hline
+{\em len} & Length of the data payload \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes read 
+\end{DoxyReturn}
+\Hypertarget{classesp__modem_1_1_d_t_e_a76a7747aa878b52247a1cfc97d2726fb}\index{esp\_modem::DTE@{esp\_modem::DTE}!recover@{recover}}
+\index{recover@{recover}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{recover()}{recover()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a76a7747aa878b52247a1cfc97d2726fb} 
+bool DTE\+::recover (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Allows this \doxylink{classesp__modem_1_1_d_t_e}{DTE} to recover from a generic connection issue. 
+
+\begin{DoxyReturn}{Returns}
+true if success 
+\end{DoxyReturn}
+\Hypertarget{classesp__modem_1_1_d_t_e_a86ddfbbd06ea55c0c4b3dcca9bccc50f}\index{esp\_modem::DTE@{esp\_modem::DTE}!send@{send}}
+\index{send@{send}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a86ddfbbd06ea55c0c4b3dcca9bccc50f} 
+int DTE\+::send (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{, }\item[{int}]{term\+\_\+id}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+send data to the selected terminal, by default (without term\+\_\+id argument) this API works the same as write\+: sends data to the secondary terminal, which is typically used as data terminal (for networking). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data pointer to write \\
+\hline
+{\em len} & Data len to write \\
+\hline
+{\em term\+\_\+id} & \doxylink{classesp__modem_1_1_terminal}{Terminal} id\+: Primary if id==0, Secondary if id==1 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes written 
+\end{DoxyReturn}
+\Hypertarget{classesp__modem_1_1_d_t_e_a6e1bcf8ef4e3fb49feffc996ee643291}\index{esp\_modem::DTE@{esp\_modem::DTE}!set\_error\_cb@{set\_error\_cb}}
+\index{set\_error\_cb@{set\_error\_cb}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{set\_error\_cb()}{set\_error\_cb()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a6e1bcf8ef4e3fb49feffc996ee643291} 
+void DTE\+::set\+\_\+error\+\_\+cb (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_e_r_m_i_n_a_l_ga9e2467aa5656f359e3dbcc33b28416ea}{terminal\+\_\+error}} err)$>$}]{f}{}\end{DoxyParamCaption})}
+
+
+
+Sets \doxylink{classesp__modem_1_1_d_t_e}{DTE} error callback. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & Function to be called on \doxylink{classesp__modem_1_1_d_t_e}{DTE} error \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classesp__modem_1_1_d_t_e_a3881fd61c76eef69555b6ce933dcbe9f}\index{esp\_modem::DTE@{esp\_modem::DTE}!set\_mode@{set\_mode}}
+\index{set\_mode@{set\_mode}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{set\_mode()}{set\_mode()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a3881fd61c76eef69555b6ce933dcbe9f} 
+bool DTE\+::set\+\_\+mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{group___e_s_p___m_o_d_e_m___t_y_p_e_s_ga80fa0ae4f6b04bc4e753bd207e0f298f}{modem\+\_\+mode}}}]{m}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [nodiscard]}}
+
+
+
+Sets the \doxylink{classesp__modem_1_1_d_t_e}{DTE} to desired mode (Command/\+Data/\+Cmux) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & Desired operation mode \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true on success 
+\end{DoxyReturn}
+\Hypertarget{classesp__modem_1_1_d_t_e_a7cc32cf3eafd530f782403f542de8f1b}\index{esp\_modem::DTE@{esp\_modem::DTE}!set\_read\_cb@{set\_read\_cb}}
+\index{set\_read\_cb@{set\_read\_cb}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{set\_read\_cb()}{set\_read\_cb()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a7cc32cf3eafd530f782403f542de8f1b} 
+void DTE\+::set\+\_\+read\+\_\+cb (\begin{DoxyParamCaption}\item[{std\+::function$<$ bool(uint8\+\_\+t \texorpdfstring{$\ast$}{*}data, size\+\_\+t len)$>$}]{f}{}\end{DoxyParamCaption})}
+
+
+
+Sets read callback with valid data and length. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em f} & Function to be called on data available \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classesp__modem_1_1_d_t_e_a087ff73903c9170dde2ac4c8176fa466}\index{esp\_modem::DTE@{esp\_modem::DTE}!write@{write}}
+\index{write@{write}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_a087ff73903c9170dde2ac4c8176fa466} 
+int DTE\+::write (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{, }\item[{size\+\_\+t}]{len}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Writing to the underlying terminal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Data pointer to write \\
+\hline
+{\em len} & Data len to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of bytes written 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classesp__modem_1_1_commandable_if}{esp\+\_\+modem\+::\+Commandable\+If}}.
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{classesp__modem_1_1_d_t_e_af1600c849dadedbf4b0f60942291deea}\index{esp\_modem::DTE@{esp\_modem::DTE}!Scoped$<$ DTE $>$@{Scoped$<$ DTE $>$}}
+\index{Scoped$<$ DTE $>$@{Scoped$<$ DTE $>$}!esp\_modem::DTE@{esp\_modem::DTE}}
+\doxysubsubsection{\texorpdfstring{Scoped$<$ DTE $>$}{Scoped< DTE >}}
+{\footnotesize\ttfamily \label{classesp__modem_1_1_d_t_e_af1600c849dadedbf4b0f60942291deea} 
+friend class \mbox{\hyperlink{classesp__modem_1_1_scoped}{Scoped}}$<$ \mbox{\hyperlink{classesp__modem_1_1_d_t_e}{DTE}} $>$\hspace{0.3cm}{\ttfamily [friend]}}
+
+Declaring "{}\+Scoped$<$\+DTE$>$ lock(dte)"{} locks this instance 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/include/cxx\+\_\+include/esp\+\_\+modem\+\_\+dte.\+hpp\item 
+C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp\+\_\+modem/src/esp\+\_\+modem\+\_\+dte.\+cpp\end{DoxyCompactItemize}

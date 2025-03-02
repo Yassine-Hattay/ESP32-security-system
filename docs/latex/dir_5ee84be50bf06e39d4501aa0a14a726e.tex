@@ -1,0 +1,78 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Network\+Client\+Secure Directory Reference}
+\hypertarget{dir_5ee84be50bf06e39d4501aa0a14a726e}{}\label{dir_5ee84be50bf06e39d4501aa0a14a726e}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/NetworkClientSecure Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/NetworkClientSecure Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_c9a0f54137d46bb9afcd342b946f0581}{src}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_network_client_secure}{Network\+Client\+Secure} class implements support for secure connections using TLS (SSL). It inherits from \doxylink{class_network_client}{Network\+Client} and thus implements a superset of that class\textquotesingle{} interface. There are three ways to establish a secure connection using the \doxylink{class_network_client_secure}{Network\+Client\+Secure} class\+: using a root certificate authority (CA) cert, using a root CA cert plus a client cert and key, and using a pre-\/shared key (PSK).\hypertarget{README.md_autotoc_md456}{}\doxysubsection{\texorpdfstring{Using a root certificate authority cert}{Using a root certificate authority cert}}\label{README.md_autotoc_md456}
+This method authenticates the server and negotiates an encrypted connection. It is the same functionality as implemented in your web browser when you connect to HTTPS sites.
+
+If you are accessing your own server\+:
+\begin{DoxyItemize}
+\item Generate a root certificate for your own certificate authority
+\item Generate a cert \& private key using your root certificate ("{}self-\/signed cert"{}) for your server
+\end{DoxyItemize}
+
+If you are accessing a public server\+:
+\begin{DoxyItemize}
+\item Obtain the cert of the public CA that signed that server\textquotesingle{}s cert Then\+:
+\item In \doxylink{class_network_client_secure}{Network\+Client\+Secure} use set\+CACert (or the appropriate connect method) to set the root cert of your CA or of the public CA
+\item When \doxylink{class_network_client_secure}{Network\+Client\+Secure} connects to the target server it uses the CA cert to verify the certificate presented by the server, and then negotiates encryption for the connection
+\end{DoxyItemize}
+
+Please see the \doxylink{class_network_client_secure}{Network\+Client\+Secure} example.\hypertarget{README.md_autotoc_md457}{}\doxysubsection{\texorpdfstring{Using a bundle of root certificate authority certificates}{Using a bundle of root certificate authority certificates}}\label{README.md_autotoc_md457}
+This method is similar to the single root certificate verification above, but it uses a standard set of root certificates from Mozilla to authenticate against, while the previous method only accepts a single certificate for a given server. This allows the client to connect to all public SSL servers.
+
+To use this feature in Arduino IDE\+: If the Arduino IDE added support for embedding files in the meantime, then follow the instructions above. If not, you have two choices\+:
+\begin{DoxyEnumerate}
+\item create a makefile where you can add the idf\+\_\+component\+\_\+register() declaration to include the certificate bundle
+\item Store the bundle as a SPIFFS file, but then you have to load it into RAM in runtime and waste 64k of precious memory
+\end{DoxyEnumerate}\hypertarget{README.md_autotoc_md458}{}\doxysubsection{\texorpdfstring{Using a root CA cert and client cert/keys}{Using a root CA cert and client cert/keys}}\label{README.md_autotoc_md458}
+This method authenticates the server and additionally also authenticates the client to the server, then negotiates an encrypted connection.
+
+
+\begin{DoxyItemize}
+\item Follow steps above
+\item Using your root CA generate cert/key for your client
+\item Register the keys with the server you will be accessing so the server can authenticate your client
+\item In \doxylink{class_network_client_secure}{Network\+Client\+Secure} use set\+CACert (or the appropriate connect method) to set the root cert of your CA or of the public CA, this is used to authenticate the server
+\item In \doxylink{class_network_client_secure}{Network\+Client\+Secure} use set\+Certificate, and set\+Private\+Key (or the appropriate connect method) to set your client\textquotesingle{}s cert \& key, this will be used to authenticate your client to the server
+\item When \doxylink{class_network_client_secure}{Network\+Client\+Secure} connects to the target server it uses the CA cert to verify the certificate presented by the server, it will use the cert/key to authenticate your client to the server, and it will then negotiate encryption for the connection
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md459}{}\doxysubsection{\texorpdfstring{Using Pre-\/\+Shared Keys (PSK)}{Using Pre-\/\+Shared Keys (PSK)}}\label{README.md_autotoc_md459}
+TLS supports authentication and encryption using a pre-\/shared key (i.\+e. a key that both client and server know) as an alternative to the public key cryptography commonly used on the web for HTTPS. PSK is starting to be used for MQTT, e.\+g. in mosquitto, to simplify the set-\/up and avoid having to go through the whole CA, cert, and private key process.
+
+A pre-\/shared key is a binary string of up to 32 bytes and is commonly represented in hex form. In addition to the key, clients can also present an id and typically the server allows a different key to be associated with each client id. In effect this is very similar to username and password pairs, except that unlike a password the key is not directly transmitted to the server, thus a connection to a malicious server does not divulge the password. Plus the server is also authenticated to the client.
+
+To use PSK\+:
+\begin{DoxyItemize}
+\item Generate a random hex string (generating an MD5 or SHA for some file is one way to do this)
+\item Come up with a string id for your client and configure your server to accept the id/key pair
+\item In \doxylink{class_network_client_secure}{Network\+Client\+Secure} use set\+Pre\+Shared\+Key (or the appropriate connect method) to set the id/key combo
+\item When \doxylink{class_network_client_secure}{Network\+Client\+Secure} connects to the target server it uses the id/key combo to authenticate the server (it must prove that it has the key too), authenticate the client and then negotiate encryption for the connection
+\end{DoxyItemize}
+
+Please see the Network\+Client\+PSK example.\hypertarget{README.md_autotoc_md460}{}\doxysubsection{\texorpdfstring{Specifying the ALPN Protocol}{Specifying the ALPN Protocol}}\label{README.md_autotoc_md460}
+Application-\/\+Layer Protocol Negotiation (ALPN) is a Transport Layer Security (TLS) extension that allows the application layer to negotiate which protocol should be performed over a secure connection in a manner that avoids additional round trips and which is independent of the application-\/layer protocols.
+
+For example, this is used with AWS IoT Custom Authorizers where an MQTT client must set the ALPN protocol to {\ttfamily mqtt}\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{const\ char\ *aws\_protos[]\ =\ \{"{}mqtt"{},\ NULL\};}
+\DoxyCodeLine{...}
+\DoxyCodeLine{wiFiClient.setAlpnProtocols(aws\_protos);}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md461}{}\doxysubsection{\texorpdfstring{Examples}{Examples}}\label{README.md_autotoc_md461}
+\hypertarget{README.md_autotoc_md462}{}\doxysubsubsubsection{\texorpdfstring{Network\+Client\+Insecure}{Network\+Client\+Insecure}}\label{README.md_autotoc_md462}
+Demonstrates usage of insecure connection using {\ttfamily Network\+Client\+Secure\+::set\+Insecure()} \hypertarget{README.md_autotoc_md463}{}\doxysubsubsubsection{\texorpdfstring{Network\+Client\+PSK}{Network\+Client\+PSK}}\label{README.md_autotoc_md463}
+Wi-\/\+Fi secure connection example for ESP32 using a pre-\/shared key (PSK) This is useful with MQTT servers instead of using a self-\/signed cert, tested with mosquitto. Running on TLS 1.\+2 using mbed\+TLS \hypertarget{README.md_autotoc_md464}{}\doxysubsubsubsection{\texorpdfstring{Network\+Client\+Secure}{Network\+Client\+Secure}}\label{README.md_autotoc_md464}
+Wi-\/\+Fi secure connection example for ESP32 Running on TLS 1.\+2 using mbed\+TLS \hypertarget{README.md_autotoc_md465}{}\doxysubsubsubsection{\texorpdfstring{Network\+Client\+Secure\+Enterprise}{Network\+Client\+Secure\+Enterprise}}\label{README.md_autotoc_md465}
+This example demonstrates a secure connection to a Wi-\/\+Fi network using WPA/\+WPA2 Enterprise (for example eduroam), and establishing a secure HTTPS connection with an external server (for example arduino.\+php5.\+sk) using the defined anonymous identity, user identity, and password.
+
+.. note\+:\+: This example is outdated and might not work. For more examples see \href{https://github.com/martinius96/ESP32-eduroam}{\texttt{ https\+://github.\+com/martinius96/\+ESP32-\/eduroam}}\hypertarget{README.md_autotoc_md466}{}\doxysubsubsubsection{\texorpdfstring{Network\+Client\+Show\+Peer\+Credentials}{Network\+Client\+Show\+Peer\+Credentials}}\label{README.md_autotoc_md466}
+Example of a establishing a secure connection and then showing the fingerprint of the certificate. This can be useful in an IoT setting to know for sure that you are connecting to the right server. Especially in situations where you cannot hardcode a trusted root certificate for long periods of time (as they tend to get replaced more often than the lifecycle of IoT hardware). 

@@ -1,0 +1,10 @@
+\doxysection{registers Modbus Registers}
+\hypertarget{group__modbus__master}{}\label{group__modbus__master}\index{registers Modbus Registers@{registers Modbus Registers}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ "{}mb\_m.h"{}}\ }
+
+\end{DoxyCode}
+ The protocol stack does not internally allocate any memory for the registers. This makes the protocol stack very small and also usable on low end targets. In addition the values don\textquotesingle{}t have to be in the memory and could for example be stored in a flash.~\newline
+ Whenever the protocol stack requires a value it calls one of the callback function with the register address and the number of registers to read as an argument. The application should then read the actual register values (for example the ADC voltage) and should store the result in the supplied buffer.~\newline
+ If the protocol stack wants to update a register value because a write register function was received a buffer with the new register values is passed to the callback function. The function should then use these values to update the application register values. 

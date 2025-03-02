@@ -1,0 +1,96 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+esp-\/dsp/examples/fir Directory Reference}
+\hypertarget{dir_03a693232e567cc885934255746d230a}{}\label{dir_03a693232e567cc885934255746d230a}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/examples/fir Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/dsp/examples/fir Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_62ada49ca0fae5ddbcf66788009db388}{main}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+(See the README.\+md file in the upper level \textquotesingle{}examples\textquotesingle{} directory for more information about examples.)
+
+This example demonstrates how to use FIR filter functionality from esp-\/dsp library. Example does the following steps\+:
+
+
+\begin{DoxyEnumerate}
+\item Initialize the FFT library
+\item Initialize input signal
+\begin{DoxyItemize}
+\item 1st Sine wave (f = 0.\+2\+Fs)
+\item 2nd Sine wave (f = 0.\+4\+Fs)
+\item Combine the waves
+\end{DoxyItemize}
+\item Show input signal
+\begin{DoxyItemize}
+\item Calculate windows coefficients
+\item Apply the windowing to the input signal
+\item Do the FFT
+\item Show the frequency response on a plot
+\item Calculate execution performance
+\end{DoxyItemize}
+\item Show filtered signal
+\begin{DoxyItemize}
+\item Initialize the FIR filter library
+\item Calculate Windowed-\/\+Sinc coefficients of FIR filter
+\item Apply the FIR filter to the input signal
+\item Do the FFT
+\item Show the frequency response on a plot
+\item Calculate execution performance
+\end{DoxyItemize}
+\end{DoxyEnumerate}\hypertarget{README.md_autotoc_md1008}{}\doxysubsection{\texorpdfstring{How to use the example}{How to use the example}}\label{README.md_autotoc_md1008}
+\hypertarget{README.md_autotoc_md1009}{}\doxysubsubsection{\texorpdfstring{Hardware required}{Hardware required}}\label{README.md_autotoc_md1009}
+This example does not require any special hardware, and can be run on any common development board.\hypertarget{README.md_autotoc_md1010}{}\doxysubsubsection{\texorpdfstring{Configure the project}{Configure the project}}\label{README.md_autotoc_md1010}
+Under Component Config -\/-\/-\/\texorpdfstring{$>$}{>} DSP Library -\/-\/-\/\texorpdfstring{$>$}{>} DSP Optimization, it\textquotesingle{}s possible to choose either the optimized or ANSI implementation, to compare them.\hypertarget{README.md_autotoc_md1011}{}\doxysubsubsection{\texorpdfstring{Build and flash}{Build and flash}}\label{README.md_autotoc_md1011}
+Build the project and flash it to the board, then run monitor tool to view serial output (replace PORT with serial port name)\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{idf.py\ -\/p\ PORT\ flash\ monitor}
+
+\end{DoxyCode}
+
+
+(To exit the serial monitor, type {\ttfamily Ctrl-\/\mbox{]}}.)
+
+See the Getting Started Guide for full steps to configure and use ESP-\/\+IDF to build projects.\hypertarget{README.md_autotoc_md1012}{}\doxysubsection{\texorpdfstring{Example output}{Example output}}\label{README.md_autotoc_md1012}
+Here is a typical example of console output.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{I\ (340)\ main:\ Start\ Example.}
+\DoxyCodeLine{I\ (400)\ view:\ Data\ min[388]\ =\ -\/108.419342,\ Data\ max[205]\ =\ 30.267143}
+\DoxyCodeLine{\ \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\DoxyCodeLine{0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |||\ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ||\ ||\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ |\ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{7||||||||||||||||||||||||\ \ \ \ ||||||||||||||||||||||\ \ \ ||||||||||||}
+\DoxyCodeLine{8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ 0123456789012345678901234567890123456789012345678901234567890123}
+\DoxyCodeLine{I\ (470)\ view:\ Plot:\ Length=512,\ min=-\/120.000000,\ max=40.000000}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{I\ (490)\ view:\ Data\ min[254]\ =\ -\/114.853371,\ Data\ max[205]\ =\ 27.247583}
+\DoxyCodeLine{\ \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\DoxyCodeLine{0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ |\ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ |\ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ |\ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |||\ \ |||\ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{7|||||||||||||||||||||||||||||||||||||||||||||||\ \ \ \ \ |\ \ |||||\ \ \ \ |}
+\DoxyCodeLine{8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |||||}
+\DoxyCodeLine{9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}
+\DoxyCodeLine{\ 0123456789012345678901234567890123456789012345678901234567890123}
+\DoxyCodeLine{I\ (560)\ view:\ Plot:\ Length=256,\ min=-\/120.000000,\ max=40.000000}
+\DoxyCodeLine{I\ (560)\ main:\ FIR\ for\ 1024\ samples\ and\ decimation\ 2\ takes\ 763647\ cycles}
+\DoxyCodeLine{I\ (570)\ main:\ End\ Example.}
+
+\end{DoxyCode}
+ 

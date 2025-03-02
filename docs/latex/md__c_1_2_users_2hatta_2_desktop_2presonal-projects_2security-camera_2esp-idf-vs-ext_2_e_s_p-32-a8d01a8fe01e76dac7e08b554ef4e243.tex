@@ -1,0 +1,70 @@
+\chapter{Open\+Thread Helper Functions and Types}
+\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243}{}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243}\index{OpenThread Helper Functions and Types@{OpenThread Helper Functions and Types}}
+\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md469}%
+\Hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md469}%
+
+
+The following helper functions and types are designed to simplify writing Arduino sketches for Open\+Thread.\textbackslash{} They provide useful utilities for managing Open\+Thread stack behavior and interacting with the Thread network.\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md470}{}\doxysubsection{\texorpdfstring{Enumerated Type\+: {\ttfamily ot\+\_\+device\+\_\+role\+\_\+t}}{Enumerated Type\+: {\ttfamily ot\+\_\+device\+\_\+role\+\_\+t}}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md470}
+This enumeration defines the possible roles of a Thread device within the network\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily OT\+\_\+\+ROLE\+\_\+\+DISABLED}\+: The Thread stack is disabled.
+\item {\ttfamily OT\+\_\+\+ROLE\+\_\+\+DETACHED}\+: The device is not currently participating in a Thread network/partition.
+\item {\ttfamily OT\+\_\+\+ROLE\+\_\+\+CHILD}\+: The device operates as a Thread Child.
+\item {\ttfamily OT\+\_\+\+ROLE\+\_\+\+ROUTER}\+: The device operates as a Thread Router.
+\item {\ttfamily OT\+\_\+\+ROLE\+\_\+\+LEADER}\+: The device operates as a Thread Leader.
+\end{DoxyItemize}\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md471}{}\doxysubsection{\texorpdfstring{Struct\+: {\ttfamily ot\+\_\+cmd\+\_\+return\+\_\+t}}{Struct\+: {\ttfamily ot\+\_\+cmd\+\_\+return\+\_\+t}}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md471}
+This structure represents the return status of an Open\+Thread CLI command\+:
+
+
+\begin{DoxyItemize}
+\item {\ttfamily error\+Code}\+: An integer representing the error code (if any).
+\item {\ttfamily error\+Message}\+: A string containing an error message (if applicable).
+\end{DoxyItemize}\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md472}{}\doxysubsection{\texorpdfstring{Function\+: {\ttfamily ot\+Get\+Device\+Role()}}{Function\+: {\ttfamily ot\+Get\+Device\+Role()}}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md472}
+
+\begin{DoxyItemize}
+\item Returns the current role of the device as an {\ttfamily ot\+\_\+device\+\_\+role\+\_\+t} value.
+\end{DoxyItemize}\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md473}{}\doxysubsection{\texorpdfstring{Function\+: {\ttfamily ot\+Get\+String\+Device\+Role()}}{Function\+: {\ttfamily ot\+Get\+String\+Device\+Role()}}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md473}
+
+\begin{DoxyItemize}
+\item Returns a human-\/readable string representation of the device role (e.\+g., "{}\+Child,"{} "{}\+Router,"{} etc.).
+\end{DoxyItemize}\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md474}{}\doxysubsection{\texorpdfstring{Function\+: {\ttfamily ot\+Get\+Resp\+Cmd(const char\texorpdfstring{$\ast$}{*} cmd, char\texorpdfstring{$\ast$}{*} resp = NULL, uint32\+\_\+t resp\+Timeout = 5000)}}{Function\+: {\ttfamily ot\+Get\+Resp\+Cmd(const char\texorpdfstring{$\ast$}{*} cmd, char\texorpdfstring{$\ast$}{*} resp = NULL, uint32\+\_\+t resp\+Timeout = 5000)}}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md474}
+
+\begin{DoxyItemize}
+\item Executes an Open\+Thread CLI command and retrieves the response.
+\item Parameters\+:
+\begin{DoxyItemize}
+\item {\ttfamily cmd}\+: The Open\+Thread CLI command to execute.
+\item {\ttfamily resp}\+: Optional buffer to store the response (if provided).
+\item {\ttfamily resp\+Timeout}\+: Timeout (in milliseconds) for waiting for the response.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md475}{}\doxysubsection{\texorpdfstring{Function\+: {\ttfamily ot\+Exec\+Command(const char\texorpdfstring{$\ast$}{*} cmd, const char\texorpdfstring{$\ast$}{*} arg, ot\+\_\+cmd\+\_\+return\+\_\+t\texorpdfstring{$\ast$}{*} return\+Code = NULL)}}{Function\+: {\ttfamily ot\+Exec\+Command(const char\texorpdfstring{$\ast$}{*} cmd, const char\texorpdfstring{$\ast$}{*} arg, ot\+\_\+cmd\+\_\+return\+\_\+t\texorpdfstring{$\ast$}{*} return\+Code = NULL)}}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md475}
+
+\begin{DoxyItemize}
+\item Executes an Open\+Thread CLI command with an argument.
+\item Parameters\+:
+\begin{DoxyItemize}
+\item {\ttfamily cmd}\+: The Open\+Thread CLI command to execute.
+\item {\ttfamily arg}\+: The argument for the command.
+\item {\ttfamily return\+Code}\+: Optional pointer to an {\ttfamily ot\+\_\+cmd\+\_\+return\+\_\+t} structure to store the return status.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md476}{}\doxysubsection{\texorpdfstring{Function\+: {\ttfamily ot\+Print\+Resp\+CLI(const char\texorpdfstring{$\ast$}{*} cmd, Stream\& output, uint32\+\_\+t resp\+Timeout)}}{Function\+: {\ttfamily ot\+Print\+Resp\+CLI(const char\texorpdfstring{$\ast$}{*} cmd, Stream\& output, uint32\+\_\+t resp\+Timeout)}}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md476}
+
+\begin{DoxyItemize}
+\item Executes an Open\+Thread CLI command and prints the response to the specified output stream.
+\item Parameters\+:
+\begin{DoxyItemize}
+\item {\ttfamily cmd}\+: The Open\+Thread CLI command to execute.
+\item {\ttfamily output}\+: The output stream (e.\+g., Serial) to print the response.
+\item {\ttfamily resp\+Timeout}\+: Timeout (in milliseconds) for waiting for the response.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md477}{}\doxysubsection{\texorpdfstring{Function\+: {\ttfamily ot\+Print\+Network\+Information(Stream\& output)}}{Function\+: {\ttfamily ot\+Print\+Network\+Information(Stream\& output)}}}\label{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243_autotoc_md477}
+
+\begin{DoxyItemize}
+\item Prints information about the current Thread network to the specified output stream.
+\item Parameters\+:
+\begin{DoxyItemize}
+\item {\ttfamily output}\+: The output stream (e.\+g., Serial) to print the network information. 
+\end{DoxyItemize}
+\end{DoxyItemize}

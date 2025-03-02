@@ -1,0 +1,79 @@
+\doxysection{C\+:/\+Users/hatta/\+Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/\+ESP-\/32-\/\+CAM/managed\+\_\+components/espressif\+\_\+\+\_\+arduino-\/esp32/libraries/\+Open\+Thread Directory Reference}
+\hypertarget{dir_decae3850422e824bfeddee075ea4b35}{}\label{dir_decae3850422e824bfeddee075ea4b35}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/OpenThread Directory Reference@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/OpenThread Directory Reference}}
+\doxysubsubsection*{Directories}
+\begin{DoxyCompactItemize}
+\item 
+directory \mbox{\hyperlink{dir_265332f1140c333dff1cbc985f669640}{src}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\texorpdfstring{$\vert$}{|} Supported Targets \texorpdfstring{$\vert$}{|} ESP32-\/\+C6 \texorpdfstring{$\vert$}{|} ESP32-\/\+H2 \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|} -\/-\/-\/-\/-\/--- \texorpdfstring{$\vert$}{|}\hypertarget{README.md_autotoc_md478}{}\doxysubsection{\texorpdfstring{ESP32 Arduino Open\+Thread\+CLI}{ESP32 Arduino Open\+Thread\+CLI}}\label{README.md_autotoc_md478}
+The {\ttfamily Open\+Thread\+CLI} class is an Arduino API for interacting with the Open\+Thread Command Line Interface (CLI). It allows you to manage and configure the Thread stack using a command-\/line interface.
+
+There is one main class called {\ttfamily Open\+Thread\+CLI} and a global object used to operate Open\+Thread CLI, called {\ttfamily OThread\+CLI}.\textbackslash{} Some \doxysectlink{md__c_1_2_users_2hatta_2_desktop_2presonal-projects_2security-camera_2esp-idf-vs-ext_2_e_s_p-32-a8d01a8fe01e76dac7e08b554ef4e243}{helper functions}{0} were made available for working with the Open\+Thread CLI environment.
+
+The available Open\+Thread Commands are documented in the \href{https://openthread.io/reference/cli/commands}{\texttt{ Open\+Thread CLI Reference Page}}
+
+It is important to note that the current implementation can only be used with Espressif SoC that has support to IEEE 802.\+15.\+4, such as {\bfseries{ESP32-\/\+C6}} and {\bfseries{ESP32-\/\+H2}}.
+
+Below are the details of the class\+:\hypertarget{README.md_autotoc_md479}{}\doxysubsubsection{\texorpdfstring{Class Definition}{Class Definition}}\label{README.md_autotoc_md479}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }OpenThreadCLI\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_stream}{Stream}}\ \{}
+\DoxyCodeLine{\textcolor{keyword}{private}:}
+\DoxyCodeLine{\ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{size\_t}\ setBuffer(QueueHandle\_t\ \&queue,\ \textcolor{keywordtype}{size\_t}\ len);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{bool}\ otStarted\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ OpenThreadCLI();}
+\DoxyCodeLine{\ \ \string~OpenThreadCLI();}
+\DoxyCodeLine{\ \ \textcolor{keyword}{operator}\ bool()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Starts\ a\ task\ to\ read/write\ otStream.\ Default\ prompt\ is\ "{}ot>\ "{}.\ Set\ it\ to\ NULL\ to\ make\ it\ invisible.}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ startConsole(Stream\&\ otStream,\ \textcolor{keywordtype}{bool}\ echoback\ =\ \textcolor{keyword}{true},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ prompt\ =\ \textcolor{stringliteral}{"{}ot>\ "{}});}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ stopConsole();}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ setPrompt(\textcolor{keywordtype}{char}*\ prompt);\ \ \ \ \ \ \textcolor{comment}{//\ Changes\ the\ console\ prompt.\ NULL\ is\ an\ empty\ prompt.}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ setEchoBack(\textcolor{keywordtype}{bool}\ echoback);\ \ \ \textcolor{comment}{//\ Changes\ the\ console\ echoback\ option}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ setStream(Stream\&\ otStream);\ \ \textcolor{comment}{//\ Changes\ the\ console\ Stream\ object}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ onReceive(OnReceiveCb\_t\ func);\ \ \textcolor{comment}{//\ Called\ on\ a\ complete\ line\ of\ output\ from\ OT\ CLI,\ as\ OT\ Response}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ begin(\textcolor{keywordtype}{bool}\ OThreadAutoStart\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ end();}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Default\ size\ is\ 256\ bytes}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ setTxBufferSize(\textcolor{keywordtype}{size\_t}\ tx\_queue\_len);}
+\DoxyCodeLine{\ \ \textcolor{comment}{//\ Default\ size\ is\ 1024\ bytes}}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ setRxBufferSize(\textcolor{keywordtype}{size\_t}\ rx\_queue\_len);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{size\_t}\ write(uint8\_t);}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ available();}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ read();}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{int}\ peek();}
+\DoxyCodeLine{\ \ \textcolor{keywordtype}{void}\ flush();}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{extern}\ OpenThreadCLI\ OThreadCLI;}
+
+\end{DoxyCode}
+\hypertarget{README.md_autotoc_md480}{}\doxysubsubsection{\texorpdfstring{Class Overview}{Class Overview}}\label{README.md_autotoc_md480}
+
+\begin{DoxyItemize}
+\item The {\ttfamily Open\+Thread\+CLI} class inherits from the {\ttfamily \doxylink{class_stream}{Stream}} class, making it compatible with Arduino\textquotesingle{}s standard I/O functions.
+\item It provides methods for managing the Open\+Thread CLI, including starting and stopping the console, setting prompts, and handling received data.
+\item You can customize the console behavior by adjusting parameters such as echoback and buffer sizes.
+\end{DoxyItemize}\hypertarget{README.md_autotoc_md481}{}\doxysubsubsection{\texorpdfstring{Public Methods}{Public Methods}}\label{README.md_autotoc_md481}
+
+\begin{DoxyItemize}
+\item {\ttfamily start\+Console(\doxylink{class_stream}{Stream}\& ot\+Stream, bool echoback = true, const char\texorpdfstring{$\ast$}{*} prompt = "{}ot$>$ "{})}\+: Starts the Open\+Thread console with the specified stream, echoback option, and prompt.
+\item {\ttfamily stop\+Console()}\+: Stops the Open\+Thread console.
+\item {\ttfamily set\+Prompt(char\texorpdfstring{$\ast$}{*} prompt)}\+: Changes the console prompt (set to NULL for an empty prompt).
+\item {\ttfamily set\+Echo\+Back(bool echoback)}\+: Changes the console echoback option.
+\item {\ttfamily set\+Stream(\doxylink{class_stream}{Stream}\& ot\+Stream)}\+: Changes the console \doxylink{class_stream}{Stream} object.
+\item {\ttfamily on\+Receive(\+On\+Receive\+Cb\+\_\+t func)}\+: Sets a callback function to handle complete lines of output from the OT CLI.
+\item {\ttfamily begin(bool OThread\+Auto\+Start = true)}\+: Initializes the Open\+Thread stack (optional auto-\/start).
+\item {\ttfamily end()}\+: Deinitializes the Open\+Thread stack.
+\item {\ttfamily set\+Tx\+Buffer\+Size(size\+\_\+t tx\+\_\+queue\+\_\+len)}\+: Sets the transmit buffer size (default is 256 bytes).
+\item {\ttfamily set\+Rx\+Buffer\+Size(size\+\_\+t rx\+\_\+queue\+\_\+len)}\+: Sets the receive buffer size (default is 1024 bytes).
+\item {\ttfamily write(uint8\+\_\+t)}, {\ttfamily available()}, {\ttfamily read()}, {\ttfamily peek()}, {\ttfamily flush()}\+: Standard \doxylink{class_stream}{Stream} methods implementation for Open\+Thread CLI object. 
+\end{DoxyItemize}

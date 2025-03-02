@@ -1,0 +1,93 @@
+\doxysection{esp\+\_\+secure\+\_\+cert\+\_\+config.\+h}
+\hypertarget{esp__secure__cert__config_8h_source}{}\label{esp__secure__cert__config_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_secure\_cert\_mgr/private\_include/esp\_secure\_cert\_config.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp\_secure\_cert\_mgr/private\_include/esp\_secure\_cert\_config.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ CONFIG\_ESP\_SECURE\_CERT\_DS\_PERIPHERAL}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}esp\_ds.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_PKEY\_MAGIC\_BYTE\ \ \ \ \ \ \ \ 0xC1\ \ \ }\textcolor{comment}{/*\ Magic\ byte\ of\ the\ generated\ private\ key\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_DEV\_CERT\_MAGIC\_BYTE\ \ \ \ 0xC2\ \ \ }\textcolor{comment}{/*\ Magic\ byte\ of\ the\ generated\ device\ certificate\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_CA\_CERT\_MAGIC\_BYTE\ \ \ \ \ 0xC3\ \ \ }\textcolor{comment}{/*\ Magic\ byte\ of\ the\ CA\ certificate\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{/*\ NVS\ Config\ */}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_NVS\_PARTITION\_NAME\ \ \ \ \ \ \ \ \ \ "{}esp\_secure\_cert"{}\ \ }\textcolor{comment}{/*\ Name\ of\ the\ nvs\ pre\ prov\ partition\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_NVS\_KEYS\_PARTITION\ \ \ \ \ \ \ \ \ \ "{}esp\_secure\_cert\_keys"{}}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_NVS\_LEGACY\_PARTITION\_NAME\ \ \ "{}pre\_prov"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_NVS\_LEGACY\_KEYS\_PARTITION\ \ \ "{}pre\_prov\_keys"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_PRIV\_KEY\ \ \ \ \ \ \ \ \ \ \ \ "{}priv\_key"{}}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_DEV\_CERT\ \ \ \ \ \ \ \ \ \ \ \ "{}dev\_cert"{}}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_CA\_CERT\ \ \ \ \ \ \ \ \ \ \ \ \ "{}ca\_cert"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_NAMESPACE\ \ \ \ \ \ \ \ \ \ \ "{}esp\_secure\_cert"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_LEGACY\_NAMESPACE\ \ \ \ "{}pre\_prov"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_CIPHERTEXT\ \ \ \ \ \ \ \ \ \ "{}cipher\_c"{}}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_RSA\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ "{}rsa\_len"{}}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_EFUSE\_KEY\_ID\ \ \ \ \ \ \ \ "{}ds\_key\_id"{}}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_IV\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}iv"{}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_METADATA\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 64\ \ \ \ \ }\textcolor{comment}{/*\ 32\ bytes\ are\ reserved\ for\ the\ metadata\ (Must\ be\ a\ multiple\ of\ 32)*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_DEV\_CERT\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 2048}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_CA\_CERT\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4096}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_ESP\_SECURE\_CERT\_DS\_PERIPHERAL}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_PRIV\_KEY\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 4096}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_CIPHERTEXT\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ESP\_DS\_C\_LEN\ +\ 16)}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_IV\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ESP\_DS\_IV\_LEN\ +\ 16)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_METADATA\_OFFSET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0\ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ 32\ bytes\ are\ reserved\ for\ the\ metadata\ (Must\ be\ a\ multiple\ of\ 32)*/}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_DEV\_CERT\_OFFSET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ESP\_SECURE\_CERT\_METADATA\_OFFSET\ +\ ESP\_SECURE\_CERT\_METADATA\_SIZE)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_CA\_CERT\_OFFSET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ESP\_SECURE\_CERT\_DEV\_CERT\_OFFSET\ +\ ESP\_SECURE\_CERT\_DEV\_CERT\_SIZE)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_ESP\_SECURE\_CERT\_DS\_PERIPHERAL}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_PRIV\_KEY\_OFFSET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ESP\_SECURE\_CERT\_CA\_CERT\_OFFSET\ +\ ESP\_SECURE\_CERT\_CA\_CERT\_SIZE)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_MAX\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ESP\_SECURE\_CERT\_PRIV\_KEY\_OFFSET\ +\ ESP\_SECURE\_CERT\_PRIV\_KEY\_SIZE)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_CIPHERTEXT\_OFFSET\ \ \ \ \ \ \ \ \ \ \ \ \ \ (ESP\_SECURE\_CERT\_CA\_CERT\_OFFSET\ +\ ESP\_SECURE\_CERT\_CA\_CERT\_SIZE)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_IV\_OFFSET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ESP\_SECURE\_CERT\_CIPHERTEXT\_OFFSET\ +\ ESP\_SECURE\_CERT\_CIPHERTEXT\_SIZE)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_MAX\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ESP\_SECURE\_CERT\_IV\_OFFSET\ +\ ESP\_SECURE\_CERT\_IV\_SIZE)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_CUST\_FLASH\_PARTITION\_TYPE\ \ \ \ \ \ \ \ \ \ \ 0x3F\ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ Custom\ partition\ type\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_NVS\_PARTITION\_TYPE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x01\ \ \ \ }\textcolor{comment}{/*\ Data\ type\ partition\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_PARTITION\_NAME\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}esp\_secure\_cert"{}\ \ }\textcolor{comment}{/*\ Name\ of\ the\ custom\ pre\ prov\ partition\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_LEGACY\_PARTITION\_NAME\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}pre\_prov"{}}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ ESP\_SECURE\_CERT\_METADATA\_MAGIC\_WORD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x12345678}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00071\ \ \ \ \ uint32\_t\ dev\_cert\_crc;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CRC\ of\ the\ dev\ cert\ data\ */}}
+\DoxyCodeLine{00072\ \ \ \ \ uint16\_t\ dev\_cert\_len;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ actual\ length\ of\ the\ device\ cert\ */}}
+\DoxyCodeLine{00073\ \ \ \ \ uint32\_t\ ca\_cert\_crc;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CRC\ of\ the\ ca\ cert\ data\ */}}
+\DoxyCodeLine{00074\ \ \ \ \ uint16\_t\ ca\_cert\_len;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ actual\ length\ of\ the\ ca\ cert\ [The\ length\ before\ the\ 32\ byte\ alignment]\ */}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#ifndef\ CONFIG\_ESP\_SECURE\_CERT\_DS\_PERIPHERAL}}
+\DoxyCodeLine{00076\ \ \ \ \ uint32\_t\ priv\_key\_crc;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CRC\ of\ the\ priv\ key\ data\ */}}
+\DoxyCodeLine{00077\ \ \ \ \ uint16\_t\ priv\_key\_len;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ actual\ length\ of\ the\ private\ key\ */}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00079\ \ \ \ \ uint32\_t\ ciphertext\_crc;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CRC\ of\ the\ ciphertext\ data\ */}}
+\DoxyCodeLine{00080\ \ \ \ \ uint16\_t\ ciphertext\_len;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ actual\ length\ of\ the\ ciphertext\ */}}
+\DoxyCodeLine{00081\ \ \ \ \ uint32\_t\ iv\_crc;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CRC\ of\ the\ iv\ data\ */}}
+\DoxyCodeLine{00082\ \ \ \ \ uint16\_t\ iv\_len;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ actual\ length\ of\ iv*/}}
+\DoxyCodeLine{00083\ \ \ \ \ uint16\_t\ rsa\_length;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Length\ of\ the\ RSA\ private\ key\ that\ is\ encrypted\ as\ ciphertext\ */}}
+\DoxyCodeLine{00084\ \ \ \ \ uint8\_t\ \ efuse\_key\_id;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ efuse\ key\ block\ id\ which\ holds\ the\ HMAC\ key\ used\ to\ encrypt\ the\ ciphertext\ */}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ \ \ \ \ uint32\_t\ magic\_word;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ magic\ word\ which\ shall\ identify\ the\ valid\ metadata\ when\ read\ from\ flash\ */}}
+\DoxyCodeLine{00087\ \}\ \mbox{\hyperlink{structesp__secure__cert__metadata}{esp\_secure\_cert\_metadata}};}
+
+\end{DoxyCode}

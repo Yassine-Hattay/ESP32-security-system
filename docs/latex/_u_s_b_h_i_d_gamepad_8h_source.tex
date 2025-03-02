@@ -1,0 +1,96 @@
+\doxysection{USBHIDGamepad.\+h}
+\hypertarget{_u_s_b_h_i_d_gamepad_8h_source}{}\label{_u_s_b_h_i_d_gamepad_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/USBHIDGamepad.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/USB/src/USBHIDGamepad.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ Copyright\ 2015-\/2020\ Espressif\ Systems\ (Shanghai)\ PTE\ LTD}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Licensed\ under\ the\ Apache\ License,\ Version\ 2.0\ (the\ "{}License"{});}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ you\ may\ not\ use\ this\ file\ except\ in\ compliance\ with\ the\ License.}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ You\ may\ obtain\ a\ copy\ of\ the\ License\ at}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ \ \ \ http://www.apache.org/licenses/LICENSE-\/2.0}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ Unless\ required\ by\ applicable\ law\ or\ agreed\ to\ in\ writing,\ software}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//\ distributed\ under\ the\ License\ is\ distributed\ on\ an\ "{}AS\ IS"{}\ BASIS,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ WITHOUT\ WARRANTIES\ OR\ CONDITIONS\ OF\ ANY\ KIND,\ either\ express\ or\ implied.}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ See\ the\ License\ for\ the\ specific\ language\ governing\ permissions\ and}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ limitations\ under\ the\ License.}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}soc/soc\_caps.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ SOC\_USB\_OTG\_SUPPORTED}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}USBHID.h"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#if\ CONFIG\_TINYUSB\_HID\_ENABLED}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ BUTTON\_A\ \ \ \ \ \ 0}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ BUTTON\_B\ \ \ \ \ \ 1}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ BUTTON\_C\ \ \ \ \ \ 2}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ BUTTON\_X\ \ \ \ \ \ 3}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ BUTTON\_Y\ \ \ \ \ \ 4}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ BUTTON\_Z\ \ \ \ \ \ 5}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ BUTTON\_TL\ \ \ \ \ 6}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ BUTTON\_TR\ \ \ \ \ 7}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ BUTTON\_TL2\ \ \ \ 8}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ BUTTON\_TR2\ \ \ \ 9}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ BUTTON\_SELECT\ 10}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ BUTTON\_START\ \ 11}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ BUTTON\_MODE\ \ \ 12}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ BUTTON\_THUMBL\ 13}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ BUTTON\_THUMBR\ 14}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ BUTTON\_SOUTH\ BUTTON\_A}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ BUTTON\_EAST\ \ BUTTON\_B}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ BUTTON\_NORTH\ BUTTON\_X}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ BUTTON\_WEST\ \ BUTTON\_Y}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ HAT\_CENTER\ \ \ \ \ 0}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ HAT\_UP\ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ HAT\_UP\_RIGHT\ \ \ 2}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ HAT\_RIGHT\ \ \ \ \ \ 3}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ HAT\_DOWN\_RIGHT\ 4}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ HAT\_DOWN\ \ \ \ \ \ \ 5}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ HAT\_DOWN\_LEFT\ \ 6}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ HAT\_LEFT\ \ \ \ \ \ \ 7}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ HAT\_UP\_LEFT\ \ \ \ 8}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }USBHIDGamepad\ :\ \textcolor{keyword}{public}\ USBHIDDevice\ \{}
+\DoxyCodeLine{00058\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00059\ \ \ USBHID\ hid;}
+\DoxyCodeLine{00060\ \ \ int8\_t\ \_x;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ int8\_t\ \_y;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ int8\_t\ \_z;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ int8\_t\ \_rz;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ int8\_t\ \_rx;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ int8\_t\ \_ry;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ uint8\_t\ \_hat;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ uint32\_t\ \_buttons;\ \ }
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordtype}{bool}\ write();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00071\ \ \ USBHIDGamepad(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{void}\ begin(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00073\ \ \ \textcolor{keywordtype}{void}\ end(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{bool}\ leftStick(int8\_t\ x,\ int8\_t\ y);}
+\DoxyCodeLine{00076\ \ \ \textcolor{keywordtype}{bool}\ rightStick(int8\_t\ z,\ int8\_t\ rz);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{bool}\ leftTrigger(int8\_t\ rx);}
+\DoxyCodeLine{00079\ \ \ \textcolor{keywordtype}{bool}\ rightTrigger(int8\_t\ ry);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{bool}\ hat(uint8\_t\ hat);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{bool}\ pressButton(uint8\_t\ button);}
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{bool}\ releaseButton(uint8\_t\ button);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{bool}\ send(int8\_t\ x,\ int8\_t\ y,\ int8\_t\ z,\ int8\_t\ rz,\ int8\_t\ rx,\ int8\_t\ ry,\ uint8\_t\ hat,\ uint32\_t\ buttons);}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \textcolor{comment}{//\ internal\ use}}
+\DoxyCodeLine{00089\ \ \ uint16\_t\ \_onGetDescriptor(uint8\_t\ *buffer);}
+\DoxyCodeLine{00090\ \};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ CONFIG\_TINYUSB\_HID\_ENABLED\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ SOC\_USB\_OTG\_SUPPORTED\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,181 @@
+\doxysection{esp\+\_\+modbus\+\_\+master.\+h}
+\hypertarget{esp__modbus__master_8h_source}{}\label{esp__modbus__master_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/common/include/esp\_modbus\_master.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_esp-\/modbus/freemodbus/common/include/esp\_modbus\_master.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ SPDX-\/FileCopyrightText:\ 2016-\/2022\ Espressif\ Systems\ (Shanghai)\ CO\ LTD}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ SPDX-\/License-\/Identifier:\ Apache-\/2.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ \_ESP\_MB\_MASTER\_INTERFACE\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ \_ESP\_MB\_MASTER\_INTERFACE\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <stdint.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ standard\ int\ types\ definition}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <stddef.h>}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ NULL\ and\ std\ defines}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}soc/soc.h"{}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ for\ BITN\ definitions}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}esp\_modbus\_common.h"{}}\ \ \ \ \ \ \textcolor{comment}{//\ for\ common\ types}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ MB\_MASTER\_CHECK(a,\ err\_code,\ format,\ ...)\ MB\_RETURN\_ON\_FALSE(a,\ err\_code,\ TAG,\ format\ \_\_VA\_OPT\_\_(,)\ \_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ MB\_MASTER\_ASSERT(con)\ do\ \{\ \(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (!(con))\ \{\ ESP\_LOGE(TAG,\ "{}assert\ errno:\%u,\ errno\_str:\ !(\%s)"{},\ (unsigned)errno,\ strerror(errno));\ assert(0\ \&\&\ \#con);\ \}\ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ (0)}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ MB\_EACH\_ELEM(psrc,\ pdest,\ arr\_size,\ elem\_size)\ \(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{(int\ i\ =\ 0;\ (i\ <\ (arr\_size\ /\ elem\_size));\ i++,\ pdest\ +=\ elem\_size,\ psrc\ +=\ elem\_size)}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ PARAM\_TYPE\_U8\ =\ 0x00,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ PARAM\_TYPE\_U16\ =\ 0x01,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ PARAM\_TYPE\_U32\ =\ 0x02,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ PARAM\_TYPE\_FLOAT\ =\ 0x03,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ PARAM\_TYPE\_ASCII\ =\ 0x04,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ PARAM\_TYPE\_BIN\ =\ 0x07,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ PARAM\_TYPE\_I8\_A\ =\ 0x0A,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ PARAM\_TYPE\_I8\_B\ =\ 0x0B,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ PARAM\_TYPE\_U8\_A\ =\ 0x0C,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ PARAM\_TYPE\_U8\_B\ =\ 0x0D,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ PARAM\_TYPE\_I16\_AB\ =\ 0x0E,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ PARAM\_TYPE\_I16\_BA\ =\ 0x0F,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ PARAM\_TYPE\_U16\_AB\ =\ 0x10,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ PARAM\_TYPE\_U16\_BA\ =\ 0x11,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ PARAM\_TYPE\_I32\_ABCD\ =\ 0x12,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ PARAM\_TYPE\_I32\_CDAB\ =\ 0x13,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ PARAM\_TYPE\_I32\_BADC\ =\ 0x14,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ PARAM\_TYPE\_I32\_DCBA\ =\ 0x15,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ PARAM\_TYPE\_U32\_ABCD\ =\ 0x16,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ PARAM\_TYPE\_U32\_CDAB\ =\ 0x17,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ PARAM\_TYPE\_U32\_BADC\ =\ 0x18,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ PARAM\_TYPE\_U32\_DCBA\ =\ 0x19,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ PARAM\_TYPE\_FLOAT\_ABCD\ =\ 0x1A,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ PARAM\_TYPE\_FLOAT\_CDAB\ =\ 0x1B,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ PARAM\_TYPE\_FLOAT\_BADC\ =\ 0x1C,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ PARAM\_TYPE\_FLOAT\_DCBA\ =\ 0x1D,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ PARAM\_TYPE\_I64\_ABCDEFGH\ =\ 0x1E,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ PARAM\_TYPE\_I64\_HGFEDCBA\ =\ 0x1F,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ PARAM\_TYPE\_I64\_GHEFCDAB\ =\ 0x20,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ PARAM\_TYPE\_I64\_BADCFEHG\ =\ 0x21,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ PARAM\_TYPE\_U64\_ABCDEFGH\ =\ 0x22,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ PARAM\_TYPE\_U64\_HGFEDCBA\ =\ 0x23,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ PARAM\_TYPE\_U64\_GHEFCDAB\ =\ 0x24,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ PARAM\_TYPE\_U64\_BADCFEHG\ =\ 0x25,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ PARAM\_TYPE\_DOUBLE\_ABCDEFGH\ =\ 0x26,\ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ PARAM\_TYPE\_DOUBLE\_HGFEDCBA\ =\ 0x27,\ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ PARAM\_TYPE\_DOUBLE\_GHEFCDAB\ =\ 0x28,\ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ PARAM\_TYPE\_DOUBLE\_BADCFEHG\ =\ 0x29\ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \}\ mb\_descr\_type\_t;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ PARAM\_SIZE\_U8\ =\ 0x01,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ PARAM\_SIZE\_U8\_REG\ =\ 0x02,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ PARAM\_SIZE\_I8\_REG\ =\ 0x02,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00082\ \ \ \ \ PARAM\_SIZE\_I16\ =\ 0x02,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ PARAM\_SIZE\_U16\ =\ 0x02,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ PARAM\_SIZE\_I32\ =\ 0x04,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ PARAM\_SIZE\_U32\ =\ 0x04,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ PARAM\_SIZE\_FLOAT\ =\ 0x04,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ PARAM\_SIZE\_ASCII\ =\ 0x08,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ PARAM\_SIZE\_ASCII24\ =\ 0x18,\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ PARAM\_SIZE\_I64\ =\ 0x08,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00090\ \ \ \ \ PARAM\_SIZE\_U64\ =\ 0x08,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ PARAM\_SIZE\_DOUBLE\ =\ 0x08,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ PARAM\_MAX\_SIZE}
+\DoxyCodeLine{00093\ \}\ mb\_descr\_size\_t;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\{}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionmb__parameter__opt__t_a319221c36e85d9b291fd1b5f8581362e}{opt1}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionmb__parameter__opt__t_a0cc92d949a81cad4374b348ff4084894}{opt2}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionmb__parameter__opt__t_a3891984565384e098d161e73ba282958}{opt3}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ \};\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionmb__parameter__opt__t_ab482c7f33645c98ff71eb902bb84b29f}{min}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionmb__parameter__opt__t_a50b12e2639439048f86a777bc537a39f}{max}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionmb__parameter__opt__t_ab86068398f4b8366eba5308aa3d5b552}{step}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00108\ \ \ \ \ \};\ }
+\DoxyCodeLine{00109\ \}\ \mbox{\hyperlink{unionmb__parameter__opt__t}{mb\_parameter\_opt\_t}};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00114\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ PAR\_PERMS\_READ\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ BIT0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ PAR\_PERMS\_WRITE\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ BIT1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ PAR\_PERMS\_TRIGGER\ \ \ \ \ \ \ \ \ \ \ \ =\ 1\ <<\ BIT2,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00118\ \ \ \ \ PAR\_PERMS\_READ\_WRITE\ \ \ \ \ \ \ \ \ =\ PAR\_PERMS\_READ\ |\ PAR\_PERMS\_WRITE,\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00119\ \ \ \ \ PAR\_PERMS\_READ\_TRIGGER\ \ \ \ \ \ \ =\ PAR\_PERMS\_READ\ |\ PAR\_PERMS\_TRIGGER,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00120\ \ \ \ \ PAR\_PERMS\_WRITE\_TRIGGER\ \ \ \ \ \ =\ PAR\_PERMS\_WRITE\ |\ PAR\_PERMS\_TRIGGER,\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ PAR\_PERMS\_READ\_WRITE\_TRIGGER\ =\ PAR\_PERMS\_READ\_WRITE\ |\ PAR\_PERMS\_TRIGGER,\ \ \ \ }
+\DoxyCodeLine{00122\ \}\ mb\_param\_perms\_t;}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00128\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00129\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_ac2fb51a4cae428957cbe1196137eb4e4}{cid}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_a78a6de5844a66d63c27b06fbccab78a4}{param\_key}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_a1cea243bfd22a04555cc0bf038d84cb8}{param\_units}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00132\ \ \ \ \ uint8\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_ade8b809c5200d39ce788a687053f06d8}{mb\_slave\_addr}};\ \ \ \ \ \ }
+\DoxyCodeLine{00133\ \ \ \ \ mb\_param\_type\_t\ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_a987df21368d80de18ed98c11761630a0}{mb\_param\_type}};\ \ \ \ \ \ }
+\DoxyCodeLine{00134\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_ade67e7ae738ee2b6c1b615a5991cfe1d}{mb\_reg\_start}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00135\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_aaddfc7a82514521fec4504124bf5c6c9}{mb\_size}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00136\ \ \ \ \ uint16\_t\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_a168a50f4328ad6368d87248706833cbf}{param\_offset}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ mb\_descr\_type\_t\ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_a4f7c8a7b66035d68c2f5e02c98f7069c}{param\_type}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00138\ \ \ \ \ mb\_descr\_size\_t\ \ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_a095c088f58167d8ab6f7f9ec2097a3dd}{param\_size}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{unionmb__parameter__opt__t}{mb\_parameter\_opt\_t}}\ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_a0c41b85b7aa92d137fd28b7794d02c9c}{param\_opts}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ mb\_param\_perms\_t\ \ \ \ \mbox{\hyperlink{structmb__parameter__descriptor__t_af914404aed6faf1c06e29caa8d8cf18d}{access}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00141\ \}\ \mbox{\hyperlink{structmb__parameter__descriptor__t}{mb\_parameter\_descriptor\_t}};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00146\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00147\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structmb__param__request__t_a92696544fb492bc8a5503fe289a3a723}{slave\_addr}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00148\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structmb__param__request__t_a478cf2d140678988ba49683ff573670e}{command}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structmb__param__request__t_a554084dcc29fd07c12182230e6502374}{reg\_start}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00150\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structmb__param__request__t_ad69962622f92e59e9426b36940bb94fe}{reg\_size}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00151\ \}\ \mbox{\hyperlink{structmb__param__request__t}{mb\_param\_request\_t}};}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00156\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00157\ \ \ \ \ uint64\_t\ \mbox{\hyperlink{structmb__trans__info__t_a1ab4c1df801be40036e0411acada843e}{trans\_id}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structmb__trans__info__t_abc29fa4a2126a8c2baf2ff81c92bcaea}{err\_type}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00159\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structmb__trans__info__t_aaa4a5c7a5ccac94c7a5b05df447b03ca}{dest\_addr}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structmb__trans__info__t_a48e28e24cc3e250c5c592cce4d28d80d}{func\_code}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00161\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structmb__trans__info__t_abc46bf5b199936e4092643b3a26369a0}{exception}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00162\ \}\ \mbox{\hyperlink{structmb__trans__info__t}{mb\_trans\_info\_t}};}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00174\ esp\_err\_t\ mbc\_master\_init\_tcp(\textcolor{keywordtype}{void}**\ handler);}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00187\ esp\_err\_t\ mbc\_master\_init(mb\_port\_type\_t\ port\_type,\ \textcolor{keywordtype}{void}**\ handler);}
+\DoxyCodeLine{00188\ }
+\DoxyCodeLine{00194\ \textcolor{keywordtype}{void}\ mbc\_master\_init\_iface(\textcolor{keywordtype}{void}*\ handler);}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00203\ esp\_err\_t\ mbc\_master\_destroy(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00212\ esp\_err\_t\ mbc\_master\_start(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00223\ esp\_err\_t\ mbc\_master\_setup(\textcolor{keywordtype}{void}*\ comm\_info);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \textcolor{comment}{/*****************************\ Specific\ interface\ functions\ ********************************************}}
+\DoxyCodeLine{00226\ \textcolor{comment}{\ *\ Interface\ functions\ below\ provide\ basic\ methods\ to\ read/write\ access\ to\ slave\ devices\ in\ Modbus}}
+\DoxyCodeLine{00227\ \textcolor{comment}{\ *\ segment\ as\ well\ as\ API\ to\ read\ specific\ supported\ characteristics\ linked\ to\ Modbus\ parameters}}
+\DoxyCodeLine{00228\ \textcolor{comment}{\ *\ of\ devices\ in\ Modbus\ network.}}
+\DoxyCodeLine{00229\ \textcolor{comment}{*******************************************************************************************************/}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00241\ esp\_err\_t\ mbc\_master\_set\_descriptor(\textcolor{keyword}{const}\ \mbox{\hyperlink{structmb__parameter__descriptor__t}{mb\_parameter\_descriptor\_t}}*\ descriptor,\ \textcolor{keyword}{const}\ uint16\_t\ num\_elements);}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00259\ esp\_err\_t\ mbc\_master\_send\_request(\mbox{\hyperlink{structmb__param__request__t}{mb\_param\_request\_t}}*\ request,\ \textcolor{keywordtype}{void}*\ data\_ptr);}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00275\ esp\_err\_t\ mbc\_master\_get\_cid\_info(uint16\_t\ cid,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structmb__parameter__descriptor__t}{mb\_parameter\_descriptor\_t}}**\ param\_info);}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00297\ esp\_err\_t\ mbc\_master\_get\_parameter(uint16\_t\ cid,\ \textcolor{keywordtype}{char}*\ name,\ uint8\_t*\ value,\ uint8\_t\ *type);}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00317\ esp\_err\_t\ mbc\_master\_set\_parameter(uint16\_t\ cid,\ \textcolor{keywordtype}{char}*\ name,\ uint8\_t*\ value,\ uint8\_t\ *type);}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00333\ esp\_err\_t\ mbc\_master\_set\_param\_data(\textcolor{keywordtype}{void}*\ dest,\ \textcolor{keywordtype}{void}*\ src,\ mb\_descr\_type\_t\ param\_type,\ \textcolor{keywordtype}{size\_t}\ param\_size);}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00345\ esp\_err\_t\ mbc\_master\_get\_transaction\_info(\mbox{\hyperlink{structmb__trans__info__t}{mb\_trans\_info\_t}}\ *ptinfo);}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00348\ \}}
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_ESP\_MB\_MASTER\_INTERFACE\_H}}
+
+\end{DoxyCode}

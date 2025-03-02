@@ -1,0 +1,74 @@
+\doxysection{NTPClient.\+h}
+\hypertarget{_n_t_p_client_8h_source}{}\label{_n_t_p_client_8h_source}\index{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/NTPClient/NTPClient.h@{C:/Users/hatta/Desktop/presonal-\/projects/security-\/camera/esp-\/idf-\/vs-\/ext/ESP-\/32-\/CAM/managed\_components/espressif\_\_arduino-\/esp32/libraries/NTPClient/NTPClient.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <Udp.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ SEVENZYYEARS\ 2208988800UL}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ NTP\_PACKET\_SIZE\ 48}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ NTP\_DEFAULT\_LOCAL\_PORT\ 1337}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_n_t_p_client_a3b3c595266a13efa314e735fa36c6de3}{NTPClient}}\ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00013\ \ \ \ \ \mbox{\hyperlink{class_u_d_p}{UDP}}*\ \ \ \ \ \ \ \ \ \ \_udp;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \_udpSetup\ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \ \ \_poolServerName\ =\ \textcolor{stringliteral}{"{}pool.ntp.org"{}};\ \textcolor{comment}{//\ Default\ time\ server}}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ \ \ \ \ \_poolServerIP;}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \_port\ \ \ \ \ \ \ \ \ \ \ =\ NTP\_DEFAULT\_LOCAL\_PORT;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \ \ \ \_timeOffset\ \ \ \ \ =\ 0;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_updateInterval\ =\ 60000;\ \ \textcolor{comment}{//\ In\ ms}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_currentEpoc\ \ \ \ =\ 0;\ \ \ \ \ \ \textcolor{comment}{//\ In\ s}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_lastUpdate\ \ \ \ \ =\ 0;\ \ \ \ \ \ \textcolor{comment}{//\ In\ ms}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{byte}\ \ \ \ \ \ \ \ \ \ \_packetBuffer[NTP\_PACKET\_SIZE];}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ sendNTPPacket();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_n_t_p_client_a3b3c595266a13efa314e735fa36c6de3}{NTPClient}}(\mbox{\hyperlink{class_u_d_p}{UDP}}\&\ udp);}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_n_t_p_client_a3b3c595266a13efa314e735fa36c6de3}{NTPClient}}(\mbox{\hyperlink{class_u_d_p}{UDP}}\&\ udp,\ \textcolor{keywordtype}{long}\ timeOffset);}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_n_t_p_client_a3b3c595266a13efa314e735fa36c6de3}{NTPClient}}(\mbox{\hyperlink{class_u_d_p}{UDP}}\&\ udp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ poolServerName);}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_n_t_p_client_a3b3c595266a13efa314e735fa36c6de3}{NTPClient}}(\mbox{\hyperlink{class_u_d_p}{UDP}}\&\ udp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ poolServerName,\ \textcolor{keywordtype}{long}\ timeOffset);}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_n_t_p_client_a3b3c595266a13efa314e735fa36c6de3}{NTPClient}}(\mbox{\hyperlink{class_u_d_p}{UDP}}\&\ udp,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ poolServerName,\ \textcolor{keywordtype}{long}\ timeOffset,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ updateInterval);}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_n_t_p_client_a3b3c595266a13efa314e735fa36c6de3}{NTPClient}}(\mbox{\hyperlink{class_u_d_p}{UDP}}\&\ udp,\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ poolServerIP);}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_n_t_p_client_a3b3c595266a13efa314e735fa36c6de3}{NTPClient}}(\mbox{\hyperlink{class_u_d_p}{UDP}}\&\ udp,\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ poolServerIP,\ \textcolor{keywordtype}{long}\ timeOffset);}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_n_t_p_client_a3b3c595266a13efa314e735fa36c6de3}{NTPClient}}(\mbox{\hyperlink{class_u_d_p}{UDP}}\&\ udp,\ \mbox{\hyperlink{class_i_p_address}{IPAddress}}\ poolServerIP,\ \textcolor{keywordtype}{long}\ timeOffset,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ updateInterval);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_n_t_p_client_a1dff5a21b12fd6032df117f1c39b5ea4}{setPoolServerName}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ poolServerName);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_n_t_p_client_ad871f4a491f0aab696e927307e6a27e0}{setRandomPort}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ minValue\ =\ 49152,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ maxValue\ =\ 65535);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_n_t_p_client_aba4b46545fbf069213bed305e2ae2dfa}{begin}}();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_n_t_p_client_aba4b46545fbf069213bed305e2ae2dfa}{begin}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ port);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_n_t_p_client_a5c635840709f98079b14c0786fb967cd}{update}}();}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_n_t_p_client_a67fc6e45fcfa5e08fcddcd181a1f6a62}{forceUpdate}}();}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_n_t_p_client_a7d42596049efe5dd96c5a99f445d41d1}{isTimeSet}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{int}\ getDay()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{int}\ getHours()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{int}\ getMinutes()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{int}\ getSeconds()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_n_t_p_client_aaee94c2e512aff57a5d18c3e847f4357}{setTimeOffset}}(\textcolor{keywordtype}{int}\ timeOffset);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_n_t_p_client_a1bfbd0ee5c2971877037535af6dc187f}{setUpdateInterval}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ updateInterval);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00103\ \ \ \ \ String\ \mbox{\hyperlink{class_n_t_p_client_a2bc47fa1720633767843beccf10c5904}{getFormattedTime}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{class_n_t_p_client_a736a4826dc532cf591daddeb9743caac}{getEpochTime}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_n_t_p_client_ac43eb0ef3279e200bd6b918abcdb100c}{end}}();}
+\DoxyCodeLine{00114\ \};}
+
+\end{DoxyCode}
