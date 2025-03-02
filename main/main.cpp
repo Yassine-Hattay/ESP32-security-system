@@ -12,7 +12,7 @@
 #include "global_header.h"
 #include "email_module.h"
 #include "camera_var.h"
-#include "server_v.h"
+#include "server_v.h" 
 #include "tasks_v.h"
 
 /** @brief Acces point name*/
