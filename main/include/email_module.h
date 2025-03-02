@@ -15,7 +15,9 @@
 #include <ESP_Mail_Client.h>
 
 #define emailSenderAccount "yassinebeebotte@gmail.com"
+/** @cond */
 #define emailSenderPassword "gsti ffmp djsg kfhf"
+/** @endcond */
 #define smtpServer "smtp.gmail.com"
 #define smtpServerPort 465
 #define emailSubject "Mouvement détecté"
