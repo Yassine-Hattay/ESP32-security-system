@@ -5,7 +5,7 @@
  * @version 0.1
  * @date 2025-03-02
  *
- * @copyright Copyright (c) 2025
+ * 
  *
  */
 
@@ -333,6 +333,10 @@ void live_f(void *parameter)
   {
     httpd_register_uri_handler(stream_httpd, &index_uri);
   }
+  if ((hour() > 17) || (hour() < 7))
+  {
+    digitalWrite(ONBOADLED, HIGH);
+  }
   while (true)
   {
     vTaskDelay(5);
@@ -354,7 +358,8 @@ void live_f(void *parameter)
           NULL,
           2,
           &sending_photo_Handle);
-
+          
+      digitalWrite(ONBOADLED, LOW);
       vTaskDelete(NULL);
     }
   }

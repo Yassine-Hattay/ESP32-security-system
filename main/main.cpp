@@ -5,7 +5,7 @@
  * @version 0.1
  * @date 2025-03-02
  * 
- * @copyright Copyright (c) 2025
+ * 
  * 
  */
 

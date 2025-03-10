@@ -5,7 +5,7 @@
  * @version 0.1
  * @date 2025-03-02
  *
- * @copyright Copyright (c) 2025
+ * 
  *
  */
 
@@ -212,6 +212,8 @@ void handle_OnConnect()
     {
       httpd_unregister_uri_handler(stream_httpd, "/video", HTTP_POST);
       Serial.print("\n live stream stopped .\n");
+      digitalWrite(ONBOADLED, LOW);
+
     }
   }
 }
@@ -248,6 +250,7 @@ void handleAutomatedMode()
     {
       httpd_unregister_uri_handler(stream_httpd, "/video", HTTP_POST);
       Serial.print("\n live stream stopped .\n");
+      digitalWrite(ONBOADLED, LOW);
     }
   }
 
