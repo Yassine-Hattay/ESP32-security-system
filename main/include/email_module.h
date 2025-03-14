@@ -16,7 +16,7 @@
 
 #define emailSenderAccount "yassinebeebotte@gmail.com"
 /** @cond */
-#define emailSenderPassword "gsti ffmp djsg kfhf"
+#define emailSenderPassword ""
 /** @endcond */
 #define smtpServer "smtp.gmail.com"
 #define smtpServerPort 465
