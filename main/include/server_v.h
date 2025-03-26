@@ -13,6 +13,11 @@
 #define SERVER_H
 
 #include "global_header.h"
+#include <ArduinoOTA.h>
+#include <Update.h>
+#include <HTTPClient.h>
+
+extern const char* firmwareURL ;
 
 extern httpd_handle_t stream_httpd ;
 

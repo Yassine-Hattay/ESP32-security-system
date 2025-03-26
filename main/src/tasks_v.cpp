@@ -200,7 +200,7 @@ void sending_photo_task(void *parameter)
 void loop_f(void *parameter)
 {
   for (;;)
-  {
+  { 
     server.handleClient();
     vTaskDelay(5);
 

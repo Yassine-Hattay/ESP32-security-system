@@ -312,6 +312,71 @@ void handleManualMode()
   
 }
 
+bool downloadBin(const char* url) {
+  HTTPClient http;
+  WiFiClient client;
+
+  Serial.printf("Connecting to %s\n", url);
+  http.begin(client, url);  // Start HTTP connection
+  int httpCode = http.GET();  // Send GET request
+
+  if (httpCode == HTTP_CODE_OK) {
+      // Get the content length
+      int contentLength = http.getSize();
+
+      // Start the update process (prepare the ESP32 to receive the firmware)
+      if (!Update.begin(contentLength)) {
+          Serial.println("Not enough space for the update.");
+          return false;
+      }
+
+      // Stream the file from HTTP to ESP32 flash memory
+      WiFiClient* stream = http.getStreamPtr();
+      size_t written = Update.writeStream(*stream);
+
+      if (written == contentLength) {
+          Serial.println("Written successfully!");
+      } else {
+          Serial.printf("Written only %d of %d bytes\n", written, contentLength);
+      }
+
+      // End the update process
+      if (Update.end()) {  //Update.end()
+          Serial.println("OTA update finished!");
+          http.end();
+          return true;
+      } else {
+          Serial.println("Update failed. Rolling back.");
+          Update.rollBack();
+      }
+  } else {
+      Serial.printf("HTTP GET failed, code: %d\n", httpCode);
+  }
+
+  http.end();  // Close the connection
+  return false;
+}
+
+void startOTA() {
+  String resultMessage = "OTA update failed.";  // Default failure message
+
+  Serial.println("Triggering OTA update...");
+
+  // Step 1: Download the .bin file over HTTP
+  bool ack = downloadBin(firmwareURL);
+  if(ack) {
+      resultMessage = "OTA update successful, restarting...";
+      server.send(200, "text/plain", resultMessage);  // Show the result on the web page
+      Serial.println(resultMessage);
+      ESP.restart();  // Restart after the update is done
+    
+  } else {
+      resultMessage = "Download failed. OTA aborted.";
+      Serial.println(resultMessage);
+      server.send(200, "text/plain", resultMessage);  // Show the result on the web page
+  }
+}
+
 /**
  * @brief this setups and starts the server
  *
@@ -327,6 +392,12 @@ void setup_server()
   server.on("/", handle_OnConnect);
   server.on("/manual", handleManualMode);
   server.on("/automated", handleAutomatedMode);
+
+  server.on("/trigger_ota", HTTP_GET, [](){
+    // Notify the client that the update process is starting
+    server.send(200, "text/plain", "Starting OTA update...");
+    startOTA();  // Start the OTA process
+});
 
   server.begin();
 }

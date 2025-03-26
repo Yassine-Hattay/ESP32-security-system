@@ -14,12 +14,15 @@
 #include "camera_var.h"
 #include "server_v.h" 
 #include "tasks_v.h"
+#include "esp_http_client.h"
 
 /** @brief Acces point name*/
 const char *ssid = "Orange-066C";
 
 /** @brief Acces point password*/
 const char *password = "GMA6ABLMG87";
+
+const char* firmwareURL = "http://192.168.1.106/ESP-32-CAM.bin";
 
 /** @brief slave mac address*/
 
@@ -30,7 +33,7 @@ WebServer server(80);
 /** @brief check every (us) to see if internet is back*/
 unsigned long checkInterval = 1800000; 
 /** @brief esp now packet time out*/
-unsigned long timeout_F = 20000;
+unsigned long timeout_F = 20000; 
 
 WiFiUDP udp;
 
@@ -44,6 +47,7 @@ int frames_skipped = 10;
 int xclk_s = 20000000;
 int fb_count_v = 1;
 
+
 extern "C" void app_main()
 {
 
@@ -53,7 +57,7 @@ extern "C" void app_main()
   initArduino();
 
   pinMode(GPIO_2, INPUT_PULLDOWN);
-  pinMode(GPIO_12, OUTPUT);
+  pinMode(GPIO_12, OUTPUT); 
   pinMode(ONBOADLED, OUTPUT);
 
   digitalWrite(ONBOADLED, LOW);
@@ -107,11 +111,10 @@ extern "C" void app_main()
     setup_server();
 
     connected_internet = checkSMTPService(smtpServer, smtpServerPort, emailSenderAccount, emailSenderPassword); // final test3
-
     xTaskCreate(
       loop_f,
       "loop",
-      3072,
+      8000,
       NULL,
       1,
       &loop_handle); 
